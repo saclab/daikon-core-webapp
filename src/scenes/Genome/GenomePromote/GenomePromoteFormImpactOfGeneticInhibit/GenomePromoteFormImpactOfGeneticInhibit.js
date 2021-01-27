@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { SplitButton } from "primereact/splitbutton";
 import { Dropdown } from "primereact/dropdown";
 
-const GenomePromoteFormImpactOfChemInhibit = () => {
+const GenomePromoteFormImpactOfGeneticInhibit = () => {
   const [formValue, setFormValue] = useState({
-    humansContributesToDurableCure: "",
-    humansActiveInEBA: "",
     nhp: "",
     c3HeBFeJAcuteInfection: "",
     c3HeFeJChronicInfection: "",
@@ -63,41 +61,6 @@ const GenomePromoteFormImpactOfChemInhibit = () => {
       <div className="card">
         <h5>a) During infections</h5>
         <div className="p-fluid">
-          <div className="p-field p-grid">
-            <label
-              htmlFor="humansContributesToDurableCure"
-              className="p-col-12 p-md-2"
-            >
-              Humans-Contributes to durable cure?
-            </label>
-            <div className="p-col-12 p-md-10">
-              <Dropdown
-                name="humansContributesToDurableCure"
-                options={selectItemsYN}
-                value={formValue.humansContributesToDurableCure}
-                optionLabel="label"
-                onChange={(e) => setForm(e)}
-                placeholder="Select a value"
-              />
-            </div>
-          </div>
-
-          <div className="p-field p-grid">
-            <label htmlFor="humansActiveInEBA" className="p-col-12 p-md-2">
-              Humans-Active in EBA?
-            </label>
-            <div className="p-col-12 p-md-10">
-              <Dropdown
-                name="humansActiveInEBA"
-                options={selectItemsYN}
-                value={formValue.humansActiveInEBA}
-                optionLabel="label"
-                onChange={(e) => setForm(e)}
-                placeholder="Select a value"
-              />
-            </div>
-          </div>
-
           <div className="p-field p-grid">
             <label htmlFor="nhp" className="p-col-12 p-md-2">
               NHP
@@ -364,4 +327,4 @@ const GenomePromoteFormImpactOfChemInhibit = () => {
   );
 };
 
-export default GenomePromoteFormImpactOfChemInhibit;
+export default GenomePromoteFormImpactOfGeneticInhibit;

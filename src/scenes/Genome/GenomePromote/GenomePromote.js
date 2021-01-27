@@ -5,6 +5,8 @@ import { Toast } from "primereact/toast";
 import cssClass from "./GenomePromote.module.css";
 import GenomePromoteFormTarget from "./GenomePromoteFormTarget/GenomePromoteFormTarget";
 import GenomePromoteFormImpactOfChemInhibit from "./GenomePromoteFormImpactOfChemInhibit/GenomePromoteFormImpactOfChemInhibit";
+import GenomePromoteFormChemicalInhibition from "./GenomePromoteFormChemicalInhibition/GenomePromoteFormChemicalInhibition";
+import GenomePromoteFormImpactOfGeneticInhibit from "./GenomePromoteFormImpactOfGeneticInhibit/GenomePromoteFormImpactOfGeneticInhibit";
 
 const GenomePromote = ({ params, history }) => {
   const toast = useRef(null);
@@ -19,7 +21,7 @@ const GenomePromote = ({ params, history }) => {
     { label: "Interactions" },
   ];
 
-  const activeIndex = 1;
+  const activeIndex = 3;
   /* END FORMS*/
 
   return (
@@ -35,7 +37,9 @@ const GenomePromote = ({ params, history }) => {
         <div className="p-mb-2">
           <div className={[cssClass.GenomePromoteForm].join(" ")}>
             {/* <GenomePromoteFormTarget /> */}
-            <GenomePromoteFormImpactOfChemInhibit />
+            {/* <GenomePromoteFormImpactOfChemInhibit /> */}
+            {/* <GenomePromoteFormChemicalInhibition /> */}
+            <GenomePromoteFormImpactOfGeneticInhibit />
           </div>
         </div>
       </div>
