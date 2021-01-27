@@ -1,0 +1,40 @@
+
+.Footer {
+  overflow: hidden;
+  padding: 50px 50px;
+}
+
+.Hr {
+  height: 2px;
+  background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+  border: 0px;
+  margin-bottom: 40px;
+}
+
+.Text {
+  font-size: 12px; 
+}
+
+.Footer a {
+  
+  color: #330867;
+  text-decoration: underline;
+}
+.Footer a:hover{
+  color: #30CFD0;
+  text-decoration: underline;
+}
+.Push {
+  margin-left: auto;
+}
+@media screen and (max-width: 500px) {
+  .Footer a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .FooterRight {
+    float: none;
+  }
+}

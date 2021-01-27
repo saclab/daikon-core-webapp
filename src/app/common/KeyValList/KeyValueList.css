@@ -1,0 +1,11 @@
+.KeyValueListTable {
+  border-collapse: collapse;
+  margin: 0px 0;
+  font-family: Roboto;
+  font-weight: 300;
+}
+
+.KeyValueListTable tr,
+.KeyValueListTable td {
+    padding: 5px 15px;
+}
