@@ -9,6 +9,7 @@ import GenomePromoteFormChemicalInhibition from "./GenomePromoteFormChemicalInhi
 import GenomePromoteFormImpactOfGeneticInhibit from "./GenomePromoteFormImpactOfGeneticInhibit/GenomePromoteFormImpactOfGeneticInhibit";
 import GenomePromoteFormLiabilities from "./GenomePromoteFormLiabilities/GenomePromoteFormLiabilities";
 import GenomePromoteFormTractability from "./GenomePromoteFormTractability/GenomePromoteFormTractability";
+import GenomePromoteFormInteractions from "./GenomePromoteFormInteractions/GenomePromoteFormInteractions";
 
 const GenomePromote = ({ params, history }) => {
   const toast = useRef(null);
@@ -23,7 +24,7 @@ const GenomePromote = ({ params, history }) => {
     { label: "Interactions" },
   ];
 
-  const activeIndex = 5;
+  const activeIndex = 6;
   /* END FORMS*/
 
   return (
@@ -43,7 +44,8 @@ const GenomePromote = ({ params, history }) => {
             {/* <GenomePromoteFormChemicalInhibition /> */}
             {/* <GenomePromoteFormImpactOfGeneticInhibit /> */}
             {/* <GenomePromoteFormLiabilities /> */}
-            <GenomePromoteFormTractability />
+            {/* <GenomePromoteFormTractability /> */}
+            <GenomePromoteFormInteractions />
           </div>
         </div>
       </div>
