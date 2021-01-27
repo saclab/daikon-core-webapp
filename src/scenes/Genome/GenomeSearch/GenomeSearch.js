@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { InputText } from "primereact/inputtext";
 import { GenomeDataService } from "./Data/GenomeDataService";
 import { Dropdown } from "primereact/dropdown";
 
@@ -10,7 +9,7 @@ import "./DataTableGenomes.css";
 const GenomeSearch = () => {
   const [genomes, setGenomes] = useState(null);
   const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
-  const [globalFilter, setGlobalFilter] = useState(null);
+  //const [globalFilter, setGlobalFilter] = useState(null);
   const dt = useRef(null);
 
   const FunctionalCategoryValues = [
@@ -119,7 +118,7 @@ const GenomeSearch = () => {
           rows={10}
           header={header}
           className="p-datatable-genomes"
-          globalFilter={globalFilter}
+          //globalFilter={globalFilter}
           emptyMessage="No genomes found."
           
         >

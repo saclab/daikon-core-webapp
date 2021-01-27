@@ -9,7 +9,7 @@ import TitleBar from "./TitleBar/TitleBar";
 import MenuBar from "./MenuBar/MenuBar";
 import Scene from "./Scene/Scene";
 
-import { Route, Switch, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Footer from "./Footer/Footer";
 
 const App = ({ location }) => {

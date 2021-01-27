@@ -1,17 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { Toast } from 'primereact/toast';
+import { confirmDialog } from "primereact/confirmdialog";
+import { Toast } from "primereact/toast";
 import "./TabViewDemo.css";
 import GenomeViewMycobrowswer from "./GenomeViewMycobrowswer/GenomeViewMycobrowswer";
 import GenomeViewNonPublicData from "./GenomeViewNonPublicData/GenomeViewNonPublicData";
 import GenomeViewBackgroundInformation from "./GenomeViewBackgroundInformation/GenomeViewBackgroundInformation";
 
-const GenomeView = ({ history }) => {
+const GenomeView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
+
+  // useEffect(() => {
+  //   console.log(match.params.id);
+  // }, [match.params.id]);
+
   const breadCrumbItems = [
     {
       label: "Genome",
@@ -66,7 +71,8 @@ const GenomeView = ({ history }) => {
   const confirmPromoteTarget = (event) => {
     confirmDialog({
       header: "Confirmation",
-      message: "This would promote the current gene to a target. You will be asked to record more information on the next screen. Continue? ",
+      message:
+        "This would promote the current gene to a target. You will be asked to record more information on the next screen. Continue? ",
       icon: "pi pi-question-circle",
       accept,
       reject,
@@ -74,12 +80,7 @@ const GenomeView = ({ history }) => {
   };
 
   const accept = () => {
-    toast.current.show({
-      severity: "info",
-      summary: "Confirmed",
-      detail: "You have accepted",
-      life: 3000,
-    });
+    history.push(`/genomes/${match.params.id}/promote`);
   };
 
   const reject = () => {
