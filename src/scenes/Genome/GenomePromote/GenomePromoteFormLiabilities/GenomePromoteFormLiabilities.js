@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SplitButton } from "primereact/splitbutton";
 import { Dropdown } from "primereact/dropdown";
 
-const GenomePromoteFormLiabilities = () => {
+const GenomePromoteFormLiabilities = (props) => {
   const [formValue, setFormValue] = useState({
     targetInhibitionActivation: "",
     concentrationOfSupplement: "",
@@ -12,7 +12,7 @@ const GenomePromoteFormLiabilities = () => {
 
   const setForm = (e) => {
     var newFormValue = { ...formValue };
-    newFormValue[e.target.name] = e.value;
+    newFormValue[e.target.name] = e.target.value;
     setFormValue(newFormValue);
     console.log(e);
   };
@@ -125,7 +125,10 @@ const GenomePromoteFormLiabilities = () => {
         <h5>c) Other</h5>
         <div className="p-fluid">
           <div className="p-field p-grid">
-            <label htmlFor="withLowCellularToxicity" className="p-col-12 p-md-6">
+            <label
+              htmlFor="withLowCellularToxicity"
+              className="p-col-12 p-md-6"
+            >
               Have inhibitors with low cellular toxicity been isolated or does
               the protein contain an active or allosteric site that is diferent
               from the human counterpart?
@@ -148,7 +151,10 @@ const GenomePromoteFormLiabilities = () => {
                 label="Next"
                 icon="pi pi-arrow-right"
                 model={nextButtonItems}
-                className="p-button-success p-button-sm "
+                className="p-button-success p-button-sm"
+                onClick={() => {
+                  props.onFormSet(formValue);
+                }}
               ></SplitButton>
             </div>
           </div>

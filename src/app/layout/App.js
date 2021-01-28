@@ -15,6 +15,7 @@ import Footer from "./Footer/Footer";
 const App = ({ location }) => {
   return (
     <Fragment>
+     
       <TitleBar />
       <MenuBar />
       <Scene />

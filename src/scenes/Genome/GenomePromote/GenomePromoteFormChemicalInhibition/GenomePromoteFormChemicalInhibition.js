@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SplitButton } from "primereact/splitbutton";
 import { Dropdown } from "primereact/dropdown";
 
-const GenomePromoteFormChemicalInhibition = () => {
+const GenomePromoteFormChemicalInhibition = (props) => {
   const [formValue, setFormValue] = useState({
     mutationInTargetCausesResistance: "",
     overexpressionOfTargetIncreaseMIC: "",
@@ -17,7 +17,7 @@ const GenomePromoteFormChemicalInhibition = () => {
 
   const setForm = (e) => {
     var newFormValue = { ...formValue };
-    newFormValue[e.target.name] = e.value;
+    newFormValue[e.target.name] = e.target.value;
     setFormValue(newFormValue);
     console.log(e);
   };
@@ -228,7 +228,10 @@ const GenomePromoteFormChemicalInhibition = () => {
                 label="Next"
                 icon="pi pi-arrow-right"
                 model={nextButtonItems}
-                className="p-button-success p-button-sm "
+                className="p-button-success p-button-sm"
+                onClick={() => {
+                  props.onFormSet(formValue);
+                }}
               ></SplitButton>
             </div>
           </div>

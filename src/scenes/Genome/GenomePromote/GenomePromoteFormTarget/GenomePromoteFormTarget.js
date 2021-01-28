@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { SplitButton } from "primereact/splitbutton";
 
-const GenomePromoteFormTarget = () => {
+const GenomePromoteFormTarget = (props) => {
+  const [formValue, setFormValue] = useState({
+    geneName: "",
+    associatedMoleculeName: "",
+    accessionNumber: "",
+    addedBy: "",
+    supportingInformation: "",
+    modifedOn: "",
+    modifedBy: "",
+  });
+
+  const setForm = (e) => {
+    var newFormValue = { ...formValue };
+    newFormValue[e.target.name] = e.target.value;
+    setFormValue(newFormValue);
+    console.log(e);
+  };
+
   const nextButtonItems = [
     {
       label: "Save form data in browser",
@@ -28,7 +45,13 @@ const GenomePromoteFormTarget = () => {
             Gene name
           </label>
           <div className="p-col-12 p-md-10">
-            <InputText id="geneName" type="text" value="rho" disabled />
+            <InputText
+              id="geneName"
+              name="geneName"
+              type="text"
+              value="rho"
+              disabled
+            />
           </div>
         </div>
 
@@ -37,7 +60,12 @@ const GenomePromoteFormTarget = () => {
             Associated molecule name
           </label>
           <div className="p-col-12 p-md-10">
-            <InputText id="associatedMoleculeName" type="text" />
+            <InputText
+              id="associatedMoleculeName"
+              name="associatedMoleculeName"
+              type="text"
+              onChange={(e) => setForm(e)}
+            />
           </div>
         </div>
 
@@ -48,6 +76,7 @@ const GenomePromoteFormTarget = () => {
           <div className="p-col-12 p-md-10">
             <InputText
               id="accessionNumber"
+              name="accessionNumber"
               type="text"
               value="Rv1297"
               disabled
@@ -60,7 +89,12 @@ const GenomePromoteFormTarget = () => {
             Added/nominated by
           </label>
           <div className="p-col-12 p-md-10">
-            <InputText id="addedBy" type="text" />
+            <InputText
+              id="addedBy"
+              name="addedBy"
+              type="text"
+              onChange={(e) => setForm(e)}
+            />
           </div>
         </div>
 
@@ -69,7 +103,12 @@ const GenomePromoteFormTarget = () => {
             Supporting Information
           </label>
           <div className="p-col-12 p-md-10">
-            <InputText id="supportingInformation" type="text" />
+            <InputText
+              id="supportingInformation"
+              name="supportingInformation"
+              type="text"
+              onChange={(e) => setForm(e)}
+            />
           </div>
         </div>
 
@@ -78,7 +117,12 @@ const GenomePromoteFormTarget = () => {
             Modifed on
           </label>
           <div className="p-col-12 p-md-10">
-            <InputText id="modifedOn" type="text" />
+            <InputText
+              id="modifedOn"
+              name="modifedOn"
+              type="text"
+              onChange={(e) => setForm(e)}
+            />
           </div>
         </div>
 
@@ -87,7 +131,12 @@ const GenomePromoteFormTarget = () => {
             Modifed by
           </label>
           <div className="p-col-12 p-md-10">
-            <InputText id="modifedBy" type="text" />
+            <InputText
+              id="modifedBy"
+              name="modifedBy"
+              type="text"
+              onChange={(e) => setForm(e)}
+            />
           </div>
         </div>
 
@@ -97,7 +146,10 @@ const GenomePromoteFormTarget = () => {
               label="Next"
               icon="pi pi-arrow-right"
               model={nextButtonItems}
-              className="p-button-success p-button-sm "
+              className="p-button-success p-button-sm"
+              onClick={() => {
+                props.onFormSet(formValue);
+              }}
             ></SplitButton>
           </div>
         </div>

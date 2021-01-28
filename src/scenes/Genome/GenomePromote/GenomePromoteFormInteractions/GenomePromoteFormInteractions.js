@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SplitButton } from "primereact/splitbutton";
 import { Dropdown } from "primereact/dropdown";
 
-const GenomePromoteFormInteractions = () => {
+const GenomePromoteFormInteractions = (props) => {
   const [formValue, setFormValue] = useState({
     cIGrowthActivationOfTheTargetSynergize: "",
     cIGrowthActivationOfTheTargetAntagonize: "",
@@ -16,7 +16,7 @@ const GenomePromoteFormInteractions = () => {
 
   const setForm = (e) => {
     var newFormValue = { ...formValue };
-    newFormValue[e.target.name] = e.value;
+    newFormValue[e.target.name] = e.target.value;
     setFormValue(newFormValue);
     console.log(e);
   };
@@ -222,6 +222,7 @@ const GenomePromoteFormInteractions = () => {
                 icon="pi pi-arrow-right"
                 model={nextButtonItems}
                 className="p-button-success p-button-sm "
+                onClick={() => {props.onFormSet(formValue)}}
               ></SplitButton>
             </div>
           </div>

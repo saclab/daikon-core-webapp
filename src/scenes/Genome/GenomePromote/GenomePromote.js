@@ -24,8 +24,96 @@ const GenomePromote = ({ params, history }) => {
     { label: "Interactions" },
   ];
 
-  const activeIndex = 6;
-  /* END FORMS*/
+  let formData = {
+    activeIndex: 0,
+    genomePromoteFormTarget: null,
+    genomePromoteFormImpactOfChemInhibit: null,
+    genomePromoteFormChemicalInhibition: null,
+    genomePromoteFormImpactOfGeneticInhibit: null,
+    genomePromoteFormLiabilities: null,
+    genomePromoteFormTractability: null,
+    genomePromoteFormInteractions: null,
+  };
+
+  const [formDataState, setFormDataState] = useState(formData);
+
+  const setFormData = (activeIndex, formName, data) => {
+    let newFormData = { ...formDataState };
+    newFormData.activeIndex = activeIndex;
+    newFormData[formName] = { ...data };
+    setFormDataState(newFormData);
+    console.log(formDataState);
+  };
+
+  let formToDisplay = () => {
+    switch (formDataState.activeIndex) {
+      case 0:
+        return (
+          <GenomePromoteFormTarget
+            onFormSet={(data) =>
+              setFormData(1, "GenomePromoteFormTarget", data)
+            }
+          />
+        );
+
+      case 1:
+        return (
+          <GenomePromoteFormImpactOfChemInhibit
+            onFormSet={(data) =>
+              setFormData(2, "GenomePromoteFormImpactOfChemInhibit", data)
+            }
+          />
+        );
+
+      case 2:
+        return (
+          <GenomePromoteFormChemicalInhibition
+            onFormSet={(data) =>
+              setFormData(3, "GenomePromoteFormChemicalInhibition", data)
+            }
+          />
+        );
+
+      case 3:
+        return (
+          <GenomePromoteFormImpactOfGeneticInhibit
+            onFormSet={(data) =>
+              setFormData(4, "GenomePromoteFormImpactOfGeneticInhibit", data)
+            }
+          />
+        );
+
+      case 4:
+        return (
+          <GenomePromoteFormLiabilities
+            onFormSet={(data) =>
+              setFormData(5, "GenomePromoteFormLiabilities", data)
+            }
+          />
+        );
+
+      case 5:
+        return (
+          <GenomePromoteFormTractability
+            onFormSet={(data) =>
+              setFormData(6, "GenomePromoteFormTractability", data)
+            }
+          />
+        );
+
+      case 6:
+        return (
+          <GenomePromoteFormInteractions
+            onFormSet={(data) =>
+              setFormData(7, "GenomePromoteFormInteractions", data)
+            }
+          />
+        );
+
+      default:
+        break;
+    }
+  };
 
   return (
     <React.Fragment>
@@ -35,17 +123,11 @@ const GenomePromote = ({ params, history }) => {
           <h2 className="heading">Promoting Gene Rv1297 to Target</h2>
         </div>
         <div className="p-mb-2">
-          <Steps model={stepItems} activeIndex={activeIndex}/>
+          <Steps model={stepItems} activeIndex={formDataState.activeIndex} />
         </div>
         <div className="p-mb-2">
           <div className={[cssClass.GenomePromoteForm].join(" ")}>
-            {/* <GenomePromoteFormTarget /> */}
-            {/* <GenomePromoteFormImpactOfChemInhibit /> */}
-            {/* <GenomePromoteFormChemicalInhibition /> */}
-            {/* <GenomePromoteFormImpactOfGeneticInhibit /> */}
-            {/* <GenomePromoteFormLiabilities /> */}
-            {/* <GenomePromoteFormTractability /> */}
-            <GenomePromoteFormInteractions />
+            {formToDisplay()}
           </div>
         </div>
       </div>
