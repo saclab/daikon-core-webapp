@@ -7,7 +7,7 @@ const GenomeViewMycobrowswer = () => {
   const [genomeData, setGenomeData] = useState(null);
 
   useEffect(() => {
-    axios.get("/data/genomes/rv1297.json").then((data) => {
+    axios.get("/data/genomes/mycobrowser/rv1297.json").then((data) => {
       setGenomeData(data.data);
     });
   }, []);
