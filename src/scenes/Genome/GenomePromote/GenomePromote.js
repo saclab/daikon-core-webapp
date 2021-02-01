@@ -10,6 +10,7 @@ import GenomePromoteFormImpactOfGeneticInhibit from "./GenomePromoteFormImpactOf
 import GenomePromoteFormLiabilities from "./GenomePromoteFormLiabilities/GenomePromoteFormLiabilities";
 import GenomePromoteFormTractability from "./GenomePromoteFormTractability/GenomePromoteFormTractability";
 import GenomePromoteFormInteractions from "./GenomePromoteFormInteractions/GenomePromoteFormInteractions";
+import GenomePromoteBucketScore from "./GenomePromoteBucketScore/GenomePromoteBucketScore";
 
 const GenomePromote = ({ params, history }) => {
   const toast = useRef(null);
@@ -108,6 +109,11 @@ const GenomePromote = ({ params, history }) => {
               setFormData(7, "GenomePromoteFormInteractions", data)
             }
           />
+        );
+
+        case 7:
+        return (
+          <GenomePromoteBucketScore />
         );
 
       default:

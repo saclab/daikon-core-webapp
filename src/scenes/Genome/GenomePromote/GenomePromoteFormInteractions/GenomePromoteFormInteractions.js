@@ -218,7 +218,7 @@ const GenomePromoteFormInteractions = (props) => {
           <div className="p-field p-grid p-jc-end">
             <div className="p-col-12 p-md-2">
               <SplitButton
-                label="Next"
+                label="Finish"
                 icon="pi pi-arrow-right"
                 model={nextButtonItems}
                 className="p-button-success p-button-sm "
