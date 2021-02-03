@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { GenomeDataService } from "./Data/GenomeDataService";
 import { Dropdown } from "primereact/dropdown";
 
 import "./DataTableGenomes.css";
+import agent from "../../../app/api/agent";
+import Loading from "../../../app/layout/Loading/Loading";
 const GenomeSearch = () => {
   const [genomes, setGenomes] = useState(null);
   const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
@@ -18,14 +19,16 @@ const GenomeSearch = () => {
     "intermediary metabolism and respiration",
   ];
 
-  const genomeDataService = new GenomeDataService();
-
   useEffect(() => {
-    genomeDataService.getGenomes().then((data) => setGenomes(data));
+    agent.Genomes.list().then((response) => {
+      // console.log("From Backend");
+      // console.log(response);
+      setGenomes(response);
+    });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onFunctionalCategoryChange = (e) => {
-    dt.current.filter(e.value, "FunctionalCategory", "equals");
+    dt.current.filter(e.value, "functionalCategory", "equals");
     setFunctionalCategory(e.value);
   };
 
@@ -34,19 +37,17 @@ const GenomeSearch = () => {
       <React.Fragment>
         <span className="p-column-title">Accession Number</span>
         <NavLink to={"/genomes/" + rowData.id}>
-          {rowData.AccessionNumber}
+          {rowData.accessionNumber}
         </NavLink>
       </React.Fragment>
     );
   };
 
-
-
   const GeneNameBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
         <span className="p-column-title">Gene Name</span>
-          {rowData.GeneName}
+        {rowData.geneName}
       </React.Fragment>
     );
   };
@@ -55,7 +56,7 @@ const GenomeSearch = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Function</span>
-        {rowData.Function}
+        {rowData.function}
       </React.Fragment>
     );
   };
@@ -64,7 +65,7 @@ const GenomeSearch = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Product</span>
-        {rowData.Product}
+        {rowData.product}
       </React.Fragment>
     );
   };
@@ -73,7 +74,7 @@ const GenomeSearch = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Functional Category</span>
-        <span>{rowData.FunctionalCategory}</span>
+        <span>{rowData.functionalCategory}</span>
       </React.Fragment>
     );
   };
@@ -108,6 +109,10 @@ const GenomeSearch = () => {
     />
   );
 
+  if (genomes === null) {
+    return <Loading />;
+  }
+
   return (
     <div className="datatable-genomes">
       <div className="card">
@@ -120,10 +125,9 @@ const GenomeSearch = () => {
           className="p-datatable-genomes"
           //globalFilter={globalFilter}
           emptyMessage="No genomes found."
-          
         >
           <Column
-            field="AccessionNumber"
+            field="accessionNumber"
             header="Accession Number"
             body={AccessionNumberBodyTemplate}
             filter
@@ -132,7 +136,7 @@ const GenomeSearch = () => {
           />
 
           <Column
-            field="GeneName"
+            field="geneName"
             header="Gene Name"
             body={GeneNameBodyTemplate}
             filter
@@ -141,21 +145,15 @@ const GenomeSearch = () => {
           />
 
           <Column
-            field="Function"
+            field="function"
             header="Function"
             body={FunctionBodyTemplate}
-            
           />
 
-          <Column
-            field="Product"
-            header="Product"
-            body={ProductBodyTemplate}
-           
-          />
+          <Column field="product" header="Product" body={ProductBodyTemplate} />
 
           <Column
-            field="FunctionalCategory"
+            field="functionalCategory"
             header="Functional Category"
             body={FunctionalCategoryBodyTemplate}
             filter

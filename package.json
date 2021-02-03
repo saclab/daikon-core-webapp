@@ -29,6 +29,19 @@
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "rules": {
+      "additional-rule": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts?(x)"
+        ],
+        "rules": {
+          "additional-typescript-only-rule": "off"
+        }
+      }
     ]
   },
   "browserslist": {

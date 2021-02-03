@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
 
