@@ -1,36 +1,38 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
+import GenomeStore from "../../../app/stores/genomeStore";
 
 import "./DataTableGenomes.css";
-import agent from "../../../app/api/agent";
-import Loading from "../../../app/layout/Loading/Loading";
-const GenomeSearch = () => {
-  const [genomes, setGenomes] = useState(null);
-  const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
-  //const [globalFilter, setGlobalFilter] = useState(null);
-  const dt = useRef(null);
 
+import Loading from "../../../app/layout/Loading/Loading";
+
+import { observer } from "mobx-react-lite";
+const GenomeSearch = () => {
+  /* MobX Genome Store */
+  const genomeStore = useContext(GenomeStore);
+
+  /* Local State Management */
+
+  useEffect(() => {
+    genomeStore.loadGenomes();
+  }, [genomeStore]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
+  // const [globalFilter, setGlobalFilter] = useState(null);
+
+  /* local variables */
+
+  const dt = useRef(null);
   const FunctionalCategoryValues = [
     "information pathways",
     "lipid metabolism",
     "intermediary metabolism and respiration",
   ];
 
-  useEffect(() => {
-    agent.Genomes.list().then((response) => {
-      // console.log("From Backend");
-      // console.log(response);
-      setGenomes(response);
-    });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const onFunctionalCategoryChange = (e) => {
-    dt.current.filter(e.value, "functionalCategory", "equals");
-    setFunctionalCategory(e.value);
-  };
+  /* Table Body Templates */
 
   const AccessionNumberBodyTemplate = (rowData) => {
     return (
@@ -83,6 +85,24 @@ const GenomeSearch = () => {
     return <span>{option}</span>;
   };
 
+  const onFunctionalCategoryChange = (e) => {
+    dt.current.filter(e.value, "functionalCategory", "equals");
+    setFunctionalCategory(e.value);
+  };
+
+  const FunctionalCategoryFilter = (
+    <Dropdown
+      value={selectedFunctionalCategory}
+      options={FunctionalCategoryValues}
+      onChange={onFunctionalCategoryChange}
+      itemTemplate={FunctionalCategoryItemTemplate}
+      placeholder="Select a Category"
+      className="p-column-filter"
+      showClear
+    />
+  );
+
+  /* Table Header  */
   const header = (
     <div className="table-header">
       <span className="heading">TB Genomes</span>
@@ -97,28 +117,19 @@ const GenomeSearch = () => {
     </div>
   );
 
-  const FunctionalCategoryFilter = (
-    <Dropdown
-      value={selectedFunctionalCategory}
-      options={FunctionalCategoryValues}
-      onChange={onFunctionalCategoryChange}
-      itemTemplate={FunctionalCategoryItemTemplate}
-      placeholder="Select a Category"
-      className="p-column-filter"
-      showClear
-    />
-  );
 
-  if (genomes === null) {
+  /** Loading Overlay */
+  if (genomeStore.displayLoading) {
     return <Loading />;
   }
 
   return (
     <div className="datatable-genomes">
+      <br />
       <div className="card">
         <DataTable
           ref={dt}
-          value={genomes}
+          value={genomeStore.genomes}
           paginator
           rows={10}
           header={header}
@@ -165,4 +176,4 @@ const GenomeSearch = () => {
   );
 };
 
-export default GenomeSearch;
+export default observer(GenomeSearch);
