@@ -17,7 +17,7 @@ const GenomeSearch = () => {
   /* Local State Management */
 
   useEffect(() => {
-    genomeStore.loadGenomes();
+    genomeStore.fetchGenomesList();
   }, [genomeStore]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
