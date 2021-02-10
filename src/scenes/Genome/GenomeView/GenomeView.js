@@ -13,9 +13,9 @@ const GenomeView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
-  // useEffect(() => {
-  //   console.log(match.params.id);
-  // }, [match.params.id]);
+  useEffect(() => {
+    console.log(match.params.id);
+  }, [match.params.id]);
 
   const breadCrumbItems = [
     {
@@ -114,7 +114,7 @@ const GenomeView = ({ match, history }) => {
                 onTabChange={(e) => setActiveIndex(e.index)}
               >
                 <TabPanel header="Header I" headerClassName="hide">
-                  <GenomeViewMycobrowswer />
+                  <GenomeViewMycobrowswer id={match.params.id}/>
                 </TabPanel>
                 <TabPanel header="Header II" headerClassName="hide">
                   <GenomeViewNonPublicData />

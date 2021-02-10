@@ -1,6 +1,35 @@
 import axios from "axios";
+import { toast } from "react-toastify";
+import history from "../../history";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
+
+axios.interceptors.response.use(undefined, (error) => {
+  if (error.message === "Network Error" && !error.response) {
+    toast.error("Network Error : Can't connect to server");
+  }
+  const { status, data, config } = error.response;
+  console.log(error.response);
+
+  /* ALL 404 Errors are redirected to not found component */
+  if (status === 404) {
+    history.push("/notfound");
+  }
+
+  /* 400 Errors for invalid GUID should also be redirected to not found */
+  if (
+    status === 400 &&
+    config.method === "get" &&
+    data.errors.hasOwnProperty("id")
+  ) {
+    history.push("/notfound");
+  }
+
+  /* 500 Errors */
+  if (status === 500) {
+    toast.error("Server Error");
+  }
+});
 
 const responseBody = (response) => response.data;
 
@@ -18,6 +47,7 @@ const requests = {
 /* APIS */
 const Genomes = {
   list: () => requests.get("/genomes"),
+  view: (id) => requests.get(`/genomes/${id}`),
 };
 
 const exports = {

@@ -1,7 +1,8 @@
 import React from "react";
-import {  NavLink } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import cssClass from "./TitleBar.module.css";
 import { Button } from "primereact/button";
+import history from "../../../history";
 
 const TitleBar = () => {
   return (
@@ -12,9 +13,16 @@ const TitleBar = () => {
           icon="pi pi-th-large"
           className={["p-mr-2", cssClass.BlackButton].join(" ")}
         />
-        <div className="p-d-inline">
-          <NavLink to='/createActivity' className={cssClass.LogoText}> TB Drug Accelerator</NavLink>
-        </div>
+
+        <Button
+          onClick={() => history.push("/home")}
+          className={[cssClass.LogoText, cssClass.BlackButton, "p-mr-2"].join(
+            " "
+          )}
+        >
+          
+          Target and Project Tracker (TPT)
+        </Button>
 
         <Button
           type="Button"
@@ -36,4 +44,4 @@ const TitleBar = () => {
   );
 };
 
-export default TitleBar;
+export default withRouter(TitleBar);
