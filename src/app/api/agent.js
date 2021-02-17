@@ -4,15 +4,27 @@ import history from "../../history";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 
+axios.interceptors.request.use(
+  (config) => {
+    const token = window.localStorage.getItem("jwt");
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 axios.interceptors.response.use(undefined, (error) => {
   if (error.message === "Network Error" && !error.response) {
     toast.error("Network Error : Can't connect to server");
   }
+
   const { status, data, config } = error.response;
-  console.log(error.response);
 
   /* ALL 404 Errors are redirected to not found component */
   if (status === 404) {
+    console.log("404---");
     history.push("/notfound");
   }
 
@@ -29,6 +41,8 @@ axios.interceptors.response.use(undefined, (error) => {
   if (status === 500) {
     toast.error("Server Error");
   }
+
+  throw error.response;
 });
 
 const responseBody = (response) => response.data;
@@ -50,8 +64,15 @@ const Genomes = {
   view: (id) => requests.get(`/genomes/${id}`),
 };
 
+const User = {
+  current: () => requests.get("/user"),
+  login: (user) => requests.post(`/user/login`, user),
+  register: (user) => requests.post(`/user/register`, user),
+};
+
 const exports = {
   Genomes,
+  User,
 };
 
 export default exports;

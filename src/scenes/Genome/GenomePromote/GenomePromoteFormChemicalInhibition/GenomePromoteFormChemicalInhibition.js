@@ -45,11 +45,7 @@ const GenomePromoteFormChemicalInhibition = (props) => {
     { label: "Unknown", value: "un" },
   ];
 
-  const selectItemsAI = [
-    { label: "Active", value: "active" },
-    { label: "Inactive", value: "inactive" },
-    { label: "Unknown", value: "un" },
-  ];
+  
 
   return (
     <React.Fragment>

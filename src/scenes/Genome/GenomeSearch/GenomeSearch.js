@@ -3,22 +3,22 @@ import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
-import GenomeStore from "../../../app/stores/genomeStore";
-
 import "./DataTableGenomes.css";
-
 import Loading from "../../../app/layout/Loading/Loading";
-
 import { observer } from "mobx-react-lite";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+
+
 const GenomeSearch = () => {
-  /* MobX Genome Store */
-  const genomeStore = useContext(GenomeStore);
+  /* MobX Store */
+  const rootStore = useContext(RootStoreContext);
+  const {fetchGenomesList, displayLoading , genomes } = rootStore.genomeStore;
 
   /* Local State Management */
 
   useEffect(() => {
-    genomeStore.fetchGenomesList();
-  }, [genomeStore]); // eslint-disable-line react-hooks/exhaustive-deps
+    fetchGenomesList();
+  }, [fetchGenomesList]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
   // const [globalFilter, setGlobalFilter] = useState(null);
@@ -119,7 +119,7 @@ const GenomeSearch = () => {
 
 
   /** Loading Overlay */
-  if (genomeStore.displayLoading) {
+  if (displayLoading) {
     return <Loading />;
   }
 
@@ -129,7 +129,7 @@ const GenomeSearch = () => {
       <div className="card">
         <DataTable
           ref={dt}
-          value={genomeStore.genomes}
+          value={genomes}
           paginator
           rows={10}
           header={header}

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 //import "primereact/resources/themes/mdc-light-indigo/theme.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 //import "primereact/resources/themes/fluent-light/theme.css";
@@ -18,8 +18,36 @@ import cssClass from "./App.module.css";
 import Landing from "../../scenes/Landing/Landing";
 import NotFound from "./NotFound/NotFound";
 import { ToastContainer } from "react-toastify";
+import { RootStoreContext } from "../stores/rootStore";
+import Loading from "./Loading/Loading";
+import { observer } from "mobx-react-lite";
+import Login from "../../scenes/Login/Login";
 
 const App = ({ location }) => {
+  const rootStore = useContext(RootStoreContext);
+  const { setAppLoaded, token, appLoaded } = rootStore.commonStore;
+  const { isLoggedIn, user, getUser } = rootStore.userStore;
+
+  useEffect(() => {
+    if (token) {
+      console.log("App.js token found: " + token);
+      if (!isLoggedIn && !user) {
+        console.log("Trying to getUser() from token");
+        getUser().finally(() => setAppLoaded());
+      } else {
+        setAppLoaded();
+      }
+    }
+  }, [getUser, setAppLoaded, token, appLoaded, isLoggedIn, user]);
+
+  if (!token) {
+    return <Login />;
+  }
+
+  if (!appLoaded) {
+    return <Loading />;
+  }
+
   return (
     <Fragment>
       <ToastContainer />
@@ -52,4 +80,4 @@ const App = ({ location }) => {
   );
 };
 
-export default withRouter(App);
+export default withRouter(observer(App));

@@ -1,12 +1,17 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from "react";
+
+import "./Landing.css";
+
+import Login from "../Login/Login";
 
 const Landing = () => {
+  
+
   return (
     <div>
-      <NavLink to="/home">Home</NavLink>
+      Wait ..
     </div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;

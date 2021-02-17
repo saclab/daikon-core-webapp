@@ -3,27 +3,28 @@ import {
   computed,
   makeObservable,
   observable,
-  configure,
   runInAction,
 } from "mobx";
-import { createContext } from "react";
 import agent from "../api/agent";
 
-configure({ enforceActions: "always" });
 
-class GenomeStore {
+
+export default class GenomeStore {
+  rootStore;
+
   displayLoading = false;
   genomesRegistry = new Map();
   genome = null;
 
-  constructor() {
+  constructor(rootStore) {
+    this.rootStore = rootStore;
     makeObservable(this, {
       genomes: computed,
       displayLoading: observable,
       fetchGenomesList: action,
       genomesRegistry: observable,
       getGenome: action,
-      genome: observable
+      genome: observable,
     });
   }
 
@@ -63,5 +64,3 @@ class GenomeStore {
     }
   };
 }
-
-export default createContext(new GenomeStore());

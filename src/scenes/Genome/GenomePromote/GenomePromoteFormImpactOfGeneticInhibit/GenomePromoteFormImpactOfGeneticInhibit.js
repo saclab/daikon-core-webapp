@@ -44,11 +44,6 @@ const GenomePromoteFormImpactOfGeneticInhibit = (props) => {
     },
   ];
 
-  const selectItemsYN = [
-    { label: "Yes", value: "yes" },
-    { label: "No", value: "no" },
-    { label: "Unknown", value: "un" },
-  ];
 
   const selectItemsAI = [
     { label: "Active", value: "active" },
