@@ -1,12 +1,7 @@
-import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import history from "../../history";
 import agent from "../api/agent";
+import { authContext } from "../../index";
 
 export default class UserStore {
   rootStore;
@@ -15,56 +10,49 @@ export default class UserStore {
     this.rootStore = rootStore;
     makeObservable(this, {
       user: observable,
-      isLoggedIn: computed,
-      login: action,
       getUser: action,
       logout: action,
+      fetching: observable,
+      userNotFound: observable
     });
   }
 
   // @observable
   user = null;
-
-  // @computed
-  get isLoggedIn() {
-    return !!this.user;
-  }
+  fetching = false;
+  userNotFound = false;
 
   // @action
-  login = async (values) => {
+  getUser = async (token) => {
+    this.fetching = true;
+    console.log("Attempting to get user from bmgf token...");
     try {
-      const user = await agent.User.login(values);
+      this.rootStore.commonStore.setToken(token);
+      const user = await agent.User.current();
       runInAction(() => {
-        this.user = user;
-        console.log(user);
-        this.rootStore.commonStore.setToken(user.token);
-        history.push("/home");
+  
+        if (!user) {
+          this.userNotFound = true;
+        }
+        else {
+          this.user = user;
+        }
+        this.fetching = false;
       });
     } catch (error) {
       console.log(error);
+      this.fetching = false;
       throw error;
     }
   };
 
   // @action
-  getUser = async () => {
-    try {
-      const user = await agent.User.current();
-      runInAction(() => {
-        console.log("userStore getUser() ->");
-        console.log(user);
-        this.user = user;
-        //history.push("/home");
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // @action
   logout = () => {
+    this.fetching = true;
     this.rootStore.commonStore.setToken(null);
     this.user = null;
+    authContext.logOut();
+    this.fetching = false;
     history.push("/");
   };
 }

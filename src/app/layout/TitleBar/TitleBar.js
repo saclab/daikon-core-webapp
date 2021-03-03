@@ -21,7 +21,7 @@ const TitleBar = () => {
         />
 
         <Button
-          onClick={() => history.push("/home")}
+          onClick={() => history.push("/")}
           className={[cssClass.LogoText, cssClass.BlackButton, "p-mr-2"].join(
             " "
           )}

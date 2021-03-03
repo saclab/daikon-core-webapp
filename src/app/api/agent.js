@@ -16,6 +16,7 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(undefined, (error) => {
+  console.log(error);
   if (error.message === "Network Error" && !error.response) {
     toast.error("Network Error : Can't connect to server");
   }
@@ -25,7 +26,7 @@ axios.interceptors.response.use(undefined, (error) => {
   /* ALL 404 Errors are redirected to not found component */
   if (status === 404) {
     console.log("404---");
-    history.push("/notfound");
+    //history.push("/notfound");
   }
 
   /* 400 Errors for invalid GUID should also be redirected to not found */
@@ -65,9 +66,9 @@ const Genomes = {
 };
 
 const User = {
-  current: () => requests.get("/user"),
-  login: (user) => requests.post(`/user/login`, user),
-  register: (user) => requests.post(`/user/register`, user),
+  current: () => requests.get("/account"),
+  login: (user) => requests.post(`/account/login`, user),
+  register: (user) => requests.post(`/account/register`, user),
 };
 
 const exports = {

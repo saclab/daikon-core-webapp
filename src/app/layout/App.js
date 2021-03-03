@@ -15,7 +15,6 @@ import GenomePromote from "../../scenes/Genome/GenomePromote/GenomePromote";
 import GenomeView from "../../scenes/Genome/GenomeView/GenomeView";
 import Home from "../../scenes/Home/Home";
 import cssClass from "./App.module.css";
-import Landing from "../../scenes/Landing/Landing";
 import NotFound from "./NotFound/NotFound";
 import { ToastContainer } from "react-toastify";
 import { RootStoreContext } from "../stores/rootStore";
@@ -23,58 +22,51 @@ import Loading from "./Loading/Loading";
 import { observer } from "mobx-react-lite";
 import Login from "../../scenes/Login/Login";
 
-const App = ({ location }) => {
+const App = ({ username, bearerToken }) => {
   const rootStore = useContext(RootStoreContext);
-  const { setAppLoaded, token, appLoaded } = rootStore.commonStore;
-  const { isLoggedIn, user, getUser } = rootStore.userStore;
+  const { setAppLoaded, setToken, appLoaded } = rootStore.commonStore;
+  const { user, getUser, fetching, userNotFound } = rootStore.userStore;
 
   useEffect(() => {
-    if (token) {
-      console.log("App.js token found: " + token);
-      if (!isLoggedIn && !user) {
-        console.log("Trying to getUser() from token");
-        getUser().finally(() => setAppLoaded());
+    if (bearerToken) {
+
+      if (!userNotFound && !user) {
+        getUser(bearerToken).finally(() => setAppLoaded());
       } else {
         setAppLoaded();
       }
     }
-  }, [getUser, setAppLoaded, token, appLoaded, isLoggedIn, user]);
-
-  if (!token) {
-    return <Login />;
-  }
+  }, [getUser, setAppLoaded, bearerToken, appLoaded, setToken, user, fetching, userNotFound]);
 
   if (!appLoaded) {
     return <Loading />;
   }
 
+  if (fetching) {
+    return <Loading />;
+  }
+
+  if (userNotFound) {
+    return <Login />;
+  }
+
   return (
     <Fragment>
       <ToastContainer />
-      <Route exact path="/" component={Landing} />
-
-      <Route
-        path={"/(.+)"}
-        render={() => (
-          <Fragment>
-            <TitleBar />
-            <MenuBar />
-            <div className={cssClass.Scene}>
-              <br />
-              <Switch>
-                <Route exact path="/home" component={Home} />
-
-                <Route exact path="/genomes" component={GenomeSearch} />
-                <Route path="/genomes/:id/promote" component={GenomePromote} />
-                <Route path="/genomes/:id" component={GenomeView} />
-
-                <Route component={NotFound} />
-              </Switch>
-            </div>
-          </Fragment>
-        )}
-      />
-
+      <Fragment>
+        <TitleBar />
+        <MenuBar />
+        <div className={cssClass.Scene}>
+          <br />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/genomes" component={GenomeSearch} />
+            <Route path="/genomes/:id/promote" component={GenomePromote} />
+            <Route path="/genomes/:id" component={GenomeView} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+      </Fragment>
       <Footer />
     </Fragment>
   );

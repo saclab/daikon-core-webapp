@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
+    "adal-vanilla": "^1.0.18",
     "axios": "^0.21.1",
     "final-form": "^4.20.1",
     "mobx": "^6.1.4",
