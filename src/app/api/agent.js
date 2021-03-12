@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import history from "../../history";
 
+
 axios.defaults.baseURL = "http://localhost:5000/api";
 
 axios.interceptors.request.use(
@@ -17,33 +18,37 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(undefined, (error) => {
   console.log(error);
-  if (error.message === "Network Error" && !error.response) {
-    toast.error("Network Error : Can't connect to server");
+  if (!error.response) {
+    toast.error("Network Error : Can't connect to server. Displaying locally cached data. New changes wont be saved.");
+    throw error;
+
+  } else {
+    try {
+      const { status, data, config } = error.response;
+      /* ALL 404 Errors are redirected to not found component */
+      if (status === 404) {
+        console.log("404---");
+        //history.push("/notfound");
+      }
+
+      /* 400 Errors for invalid GUID should also be redirected to not found */
+      if (
+        status === 400 &&
+        config.method === "get" &&
+        data.errors.hasOwnProperty("id")
+      ) {
+        history.push("/notfound");
+      }
+
+      /* 500 Errors */
+      if (status === 500) {
+        toast.error("Server Error");
+      }
+    } catch (e) {
+    } finally {
+      throw error.response;
+    }
   }
-
-  const { status, data, config } = error.response;
-
-  /* ALL 404 Errors are redirected to not found component */
-  if (status === 404) {
-    console.log("404---");
-    //history.push("/notfound");
-  }
-
-  /* 400 Errors for invalid GUID should also be redirected to not found */
-  if (
-    status === 400 &&
-    config.method === "get" &&
-    data.errors.hasOwnProperty("id")
-  ) {
-    history.push("/notfound");
-  }
-
-  /* 500 Errors */
-  if (status === 500) {
-    toast.error("Server Error");
-  }
-
-  throw error.response;
 });
 
 const responseBody = (response) => response.data;
@@ -67,7 +72,6 @@ const Genomes = {
 
 const User = {
   current: () => requests.get("/account"),
-  login: (user) => requests.post(`/account/login`, user),
   register: (user) => requests.post(`/account/register`, user),
 };
 

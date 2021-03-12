@@ -56,7 +56,7 @@ if (user) {
     } else {
       //acquired token successfully
       // console.log(user.userName);
-      // console.log(token);
+       console.log(token);
       startApplication(user.userName, token);
     }
   });

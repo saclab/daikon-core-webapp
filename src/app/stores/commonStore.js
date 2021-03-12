@@ -35,6 +35,6 @@ export default class CommonStore {
   // @action
   setAppLoaded = () => {
     this.appLoaded = true;
-    console.log("commonStore setAppLoaded -> " + this.appLoaded)
+    console.log("commonStore setAppLoaded -> " + this.appLoaded);
   };
 }
