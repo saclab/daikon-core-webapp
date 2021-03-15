@@ -2,7 +2,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import history from "../../history";
 
-
 axios.defaults.baseURL = "http://localhost:5000/api";
 
 axios.interceptors.request.use(
@@ -19,9 +18,10 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(undefined, (error) => {
   console.log(error);
   if (!error.response) {
-    toast.error("Network Error : Can't connect to server. Displaying locally cached data. New changes wont be saved.");
+    toast.error(
+      "Network Error : Can't connect to server. Displaying locally cached data. New changes wont be saved."
+    );
     throw error;
-
   } else {
     try {
       const { status, data, config } = error.response;
@@ -75,9 +75,14 @@ const User = {
   register: (user) => requests.post(`/account/register`, user),
 };
 
+const Admin = {
+  userList: () => requests.get("/admin/accounts"),
+};
+
 const exports = {
   Genomes,
   User,
+  Admin,
 };
 
 export default exports;

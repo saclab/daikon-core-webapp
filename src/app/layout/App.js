@@ -22,6 +22,7 @@ import Loading from "./Loading/Loading";
 import { observer } from "mobx-react-lite";
 import Login from "../../scenes/Login/Login";
 import NetworkError from "./Errors/NetworkError/NetworkError";
+import UserList from "../../scenes/Admin/UserManagement/UserList/UserList";
 
 const App = ({ username, bearerToken }) => {
   const rootStore = useContext(RootStoreContext);
@@ -80,6 +81,7 @@ const App = ({ username, bearerToken }) => {
           <br />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/admin/user-management" component={UserList} />
             <Route exact path="/genomes" component={GenomeSearch} />
             <Route path="/genomes/:id/promote" component={GenomePromote} />
             <Route path="/genomes/:id" component={GenomeView} />

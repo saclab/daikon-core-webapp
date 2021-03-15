@@ -1,0 +1,44 @@
+import React from "react";
+import { Button } from "primereact/button";
+import { Divider } from "primereact/divider";
+import history from "../../../../history";
+
+const TitleBarSidePanel = ({ toggle }) => {
+  return (
+    <div className="p-d-flex p-flex-column">
+      <div className="p-mb-2">
+        <h4>Admin Tools</h4>
+        <Divider type="dashed" />
+        <div className="card">
+          <Button
+            type="button"
+            label="Authorize"
+            icon="pi pi-plus"
+            className="p-mr-2 p-mb-2 p-button-text p-button-plain p-button-sm"
+          />
+          <Button
+            type="button"
+            label="Manage Users"
+            icon="pi pi-user-edit"
+            className="p-mb-2 p-button-text p-button-plain p-button-sm"
+            onClick={() => {
+              toggle();
+              history.push("/admin/user-management");
+            }}
+          />
+          <br />
+        </div>
+      </div>
+      <div className="p-mb-2">
+        <h4>Project Management Tools</h4>
+        <Divider type="dashed" />
+      </div>
+      <div>
+        <h4>Chemist Tools</h4>
+        <Divider type="dashed" />
+      </div>
+    </div>
+  );
+};
+
+export default TitleBarSidePanel;
