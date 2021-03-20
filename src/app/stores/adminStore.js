@@ -1,5 +1,6 @@
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import agent from "../api/agent";
+import { toast } from "react-toastify";
 
 export default class AdminStore {
   rootStore;
@@ -14,6 +15,7 @@ export default class AdminStore {
       displayLoading: observable,
       fetchUsersList: action,
       userRegistry: observable,
+      updateUser: action,
       Users: computed,
     });
   }
@@ -42,6 +44,26 @@ export default class AdminStore {
 
   get Users() {
     return Array.from(this.userRegistry.values());
+  }
+
+  updateUser = async (user) => {
+    this.displayLoading= true;
+    try {
+      var resp = await agent.Admin.modifyUser(user);
+      runInAction(() => {
+        this.userRegistry.set(user.id, user);
+        toast.success("The user has been modified");
+        console.log("FROM ADMIN STORE:updateUser")
+        console.log(resp);
+      });
+
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.displayLoading =false;
+      });
+    }
   }
 
 

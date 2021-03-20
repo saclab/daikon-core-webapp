@@ -39,6 +39,11 @@ axios.interceptors.response.use(undefined, (error) => {
       ) {
         history.push("/notfound");
       }
+      else if (
+        status === 400 && data!= null
+      ){
+        toast.error("Failed : " + data);
+      }
 
       /* 500 Errors */
       if (status === 500) {
@@ -77,6 +82,7 @@ const User = {
 
 const Admin = {
   userList: () => requests.get("/admin/accounts"),
+  modifyUser: (user) => requests.post(`/admin/accounts/${user.id}`, user),
 };
 
 const exports = {

@@ -4,6 +4,8 @@ import { Badge } from "primereact/badge";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
+import { InputText } from "primereact/inputtext";
+import { SelectButton } from "primereact/selectbutton";
 
 import { Column } from "primereact/column";
 import { Message } from "primereact/message";
@@ -13,7 +15,12 @@ import { RootStoreContext } from "../../../../app/stores/rootStore";
 const UserList = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { fetchUsersList, displayLoading, Users } = rootStore.adminStore;
+  const {
+    fetchUsersList,
+    displayLoading,
+    Users,
+    updateUser,
+  } = rootStore.adminStore;
 
   const items = [{ label: "Administrator" }, { label: "User Management" }];
   const home = {
@@ -28,6 +35,11 @@ const UserList = () => {
   };
   const [user, setUser] = useState(emptyUser);
   const [userDialog, setUserDialog] = useState(false);
+
+  let roleTypes = [
+    { name: "Admin", value: "admin" },
+    { name: "AppUser", value: "user" },
+  ];
 
   useEffect(() => {
     //console.log("UserList: -> Fetching userlist via store");
@@ -47,19 +59,30 @@ const UserList = () => {
   const hideUserDialog = () => {
     //setSubmitted(false);
     setUserDialog(false);
-}
+  };
 
   const saveUser = () => {
     //setSubmitted(false);
+    updateUser(user);
     setUserDialog(false);
-}
+  };
 
   const userDialogFooter = (
     <React.Fragment>
-        <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideUserDialog} />
-        <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveUser} />
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideUserDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={saveUser}
+      />
     </React.Fragment>
-);
+  );
 
   const userTypeBodyTemplate = (rowData) => {
     const dispRoles = rowData.roles.map((role, index) => (
@@ -108,9 +131,63 @@ const UserList = () => {
         header={"Edit user : " + user.displayName}
         modal
         className="p-fluid"
-        footer={userDialogFooter} 
+        footer={userDialogFooter}
         onHide={hideUserDialog}
-      ></Dialog>
+      >
+        <div className="p-field p-grid">
+          <label
+            htmlFor="fullname"
+            className="p-col-fixed"
+            style={{ width: "100px" }}
+          >
+            Full Name
+          </label>
+          <div className="p-col">
+            <InputText
+              id="fullname"
+              type="text"
+              value={user.displayName}
+              onChange={(e) => {
+                var usr = { ...user };
+                usr.displayName = e.target.value;
+                setUser(usr);
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="p-field p-grid">
+          <label
+            htmlFor="email"
+            className="p-col-fixed"
+            style={{ width: "100px" }}
+          >
+            Email
+          </label>
+          <div className="p-col">
+            <InputText
+              id="email"
+              type="text"
+              value={user.email}
+              readOnly
+            />
+          </div>
+        </div>
+
+        <div className="p-formgroup-inline">
+          <SelectButton
+            optionLabel="name"
+            value={user.roles}
+            options={roleTypes}
+            onChange={(e) => {
+              var usr = { ...user };
+              usr.roles = [...e.target.value];
+              setUser(usr);
+            }}
+            multiple
+          />
+        </div>
+      </Dialog>
     </div>
   );
 };

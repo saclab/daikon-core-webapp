@@ -15,6 +15,10 @@ const TitleBarSidePanel = ({ toggle }) => {
             label="Authorize"
             icon="pi pi-plus"
             className="p-mr-2 p-mb-2 p-button-text p-button-plain p-button-sm"
+            onClick={() => {
+              toggle();
+              history.push("/admin/user-management/new");
+            }}
           />
           <Button
             type="button"

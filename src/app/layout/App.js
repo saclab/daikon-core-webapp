@@ -23,6 +23,7 @@ import { observer } from "mobx-react-lite";
 import Login from "../../scenes/Login/Login";
 import NetworkError from "./Errors/NetworkError/NetworkError";
 import UserList from "../../scenes/Admin/UserManagement/UserList/UserList";
+import Admin_Authorize from "../../scenes/Admin/UserManagement/Authorize/Admin_Authorize";
 
 const App = ({ username, bearerToken }) => {
   const rootStore = useContext(RootStoreContext);
@@ -81,7 +82,10 @@ const App = ({ username, bearerToken }) => {
           <br />
           <Switch>
             <Route exact path="/" component={Home} />
+
+            <Route exact path="/admin/user-management/new" component={Admin_Authorize} />
             <Route exact path="/admin/user-management" component={UserList} />
+            
             <Route exact path="/genomes" component={GenomeSearch} />
             <Route path="/genomes/:id/promote" component={GenomePromote} />
             <Route path="/genomes/:id" component={GenomeView} />
