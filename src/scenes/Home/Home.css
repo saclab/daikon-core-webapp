@@ -1,7 +1,7 @@
 .Home {
-  max-width: 900px;
+  
   margin: auto;
-  width: 50%;
+  width: 100%;
   border: 0px;
   padding: 10px;
   background-color: aliceblue;
@@ -17,6 +17,7 @@
 
 .Home .subtext {
   margin: 20px 0px 40px 0px;
+  text-align: center;
   font-size: 14px;
   padding-left: 60px;
   padding-right: 30px;

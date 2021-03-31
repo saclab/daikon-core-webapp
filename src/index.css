@@ -1,14 +1,23 @@
+.root{
+  font-family: 'IBM Plex Sans', sans-serif;
+}
 body {
   margin: 0;
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 300;
 }
 
+h2 {
+  font-weight: 500;
+}
+
 .heading {
-  background: linear-gradient(to right, #30cfd0 0%, #330867 100%);
+  background: linear-gradient(to left, #30cfd0 0%, #330867 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-left: 20px;
+  
+  font-weight: 500;
+  
 }
 
 .hide {

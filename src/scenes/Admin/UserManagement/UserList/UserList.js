@@ -6,15 +6,25 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { SelectButton } from "primereact/selectbutton";
-
 import { Column } from "primereact/column";
 import { Message } from "primereact/message";
 import { BreadCrumb } from "primereact/breadcrumb";
 import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
+import history from "../../../../history";
+
 const UserList = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
+
+  /* Hide if not admin */
+  const currentUser = rootStore.userStore.user;
+  useEffect(() => {
+    if (!currentUser.roles.includes("admin")) {
+      history.push("/notfound");
+    }
+  });
+
   const {
     fetchUsersList,
     displayLoading,
@@ -106,12 +116,14 @@ const UserList = () => {
   return (
     <div>
       <BreadCrumb model={items} home={home} />
-      <h2>User List</h2>
+      <h2 className="heading">User List</h2>
       <Message
         severity="warn"
         text="Editing an user will affect their ability to login."
       ></Message>
+
       <div className="card">
+        <br />
         <DataTable
           value={Users}
           header="Authorized Users"
@@ -165,12 +177,7 @@ const UserList = () => {
             Email
           </label>
           <div className="p-col">
-            <InputText
-              id="email"
-              type="text"
-              value={user.email}
-              readOnly
-            />
+            <InputText id="email" type="text" value={user.email} readOnly />
           </div>
         </div>
 

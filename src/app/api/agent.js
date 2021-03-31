@@ -42,7 +42,7 @@ axios.interceptors.response.use(undefined, (error) => {
       else if (
         status === 400 && data!= null
       ){
-        toast.error("Failed : " + data);
+        toast.error("400 The Request Failed");
       }
 
       /* 500 Errors */
@@ -83,6 +83,7 @@ const User = {
 const Admin = {
   userList: () => requests.get("/admin/accounts"),
   modifyUser: (user) => requests.post(`/admin/accounts/${user.id}`, user),
+  addUser: (user) => requests.post(`/admin/accounts/`, user),
 };
 
 const exports = {

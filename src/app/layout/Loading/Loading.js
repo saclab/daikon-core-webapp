@@ -10,9 +10,9 @@ let Loading = () => {
       <div className="Loading">
         <div className="LoadingWrap">
           <div className="LoadingBox">
-            <h1>Please Wait!</h1>
+            <h1 className="Text">Please Wait!</h1>
             <ProgressBar mode="indeterminate" />
-            <h4>Fetching...</h4>
+            <h4 className="Text">Fetching...</h4>
             
           </div>
         </div>

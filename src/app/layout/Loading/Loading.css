@@ -12,6 +12,10 @@
   backdrop-filter: grayscale(100%);
   
 }
+.Text {
+  font-family: 'IBM Plex Sans', sans-serif !important;
+  font-weight: 100 !important;
+}
 
 .Loading {
   min-height: 70vh;

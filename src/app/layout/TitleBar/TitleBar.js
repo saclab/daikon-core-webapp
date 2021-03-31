@@ -22,7 +22,7 @@ const TitleBar = () => {
         baseZIndex={1000000}
         onHide={() => setVisibleLeft(false)}
       >
-        <TitleBarSidePanel toggle={() => setVisibleLeft(false)}/>
+        <TitleBarSidePanel toggle={() => setVisibleLeft(false)} user={user} />
       </Sidebar>
       <div className={["p-d-flex"].join(" ")}>
         <Button

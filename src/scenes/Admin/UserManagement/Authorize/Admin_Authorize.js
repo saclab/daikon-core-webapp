@@ -1,17 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Steps } from "primereact/steps";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Panel } from "primereact/panel";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { SelectButton } from "primereact/selectbutton";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import history from "../../../../history";
 const Admin_Authorize = () => {
+  /* MobX Store */
+  const rootStore = useContext(RootStoreContext);
+  const { addUser } = rootStore.adminStore;
+
+  const currentUser = rootStore.userStore.user;
+  useEffect(() => {
+    if (!currentUser.roles.includes("admin")) {
+      history.push("/notfound");
+    }
+  });
+
   const [stage, setStage] = useState(1);
 
   let emptyUser = {
-    id: null,
     displayName: "",
-    email: null,
+    email: "",
     roles: [],
   };
   const [user, setUser] = useState(emptyUser);
@@ -34,6 +46,12 @@ const Admin_Authorize = () => {
     { label: "BMGF Active Directory" },
     { label: "Give APP Access" },
   ];
+
+  const addNewUser = () => {
+    addUser(user).catch((e) => {
+      console.log(e);
+    });
+  };
 
   const step1 = (
     <Panel header="Add to BMGF Active Directory" style={{ maxWidth: "800px" }}>
@@ -100,7 +118,11 @@ const Admin_Authorize = () => {
             type="text"
             style={{ width: "500px" }}
             value={user.email}
-            
+            onChange={(e) => {
+              var usr = { ...user };
+              usr.email = e.target.value;
+              setUser(usr);
+            }}
           />
         </div>
       </div>
@@ -132,7 +154,7 @@ const Admin_Authorize = () => {
           icon="pi pi-check"
           iconPos="right"
           onClick={() => {
-            setStage(2);
+            addNewUser();
           }}
         />
       </div>
@@ -142,9 +164,9 @@ const Admin_Authorize = () => {
   return (
     <div>
       <BreadCrumb model={items} home={home} />
-      <h1>Authorize New</h1>
+      <h2 className="heading">Authorize New</h2>
 
-      <Steps model={steps} activeIndex={stage-1}/>
+      <Steps model={steps} activeIndex={stage - 1} />
       <br />
       <div className="p-d-flex p-jc-center">{stage === 1 ? step1 : step2}</div>
     </div>

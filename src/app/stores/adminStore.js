@@ -67,4 +67,26 @@ export default class AdminStore {
   }
 
 
+  addUser = async (user) => {
+    this.displayLoading= true;
+    try {
+      var resp = await agent.Admin.addUser(user);
+      runInAction(() => {
+        this.fetchUsersList();
+        toast.success("New user added : " + user.displayName);
+        console.log("FROM ADMIN STORE: User Added")
+        console.log(resp);
+      });
+
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      runInAction(() => {
+        this.displayLoading =false;
+      });
+    }
+  }
+
+
 }
