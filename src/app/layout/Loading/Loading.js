@@ -1,5 +1,5 @@
 import React from "react";
-import { ProgressSpinner } from "primereact/progressspinner";
+import { ProgressBar } from "primereact/progressbar";
 import "./Loading.css";
 
 let Loading = () => {
@@ -7,14 +7,16 @@ let Loading = () => {
     <React.Fragment>
       <div className="backdrop">
       
+      <div className="Loading">
+        <div className="LoadingWrap">
+          <div className="LoadingBox">
+            <h1 className="Text">Please Wait!</h1>
+            <ProgressBar mode="indeterminate" />
+            <h4 className="Text">Fetching...</h4>
+            
+          </div>
+        </div>
       </div>
-      <div className="loader">
-      <ProgressSpinner />
-      <br />
-      <br />
-      
-      <h2>Please Wait ..</h2>
-      <p>Our servers are working hard <br />to put things together ..</p>
     </div>
     </React.Fragment>
     

@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 //import "primereact/resources/themes/mdc-light-indigo/theme.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 //import "primereact/resources/themes/fluent-light/theme.css";
@@ -6,6 +6,7 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
+import '../../assets/_overrides.scss';
 import TitleBar from "./TitleBar/TitleBar";
 import MenuBar from "./MenuBar/MenuBar";
 import { Route, Switch, withRouter } from "react-router-dom";
@@ -21,22 +22,44 @@ import { RootStoreContext } from "../stores/rootStore";
 import Loading from "./Loading/Loading";
 import { observer } from "mobx-react-lite";
 import Login from "../../scenes/Login/Login";
+import NetworkError from "./Errors/NetworkError/NetworkError";
+import UserList from "../../scenes/Admin/UserManagement/UserList/UserList";
+import Admin_Authorize from "../../scenes/Admin/UserManagement/Authorize/Admin_Authorize";
 
 const App = ({ username, bearerToken }) => {
   const rootStore = useContext(RootStoreContext);
   const { setAppLoaded, setToken, appLoaded } = rootStore.commonStore;
   const { user, getUser, fetching, userNotFound } = rootStore.userStore;
+  const [networkErr, setNetworkErr] = useState(false);
 
   useEffect(() => {
     if (bearerToken) {
-
-      if (!userNotFound && !user) {
-        getUser(bearerToken).finally(() => setAppLoaded());
-      } else {
-        setAppLoaded();
+      if (!networkErr && !user && !userNotFound) {
+        getUser(bearerToken)
+          .catch((e) => {
+            console.log("++++++++CAUGHT NETWORK ERROR");
+            setNetworkErr(true);
+          })
+          .finally(() => setAppLoaded());
       }
+    } else {
+      setAppLoaded();
     }
-  }, [getUser, setAppLoaded, bearerToken, appLoaded, setToken, user, fetching, userNotFound]);
+  }, [
+    getUser,
+    setAppLoaded,
+    bearerToken,
+    appLoaded,
+    setToken,
+    user,
+    fetching,
+    userNotFound,
+    networkErr,
+  ]);
+
+  if (networkErr) {
+    return <NetworkError />;
+  }
 
   if (!appLoaded) {
     return <Loading />;
@@ -60,6 +83,10 @@ const App = ({ username, bearerToken }) => {
           <br />
           <Switch>
             <Route exact path="/" component={Home} />
+
+            <Route exact path="/admin/user-management/new" component={Admin_Authorize} />
+            <Route exact path="/admin/user-management" component={UserList} />
+            
             <Route exact path="/genomes" component={GenomeSearch} />
             <Route path="/genomes/:id/promote" component={GenomePromote} />
             <Route path="/genomes/:id" component={GenomeView} />

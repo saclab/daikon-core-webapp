@@ -12,7 +12,7 @@ const MenuBar = () => {
     {
       label: "Target",
       icon: "pi pi-fw pi-plus-circle",
-      url: "/targets",
+      command: () => history.push("/targets")
     },
     { label: "Screen", icon: "pi pi-fw pi-pencil" },
     { label: "FHA", icon: "pi pi-fw pi-file" },

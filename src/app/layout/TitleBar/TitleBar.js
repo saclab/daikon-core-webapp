@@ -1,23 +1,35 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { OverlayPanel } from "primereact/overlaypanel";
+import { Sidebar } from "primereact/sidebar";
+
 import cssClass from "./TitleBar.module.css";
 import { Button } from "primereact/button";
 import history from "../../../history";
 import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import { RootStoreContext } from "../../stores/rootStore";
+import TitleBarSidePanel from "./TitleBarSidePanel/TitleBarSidePanel";
 
 const TitleBar = () => {
   const op = useRef(null);
+  const [visibleLeft, setVisibleLeft] = useState(false);
   const rootStore = useContext(RootStoreContext);
   const { user } = rootStore.userStore;
   return (
     <div className={cssClass.Header}>
+      <Sidebar
+        visible={visibleLeft}
+        baseZIndex={1000000}
+        onHide={() => setVisibleLeft(false)}
+      >
+        <TitleBarSidePanel toggle={() => setVisibleLeft(false)} user={user} />
+      </Sidebar>
       <div className={["p-d-flex"].join(" ")}>
         <Button
           type="Button"
-          icon="pi pi-th-large"
+          icon="pi pi-bars"
           className={["p-mr-2", cssClass.BlackButton].join(" ")}
+          onClick={() => setVisibleLeft(true)}
         />
 
         <Button

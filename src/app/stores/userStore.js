@@ -40,7 +40,9 @@ export default class UserStore {
         this.fetching = false;
       });
     } catch (error) {
+      console.log("!!!!!!!!!ERROR AT USER STORE");
       console.log(error);
+      console.log("!!!!!!!!!END ERROR AT USER STORE");
       this.fetching = false;
       throw error;
     }

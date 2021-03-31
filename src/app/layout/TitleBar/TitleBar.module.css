@@ -3,6 +3,8 @@
   overflow: hidden;
   background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
   padding: 0px 0px;
+  font-family: 'IBM Plex Sans', sans-serif !important;
+  font-weight: 100 !important;
 }
 
 .BlackButton {
@@ -28,7 +30,7 @@
 
 .Header a.logo {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 100 !important;
 }
 
 .Header a:hover {

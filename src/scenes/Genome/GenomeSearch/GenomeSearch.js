@@ -136,6 +136,8 @@ const GenomeSearch = () => {
           className="p-datatable-genomes"
           //globalFilter={globalFilter}
           emptyMessage="No genomes found."
+          resizableColumns
+          columnResizeMode="fit"
         >
           <Column
             field="accessionNumber"

@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import './assets/_overrides.scss';
+import 'primeflex/primeflex.css';
 import App from "./app/layout/App";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
@@ -56,7 +58,7 @@ if (user) {
     } else {
       //acquired token successfully
       // console.log(user.userName);
-      // console.log(token);
+       console.log(token);
       startApplication(user.userName, token);
     }
   });
