@@ -16,7 +16,7 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(undefined, (error) => {
-  console.log(error);
+  //console.log(error);
   if (!error.response) {
     toast.error(
       "Network Error : Can't connect to server. Displaying locally cached data. New changes wont be saved."
@@ -48,6 +48,10 @@ axios.interceptors.response.use(undefined, (error) => {
       /* 500 Errors */
       if (status === 500) {
         toast.error("Server Error");
+      }
+
+      if (status === 401) {
+        console.log("unauthorized please redirect to login");
       }
     } catch (e) {
     } finally {
