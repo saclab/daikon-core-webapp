@@ -1,19 +1,68 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import history from "../../history";
+import AuthService from "../../services/AuthService";
+import AppSettingsService from "../../services/AppSettingsService";
 
+console.log("API SERVICE Initialized");
 axios.defaults.baseURL = "http://localhost:5000/api";
 
+/*  MSAL SERVICE CREATION */
+const appSettings = new AppSettingsService();
+const AuthServiceInstance = new AuthService(appSettings);
+
+/*  END MSAL SERVICE CREATION */
+
+// let AuthenticatedApi = axios.create({
+//   baseURL: baseURL,
+//   // will inject auth header on-demand later as needed.
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
+
 axios.interceptors.request.use(
-  (config) => {
-    const token = window.localStorage.getItem("jwt");
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+  async (config) => {
+    let response = await AuthServiceInstance.GetToken();
+    config.headers.Authorization = `Bearer ${response.accessToken}`;
     return config;
   },
   (error) => {
     return Promise.reject(error);
   }
 );
+
+const responseBody = (response) => response.data;
+
+
+const sleep = (ms) => (response) =>
+  new Promise((resolve) => setTimeout(() => resolve(response), ms));
+
+// -?????????? change here
+// const requests = {
+//   get: (url) =>
+//     AuthServiceInstance.GetToken().then((response) => {
+//       console.log("Response Access Token");
+//       console.log(response.accessToken);
+//       AuthenticatedApi.get(url, {
+//         headers: {
+//           Authorization: "Bearer " + response.accessToken,
+//         },
+//       }).then(responseBody);
+//     }),
+//   post: (url, body) =>
+//     axios.post(url, body).then(sleep(2000)).then(responseBody),
+//   put: (url, body) => axios.put(url, body).then(sleep(2000)).then(responseBody),
+//   del: (url) => axios.delete(url).then(sleep(2000)).then(responseBody),
+// };
+
+const requests = {
+  get: (url) => axios.get(url).then(sleep(2000)).then(responseBody),
+  post: (url, body) =>
+    axios.post(url, body).then(sleep(2000)).then(responseBody),
+  put: (url, body) => axios.put(url, body).then(sleep(2000)).then(responseBody),
+  del: (url) => axios.delete(url).then(sleep(2000)).then(responseBody),
+};
 
 axios.interceptors.response.use(undefined, (error) => {
   //console.log(error);
@@ -38,10 +87,7 @@ axios.interceptors.response.use(undefined, (error) => {
         data.errors.hasOwnProperty("id")
       ) {
         history.push("/notfound");
-      }
-      else if (
-        status === 400 && data!= null
-      ){
+      } else if (status === 400 && data != null) {
         toast.error("400 The Request Failed");
       }
 
@@ -59,19 +105,6 @@ axios.interceptors.response.use(undefined, (error) => {
     }
   }
 });
-
-const responseBody = (response) => response.data;
-
-const sleep = (ms) => (response) =>
-  new Promise((resolve) => setTimeout(() => resolve(response), ms));
-
-const requests = {
-  get: (url) => axios.get(url).then(sleep(2000)).then(responseBody),
-  post: (url, body) =>
-    axios.post(url, body).then(sleep(2000)).then(responseBody),
-  put: (url, body) => axios.put(url, body).then(sleep(2000)).then(responseBody),
-  del: (url) => axios.delete(url).then(sleep(2000)).then(responseBody),
-};
 
 /* APIS */
 const Genomes = {
@@ -91,6 +124,7 @@ const Admin = {
 };
 
 const exports = {
+  AuthServiceInstance,
   Genomes,
   User,
   Admin,

@@ -1,22 +1,19 @@
 import "./Login.css";
-import { authContext } from "../../index";
 import { Button } from "primereact/button";
 
-const Login = () => {
+const Login = ({loginButtonClicked}) => {
   return (
     <div className="LandingLogin">
       <div className="LandingWrap">
         <div className="LandingLoginBox">
           <h4>Target & Project Tracker Login</h4>
-          <h5>[Access Error]</h5>
+          <h5>[LOGIN]</h5>
           <p>
-            Although your authenication with BMGF SSO succeeded, we could not
-            find an account for you in the TPT App. Plese contact the app
-            administrator to set up your account.
+            Please login with your BMGF ID to continue
           </p>
           <Button
-            label="Logout from SSO"
-            onClick={() => authContext.logOut()}
+            label="Login with SSO"
+            onClick={() => loginButtonClicked()}
           ></Button>
         </div>
       </div>

@@ -10,8 +10,8 @@ import history from "../../../../history";
 const Admin_Authorize = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { addUser } = rootStore.adminStore;
-
+  
+  /* Hide if not admin */
   const currentUser = rootStore.userStore.user;
   useEffect(() => {
     if (!currentUser.roles.includes("admin")) {
@@ -19,6 +19,7 @@ const Admin_Authorize = () => {
     }
   });
 
+  const { addUser } = rootStore.adminStore;
   const [stage, setStage] = useState(1);
 
   let emptyUser = {
