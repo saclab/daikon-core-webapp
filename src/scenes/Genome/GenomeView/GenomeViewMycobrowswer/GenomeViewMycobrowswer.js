@@ -10,7 +10,7 @@ const GenomeViewMycobrowswer = ({ id }) => {
   const rootStore = useContext(RootStoreContext);
   const { getGenome } = rootStore.genomeStore;
 
-  const [genomeData, setGenomeData] = useState({
+  const [genomeData] = useState({
     GeneralAnnotation: {
       Type: "CDS",
       Function:

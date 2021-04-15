@@ -6,7 +6,7 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
-import '../../assets/_overrides.scss';
+import "../../assets/_overrides.scss";
 import TitleBar from "./TitleBar/TitleBar";
 import MenuBar from "./MenuBar/MenuBar";
 import { Route, Switch, withRouter } from "react-router-dom";
@@ -25,44 +25,28 @@ import Login from "../../scenes/Login/Login";
 import NetworkError from "./Errors/NetworkError/NetworkError";
 import UserList from "../../scenes/Admin/UserManagement/UserList/UserList";
 import Admin_Authorize from "../../scenes/Admin/UserManagement/Authorize/Admin_Authorize";
+import agent from "../api/agent";
+import NoAccess from "../../scenes/NoAccess/NoAccess";
 
-const App = ({ username, bearerToken }) => {
+const App = () => {
+  const authServiceInstance = agent.AuthServiceInstance;
+
   const rootStore = useContext(RootStoreContext);
-  const { setAppLoaded, setToken, appLoaded } = rootStore.commonStore;
   const { user, getUser, fetching, userNotFound } = rootStore.userStore;
   const [networkErr, setNetworkErr] = useState(false);
 
   useEffect(() => {
-    if (bearerToken) {
-      if (!networkErr && !user && !userNotFound) {
-        getUser(bearerToken)
-          .catch((e) => {
-            console.log("++++++++CAUGHT NETWORK ERROR");
-            setNetworkErr(true);
-          })
-          .finally(() => setAppLoaded());
-      }
-    } else {
-      setAppLoaded();
+    if (authServiceInstance.account && !networkErr && !user && !userNotFound) {
+      console.log("UseEffect getUser()");
+      getUser().catch((e) => {
+        console.log("++++++++CAUGHT NETWORK ERROR");
+        setNetworkErr(true);
+      });
     }
-  }, [
-    getUser,
-    setAppLoaded,
-    bearerToken,
-    appLoaded,
-    setToken,
-    user,
-    fetching,
-    userNotFound,
-    networkErr,
-  ]);
+  }, [getUser, networkErr, user, userNotFound, authServiceInstance.account]);
 
   if (networkErr) {
     return <NetworkError />;
-  }
-
-  if (!appLoaded) {
-    return <Loading />;
   }
 
   if (fetching) {
@@ -70,10 +54,10 @@ const App = ({ username, bearerToken }) => {
   }
 
   if (userNotFound) {
-    return <Login />;
+    return <NoAccess />;
   }
 
-  return (
+  let signedInRender = (
     <Fragment>
       <ToastContainer />
       <Fragment>
@@ -84,9 +68,13 @@ const App = ({ username, bearerToken }) => {
           <Switch>
             <Route exact path="/" component={Home} />
 
-            <Route exact path="/admin/user-management/new" component={Admin_Authorize} />
+            <Route
+              exact
+              path="/admin/user-management/new"
+              component={Admin_Authorize}
+            />
             <Route exact path="/admin/user-management" component={UserList} />
-            
+
             <Route exact path="/genomes" component={GenomeSearch} />
             <Route path="/genomes/:id/promote" component={GenomePromote} />
             <Route path="/genomes/:id" component={GenomeView} />
@@ -97,6 +85,24 @@ const App = ({ username, bearerToken }) => {
       <Footer />
     </Fragment>
   );
+
+  let notSignedInRender = (
+    <Fragment>
+      <Login loginButtonClicked={() => authServiceInstance.SignIn()} />
+
+    </Fragment>
+  );
+
+  if (!user) {
+    return notSignedInRender;
+  }
+
+  if (user) {
+    console.log("Will render signedinUser");
+    console.log(user);
+
+    return signedInRender;
+  }
 };
 
 export default withRouter(observer(App));

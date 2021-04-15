@@ -76,6 +76,7 @@ export default class AdminStore {
         toast.success("New user added : " + user.displayName);
         console.log("FROM ADMIN STORE: User Added")
         console.log(resp);
+        
       });
 
     } catch (error) {
