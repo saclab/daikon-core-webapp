@@ -1,22 +1,93 @@
-.LandingLogin {
+.BackgroundLogin {
+  /* background: linear-gradient(120deg, #eee, #fff 100%); */
+  width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+}
+
+.LoginLanding {
   min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.LandingWrap {
-  
+.LoginWrap {
   position: relative;
-  background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
-  width: 610px;
-  height: 310px;
+  /* background: linear-gradient(to right, #30cfd0 0%, #330867 100%); */
+ 
+  /* background: #000000; */
+  width: 510px;
+  height: 610px;
 }
 
-.LandingLoginBox  {
+.LoginLoginBox {
   background: #ffffff;
   margin: 5px 5px 5px 5px;
   padding: 20px;
-  width: 600px;
-  height: 300px;
+  width: 500px;
+  height: 600px;
+}
+
+.LoginLoginBox h2 {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  font-size: xx-large;
+  text-align: center;
+  margin-bottom: 5vh;
+  background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.LoginBox Button {
+  float: right;
+}
+#loginButton .p-button {
+  background: linear-gradient(to right, #30CFD0 0%, #330867 100%) !important;
+  border: 0px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.LoginSplit {
+  height: 100%;
+  width: 40%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.LoginLeft {
+  width: 60%;
+  background-color: #ad9f86e1;
+  background-size: cover;
+  /* Background image for represenation only in proto type, to be replaced before production; copyrights not held */
+  background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/8b8c2994436609.5e83ca2f195bf.gif');
   
+
+}
+
+.LoginRight {
+  right: 0;
+  background-color: #ad9f86e1;
+  min-width: 610px;
+}
+
+.LoginCentered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.LoginCentered img {
+  width: 150px;
+}
+
+.LoginLeftH {
+  font-family: 'IBM Plex Sans', sans-serif;
+  padding-left: 5vh;
+  margin-bottom: 5vh;
 }

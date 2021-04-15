@@ -10,17 +10,10 @@ axios.defaults.baseURL = "http://localhost:5000/api";
 /*  MSAL SERVICE CREATION */
 const appSettings = new AppSettingsService();
 const AuthServiceInstance = new AuthService(appSettings);
-
 /*  END MSAL SERVICE CREATION */
 
-// let AuthenticatedApi = axios.create({
-//   baseURL: baseURL,
-//   // will inject auth header on-demand later as needed.
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
 
+/* INJECT BEARER TOKEN */
 axios.interceptors.request.use(
   async (config) => {
     let response = await AuthServiceInstance.GetToken();
@@ -31,31 +24,17 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+ /* END TOKEN */
+ 
 
+ /* Format response body */
 const responseBody = (response) => response.data;
 
-
+/* Temp function to simulate server network delay */
 const sleep = (ms) => (response) =>
   new Promise((resolve) => setTimeout(() => resolve(response), ms));
 
-// -?????????? change here
-// const requests = {
-//   get: (url) =>
-//     AuthServiceInstance.GetToken().then((response) => {
-//       console.log("Response Access Token");
-//       console.log(response.accessToken);
-//       AuthenticatedApi.get(url, {
-//         headers: {
-//           Authorization: "Bearer " + response.accessToken,
-//         },
-//       }).then(responseBody);
-//     }),
-//   post: (url, body) =>
-//     axios.post(url, body).then(sleep(2000)).then(responseBody),
-//   put: (url, body) => axios.put(url, body).then(sleep(2000)).then(responseBody),
-//   del: (url) => axios.delete(url).then(sleep(2000)).then(responseBody),
-// };
-
+/* TYPES OF REQUESTES SUPPORTED */
 const requests = {
   get: (url) => axios.get(url).then(sleep(2000)).then(responseBody),
   post: (url, body) =>
@@ -63,7 +42,9 @@ const requests = {
   put: (url, body) => axios.put(url, body).then(sleep(2000)).then(responseBody),
   del: (url) => axios.delete(url).then(sleep(2000)).then(responseBody),
 };
+/* END REQUEST TYPES */
 
+/* API ERROR HANDLING */
 axios.interceptors.response.use(undefined, (error) => {
   //console.log(error);
   if (!error.response) {
@@ -105,6 +86,8 @@ axios.interceptors.response.use(undefined, (error) => {
     }
   }
 });
+/* END ERROR HANDLING */
+
 
 /* APIS */
 const Genomes = {

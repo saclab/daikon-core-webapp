@@ -28,41 +28,25 @@ import Admin_Authorize from "../../scenes/Admin/UserManagement/Authorize/Admin_A
 import agent from "../api/agent";
 import NoAccess from "../../scenes/NoAccess/NoAccess";
 
-
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
 
   const rootStore = useContext(RootStoreContext);
-  const { setAppLoaded, appLoaded } = rootStore.commonStore;
   const { user, getUser, fetching, userNotFound } = rootStore.userStore;
   const [networkErr, setNetworkErr] = useState(false);
 
   useEffect(() => {
-
-    if (!networkErr && !user && !userNotFound) {
-      getUser()
-        .catch((e) => {
-          console.log("++++++++CAUGHT NETWORK ERROR");
-          setNetworkErr(true);
-        })
-        .finally(() => setAppLoaded());
+    if (authServiceInstance.account && !networkErr && !user && !userNotFound) {
+      console.log("UseEffect getUser()");
+      getUser().catch((e) => {
+        console.log("++++++++CAUGHT NETWORK ERROR");
+        setNetworkErr(true);
+      });
     }
-
-
-  }, [
-    getUser,
-    setAppLoaded,
-    networkErr,
-    user,
-    userNotFound
-  ]);
+  }, [getUser, networkErr, user, userNotFound, authServiceInstance.account]);
 
   if (networkErr) {
     return <NetworkError />;
-  }
-
-  if (!appLoaded) {
-    return <Loading />;
   }
 
   if (fetching) {
@@ -70,7 +54,7 @@ const App = () => {
   }
 
   if (userNotFound) {
-    return <NoAccess />
+    return <NoAccess />;
   }
 
   let signedInRender = (
@@ -102,24 +86,23 @@ const App = () => {
     </Fragment>
   );
 
-  let notSignedInRender = <Login 
-  loginButtonClicked={() => authServiceInstance.SignIn()}
-  />;
+  let notSignedInRender = (
+    <Fragment>
+      <Login loginButtonClicked={() => authServiceInstance.SignIn()} />
 
-  if(!user) {
+    </Fragment>
+  );
+
+  if (!user) {
     return notSignedInRender;
   }
 
   if (user) {
     console.log("Will render signedinUser");
     console.log(user);
-  
+
     return signedInRender;
-  }  
-
-
-
-  
+  }
 };
 
 export default withRouter(observer(App));

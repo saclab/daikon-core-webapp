@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./assets/_overrides.scss";
 import "primeflex/primeflex.css";
@@ -8,14 +8,9 @@ import "./index.css";
 import { Router } from "react-router-dom";
 import history from "./history";
 import reportWebVitals from "./reportWebVitals";
-
-import AuthService from "./services/AuthService";
-import AppSettingsService from "./services/AppSettingsService";
 import AuthFailure from "./app/layout/Errors/AuthFailure/AuthFailure";
 import agent from "./app/api/agent";
 
-// let appSettings = new AppSettingsService();
-// let AuthServiceInstance = new AuthService(appSettings);
 
 agent.AuthServiceInstance
   .HandlePageLoadEvent()
