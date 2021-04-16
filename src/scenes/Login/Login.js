@@ -33,7 +33,7 @@ const Login = ({ loginButtonClicked }) => {
       </div>
 
       <div className="LoginSplit LoginRight">
-        <div class="LoginCentered">
+        <div className="LoginCentered">
         <div className="LoginLanding">
         <div className="LoginWrap">
           <div className="LoginLoginBox" id="loginButton">

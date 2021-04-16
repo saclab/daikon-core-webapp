@@ -5,13 +5,14 @@ import AuthService from "../../services/AuthService";
 import AppSettingsService from "../../services/AppSettingsService";
 
 console.log("API SERVICE Initialized");
-axios.defaults.baseURL = "http://localhost:5000/api";
 
 /*  MSAL SERVICE CREATION */
 const appSettings = new AppSettingsService();
 const AuthServiceInstance = new AuthService(appSettings);
 /*  END MSAL SERVICE CREATION */
 
+/* API Service Settings */
+axios.defaults.baseURL = appSettings.GetWebApiBaseUri();
 
 /* INJECT BEARER TOKEN */
 axios.interceptors.request.use(
@@ -24,10 +25,9 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
- /* END TOKEN */
- 
+/* END TOKEN */
 
- /* Format response body */
+/* Format response body */
 const responseBody = (response) => response.data;
 
 /* Temp function to simulate server network delay */
@@ -87,7 +87,6 @@ axios.interceptors.response.use(undefined, (error) => {
   }
 });
 /* END ERROR HANDLING */
-
 
 /* APIS */
 const Genomes = {

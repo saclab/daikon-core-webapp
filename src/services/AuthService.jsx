@@ -66,6 +66,7 @@ class AuthService {
         }
     }
 
+
     GetMsalClientConfiguration() {
         return {
             auth: {
