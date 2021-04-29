@@ -89,9 +89,9 @@ axios.interceptors.response.use(undefined, (error) => {
 /* END ERROR HANDLING */
 
 /* APIS */
-const Genomes = {
-  list: () => requests.get("/genomes"),
-  view: (id) => requests.get(`/genomes/${id}`),
+const Gene = {
+  list: () => requests.get("/gene"),
+  view: (id) => requests.get(`/gene/${id}`),
 };
 
 const User = {
@@ -107,7 +107,7 @@ const Admin = {
 
 const exports = {
   AuthServiceInstance,
-  Genomes,
+  Gene,
   User,
   Admin,
 };

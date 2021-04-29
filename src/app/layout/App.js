@@ -11,9 +11,7 @@ import TitleBar from "./TitleBar/TitleBar";
 import MenuBar from "./MenuBar/MenuBar";
 import { Route, Switch, withRouter } from "react-router-dom";
 import Footer from "./Footer/Footer";
-import GenomeSearch from "../../scenes/Genome/GenomeSearch/GenomeSearch";
-import GenomePromote from "../../scenes/Genome/GenomePromote/GenomePromote";
-import GenomeView from "../../scenes/Genome/GenomeView/GenomeView";
+import GenomePromote from "../../scenes/Gene/GenomePromote/GenomePromote";
 import Home from "../../scenes/Home/Home";
 import cssClass from "./App.module.css";
 import NotFound from "./NotFound/NotFound";
@@ -27,6 +25,8 @@ import UserList from "../../scenes/Admin/UserManagement/UserList/UserList";
 import Admin_Authorize from "../../scenes/Admin/UserManagement/Authorize/Admin_Authorize";
 import agent from "../api/agent";
 import NoAccess from "../../scenes/NoAccess/NoAccess";
+import GeneSearch from "../../scenes/Gene/GeneSearch/GeneSearch";
+import GeneView from "../../scenes/Gene/GeneView/GeneView";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -75,9 +75,9 @@ const App = () => {
             />
             <Route exact path="/admin/user-management" component={UserList} />
 
-            <Route exact path="/genomes" component={GenomeSearch} />
-            <Route path="/genomes/:id/promote" component={GenomePromote} />
-            <Route path="/genomes/:id" component={GenomeView} />
+            <Route exact path="/gene" component={GeneSearch} />
+            <Route path="/gene/:id/promote" component={GenomePromote} />
+            <Route path="/gene/:id" component={GeneView} />
             <Route component={NotFound} />
           </Switch>
         </div>

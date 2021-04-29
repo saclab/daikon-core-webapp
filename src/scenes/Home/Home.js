@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "primereact/card";
+import { NavLink } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
@@ -23,16 +24,16 @@ const Home = () => {
           <div className="p-d-flex p-jc-center">
             <div className="p-mr-2">
               <Card
-                title="Genomes"
+                title="Genes"
                 subTitle="(4194)"
                 style={{ width: "14em" }}
                 header={header}
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
                   Shows a list of candidate genes.
-                  <a href="/genomes">
+                  <NavLink to="/gene/">
                     <i className="pi pi-arrow-right"></i>
-                  </a>
+                  </NavLink>
                 </p>
               </Card>
             </div>

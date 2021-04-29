@@ -3,22 +3,23 @@ import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
-import "./DataTableGenomes.css";
+import "./GeneDataTable.css";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 
 
-const GenomeSearch = () => {
+const GeneSearch = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {fetchGenomesList, displayLoading , genomes } = rootStore.genomeStore;
+  const {fetchGeneList, displayLoading , genes } = rootStore.geneStore;
 
   /* Local State Management */
 
   useEffect(() => {
-    fetchGenomesList();
-  }, [fetchGenomesList]); // eslint-disable-line react-hooks/exhaustive-deps
+    console.log("GeneSearch: fetchGeneList()");
+    fetchGeneList();
+  }, [fetchGeneList]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
   // const [globalFilter, setGlobalFilter] = useState(null);
@@ -38,7 +39,7 @@ const GenomeSearch = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Accession Number</span>
-        <NavLink to={"/genomes/" + rowData.id}>
+        <NavLink to={"/gene/" + rowData.id}>
           {rowData.accessionNumber}
         </NavLink>
       </React.Fragment>
@@ -105,7 +106,7 @@ const GenomeSearch = () => {
   /* Table Header  */
   const header = (
     <div className="table-header">
-      <span className="heading">TB Genomes</span>
+      <span className="heading">H37Rv Genes</span>
       {/* <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -124,20 +125,19 @@ const GenomeSearch = () => {
   }
 
   return (
-    <div className="datatable-genomes">
+    <div className="datatable-genes">
       <br />
       <div className="card">
         <DataTable
           ref={dt}
-          value={genomes}
+          value={genes}
           paginator
           rows={10}
           header={header}
-          className="p-datatable-genomes"
+          className="p-datatable-genes"
           //globalFilter={globalFilter}
-          emptyMessage="No genomes found."
-          resizableColumns
-          columnResizeMode="fit"
+          emptyMessage="No genes found."
+
         >
           <Column
             field="accessionNumber"
@@ -145,7 +145,8 @@ const GenomeSearch = () => {
             body={AccessionNumberBodyTemplate}
             filter
             filterMatchMode="contains"
-            filterPlaceholder="Search by Accession Number"
+            filterPlaceholder="Search by A.Number"
+            className="narrow-column"
           />
 
           <Column
@@ -155,6 +156,7 @@ const GenomeSearch = () => {
             filter
             filterMatchMode="contains"
             filterPlaceholder="Search by Gene Name"
+            className="narrow-column"
           />
 
           <Column
@@ -178,4 +180,4 @@ const GenomeSearch = () => {
   );
 };
 
-export default observer(GenomeSearch);
+export default observer(GeneSearch);
