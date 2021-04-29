@@ -5,14 +5,14 @@ import history from "../../../history";
 const MenuBar = () => {
   const items = [
     {
-      label: "Genome",
+      label: "Genes",
       icon: "pi pi-fw pi-eye",
-      command: () => history.push("/genomes")
+      command: () => history.push("/gene/")
     },
     {
       label: "Target",
       icon: "pi pi-fw pi-plus-circle",
-      command: () => history.push("/targets")
+      command: () => history.push("/targets/")
     },
     { label: "Screen", icon: "pi pi-fw pi-pencil" },
     { label: "FHA", icon: "pi pi-fw pi-file" },
@@ -25,9 +25,9 @@ const MenuBar = () => {
 
   const setSelectedItem = () => {
     switch (window.location.pathname) {
-      case "/genomes":
+      case "/gene/":
         return items[0];
-      case "/targets":
+      case "/targets/":
         return items[1];
       default:
         return "ww";

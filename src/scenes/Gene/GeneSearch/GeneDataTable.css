@@ -1,0 +1,98 @@
+.datatable-genes .p-paginator .p-paginator-current {
+  margin-left: auto;
+}
+
+.datatable-genes .p-progressbar {
+  height: .5rem;
+  background-color: #D8DADC;
+}
+
+.datatable-genes .p-progressbar .p-progressbar-value {
+  background-color: #607D8B;
+}
+
+.datatable-genes .table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.datatable-genes .table-header .heading {
+  background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.datatable-genes .p-datepicker {
+  min-width: 25rem;
+}
+
+.datatable-genes .p-datepicker td {
+  font-weight: 400;
+}
+
+.datatable-genes .p-datatable.p-datatable-genes .p-datatable-header {
+  padding: 1rem;
+  text-align: left;
+  font-size: 2.0rem;
+}
+
+.datatable-genes .p-datatable.p-datatable-genes .p-paginator {
+  padding: 1rem;
+}
+
+.datatable-genes .p-datatable.p-datatable-genes .p-datatable-thead > tr > th {
+  text-align: left;
+}
+
+.datatable-genes .p-datatable.p-datatable-genes .p-datatable-tbody > tr > td {
+  cursor: auto;
+}
+
+.datatable-genes .p-datatable.p-datatable-genes .p-dropdown-label:not(.p-placeholder) {
+  text-transform: uppercase;
+}
+
+.datatable-genes .p-datatable-genes .p-datatable-tbody > tr > td .p-column-title {
+  display: none;
+}
+
+
+
+.datatable-genes .narrow-column {
+  width: 200px !important;
+}
+.datatable-genes .p-inputtext {
+  font-size : 0.8rem;
+}
+
+@media screen and (max-width: 960px) {
+  .datatable-genes .p-datatable.p-datatable-genes .p-datatable-thead > tr > th,
+  .datatable-genes .p-datatable.p-datatable-genes .p-datatable-tfoot > tr > td {
+      display: none !important;
+  }
+
+  .datatable-genes .p-datatable.p-datatable-genes .p-datatable-tbody > tr {
+      border-bottom: 1px solid var(--layer-2);
+  }
+
+  .datatable-genes .p-datatable.p-datatable-genes .p-datatable-tbody > tr > td {
+      text-align: left;
+      display: block;
+      border: 0 none !important;
+      width: 100% !important;
+      float: left;
+      clear: left;
+      border: 0 none;
+  }
+
+  .datatable-genes .p-datatable.p-datatable-genes .p-datatable-tbody > tr > td .p-column-title {
+      padding: .4rem;
+      min-width: 30%;
+      display: inline-block;
+      margin: -.4rem 1rem -.4rem -.4rem;
+      font-weight: bold;
+  }
+
+  .datatable-genes .p-datatable.p-datatable-genes .p-datatable-tbody > tr > td .p-progressbar {
+      margin-top: .5rem;
+  }
+}

@@ -1,7 +1,7 @@
 import { configure } from "mobx";
 import { createContext } from "react";
 import AdminStore from "./adminStore";
-import GenomeStore from "./genomeStore";
+import GeneStore from "./geneStore";
 import MsStore from "./msStore";
 import UserStore from "./userStore";
 
@@ -9,7 +9,7 @@ configure({ enforceActions: "always" });
 
 
 export class RootStore {
-  genomeStore;
+  geneStore;
   userStore;
   commonStore;
   adminStore;
@@ -17,7 +17,7 @@ export class RootStore {
 
   constructor() {
     this.msStore = new MsStore(this);
-    this.genomeStore = new GenomeStore(this);
+    this.geneStore = new GeneStore(this);
     this.userStore = new UserStore(this);
     this.adminStore = new AdminStore(this);
   }
