@@ -36,11 +36,11 @@ const sleep = (ms) => (response) =>
 
 /* TYPES OF REQUESTES SUPPORTED */
 const requests = {
-  get: (url) => axios.get(url).then(sleep(2000)).then(responseBody),
+  get: (url) => axios.get(url).then(sleep(500)).then(responseBody),
   post: (url, body) =>
-    axios.post(url, body).then(sleep(2000)).then(responseBody),
-  put: (url, body) => axios.put(url, body).then(sleep(2000)).then(responseBody),
-  del: (url) => axios.delete(url).then(sleep(2000)).then(responseBody),
+    axios.post(url, body).then(sleep(500)).then(responseBody),
+  put: (url, body) => axios.put(url, body).then(sleep(500)).then(responseBody),
+  del: (url) => axios.delete(url).then(sleep(500)).then(responseBody),
 };
 /* END REQUEST TYPES */
 

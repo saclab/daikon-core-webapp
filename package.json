@@ -20,6 +20,7 @@
     "react-dom": "^17.0.1",
     "react-final-form": "^6.5.2",
     "react-icons": "^4.1.0",
+    "react-lodash": "^0.1.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",

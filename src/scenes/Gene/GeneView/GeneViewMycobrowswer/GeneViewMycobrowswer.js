@@ -20,15 +20,19 @@ const GeneViewMycobrowswer = ({ data }) => {
               <Fieldset legend="General annotation">
                 <KeyValList
                   data={data}
-                  display={["type", "comments", "proteomics", "mutant"]}
+                  filter={["type", "comments", "proteomics", "mutant"]}
                 />
               </Fieldset>
             </div>
             <div className="p-mb-2">
-              <Fieldset legend="Coordinates">
+              <Fieldset legend="Protein summary">
                 <KeyValList
                   data={data}
-                  display={["start", "end", "orientation"]}
+                  filter={[
+                    "molecularMass",
+                    "isoelectricPoint",
+                    "proteinLength",
+                  ]}
                 />
               </Fieldset>
             </div>
@@ -37,27 +41,24 @@ const GeneViewMycobrowswer = ({ data }) => {
         <div className="p-mr-2">
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
-              <Fieldset legend="Gene summary">
-                <KeyValList data={data} display={["geneLength", "location"]} />
+              <Fieldset legend="Coordinates">
+                <KeyValList
+                  data={data}
+                  filter={["start", "end", "orientation"]}
+                />
               </Fieldset>
             </div>
             <div className="p-mb-2">
-              <Fieldset legend="Protein summary">
-                <KeyValList
-                  data={data}
-                  display={[
-                    "molecularMass",
-                    "isoelectricPoint",
-                    "proteinLength",
-                  ]}
-                />
+              <Fieldset legend="Gene summary">
+                <KeyValList data={data} filter={["geneLength", "location"]} />
               </Fieldset>
             </div>
             <div className="p-mb-2">
               <Fieldset legend="Orthologues">
                 <KeyValList
                   data={data}
-                  display={["m_Leprae", "m_Marinum", "m_Smegmatis"]}
+                  filter={["m_Leprae", "m_Marinum", "m_Smegmatis"]}
+                  link={{"m_Leprae" : "https://mycobrowser.epfl.ch/genes/"}}
                 />
               </Fieldset>
             </div>
