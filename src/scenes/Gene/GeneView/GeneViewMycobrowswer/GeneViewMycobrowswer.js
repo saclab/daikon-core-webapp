@@ -4,12 +4,10 @@ import { Fieldset } from "primereact/fieldset";
 import { ProgressSpinner } from "primereact/progressspinner";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
+import GeneViewMycoBrowswerProteindataBank from "./GeneViewMycobrowswerProteinDataBank/GeneViewMycoBrowswerProteindataBank";
 
 const GeneViewMycobrowswer = ({ data }) => {
   console.log("From Gene View");
-  console.log(data);
-
-  // return <h1>Break</h1>;
 
   return (
     <div>
@@ -34,6 +32,11 @@ const GeneViewMycobrowswer = ({ data }) => {
                     "proteinLength",
                   ]}
                 />
+              </Fieldset>
+            </div>
+            <div className="p-mb-2">
+              <Fieldset legend="Protein Databank">
+                <GeneViewMycoBrowswerProteindataBank />
               </Fieldset>
             </div>
           </div>

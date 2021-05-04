@@ -1,6 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { ContextMenu } from "primereact/contextmenu";
 import { StartCase } from "react-lodash";
+import { Dialog } from "primereact/dialog";
+import { Button } from "primereact/button";
+import { InputTextarea } from "primereact/inputtextarea";
+import { Toast } from "primereact/toast";
+import { Sidebar } from "primereact/sidebar";
+
 import "./KeyValueList.css";
 
 const KeyValList = ({ data, filter, link }) => {
@@ -8,13 +14,17 @@ const KeyValList = ({ data, filter, link }) => {
   // console.log(data);
 
   const cm = useRef(null);
-  let selectedId = null;
+  const toast = useRef(null);
+
+  const [selectedId, setSelectedId] = useState(null);
+  const [displayEditContainer, setDisplayEditContainer] = useState(false);
+  const [displayHistorySideBar, setDisplayHistorySideBar] = useState(false);
 
   const items = [
     {
       label: "Fetch History",
       icon: "pi pi-backward",
-      command: () => extractFetchHistoryId()
+      command: () => extractFetchHistoryId(),
     },
     {
       separator: true,
@@ -22,13 +32,20 @@ const KeyValList = ({ data, filter, link }) => {
     {
       label: "Edit",
       icon: "pi pi-tablet",
+      command: () => editField(),
     },
     {
       label: "Copy",
       icon: "pi pi-copy",
-      command: () => copyText()
+      command: () => copyText(),
     },
   ];
+
+  const openContextMenu = (e) => {
+    console.log(e);
+    setSelectedId(e.target.id);
+    cm.current.show(e);
+  };
 
   const res = Object.keys(data).map((key, value) => {
     let finalValue = data[key];
@@ -52,7 +69,9 @@ const KeyValList = ({ data, filter, link }) => {
           </td>
 
           <td>
-            <div id={key}>{finalValue}</div>
+            <div id={key} onContextMenu={(e) => openContextMenu(e)}>
+              {finalValue}
+            </div>
           </td>
         </tr>
       );
@@ -74,23 +93,74 @@ const KeyValList = ({ data, filter, link }) => {
     document.execCommand("copy");
   };
 
-
   const extractFetchHistoryId = () => {
+    // toast.current.show({
+    //   severity: "error",
+    //   summary: "Read Only",
+    //   detail: "The property is marked read only.",
+    // });
+
+    setDisplayHistorySideBar(true);
     console.log(selectedId);
-  }
+    console.log(displayHistorySideBar);
+  };
+
+  const editField = () => {
+    setDisplayEditContainer(true);
+    console.log(selectedId);
+  };
+
+  const renderFooter = () => {
+    return (
+      <div>
+        <h3>Save changes to database?</h3>
+        <Button
+          label="Cancel"
+          icon="pi pi-times"
+          onClick={() => console.log("Cancel")}
+          className="p-button-text"
+          autoFocus
+        />
+        <Button
+          label="Save"
+          icon="pi pi-check"
+          onClick={() => console.log("Save")}
+        />
+      </div>
+    );
+  };
 
   return (
     <React.Fragment>
-      <ContextMenu model={items} ref={cm}></ContextMenu>
-      <table
-        className="KeyValueListTable"
-        onContextMenu={(e) => {
-          console.log(e);
-          selectedId = e.target.id;
-          cm.current.show(e);
-        }}
-        aria-haspopup
+      <Toast ref={toast} />
+      <Sidebar
+        visible={displayHistorySideBar}
+        position="right"
+        style={{width:'50%'}}
+        onHide={() => setDisplayHistorySideBar(false)}
       >
+        <h1>Edit History</h1>
+        <h2>
+          <StartCase string={selectedId} />
+        </h2>
+      </Sidebar>
+
+      <Dialog
+        header={"Editing Database"}
+        visible={displayEditContainer}
+        style={{ width: "50vw" }}
+        onHide={() => setDisplayEditContainer(false)}
+        footer={renderFooter()}
+        draggable={true}
+      >
+        <h2>
+          <StartCase string={selectedId} />
+        </h2>
+        <InputTextarea rows={15} cols={60} value={data[selectedId]} autoFocus />
+      </Dialog>
+
+      <ContextMenu model={items} ref={cm}></ContextMenu>
+      <table className="KeyValueListTable">
         <tbody>{res}</tbody>
       </table>
     </React.Fragment>

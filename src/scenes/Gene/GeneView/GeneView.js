@@ -20,13 +20,10 @@ const GeneView = ({ match, history }) => {
   const rootStore = useContext(RootStoreContext);
   const { fetchGene, gene, displayLoading } = rootStore.geneStore;
 
-  
-
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
-    if (gene === null || gene.id !== match.params.id) 
-    {
+    if (gene === null || gene.id !== match.params.id) {
       fetchGene(match.params.id);
     }
   }, [match.params.id, gene, fetchGene]);
@@ -106,56 +103,57 @@ const GeneView = ({ match, history }) => {
     });
   };
 
-    /** Loading Overlay */
-    if (displayLoading) {
-      console.log("Loading.....");
-      return <Loading />;
-    }
-    if(gene!== null) {
-      console.log("Gene ID");
-      console.log(gene.id);
-      return (
-        <React.Fragment>
-          <Toast ref={toast} />
-          <br />
-          <div className="p-d-flex">
-            <div className="p-mr-2">
-              <Menu model={items} />
-            </div>
-            <div className="p-mr-2">
-              <div className="p-d-flex p-flex-column">
-                <div className="p-mb-2">
-                  <BreadCrumb model={breadCrumbItems} />
-                </div>
-                <div className="p-mb-2">
-                  <h2 className="heading">Rv1297</h2>
-                </div>
-                <div className="p-mb-2">
-                  <TabView
-                    activeIndex={activeIndex}
-                    onTabChange={(e) => setActiveIndex(e.index)}
-                  >
-                    <TabPanel header="Header I" headerClassName="hide">
-                      <GeneViewMycobrowswer id={match.params.id} data={gene.genePublicData}/>
-                    </TabPanel>
-                    <TabPanel header="Header II" headerClassName="hide">
-                      <GenomeViewNonPublicData />
-                    </TabPanel>
-                    <TabPanel header="Header III" headerClassName="hide">
-                      <GenomeViewBackgroundInformation />
-                    </TabPanel>
-                  </TabView>
-                </div>
+  /** Loading Overlay */
+  if (displayLoading) {
+    console.log("Loading.....");
+    return <Loading />;
+  }
+  if (gene !== null) {
+    console.log("Gene ID");
+    console.log(gene.id);
+    return (
+      <React.Fragment>
+        <Toast ref={toast} />
+        <br />
+        <div className="p-d-flex">
+          <div className="p-mr-2">
+            <Menu model={items} />
+          </div>
+          <div className="p-mr-2">
+            <div className="p-d-flex p-flex-column">
+              <div className="p-mb-2">
+                <BreadCrumb model={breadCrumbItems} />
+              </div>
+              <div className="p-mb-2">
+                <h2 className="heading">Rv1297</h2>
+              </div>
+              <div className="p-mb-2">
+                <TabView
+                  activeIndex={activeIndex}
+                  onTabChange={(e) => setActiveIndex(e.index)}
+                >
+                  <TabPanel header="Header I" headerClassName="hide">
+                    <GeneViewMycobrowswer
+                      id={match.params.id}
+                      data={gene.genePublicData}
+                    />
+                  </TabPanel>
+                  <TabPanel header="Header II" headerClassName="hide">
+                    <GenomeViewNonPublicData />
+                  </TabPanel>
+                  <TabPanel header="Header III" headerClassName="hide">
+                    <GenomeViewBackgroundInformation />
+                  </TabPanel>
+                </TabView>
               </div>
             </div>
           </div>
-        </React.Fragment>
-      );
-    }
+        </div>
+      </React.Fragment>
+    );
+  }
 
-    return <NotFound />;
-
-
+  return <NotFound />;
 };
 
 export default observer(GeneView);
