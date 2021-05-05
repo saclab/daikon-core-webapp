@@ -75,7 +75,7 @@ axiosUniprotInstance.interceptors.response.use(undefined, (error) => {
 
 /* APIS */
 const Pdb = {
-  crossReference: (id) => requests.get(`?query=rv3800&format=xml`),
+  crossReference: (accessionNumber) => requests.get(`?query=${accessionNumber}&format=xml`),
 };
 
 

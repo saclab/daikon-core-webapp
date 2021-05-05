@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
 import { Fieldset } from "primereact/fieldset";
-
-import { ProgressSpinner } from "primereact/progressspinner";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
 import GeneViewMycoBrowswerProteindataBank from "./GeneViewMycobrowswerProteinDataBank/GeneViewMycoBrowswerProteindataBank";
 
-const GeneViewMycobrowswer = ({ data }) => {
+const GeneViewMycobrowswer = ({ gene }) => {
   console.log("From Gene View");
 
   return (
@@ -17,7 +13,7 @@ const GeneViewMycobrowswer = ({ data }) => {
             <div className="p-mb-2">
               <Fieldset legend="General annotation">
                 <KeyValList
-                  data={data}
+                  data={gene.genePublicData}
                   filter={["type", "comments", "proteomics", "mutant"]}
                 />
               </Fieldset>
@@ -25,7 +21,7 @@ const GeneViewMycobrowswer = ({ data }) => {
             <div className="p-mb-2">
               <Fieldset legend="Protein summary">
                 <KeyValList
-                  data={data}
+                  data={gene.genePublicData}
                   filter={[
                     "molecularMass",
                     "isoelectricPoint",
@@ -36,7 +32,9 @@ const GeneViewMycobrowswer = ({ data }) => {
             </div>
             <div className="p-mb-2">
               <Fieldset legend="Protein Databank">
-                <GeneViewMycoBrowswerProteindataBank />
+                <GeneViewMycoBrowswerProteindataBank
+                  accessionNumber={gene.accessionNumber}
+                />
               </Fieldset>
             </div>
           </div>
@@ -46,22 +44,25 @@ const GeneViewMycobrowswer = ({ data }) => {
             <div className="p-mb-2">
               <Fieldset legend="Coordinates">
                 <KeyValList
-                  data={data}
+                  data={gene.genePublicData}
                   filter={["start", "end", "orientation"]}
                 />
               </Fieldset>
             </div>
             <div className="p-mb-2">
               <Fieldset legend="Gene summary">
-                <KeyValList data={data} filter={["geneLength", "location"]} />
+                <KeyValList
+                  data={gene.genePublicData}
+                  filter={["geneLength", "location"]}
+                />
               </Fieldset>
             </div>
             <div className="p-mb-2">
               <Fieldset legend="Orthologues">
                 <KeyValList
-                  data={data}
+                  data={gene.genePublicData}
                   filter={["m_Leprae", "m_Marinum", "m_Smegmatis"]}
-                  link={{"m_Leprae" : "https://mycobrowser.epfl.ch/genes/"}}
+                  link={{ m_Leprae: "https://mycobrowser.epfl.ch/genes/" }}
                 />
               </Fieldset>
             </div>

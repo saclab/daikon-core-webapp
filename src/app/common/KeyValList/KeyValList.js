@@ -139,7 +139,7 @@ const KeyValList = ({ data, filter, link }) => {
         style={{width:'50%'}}
         onHide={() => setDisplayHistorySideBar(false)}
       >
-        <h1>Edit History</h1>
+        <h1>History</h1>
         <h2>
           <StartCase string={selectedId} />
         </h2>

@@ -28,15 +28,7 @@ const GeneView = ({ match, history }) => {
     }
   }, [match.params.id, gene, fetchGene]);
 
-  const breadCrumbItems = [
-    {
-      label: "Genes",
-      command: () => {
-        history.push("/gene/");
-      },
-    },
-    { label: "Rv1297" },
-  ];
+  
 
   const items = [
     {
@@ -111,6 +103,16 @@ const GeneView = ({ match, history }) => {
   if (gene !== null) {
     console.log("Gene ID");
     console.log(gene.id);
+    const breadCrumbItems = [
+      {
+        label: "Genes",
+        command: () => {
+          history.push("/gene/");
+        },
+      },
+      { label: gene.accessionNumber },
+    ];
+    
     return (
       <React.Fragment>
         <Toast ref={toast} />
@@ -125,7 +127,7 @@ const GeneView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-                <h2 className="heading">Rv1297</h2>
+                <h2 className="heading">{gene.accessionNumber}</h2>
               </div>
               <div className="p-mb-2">
                 <TabView
@@ -135,7 +137,7 @@ const GeneView = ({ match, history }) => {
                   <TabPanel header="Header I" headerClassName="hide">
                     <GeneViewMycobrowswer
                       id={match.params.id}
-                      data={gene.genePublicData}
+                      gene={gene}
                     />
                   </TabPanel>
                   <TabPanel header="Header II" headerClassName="hide">
