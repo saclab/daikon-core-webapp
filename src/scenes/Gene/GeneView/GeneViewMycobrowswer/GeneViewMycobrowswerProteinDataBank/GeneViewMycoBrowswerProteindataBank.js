@@ -41,6 +41,7 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
             </a>
           </td>
           <td>{obj.method}</td>
+          <td>{obj.resolution}</td>
           <td>
             <a
               href={
@@ -68,6 +69,7 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
             <tr key="head">
               <th>Crystal</th>
               <th>Method</th>
+              <th>Resolution</th>
               <th>Chains</th>
             </tr>
           </thead>
