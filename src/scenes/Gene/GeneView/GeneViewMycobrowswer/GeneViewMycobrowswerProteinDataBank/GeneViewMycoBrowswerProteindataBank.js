@@ -84,6 +84,7 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
               label="Open"
               icon="pi pi-check"
               onClick={() => openMolView(obj.id)}
+              className="p-button-sm"
             />
           </td>
         </tr>
