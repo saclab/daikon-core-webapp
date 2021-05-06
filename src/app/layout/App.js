@@ -27,6 +27,7 @@ import agent from "../api/agent";
 import NoAccess from "../../scenes/NoAccess/NoAccess";
 import GeneSearch from "../../scenes/Gene/GeneSearch/GeneSearch";
 import GeneView from "../../scenes/Gene/GeneView/GeneView";
+import LiteMolView from "../common/LiteMolView/LiteMolView";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -78,6 +79,7 @@ const App = () => {
             <Route exact path="/gene" component={GeneSearch} />
             <Route path="/gene/:id/promote" component={GenomePromote} />
             <Route path="/gene/:id" component={GeneView} />
+            <Route path="/molview/" component={LiteMolView} />
             <Route component={NotFound} />
           </Switch>
         </div>
