@@ -37,7 +37,7 @@ const sleep = (ms) => (response) =>
 
 /* TYPES OF REQUESTES SUPPORTED */
 const requests = {
-  get: (url) => axiosServerInstance.get(url).then(sleep(500)).then(responseBody),
+  get: (url) => axiosServerInstance.get(url).then(sleep(5000)).then(responseBody),
   post: (url, body) =>
     axiosServerInstance.post(url, body).then(sleep(500)).then(responseBody),
   put: (url, body) => axiosServerInstance.put(url, body).then(sleep(500)).then(responseBody),
@@ -93,6 +93,8 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
 const Gene = {
   list: () => requests.get("/gene"),
   view: (id) => requests.get(`/gene/${id}`),
+  edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
+  history : (id) => requests.get(`/gene/${id}/history`),
 };
 
 const User = {

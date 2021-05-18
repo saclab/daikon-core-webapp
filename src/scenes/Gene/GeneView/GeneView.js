@@ -18,13 +18,14 @@ const GeneView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { fetchGene, gene, displayLoading } = rootStore.geneStore;
+  const { fetchGene, gene, displayLoading, editGene, cancelEditGene, fetchGeneHistory, historyDisplayLoading, geneHistory } = rootStore.geneStore;
 
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
     if (gene === null || gene.id !== match.params.id) {
       fetchGene(match.params.id);
+      
     }
   }, [match.params.id, gene, fetchGene]);
 
@@ -36,21 +37,22 @@ const GeneView = ({ match, history }) => {
       items: [
         {
           label: "Mycobrowser Information",
-          icon: "pi pi-refresh",
+          icon: "ri-book-open-line",
           command: () => {
             setActiveIndex(0);
           },
         },
+        
         {
-          label: "Non-Public Data",
-          icon: "pi pi-times",
+          label: "Background Information",
+          icon: "ri-artboard-fill",
           command: () => {
             setActiveIndex(1);
           },
         },
         {
-          label: "Background Information",
-          icon: "pi pi-times",
+          label: "Non-Public Data",
+          icon: "ri-git-repository-private-fill",
           command: () => {
             setActiveIndex(2);
           },
@@ -138,6 +140,11 @@ const GeneView = ({ match, history }) => {
                     <GeneViewMycobrowswer
                       id={match.params.id}
                       gene={gene}
+                      edit = {() => editGene()}
+                      cancelEdit={() => cancelEditGene()}
+                      fetchGeneHistory={() => fetchGeneHistory()}
+                      historyDisplayLoading={historyDisplayLoading}
+                      geneHistory={geneHistory}
                     />
                   </TabPanel>
                   <TabPanel header="Header II" headerClassName="hide">

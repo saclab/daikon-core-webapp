@@ -2,9 +2,10 @@ import { Fieldset } from "primereact/fieldset";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import GeneViewMycoBrowswerProteindataBank from "./GeneViewMycobrowswerProteinDataBank/GeneViewMycoBrowswerProteindataBank";
 
-const GeneViewMycobrowswer = ({ gene }) => {
+const GeneViewMycobrowswer = ({ gene, edit, cancelEdit, fetchGeneHistory, historyDisplayLoading, geneHistory }) => {
   console.log("From Gene View");
 
+  
   return (
     <div>
       <div className="p-d-flex">
@@ -15,6 +16,11 @@ const GeneViewMycobrowswer = ({ gene }) => {
                 <KeyValList
                   data={gene.genePublicData}
                   filter={["type", "comments", "proteomics", "mutant"]}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
+                  fetchHistory={() => fetchGeneHistory()}
+                  historyDisplayLoading={historyDisplayLoading}
+                  history={geneHistory}
                 />
               </Fieldset>
             </div>
@@ -27,6 +33,8 @@ const GeneViewMycobrowswer = ({ gene }) => {
                     "isoelectricPoint",
                     "proteinLength",
                   ]}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
                 />
               </Fieldset>
             </div>
@@ -46,6 +54,8 @@ const GeneViewMycobrowswer = ({ gene }) => {
                 <KeyValList
                   data={gene.genePublicData}
                   filter={["start", "end", "orientation"]}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
                 />
               </Fieldset>
             </div>
@@ -54,6 +64,8 @@ const GeneViewMycobrowswer = ({ gene }) => {
                 <KeyValList
                   data={gene.genePublicData}
                   filter={["geneLength", "location"]}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
                 />
               </Fieldset>
             </div>
@@ -63,6 +75,8 @@ const GeneViewMycobrowswer = ({ gene }) => {
                   data={gene.genePublicData}
                   filter={["m_Leprae", "m_Marinum", "m_Smegmatis"]}
                   link={{ m_Leprae: "https://mycobrowser.epfl.ch/genes/" }}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
                 />
               </Fieldset>
             </div>

@@ -7,6 +7,7 @@ import "primereact/resources/primereact.min.css";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import "../../assets/_overrides.scss";
+import 'remixicon/fonts/remixicon.css'
 import TitleBar from "./TitleBar/TitleBar";
 import MenuBar from "./MenuBar/MenuBar";
 import { Route, Switch, withRouter } from "react-router-dom";

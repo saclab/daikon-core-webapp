@@ -13,9 +13,13 @@ export default class GeneStore {
 
   displayLoading = false;
   uniprotDisplayLoading = false;
+  historyDisplayLoading = false;
+
   geneRegistry = new Map();
   geneRegistryExpanded = new Map();
+  geneHistoryRegistry = new Map();
   selectedGene = null;
+  selectedGeneHistory = null;
 
   pdbCrossReferenceRegistry = new Map();
   selectedPdbCrossReference = null;
@@ -25,6 +29,7 @@ export default class GeneStore {
     makeObservable(this, {
       displayLoading: observable,
       uniprotDisplayLoading: observable,
+      historyDisplayLoading: observable,
 
       genes: computed,
       fetchGeneList: action,
@@ -34,9 +39,16 @@ export default class GeneStore {
       fetchGene: action,
       selectedGene: observable,
 
+      fetchGeneHistory: action,
+      selectedGeneHistory: observable,
+      geneHistory: computed,
+
       pdbCrossReference: computed,
       fetchPdbCrossReference: action,
       selectedPdbCrossReference: observable,
+
+      editGene: action,
+      cancelEditGene: action,
     });
   }
 
@@ -107,15 +119,59 @@ export default class GeneStore {
     return this.selectedGene;
   }
 
+  /* Gene History */
+
+  fetchGeneHistory = async () => {
+    console.log("geneStore: fetchGeneHistory Start");
+     this.historyDisplayLoading = true;
+    let id = this.selectedGene.id;
+
+    // first check cache
+    let fetchedGeneHistory = this.geneHistoryRegistry.get(id);
+    console.log("CACHE");
+    console.log(fetchedGeneHistory);
+    if (fetchedGeneHistory) {
+      console.log("geneStore: fetchedGeneHistory found in cache");
+      this.historyDisplayLoading = false;
+      this.selectedGeneHistory = fetchedGeneHistory;
+    }
+    // if not found fetch from api
+    else {
+      try {
+        fetchedGeneHistory = await agent.Gene.history(id);
+        runInAction(() => {
+          console.log("geneStore: fetchGeneHistory fetched from api");
+          console.log(fetchedGeneHistory);
+
+          this.geneHistoryRegistry.set(id, fetchedGeneHistory);
+          this.selectedGeneHistory = fetchedGeneHistory;
+         
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        runInAction(() => {
+          this.historyDisplayLoading = false;
+          console.log("geneStore: fetchGeneHistory Complete");
+        });
+      }
+    }
+  };
+
+  get geneHistory() {
+    return this.selectedGeneHistory;
+  }
+
+  /* End Gene History */
+
   /* Fetch PDB cross reference with id from API */
 
   fetchPdbCrossReference = async (accessionNumber) => {
     console.log("geneStore: fetchPdbCrossReference Start");
     this.uniprotDisplayLoading = true;
 
-    let fetchedPdbCrossReference = this.pdbCrossReferenceRegistry.get(
-      accessionNumber
-    );
+    let fetchedPdbCrossReference =
+      this.pdbCrossReferenceRegistry.get(accessionNumber);
     // check cache
     if (fetchedPdbCrossReference) {
       console.log("geneStore: fetchPdbCrossReference Cache hit");
@@ -221,4 +277,34 @@ export default class GeneStore {
   get pdbCrossReference() {
     return this.selectedPdbCrossReference;
   }
+
+  editGene = async () => {
+    console.log("geneStore: editGene Start");
+    this.displayLoading = true;
+    let updatedGene = null;
+    console.log(this.selectedGene);
+    // send to server
+    try {
+      updatedGene = await agent.Gene.edit(this.selectedGene);
+      runInAction(() => {
+        console.log("geneStore: fetchGene fetched from api");
+        console.log(this.selectedGene);
+        this.selectedGene = updatedGene;
+        this.geneRegistryExpanded.set(updatedGene.id, updatedGene);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.geneHistoryRegistry.delete(updatedGene.id);
+        this.displayLoading = false;
+        console.log("geneStore: edit Complete");
+      });
+    }
+  };
+
+  cancelEditGene = () => {
+    console.log("geneStore: cancelEditGene");
+    this.selectedGene = this.geneRegistryExpanded.get(this.selectedGene.id);
+  };
 }
