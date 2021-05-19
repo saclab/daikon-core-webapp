@@ -10,6 +10,8 @@ import { Sidebar } from "primereact/sidebar";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Timeline } from "primereact/timeline";
 import { Skeleton } from "primereact/skeleton";
+import { Chip } from "primereact/chip";
+
 import "./KeyValueList.css";
 import { observer } from "mobx-react-lite";
 import { runInAction } from "mobx";
@@ -36,98 +38,150 @@ const KeyValList = ({
   const [displayEditContainer, setDisplayEditContainer] = useState(false);
   const [displayHistorySideBar, setDisplayHistorySideBar] = useState(false);
 
-  const items = [
-    {
+  /* Begin construction context menu */
+  const contextMenuItems = [];
+
+  if (_.isFunction(fetchHistory)) {
+    contextMenuItems.push({
       label: "Fetch History",
       icon: "pi pi-backward",
-      command: () => extractFetchHistoryId(),
-    },
-    {
+      command: () => contextMenuFetchHistoryCommand(),
+    });
+    contextMenuItems.push({
       separator: true,
-    },
-    {
+    });
+  }
+
+  if (_.isFunction(fetchHistory)) {
+    contextMenuItems.push({
       label: "Highlight Recent Changes",
       icon: "ri-mark-pen-line",
-      command: () => extractFetchHistoryId(),
-    },
-    {
+      command: () => contextMenuFetchHistoryCommand(),
+    });
+    contextMenuItems.push({
       label: "Highlight All Changes",
       icon: "ri-mark-pen-fill",
-      command: () => extractFetchHistoryId(),
-    },
-    {
+      command: () => contextMenuFetchHistoryCommand(),
+    });
+    contextMenuItems.push({
       label: "Clear Highlights",
       icon: "ri-eraser-line",
-      command: () => extractFetchHistoryId(),
-    },
-    {
+      command: () => contextMenuFetchHistoryCommand(),
+    });
+    contextMenuItems.push({
       separator: true,
-    },
-    {
+    });
+  }
+
+  if (_.isFunction(editFunc)) {
+    contextMenuItems.push({
       label: "Edit",
       icon: "pi pi-tablet",
-      command: () => editField(),
-    },
-    {
-      label: "Copy",
-      icon: "pi pi-copy",
-      command: () => copyText(),
-    },
-  ];
+      command: () => contextMenuEditCommand(),
+    });
+    contextMenuItems.push({
+      separator: true,
+    });
+  }
+
+  contextMenuItems.push({
+    label: "Copy",
+    icon: "pi pi-copy",
+    command: () => contextMenuCopyCommand(),
+  });
+
+  /* End construction context menu */
 
   const openContextMenu = (e) => {
-    console.log(e);
+    //console.log(e);
     setSelectedId(e.target.id);
     cm.current.show(e);
   };
 
-  const res = Object.keys(data).map((key, value) => {
-    let finalValue = data[key];
-    if (typeof link !== "undefined") {
-      if (key in link) {
-        finalValue = <a href={link[key] + data[key]}>{data[key]}</a>;
+  const keyValueTableBody = data ? (
+    Object.keys(data).map((key, value) => {
+      let finalValue = data[key];
+      if (typeof link !== "undefined") {
+        if (key in link) {
+          finalValue = <React.Fragment>
+            {data[key]}
+            <a href={link[key] + data[key]} target="_blank" rel="noreferrer"> [<i className="ri-link"></i>]</a>;
+          </React.Fragment> 
+        }
       }
+
+      if (typeof filter === "undefined") {
+        filter = Object.keys(data);
+      }
+
+      if (filter.includes(key)) {
+        return (
+          <tr key={key}>
+            <td>
+              <b>
+                <StartCase string={key} />
+              </b>
+            </td>
+
+            <td>
+              <div id={key} onContextMenu={(e) => openContextMenu(e)}>
+                {finalValue}
+              </div>
+            </td>
+          </tr>
+        );
+      }
+      return null;
+    })
+  ) : (
+    <h3>No Entries</h3>
+  );
+
+  const contextMenuCopyCommand = () => {
+    // Check if selection is empty, then copy whole block
+    // else copy default browser selection
+    if (
+      document
+        .getSelection()
+        .anchorNode.data.slice(
+          document.getSelection().anchorOffset,
+          document.getSelection().focusOffset
+        ) === ""
+    ) {
+      var range = document.createRange();
+      try {
+      range.selectNode(document.getElementById(selectedId));
+      window.getSelection().removeAllRanges(); // clear current selection
+      window.getSelection().addRange(range); // to select text
+      document.execCommand("copy");
+      window.getSelection().removeAllRanges(); // to deselect
+      toast.current.show({
+        severity: "success",
+        summary: "Copied to clipboard", 
+        life: 3000,
+      });
+      }
+      catch {
+        console.log("cannot copy object");
+        toast.current.show({
+          severity: "error",
+          summary: "Cannot copy objects without underlying text.", 
+          life: 3000,
+        });
+      }
+    } else {
+      document.execCommand("copy");
+      toast.current.show({
+        severity: "success",
+        summary: "Copied to clipboard", 
+        life: 3000,
+      });
     }
 
-    if (typeof filter === "undefined") {
-      filter = Object.keys(data);
-    }
-
-    if (filter.includes(key)) {
-      return (
-        <tr key={key}>
-          <td>
-            <b>
-              <StartCase string={key} />
-            </b>
-          </td>
-
-          <td>
-            <div id={key} onContextMenu={(e) => openContextMenu(e)}>
-              {finalValue}
-            </div>
-          </td>
-        </tr>
-      );
-    }
-    return null;
-  });
-
-  const copyText = () => {
-    // console.log(document.getSelection());
-    // console.log(document.getSelection().anchorNode.data);
-    // console.log(
-    //   document
-    //     .getSelection()
-    //     .anchorNode.data.slice(
-    //       document.getSelection().anchorOffset,
-    //       document.getSelection().focusOffset
-    //     )
-    // );
-    document.execCommand("copy");
+    
   };
 
-  const extractFetchHistoryId = () => {
+  const contextMenuFetchHistoryCommand = () => {
     // toast.current.show({
     //   severity: "error",
     //   summary: "Read Only",
@@ -139,12 +193,12 @@ const KeyValList = ({
     setDisplayHistorySideBar(true);
   };
 
-  const editField = () => {
+  const contextMenuEditCommand = () => {
     setDisplayEditContainer(true);
     console.log(selectedId);
   };
 
-  const renderFooter = () => {
+  const renderFooterOfEditDialog = () => {
     return (
       <div>
         <h3>Save changes to database?</h3>
@@ -170,8 +224,7 @@ const KeyValList = ({
     );
   };
 
-  let generateHistory = () => {
-    //fetchHistory()
+  let renderHistoryTimeline = () => {
     if (historyDisplayLoading) {
       return (
         <React.Fragment>
@@ -180,13 +233,17 @@ const KeyValList = ({
       );
     } else {
       if (history !== null) {
-        console.log("H I S T O R Y");
         let id = _.upperFirst(_.camelCase(selectedId));
-        console.log(id);
         let query = "[*propertyName=" + id + "]";
+        let result = JsonQuery(query, { data: history }).value;
 
-        var result = JsonQuery(query, { data: history }).value;
-        console.log(result);
+        if (_.isEmpty(result)) {
+          return (
+            <React.Fragment>
+              <p>No records found</p>
+            </React.Fragment>
+          );
+        }
 
         return (
           <div style={{ overflow: "auto", height: "90%" }}>
@@ -226,11 +283,13 @@ const KeyValList = ({
         blockScroll={true}
         onHide={() => setDisplayHistorySideBar(false)}
       >
-        <h1>History</h1>
-        <h2>
-          <StartCase string={selectedId} />
-        </h2>
-        {displayHistorySideBar && generateHistory()}
+        <div style={{ margin: "15px" }}>
+          <h2> History</h2>
+          <h1>
+            <StartCase string={selectedId} />
+          </h1>
+          {displayHistorySideBar && renderHistoryTimeline()}
+        </div>
       </Sidebar>
 
       <Dialog
@@ -240,7 +299,7 @@ const KeyValList = ({
         draggable={true}
         style={{ width: "50vw" }}
         onHide={() => setDisplayEditContainer(false)}
-        footer={renderFooter()}
+        footer={renderFooterOfEditDialog()}
       >
         <h2>
           <StartCase string={selectedId} />
@@ -248,7 +307,7 @@ const KeyValList = ({
         <InputTextarea
           rows={15}
           cols={60}
-          value={data[selectedId]}
+          value={data ? data[selectedId] : null}
           autoFocus
           onChange={(e) =>
             runInAction(() => (data[selectedId] = e.target.value))
@@ -256,9 +315,9 @@ const KeyValList = ({
         />
       </Dialog>
 
-      <ContextMenu model={items} ref={cm}></ContextMenu>
+      <ContextMenu model={contextMenuItems} ref={cm}></ContextMenu>
       <table className="KeyValueListTable">
-        <tbody>{res}</tbody>
+        <tbody>{keyValueTableBody}</tbody>
       </table>
     </React.Fragment>
   );

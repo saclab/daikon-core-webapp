@@ -291,12 +291,13 @@ export default class GeneStore {
         console.log(this.selectedGene);
         this.selectedGene = updatedGene;
         this.geneRegistryExpanded.set(updatedGene.id, updatedGene);
+        this.geneHistoryRegistry.delete(updatedGene.id);
       });
     } catch (error) {
       console.log(error);
     } finally {
       runInAction(() => {
-        this.geneHistoryRegistry.delete(updatedGene.id);
+        
         this.displayLoading = false;
         console.log("geneStore: edit Complete");
       });

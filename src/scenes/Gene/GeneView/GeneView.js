@@ -85,7 +85,7 @@ const GeneView = ({ match, history }) => {
   };
 
   const accept = () => {
-    history.push(`/genomes/${match.params.id}/promote`);
+    history.push(`/gene/${match.params.id}/promote`);
   };
 
   const reject = () => {
