@@ -41,7 +41,7 @@ const GenomeViewNonPublicData = () => {
                     "Strain",
                     "Method",
                     "Reference",
-                    
+                    "Notes",
                   ]}
                   data={genomeNonPublicData.Essentiality}
                 />
