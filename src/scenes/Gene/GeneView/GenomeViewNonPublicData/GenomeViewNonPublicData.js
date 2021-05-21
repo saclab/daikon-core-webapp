@@ -78,6 +78,20 @@ const GenomeViewNonPublicData = () => {
               </Fieldset>
             </div>
           </div>
+          <div className="p-d-flex p-flex-column">
+            <div className="p-mb-2">
+              <Fieldset legend="Resistance Mutations">
+              <DataTable >
+                  <Column field="Mutation" header="Mutation"></Column>
+                  <Column field="Isolate" header="Isolate"></Column>
+                  <Column field="Parent Strain" header="Parent Strain"></Column>
+                  <Column field="Compound (SMILES)" header="Compound (SMILES)"></Column>
+                  <Column field="Shift in MIC" header="Shift in MIC"></Column>
+                  <Column field="Lab" header="Lab"></Column>
+              </DataTable>
+              </Fieldset>
+            </div>
+          </div>
         </div>
       </div>
     </div>
