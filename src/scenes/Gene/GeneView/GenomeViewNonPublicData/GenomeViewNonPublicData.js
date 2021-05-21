@@ -92,6 +92,22 @@ const GenomeViewNonPublicData = () => {
               </Fieldset>
             </div>
           </div>
+          <div className="p-d-flex p-flex-column">
+            <div className="p-mb-2">
+              <Fieldset legend="Vulnerability">
+              <DataTable >
+                  <Column field="Rank" header="Rank"></Column>
+                  <Column field="u_vi" header="u_vi"></Column>
+                  <Column field="I_vi" header="I_vi"></Column>
+                  <Column field="vi_ratio" header="vi_ratio"></Column>
+                  <Column field="Condition(s)" header="Condition(s)"></Column>
+                  <Column field="Operon" header="Operon"></Column>
+                  <Column field="Confounded" header="Confounded"></Column>
+                  <Column field="Shell_2015 operon" header="Shell_2015 operon"></Column>
+              </DataTable>
+              </Fieldset>
+            </div>
+          </div>
         </div>
       </div>
     </div>
