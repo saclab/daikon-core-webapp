@@ -40,16 +40,21 @@ const TitleBar = () => {
         >
           Target and Project Tracker (TPT)
         </Button>
+        
 
         <Button
           type="Button"
-          icon="pi pi-search"
+          icon="ri-refresh-fill"
+          label="Sync"
           className={[cssClass.Push, "p-mr-2", cssClass.BlackButton].join(" ")}
+          onClick={() => window.location.reload()}
         />
+        
 
         <Button
           type="Button"
           icon="pi pi-sliders-v"
+          label="View"
           className={["p-mr-2", cssClass.BlackButton].join(" ")}
         />
         <Button
