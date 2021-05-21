@@ -26,10 +26,7 @@ const GenomeViewNonPublicData = () => {
             <div className="p-mb-2">
               <Fieldset legend="Essentiality">
                 <DataTable >
-                  <Column
-                    field="Classification"
-                    header="Classification"
-                  ></Column>
+                  <Column field="Classification" header="Classification"></Column>
                   <Column field="Condition" header="Condition"></Column>
                   <Column field="Strain" header="Strain"></Column>
                   <Column field="Method" header="Method"></Column>
@@ -41,7 +38,35 @@ const GenomeViewNonPublicData = () => {
           </div>
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
-              <Fieldset legend="Vulnerability"></Fieldset>
+              <Fieldset legend="Protein Production List">
+              <DataTable >
+                  <Column field="Protein Production" header="Protein Production"></Column>
+                  <Column field="Quantity" header="Quantity"></Column>
+                  <Column field="Purity" header="Purity"></Column>
+                  <Column field="Date" header="Date"></Column>
+               </DataTable>
+              </Fieldset>
+            </div>
+          </div>
+          <div className="p-d-flex p-flex-column">
+            <div className="p-mb-2">
+              <Fieldset legend="Protein Activity Assay List">
+              <DataTable >
+                  <Column field="Protein Activity Assay" header="Protein Activity Assay"></Column>
+                  <Column field="Assay Type" header="Assay Type"></Column>
+                  <Column field="Assay Throughput" header="Assay Throughput"></Column>
+             </DataTable>
+              </Fieldset>
+            </div>
+          </div>
+          <div className="p-d-flex p-flex-column">
+            <div className="p-mb-2">
+              <Fieldset legend="Hypomorph, Knockdown strain, Phenotype List">
+              <DataTable >
+                  <Column field="Knockdown strain" header="Knockdown strain"></Column>
+                  <Column field="Phenotype" header="Phenotype"></Column>
+              </DataTable>
+              </Fieldset>
             </div>
           </div>
         </div>
