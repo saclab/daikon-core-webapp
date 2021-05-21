@@ -108,6 +108,19 @@ const GenomeViewNonPublicData = () => {
               </Fieldset>
             </div>
           </div>
+          <div className="p-d-flex p-flex-column">
+            <div className="p-mb-2">
+              <Fieldset legend="Unpublished Structural Information">
+              <DataTable >
+                  <Column field="Organization" header="Organization"></Column>
+                  <Column field="Method" header="Method"></Column>
+                  <Column field="Resolution" header="Resolution"></Column>
+                  <Column field="Condition(s)" header="Condition(s)"></Column>
+                  <Column field="Ligand" header="Ligand"></Column>
+              </DataTable>
+              </Fieldset>
+            </div>
+          </div>
         </div>
       </div>
     </div>
