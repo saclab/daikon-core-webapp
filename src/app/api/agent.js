@@ -12,10 +12,11 @@ const AuthServiceInstance = new AuthService(appSettings);
 /*  END MSAL SERVICE CREATION */
 
 /* API Service Settings */
-axios.defaults.baseURL = appSettings.GetWebApiBaseUri();
+var axiosServerInstance = new axios.create();
+axiosServerInstance.defaults.baseURL = appSettings.GetWebApiBaseUri();
 
 /* INJECT BEARER TOKEN */
-axios.interceptors.request.use(
+axiosServerInstance.interceptors.request.use(
   async (config) => {
     let response = await AuthServiceInstance.GetToken();
     config.headers.Authorization = `Bearer ${response.accessToken}`;
@@ -36,16 +37,16 @@ const sleep = (ms) => (response) =>
 
 /* TYPES OF REQUESTES SUPPORTED */
 const requests = {
-  get: (url) => axios.get(url).then(sleep(2000)).then(responseBody),
+  get: (url) => axiosServerInstance.get(url).then(sleep(500)).then(responseBody),
   post: (url, body) =>
-    axios.post(url, body).then(sleep(2000)).then(responseBody),
-  put: (url, body) => axios.put(url, body).then(sleep(2000)).then(responseBody),
-  del: (url) => axios.delete(url).then(sleep(2000)).then(responseBody),
+    axiosServerInstance.post(url, body).then(sleep(500)).then(responseBody),
+  put: (url, body) => axiosServerInstance.put(url, body).then(sleep(500)).then(responseBody),
+  del: (url) => axiosServerInstance.delete(url).then(sleep(500)).then(responseBody),
 };
 /* END REQUEST TYPES */
 
 /* API ERROR HANDLING */
-axios.interceptors.response.use(undefined, (error) => {
+axiosServerInstance.interceptors.response.use(undefined, (error) => {
   //console.log(error);
   if (!error.response) {
     toast.error(
@@ -92,6 +93,8 @@ axios.interceptors.response.use(undefined, (error) => {
 const Gene = {
   list: () => requests.get("/gene"),
   view: (id) => requests.get(`/gene/${id}`),
+  edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
+  history : (id) => requests.get(`/gene/${id}/history`),
 };
 
 const User = {

@@ -147,6 +147,7 @@ const GeneSearch = () => {
             filterMatchMode="contains"
             filterPlaceholder="Search by A.Number"
             className="narrow-column"
+            
           />
 
           <Column

@@ -18,28 +18,18 @@ const GeneView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { fetchGene, gene, displayLoading } = rootStore.geneStore;
-
-  
+  const { fetchGene, gene, displayLoading, editGene, cancelEditGene, fetchGeneHistory, historyDisplayLoading, geneHistory } = rootStore.geneStore;
 
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
-    if (gene === null || gene.id !== match.params.id) 
-    {
+    if (gene === null || gene.id !== match.params.id) {
       fetchGene(match.params.id);
+      
     }
   }, [match.params.id, gene, fetchGene]);
 
-  const breadCrumbItems = [
-    {
-      label: "Genes",
-      command: () => {
-        history.push("/gene/");
-      },
-    },
-    { label: "Rv1297" },
-  ];
+  
 
   const items = [
     {
@@ -47,21 +37,22 @@ const GeneView = ({ match, history }) => {
       items: [
         {
           label: "Mycobrowser Information",
-          icon: "pi pi-refresh",
+          icon: "ri-book-open-line",
           command: () => {
             setActiveIndex(0);
           },
         },
+        
         {
-          label: "Non-Public Data",
-          icon: "pi pi-times",
+          label: "Background Information",
+          icon: "ri-artboard-fill",
           command: () => {
             setActiveIndex(1);
           },
         },
         {
-          label: "Background Information",
-          icon: "pi pi-times",
+          label: "Non-Public Data",
+          icon: "ri-git-repository-private-fill",
           command: () => {
             setActiveIndex(2);
           },
@@ -94,7 +85,7 @@ const GeneView = ({ match, history }) => {
   };
 
   const accept = () => {
-    history.push(`/genomes/${match.params.id}/promote`);
+    history.push(`/gene/${match.params.id}/promote`);
   };
 
   const reject = () => {
@@ -106,56 +97,72 @@ const GeneView = ({ match, history }) => {
     });
   };
 
-    /** Loading Overlay */
-    if (displayLoading) {
-      console.log("Loading.....");
-      return <Loading />;
-    }
-    if(gene!== null) {
-      console.log("Gene ID");
-      console.log(gene.id);
-      return (
-        <React.Fragment>
-          <Toast ref={toast} />
-          <br />
-          <div className="p-d-flex">
-            <div className="p-mr-2">
-              <Menu model={items} />
-            </div>
-            <div className="p-mr-2">
-              <div className="p-d-flex p-flex-column">
-                <div className="p-mb-2">
-                  <BreadCrumb model={breadCrumbItems} />
-                </div>
-                <div className="p-mb-2">
-                  <h2 className="heading">Rv1297</h2>
-                </div>
-                <div className="p-mb-2">
-                  <TabView
-                    activeIndex={activeIndex}
-                    onTabChange={(e) => setActiveIndex(e.index)}
-                  >
-                    <TabPanel header="Header I" headerClassName="hide">
-                      <GeneViewMycobrowswer id={match.params.id} data={gene.genePublicData}/>
-                    </TabPanel>
-                    <TabPanel header="Header II" headerClassName="hide">
-                      <GenomeViewNonPublicData />
-                    </TabPanel>
-                    <TabPanel header="Header III" headerClassName="hide">
-                      <GenomeViewBackgroundInformation />
-                    </TabPanel>
-                  </TabView>
-                </div>
+  /** Loading Overlay */
+  if (displayLoading) {
+    console.log("Loading.....");
+    return <Loading />;
+  }
+  if (gene !== null) {
+    console.log("Gene ID");
+    console.log(gene.id);
+    const breadCrumbItems = [
+      {
+        label: "Genes",
+        command: () => {
+          history.push("/gene/");
+        },
+      },
+      { label: gene.accessionNumber },
+    ];
+    
+    return (
+      <React.Fragment>
+        <Toast ref={toast} />
+        <br />
+        <div className="p-d-flex">
+          <div className="p-mr-2">
+            <Menu model={items} />
+          </div>
+          <div className="p-mr-2">
+            <div className="p-d-flex p-flex-column">
+              <div className="p-mb-2">
+                <BreadCrumb model={breadCrumbItems} />
+              </div>
+              <div className="p-mb-2">
+                <h2 className="heading">{gene.accessionNumber}</h2>
+              </div>
+              <div className="p-mb-2">
+                <TabView
+                  activeIndex={activeIndex}
+                  onTabChange={(e) => setActiveIndex(e.index)}
+                >
+                  <TabPanel header="Header I" headerClassName="hide">
+                    <GeneViewMycobrowswer
+                      id={match.params.id}
+                      gene={gene}
+                      edit = {() => editGene()}
+                      cancelEdit={() => cancelEditGene()}
+                      fetchGeneHistory={() => fetchGeneHistory()}
+                      historyDisplayLoading={historyDisplayLoading}
+                      geneHistory={geneHistory}
+                    />
+                  </TabPanel>
+                  <TabPanel header="Header II" headerClassName="hide">
+                    <GenomeViewNonPublicData />
+                  </TabPanel>
+                  <TabPanel header="Header III" headerClassName="hide">
+                    <GenomeViewBackgroundInformation />
+                  </TabPanel>
+                </TabView>
               </div>
             </div>
           </div>
-        </React.Fragment>
-      );
-    }
+        </div>
+      </React.Fragment>
+    );
+  }
 
-    return <NotFound />;
-
-
+  return <NotFound />;
 };
 
 export default observer(GeneView);

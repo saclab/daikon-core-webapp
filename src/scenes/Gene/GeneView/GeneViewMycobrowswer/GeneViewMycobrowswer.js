@@ -1,16 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
 import { Fieldset } from "primereact/fieldset";
-
-import { ProgressSpinner } from "primereact/progressspinner";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import GeneViewMycoBrowswerProteindataBank from "./GeneViewMycobrowswerProteinDataBank/GeneViewMycoBrowswerProteindataBank";
 
-const GeneViewMycobrowswer = ({ data }) => {
+const GeneViewMycobrowswer = ({ gene, edit, cancelEdit, fetchGeneHistory, historyDisplayLoading, geneHistory }) => {
   console.log("From Gene View");
-  console.log(data);
 
-  // return <h1>Break</h1>;
-
+  
   return (
     <div>
       <div className="p-d-flex">
@@ -19,16 +14,34 @@ const GeneViewMycobrowswer = ({ data }) => {
             <div className="p-mb-2">
               <Fieldset legend="General annotation">
                 <KeyValList
-                  data={data}
-                  display={["type", "comments", "proteomics", "mutant"]}
+                  data={gene.genePublicData}
+                  filter={["type", "comments", "proteomics", "mutant"]}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
+                  fetchHistory={() => fetchGeneHistory()}
+                  historyDisplayLoading={historyDisplayLoading}
+                  history={geneHistory}
                 />
               </Fieldset>
             </div>
             <div className="p-mb-2">
-              <Fieldset legend="Coordinates">
+              <Fieldset legend="Protein summary">
                 <KeyValList
-                  data={data}
-                  display={["start", "end", "orientation"]}
+                  data={gene.genePublicData}
+                  filter={[
+                    "molecularMass",
+                    "isoelectricPoint",
+                    "proteinLength",
+                  ]}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
+                />
+              </Fieldset>
+            </div>
+            <div className="p-mb-2">
+              <Fieldset legend="Protein Databank">
+                <GeneViewMycoBrowswerProteindataBank
+                  accessionNumber={gene.accessionNumber}
                 />
               </Fieldset>
             </div>
@@ -37,27 +50,33 @@ const GeneViewMycobrowswer = ({ data }) => {
         <div className="p-mr-2">
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
-              <Fieldset legend="Gene summary">
-                <KeyValList data={data} display={["geneLength", "location"]} />
+              <Fieldset legend="Coordinates">
+                <KeyValList
+                  data={gene.genePublicData}
+                  filter={["start", "end", "orientation"]}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
+                />
               </Fieldset>
             </div>
             <div className="p-mb-2">
-              <Fieldset legend="Protein summary">
+              <Fieldset legend="Gene summary">
                 <KeyValList
-                  data={data}
-                  display={[
-                    "molecularMass",
-                    "isoelectricPoint",
-                    "proteinLength",
-                  ]}
+                  data={gene.genePublicData}
+                  filter={["geneLength", "location"]}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
                 />
               </Fieldset>
             </div>
             <div className="p-mb-2">
               <Fieldset legend="Orthologues">
                 <KeyValList
-                  data={data}
-                  display={["m_Leprae", "m_Marinum", "m_Smegmatis"]}
+                  data={gene.genePublicData}
+                  filter={["m_Leprae", "m_Marinum", "m_Smegmatis"]}
+                  link={{ m_Leprae: "https://mycobrowser.epfl.ch/genes/" }}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
                 />
               </Fieldset>
             </div>
