@@ -73,7 +73,7 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="CRISPRi Strain List">
-              <DataTable >
+              <DataTable value={genomeNonPublicData.CRISPRiStrain}>
                   <Column field="CRISPRi Strain" header="CRISPRi Strain"></Column>
               </DataTable>
               </Fieldset>
@@ -82,7 +82,7 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Resistance Mutations">
-              <DataTable >
+              <DataTable value={genomeNonPublicData.ResistanceMutation}>
                   <Column field="Mutation" header="Mutation"></Column>
                   <Column field="Isolate" header="Isolate"></Column>
                   <Column field="Parent Strain" header="Parent Strain"></Column>
@@ -96,7 +96,7 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Vulnerability">
-              <DataTable >
+              <DataTable value={genomeNonPublicData.Vulnerability}>
                   <Column field="Rank" header="Rank"></Column>
                   <Column field="u_vi" header="u_vi"></Column>
                   <Column field="I_vi" header="I_vi"></Column>
@@ -112,7 +112,7 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Unpublished Structural Information">
-              <DataTable >
+              <DataTable value={genomeNonPublicData.UnpublishedStructuralInfo}>
                   <Column field="Organization" header="Organization"></Column>
                   <Column field="Method" header="Method"></Column>
                   <Column field="Resolution" header="Resolution"></Column>
