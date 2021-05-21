@@ -7,15 +7,16 @@ import { Column } from "primereact/column";
 const GenomeViewNonPublicData = () => {
   const [genomeNonPublicData, setGenomeNonPublicData] = useState(null);
 
-  // useEffect(() => {
-  //   axios.get("/data/genomes/nonPublicData/rv1297.json").then((resp) => {
-  //     setGenomeNonPublicData(resp.data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    axios.get("/data/genomes/nonPublicData/rv1297.json").then((resp) => {
+      setGenomeNonPublicData(resp.data);
+      console.log(resp.data);
+    });
+  }, []);
 
-  // if (genomeNonPublicData === null) {
-  //   return <ProgressSpinner />;
-  // }
+  if (genomeNonPublicData === null) {
+    return <ProgressSpinner />;
+  }
 
   // axios.get("data/genomes.json").then((res) => res.data.data)
   return (
@@ -25,7 +26,7 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Essentiality">
-                <DataTable >
+                <DataTable value={genomeNonPublicData.Essentiality}>
                   <Column field="Classification" header="Classification"></Column>
                   <Column field="Condition" header="Condition"></Column>
                   <Column field="Strain" header="Strain"></Column>
@@ -39,7 +40,7 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Protein Production List">
-              <DataTable >
+              <DataTable value={genomeNonPublicData.ProteinProduction} >
                   <Column field="Protein Production" header="Protein Production"></Column>
                   <Column field="Quantity" header="Quantity"></Column>
                   <Column field="Purity" header="Purity"></Column>
@@ -51,7 +52,7 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Protein Activity Assay List">
-              <DataTable >
+              <DataTable value={genomeNonPublicData.ProteinActivityAssay}>
                   <Column field="Protein Activity Assay" header="Protein Activity Assay"></Column>
                   <Column field="Assay Type" header="Assay Type"></Column>
                   <Column field="Assay Throughput" header="Assay Throughput"></Column>
@@ -62,7 +63,7 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Hypomorph, Knockdown strain, Phenotype List">
-              <DataTable >
+              <DataTable value={genomeNonPublicData.HypomorphKnockdownStrain} >
                   <Column field="Knockdown strain" header="Knockdown strain"></Column>
                   <Column field="Phenotype" header="Phenotype"></Column>
               </DataTable>
