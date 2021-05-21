@@ -7,15 +7,15 @@ import { Column } from "primereact/column";
 const GenomeViewNonPublicData = () => {
   const [genomeNonPublicData, setGenomeNonPublicData] = useState(null);
 
-  useEffect(() => {
-    axios.get("/data/genomes/nonPublicData/rv1297.json").then((resp) => {
-      setGenomeNonPublicData(resp.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("/data/genomes/nonPublicData/rv1297.json").then((resp) => {
+  //     setGenomeNonPublicData(resp.data);
+  //   });
+  // }, []);
 
-  if (genomeNonPublicData === null) {
-    return <ProgressSpinner />;
-  }
+  // if (genomeNonPublicData === null) {
+  //   return <ProgressSpinner />;
+  // }
 
   // axios.get("data/genomes.json").then((res) => res.data.data)
   return (
@@ -25,7 +25,7 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Essentiality">
-                <DataTable value={genomeNonPublicData.Essentiality}>
+                <DataTable >
                   <Column
                     field="Classification"
                     header="Classification"
