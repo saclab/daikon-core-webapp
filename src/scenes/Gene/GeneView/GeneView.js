@@ -18,18 +18,24 @@ const GeneView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { fetchGene, gene, displayLoading, editGene, cancelEditGene, fetchGeneHistory, historyDisplayLoading, geneHistory } = rootStore.geneStore;
+  const {
+    fetchGene,
+    gene,
+    displayLoading,
+    editGene,
+    cancelEditGene,
+    fetchGeneHistory,
+    historyDisplayLoading,
+    geneHistory,
+  } = rootStore.geneStore;
 
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
     if (gene === null || gene.id !== match.params.id) {
       fetchGene(match.params.id);
-      
     }
   }, [match.params.id, gene, fetchGene]);
-
-  
 
   const items = [
     {
@@ -42,14 +48,14 @@ const GeneView = ({ match, history }) => {
             setActiveIndex(0);
           },
         },
-        
-        {
-          label: "Background Information",
-          icon: "ri-artboard-fill",
-          command: () => {
-            setActiveIndex(1);
-          },
-        },
+
+        // {
+        //   label: "Background Information",
+        //   icon: "ri-artboard-fill",
+        //   command: () => {
+        //     setActiveIndex(1);
+        //   },
+        // },
         {
           label: "Non-Public Data",
           icon: "ri-git-repository-private-fill",
@@ -114,7 +120,7 @@ const GeneView = ({ match, history }) => {
       },
       { label: gene.accessionNumber },
     ];
-    
+
     return (
       <React.Fragment>
         <Toast ref={toast} />
@@ -140,7 +146,7 @@ const GeneView = ({ match, history }) => {
                     <GeneViewMycobrowswer
                       id={match.params.id}
                       gene={gene}
-                      edit = {() => editGene()}
+                      edit={() => editGene()}
                       cancelEdit={() => cancelEditGene()}
                       fetchGeneHistory={() => fetchGeneHistory()}
                       historyDisplayLoading={historyDisplayLoading}
@@ -148,10 +154,10 @@ const GeneView = ({ match, history }) => {
                     />
                   </TabPanel>
                   <TabPanel header="Header II" headerClassName="hide">
-                    <GenomeViewNonPublicData />
+                    <GenomeViewBackgroundInformation />
                   </TabPanel>
                   <TabPanel header="Header III" headerClassName="hide">
-                    <GenomeViewBackgroundInformation />
+                    <GenomeViewNonPublicData />
                   </TabPanel>
                 </TabView>
               </div>

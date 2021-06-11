@@ -7,6 +7,11 @@ import {
 } from "mobx";
 import agent from "../api/agent";
 import uniprot from "../api/uniprot";
+import Ebi from "../api/ebi";
+import {
+  _helper_formatLigands,
+  _helper_extractPdbCrossReference,
+} from "./geneStore_Helper";
 
 export default class GeneStore {
   rootStore;
@@ -123,7 +128,7 @@ export default class GeneStore {
 
   fetchGeneHistory = async () => {
     console.log("geneStore: fetchGeneHistory Start");
-     this.historyDisplayLoading = true;
+    this.historyDisplayLoading = true;
     let id = this.selectedGene.id;
 
     // first check cache
@@ -145,7 +150,6 @@ export default class GeneStore {
 
           this.geneHistoryRegistry.set(id, fetchedGeneHistory);
           this.selectedGeneHistory = fetchedGeneHistory;
-         
         });
       } catch (error) {
         console.log(error);
@@ -179,89 +183,44 @@ export default class GeneStore {
       this.uniprotDisplayLoading = false;
     } else {
       try {
-        let fetchedPdbCrossReferenceArray = [];
+        console.log("geneStore: fetchPdbCrossReference Cache miss");
+
+        // fetch from api
         fetchedPdbCrossReference = await uniprot.Pdb.crossReference(
           accessionNumber
         );
-        runInAction(() => {
-          console.log("geneStore: fetchPdbCrossReference Cache miss");
-          console.log(fetchedPdbCrossReference);
-          /*
-            Uniprot handled 
-            1. fetchedPdbCrossReference.uniprot.entry returns an object or an array
-                so we are checking both the cases, if array we are looping over all the entries
-            2. !EXCEPTION : entry.accession sometimes is returned as an array. There is absolutely NO way to 
-               link this to the corresponding chains to from the href, we are always defaulting to the
-               first element in the array. Links might break.
-           */
-          // 1 check if entry is array
-          if (Array.isArray(fetchedPdbCrossReference.uniprot.entry)) {
-            fetchedPdbCrossReference.uniprot.entry.forEach((entry) => {
-              entry.dbReference.forEach((obj) => {
-                if (obj._attributes.type === "PDB") {
-                  let nobj = {
-                    id: null,
-                    method: null,
-                    resolution: null,
-                    chains: null,
-                    accession: null,
-                  };
-                  nobj.id = obj._attributes.id;
-                  nobj.accession = Array.isArray(entry.accession)
-                    ? entry.accession[0]._text
-                    : entry.accession._text;
-                  obj.property.forEach((subObj) => {
-                    if (subObj._attributes.type === "method")
-                      nobj.method = subObj._attributes.value;
-                    if (subObj._attributes.type === "resolution")
-                      nobj.resolution = subObj._attributes.value;
-                    if (subObj._attributes.type === "chains")
-                      nobj.chains = subObj._attributes.value;
-                  });
-                  fetchedPdbCrossReferenceArray.push(nobj);
-                }
-              });
-            });
-          } else {
-            fetchedPdbCrossReference.uniprot.entry.dbReference.forEach(
-              (obj) => {
-                if (obj._attributes.type === "PDB") {
-                  let nobj = {
-                    id: null,
-                    method: null,
-                    resolution: null,
-                    chains: null,
-                    accession: null,
-                  };
-                  nobj.id = obj._attributes.id;
-                  nobj.accession = Array.isArray(
-                    fetchedPdbCrossReference.uniprot.entry.accession
-                  )
-                    ? fetchedPdbCrossReference.uniprot.entry.accession[0]._text
-                    : fetchedPdbCrossReference.uniprot.entry.accession._text;
-                  obj.property.forEach((subObj) => {
-                    if (subObj._attributes.type === "method")
-                      nobj.method = subObj._attributes.value;
-                    if (subObj._attributes.type === "resolution")
-                      nobj.resolution = subObj._attributes.value;
-                    if (subObj._attributes.type === "chains")
-                      nobj.chains = subObj._attributes.value;
-                  });
-                  fetchedPdbCrossReferenceArray.push(nobj);
-                }
-              }
-            );
-          }
 
+        // from the bulk of data extract the Crossreference part
+        let fetchedPdbCrossReferenceArray = _helper_extractPdbCrossReference(
+          fetchedPdbCrossReference
+        );
+
+        // Now add ligands to each protein
+        let fetchedPdbCrossReferenceArrayWithLigand = [];
+        /*TIP: async will not work with foreach loop, use Promise.all and map method instead */
+        await Promise.all(
+          fetchedPdbCrossReferenceArray.map(async (nobj) => {
+
+            // fetch from ebi
+            let ligands = await Ebi.Ebi.ligands(nobj.id);
+
+            nobj.ligands = _helper_formatLigands(ligands);
+
+            fetchedPdbCrossReferenceArrayWithLigand.push(nobj);
+            console.log(nobj);
+          })
+        );
+
+        runInAction(() => {
           this.pdbCrossReferenceRegistry.set(accessionNumber, {
             accessionNumber: accessionNumber,
-            data: fetchedPdbCrossReferenceArray,
+            data: fetchedPdbCrossReferenceArrayWithLigand,
           });
           this.selectedPdbCrossReference = {
             accessionNumber: accessionNumber,
-            data: fetchedPdbCrossReferenceArray,
+            data: fetchedPdbCrossReferenceArrayWithLigand,
           };
-          console.log(this.selectedPdbCrossReference);
+          console.log(this.fetchedPdbCrossReferenceArrayWithLigand);
         });
       } catch (error) {
         console.log(error);
@@ -297,7 +256,6 @@ export default class GeneStore {
       console.log(error);
     } finally {
       runInAction(() => {
-        
         this.displayLoading = false;
         console.log("geneStore: edit Complete");
       });

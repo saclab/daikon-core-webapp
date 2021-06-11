@@ -9,11 +9,8 @@ import LiteMolView from "../../../../../app/common/LiteMolView/LiteMolView";
 const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {
-    uniprotDisplayLoading,
-    pdbCrossReference,
-    fetchPdbCrossReference,
-  } = rootStore.geneStore;
+  const { uniprotDisplayLoading, pdbCrossReference, fetchPdbCrossReference } =
+    rootStore.geneStore;
 
   const [displayMolViewContainer, setDisplayMolViewContainer] = useState(false);
   const [molViewId, setmolViewId] = useState("");
@@ -41,18 +38,34 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
     console.log(id);
     setmolViewId(id);
     setmolViewUrl(
-      "https://www.ebi.ac.uk/pdbe/entry-files/download/pdb" + id.toLowerCase() + ".ent"
+      "https://www.ebi.ac.uk/pdbe/entry-files/download/pdb" +
+        id.toLowerCase() +
+        ".ent"
     );
     setmolViewFormat("pdb");
     setDisplayMolViewContainer(true);
   };
 
+  let displayLigands = (ligands) => {
+
+    return Object.keys(ligands).map((key) => {
+     
+      return (
+        <p key={key} style={{margin :"0px"}}>
+          {ligands[key]} x {key} 
+        </p>
+      )
+
+    })
+  }
+
   if (uniprotDisplayLoading) {
     return <Skeleton width="10rem" height="4rem"></Skeleton>;
   } else if (!uniprotDisplayLoading && pdbCrossReference !== null) {
     let generateData = pdbCrossReference.data.map((obj) => {
+      
       return (
-        <tr key={obj.id}>
+        <tr key={obj.id} style={{verticalAlign: "top"}}>
           <td>
             <a
               href={"https://www.ebi.ac.uk/pdbe/entry/pdb/" + obj.id}
@@ -78,6 +91,11 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
             >
               {obj.chains}
             </a>
+          </td>
+          <td>
+            <div style={{ width: '10rem',  fontSize: "small",  }}>
+              {displayLigands(obj.ligands)}
+            </div>
           </td>
           <td>
             <Button
@@ -110,6 +128,7 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
               <th>Method</th>
               <th>Resolution</th>
               <th>Chains</th>
+              <th>Ligands</th>
               <th>Structure</th>
             </tr>
           </thead>
