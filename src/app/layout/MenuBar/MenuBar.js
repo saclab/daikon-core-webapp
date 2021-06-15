@@ -12,7 +12,7 @@ const MenuBar = () => {
     {
       label: "Target",
       icon: "pi pi-fw pi-plus-circle",
-      command: () => history.push("/targets/")
+      command: () => history.push("/target/")
     },
     { label: "Screen", icon: "pi pi-fw pi-pencil" },
     { label: "FHA", icon: "pi pi-fw pi-file" },
@@ -27,7 +27,7 @@ const MenuBar = () => {
     switch (window.location.pathname) {
       case "/gene/":
         return items[0];
-      case "/targets/":
+      case "/target/":
         return items[1];
       default:
         return "ww";
