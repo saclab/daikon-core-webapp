@@ -1,6 +1,7 @@
 import React from "react";
 import { Fieldset } from "primereact/fieldset";
 import TargetDashChart from "./TargetDashChart/TargetDashChart";
+import TargetDashTable from "./TargetDashTable/TargetDashTable";
 
 const TargetDash = () => {
   return (
@@ -13,9 +14,11 @@ const TargetDash = () => {
             <TargetDashChart style={{ width: "500px" }} />
           </Fieldset>
         </div>
+      </div>
+      <div className="p-d-flex">
         <div className="p-mb-2">
           <Fieldset legend="Target List">
-            <p>Todo</p>
+            <TargetDashTable />
           </Fieldset>
         </div>
       </div>
