@@ -43,7 +43,10 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Accession Number</span>
-        {targetDashTable.AccessionNumber}
+        <NavLink to={"/target/" + targetDashTable.id}>
+          {targetDashTable.AccessionNumber}
+        </NavLink>
+        
         </React.Fragment>
     );
   };
