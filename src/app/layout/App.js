@@ -30,6 +30,7 @@ import GeneSearch from "../../scenes/Gene/GeneSearch/GeneSearch";
 import GeneView from "../../scenes/Gene/GeneView/GeneView";
 import LiteMolView from "../common/LiteMolView/LiteMolView";
 import TargetDash from "../../scenes/Target/TargetDash/TargetDash";
+import TargetView from "../../scenes/Target/TargetView/TargetView";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -83,6 +84,7 @@ const App = () => {
             <Route path="/gene/:id" component={GeneView} />
 
             <Route exact path="/target" component={TargetDash} />
+            <Route path="/target/:id" component={TargetView} />
 
 
             <Route path="/molview/" component={LiteMolView} />

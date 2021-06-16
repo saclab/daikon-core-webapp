@@ -11,7 +11,7 @@ const TargetDash = () => {
       <div className="p-d-flex">
         <div className="p-mb-2">
           <Fieldset legend="Target Map">
-            <TargetDashChart style={{ width: "500px" }} />
+            <TargetDashChart style={{ width: "1000px" }} />
           </Fieldset>
         </div>
       </div>
