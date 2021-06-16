@@ -28,8 +28,8 @@ const KeyValList = ({
   historyDisplayLoading,
   history,
 }) => {
-  // console.log("KeyValList");
-  // console.log(data);
+  // //console.log("KeyValList");
+  // //console.log(data);
 
   const cm = useRef(null);
   const toast = useRef(null);
@@ -37,6 +37,10 @@ const KeyValList = ({
   const [selectedId, setSelectedId] = useState(null);
   const [displayEditContainer, setDisplayEditContainer] = useState(false);
   const [displayHistorySideBar, setDisplayHistorySideBar] = useState(false);
+
+  const [hilightAllChanges, setHilightAllChanges] = useState(false);
+
+  let allChangedProperties = [];
 
   /* Begin construction context menu */
   const contextMenuItems = [];
@@ -61,12 +65,12 @@ const KeyValList = ({
     contextMenuItems.push({
       label: "Highlight All Changes",
       icon: "ri-mark-pen-fill",
-      command: () => contextMenuFetchHistoryCommand(),
+      command: () => contextMenuHilightAllChangesCommand(),
     });
     contextMenuItems.push({
       label: "Clear Highlights",
       icon: "ri-eraser-line",
-      command: () => contextMenuFetchHistoryCommand(),
+      command: () => contextMenuClearHilightsCommand(),
     });
     contextMenuItems.push({
       separator: true,
@@ -93,21 +97,43 @@ const KeyValList = ({
   /* End construction context menu */
 
   const openContextMenu = (e) => {
-    //console.log(e);
+    ////console.log(e);
     setSelectedId(e.target.id);
+    //console.log("Context Menu setSelectedId to " + e.target.id);
     cm.current.show(e);
   };
 
-  const keyValueTableBody = data ? (
-    Object.keys(data).map((key, value) => {
+  const generateKeyValueTableBody = () => {
+    if (!data) {
+      return <h3>No Entries</h3>;
+    }
+
+    if (hilightAllChanges) {
+      if (historyDisplayLoading) {
+        return <h3>Fetching..</h3>;
+      }
+      filterHilightAllChanged();
+    }
+
+    let tBody = Object.keys(data).map((key, value) => {
       let finalValue = data[key];
       if (typeof link !== "undefined") {
         if (key in link) {
-          finalValue = <React.Fragment>
-            {data[key]}
-            <a href={link[key] + data[key]} target="_blank" rel="noreferrer"> [<i className="ri-link"></i>]</a>;
-          </React.Fragment> 
+          finalValue = (
+            <React.Fragment>
+              {data[key]}
+              <a href={link[key] + data[key]} target="_blank" rel="noreferrer">
+                {" "}
+                [<i className="ri-link"></i>]
+              </a>
+              ;
+            </React.Fragment>
+          );
         }
+      }
+
+      if (hilightAllChanges && allChangedProperties.includes(key)) {
+        finalValue = <mark id={key}>{finalValue}</mark>;
       }
 
       if (typeof filter === "undefined") {
@@ -132,10 +158,14 @@ const KeyValList = ({
         );
       }
       return null;
-    })
-  ) : (
-    <h3>No Entries</h3>
-  );
+    });
+
+    return (
+      <table className="KeyValueListTable">
+        <tbody>{tBody}</tbody>
+      </table>
+    );
+  };
 
   const contextMenuCopyCommand = () => {
     // Check if selection is empty, then copy whole block
@@ -150,22 +180,21 @@ const KeyValList = ({
     ) {
       var range = document.createRange();
       try {
-      range.selectNode(document.getElementById(selectedId));
-      window.getSelection().removeAllRanges(); // clear current selection
-      window.getSelection().addRange(range); // to select text
-      document.execCommand("copy");
-      window.getSelection().removeAllRanges(); // to deselect
-      toast.current.show({
-        severity: "success",
-        summary: "Copied to clipboard", 
-        life: 3000,
-      });
-      }
-      catch {
-        console.log("cannot copy object");
+        range.selectNode(document.getElementById(selectedId));
+        window.getSelection().removeAllRanges(); // clear current selection
+        window.getSelection().addRange(range); // to select text
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges(); // to deselect
+        toast.current.show({
+          severity: "success",
+          summary: "Copied to clipboard",
+          life: 3000,
+        });
+      } catch {
+        //console.log("cannot copy object");
         toast.current.show({
           severity: "error",
-          summary: "Cannot copy objects without underlying text.", 
+          summary: "Cannot copy objects without underlying text.",
           life: 3000,
         });
       }
@@ -173,12 +202,10 @@ const KeyValList = ({
       document.execCommand("copy");
       toast.current.show({
         severity: "success",
-        summary: "Copied to clipboard", 
+        summary: "Copied to clipboard",
         life: 3000,
       });
     }
-
-    
   };
 
   const contextMenuFetchHistoryCommand = () => {
@@ -187,15 +214,45 @@ const KeyValList = ({
     //   summary: "Read Only",
     //   detail: "The property is marked read only.",
     // });
-
     fetchHistory();
-    console.log("setDisplayHistorySideBar TRUE");
+    //console.log("setDisplayHistorySideBar TRUE");
     setDisplayHistorySideBar(true);
+  };
+
+  const contextMenuHilightAllChangesCommand = () => {
+    //console.log("contextMenuHilightAllChangesCommand() Start");
+    fetchHistory();
+    setHilightAllChanges(true);
+  };
+
+  let filterHilightAllChanged = () => {
+    //console.log("filterHilightAllChanged() Start");
+    if (history !== null) {
+      //console.log("filterHilightAllChanged() Processing");
+      let query = "[*primaryKeyValue=" + data.id + "]";
+      let result = JsonQuery(query, { data: history }).value;
+
+      query = "[*oldValue > 1]";
+      result = JsonQuery(query, { data: result }).value;
+
+      var changed = [];
+      result.forEach((element) => {
+        changed.push(_.camelCase(element.propertyName));
+      });
+      allChangedProperties = [...changed];
+    }
+    //console.log(allChangedProperties);
+    //console.log("filterHilightAllChanged() End");
+  };
+
+  const contextMenuClearHilightsCommand = () => {
+    //console.log("contextMenuClearHilightsCommand() Start");
+    setHilightAllChanges(false);
   };
 
   const contextMenuEditCommand = () => {
     setDisplayEditContainer(true);
-    console.log(selectedId);
+    //console.log(selectedId);
   };
 
   const renderFooterOfEditDialog = () => {
@@ -233,11 +290,15 @@ const KeyValList = ({
       );
     } else {
       if (history !== null) {
-        let id = _.upperFirst(_.camelCase(selectedId));
-        let query = "[*propertyName=" + id + "]";
-        let result = JsonQuery(query, { data: history }).value;
+        //console.log("Selected iD :" + selectedId);
+        let historyId = _.upperFirst(_.camelCase(selectedId));
+        //console.log("historyID :" + historyId);
+        let historyQuery = "[*propertyName=" + historyId + "]";
+        let historyResult = JsonQuery(historyQuery, { data: history }).value;
 
-        if (_.isEmpty(result)) {
+        //console.log(historyResult);
+
+        if (_.isEmpty(historyResult)) {
           return (
             <React.Fragment>
               <p>No records found</p>
@@ -248,21 +309,21 @@ const KeyValList = ({
         return (
           <div style={{ overflow: "auto", height: "90%" }}>
             <Timeline
-              value={result}
-              opposite={(result) => (
+              value={historyResult}
+              opposite={(historyResult) => (
                 <React.Fragment>
-                  {result.newValue}
+                  {historyResult.newValue}
                   <hr style={{ borderTop: "1px LightGray" }} />
                 </React.Fragment>
               )}
-              content={(result) => (
+              content={(historyResult) => (
                 <React.Fragment>
                   <small className="p-text-secondary">
-                    {new Date(result.dateChanged).toDateString()}
+                    {new Date(historyResult.dateChanged).toDateString()}
                   </small>
                   <br />
                   <small className="p-text-secondary">
-                    {result.modifiedBy}
+                    {historyResult.modifiedBy}
                   </small>
                 </React.Fragment>
               )}
@@ -316,9 +377,8 @@ const KeyValList = ({
       </Dialog>
 
       <ContextMenu model={contextMenuItems} ref={cm}></ContextMenu>
-      <table className="KeyValueListTable">
-        <tbody>{keyValueTableBody}</tbody>
-      </table>
+
+      {generateKeyValueTableBody()}
     </React.Fragment>
   );
 };
