@@ -39,6 +39,7 @@ const KeyValList = ({
   const [displayHistorySideBar, setDisplayHistorySideBar] = useState(false);
 
   const [hilightAllChanges, setHilightAllChanges] = useState(false);
+  const [hilightRecentChanges, setHilightRecentChanges] = useState(false);
 
   let allChangedProperties = [];
 
@@ -60,7 +61,7 @@ const KeyValList = ({
     contextMenuItems.push({
       label: "Highlight Recent Changes",
       icon: "ri-mark-pen-line",
-      command: () => contextMenuFetchHistoryCommand(),
+      command: () => contextMenuHilightRecentChangesCommand(),
     });
     contextMenuItems.push({
       label: "Highlight All Changes",
@@ -115,6 +116,13 @@ const KeyValList = ({
       filterHilightAllChanged();
     }
 
+    if (hilightRecentChanges) {
+      if (historyDisplayLoading) {
+        return <h3>Fetching..</h3>;
+      }
+      filterHilightAllChanged(true);
+    }
+
     let tBody = Object.keys(data).map((key, value) => {
       let finalValue = data[key];
       if (typeof link !== "undefined") {
@@ -132,7 +140,7 @@ const KeyValList = ({
         }
       }
 
-      if (hilightAllChanges && allChangedProperties.includes(key)) {
+      if ((hilightAllChanges || hilightRecentChanges) && allChangedProperties.includes(key)) {
         finalValue = <mark id={key}>{finalValue}</mark>;
       }
 
@@ -222,11 +230,19 @@ const KeyValList = ({
   const contextMenuHilightAllChangesCommand = () => {
     //console.log("contextMenuHilightAllChangesCommand() Start");
     fetchHistory();
+    setHilightRecentChanges(false);
     setHilightAllChanges(true);
   };
 
-  let filterHilightAllChanged = () => {
-    //console.log("filterHilightAllChanged() Start");
+  const contextMenuHilightRecentChangesCommand = () => {
+    //console.log("contextMenuHilightAllChangesCommand() Start");
+    fetchHistory();
+    setHilightAllChanges(false);
+    setHilightRecentChanges(true);
+  };
+
+  let filterHilightAllChanged = (filterRecent = false) => {
+    console.log("filterHilightAllChanged() Start");
     if (history !== null) {
       //console.log("filterHilightAllChanged() Processing");
       let query = "[*primaryKeyValue=" + data.id + "]";
@@ -235,11 +251,30 @@ const KeyValList = ({
       query = "[*oldValue > 1]";
       result = JsonQuery(query, { data: result }).value;
 
+      if (filterRecent) {
+        query = "[*:recentlyUpdated]";
+        result = JsonQuery(query, {
+          data: result,
+          locals: {
+            recentlyUpdated: (item) => {
+              let dateChanged = new Date(Date.parse(item.dateChanged));
+
+              return (
+                dateChanged.getTime() > Date.now() - 1 * 24 * 60 * 60 * 1000
+              );
+            },
+          },
+        }).value;
+      }
+
       var changed = [];
       result.forEach((element) => {
         changed.push(_.camelCase(element.propertyName));
       });
+      allChangedProperties = [];
       allChangedProperties = [...changed];
+
+      console.log(result);
     }
     //console.log(allChangedProperties);
     //console.log("filterHilightAllChanged() End");
@@ -248,6 +283,7 @@ const KeyValList = ({
   const contextMenuClearHilightsCommand = () => {
     //console.log("contextMenuClearHilightsCommand() Start");
     setHilightAllChanges(false);
+    setHilightRecentChanges(false);
   };
 
   const contextMenuEditCommand = () => {
