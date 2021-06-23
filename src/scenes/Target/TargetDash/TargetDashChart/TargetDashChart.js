@@ -110,7 +110,7 @@ const TargetDashChart = () => {
   };
 
   return (
-    <div style={{ height: "500px", width: "550px" }}>
+    <div style={{ height: "500px", width: "1000px" }}>
       <ResponsiveScatterPlot
         data={data}
         margin={{ top: 10, right: 10, bottom: 40, left: 40 }}
