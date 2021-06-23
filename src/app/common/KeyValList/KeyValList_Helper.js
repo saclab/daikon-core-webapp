@@ -62,10 +62,11 @@ export function _helper_renderHistoryTimeline(
   }
 }
 
-
-
-
-export function _helper_renderFooterOfEditDialog (editFunc, cancelEdit, setDisplayEditContainer) {
+export function _helper_renderFooterOfEditDialog(
+  editFunc,
+  cancelEdit,
+  setDisplayEditContainer
+) {
   return (
     <div>
       <h3>Save changes to database?</h3>
@@ -89,4 +90,33 @@ export function _helper_renderFooterOfEditDialog (editFunc, cancelEdit, setDispl
       />
     </div>
   );
-};
+}
+
+export function _helper_filterHilightChanged(data, history, filterRecent) {
+  let query = "[*primaryKeyValue=" + data.id + "]";
+  let result = JsonQuery(query, { data: history }).value;
+
+  query = "[*oldValue > 1]";
+  result = JsonQuery(query, { data: result }).value;
+
+  if (filterRecent) {
+    query = "[*:recentlyUpdated]";
+    result = JsonQuery(query, {
+      data: result,
+      locals: {
+        recentlyUpdated: (item) => {
+          let dateChanged = new Date(Date.parse(item.dateChanged));
+
+          return dateChanged.getTime() > Date.now() - 1 * 24 * 60 * 60 * 1000;
+        },
+      },
+    }).value;
+  }
+
+  var changed = [];
+  result.forEach((element) => {
+    changed.push(_.camelCase(element.propertyName));
+  });
+
+  return changed;
+}

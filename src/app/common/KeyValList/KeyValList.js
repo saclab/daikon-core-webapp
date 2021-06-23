@@ -9,10 +9,10 @@ import { Sidebar } from "primereact/sidebar";
 import "./KeyValueList.css";
 import { observer } from "mobx-react-lite";
 import { runInAction } from "mobx";
-import JsonQuery from "json-query";
 import {
   _helper_renderHistoryTimeline,
   _helper_renderFooterOfEditDialog,
+  _helper_filterHilightChanged,
 } from "./KeyValList_Helper";
 import {
   _command_contextMenuCopyCommand,
@@ -126,45 +126,12 @@ const KeyValList = ({
     cm.current.show(e);
   };
 
-  let filterHilightAllChanged = (filterRecent = false) => {
-    console.log("filterHilightAllChanged() Start");
+  let filterHilightChanged = (filterRecent = false) => {
     if (history !== null) {
-      //console.log("filterHilightAllChanged() Processing");
-      let query = "[*primaryKeyValue=" + data.id + "]";
-      let result = JsonQuery(query, { data: history }).value;
-
-      query = "[*oldValue > 1]";
-      result = JsonQuery(query, { data: result }).value;
-
-      if (filterRecent) {
-        query = "[*:recentlyUpdated]";
-        result = JsonQuery(query, {
-          data: result,
-          locals: {
-            recentlyUpdated: (item) => {
-              let dateChanged = new Date(Date.parse(item.dateChanged));
-
-              return (
-                dateChanged.getTime() > Date.now() - 1 * 24 * 60 * 60 * 1000
-              );
-            },
-          },
-        }).value;
-      }
-
-      var changed = [];
-      result.forEach((element) => {
-        changed.push(_.camelCase(element.propertyName));
-      });
-
-      
+      let changed = _helper_filterHilightChanged(data, history, filterRecent);
       allChangedProperties = [];
       allChangedProperties = [...changed];
-
-      console.log(result);
     }
-    //console.log(allChangedProperties);
-    //console.log("filterHilightAllChanged() End");
   };
 
   /* * * * * * *
@@ -180,14 +147,14 @@ const KeyValList = ({
       if (historyDisplayLoading) {
         return <h3>Fetching..</h3>;
       }
-      filterHilightAllChanged();
+      filterHilightChanged();
     }
 
     if (hilightRecentChanges) {
       if (historyDisplayLoading) {
         return <h3>Fetching..</h3>;
       }
-      filterHilightAllChanged(true);
+      filterHilightChanged(true);
     }
 
     let tBody = Object.keys(data).map((key, value) => {
