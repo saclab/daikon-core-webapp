@@ -1,6 +1,6 @@
 import React from "react";
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
-
+import history from "../../../../history";
 const TargetDashChart = () => {
   let data = [
     {
@@ -9,6 +9,7 @@ const TargetDashChart = () => {
         {
           x: 0.75,
           y: 0.9,
+          guid: "aaaaa"
         },
       ],
     },
@@ -18,6 +19,7 @@ const TargetDashChart = () => {
         {
           x: 0.51,
           y: 0.51,
+          guid: "aaaaab"
         },
       ],
     },
@@ -27,6 +29,7 @@ const TargetDashChart = () => {
         {
           x: 0.45,
           y: 0.65,
+          guid: "aaaaac"
         },
       ],
     },
@@ -91,6 +94,7 @@ const TargetDashChart = () => {
   }) => {
     return (
       <React.Fragment>
+        
         <g transform={`translate(${x},${y}) rotate(45)`}>
           <circle
             r={size / 2}
@@ -101,13 +105,22 @@ const TargetDashChart = () => {
             onMouseLeave={onMouseLeave}
             onClick={onClick}
           />
+          
           <text x="15" y="0" fill="black">
             {node.id.substring(0, node.id.length - 2)}
           </text>
+          
         </g>
+        
       </React.Fragment>
     );
   };
+
+  let nodeClicked = (node, event) => {
+    console.log(node);
+    console.log(event);
+    history.push("./"+node.data.guid);
+  }
 
   return (
     <div style={{ height: "500px", width: "1000px" }}>
@@ -121,6 +134,7 @@ const TargetDashChart = () => {
         axisTop={null}
         axisRight={null}
         nodeSize={25}
+        onClick={nodeClicked}
         axisBottom={{
           orient: "bottom",
           tickSize: 5,
