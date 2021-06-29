@@ -110,7 +110,7 @@ const TargetDashTable = () => {
   /* Table Header  */
   const header = (
     <div className="table-header">
-      <span className="heading">H37Rv Genes</span>
+      <span className="heading">H37Rv Targets</span>
       {/* <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -156,11 +156,11 @@ const TargetDashTable = () => {
 
           <Column
             field="geneName"
-            header="Gene Name"
+            header="Protein Name"
             body={GeneNameBodyTemplate}
             filter
             filterMatchMode="contains"
-            filterPlaceholder="Search by Gene Name"
+            filterPlaceholder="Search by Protein Name"
             className="narrow-column"
           />
 
