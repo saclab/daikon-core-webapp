@@ -43,16 +43,15 @@ const TargetView = ({ match, history }) => {
       label: "Sections",
       items: [
         {
-          label: "Target Promotion Form",
-          icon: "ri-book-open-line",
+          label: "Target Scorecard",
+          icon: "ri-git-repository-private-fill",
           command: () => {
             setActiveIndex(0);
           },
         },
-
         {
-          label: "Target Scorecard",
-          icon: "ri-git-repository-private-fill",
+          label: "Target Promotion Form",
+          icon: "ri-book-open-line",
           command: () => {
             setActiveIndex(1);
           },
@@ -100,20 +99,20 @@ const TargetView = ({ match, history }) => {
                   activeIndex={activeIndex}
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
-                  <TabPanel header="Header I" headerClassName="hide">
-                    <TargetPromotionForm 
-                    id={match.params.id}
-                    target={target}
-                    edit={() => editTarget()}
-                    cancelEdit={() => cancelEditTarget()}
-                    fetchHistory={() => fetchTargetHistory()}
-                    historyDisplayLoading={historyDisplayLoading}
-                    history={targetHistory}
-                    
-                    />
-                  </TabPanel>
+                  
                   <TabPanel header="Header II" headerClassName="hide">
                     <TargetScorecard />
+                  </TabPanel>
+                  <TabPanel header="Header I" headerClassName="hide">
+                    <TargetPromotionForm
+                      id={match.params.id}
+                      target={target}
+                      edit={() => editTarget()}
+                      cancelEdit={() => cancelEditTarget()}
+                      fetchHistory={() => fetchTargetHistory()}
+                      historyDisplayLoading={historyDisplayLoading}
+                      history={targetHistory}
+                    />
                   </TabPanel>
                   <TabPanel
                     header="Header III"

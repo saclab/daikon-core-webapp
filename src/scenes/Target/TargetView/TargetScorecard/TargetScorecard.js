@@ -4,6 +4,7 @@ import { Fieldset } from "primereact/fieldset";
 import TargetScorecardWaffle from "./TargetScorecardWaffle/TargetScorecardWaffle";
 import TargetScorecardPercentDial from "./TargetScorecardPercentDial/TargetScorecardPercentDial";
 import TargetScorecardBar from "./TargetScorecardBar/TargetScorecardBar";
+import TargetGrid from "./TargetGrid/TargetGrid";
 
 const TargetScorecard = () => {
   const toast = useRef(null);
@@ -21,16 +22,18 @@ const TargetScorecard = () => {
                     <TargetScorecardWaffle />
                   </div>
                   <div className="p-mr-2">
-                      <TargetScorecardPercentDial />
+                    <TargetScorecardPercentDial />
                   </div>
                   <div className="p-mr-2">
-                      <TargetScorecardBar />
+                    <TargetScorecardBar />
                   </div>
                 </div>
               </Fieldset>
             </div>
             <div className="p-mb-2">
-              <h1>2</h1>
+              <Fieldset legend="Scorecard">
+                <TargetGrid />
+              </Fieldset>
             </div>
             <div className="p-mb-2">
               <h1>3</h1>
