@@ -32,6 +32,7 @@ import LiteMolView from "../common/LiteMolView/LiteMolView";
 import TargetDash from "../../scenes/Target/TargetDash/TargetDash";
 import TargetView from "../../scenes/Target/TargetView/TargetView";
 import ScreenDash from "../../scenes/Screen/ScreenDash/ScreenDash";
+import ScreenView from "../../scenes/Screen/ScreenView/ScreenView";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -88,7 +89,7 @@ const App = () => {
             <Route path="/target/:id" component={TargetView} />
 
             <Route exact path="/screen" component={ScreenDash} />
-            {/* <Route path="/target/:id" component={TargetView} /> */}
+            <Route path="/screen/:id" component={ScreenView} />
 
 
             <Route path="/molview/" component={LiteMolView} />
