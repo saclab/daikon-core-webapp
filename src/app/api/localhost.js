@@ -2,21 +2,17 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import history from "../../history";
 
-
-
 /* Uniport API Service Settings */
 var axiosLocalhostInstance = new axios.create({
   headers: {
-    'Content-Type': 'application/json;charset=UTF-8'
-}
+    "Content-Type": "application/json;charset=UTF-8",
+  },
 });
 axiosLocalhostInstance.defaults.baseURL = "/data/";
 
 /* Format response body */
 
 const responseBody = (response) => response.data;
-
-
 
 /* TYPES OF REQUESTES SUPPORTED */
 const requests = {
@@ -75,12 +71,17 @@ axiosLocalhostInstance.interceptors.response.use(undefined, (error) => {
 /* APIS */
 const Target = {
   list: () => requests.get(`/targets/targets.json`),
-  view: (id) => requests.get(`/targets/target-view.json`)
+  view: (id) => requests.get(`/targets/target-view.json`),
 };
 
+const Screen = {
+  list: () => requests.get(`/screens/screens.json`),
+  view: (id) => requests.get(`/screens/screen-view.json`),
+};
 
 const exports = {
-  Target
+  Target,
+  Screen
 };
 
 export default exports;
