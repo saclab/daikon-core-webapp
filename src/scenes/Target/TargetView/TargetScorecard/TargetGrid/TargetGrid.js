@@ -36,6 +36,45 @@ const TargetGrid = () => {
     q4b1: "Standard media",
     q4b2: "Gluconeogenic carbon source",
     q4b4: "Other",
+    q4c1: "Multiple stress",
+    q4c2: "Low pH",
+    q4c3: "Caseum",
+    q4c4: "Caseum surrogate",
+    q4c5: "Other NR",
+    q5a1: "Target inhibition/activation can be neutralized by a suppliment (eg: a metabolite) or in specifc media",
+    q5a2: "Concentration of supplement in human tissue is too low to neutralize inactivation",
+    q5a3: "Does the Mtb genome contain functionally redundant genes",
+    q5b1: "Have inhibitors with low cellular toxicity been isolated or does the protein contain an active or allosteric site that is diferent from the human counterpart",
+    q6a1: "Have inhibitors/activators of the Mtb protein with on-target whole cell activity been identifed",
+    q6a2: "Does the target belong to a druggable class of proteins?",
+    q6a3: "Small-scale screens identifed inhibitors/activators of the Mtb protein but none have whole-cell activity",
+    q6a4: "C3He/FeJ-Chronic infection",
+    q6a5: "Does the human genome encode a structurally similar counterpart?",
+    q6a6: "Large-scale screens for the MTb enzyme have already been performed and did not result in compounds with whole-cell activity.",
+    q6a7: "",
+    q6b1: "Structure of Mtb protein is available",
+    q6b2: "Structure of homolog is available",
+    q6b3: "",
+    q6b4: "",
+    q6b5: "",
+    q6c1: "Mtb strain(s) that can confrm on target activity are available; strains can be (1) hypomorphs, (2) overexpressors, and/or (3) resistant mutants",
+    q6c2: "Non-Mtb strain, which could be used to characterize compounds with broad spectrum activity are available.",
+    q6c3: "",
+    q6c4: "",
+    q6c5: "",
+    q6c6: "",
+    q6d1: "Assay for Mtb protein has been established",
+    q6d2: "Assay has been established for homolog from another species",
+    q6d3: "",
+    q6d4: "",
+    q7a1: "Does inhibition/activation of the target synergize with current TB drugs or other drugs under development?",
+    q7a2: "Does inhibition/activation of the target antagonize with current TB drugs or other drugs under development?",
+    q7b1: "Does inhibition/activation of the targt synergize wtih current TB drugs or other drugs under development?",
+    q7b2: "Does inhibition/activation of the target antagonize with current TB drugs or other drugs under development?",
+    q7c1: "Does inhibition/activation of the targt synergize wtih current TB drugs or other drugs under development?",
+    q7c2: "Does inhibition/activation of the target antagonize with current TB drugs or other drugs under development?",
+    q7d1: "Does inhibition/activation of the targt synergize wtih current TB drugs or other drugs under development?",
+    q7d2: "Does inhibition/activation of the target antagonize with current TB drugs or other drugs under development?",
   };
 
   let answers = {
@@ -76,6 +115,52 @@ const TargetGrid = () => {
     a4b1: "greenCell",
     a4b2: "greenCell",
     a4b4: "greenCell",
+    a4cPercentage: 0.01,
+    a4c1: "grayCell",
+    a4c2: "grayCell",
+    a4c3: "grayCell",
+    a4c4: "grayCell",
+    a4c5: "grayCell",
+    a5Percentage: 1.0,
+    a5a1: "greenCell",
+    a5a2: "yellowCell",
+    a5a3: "greenCell",
+    a5b1: "greenCell",
+    a6aPercentage: 0.6,
+    a6a1: "greenCell",
+    a6a2: "greenCell",
+    a6a3: "greenCell",
+    a6a4: "grayCell",
+    a6a5: "grayCell",
+    a6a6: "grayCell",
+    a6a7: "greenCell",
+    a6bPercentage: 0.6,
+    a6b1: "redCell",
+    a6b2: "greenCell",
+    a6b3: "grayCell",
+    a6b4: "grayCell",
+    a6b5: "yellowCell",
+    a6cPercentage: 1.0,
+    a6c1: "greenCell",
+    a6c2: "greenCell",
+    a6c3: "grayCell",
+    a6c4: "grayCell",
+    a6c5: "grayCell",
+    a6c6: "greenCell",
+    a6dPercentage: 0.7,
+    a6d1: "greenCell",
+    a6d2: "grayCell",
+    a6d3: "grayCell",
+    a6d4: "greenCell",
+    a7Percentage: "na",
+    a7a1: "greenCell",
+    a7a2: "grayCell",
+    a7b1: "grayCell",
+    a7b2: "grayCell",
+    a7c1: "grayCell",
+    a7c2: "grayCell",
+    a7d1: "grayCell",
+    a7d2: "grayCell",
   };
 
   return (
@@ -363,12 +448,42 @@ const TargetGrid = () => {
           <td>
             <b>4c</b>
           </td>
-          <td>0.01</td>
-          <td>4c1</td>
-          <td>4c2</td>
-          <td>4c3</td>
-          <td>4c4</td>
-          <td>4c5</td>
+          <td>{answers.a4cPercentage}</td>
+          <td
+            className={"questionTooltip " + answers.a4c1}
+            data-pr-tooltip={questions.q4c1}
+            data-pr-position="left"
+          >
+            4c1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a4c2}
+            data-pr-tooltip={questions.q4c2}
+            data-pr-position="left"
+          >
+            4c2
+          </td>
+          <td
+            className={"questionTooltip " + answers.a4c3}
+            data-pr-tooltip={questions.q4c3}
+            data-pr-position="left"
+          >
+            4c3
+          </td>
+          <td
+            className={"questionTooltip " + answers.a4c4}
+            data-pr-tooltip={questions.q4c4}
+            data-pr-position="left"
+          >
+            4c4
+          </td>
+          <td
+            className={"questionTooltip " + answers.a4c5}
+            data-pr-tooltip={questions.q4c5}
+            data-pr-position="left"
+          >
+            4c5
+          </td>
           <td colspan="3">&nbsp;</td>
         </tr>
         <tr>
@@ -376,11 +491,35 @@ const TargetGrid = () => {
           <td>
             <b>5</b>
           </td>
-          <td>1.00</td>
-          <td>5a1</td>
-          <td>5a2</td>
-          <td>5a3</td>
-          <td>5b1</td>
+          <td>{answers.a5Percentage}</td>
+          <td
+            className={"questionTooltip " + answers.a5a1}
+            data-pr-tooltip={questions.q5a1}
+            data-pr-position="left"
+          >
+            5a1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a5a2}
+            data-pr-tooltip={questions.q5a2}
+            data-pr-position="left"
+          >
+            5a2
+          </td>
+          <td
+            className={"questionTooltip " + answers.a5a3}
+            data-pr-tooltip={questions.q5a3}
+            data-pr-position="left"
+          >
+            5a3
+          </td>
+          <td
+            className={"questionTooltip " + answers.a5b1}
+            data-pr-tooltip={questions.q5b1}
+            data-pr-position="left"
+          >
+            5b1
+          </td>
           <td colspan="4">&nbsp;</td>
         </tr>
         <tr>
@@ -391,14 +530,56 @@ const TargetGrid = () => {
           <td>
             <b>6a</b>
           </td>
-          <td>0.6</td>
-          <td>6a1</td>
-          <td>6a2</td>
-          <td>6a3</td>
-          <td>6a4</td>
-          <td>6a5</td>
-          <td>6a6</td>
-          <td>6a7</td>
+          <td>{answers.a6aPercentage}</td>
+          <td
+            className={"questionTooltip " + answers.a6a1}
+            data-pr-tooltip={questions.q6a1}
+            data-pr-position="left"
+          >
+            6a1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6a2}
+            data-pr-tooltip={questions.q6a2}
+            data-pr-position="left"
+          >
+            6a2
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6a3}
+            data-pr-tooltip={questions.q6a3}
+            data-pr-position="left"
+          >
+            6a3
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6a4}
+            data-pr-tooltip={questions.q6a4}
+            data-pr-position="left"
+          >
+            6a4
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6a5}
+            data-pr-tooltip={questions.q6a5}
+            data-pr-position="left"
+          >
+            6a5
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6a6}
+            data-pr-tooltip={questions.q6a6}
+            data-pr-position="left"
+          >
+            6a6
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6a7}
+            data-pr-tooltip={questions.q6a7}
+            data-pr-position="left"
+          >
+            6a7
+          </td>
           <td colspan="1">&nbsp;</td>
         </tr>
         <tr>
@@ -406,12 +587,42 @@ const TargetGrid = () => {
           <td>
             <b>6b</b>
           </td>
-          <td>0.60</td>
-          <td>6b1</td>
-          <td>6b2</td>
-          <td>6b3</td>
-          <td>6b4</td>
-          <td>6b5</td>
+          <td>{answers.a6bPercentage}</td>
+          <td
+            className={"questionTooltip " + answers.a6b1}
+            data-pr-tooltip={questions.q6b1}
+            data-pr-position="left"
+          >
+            6b1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6b2}
+            data-pr-tooltip={questions.q6b2}
+            data-pr-position="left"
+          >
+            6b2
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6b3}
+            data-pr-tooltip={questions.q6b3}
+            data-pr-position="left"
+          >
+            6b3
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6b4}
+            data-pr-tooltip={questions.q6b4}
+            data-pr-position="left"
+          >
+            6b4
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6b5}
+            data-pr-tooltip={questions.q6b5}
+            data-pr-position="left"
+          >
+            6b5
+          </td>
           <td colspan="3">&nbsp;</td>
         </tr>
         <tr>
@@ -419,13 +630,49 @@ const TargetGrid = () => {
           <td>
             <b>6c</b>
           </td>
-          <td>1.00</td>
-          <td>6c1</td>
-          <td>6c2</td>
-          <td>6c3</td>
-          <td>6c4</td>
-          <td>6c5</td>
-          <td>6c6</td>
+          <td>{answers.a6cPercentage}</td>
+          <td
+            className={"questionTooltip " + answers.a6c1}
+            data-pr-tooltip={questions.q6c1}
+            data-pr-position="left"
+          >
+            6c1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6c2}
+            data-pr-tooltip={questions.q6c2}
+            data-pr-position="left"
+          >
+            6c2
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6c3}
+            data-pr-tooltip={questions.q6c3}
+            data-pr-position="left"
+          >
+            6c3
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6c4}
+            data-pr-tooltip={questions.q6c4}
+            data-pr-position="left"
+          >
+            6c4
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6c5}
+            data-pr-tooltip={questions.q6c5}
+            data-pr-position="left"
+          >
+            6c5
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6c6}
+            data-pr-tooltip={questions.q6c6}
+            data-pr-position="left"
+          >
+            6c6
+          </td>
           <td colspan="2">&nbsp;</td>
         </tr>
         <tr>
@@ -433,11 +680,35 @@ const TargetGrid = () => {
           <td>
             <b>6d</b>
           </td>
-          <td>0.70</td>
-          <td>6d1</td>
-          <td>6d2</td>
-          <td>6d3</td>
-          <td>6d4</td>
+          <td>{answers.a6dPercentage}</td>
+          <td
+            className={"questionTooltip " + answers.a6d1}
+            data-pr-tooltip={questions.q6d1}
+            data-pr-position="left"
+          >
+            6d1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6d2}
+            data-pr-tooltip={questions.q6d2}
+            data-pr-position="left"
+          >
+            6d2
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6d3}
+            data-pr-tooltip={questions.q6d3}
+            data-pr-position="left"
+          >
+            6d3
+          </td>
+          <td
+            className={"questionTooltip " + answers.a6d4}
+            data-pr-tooltip={questions.q6d4}
+            data-pr-position="left"
+          >
+            6d4
+          </td>
           <td colspan="4">&nbsp;</td>
         </tr>
         <tr>
@@ -445,15 +716,63 @@ const TargetGrid = () => {
           <td>
             <b>7</b>
           </td>
-          <td>na</td>
-          <td>7a1</td>
-          <td>7a2</td>
-          <td>7b1</td>
-          <td>7b2</td>
-          <td>7c1</td>
-          <td>7c2</td>
-          <td>7d1</td>
-          <td>7d2</td>
+          <td>{answers.a7Percentage}</td>
+          <td
+            className={"questionTooltip " + answers.a7a1}
+            data-pr-tooltip={questions.q7a1}
+            data-pr-position="left"
+          >
+            7a1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a7a2}
+            data-pr-tooltip={questions.q7a2}
+            data-pr-position="left"
+          >
+            7a2
+          </td>
+          <td
+            className={"questionTooltip " + answers.a7b1}
+            data-pr-tooltip={questions.q7b1}
+            data-pr-position="left"
+          >
+            7b1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a7b2}
+            data-pr-tooltip={questions.q7b2}
+            data-pr-position="left"
+          >
+            7b2
+          </td>
+          <td
+            className={"questionTooltip " + answers.a7c1}
+            data-pr-tooltip={questions.q7c1}
+            data-pr-position="left"
+          >
+            7c1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a7c2}
+            data-pr-tooltip={questions.q7c2}
+            data-pr-position="left"
+          >
+            7c2
+          </td>
+          <td
+            className={"questionTooltip " + answers.a7d1}
+            data-pr-tooltip={questions.q7d1}
+            data-pr-position="left"
+          >
+            7d1
+          </td>
+          <td
+            className={"questionTooltip " + answers.a7d2}
+            data-pr-tooltip={questions.q7d2}
+            data-pr-position="left"
+          >
+            7d2
+          </td>
         </tr>
       </table>
     </div>
