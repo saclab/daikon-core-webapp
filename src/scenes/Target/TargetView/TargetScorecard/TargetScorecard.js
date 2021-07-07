@@ -35,9 +35,6 @@ const TargetScorecard = () => {
                 <TargetGrid />
               </Fieldset>
             </div>
-            <div className="p-mb-2">
-              <h1>3</h1>
-            </div>
           </div>
         </div>
       </div>
