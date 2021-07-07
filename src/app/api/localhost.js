@@ -75,9 +75,9 @@ const Target = {
 };
 
 const Screen = {
-  list: () => requests.get(`/screens/screens.json`),
-  view: (id) => requests.get(`/screens/screen1Status.json`),
-  hits: (id) => requests.get(`/screens/hit1.json`),
+  screenedTargets: () => requests.get(`/screens/screens.json`),
+  screens: (targetId) => requests.get(`/screens/screen1Status.json`),
+  hits: (screenId) => requests.get(`/screens/hit1.json`),
 };
 
 const exports = {

@@ -10,14 +10,14 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const ScreenDash = () => {
   const rootStore = useContext(RootStoreContext);
-  const { fetchScreenList, displayLoading, screens } = rootStore.screenStore;
+  const { fetchScreenedTargets, displayLoading, screenedTargets } = rootStore.screenStore;
 
   /* Local State Management */
 
   useEffect(() => {
-    console.log("ScreenSearch: fetchScreenList()");
-    fetchScreenList();
-  }, [fetchScreenList]); // eslint-disable-line react-hooks/exhaustive-deps
+    console.log("ScreenSearch: fetchScreenedTargets()");
+    fetchScreenedTargets();
+  }, [fetchScreenedTargets]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */
 
@@ -89,7 +89,7 @@ const ScreenDash = () => {
       <div className="card">
         <DataTable
           ref={dt}
-          value={screens}
+          value={screenedTargets}
           paginator
           rows={10}
           header={header}

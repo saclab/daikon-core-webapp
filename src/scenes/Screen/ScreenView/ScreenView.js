@@ -17,26 +17,23 @@ const ScreenView = ({ match, history }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
-    fetchScreen,
-    screen,
+    fetchScreenedTargets,
+    screenedTargets,
     displayLoading,
-    editScreen,
-    cancelEditScreen,
-    fetchScreenHistory,
-    historyDisplayLoading,
-    screenHistory,
+    
   } = rootStore.screenStore;
 
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
-    // if (screen === null || screen.id !== match.params.id) {
-    //   fetchScreen(match.params.id);
+    // if (screenedTargets === null || screenedTargets.id !== match.params.id) {
+    //   fetchScreenedTargets(match.params.id);
     // }
-    if (screen === null) {
-      fetchScreen(match.params.id);
+    if (screenedTargets === null) {
+      fetchScreenedTargets(match.params.id);
+      console.log(screenedTargets);
     }
-  }, [match.params.id, screen, fetchScreen]);
+  }, [match.params.id, screenedTargets, fetchScreenedTargets]);
 
   const items = [
     {
@@ -65,17 +62,17 @@ const ScreenView = ({ match, history }) => {
     console.log("Loading.....");
     return <Loading />;
   }
-  if (screen !== null) {
+  if (screenedTargets !== null) {
     console.log("Screen ID");
-    console.log(screen.id);
+    console.log(screenedTargets.id);
     const breadCrumbItems = [
       {
         label: "Screen",
         command: () => {
-          history.push("/screen/");
+          history.push("/screenedTargets/");
         },
       },
-      { label: screen.accessionNumber },
+      { label: screenedTargets.accessionNumber },
     ];
 
     return (
@@ -92,7 +89,7 @@ const ScreenView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-                <h2 className="heading">{screen.accessionNumber}</h2>
+                <h2 className="heading">{screenedTargets.accessionNumber}</h2>
               </div>
               <div className="p-mb-2">
                 <TabView
