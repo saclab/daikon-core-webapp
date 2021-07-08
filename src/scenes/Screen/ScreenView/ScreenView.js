@@ -17,9 +17,12 @@ const ScreenView = ({ match, history }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
-    fetchScreenedTargets,
-    screenedTargets,
+    fetchScreens,
+    screens,
     displayLoading,
+    screenedTarget,
+    fetchScreenedTarget,
+    displayScreenLoading,
     
   } = rootStore.screenStore;
 
@@ -29,11 +32,17 @@ const ScreenView = ({ match, history }) => {
     // if (screenedTargets === null || screenedTargets.id !== match.params.id) {
     //   fetchScreenedTargets(match.params.id);
     // }
-    if (screenedTargets === null) {
-      fetchScreenedTargets(match.params.id);
-      console.log(screenedTargets);
+
+    if(screenedTarget === null) {
+      fetchScreenedTarget(match.params.id);
     }
-  }, [match.params.id, screenedTargets, fetchScreenedTargets]);
+
+    if (screenedTarget && screens.length === 0) {
+      console.log("Fetching screens from store");
+      fetchScreens(match.params.id);
+    }
+
+  }, [match.params.id, screens, fetchScreens, fetchScreenedTarget, screenedTarget]);
 
   const items = [
     {
@@ -58,13 +67,12 @@ const ScreenView = ({ match, history }) => {
   ];
 
   /** Loading Overlay */
-  if (displayLoading) {
+  if (displayLoading || displayScreenLoading) {
     console.log("Loading.....");
     return <Loading />;
   }
-  if (screenedTargets !== null) {
-    console.log("Screen ID");
-    console.log(screenedTargets.id);
+  if (screenedTarget !== null) {
+    console.log(screenedTarget);
     const breadCrumbItems = [
       {
         label: "Screen",
@@ -72,8 +80,14 @@ const ScreenView = ({ match, history }) => {
           history.push("/screenedTargets/");
         },
       },
-      { label: screenedTargets.accessionNumber },
+      { label: screenedTarget.AccessionNumber },
     ];
+
+    if (screens !== null) {
+      console.log("screens array");
+      console.log(screens);
+      console.log(screens[match.params.id]);
+    }
 
     return (
       <React.Fragment>
@@ -89,7 +103,7 @@ const ScreenView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-                <h2 className="heading">{screenedTargets.accessionNumber}</h2>
+                <h2 className="heading">{screenedTarget.AccessionNumber}</h2>
               </div>
               <div className="p-mb-2">
                 <TabView
