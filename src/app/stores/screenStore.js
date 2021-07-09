@@ -177,7 +177,42 @@ import {
     };
   
     get screens() {
-      return Array.from(this.screenRegistry.values());
+      // return Array.from(this.screenRegistry.values());
+      return [
+        {
+          "id": 7000,
+          "TargetId": 1000,
+          "ScreenName": "Rv0667-1",
+          "AccessionNumber": "Rv0667",
+          "GeneName": "Pks13",
+          "Status": "Ongoing",
+          "Library": "Sacchettini",
+          "ScientistName": "bob@tamu.edu",
+          "StartDate": "15-08-2020",
+          "EndDate": "20-08-2020",
+          "Method": "method name",
+          "Protocol": "protocol name",
+          "Hits": 2,
+          "Comments": "Fill additional comments here"
+        },
+      
+        {
+          "id": 7001,
+          "TargetId": 1000,
+          "ScreenName": "Rv0667-2",
+          "AccessionNumber": "Rv0667",
+          "GeneName": "Pks13",
+          "Status": "Finished",
+          "Library": "Sacchettini",
+          "ScientistName": "mike@tamu.edu",
+          "StartDate": "06-09-2020",
+          "EndDate": "12-09-2020",
+          "Method": "method name",
+          "Protocol": "protocol name",
+          "Hits": 3,
+          "Comments": "Fill additional comments here"
+        }
+      ]
     }
   
   }
