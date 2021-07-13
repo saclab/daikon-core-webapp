@@ -26,7 +26,21 @@ const HitsTable = ({ screens }) => {
       EnzymeActivity: "89.9",
       Method: "method name",
       MIC: "5.6",
-      Vote: 2,
+      Vote: {
+        votingProps: {
+          userVoted: false,
+          userVote: "Yes",
+          votingAllowed: true,
+          modificationAllowed: false,
+        },
+        votes: [
+          {
+            yes: 4,
+            neutral: 1,
+            no: 1,
+          },
+        ],
+      },
     },
 
     {
@@ -37,11 +51,83 @@ const HitsTable = ({ screens }) => {
       GeneName: "Pks13",
       Library: "Sacchettini",
       CompoundId: "SACC-0098704",
-      Structure: "CS(C)=O",
+      Structure:
+        "OC1=C(C(C2=CC=C(O2)C2=CC=C(C=C2)N(=O)=O)C2=C(O)C3=CC=CC=C3OC2=O)C(=O)OC2=CC=CC=C12",
       EnzymeActivity: "2.88",
       Method: "method name",
       MIC: "2.4",
-      Vote: 2,
+      Vote: {
+        votingProps: {
+          userVoted: true,
+          userVote: "Yes",
+          votingAllowed: true,
+          modificationAllowed: false,
+        },
+        votes: [
+          {
+            yes: 1,
+            neutral: 6,
+            no: 1,
+          },
+        ],
+      },
+    },
+    {
+      id: 9002,
+      ScreenId: 7000,
+      ScreenName: "Rv3800c-1",
+      AccessionNumber: "Rv3800c",
+      GeneName: "Pks13",
+      Library: "Sacchettini",
+      CompoundId: "SACC-0098708",
+      Structure: "OC1=C(C(C2=CN=CS2)C2=C(O)C3=CC=CC=C3OC2=O)C(=O)OC2=CC=CC=C12",
+      EnzymeActivity: "2.88",
+      Method: "method name",
+      MIC: "2.4",
+      Vote: {
+        votingProps: {
+          userVoted: false,
+          userVote: "Yes",
+          votingAllowed: true,
+          modificationAllowed: false,
+        },
+        votes: [
+          {
+            yes: 1,
+            neutral: 1,
+            no: 6,
+          },
+        ],
+      },
+    },
+    {
+      id: 9003,
+      ScreenId: 7000,
+      ScreenName: "Rv3800c-1",
+      AccessionNumber: "Rv3800c",
+      GeneName: "Pks13",
+      Library: "Sacchettini",
+      CompoundId: "SACC-0089649",
+      Structure:
+        "COC1=CC=C(C=C1CN1CCOCC1)C(C1=C(O)C2=CC=CC=C2OC1=O)C1=C(O)C2=C(OC1=O)C=CC=C2",
+      EnzymeActivity: "2.88",
+      Method: "method name",
+      MIC: "2.4",
+      Vote: {
+        votingProps: {
+          userVoted: false,
+          userVote: "Yes",
+          votingAllowed: true,
+          modificationAllowed: false,
+        },
+        votes: [
+          {
+            yes: 0,
+            neutral: 0,
+            no: 0,
+          },
+        ],
+      },
     },
   ];
 
@@ -118,7 +204,7 @@ const HitsTable = ({ screens }) => {
     return (
       <React.Fragment>
         <span className="p-column-title">Vote</span>
-        <Vote />
+        <Vote id={rowData.id} voteData={rowData.Vote} />
       </React.Fragment>
     );
   };
@@ -140,7 +226,6 @@ const HitsTable = ({ screens }) => {
 
   return (
     <div className="datatable-screen-table">
-     
       <div className="card">
         <DataTable
           ref={dt}
@@ -197,7 +282,7 @@ const HitsTable = ({ screens }) => {
             field="Structure"
             header="Structure"
             body={StructureBodyTemplate}
-            style={{ minWidth: "250px"}}
+            style={{ minWidth: "250px" }}
           />
           <Column
             field="Vote"
