@@ -4,6 +4,7 @@ import TargetDashChart from "./TargetDashChart/TargetDashChart";
 import TargetDashTable from "./TargetDashTable/TargetDashTable";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 const TargetDash = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
@@ -23,20 +24,21 @@ const TargetDash = () => {
 
   return (
     <div>
-      <h1 className="heading">Target Dashboard</h1>
+      <SectionHeading
+        icon="icon icon-common icon-target"
+        heading="H37Rv Targets"
+      />
 
       <div className="p-d-flex">
         <div className="p-mb-2">
-          
-            <div className="p-d-flex">
-              <div className="p-mr-2">
-                <TargetDashChart />
-              </div>
-              <div className="p-mr-2">
-                <TargetDashTable />
-              </div>
+          <div className="p-d-flex">
+            <div className="p-mr-2">
+              <TargetDashChart />
             </div>
-         
+            <div className="p-mr-2">
+              <TargetDashTable />
+            </div>
+          </div>
         </div>
       </div>
     </div>
