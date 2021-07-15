@@ -6,25 +6,24 @@ const MenuBar = () => {
   const items = [
     {
       label: "Genes",
-      icon: "pi pi-fw pi-eye",
+      icon: "icon icon-conceptual icon-dna",
       command: () => history.push("/gene/"),
     },
     {
       label: "Target",
-      icon: "pi pi-fw pi-plus-circle",
+      icon: "icon icon-common icon-target",
       command: () => history.push("/target/"),
     },
     {
       label: "Screen",
-      icon: "pi pi-fw pi-pencil",
+      icon: "icon icon-conceptual icon-chemical",
       command: () => history.push("/screen/"),
     },
-    { label: "FHA", icon: "pi pi-fw pi-file" },
-    { label: "H2L", icon: "pi pi-fw pi-globe" },
-    { label: "LO", icon: "pi pi-fw pi-tablet" },
-    { label: "SP", icon: "pi pi-fw pi-calendar" },
-    { label: "IND", icon: "pi pi-fw pi-circle-off" },
-    { label: "Clinical", icon: "pi pi-fw pi-compass" },
+    { label: "FHA", icon: "icon icon-conceptual icon-structures-3d" },
+    { label: "Portfolio", icon: "icon icon-common icon-classification" },
+   
+    { label: "IND", icon: "icon icon-conceptual icon-proteins" },
+    { label: "Clinical", icon: "icon icon-common icon-biotech" },
   ];
 
   const setSelectedItem = () => {

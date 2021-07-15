@@ -9,6 +9,7 @@ import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import ScreenTable from "./HitsTable/HitsTable";
 import HitsTable from "./HitsTable/HitsTable";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const HitsView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -114,7 +115,11 @@ const HitsView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-                <h2 className="heading"> Rv0667-1</h2>
+              <SectionHeading
+                  icon="icon icon-common icon-fullscreen"
+                  heading={"Hits of Rv0667-1"}
+                />
+               
               </div>
               <div className="p-mb-2">
                 <HitsTable screens={screens} />

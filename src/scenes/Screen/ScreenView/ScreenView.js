@@ -8,6 +8,7 @@ import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import ScreenTable from "./ScreenTable/ScreenTable";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const ScreenView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -104,7 +105,11 @@ const ScreenView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-                <h2 className="heading">{screenedTarget.AccessionNumber}</h2>
+                <SectionHeading
+                  icon="icon icon-conceptual icon-chemical"
+                  heading={"Screens of "+screenedTarget.AccessionNumber}
+                />
+                
               </div>
               <div className="p-mb-2">
                 <ScreenTable screens={screens} />
