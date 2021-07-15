@@ -1,56 +1,53 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Menu } from "primereact/menu";
 import { TabView, TabPanel } from "primereact/tabview";
-import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
-import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Toast } from "primereact/toast";
 import { BreadCrumb } from "primereact/breadcrumb";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
+import ScreenStatus from "./ScreenStatus/ScreenStatus";
+import ScreenHits from "./ScreenHits/ScreenHits";
 
-const TargetView = ({ match, history }) => {
+const ScreenView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
-    fetchTarget,
-    target,
+    fetchScreenedTargets,
+    screenedTargets,
     displayLoading,
-    editTarget,
-    cancelEditTarget,
-    fetchTargetHistory,
-    historyDisplayLoading,
-    targetHistory,
-  } = rootStore.targetStore;
+    
+  } = rootStore.screenStore;
 
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
-    // if (target === null || target.id !== match.params.id) {
-    //   fetchTarget(match.params.id);
+    // if (screenedTargets === null || screenedTargets.id !== match.params.id) {
+    //   fetchScreenedTargets(match.params.id);
     // }
-    if (target === null) {
-      fetchTarget(match.params.id);
+    if (screenedTargets === null) {
+      fetchScreenedTargets(match.params.id);
+      console.log(screenedTargets);
     }
-  }, [match.params.id, target, fetchTarget]);
+  }, [match.params.id, screenedTargets, fetchScreenedTargets]);
 
   const items = [
     {
       label: "Sections",
       items: [
         {
-          label: "Target Scorecard",
+          label: "Status",
           icon: "ri-git-repository-private-fill",
           command: () => {
             setActiveIndex(0);
           },
         },
         {
-          label: "Target Promotion Form",
+          label: "Hits",
           icon: "ri-book-open-line",
           command: () => {
             setActiveIndex(1);
@@ -65,17 +62,17 @@ const TargetView = ({ match, history }) => {
     console.log("Loading.....");
     return <Loading />;
   }
-  if (target !== null) {
-    console.log("Target ID");
-    console.log(target.id);
+  if (screenedTargets !== null) {
+    console.log("Screen ID");
+    console.log(screenedTargets.id);
     const breadCrumbItems = [
       {
-        label: "Target",
+        label: "Screen",
         command: () => {
-          history.push("/target/");
+          history.push("/screenedTargets/");
         },
       },
-      { label: target.accessionNumber },
+      { label: screenedTargets.accessionNumber },
     ];
 
     return (
@@ -92,32 +89,19 @@ const TargetView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-                <h2 className="heading">{target.accessionNumber}</h2>
+                <h2 className="heading">{screenedTargets.accessionNumber}</h2>
               </div>
               <div className="p-mb-2">
                 <TabView
                   activeIndex={activeIndex}
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
-                  
-                  <TabPanel header="Header II" headerClassName="hide">
-                    <TargetScorecard />
-                  </TabPanel>
                   <TabPanel header="Header I" headerClassName="hide">
-                    <TargetPromotionForm
-                      id={match.params.id}
-                      target={target}
-                      edit={() => editTarget()}
-                      cancelEdit={() => cancelEditTarget()}
-                      fetchHistory={() => fetchTargetHistory()}
-                      historyDisplayLoading={historyDisplayLoading}
-                      history={targetHistory}
-                    />
+                    <ScreenStatus />
                   </TabPanel>
-                  <TabPanel
-                    header="Header III"
-                    headerClassName="hide"
-                  ></TabPanel>
+                  <TabPanel header="Header II" headerClassName="hide">
+                    <ScreenHits />
+                  </TabPanel>
                 </TabView>
               </div>
             </div>
@@ -130,4 +114,4 @@ const TargetView = ({ match, history }) => {
   return <NotFound />;
 };
 
-export default observer(TargetView);
+export default observer(ScreenView);
