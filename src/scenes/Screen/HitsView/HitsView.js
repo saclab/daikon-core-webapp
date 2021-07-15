@@ -7,9 +7,10 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import ScreenTable from "./ScreenTable/ScreenTable";
+import ScreenTable from "./HitsTable/HitsTable";
+import HitsTable from "./HitsTable/HitsTable";
 
-const ScreenView = ({ match, history }) => {
+const HitsView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
@@ -80,10 +81,19 @@ const ScreenView = ({ match, history }) => {
       {
         label: "Screened Targets",
         command: () => {
-          history.push("/screenedTargets/");
+          history.push("/screen/");
         },
       },
-      { label: screenedTarget.AccessionNumber },
+      {
+        label: "Rv0667",
+        command: () => {
+          history.push("/screen/1000/");
+        },
+      },
+
+      {
+        label: "Rv0667-1",
+      },
     ];
 
     if (screens !== null) {
@@ -104,10 +114,10 @@ const ScreenView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-                <h2 className="heading">{screenedTarget.AccessionNumber}</h2>
+                <h2 className="heading"> Rv0667-1</h2>
               </div>
               <div className="p-mb-2">
-                <ScreenTable screens={screens} />
+                <HitsTable screens={screens} />
               </div>
             </div>
           </div>
@@ -119,4 +129,4 @@ const ScreenView = ({ match, history }) => {
   return <NotFound />;
 };
 
-export default observer(ScreenView);
+export default observer(HitsView);

@@ -12,6 +12,7 @@ import {
     rootStore;
   
     displayLoading = false;
+    displayScreenLoading = false;
     
     historyDisplayLoading = false;
   
@@ -24,6 +25,7 @@ import {
     /* For caching purposes we are maintaining a single map for all screens as guid will be unique anyway */
     screenRegistry = new Map();
     screenHistoryRegistry = new Map();
+    selectedScreens = null;
     selectedScreen = null;
     selectedScreenHistory = null;
 
@@ -40,12 +42,14 @@ import {
       makeObservable(this, {
         displayLoading: observable,
         // historyDisplayLoading: observable,
+        displayScreenLoading: observable,
 
         screenedTargets : computed,
         fetchScreenedTargets : action,
+        fetchScreenedTarget : action,
         screenedTargetsRegistry : observable,
-
         selectedScreenedTarget : observable,
+        screenedTarget : computed,
         
         screens: computed,
         fetchScreens: action,
@@ -90,17 +94,56 @@ import {
         });
       }
     };
+
+    fetchScreenedTarget = async (targetID) => {
+      console.log("screenStore: fetchScreenedTarget Start");
+      this.displayLoading = true;
+  
+      // first check cache
+      let fetchedScreenTarget = this.screenedTargetsRegistry.get(targetID);
+      console.log("CACHE");
+      console.log(fetchedScreenTarget);
+      if (fetchedScreenTarget) {
+        console.log("screenStore: fetchScreenedTarget found in cache");
+        this.selectedScreenedTarget = fetchedScreenTarget;
+        this.displayLoading = false;
+      }
+      // if not found fetch from api
+      else {
+        try {
+          let resp = await localhost.Screen.screenedTarget(targetID);
+          runInAction(() => {
+            console.log("screenStore: fetchScreenedTarget fetched from api");
+            // console.log(resp);
+           
+            this.selectedScreenedTarget = resp;
+            //console.log(this.screenedTargetsRegistry);
+          });
+        } catch (error) {
+          console.log(error);
+        } finally {
+          runInAction(() => {
+            this.displayLoading = false;
+            console.log("screenStore: fetchScreenedTarget Complete");
+          });
+        }
+      }
+    };
   
     get screenedTargets() {
       console.log("screenStore: screenedTargets() Start");
       return Array.from(this.screenedTargetsRegistry.values());
+    }
+
+    get screenedTarget() {
+      return this.selectedScreenedTarget
     }
   
     /* Fetch screens for a ScreenedTarget from API */
   
     fetchScreens = async (targetId) => {
       console.log("screenStore: fetchScreens Start");
-      this.displayLoading = true;
+      this.displayScreenLoading = true;
   
       // first check cache
       let fetchedScreens = this.screenRegistry.get(targetId);
@@ -108,23 +151,25 @@ import {
       console.log(fetchedScreens);
       if (fetchedScreens) {
         console.log("screenStore: fetchScreens found in cache");
-        this.selectedScreenedTarget = fetchedScreens;
-        this.displayLoading = false;
+        this.displayScreenLoading = false;
       }
       // if not found fetch from api
       else {
         try {
+          console.log(">>>>>>>>> Fetching screens from api");
           let resp = await localhost.Screen.screens(targetId);
           runInAction(() => {
             console.log("screenStore: fetchScreens fetched from api");
+            console.log(resp);
             this.screenRegistry.set(targetId, resp);
-            this.selectedScreenedTarget = resp;
+            
           });
         } catch (error) {
           console.log(error);
         } finally {
           runInAction(() => {
-            this.displayLoading = false;
+            this.displayScreenLoading = false;
+            console.log(this.screenRegistry);
             console.log("screenStore: fetchScreens Complete");
           });
         }
@@ -132,9 +177,42 @@ import {
     };
   
     get screens() {
-      console.log("From Screen Store");
-      console.log(this.screenRegistry.get(this.selectedScreenedTarget));
-      return this.screenRegistry.get(this.selectedScreenedTarget);
+      // return Array.from(this.screenRegistry.values());
+      return [
+        {
+          "id": 7000,
+          "TargetId": 1000,
+          "ScreenName": "Rv0667-1",
+          "AccessionNumber": "Rv0667",
+          "GeneName": "Pks13",
+          "Status": "Ongoing",
+          "Library": "Sacchettini",
+          "ScientistName": "bob@tamu.edu",
+          "StartDate": "15-08-2020",
+          "EndDate": "20-08-2020",
+          "Method": "method name",
+          "Protocol": "protocol name",
+          "Hits": 2,
+          "Comments": "Fill additional comments here"
+        },
+      
+        {
+          "id": 7001,
+          "TargetId": 1000,
+          "ScreenName": "Rv0667-2",
+          "AccessionNumber": "Rv0667",
+          "GeneName": "Pks13",
+          "Status": "Finished",
+          "Library": "Sacchettini",
+          "ScientistName": "mike@tamu.edu",
+          "StartDate": "06-09-2020",
+          "EndDate": "12-09-2020",
+          "Method": "method name",
+          "Protocol": "protocol name",
+          "Hits": 3,
+          "Comments": "Fill additional comments here"
+        }
+      ]
     }
   
   }

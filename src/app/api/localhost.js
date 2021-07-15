@@ -75,7 +75,8 @@ const Target = {
 };
 
 const Screen = {
-  screenedTargets: () => requests.get(`/screens/screens.json`),
+  screenedTargets: () => requests.get(`/screens/screenedTargets.json`),
+  screenedTarget: (targetId) => requests.get(`/screens/screenedTarget.json`),
   screens: (targetId) => requests.get(`/screens/screen1Status.json`),
   hits: (screenId) => requests.get(`/screens/hit1.json`),
 };
