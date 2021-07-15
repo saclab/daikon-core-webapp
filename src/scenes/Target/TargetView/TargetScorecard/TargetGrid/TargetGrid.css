@@ -1,0 +1,35 @@
+.targetGrid table {
+  border: 1px solid #D5D8DC;
+  border-collapse: collapse;
+}
+.targetGrid td {
+  border: thin solid #D5D8DC;
+  padding: 10px;
+}
+
+.targetGrid .verticalText span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: left;
+  max-height: 100px;
+}
+
+.targetGrid .greenCell {
+  background-color: #A3E4D7 ;
+  color: #0E6251;
+}
+
+.targetGrid .yellowCell {
+  background-color: #FCF3CF;
+  color: #7D6608;
+}
+
+.targetGrid .redCell {
+  background-color: #FADBD8;
+  color: #78281F;
+}
+
+.targetGrid .grayCell {
+  background-color: #E5E8E8;
+  color: #424949;
+}

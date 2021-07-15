@@ -2,25 +2,22 @@ import React, { useEffect, useRef, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import "./TargetDashDataTable.css";
-import Loading from "../../../../app/layout/Loading/Loading";
+import "./ScreenDashDataTable.css";
+import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 
 
-const TargetDashTable = () => {
-
-
-  /* MobX Store */
+const ScreenDash = () => {
   const rootStore = useContext(RootStoreContext);
-  const { fetchTargetList, displayLoading, targets } = rootStore.targetStore;
+  const { fetchScreenedTargets, displayLoading, screenedTargets } = rootStore.screenStore;
 
   /* Local State Management */
 
   useEffect(() => {
-    console.log("TargetSearch: fetchTargetList()");
-    fetchTargetList();
-  }, [fetchTargetList]); // eslint-disable-line react-hooks/exhaustive-deps
+    console.log("ScreenSearch: fetchScreenedTargets()");
+    fetchScreenedTargets();
+  }, [fetchScreenedTargets]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */
 
@@ -32,7 +29,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Accession Number</span>
-        <NavLink to={"/target/" + rowData.id}>
+        <NavLink to={"/screen/" + rowData.id}>
           {rowData.AccessionNumber}
         </NavLink>
       </React.Fragment>
@@ -48,47 +45,20 @@ const TargetDashTable = () => {
     );
   };
 
-  const ScoreBodyTemplate = (rowData) => {
+  const StatusBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Score</span>
-        {rowData.Score}
+        <span className="p-column-title">Status</span>
+        {rowData.Status}
       </React.Fragment>
     );
   };
 
-  const HTSFeasibilityBodyTemplate = (rowData) => {
+  const NotesBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">HTS Feasibility</span>
-        {rowData.HTSFeasibility}
-      </React.Fragment>
-    );
-  };
-
-  const SBDFeasibilityBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">SBD Feasibility</span>
-        {rowData.SBDFeasibility}
-      </React.Fragment>
-    );
-  };
-
-  const ProgressibilityBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Progressibility</span>
-        {rowData.Progressibility}
-      </React.Fragment>
-    );
-  };
-
-  const SafetyBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Safety</span>
-        {rowData.Safety}
+        <span className="p-column-title">Notes</span>
+        {rowData.Notes}
       </React.Fragment>
     );
   };
@@ -96,7 +66,7 @@ const TargetDashTable = () => {
   /* Table Header  */
   const header = (
     <div className="table-header">
-      <span className="heading">H37Rv Targets</span>
+      <span className="heading">List of Targets being Screened</span>
       {/* <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -114,16 +84,16 @@ const TargetDashTable = () => {
   }
 
   return (
-    <div className="datatable-targets">
+    <div className="datatable-screens">
       <br />
       <div className="card">
         <DataTable
           ref={dt}
-          value={targets}
+          value={screenedTargets}
           paginator
           rows={10}
           header={header}
-          className="p-datatable-targets"
+          className="p-datatable-screens"
           //globalFilter={globalFilter}
           emptyMessage="No genes found."
         >
@@ -147,30 +117,13 @@ const TargetDashTable = () => {
             className="narrow-column"
           />
 
-          <Column field="Score" header="Score" body={ScoreBodyTemplate} />
+          <Column field="status" header="Status" body={StatusBodyTemplate} />
 
-          <Column
-            field="htsfeasibility"
-            header="HTS Feasibility"
-            body={HTSFeasibilityBodyTemplate}
-          />
-
-          <Column
-            field="sbdfeasibility"
-            header="SBD Feasibility"
-            body={SBDFeasibilityBodyTemplate}
-          />
-
-          <Column
-            field="progressibility"
-            header="Progressibility"
-            body={ProgressibilityBodyTemplate}
-          />
-
-          <Column field="safety" header="Safety" body={SafetyBodyTemplate} />
+          <Column field="notes" header="Notes" body={NotesBodyTemplate} />
         </DataTable>
       </div>
     </div>
   );
 };
-export default observer(TargetDashTable);
+
+export default  observer(ScreenDash);

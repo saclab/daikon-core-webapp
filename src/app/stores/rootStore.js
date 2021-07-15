@@ -4,9 +4,10 @@ import AdminStore from "./adminStore";
 import GeneStore from "./geneStore";
 import MsStore from "./msStore";
 import UserStore from "./userStore";
+import TargetStore from "./targetStore";
+import ScreenStore from "./screenStore";
 
 configure({ enforceActions: "always" });
-
 
 export class RootStore {
   geneStore;
@@ -14,12 +15,15 @@ export class RootStore {
   commonStore;
   adminStore;
   msStore;
+  targetStore;
 
   constructor() {
     this.msStore = new MsStore(this);
     this.geneStore = new GeneStore(this);
+    this.targetStore = new TargetStore(this);
     this.userStore = new UserStore(this);
     this.adminStore = new AdminStore(this);
+    this.screenStore = new ScreenStore(this);
   }
 }
 export const RootStoreContext = createContext(new RootStore());

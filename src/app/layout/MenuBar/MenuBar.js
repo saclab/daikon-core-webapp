@@ -7,14 +7,18 @@ const MenuBar = () => {
     {
       label: "Genes",
       icon: "pi pi-fw pi-eye",
-      command: () => history.push("/gene/")
+      command: () => history.push("/gene/"),
     },
     {
       label: "Target",
       icon: "pi pi-fw pi-plus-circle",
-      command: () => history.push("/target/")
+      command: () => history.push("/target/"),
     },
-    { label: "Screen", icon: "pi pi-fw pi-pencil" },
+    {
+      label: "Screen",
+      icon: "pi pi-fw pi-pencil",
+      command: () => history.push("/screen/"),
+    },
     { label: "FHA", icon: "pi pi-fw pi-file" },
     { label: "H2L", icon: "pi pi-fw pi-globe" },
     { label: "LO", icon: "pi pi-fw pi-tablet" },
@@ -29,6 +33,8 @@ const MenuBar = () => {
         return items[0];
       case "/target/":
         return items[1];
+      case "/screen/":
+        return items[2];
       default:
         return "ww";
     }
