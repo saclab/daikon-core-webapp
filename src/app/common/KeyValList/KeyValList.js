@@ -13,6 +13,7 @@ import {
   _helper_renderHistoryTimeline,
   _helper_renderFooterOfEditDialog,
   _helper_filterHilightChanged,
+  _helper_renderHeaderofEditDialog
 } from "./KeyValList_Helper";
 import {
   _command_contextMenuCopyCommand,
@@ -53,7 +54,7 @@ const KeyValList = ({
   if (_.isFunction(fetchHistory)) {
     contextMenuItems.push({
       label: "Fetch History",
-      icon: "pi pi-backward",
+      icon: "icon icon-common icon-history",
       command: () =>
         _command_contextMenuFetchHistoryCommand(
           fetchHistory,
@@ -227,7 +228,7 @@ const KeyValList = ({
         onHide={() => setDisplayHistorySideBar(false)}
       >
         <div style={{ margin: "15px" }}>
-          <h2> History</h2>
+          <h2><i class="icon icon-common icon-history"></i> History</h2>
           <h1>
             <StartCase string={selectedId} />
           </h1>
@@ -241,7 +242,7 @@ const KeyValList = ({
       </Sidebar>
 
       <Dialog
-        header={"Editing Database"}
+        header={_helper_renderHeaderofEditDialog()}
         visible={displayEditContainer}
         closable={false}
         draggable={true}

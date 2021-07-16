@@ -81,9 +81,16 @@ const Screen = {
   hits: (screenId) => requests.get(`/screens/hit1.json`),
 };
 
+const Portfolio = {
+  list: () => requests.get(`/portfolios/portfolios.json`),
+  view: (id) => requests.get(`/portfolios/portfolio-view.json`),
+};
+
+
 const exports = {
   Target,
-  Screen
+  Screen,
+  Portfolio
 };
 
 export default exports;
