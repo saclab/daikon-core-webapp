@@ -232,7 +232,7 @@ const HitsTable = ({ screens }) => {
           value={data}
           paginator
           rows={10}
-          header={header}
+          // header={header}
           className="p-datatable-screen-table"
           //globalFilter={globalFilter}
           emptyMessage="No genes found."

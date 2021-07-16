@@ -20,8 +20,12 @@ const MenuBar = () => {
       command: () => history.push("/screen/"),
     },
     { label: "FHA", icon: "icon icon-conceptual icon-structures-3d" },
-    { label: "Portfolio", icon: "icon icon-common icon-classification" },
-   
+    {
+      label: "Portfolio",
+      icon: "icon icon-common icon-classification",
+      command: () => history.push("/portfolio/"),
+    },
+
     { label: "IND", icon: "icon icon-conceptual icon-proteins" },
     { label: "Clinical", icon: "icon icon-common icon-biotech" },
   ];
@@ -34,6 +38,8 @@ const MenuBar = () => {
         return items[1];
       case "/screen/":
         return items[2];
+      case "/portfolio/":
+        return items[4];
       default:
         return "ww";
     }

@@ -62,6 +62,12 @@ export function _helper_renderHistoryTimeline(
   }
 }
 
+export function _helper_renderHeaderofEditDialog() {
+  return <React.Fragment>
+    <i class="icon icon-common icon-database"></i> &nbsp; Editing Database
+  </React.Fragment>
+}
+
 export function _helper_renderFooterOfEditDialog(
   editFunc,
   cancelEdit,
@@ -82,7 +88,7 @@ export function _helper_renderFooterOfEditDialog(
       />
       <Button
         label="Save"
-        icon="pi pi-check"
+        icon="icon icon-common icon-database-submit"
         onClick={() => {
           editFunc();
           setDisplayEditContainer(false);

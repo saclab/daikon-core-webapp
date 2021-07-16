@@ -35,6 +35,7 @@ import ScreenDash from "../../scenes/Screen/ScreenDash/ScreenDash";
 import ScreenView from "../../scenes/Screen/ScreenView/ScreenView";
 import HitsView from "../../scenes/Screen/HitsView/HitsView";
 import TestMolView from "../test/TestMolView/TestMolView";
+import PortfolioDash from "../../scenes/Portfolio/PortfolioDash/PortfolioDash";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -93,6 +94,8 @@ const App = () => {
             <Route exact path="/screen" component={ScreenDash} />
             <Route path="/screen/:screenId/hits/:hitsId" component={HitsView} />
             <Route path="/screen/:id" component={ScreenView} />
+
+            <Route exact path="/portfolio" component={PortfolioDash} />
 
 
             <Route path="/test/molview" component={TestMolView} />

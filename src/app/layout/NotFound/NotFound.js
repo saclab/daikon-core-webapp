@@ -12,7 +12,7 @@ const NotFound = () => {
             
             <h4>That didn't look good!</h4>
             <p>
-              The component you are looking for could not be found. 
+              The page you are looking for could not be found. 
               <br />
               <br />
               <NavLink to="/">Return Home</NavLink>

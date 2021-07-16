@@ -12,7 +12,7 @@ const SectionHeading = ({ icon, heading, sub }) => {
       }}
     >
       <h1 style={{ margin: "0px", fontWeight : "lighter"}}>
-        <i class={icon}></i> {heading}
+        <i className={icon}></i> {heading}
       </h1>
       {sub}
     </div>
