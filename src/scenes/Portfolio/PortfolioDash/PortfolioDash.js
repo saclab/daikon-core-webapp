@@ -10,9 +10,10 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import { Dropdown } from "primereact/dropdown";
+import { Tag } from "primereact/tag";
 import { SelectButton } from "primereact/selectbutton";
-import { MultiSelect } from 'primereact/multiselect';
+import { MultiSelect } from "primereact/multiselect";
+import "./PortfolioDashDataTable.css";
 
 const PortfolioDash = () => {
   /* MobX Store */
@@ -100,7 +101,9 @@ const PortfolioDash = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
-        {rowData.ProjectName}
+        <b>
+          <NavLink to={"#"}>{rowData.ProjectName}</NavLink>
+        </b>
       </React.Fragment>
     );
   };
@@ -115,19 +118,38 @@ const PortfolioDash = () => {
   };
 
   const StatusBodyTemplate = (rowData) => {
+    if (rowData.Status === "Active") {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Status</span>
+          <Tag className="table-status-active" value="Active" />
+        </React.Fragment>
+      );
+    }
     return (
       <React.Fragment>
         <span className="p-column-title">Status</span>
-        {rowData.Status}
+        <Tag className="table-status-inactive" value="Inactive" />
       </React.Fragment>
     );
   };
 
   const DateBodyTemplate = (rowData) => {
+    let inputDate = new Date(rowData.Date).setHours(0, 0, 0, 0);
+    let todaysDate = new Date().setHours(0, 0, 0, 0);
+
+    if (rowData.Status === "Active" && inputDate < todaysDate) {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Date</span>
+          <Tag className="table-date-due" value={rowData.Date} />
+        </React.Fragment>
+      );
+    }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        {rowData.Date}
+        <Tag className="table-date-ok" value={rowData.Date} />
       </React.Fragment>
     );
   };
@@ -136,7 +158,7 @@ const PortfolioDash = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Stage</span>
-        {rowData.Stage}
+        <Tag className={`table-stage-${rowData.Stage}`} value={rowData.Stage} />
       </React.Fragment>
     );
   };
@@ -150,7 +172,7 @@ const PortfolioDash = () => {
   console.log(portfolios);
 
   return (
-    <div className="datatable-targets">
+    <div className="datatable-portfolio-dash">
       <SectionHeading
         icon="icon icon-common icon-classification"
         heading="Portfolio"
@@ -178,7 +200,7 @@ const PortfolioDash = () => {
 
           <Column
             field="ProjectName"
-            header="ProjectName"
+            header="Project Name"
             body={ProjectNameBodyTemplate}
           />
 
@@ -188,7 +210,7 @@ const PortfolioDash = () => {
             body={TargetBodyTemplate}
             filter
             filterMatchMode="contains"
-            filterPlaceholder="Search by Target"
+            filterPlaceholder="Filter by Target"
             className="narrow-column"
           />
 
