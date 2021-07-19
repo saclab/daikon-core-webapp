@@ -7,7 +7,7 @@ import "primereact/resources/primereact.min.css";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import "../../assets/_overrides.scss";
-import 'remixicon/fonts/remixicon.css'
+import "remixicon/fonts/remixicon.css";
 import TitleBar from "./TitleBar/TitleBar";
 import MenuBar from "./MenuBar/MenuBar";
 import { Route, Switch, withRouter } from "react-router-dom";
@@ -36,6 +36,7 @@ import ScreenView from "../../scenes/Screen/ScreenView/ScreenView";
 import HitsView from "../../scenes/Screen/HitsView/HitsView";
 import TestMolView from "../test/TestMolView/TestMolView";
 import PortfolioDash from "../../scenes/Portfolio/PortfolioDash/PortfolioDash";
+import PortfolioView from "../../scenes/Portfolio/PortfolioView/PortfolioView";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -96,7 +97,7 @@ const App = () => {
             <Route path="/screen/:id" component={ScreenView} />
 
             <Route exact path="/portfolio" component={PortfolioDash} />
-
+            <Route path="/portfolio/:id" component={PortfolioView} />
 
             <Route path="/test/molview" component={TestMolView} />
             <Route component={NotFound} />
@@ -110,7 +111,6 @@ const App = () => {
   let notSignedInRender = (
     <Fragment>
       <Login loginButtonClicked={() => authServiceInstance.SignIn()} />
-
     </Fragment>
   );
 
