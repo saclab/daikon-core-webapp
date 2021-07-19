@@ -3,7 +3,7 @@ import React from 'react'
 const PortfolioView = () => {
   return (
     <div>
-      Portfolio
+      Portfolio View
     </div>
   )
 }
