@@ -93,7 +93,7 @@ const PortfolioView = ({ match, history }) => {
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
                   <TabPanel header="Header I" headerClassName="hide">
-                    <PortfolioInformation />
+                    <PortfolioInformation portfolioData={portfolio}/>
                   </TabPanel>
                   <TabPanel header="Header II" headerClassName="hide">
                     tab 2
