@@ -1,6 +1,7 @@
 import { Fieldset } from "primereact/fieldset";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import React from "react";
+import SmilesView from "../../../../app/common/SmilesView/SmilesView";
 
 const PortfolioInformation = ({ edit, cancelEdit, portfolioData }) => {
   return (
@@ -8,7 +9,7 @@ const PortfolioInformation = ({ edit, cancelEdit, portfolioData }) => {
       <div className="p-d-flex">
         <div className="p-mr-2">
           <div className="p-d-flex p-flex-column">
-            <div className="p-mb-2">
+            <div className="p-mb-2"  style={{ minHeight: "450px"}}>
               <Fieldset legend="General annotation">
                 <KeyValList
                   data={portfolioData}
@@ -16,25 +17,12 @@ const PortfolioInformation = ({ edit, cancelEdit, portfolioData }) => {
                     "target",
                     "projectNo",
                     "projectName",
-                    "primaryOrg",
-                    "supportingOrg",
+                    "primaryOrganization",
+                    "supportingOrganization",
                     "status",
-                    
-                  ]}
-                  editFunc={() => edit()}
-                  cancelEdit={() => cancelEdit()}
-                />
-              </Fieldset>
-            </div>
-            <div className="p-mb-2">
-              <Fieldset legend="Coordinates">
-              <KeyValList
-                  data={portfolioData}
-                  filter={[
                     "stage",
                     "priority",
                     "probability",
-                    
                   ]}
                   editFunc={() => edit()}
                   cancelEdit={() => cancelEdit()}
@@ -45,24 +33,9 @@ const PortfolioInformation = ({ edit, cancelEdit, portfolioData }) => {
         </div>
         <div className="p-mr-2">
           <div className="p-d-flex p-flex-column">
-            <div className="p-mb-2">
-              <Fieldset legend="Gene summary">
-              <KeyValList
-                  data={portfolioData}
-                  filter={[
-                    "structure",
-                    
-                    
-                  ]}
-                  editFunc={() => edit()}
-                  cancelEdit={() => cancelEdit()}
-                />
-              </Fieldset>
-            </div>
-            <div className="p-mb-2">
-              {" "}
-              <Fieldset legend="Protein summary">
-              <KeyValList
+            <div className="p-mb-2" style={{ minHeight: "350px"}}>
+              <Fieldset legend="Project Start Dates">
+                <KeyValList
                   data={portfolioData}
                   filter={[
                     "fhaStartDate",
@@ -72,15 +45,23 @@ const PortfolioInformation = ({ edit, cancelEdit, portfolioData }) => {
                     "pcdDate",
                     "indStartDate",
                     "clinicalStartDate",
-                    
                   ]}
-                  />
+                />
               </Fieldset>
             </div>
-            {/* <div className="p-mb-2">
-              {" "}
-              <Fieldset legend="Orthologues">5</Fieldset>
-            </div> */}
+          </div>
+        </div>
+        <div className="p-mr-2">
+          <div className="p-d-flex p-flex-column">
+            <div className="p-mb-2">
+              <Fieldset legend="Structure">
+                <React.Fragment>
+                  <div style={{ minWidth: "250px", marginLeft: "50px"  }}>
+                    <SmilesView smiles={portfolioData.structure} />
+                  </div>
+                </React.Fragment>
+              </Fieldset>
+            </div>
           </div>
         </div>
       </div>
