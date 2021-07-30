@@ -122,7 +122,7 @@ const TargetDashTable = () => {
           value={targets}
           paginator
           rows={10}
-          header={header}
+          // header={header}
           className="p-datatable-targets"
           //globalFilter={globalFilter}
           emptyMessage="No genes found."

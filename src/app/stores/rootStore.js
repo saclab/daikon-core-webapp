@@ -6,6 +6,7 @@ import MsStore from "./msStore";
 import UserStore from "./userStore";
 import TargetStore from "./targetStore";
 import ScreenStore from "./screenStore";
+import PortfolioStore from "./portfolioStore";
 
 configure({ enforceActions: "always" });
 
@@ -16,6 +17,7 @@ export class RootStore {
   adminStore;
   msStore;
   targetStore;
+  portfolioStore;
 
   constructor() {
     this.msStore = new MsStore(this);
@@ -24,6 +26,7 @@ export class RootStore {
     this.userStore = new UserStore(this);
     this.adminStore = new AdminStore(this);
     this.screenStore = new ScreenStore(this);
+    this.portfolioStore = new PortfolioStore(this);
   }
 }
 export const RootStoreContext = createContext(new RootStore());

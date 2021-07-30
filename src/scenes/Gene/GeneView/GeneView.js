@@ -11,6 +11,7 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import GeneViewMycobrowswer from "./GeneViewMycobrowswer/GeneViewMycobrowswer";
 import NotFound from "../../../app/layout/NotFound/NotFound";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const GeneView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -135,7 +136,12 @@ const GeneView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-                <h2 className="heading">{gene.accessionNumber}</h2>
+                <SectionHeading
+                  icon="icon icon-conceptual icon-dna"
+                  heading={gene.accessionNumber}
+                  link = {'some data'}
+                />
+               
               </div>
               <div className="p-mb-2">
                 <TabView

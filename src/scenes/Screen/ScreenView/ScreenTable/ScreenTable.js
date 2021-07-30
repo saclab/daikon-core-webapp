@@ -115,6 +115,10 @@ const ScreenStatus = ({ screens }) => {
     );
   };
 
+  const hitsHeader = (<React.Fragment>
+    <i class="icon icon-common icon-fullscreen"></i> &nbsp; Hits
+  </React.Fragment>);
+
   /* Table Header  */
   const header = (
     <div className="table-header">
@@ -139,7 +143,7 @@ const ScreenStatus = ({ screens }) => {
           value={screens}
           paginator
           rows={10}
-          header={header}
+          // header={header}
           className="p-datatable-screen-table"
           //globalFilter={globalFilter}
           emptyMessage="No genes found."
@@ -178,7 +182,7 @@ const ScreenStatus = ({ screens }) => {
             header="Protocol"
             body={ProtocolBodyTemplate}
           />
-          <Column field="Hits" header="Hits" body={HitsBodyTemplate} />
+          <Column field="Hits" header={hitsHeader} body={HitsBodyTemplate} />
           <Column
             field="Comments"
             header="Comments"
