@@ -6,6 +6,7 @@ import "./ScreenDashDataTable.css";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 
 const ScreenDash = () => {
@@ -85,14 +86,18 @@ const ScreenDash = () => {
 
   return (
     <div className="datatable-screens">
-      <br />
+      <SectionHeading
+        icon="icon icon-conceptual icon-chemical"
+        heading="Screened Targets"
+      />
+      
       <div className="card">
         <DataTable
           ref={dt}
           value={screenedTargets}
           paginator
           rows={10}
-          header={header}
+          
           className="p-datatable-screens"
           //globalFilter={globalFilter}
           emptyMessage="No genes found."

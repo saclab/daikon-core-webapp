@@ -7,12 +7,12 @@ import "./GeneDataTable.css";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const GeneSearch = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {fetchGeneList, displayLoading , genes } = rootStore.geneStore;
+  const { fetchGeneList, displayLoading, genes } = rootStore.geneStore;
 
   /* Local State Management */
 
@@ -39,9 +39,7 @@ const GeneSearch = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Accession Number</span>
-        <NavLink to={"/gene/" + rowData.id}>
-          {rowData.accessionNumber}
-        </NavLink>
+        <NavLink to={"/gene/" + rowData.id}>{rowData.accessionNumber}</NavLink>
       </React.Fragment>
     );
   };
@@ -106,7 +104,9 @@ const GeneSearch = () => {
   /* Table Header  */
   const header = (
     <div className="table-header">
-      <span className="heading">H37Rv Genes</span>
+      <span className="heading">
+        (<i class="icon icon-conceptual icon-dna"></i>) H37Rv Genes
+      </span>
       {/* <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -118,7 +118,6 @@ const GeneSearch = () => {
     </div>
   );
 
-
   /** Loading Overlay */
   if (displayLoading) {
     return <Loading />;
@@ -126,18 +125,21 @@ const GeneSearch = () => {
 
   return (
     <div className="datatable-genes">
-      <br />
+      <SectionHeading
+        icon="icon icon-conceptual icon-dna"
+        heading="H37Rv Genes"
+      />
+
       <div className="card">
         <DataTable
           ref={dt}
           value={genes}
           paginator
           rows={10}
-          header={header}
+          // header={header}
           className="p-datatable-genes"
           //globalFilter={globalFilter}
           emptyMessage="No genes found."
-
         >
           <Column
             field="accessionNumber"
@@ -147,7 +149,6 @@ const GeneSearch = () => {
             filterMatchMode="contains"
             filterPlaceholder="Search by A.Number"
             className="narrow-column"
-            
           />
 
           <Column

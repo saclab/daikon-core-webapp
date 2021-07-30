@@ -24,9 +24,7 @@ const TargetScorecard = () => {
                   <div className="p-mr-2">
                     <TargetScorecardPercentDial />
                   </div>
-                  <div className="p-mr-2">
-                    <TargetScorecardBar />
-                  </div>
+                  
                 </div>
               </Fieldset>
             </div>

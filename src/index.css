@@ -12,7 +12,7 @@ h2 {
 }
 
 .heading {
-  background: linear-gradient(to left, #30cfd0 0%, #330867 100%);
+  background: linear-gradient(to left, #1099ae 0%, #330867 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   
@@ -22,4 +22,8 @@ h2 {
 
 .hide {
   display: none;
+}
+
+a {
+  color : #28477f
 }

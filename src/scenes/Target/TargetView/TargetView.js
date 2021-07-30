@@ -9,6 +9,7 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const TargetView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -92,14 +93,17 @@ const TargetView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-                <h2 className="heading">{target.accessionNumber}</h2>
+                <SectionHeading
+                  icon="icon icon-common icon-target"
+                  heading={target.accessionNumber}
+                  link = {'some data'}
+                />
               </div>
               <div className="p-mb-2">
                 <TabView
                   activeIndex={activeIndex}
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
-                  
                   <TabPanel header="Header II" headerClassName="hide">
                     <TargetScorecard />
                   </TabPanel>

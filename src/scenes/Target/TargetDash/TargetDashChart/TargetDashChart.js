@@ -126,7 +126,7 @@ const TargetDashChart = () => {
     <div style={{ height: "500px", width: "500px", marginTop:"10px"}}>
       <ResponsiveScatterPlot
         data={data}
-        margin={{ top: 10, right: 10, bottom: 40, left: 40 }}
+        margin={{ top: 0, right: 10, bottom: 80, left: 80 }}
         xScale={{ type: "linear", min: 0, max: 1 }}
         yScale={{ type: "linear", min: 0, max: 1 }}
         blendMode="darken"

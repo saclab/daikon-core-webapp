@@ -12,6 +12,12 @@
   font-weight: 400 !important;
 }
 
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+  background: #ffffff;
+  border-color: #28477f;
+  color: #28477f;
+}
+
 @media screen and (max-width: 1300px) {
   .pipeline-menu .p-tabmenuitem {
     margin-right: 0px !important;

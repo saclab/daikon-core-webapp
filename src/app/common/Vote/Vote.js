@@ -12,21 +12,21 @@ const Vote = ({ id, voteData }) => {
     const votingButtonPanel = (
       <React.Fragment>
         <Button
-          icon="pi pi-thumbs-up"
+          icon="icon icon-common icon-thumbs-up"
           className="p-button-rounded p-button-text p-button-lg"
           tooltip="Vote Yes"
           tooltipOptions={{ position: "bottom" }}
           style={{ color: "#76D7C4" }}
         />
         <Button
-          icon="ri-emotion-normal-line"
+          icon="icon icon-common icon-hand-rock"
           className="p-button-rounded p-button-text p-button-lg"
           tooltip="Vote Neutral"
           tooltipOptions={{ position: "bottom" }}
           style={{ color: "#F7DC6F" }}
         />
         <Button
-          icon="pi pi-thumbs-down"
+          icon="icon icon-common icon-thumbs-down"
           className="p-button-rounded p-button-text p-button-lg"
           tooltip="Vote No"
           tooltipOptions={{ position: "bottom" }}
