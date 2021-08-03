@@ -1,5 +1,6 @@
 class AppSettingsService {
   GetWebApiBaseUri() {
+      console.log(process.env.REACT_APP_WEB_API_BASE_URI);
     return process.env.REACT_APP_WEB_API_BASE_URI;
   }
   GetMsalClientId() {
@@ -16,6 +17,8 @@ class AppSettingsService {
   }
   GetMsalStoreAuthInCookie() {
     let stringValue = process.env.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE;
+    console.log("GetMsalStoreAuthInCookie");
+    console.log(process.env.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE);
 
     if (stringValue.toLowerCase() === "true") {
       return true;
