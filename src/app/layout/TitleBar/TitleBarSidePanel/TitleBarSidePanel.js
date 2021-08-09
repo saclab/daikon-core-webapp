@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import history from "../../../../history";
+import { RootStoreContext } from "../../../stores/rootStore";
 
 const TitleBarSidePanel = ({ toggle, user }) => {
+  const rootStore = useContext(RootStoreContext);
+  let { adminMode, setAdminMode } = rootStore.appSettingsStore;
+
   const adminTools = (
     <div className="p-mb-2">
       <h4>Admin Tools</h4>
@@ -31,6 +36,20 @@ const TitleBarSidePanel = ({ toggle, user }) => {
         />
         <br />
       </div>
+      <Divider type="dashed" />
+      <div className="card">
+        <Button
+          type="button"
+          label="Admin Panel"
+          icon="pi arrow-right"
+          className="p-mr-2 p-mb-2 p-button-text p-button-plain p-button-sm"
+          onClick={() => {
+            toggle();
+            setAdminMode(true);
+            history.push("/admin");
+          }}
+        />
+      </div>
     </div>
   );
 
@@ -49,4 +68,4 @@ const TitleBarSidePanel = ({ toggle, user }) => {
   );
 };
 
-export default TitleBarSidePanel;
+export default observer(TitleBarSidePanel);

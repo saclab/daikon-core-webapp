@@ -4,7 +4,6 @@ import "primereact/resources/themes/saga-blue/theme.css";
 //import "primereact/resources/themes/fluent-light/theme.css";
 //import "primereact/resources/themes/rhea/theme.css";
 
-
 import "primereact/resources/primereact.min.css";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
@@ -30,7 +29,6 @@ import agent from "../api/agent";
 import NoAccess from "../../scenes/NoAccess/NoAccess";
 import GeneSearch from "../../scenes/Gene/GeneSearch/GeneSearch";
 import GeneView from "../../scenes/Gene/GeneView/GeneView";
-import LiteMolView from "../common/LiteMolView/LiteMolView";
 import TargetDash from "../../scenes/Target/TargetDash/TargetDash";
 import TargetView from "../../scenes/Target/TargetView/TargetView";
 import ScreenDash from "../../scenes/Screen/ScreenDash/ScreenDash";
@@ -39,13 +37,19 @@ import HitsView from "../../scenes/Screen/HitsView/HitsView";
 import TestMolView from "../test/TestMolView/TestMolView";
 import PortfolioDash from "../../scenes/Portfolio/PortfolioDash/PortfolioDash";
 import PortfolioView from "../../scenes/Portfolio/PortfolioView/PortfolioView";
+import MenuBarAdmin from "./MenuBarAdmin/MenuBarAdmin";
+import AdminDash from "../../scenes/Admin/AdminDash/AdminDash";
+import GeneAdminDash from "../../scenes/Admin/GeneAdmin/GeneAdminDash";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
 
   const rootStore = useContext(RootStoreContext);
   const { user, getUser, fetching, userNotFound } = rootStore.userStore;
+  const { adminMode } = rootStore.appSettingsStore;
   const [networkErr, setNetworkErr] = useState(false);
+
+  const [menuBar, setMenuBar] = useState(<MenuBar />);
 
   useEffect(() => {
     if (authServiceInstance.account && !networkErr && !user && !userNotFound) {
@@ -55,7 +59,19 @@ const App = () => {
         setNetworkErr(true);
       });
     }
-  }, [getUser, networkErr, user, userNotFound, authServiceInstance.account]);
+
+    if (adminMode) {
+      console.log("Admin mode is set");
+      setMenuBar(<MenuBarAdmin />);
+    }
+  }, [
+    getUser,
+    networkErr,
+    user,
+    userNotFound,
+    authServiceInstance.account,
+    adminMode,
+  ]);
 
   if (networkErr) {
     return <NetworkError />;
@@ -74,7 +90,8 @@ const App = () => {
       <ToastContainer />
       <Fragment>
         <TitleBar />
-        <MenuBar />
+        {menuBar}
+
         <div className={cssClass.Scene}>
           <br />
           <Switch>
@@ -85,7 +102,6 @@ const App = () => {
               path="/admin/user-management/new"
               component={Admin_Authorize}
             />
-            <Route exact path="/admin/user-management" component={UserList} />
 
             <Route exact path="/gene" component={GeneSearch} />
             <Route path="/gene/:id/promote" component={GenomePromote} />
@@ -102,6 +118,12 @@ const App = () => {
             <Route path="/portfolio/:id" component={PortfolioView} />
 
             <Route path="/test/molview" component={TestMolView} />
+
+            <Route exact path="/admin" component={AdminDash} />
+            <Route exact path="/admin/user-management" component={UserList} />
+
+            <Route exact path="/admin/gene" component={GeneAdminDash} />
+
             <Route component={NotFound} />
           </Switch>
         </div>

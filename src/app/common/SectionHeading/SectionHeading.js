@@ -1,38 +1,35 @@
 import React from "react";
 import { Panel } from "primereact/panel";
 
-const SectionHeading = ({ icon, heading, sub, link }) => {
-
+const SectionHeading = ({ icon, heading, sub, link, color }) => {
   const headerTemplate = (options) => {
     const toggleIcon = options.collapsed
       ? "icon icon-common icon-ellipsis-h"
       : "pi pi-chevron-up";
-
-
-      let linkButton = <div
-      className="p-mr-2"
-      style={{ float: "right", marginLeft: "auto" }}
-    >
-      <button
-        className={options.togglerClassName}
-        onClick={options.onTogglerClick}
-      >
-        <h1
-          style={{
-            margin: "0px",
-            fontWeight: "lighter",
-            color: "#ffffff",
-          }}
+    let background = color ? color : "#28477f";
+    let linkButton = (
+      <div className="p-mr-2" style={{ float: "right", marginLeft: "auto" }}>
+        <button
+          className={options.togglerClassName}
+          onClick={options.onTogglerClick}
         >
-          <i className={toggleIcon}></i>
-        </h1>
-      </button>
-    </div>;
+          <h1
+            style={{
+              margin: "0px",
+              fontWeight: "lighter",
+              color: "#ffffff",
+            }}
+          >
+            <i className={toggleIcon}></i>
+          </h1>
+        </button>
+      </div>
+    );
 
     return (
       <div
         style={{
-          background: "#28477f",
+          background: background,
           opacity: "1",
           color: "#FFFFFF",
           padding: "0.5em",
@@ -46,7 +43,7 @@ const SectionHeading = ({ icon, heading, sub, link }) => {
             </h1>
           </div>
           <div className="p-mr-2">{sub}</div>
-           {link?linkButton:<p />}
+          {link ? linkButton : <p />}
         </div>
       </div>
     );

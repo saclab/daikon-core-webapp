@@ -1,5 +1,6 @@
 import React, { useRef, useContext, useState } from "react";
 import { withRouter } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Sidebar } from "primereact/sidebar";
 
@@ -72,4 +73,4 @@ const TitleBar = () => {
   );
 };
 
-export default withRouter(TitleBar);
+export default withRouter(observer(TitleBar));
