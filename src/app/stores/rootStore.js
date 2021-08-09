@@ -7,6 +7,7 @@ import UserStore from "./userStore";
 import TargetStore from "./targetStore";
 import ScreenStore from "./screenStore";
 import PortfolioStore from "./portfolioStore";
+import AppSettingsStore from "./appSettingsStore";
 
 configure({ enforceActions: "always" });
 
@@ -18,8 +19,10 @@ export class RootStore {
   msStore;
   targetStore;
   portfolioStore;
+  appSettingsStore;
 
   constructor() {
+    this.appSettingsStore = new AppSettingsStore(this);
     this.msStore = new MsStore(this);
     this.geneStore = new GeneStore(this);
     this.targetStore = new TargetStore(this);
