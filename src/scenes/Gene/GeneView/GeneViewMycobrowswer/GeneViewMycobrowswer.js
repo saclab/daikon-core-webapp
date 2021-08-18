@@ -2,10 +2,24 @@ import { Fieldset } from "primereact/fieldset";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import GeneViewMycoBrowswerProteindataBank from "./GeneViewMycobrowswerProteinDataBank/GeneViewMycoBrowswerProteindataBank";
 
-const GeneViewMycobrowswer = ({ gene, edit, cancelEdit, fetchGeneHistory, historyDisplayLoading, geneHistory }) => {
+const GeneViewMycobrowswer = ({
+  gene,
+  edit,
+  cancelEdit,
+  fetchGeneHistory,
+  historyDisplayLoading,
+  geneHistory,
+}) => {
   console.log("From Gene View");
-
-  
+  var geneCombined = {
+    function: gene.function,
+    product: gene.product,
+    functionalCategory: gene.functionalCategory,
+    type: gene.genePublicData.type,
+    comments: gene.genePublicData.comments,
+    proteomics: gene.genePublicData.proteomics,
+    mutant: gene.genePublicData.mutant,
+  };
   return (
     <div>
       <div className="p-d-flex">
@@ -14,8 +28,16 @@ const GeneViewMycobrowswer = ({ gene, edit, cancelEdit, fetchGeneHistory, histor
             <div className="p-mb-2">
               <Fieldset legend="General annotation">
                 <KeyValList
-                  data={gene.genePublicData}
-                  filter={["type", "comments", "proteomics", "mutant"]}
+                  data={geneCombined}
+                  filter={[
+                    "function",
+                    "product",
+                    "functionalCategory",
+                    "type",
+                    "comments",
+                    "proteomics",
+                    "mutant",
+                  ]}
                   editFunc={() => edit()}
                   cancelEdit={() => cancelEdit()}
                   fetchHistory={() => fetchGeneHistory()}
@@ -38,11 +60,39 @@ const GeneViewMycobrowswer = ({ gene, edit, cancelEdit, fetchGeneHistory, histor
                 />
               </Fieldset>
             </div>
+
             <div className="p-mb-2">
               <Fieldset legend="Protein Databank">
                 <GeneViewMycoBrowswerProteindataBank
                   accessionNumber={gene.accessionNumber}
                 />
+              </Fieldset>
+            </div>
+            <div className="p-mb-2">
+              <Fieldset legend="Genomic sequence" toggleable collapsed={true}>
+                <div
+                 className="p-text-lowercase"
+                  style={{
+                    maxWidth: "50vw",
+                    wordWrap: "break-word",
+                    fontFamily: "monospace",
+                  }}
+                >
+                  {gene.genePublicData.geneSequence}
+                </div>
+              </Fieldset>
+            </div>
+            <div className="p-mb-2">
+              <Fieldset legend="Protein sequence" toggleable collapsed={true}>
+                <div
+                  style={{
+                    maxWidth: "50vw",
+                    wordWrap: "break-word",
+                    fontFamily: "monospace",
+                  }}
+                >
+                  {gene.genePublicData.proteinSequence}
+                </div>
               </Fieldset>
             </div>
           </div>
