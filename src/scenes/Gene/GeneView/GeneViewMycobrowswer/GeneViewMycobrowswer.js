@@ -12,6 +12,7 @@ const GeneViewMycobrowswer = ({
 }) => {
   console.log("From Gene View");
   var geneCombined = {
+    geneName: gene.geneName,
     function: gene.function,
     product: gene.product,
     functionalCategory: gene.functionalCategory,
@@ -30,6 +31,7 @@ const GeneViewMycobrowswer = ({
                 <KeyValList
                   data={geneCombined}
                   filter={[
+                    "geneName",
                     "function",
                     "product",
                     "functionalCategory",
