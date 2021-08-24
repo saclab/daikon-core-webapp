@@ -76,6 +76,19 @@ const GenomePromoteFormChemicalInhibition = (props) => {
               readObject={props.targetPromotionFormValue}
             />
           </div>
+          <div className="p-field p-grid p-jc-end">
+            <div className="p-col-12 p-md-2">
+              <SplitButton
+                label="Next"
+                icon="pi pi-arrow-right"
+                model={nextButtonItems}
+                className="p-button-success p-button-sm"
+                onClick={() => {
+                  props.onFormSet(2);
+                }}
+              />
+            </div>
+            </div>
         </div>
       </div>
     </React.Fragment>
