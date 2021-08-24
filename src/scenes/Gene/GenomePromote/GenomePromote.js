@@ -101,11 +101,11 @@ const GenomePromote = ({ params, history }) => {
         case 3:
           return (
             <GenomePromoteFormLiabilities
-              promotionQuestionsRegistry={promotionQuestionsRegistry}
-              targetPromotionFormValue={targetPromotionFormValue}
-              updateTargetPromotionFormValue={(e) =>
-                updateTargetPromotionFormValue(e)
-              }
+            promotionQuestionsRegistry={promotionQuestionsRegistry}
+            targetPromotionFormValue={targetPromotionFormValue}
+            updateTargetPromotionFormValue={(e) =>
+              updateTargetPromotionFormValue(e)
+            }
               onFormSet={(active) => setActiveForm(active)}
             />
           );
