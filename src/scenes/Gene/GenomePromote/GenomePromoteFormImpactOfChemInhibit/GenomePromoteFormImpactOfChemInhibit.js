@@ -170,7 +170,7 @@ const GenomePromoteFormImpactOfChemInhibit = (props) => {
                 model={nextButtonItems}
                 className="p-button-success p-button-sm"
                 onClick={() => {
-                  props.onFormSet(2);
+                  props.onFormSet(1);
                 }}
               />
             </div>

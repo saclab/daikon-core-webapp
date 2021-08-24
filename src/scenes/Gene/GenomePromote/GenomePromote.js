@@ -125,7 +125,7 @@ const GenomePromote = ({ params, history }) => {
               updateTargetPromotionFormValue={(e) =>
                 updateTargetPromotionFormValue(e)
               }
-              onFormSet={(active) => setActiveForm(active)}
+              onFormSet={(active) => setActiveForm(   )}
             />
           );
 
