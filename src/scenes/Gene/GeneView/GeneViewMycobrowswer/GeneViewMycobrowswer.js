@@ -13,13 +13,13 @@ const GeneViewMycobrowswer = ({
   console.log("From Gene View");
   var geneCombined = {
     geneName: gene.geneName,
-    function: gene.function,
-    product: gene.product,
+    function: gene?.function,
+    product: gene?.product,
     functionalCategory: gene.functionalCategory,
-    type: gene.genePublicData.type,
-    comments: gene.genePublicData.comments,
-    proteomics: gene.genePublicData.proteomics,
-    mutant: gene.genePublicData.mutant,
+    type: gene.genePublicData?.type,
+    comments: gene.genePublicData?.comments,
+    proteomics: gene.genePublicData?.proteomics,
+    mutant: gene.genePublicData?.mutant,
   };
   return (
     <div>
@@ -37,8 +37,6 @@ const GeneViewMycobrowswer = ({
                     "functionalCategory",
                     "type",
                     "comments",
-                    "proteomics",
-                    "mutant",
                   ]}
                   editFunc={() => edit()}
                   cancelEdit={() => cancelEdit()}
@@ -73,14 +71,14 @@ const GeneViewMycobrowswer = ({
             <div className="p-mb-2">
               <Fieldset legend="Genomic sequence" toggleable collapsed={true}>
                 <div
-                 className="p-text-lowercase"
+                  className="p-text-lowercase"
                   style={{
                     maxWidth: "50vw",
                     wordWrap: "break-word",
                     fontFamily: "monospace",
                   }}
                 >
-                  {gene.genePublicData.geneSequence}
+                  {gene.genePublicData?.geneSequence}
                 </div>
               </Fieldset>
             </div>
@@ -93,7 +91,7 @@ const GeneViewMycobrowswer = ({
                     fontFamily: "monospace",
                   }}
                 >
-                  {gene.genePublicData.proteinSequence}
+                  {gene.genePublicData?.proteinSequence}
                 </div>
               </Fieldset>
             </div>
