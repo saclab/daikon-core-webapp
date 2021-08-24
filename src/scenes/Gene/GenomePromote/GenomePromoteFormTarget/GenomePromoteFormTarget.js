@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { SplitButton } from "primereact/splitbutton";
+import Question from "../../../../app/common/Question/Question";
 
 const GenomePromoteFormTarget = (props) => {
   const [formValue, setFormValue] = useState({
@@ -56,17 +57,11 @@ const GenomePromoteFormTarget = (props) => {
         </div>
 
         <div className="p-field p-grid">
-          <label htmlFor="associatedMoleculeName" className="p-col-12 p-md-2">
-            Associated molecule name
-          </label>
-          <div className="p-col-12 p-md-10">
-            <InputText
-              id="associatedMoleculeName"
-              name="associatedMoleculeName"
-              type="text"
-              onChange={(e) => setForm(e)}
-            />
-          </div>
+          <Question
+            question={props.promotionQuestionsRegistry.get("2a3a")}
+            updateObject={(e) => props.updateTargetPromotionFormValue(e)}
+            readObject={props.targetPromotionFormValue}
+          />
         </div>
 
         <div className="p-field p-grid">

@@ -38,8 +38,7 @@ const sleep = (ms) => (response) =>
 /* TYPES OF REQUESTES SUPPORTED */
 const requests = {
   get: (url) => axiosServerInstance.get(url).then(responseBody),
-  post: (url, body) =>
-    axiosServerInstance.post(url, body).then(responseBody),
+  post: (url, body) => axiosServerInstance.post(url, body).then(responseBody),
   put: (url, body) => axiosServerInstance.put(url, body).then(responseBody),
   del: (url) => axiosServerInstance.delete(url).then(responseBody),
 };
@@ -94,7 +93,8 @@ const Gene = {
   list: () => requests.get("/gene"),
   view: (id) => requests.get(`/gene/${id}`),
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
-  history : (id) => requests.get(`/gene/${id}/history`),
+  history: (id) => requests.get(`/gene/${id}/history`),
+  promotionQuestions: () => requests.get(`/geneconfig/promotionquestions`),
 };
 
 const User = {

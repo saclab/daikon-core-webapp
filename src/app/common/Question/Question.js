@@ -7,7 +7,7 @@ const Question = ({ question, updateObject, readObject }) => {
   if(typeof question?.identification === 'undefined') return <React.Fragment />;
 
   return (
-    <div className="p-d-flex">
+    <div className="p-d-flex" style={{marginTop: "7px"}}>
       <div className="p-mr-2 p-as-center">
         <Tooltip
           target={".questionBody" + question.identification}

@@ -1,4 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { observer } from "mobx-react-lite";
+
 import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
 
@@ -11,12 +13,30 @@ import GenomePromoteFormLiabilities from "./GenomePromoteFormLiabilities/GenomeP
 import GenomePromoteFormTractability from "./GenomePromoteFormTractability/GenomePromoteFormTractability";
 import GenomePromoteFormInteractions from "./GenomePromoteFormInteractions/GenomePromoteFormInteractions";
 import GenomePromoteBucketScore from "./GenomePromoteBucketScore/GenomePromoteBucketScore";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import Loading from "../../../app/layout/Loading/Loading";
 
 const GenomePromote = ({ params, history }) => {
   const toast = useRef(null);
+  const rootStore = useContext(RootStoreContext);
+
+  const {
+    promotionQuestionsDisplayLoading,
+    getPromotionQuestions,
+    promotionQuestionsRegistry,
+  } = rootStore.geneStore;
+
+  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({});
+
+  const updateTargetPromotionFormValue = (e) => {
+    var newFormValue = { ...targetPromotionFormValue };
+    newFormValue[e.target.id] = e.target.value;
+    setTargetPromotionFormValue(newFormValue);
+    console.log(e.target.id);
+    console.log(e.target.value);
+  };
 
   const stepItems = [
-    { label: "Target" },
     { label: "Impact of chemical inhibition" },
     { label: "Chemical inhibition" },
     { label: "Impact of genetic inhibition" },
@@ -25,99 +45,96 @@ const GenomePromote = ({ params, history }) => {
     { label: "Interactions" },
   ];
 
-  let formData = {
-    activeIndex: 0,
-    genomePromoteFormTarget: null,
-    genomePromoteFormImpactOfChemInhibit: null,
-    genomePromoteFormChemicalInhibition: null,
-    genomePromoteFormImpactOfGeneticInhibit: null,
-    genomePromoteFormLiabilities: null,
-    genomePromoteFormTractability: null,
-    genomePromoteFormInteractions: null,
-  };
+  const [activeForm, setActiveForm] = useState(0);
 
-  const [formDataState, setFormDataState] = useState(formData);
+  useEffect(() => {
+    if (promotionQuestionsRegistry.size === 0) {
+      getPromotionQuestions();
+    }
+  }, [promotionQuestionsRegistry, getPromotionQuestions]);
 
-  const setFormData = (activeIndex, formName, data) => {
-    let newFormData = { ...formDataState };
-    newFormData.activeIndex = activeIndex;
-    newFormData[formName] = { ...data };
-    setFormDataState(newFormData);
-    console.log(formDataState);
-  };
+  /** Loading Overlay */
+  if (promotionQuestionsDisplayLoading) {
+    return <Loading />;
+  }
 
   let formToDisplay = () => {
-    switch (formDataState.activeIndex) {
-      case 0:
-        return (
-          <GenomePromoteFormTarget
-            onFormSet={(data) =>
-              setFormData(1, "GenomePromoteFormTarget", data)
-            }
-          />
-        );
+    if (!promotionQuestionsDisplayLoading) {
+      console.log(activeForm);
+      switch (activeForm) {
+        case 0:
+          return (
+            <GenomePromoteFormImpactOfChemInhibit
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
+              onFormSet={(active) => setActiveForm(active)}
+            />
+          );
 
-      case 1:
-        return (
-          <GenomePromoteFormImpactOfChemInhibit
-            onFormSet={(data) =>
-              setFormData(2, "GenomePromoteFormImpactOfChemInhibit", data)
-            }
-          />
-        );
+        case 1:
+          return (
+            <GenomePromoteFormChemicalInhibition
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
+              onFormSet={(active) => setActiveForm(active)}
+            />
+          );
 
-      case 2:
-        return (
-          <GenomePromoteFormChemicalInhibition
-            onFormSet={(data) =>
-              setFormData(3, "GenomePromoteFormChemicalInhibition", data)
-            }
-          />
-        );
+        case 2:
+          return (
+            <GenomePromoteFormImpactOfGeneticInhibit
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
+              onFormSet={(active) => setActiveForm(active)}
+            />
+          );
 
-      case 3:
-        return (
-          <GenomePromoteFormImpactOfGeneticInhibit
-            onFormSet={(data) =>
-              setFormData(4, "GenomePromoteFormImpactOfGeneticInhibit", data)
-            }
-          />
-        );
+        case 3:
+          return (
+            <GenomePromoteFormLiabilities
+              onFormSet={(active) => setActiveForm(active)}
+            />
+          );
 
-      case 4:
-        return (
-          <GenomePromoteFormLiabilities
-            onFormSet={(data) =>
-              setFormData(5, "GenomePromoteFormLiabilities", data)
-            }
-          />
-        );
+        case 4:
+          return (
+            <GenomePromoteFormTractability
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
+              onFormSet={(active) => setActiveForm(active)}
+            />
+          );
 
-      case 5:
-        return (
-          <GenomePromoteFormTractability
-            onFormSet={(data) =>
-              setFormData(6, "GenomePromoteFormTractability", data)
-            }
-          />
-        );
+        case 5:
+          return (
+            <GenomePromoteFormInteractions
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
+              onFormSet={(active) => setActiveForm(active)}
+            />
+          );
 
-      case 6:
-        return (
-          <GenomePromoteFormInteractions
-            onFormSet={(data) =>
-              setFormData(7, "GenomePromoteFormInteractions", data)
-            }
-          />
-        );
+        case 6:
+          return <GenomePromoteBucketScore />;
 
-        case 7:
-        return (
-          <GenomePromoteBucketScore />
-        );
-
-      default:
-        break;
+        default:
+          break;
+      }
     }
   };
 
@@ -129,7 +146,7 @@ const GenomePromote = ({ params, history }) => {
           <h2 className="heading">Promoting Gene Rv1297 to Target</h2>
         </div>
         <div className="p-mb-2">
-          <Steps model={stepItems} activeIndex={formDataState.activeIndex} />
+          <Steps model={stepItems} activeIndex={activeForm} />
         </div>
         <div className="p-mb-2">
           <div className={[cssClass.GenomePromoteForm].join(" ")}>
@@ -141,4 +158,4 @@ const GenomePromote = ({ params, history }) => {
   );
 };
 
-export default GenomePromote;
+export default observer(GenomePromote);
