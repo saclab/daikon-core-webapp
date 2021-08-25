@@ -15,6 +15,7 @@ import GenomePromoteFormInteractions from "./GenomePromoteFormInteractions/Genom
 import GenomePromoteBucketScore from "./GenomePromoteBucketScore/GenomePromoteBucketScore";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
+import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
 
 const GenomePromote = ({ params, history }) => {
   const toast = useRef(null);
@@ -26,14 +27,69 @@ const GenomePromote = ({ params, history }) => {
     promotionQuestionsRegistry,
   } = rootStore.geneStore;
 
-  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({});
+  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
+    "2a1": { answerValue: "", answerDescription: "" },
+    "2a1b": { answerValue: "", answerDescription: "" },
+    "2a2": { answerValue: "", answerDescription: "" },
+    "2a3a": { answerValue: "", answerDescription: "" },
+    "2a3b": { answerValue: "", answerDescription: "" },
+    "2a4a": { answerValue: "", answerDescription: "" },
+    "2a5": { answerValue: "", answerDescription: "" },
+    "2b1": { answerValue: "", answerDescription: "" },
+    "2b2": { answerValue: "", answerDescription: "" },
+    "2b4": { answerValue: "", answerDescription: "" },
+    "2c1": { answerValue: "", answerDescription: "" },
+    "2c2": { answerValue: "", answerDescription: "" },
+    "2c3": { answerValue: "", answerDescription: "" },
+    "2c4": { answerValue: "", answerDescription: "" },
+    "2c5": { answerValue: "", answerDescription: "" },
+    "3a1": { answerValue: "", answerDescription: "" },
+    "3a2": { answerValue: "", answerDescription: "" },
+    "3a3": { answerValue: "", answerDescription: "" },
+    "3a4": { answerValue: "", answerDescription: "" },
+    "3b1": { answerValue: "", answerDescription: "" },
+    "3b2": { answerValue: "", answerDescription: "" },
+    "4a1": { answerValue: "", answerDescription: "" },
+    "4a2a": { answerValue: "", answerDescription: "" },
+    "4a2b": { answerValue: "", answerDescription: "" },
+    "4a3a": { answerValue: "", answerDescription: "" },
+    "4a3b": { answerValue: "", answerDescription: "" },
+    "4a4": { answerValue: "", answerDescription: "" },
+    "4b1": { answerValue: "", answerDescription: "" },
+    "4b2": { answerValue: "", answerDescription: "" },
+    "4b3": { answerValue: "", answerDescription: "" },
+    "4c1": { answerValue: "", answerDescription: "" },
+    "4c2": { answerValue: "", answerDescription: "" },
+    "4c3": { answerValue: "", answerDescription: "" },
+    "4c4": { answerValue: "", answerDescription: "" },
+    "4c5": { answerValue: "", answerDescription: "" },
+    "5a1": { answerValue: "", answerDescription: "" },
+    "5a2": { answerValue: "", answerDescription: "" },
+    "5a3": { answerValue: "", answerDescription: "" },
+    "5b1": { answerValue: "", answerDescription: "" },
+  });
 
   const updateTargetPromotionFormValue = (e) => {
-    var newFormValue = { ...targetPromotionFormValue };
-    newFormValue[e.target.id] = e.target.value;
-    setTargetPromotionFormValue(newFormValue);
+    if (e.target.id.endsWith("Description")) {
+      console.log("Description Field");
+      var location = e.target.id.slice(0, -11);
+      var newFormValue = { ...targetPromotionFormValue };
+      var newField = { ...newFormValue[location] };
+      newField.answerDescription = e.target.value;
+      newFormValue[location] = newField;
+      setTargetPromotionFormValue(newFormValue);
+    } else {
+      var location = e.target.id;
+      var newFormValue = { ...targetPromotionFormValue };
+      var newField = { ...newFormValue[location] };
+      newField.answerValue = e.target.value;
+      newFormValue[location] = newField;
+      setTargetPromotionFormValue(newFormValue);
+    }
+
     console.log(e.target.id);
     console.log(e.target.value);
+    console.log(newFormValue);
   };
 
   const stepItems = [
@@ -41,8 +97,9 @@ const GenomePromote = ({ params, history }) => {
     { label: "Chemical inhibition" },
     { label: "Impact of genetic inhibition" },
     { label: "Liabilities" },
-    { label: "Tractability" },
-    { label: "Interactions" },
+    // { label: "Tractability" },
+    // { label: "Interactions" },
+    { label: "Submit" },
   ];
 
   const [activeForm, setActiveForm] = useState(0);
@@ -101,41 +158,49 @@ const GenomePromote = ({ params, history }) => {
         case 3:
           return (
             <GenomePromoteFormLiabilities
-            promotionQuestionsRegistry={promotionQuestionsRegistry}
-            targetPromotionFormValue={targetPromotionFormValue}
-            updateTargetPromotionFormValue={(e) =>
-              updateTargetPromotionFormValue(e)
-            }
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
               onFormSet={(active) => setActiveForm(active)}
             />
           );
 
         case 4:
           return (
-            <GenomePromoteFormTractability
-              promotionQuestionsRegistry={promotionQuestionsRegistry}
+            <GenePromoteSummary
               targetPromotionFormValue={targetPromotionFormValue}
-              updateTargetPromotionFormValue={(e) =>
-                updateTargetPromotionFormValue(e)
-              }
               onFormSet={(active) => setActiveForm(active)}
             />
           );
 
-        case 5:
-          return (
-            <GenomePromoteFormInteractions
-              promotionQuestionsRegistry={promotionQuestionsRegistry}
-              targetPromotionFormValue={targetPromotionFormValue}
-              updateTargetPromotionFormValue={(e) =>
-                updateTargetPromotionFormValue(e)
-              }
-              onFormSet={(active) => setActiveForm()}
-            />
-          );
+        // case 4:
+        //   return (
+        //     <GenomePromoteFormTractability
+        //       promotionQuestionsRegistry={promotionQuestionsRegistry}
+        //       targetPromotionFormValue={targetPromotionFormValue}
+        //       updateTargetPromotionFormValue={(e) =>
+        //         updateTargetPromotionFormValue(e)
+        //       }
+        //       onFormSet={(active) => setActiveForm(active)}
+        //     />
+        //   );
 
-        case 6:
-          return <GenomePromoteBucketScore />;
+        // case 5:
+        //   return (
+        //     <GenomePromoteFormInteractions
+        //       promotionQuestionsRegistry={promotionQuestionsRegistry}
+        //       targetPromotionFormValue={targetPromotionFormValue}
+        //       updateTargetPromotionFormValue={(e) =>
+        //         updateTargetPromotionFormValue(e)
+        //       }
+        //       onFormSet={(active) => setActiveForm()}
+        //     />
+        //   );
+
+        // case 6:
+        //   return <GenomePromoteBucketScore />;
 
         default:
           break;

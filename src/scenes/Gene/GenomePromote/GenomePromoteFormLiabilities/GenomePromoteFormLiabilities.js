@@ -5,6 +5,13 @@ import { SplitButton } from "primereact/splitbutton";
 const GenomePromoteFormLiabilities = (props) => {
   const nextButtonItems = [
     {
+      label: "Back",
+      icon: "pi pi-arrow-left",
+      command: () => {
+        props.onFormSet(2);
+      },
+    },
+    {
       label: "Save form data in browser",
       icon: "pi pi-cloud-download",
       command: () => {
@@ -84,7 +91,7 @@ const GenomePromoteFormLiabilities = (props) => {
                 model={nextButtonItems}
                 className="p-button-success p-button-sm"
                 onClick={() => {
-                  props.onFormSet(5);
+                  props.onFormSet(4);
                 }}
               />
             </div>

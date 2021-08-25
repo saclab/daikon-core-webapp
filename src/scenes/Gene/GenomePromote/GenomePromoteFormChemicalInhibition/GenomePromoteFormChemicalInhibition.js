@@ -5,6 +5,13 @@ import Question from "../../../../app/common/Question/Question";
 const GenomePromoteFormChemicalInhibition = (props) => {
   const nextButtonItems = [
     {
+      label: "Back",
+      icon: "pi pi-arrow-left",
+      command: () => {
+        props.onFormSet(0);
+      },
+    },
+    {
       label: "Save form data in browser",
       icon: "pi pi-cloud-download",
       command: () => {
