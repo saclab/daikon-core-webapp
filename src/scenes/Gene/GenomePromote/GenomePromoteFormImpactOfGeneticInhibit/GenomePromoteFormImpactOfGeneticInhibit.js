@@ -5,6 +5,13 @@ import { SplitButton } from "primereact/splitbutton";
 const GenomePromoteFormImpactOfGeneticInhibit = (props) => {
   const nextButtonItems = [
     {
+      label: "Back",
+      icon: "pi pi-arrow-left",
+      command: () => {
+        props.onFormSet(1);
+      },
+    },
+    {
       label: "Save form data in browser",
       icon: "pi pi-cloud-download",
       command: () => {

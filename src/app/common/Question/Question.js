@@ -27,7 +27,7 @@ const Question = ({ question, updateObject, readObject }) => {
           id={question.identification}
           style={{ width: "10rem" }}
           options={question.possibleAnswers}
-          value={readObject?.[question.identification]}
+          value={readObject?.[question.identification]?.answerValue}
           onChange={(e) => updateObject(e)}
         />
       </div>
@@ -36,7 +36,7 @@ const Question = ({ question, updateObject, readObject }) => {
           <InputText
             style={{ minWidth: "40rem" }}
             id={question.identification+"Description"}
-            //value={readObject?.[question.identification+"Description"]}
+            value={readObject?.[question.identification]?.answerDescription}
             onChange={(e) => updateObject(e)}
           />
           <label htmlFor="username">Description</label>
