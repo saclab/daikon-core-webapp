@@ -40,7 +40,7 @@ const GenePromoteSummary = (props) => {
                 model={nextButtonItems}
                 className="p-button-success p-button-sm"
                 onClick={() => {
-                  props.onFormSet(2);
+                  props.onFormSubmit();
                 }}
               />
 
