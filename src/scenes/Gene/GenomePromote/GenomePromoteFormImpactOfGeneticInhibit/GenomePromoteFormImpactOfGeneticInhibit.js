@@ -79,6 +79,7 @@ const GenomePromoteFormImpactOfGeneticInhibit = (props) => {
 
       <div className="card">
         <h3>b) on replication Mtb in vitro</h3>
+        <hr />
         <div className="p-fluid">
           <div className="p-field p-grid">
             <Question
@@ -107,6 +108,7 @@ const GenomePromoteFormImpactOfGeneticInhibit = (props) => {
 
       <div className="card">
         <h3>c) on nonreplicating Mtb in vitro</h3>
+        <hr />
         <div className="p-fluid">
           <div className="p-field p-grid">
             <Question

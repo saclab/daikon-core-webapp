@@ -49,6 +49,7 @@ const GenomePromoteFormLiabilities = (props) => {
 
       <div className="card">
         <h3>Genetic</h3>
+        <hr />
         <div className="p-fluid">
           <div className="p-field p-grid">
             <Question
@@ -64,6 +65,7 @@ const GenomePromoteFormLiabilities = (props) => {
 
       <div className="card">
         <h3>Other</h3>
+        <hr />
         <div className="p-fluid">
           <div className="p-field p-grid">
             <Question
