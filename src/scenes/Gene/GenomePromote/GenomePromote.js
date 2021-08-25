@@ -17,7 +17,7 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
 
-const GenomePromote = ({ params, history }) => {
+const GenomePromote = ({ match, params, history }) => {
   const toast = useRef(null);
   const rootStore = useContext(RootStoreContext);
 
@@ -25,7 +25,18 @@ const GenomePromote = ({ params, history }) => {
     promotionQuestionsDisplayLoading,
     getPromotionQuestions,
     promotionQuestionsRegistry,
+    gene,
+    fetchGene,
   } = rootStore.geneStore;
+
+  useEffect(() => {
+    if (promotionQuestionsRegistry.size === 0) {
+      getPromotionQuestions();
+    }
+    if (gene === null || gene.id !== match.params.id) {
+      fetchGene(match.params.id);
+    }
+  }, [promotionQuestionsRegistry, getPromotionQuestions, gene, fetchGene]);
 
   const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
     "2a1": { answerValue: "", answerDescription: "" },
@@ -86,10 +97,41 @@ const GenomePromote = ({ params, history }) => {
       newFormValue[location] = newField;
       setTargetPromotionFormValue(newFormValue);
     }
+  };
 
-    console.log(e.target.id);
-    console.log(e.target.value);
-    console.log(newFormValue);
+  const submitTargetPromotionFormValueForm = () => {
+    var validationFail = false;
+    Object.keys(targetPromotionFormValue).map((key, value) => {
+      if (targetPromotionFormValue[key].answerValue === "") {
+        validationFail = true;
+      }
+      if (
+        !(
+          targetPromotionFormValue[key].answerValue === "Unknown" ||
+          targetPromotionFormValue[key].answerValue === "n/a"
+        ) &&
+        targetPromotionFormValue[key].answerDescription === ""
+      ) {
+        validationFail = true;
+      }
+    });
+
+    if (validationFail) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error Submitting",
+        detail: "Required fields are missing.",
+        life: 3000,
+      });
+      return;
+    }
+
+    var data = {
+      id: gene.id,
+      answers: targetPromotionFormValue,
+    };
+
+    console.log(data);
   };
 
   const stepItems = [
@@ -103,12 +145,6 @@ const GenomePromote = ({ params, history }) => {
   ];
 
   const [activeForm, setActiveForm] = useState(0);
-
-  useEffect(() => {
-    if (promotionQuestionsRegistry.size === 0) {
-      getPromotionQuestions();
-    }
-  }, [promotionQuestionsRegistry, getPromotionQuestions]);
 
   /** Loading Overlay */
   if (promotionQuestionsDisplayLoading) {
@@ -172,6 +208,7 @@ const GenomePromote = ({ params, history }) => {
             <GenePromoteSummary
               targetPromotionFormValue={targetPromotionFormValue}
               onFormSet={(active) => setActiveForm(active)}
+              onFormSubmit={submitTargetPromotionFormValueForm}
             />
           );
 
