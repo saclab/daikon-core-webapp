@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react";
+import { Divider } from "primereact/divider";
 import { SplitButton } from "primereact/splitbutton";
 
 const GenePromoteSummary = (props) => {
@@ -25,27 +26,45 @@ const GenePromoteSummary = (props) => {
       },
     },
   ];
-  
 
   return (
     <div>
       <h2>Submit For Review</h2>
-      <hr /><br />
-      {JSON.stringify(props.targetPromotionFormValue)}
+      <hr />
+      <br />
+      {/* {JSON.stringify(props.targetPromotionFormValue)} */}
+
+      <div>
+        <div className="card">
+          <h5>Impact of chemical inhibition</h5>
+          <p></p>
+
+          <Divider />
+
+          <p></p>
+
+          <Divider />
+
+          <p></p>
+
+          <Divider />
+
+          <p></p>
+        </div>
+      </div>
 
       <br />
       <SplitButton
-                label="Submit"
-                icon="pi pi-arrow-right"
-                model={nextButtonItems}
-                className="p-button-success p-button-sm"
-                onClick={() => {
-                  props.onFormSubmit();
-                }}
-              />
-
+        label="Submit"
+        icon="pi pi-arrow-right"
+        model={nextButtonItems}
+        className="p-button-success p-button-sm"
+        onClick={() => {
+          props.onFormSubmit();
+        }}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default GenePromoteSummary
+export default GenePromoteSummary;
