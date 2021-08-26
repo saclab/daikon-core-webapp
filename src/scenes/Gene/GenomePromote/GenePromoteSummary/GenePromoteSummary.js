@@ -1,6 +1,7 @@
 import React from "react";
 import { Divider } from "primereact/divider";
 import { SplitButton } from "primereact/splitbutton";
+import GenePromoteSummaryAnswers from "./GenePromoteSummaryAnswers/GenePromoteSummaryAnswers";
 
 const GenePromoteSummary = (props) => {
   const nextButtonItems = [
@@ -27,17 +28,66 @@ const GenePromoteSummary = (props) => {
     },
   ];
 
+  console.log(props.promotionQuestionsRegistry);
+
   return (
     <div>
       <h2>Submit For Review</h2>
       <hr />
       <br />
-      {/* {JSON.stringify(props.targetPromotionFormValue)} */}
 
       <div>
         <div className="card">
-          <h5>Impact of chemical inhibition</h5>
-          <p></p>
+          <h4>Impact of chemical inhibition</h4>
+          <h5>a) During infections</h5>
+
+          <GenePromoteSummaryAnswers
+            oKey="2a1"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+
+          <GenePromoteSummaryAnswers
+            oKey="2a1b"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+          <GenePromoteSummaryAnswers
+            oKey="2a2"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+
+          <GenePromoteSummaryAnswers
+            oKey="2a3a"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+          <GenePromoteSummaryAnswers
+            oKey="2a3b"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+
+          <GenePromoteSummaryAnswers
+            oKey="2a4a"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+          <GenePromoteSummaryAnswers
+            oKey="2a5"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+
+          <h5>b) on replication Mtb in vitro</h5>
 
           <Divider />
         </div>
