@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown } from "primereact/dropdown";
-import { InputText } from "primereact/inputtext";
+import { InputTextarea } from 'primereact/inputtextarea';
 import { Tooltip } from "primereact/tooltip";
 
 const Question = ({ question, updateObject, readObject }) => {
@@ -33,7 +33,7 @@ const Question = ({ question, updateObject, readObject }) => {
       </div>
       <div className="p-mr-2 p-as-stretch">
         <span className="p-float-label">
-          <InputText
+          <InputTextarea rows={1}
             style={{ minWidth: "40rem" }}
             id={question.identification+"Description"}
             value={readObject?.[question.identification]?.answerDescription}
