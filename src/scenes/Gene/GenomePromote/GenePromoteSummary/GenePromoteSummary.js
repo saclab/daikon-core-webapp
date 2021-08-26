@@ -40,16 +40,24 @@ const GenePromoteSummary = (props) => {
           <p></p>
 
           <Divider />
-
+        </div>
+        <div className="card">
+          <h5>Chemical inhibition</h5>
           <p></p>
 
           <Divider />
-
+        </div>
+        <div className="card">
+          <h5>Impact of genetic inhibition</h5>
           <p></p>
 
           <Divider />
-
+        </div>
+        <div className="card">
+          <h5>Liabilities</h5>
           <p></p>
+
+          <Divider />
         </div>
       </div>
 
