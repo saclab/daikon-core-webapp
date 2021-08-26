@@ -207,6 +207,7 @@ const GenomePromote = ({ match, params, history }) => {
         case 4:
           return (
             <GenePromoteSummary
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
               onFormSet={(active) => setActiveForm(active)}
               onFormSubmit={submitTargetPromotionFormValueForm}
