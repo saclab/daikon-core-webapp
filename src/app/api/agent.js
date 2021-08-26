@@ -95,6 +95,7 @@ const Gene = {
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
   history: (id) => requests.get(`/gene/${id}/history`),
   promotionQuestions: () => requests.get(`/geneconfig/promotionquestions`),
+  submitPromotionQuestionaire: (id, data) => requests.post(`/gene/${id}/promote`, data),
 };
 
 const User = {

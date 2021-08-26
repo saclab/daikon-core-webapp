@@ -32,7 +32,6 @@ export default class GeneStore {
 
   promotionQuestionsRegistry = new Map();
 
-
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -60,7 +59,8 @@ export default class GeneStore {
       editGene: action,
       cancelEditGene: action,
 
-      getPromotionQuestions : action
+      getPromotionQuestions: action,
+      submitPromotionQuestionaire: action,
     });
   }
 
@@ -207,7 +207,6 @@ export default class GeneStore {
         /*TIP: async will not work with foreach loop, use Promise.all and map method instead */
         await Promise.all(
           fetchedPdbCrossReferenceArray.map(async (nobj) => {
-
             // fetch from ebi
             let ligands = await Ebi.Ebi.ligands(nobj.id);
 
@@ -274,13 +273,12 @@ export default class GeneStore {
     this.selectedGene = this.geneRegistryExpanded.get(this.selectedGene.id);
   };
 
-
   /* get Promotion Questions from API */
   getPromotionQuestions = async () => {
     console.log("geneStore: fetchPromotionQuestions() Start");
     this.promotionQuestionsDisplayLoading = true;
     // check cache
-    if(!this.promotionQuestionsRegistry.size === 0) {
+    if (!this.promotionQuestionsRegistry.size === 0) {
       this.promotionQuestionsDisplayLoading = false;
       return this.promotionQuestionsRegistry;
     }
@@ -291,7 +289,10 @@ export default class GeneStore {
       runInAction(() => {
         console.log(resp);
         resp.forEach((fetchedPromotionQuestion) => {
-          this.promotionQuestionsRegistry.set(fetchedPromotionQuestion.identification, fetchedPromotionQuestion);
+          this.promotionQuestionsRegistry.set(
+            fetchedPromotionQuestion.identification,
+            fetchedPromotionQuestion
+          );
         });
         console.log(this.promotionQuestionsRegistry);
       });
@@ -303,5 +304,28 @@ export default class GeneStore {
         return this.promotionQuestionsRegistry;
       });
     }
+  };
+
+  /* submit Promotion Questionaire from API */
+  submitPromotionQuestionaire = async (data) => {
+    console.log("geneStore: submitPromotionQuestionaire Start");
+    this.promotionQuestionsDisplayLoading = true;
+    let res = null;
+
+    // send to server
+    try {
+      res = await agent.Gene.submitPromotionQuestionaire(
+        this.selectedGene.id,
+        data
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.promotionQuestionsDisplayLoading = false;
+        console.log("geneStore: submitPromotionQuestionaire Complete");
+      });
+    }
+    return res;
   };
 }

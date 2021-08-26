@@ -27,6 +27,7 @@ const GenomePromote = ({ match, params, history }) => {
     promotionQuestionsRegistry,
     gene,
     fetchGene,
+    submitPromotionQuestionaire,
   } = rootStore.geneStore;
 
   useEffect(() => {
@@ -130,8 +131,8 @@ const GenomePromote = ({ match, params, history }) => {
       id: gene.id,
       answers: targetPromotionFormValue,
     };
-
     console.log(data);
+    submitPromotionQuestionaire(data);
   };
 
   const stepItems = [
