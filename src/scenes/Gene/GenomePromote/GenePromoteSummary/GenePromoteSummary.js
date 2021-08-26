@@ -88,6 +88,58 @@ const GenePromoteSummary = (props) => {
           <br />
 
           <h5>b) on replication Mtb in vitro</h5>
+          <GenePromoteSummaryAnswers
+            oKey="2b1"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+
+          <GenePromoteSummaryAnswers
+            oKey="2b2"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+          <GenePromoteSummaryAnswers
+            oKey="2b4"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+
+          <h5>c) on nonreplicating Mtb in vitro</h5>
+          <GenePromoteSummaryAnswers
+            oKey="2c1"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+
+          <GenePromoteSummaryAnswers
+            oKey="2c2"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+          <GenePromoteSummaryAnswers
+            oKey="2c3"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+          <GenePromoteSummaryAnswers
+            oKey="2c4"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
+          <GenePromoteSummaryAnswers
+            oKey="2c5"
+            questionObj={props.promotionQuestionsRegistry}
+            ansObj={props.targetPromotionFormValue}
+          />
+          <br />
 
           <Divider />
         </div>
