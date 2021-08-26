@@ -19,6 +19,7 @@ export default class GeneStore {
   displayLoading = false;
   uniprotDisplayLoading = false;
   historyDisplayLoading = false;
+  promotionQuestionsDisplayLoading = false;
 
   geneRegistry = new Map();
   geneRegistryExpanded = new Map();
@@ -29,12 +30,15 @@ export default class GeneStore {
   pdbCrossReferenceRegistry = new Map();
   selectedPdbCrossReference = null;
 
+  promotionQuestionsRegistry = new Map();
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
       displayLoading: observable,
       uniprotDisplayLoading: observable,
       historyDisplayLoading: observable,
+      promotionQuestionsDisplayLoading: observable,
 
       genes: computed,
       fetchGeneList: action,
@@ -54,6 +58,9 @@ export default class GeneStore {
 
       editGene: action,
       cancelEditGene: action,
+
+      getPromotionQuestions: action,
+      submitPromotionQuestionaire: action,
     });
   }
 
@@ -200,7 +207,6 @@ export default class GeneStore {
         /*TIP: async will not work with foreach loop, use Promise.all and map method instead */
         await Promise.all(
           fetchedPdbCrossReferenceArray.map(async (nobj) => {
-
             // fetch from ebi
             let ligands = await Ebi.Ebi.ligands(nobj.id);
 
@@ -265,5 +271,61 @@ export default class GeneStore {
   cancelEditGene = () => {
     console.log("geneStore: cancelEditGene");
     this.selectedGene = this.geneRegistryExpanded.get(this.selectedGene.id);
+  };
+
+  /* get Promotion Questions from API */
+  getPromotionQuestions = async () => {
+    console.log("geneStore: fetchPromotionQuestions() Start");
+    this.promotionQuestionsDisplayLoading = true;
+    // check cache
+    if (!this.promotionQuestionsRegistry.size === 0) {
+      this.promotionQuestionsDisplayLoading = false;
+      return this.promotionQuestionsRegistry;
+    }
+
+    // then fetch
+    try {
+      var resp = await agent.Gene.promotionQuestions();
+      runInAction(() => {
+        console.log(resp);
+        resp.forEach((fetchedPromotionQuestion) => {
+          this.promotionQuestionsRegistry.set(
+            fetchedPromotionQuestion.identification,
+            fetchedPromotionQuestion
+          );
+        });
+        console.log(this.promotionQuestionsRegistry);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.promotionQuestionsDisplayLoading = false;
+        return this.promotionQuestionsRegistry;
+      });
+    }
+  };
+
+  /* submit Promotion Questionaire from API */
+  submitPromotionQuestionaire = async (data) => {
+    console.log("geneStore: submitPromotionQuestionaire Start");
+    this.promotionQuestionsDisplayLoading = true;
+    let res = null;
+
+    // send to server
+    try {
+      res = await agent.Gene.submitPromotionQuestionaire(
+        this.selectedGene.id,
+        data
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.promotionQuestionsDisplayLoading = false;
+        console.log("geneStore: submitPromotionQuestionaire Complete");
+      });
+    }
+    return res;
   };
 }
