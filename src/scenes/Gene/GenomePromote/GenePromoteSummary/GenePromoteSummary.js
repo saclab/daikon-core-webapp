@@ -38,9 +38,8 @@ const GenePromoteSummary = (props) => {
 
       <div>
         <div className="card">
-        
-          <h4 >Impact of chemical inhibition</h4>
-         
+          <h4>Impact of chemical inhibition</h4>
+
           <h5>a) During infections</h5>
 
           <GenePromoteSummaryAnswers
@@ -145,6 +144,7 @@ const GenePromoteSummary = (props) => {
 
           <Divider />
         </div>
+
         <div className="card">
           <h4>Chemical inhibition</h4>
           <h5>a) in live Mtb</h5>
@@ -192,6 +192,7 @@ const GenePromoteSummary = (props) => {
           <Divider />
         </div>
         <div className="card">
+
           <h4>Impact of genetic inhibition</h4>
           <h5>a) During infections</h5>
 
@@ -292,7 +293,9 @@ const GenePromoteSummary = (props) => {
         </div>
 
         <div className="card">
+
           <h4>Liabilities</h4>
+
           <h5>Metabolic liabilities</h5>
           <GenePromoteSummaryAnswers
             oKey="5a1"
@@ -307,7 +310,8 @@ const GenePromoteSummary = (props) => {
             ansObj={props.targetPromotionFormValue}
           />
           <br />
-          <Divider />
+          
+
           <h5>Genetic</h5>
           <GenePromoteSummaryAnswers
             oKey="5a3"
@@ -315,7 +319,8 @@ const GenePromoteSummary = (props) => {
             ansObj={props.targetPromotionFormValue}
           />
           <br />
-          <Divider />
+          
+
           <h5>Other</h5>
           <GenePromoteSummaryAnswers
             oKey="5b1"
