@@ -1,15 +1,50 @@
-import React, { useEffect } from "react";
-import SmilesDrawer from "smiles-drawer";
-import SmilesView from "../../common/SmilesView/SmilesView";
+import React, { useState, useEffect, useRef } from "react";
+import { Dropdown } from "primereact/dropdown";
+import { InputTextarea } from "primereact/inputtextarea";
+import { Button } from "primereact/button";
+import { useFormik } from "formik";
 
 const TestMolView = () => {
+  const [selectedCity1, setSelectedCity1] = useState(null);
+  const [value1, setValue1] = useState("");
+
+  
+
+  const onCityChange = (e) => {
+    if (setSelectedCity1(e.value) === "No") {
+    }
+  };
+
+  const addText = (e) => {
+    setValue1(e.value);
+  };
+
+  const cities = [
+    { name: "New York", code: "NY" },
+    { name: "Rome", code: "RM" },
+    { name: "London", code: "LDN" },
+    { name: "Istanbul", code: "IST" },
+    { name: "Paris", code: "PRS" },
+  ];
+
   return (
-    <React.Fragment>
-      <SmilesView
-        smiles="OC1=C(C(C2=CC=CN=C2)C2=C(O)OC3=C(C=CC=C3)C2=O)C(=O)C2=C(O1)C=CC=C2"
-        
-      />
-    </React.Fragment>
+    <div>
+      <div>
+        <Dropdown
+          value={selectedCity1}
+          options={cities}
+          onChange={onCityChange}
+          optionLabel="name"
+          placeholder="Select a City"
+        />
+      </div>
+
+      <div>
+        <InputTextarea value={value1} onChange={addText} rows={1} />
+      </div>
+
+      <Button type="submit" label="Submit"/>
+    </div>
   );
 };
 

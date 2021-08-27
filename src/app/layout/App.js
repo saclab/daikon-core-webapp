@@ -117,7 +117,7 @@ const App = () => {
             <Route exact path="/portfolio" component={PortfolioDash} />
             <Route path="/portfolio/:id" component={PortfolioView} />
 
-            <Route path="/test/molview" component={TestMolView} />
+            <Route path="/test/bench" component={TestMolView} />
 
             <Route exact path="/admin" component={AdminDash} />
             <Route exact path="/admin/user-management" component={UserList} />
