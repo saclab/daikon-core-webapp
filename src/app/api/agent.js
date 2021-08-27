@@ -98,6 +98,10 @@ const Gene = {
   submitPromotionQuestionaire: (id, data) => requests.post(`/gene/${id}/promote`, data),
 };
 
+const GeneAdmin = {
+  promotionList: () => requests.get("/admin/geneadmin/promotions"),
+}
+
 const User = {
   current: () => requests.get("/account"),
   register: (user) => requests.post(`/account/register`, user),
@@ -112,6 +116,7 @@ const Admin = {
 const exports = {
   AuthServiceInstance,
   Gene,
+  GeneAdmin,
   User,
   Admin,
 };

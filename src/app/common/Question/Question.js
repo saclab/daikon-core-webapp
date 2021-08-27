@@ -38,8 +38,9 @@ const Question = ({ question, updateObject, readObject }) => {
             id={question.identification+"Description"}
             value={readObject?.[question.identification]?.answerDescription}
             onChange={(e) => updateObject(e)}
+            placeHolder="Description"
           />
-          <label htmlFor="username">Description</label>
+          
         </span>
       </div>
     </div>
