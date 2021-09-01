@@ -94,12 +94,12 @@ const Gene = {
   view: (id) => requests.get(`/gene/${id}`),
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
   history: (id) => requests.get(`/gene/${id}/history`),
-  promotionQuestions: () => requests.get(`/geneconfig/promotionquestions`),
-  submitPromotionQuestionaire: (id, data) => requests.post(`/gene/${id}/promote`, data),
+  promotionQuestions: () => requests.get(`/geneconfig/promote/questionaire`),
+  submitPromotionQuestionaire: (id, data) => requests.post(`/gene/${id}/promotionrequest`, data),
 };
 
 const GeneAdmin = {
-  promotionList: () => requests.get("/admin/geneadmin/promotions"),
+  promotionList: () => requests.get("/admin/gene/promotionrequests"),
 }
 
 const User = {
