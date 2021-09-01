@@ -22,7 +22,7 @@ const TestMolView = () => {
     initialValues: {
       answer: "",
       description: "",
-      selectedCity1,
+      city: "",
     },
     validate: (data) => {
       let errors = {};
@@ -35,8 +35,8 @@ const TestMolView = () => {
         errors.description = "Description is required.";
       }
 
-      if (!data.selectedCity1) {
-        errors.selectedCity1 = "City is required.";
+      if (!data.city) {
+        errors.city = "City is required.";
       }
 
       return errors;
@@ -146,25 +146,25 @@ const TestMolView = () => {
             <div className="p-field">
               <span className="p-float-label">
               <label
-                  htmlFor="selectedCity1"
+                  htmlFor="city"
                   className={classNames({
-                    "p-error": isFormFieldValid("selectedCity1"),
+                    "p-error": isFormFieldValid("city"),
                   })}
                 >
                   Select a city </label>
                 <Dropdown
                   id="city"
-                  value={formik.values.selectedCity1}
+                  value={formik.values.city}
                   options={cities}
                   onChange={formik.handleChange}
                   optionLabel="name"
                   placeholder="Select a City"
                   className={classNames({
-                    "p-invalid": isFormFieldValid("selectedCity1"),
+                    "p-invalid": isFormFieldValid("city"),
                   })}
                 />
               </span>
-              {getFormErrorMessage("selectedCity1")}
+              {getFormErrorMessage("city")}
             </div>
             <Button type="submit" label="Submit" className="p-mt-2" />
           </form>
