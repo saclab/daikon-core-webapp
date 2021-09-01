@@ -4,14 +4,25 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
+import { Dropdown } from "primereact/dropdown";
 
 const TestMolView = () => {
   const [showMessage, setShowMessage] = useState(false);
+  // const [selectedCity1, setSelectedCity1] = useState(null);
+
+  const cities = [
+    { name: "New York", code: "NY" },
+    { name: "Rome", code: "RM" },
+    { name: "London", code: "LDN" },
+    { name: "Istanbul", code: "IST" },
+    { name: "Paris", code: "PRS" },
+  ];
 
   const formik = useFormik({
     initialValues: {
       answer: "",
       description: "",
+      selectedCity1,
     },
     validate: (data) => {
       let errors = {};
@@ -23,6 +34,11 @@ const TestMolView = () => {
       if (!data.description) {
         errors.description = "Description is required.";
       }
+
+      if (!data.selectedCity1) {
+        errors.selectedCity1 = "City is required.";
+      }
+
       return errors;
     },
     onSubmit: (data) => {
@@ -30,6 +46,10 @@ const TestMolView = () => {
       formik.resetForm();
     },
   });
+
+  // const onCityChange = (e) => {
+  //   setSelectedCity1(e.value);
+  // };
 
   const isFormFieldValid = (answer) =>
     !!(formik.touched[answer] && formik.errors[answer]);
@@ -123,6 +143,29 @@ const TestMolView = () => {
               {getFormErrorMessage("description")}
             </div>
 
+            <div className="p-field">
+              <span className="p-float-label">
+              <label
+                  htmlFor="selectedCity1"
+                  className={classNames({
+                    "p-error": isFormFieldValid("selectedCity1"),
+                  })}
+                >
+                  Select a city </label>
+                <Dropdown
+                  id="city"
+                  value={formik.values.selectedCity1}
+                  options={cities}
+                  onChange={formik.handleChange}
+                  optionLabel="name"
+                  placeholder="Select a City"
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("selectedCity1"),
+                  })}
+                />
+              </span>
+              {getFormErrorMessage("selectedCity1")}
+            </div>
             <Button type="submit" label="Submit" className="p-mt-2" />
           </form>
         </div>
