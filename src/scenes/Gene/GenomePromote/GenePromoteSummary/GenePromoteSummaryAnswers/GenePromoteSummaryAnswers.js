@@ -1,9 +1,7 @@
 import React from "react";
-import { InputText } from "primereact/inputtext";
-import { InputTextarea } from "primereact/inputtextarea";
 
 const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
-  console.log(ansObj);
+  
   return (
     <div className="p-d-flex" style={{ marginTop: "2px" }}>
       <div className="p-mr-2">
