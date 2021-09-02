@@ -40,6 +40,7 @@ import PortfolioView from "../../scenes/Portfolio/PortfolioView/PortfolioView";
 import MenuBarAdmin from "./MenuBarAdmin/MenuBarAdmin";
 import AdminDash from "../../scenes/Admin/AdminDash/AdminDash";
 import GeneAdminDash from "../../scenes/Admin/GeneAdmin/GeneAdminDash";
+import TargetAdminDash from "../../scenes/Admin/TargetAdmin/TargetAdminDash";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -123,6 +124,7 @@ const App = () => {
             <Route exact path="/admin/user-management" component={UserList} />
 
             <Route exact path="/admin/gene" component={GeneAdminDash} />
+            <Route exact path="/admin/target" component={TargetAdminDash} />
 
             <Route component={NotFound} />
           </Switch>

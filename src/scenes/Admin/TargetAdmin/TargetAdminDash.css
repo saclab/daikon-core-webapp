@@ -1,0 +1,98 @@
+.target-admin-list .p-paginator .p-paginator-current {
+    margin-left: auto;
+  }
+  
+  .target-admin-list .p-progressbar {
+    height: .5rem;
+    background-color: #D8DADC;
+  }
+  
+  .target-admin-list .p-progressbar .p-progressbar-value {
+    background-color: #607D8B;
+  }
+  
+  .target-admin-list .table-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .target-admin-list .table-header .heading {
+    background: linear-gradient(to right, #1099ae 0%, #330867 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .target-admin-list .p-datepicker {
+    min-width: 25rem;
+  }
+  
+  .target-admin-list .p-datepicker td {
+    font-weight: 400;
+  }
+  
+  .target-admin-list .p-admin.p-admin-header {
+    padding: 1rem;
+    text-align: left;
+    font-size: 2.0rem;
+  }
+  
+  .target-admin-list .p-admin.p-paginator {
+    padding: 1rem;
+  }
+  
+  .target-admin-list .p-admin.p-admin-thead > tr > th {
+    text-align: left;
+  }
+  
+  .target-admin-list .p-admin.p-admin-tbody > tr > td {
+    cursor: auto;
+  }
+  
+  .target-admin-list .p-admin.p-dropdown-label:not(.p-placeholder) {
+    text-transform: uppercase;
+  }
+  
+  .target-admin-list .p-admin-tbody > tr > td .p-column-title {
+    display: none;
+  }
+  
+  
+  
+  .target-admin-list .narrow-column {
+    width: 200px !important;
+  }
+  .target-admin-list .p-inputtext {
+    font-size : 0.8rem;
+  }
+  
+  @media screen and (max-width: 960px) {
+    .target-admin-list .p-admin.p-admin-thead > tr > th,
+    .target-admin-list .p-admin.p-admin-tfoot > tr > td {
+        display: none !important;
+    }
+  
+    .target-admin-list .p-admin.p-admin-tbody > tr {
+        border-bottom: 1px solid var(--layer-2);
+    }
+  
+    .target-admin-list .p-admin.p-admin-tbody > tr > td {
+        text-align: left;
+        display: block;
+        border: 0 none !important;
+        width: 100% !important;
+        float: left;
+        clear: left;
+        border: 0 none;
+    }
+  
+    .target-admin-list .p-admin.p-admin-tbody > tr > td .p-column-title {
+        padding: .4rem;
+        min-width: 30%;
+        display: inline-block;
+        margin: -.4rem 1rem -.4rem -.4rem;
+        font-weight: bold;
+    }
+  
+    .target-admin-list .p-admin.p-admin-tbody > tr > td .p-progressbar {
+        margin-top: .5rem;
+    }
+  }
