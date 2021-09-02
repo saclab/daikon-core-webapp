@@ -9,8 +9,7 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const TargetAdminDash = () => {
   const rootStore = useContext(RootStoreContext);
-  const { fetchTargetList, displayLoading, targets } =
-    rootStore.targetStoreAdmin;
+  const { fetchTargetList, displayLoading, targets } = rootStore.targetStore;
 
   useEffect(() => {
     console.log("TargetSearch: fetchTargetList()");
@@ -22,31 +21,71 @@ const TargetAdminDash = () => {
   const AccessionNumberBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Accession Number</span>
-        <NavLink to={"/target/" + rowData.id}>
+        <NavLink to={"/admin/target/" + rowData.id}>
           {rowData.AccessionNumber}
         </NavLink>
       </React.Fragment>
     );
   };
 
+  const GeneNameBodyTemplate = (rowData) => {
+    return <React.Fragment>{rowData.GeneName}</React.Fragment>;
+  };
+
+  const ScoreBodyTemplate = (rowData) => {
+    return <React.Fragment>{rowData.Score}</React.Fragment>;
+  };
+
+  const HTSFeasibilityBodyTemplate = (rowData) => {
+    return <React.Fragment>{rowData.HTSFeasibility}</React.Fragment>;
+  };
+
+  const SBDFeasibilityBodyTemplate = (rowData) => {
+    return <React.Fragment>{rowData.SBDFeasibility}</React.Fragment>;
+  };
+
+  const ProgressibilityBodyTemplate = (rowData) => {
+    return <React.Fragment>{rowData.Progressibility}</React.Fragment>;
+  };
+
+  const SafetyBodyTemplate = (rowData) => {
+    return <React.Fragment>{rowData.Safety}</React.Fragment>;
+  };
+
+  /* Table Header  */
+  const header = (
+    <div className="table-header">
+      <span className="heading">H37Rv Targets</span>
+      {/* <span className="p-input-icon-left">
+        <i className="pi pi-search" />
+        <InputText
+          type="search"
+          onInput={(e) => setGlobalFilter(e.target.value)}
+          placeholder="Search"
+        />
+      </span> */}
+    </div>
+  );
+
   if (displayLoading) {
     return <Loading />;
   }
 
   return (
-    <div>
-      <DataTable
-        ref={dt}
-        value={targets}
-        paginator
-        rows={10}
-        // header={header}
-        className="p-datatable-targets"
-        //globalFilter={globalFilter}
-        emptyMessage="No genes found."
-      >
-        <Column
+    <div className="target-admin-list">
+      <br />
+      <div>
+        <DataTable
+          ref={dt}
+          value={targets}
+          paginator
+          rows={10}
+          // header={header}
+          className="p-admin"
+          //globalFilter={globalFilter}
+          emptyMessage="No genes found."
+        >
+          <Column
             field="accessionNumber"
             header="Accession Number"
             body={AccessionNumberBodyTemplate}
@@ -55,7 +94,40 @@ const TargetAdminDash = () => {
             filterPlaceholder="Search by A.Number"
             className="narrow-column"
           />
-      </DataTable>
+
+          <Column
+            field="geneName"
+            header="Protein Name"
+            body={GeneNameBodyTemplate}
+            filter
+            filterMatchMode="contains"
+            filterPlaceholder="Search by Protein Name"
+            className="narrow-column"
+          />
+
+          <Column field="Score" header="Score" body={ScoreBodyTemplate} />
+
+          <Column
+            field="htsfeasibility"
+            header="HTS Feasibility"
+            body={HTSFeasibilityBodyTemplate}
+          />
+
+          <Column
+            field="sbdfeasibility"
+            header="SBD Feasibility"
+            body={SBDFeasibilityBodyTemplate}
+          />
+
+          <Column
+            field="progressibility"
+            header="Progressibility"
+            body={ProgressibilityBodyTemplate}
+          />
+
+          <Column field="safety" header="Safety" body={SafetyBodyTemplate} />
+        </DataTable>
+      </div>
     </div>
   );
 };
