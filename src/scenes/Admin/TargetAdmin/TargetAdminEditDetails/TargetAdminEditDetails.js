@@ -14,17 +14,17 @@ import { Button } from "primereact/button";
 const TargetAdminEditDetails = ({ match, history }) => {
   const toast = useRef(null);
   const rootStore = useContext(RootStoreContext);
-  const { fetchTargetAdmin, target, displayLoading } = rootStore.targetStoreAdmin;
-
+  const { fetchTargetAdmin, selectedTarget, displayLoading } =
+    rootStore.targetStoreAdmin;
 
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
 
-    if (target === null) {
-        fetchTargetAdmin(match.params.id);
+    if (selectedTarget === null) {
+      fetchTargetAdmin(match.params.id);
     }
-  }, [match.params.id, target, fetchTargetAdmin]);
+  }, [match.params.id, selectedTarget, fetchTargetAdmin]);
 
   const items = [
     {
@@ -47,18 +47,18 @@ const TargetAdminEditDetails = ({ match, history }) => {
     return <Loading />;
   }
 
-  if (target !== null) {
+  if (selectedTarget !== null) {
     console.log("Target ID");
-    console.log(target.id);
-    console.log(target);
+    console.log(selectedTarget.id);
+    console.log(selectedTarget);
     const breadCrumbItems = [
       {
         label: "Target",
         command: () => {
-          history.push("/admin/target/");
+          history.push("/admin/selectedTarget/");
         },
       },
-      { label: target.accessionNumber },
+      { label: selectedTarget.accessionNumber },
     ];
 
     return (
@@ -76,8 +76,8 @@ const TargetAdminEditDetails = ({ match, history }) => {
               </div>
               <div className="p-mb-2">
                 <SectionHeading
-                  icon="icon icon-common icon-target"
-                  heading={target.accessionNumber}
+                  icon="icon icon-common icon-selectedTarget"
+                  heading={selectedTarget.accessionNumber}
                   link={"some data"}
                 />
               </div>
@@ -97,7 +97,9 @@ const TargetAdminEditDetails = ({ match, history }) => {
                           id="score"
                           type="text"
                           style={{ width: "100px" }}
-                          value={target.score}
+                          value={selectedTarget.score}
+                          onChange={(e) => (selectedTarget.score = e.target.value)}
+                          
                         />
                       </div>
                     </div>
@@ -115,7 +117,9 @@ const TargetAdminEditDetails = ({ match, history }) => {
                           id="htsfeasibility"
                           type="text"
                           style={{ width: "100px" }}
-                          value={target.htsFeasibility}
+                          value={selectedTarget.htsFeasibility}
+                          onChange={(e) => (selectedTarget.htsFeasibility = e.target.value)}
+                          
                         />
                       </div>
                     </div>
@@ -133,7 +137,9 @@ const TargetAdminEditDetails = ({ match, history }) => {
                           id="sbdfeasibility"
                           type="text"
                           style={{ width: "100px" }}
-                          value={target.sbdFeasibility}
+                          value={selectedTarget.sbdFeasibility}
+                          onChange={(e) => (selectedTarget.sbdFeasibility = e.target.value)}
+                          
                         />
                       </div>
                     </div>
@@ -151,7 +157,9 @@ const TargetAdminEditDetails = ({ match, history }) => {
                           id="progressibility"
                           type="text"
                           style={{ width: "100px" }}
-                          value={target.progressibility}
+                          value={selectedTarget.progressibility}
+                          onChange={(e) => (selectedTarget.progressibility = e.target.value)}
+                          
                         />
                       </div>
                     </div>
@@ -169,22 +177,22 @@ const TargetAdminEditDetails = ({ match, history }) => {
                           id="safety"
                           type="text"
                           style={{ width: "100px" }}
-                          value={target.safety}
+                          value={selectedTarget.safety}
+                          onChange={(e) => (selectedTarget.safety = e.target.value)}
+                          
                         />
                       </div>
                     </div>
                   </TabPanel>
-
                 </TabView>
 
-                
                 <div className="p-d-flex p-jc-end">
-                    <Button
-                      label="Submit"
-                      className="p-button-primary"
-                      icon="pi pi-check"
-                    />
-                  </div>
+                  <Button
+                    label="Submit"
+                    className="p-button-primary"
+                    icon="pi pi-check"
+                  />
+                </div>
               </div>
             </div>
           </div>
