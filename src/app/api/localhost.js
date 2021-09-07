@@ -88,6 +88,7 @@ const Portfolio = {
 
 const TargetAdmin = {
   details: (id) => requests.get(`/targets/targets-edit.json`), 
+  edit: (updatedTarget) => requests.post(`/targets/targets-edit.json`), 
 }
 
 

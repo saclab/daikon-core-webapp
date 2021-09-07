@@ -14,7 +14,7 @@ import { Button } from "primereact/button";
 const TargetAdminEditDetails = ({ match, history }) => {
   const toast = useRef(null);
   const rootStore = useContext(RootStoreContext);
-  const { fetchTargetAdmin, selectedTarget, displayLoading } =
+  const { fetchTargetAdmin, selectedTarget, editTargetAdmin, displayLoading } =
     rootStore.targetStoreAdmin;
 
   useEffect(() => {
@@ -188,9 +188,11 @@ const TargetAdminEditDetails = ({ match, history }) => {
 
                 <div className="p-d-flex p-jc-end">
                   <Button
-                    label="Submit"
+                    label="Save changes"
                     className="p-button-primary"
                     icon="pi pi-check"
+                    onClick={() => editTargetAdmin()}
+
                   />
                 </div>
               </div>
