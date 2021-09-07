@@ -86,11 +86,16 @@ const Portfolio = {
   view: (id) => requests.get(`/portfolios/portfolio-view.json`),
 };
 
+const TargetAdmin = {
+  details: (id) => requests.get(`/targets/targets-edit.json`), 
+}
+
 
 const exports = {
   Target,
   Screen,
-  Portfolio
+  Portfolio,
+  TargetAdmin
 };
 
 export default exports;
