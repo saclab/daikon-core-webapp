@@ -59,9 +59,11 @@ export default class TargetStoreAdmin {
     }
   };
 
-  get target() {
-    console.log("From Target Store Admin");
-    console.log(this.selectedTarget);
-    return this.selectedTarget;
-  }
+  // get target() {
+  //   console.log("From Target Store Admin");
+  //   console.log(this.selectedTarget);
+  //   return this.selectedTarget;
+  // }
+
+
 }
