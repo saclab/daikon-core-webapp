@@ -45,6 +45,7 @@ const MenuBarAdmin = () => {
   icon="icon icon-common icon-close"
   label="Exit"
   className={["p-mr-2", "p-button-danger"].join(" ")}
+  onClick={() => window.location.replace("/")}
 />
 
   return (
