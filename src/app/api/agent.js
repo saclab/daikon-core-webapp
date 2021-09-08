@@ -113,12 +113,17 @@ const Admin = {
   addUser: (user) => requests.post(`/admin/accounts/`, user),
 };
 
+const TargetAdmin = {
+  details: (id) => requests.get(`/targets/targets-edit.json`), 
+  edit: (updatedTarget) => requests.post(`/targets/targets-edit.json`), 
+}
 const exports = {
   AuthServiceInstance,
   Gene,
   GeneAdmin,
   User,
   Admin,
+  TargetAdmin,
 };
 
 export default exports;

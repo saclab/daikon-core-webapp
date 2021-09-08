@@ -2,37 +2,26 @@ import React, { useEffect, useRef, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import "./TargetDashDataTable.css";
-import Loading from "../../../../app/layout/Loading/Loading";
+import "./TargetAdminDash.css";
 import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 
-
-const TargetDashTable = () => {
-
-
-  /* MobX Store */
+const TargetAdminDash = () => {
   const rootStore = useContext(RootStoreContext);
   const { fetchTargetList, displayLoading, targets } = rootStore.targetStore;
-
-  /* Local State Management */
 
   useEffect(() => {
     console.log("TargetSearch: fetchTargetList()");
     fetchTargetList();
   }, [fetchTargetList]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  /* local variables */
-
   const dt = useRef(null);
-
-  /* Table Body Templates */
 
   const AccessionNumberBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Accession Number</span>
-        <NavLink to={"/target/" + rowData.id}>
+        <NavLink to={"/admin/target/" + rowData.id}>
           {rowData.accessionNumber}
         </NavLink>
       </React.Fragment>
@@ -40,57 +29,27 @@ const TargetDashTable = () => {
   };
 
   const GeneNameBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Gene Name</span>
-        {rowData.geneName}
-      </React.Fragment>
-    );
+    return <React.Fragment>{rowData.geneName}</React.Fragment>;
   };
 
   const ScoreBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Score</span>
-        {rowData.score}
-      </React.Fragment>
-    );
+    return <React.Fragment>{rowData.score}</React.Fragment>;
   };
 
   const HTSFeasibilityBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">HTS Feasibility</span>
-        {rowData.htsFeasibility}
-      </React.Fragment>
-    );
+    return <React.Fragment>{rowData.htsFeasibility}</React.Fragment>;
   };
 
   const SBDFeasibilityBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">SBD Feasibility</span>
-        {rowData.sbdFeasibility}
-      </React.Fragment>
-    );
+    return <React.Fragment>{rowData.sbdFeasibility}</React.Fragment>;
   };
 
   const ProgressibilityBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Progressibility</span>
-        {rowData.progressibility}
-      </React.Fragment>
-    );
+    return <React.Fragment>{rowData.progressibility}</React.Fragment>;
   };
 
   const SafetyBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Safety</span>
-        {rowData.safety}
-      </React.Fragment>
-    );
+    return <React.Fragment>{rowData.safety}</React.Fragment>;
   };
 
   /* Table Header  */
@@ -108,22 +67,21 @@ const TargetDashTable = () => {
     </div>
   );
 
-  /** Loading Overlay */
   if (displayLoading) {
     return <Loading />;
   }
 
   return (
-    <div className="datatable-targets">
+    <div className="target-admin-list">
       <br />
-      <div className="card">
+      <div>
         <DataTable
           ref={dt}
           value={targets}
           paginator
           rows={10}
           // header={header}
-          className="p-datatable-targets"
+          className="p-admin"
           //globalFilter={globalFilter}
           emptyMessage="No genes found."
         >
@@ -173,4 +131,4 @@ const TargetDashTable = () => {
     </div>
   );
 };
-export default observer(TargetDashTable);
+export default observer(TargetAdminDash);

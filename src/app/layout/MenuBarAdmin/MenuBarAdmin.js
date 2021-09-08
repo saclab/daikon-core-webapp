@@ -21,7 +21,7 @@ const MenuBarAdmin = () => {
     {
       label: "Target",
       icon: "icon icon-common icon-target",
-      command: () => history.push("/target/"),
+      command: () => history.push("/admin/target/"),
     },
     {
       label: "Screen",
