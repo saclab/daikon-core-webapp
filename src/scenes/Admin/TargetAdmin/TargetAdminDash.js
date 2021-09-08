@@ -22,34 +22,34 @@ const TargetAdminDash = () => {
     return (
       <React.Fragment>
         <NavLink to={"/admin/target/" + rowData.id}>
-          {rowData.AccessionNumber}
+          {rowData.accessionNumber}
         </NavLink>
       </React.Fragment>
     );
   };
 
   const GeneNameBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.GeneName}</React.Fragment>;
+    return <React.Fragment>{rowData.geneName}</React.Fragment>;
   };
 
   const ScoreBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.Score}</React.Fragment>;
+    return <React.Fragment>{rowData.score}</React.Fragment>;
   };
 
   const HTSFeasibilityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.HTSFeasibility}</React.Fragment>;
+    return <React.Fragment>{rowData.htsFeasibility}</React.Fragment>;
   };
 
   const SBDFeasibilityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.SBDFeasibility}</React.Fragment>;
+    return <React.Fragment>{rowData.sbdFeasibility}</React.Fragment>;
   };
 
   const ProgressibilityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.Progressibility}</React.Fragment>;
+    return <React.Fragment>{rowData.progressibility}</React.Fragment>;
   };
 
   const SafetyBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.Safety}</React.Fragment>;
+    return <React.Fragment>{rowData.safety}</React.Fragment>;
   };
 
   /* Table Header  */

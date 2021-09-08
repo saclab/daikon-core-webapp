@@ -77,12 +77,13 @@ const TargetAdminEditDetails = ({ match, history }) => {
               <div className="p-mb-2">
                 <SectionHeading
                   icon="icon icon-common icon-selectedTarget"
-                  heading={selectedTarget.accessionNumber}
-                  link={"some data"}
+                  heading={selectedTarget.accessionNumber}                  
+                  style={{ width: "2000px" }}
+                  
                 />
               </div>
               <div className="p-mb-2">
-                <TabView>
+                <TabView >
                   <TabPanel style={{ width: "1200px" }}>
                     <div className="p-field p-grid">
                       <label
@@ -96,7 +97,7 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         <InputText
                           id="score"
                           type="text"
-                          style={{ width: "100px" }}
+                          style={{ width: "800px" }}
                           value={selectedTarget.score}
                           onChange={(e) => (selectedTarget.score = e.target.value)}
                           
@@ -116,7 +117,7 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         <InputText
                           id="htsfeasibility"
                           type="text"
-                          style={{ width: "100px" }}
+                          style={{ width: "800px" }}
                           value={selectedTarget.htsFeasibility}
                           onChange={(e) => (selectedTarget.htsFeasibility = e.target.value)}
                           
@@ -136,7 +137,7 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         <InputText
                           id="sbdfeasibility"
                           type="text"
-                          style={{ width: "100px" }}
+                          style={{ width: "800px" }}
                           value={selectedTarget.sbdFeasibility}
                           onChange={(e) => (selectedTarget.sbdFeasibility = e.target.value)}
                           
@@ -156,7 +157,7 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         <InputText
                           id="progressibility"
                           type="text"
-                          style={{ width: "100px" }}
+                          style={{ width: "800px" }}
                           value={selectedTarget.progressibility}
                           onChange={(e) => (selectedTarget.progressibility = e.target.value)}
                           
@@ -176,7 +177,7 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         <InputText
                           id="safety"
                           type="text"
-                          style={{ width: "100px" }}
+                          style={{ width: "800px" }}
                           value={selectedTarget.safety}
                           onChange={(e) => (selectedTarget.safety = e.target.value)}
                           
