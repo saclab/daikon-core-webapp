@@ -33,7 +33,7 @@ const TargetDashTable = () => {
       <React.Fragment>
         <span className="p-column-title">Accession Number</span>
         <NavLink to={"/target/" + rowData.id}>
-          {rowData.AccessionNumber}
+          {rowData.accessionNumber}
         </NavLink>
       </React.Fragment>
     );
@@ -43,7 +43,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Gene Name</span>
-        {rowData.GeneName}
+        {rowData.geneName}
       </React.Fragment>
     );
   };
@@ -52,7 +52,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Score</span>
-        {rowData.Score}
+        {rowData.score}
       </React.Fragment>
     );
   };
@@ -61,7 +61,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">HTS Feasibility</span>
-        {rowData.HTSFeasibility}
+        {rowData.htsFeasibility}
       </React.Fragment>
     );
   };
@@ -70,7 +70,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">SBD Feasibility</span>
-        {rowData.SBDFeasibility}
+        {rowData.sbdFeasibility}
       </React.Fragment>
     );
   };
@@ -79,7 +79,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Progressibility</span>
-        {rowData.Progressibility}
+        {rowData.progressibility}
       </React.Fragment>
     );
   };
@@ -88,7 +88,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Safety</span>
-        {rowData.Safety}
+        {rowData.safety}
       </React.Fragment>
     );
   };
