@@ -42,8 +42,10 @@ const TestMolView = () => {
       return errors;
     },
     onSubmit: (data) => {
+      console.log(data);
       setShowMessage(true);
       formik.resetForm();
+      
     },
   });
 
