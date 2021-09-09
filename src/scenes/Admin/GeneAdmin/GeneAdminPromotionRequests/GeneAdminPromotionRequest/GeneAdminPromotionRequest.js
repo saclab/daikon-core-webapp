@@ -2,10 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import { Divider } from "primereact/divider";
 import { SplitButton } from "primereact/splitbutton";
 import { Button } from "primereact/button";
+import { toast } from "react-toastify";
 
 import Question from "../../../../../app/common/Question/Question";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
+import Success from "../../../../../app/common/Success/Success";
 
 const GeneAdminPromotionRequest = ({
   GeneID,
@@ -27,6 +29,7 @@ const GeneAdminPromotionRequest = ({
   const [targetPromotionFormValue, setTargetPromotionFormValue] = useState(
     questionaire.answers
   );
+  const [formSuccess, setFormSuccess] = useState(false);
 
   const updateTargetPromotionFormValue = (e) => {
     if (e.target.id.endsWith("Description")) {
@@ -56,11 +59,12 @@ const GeneAdminPromotionRequest = ({
       geneID: GeneID,
       answers: targetPromotionFormValue,
     };
-   
-    console.log(JSON.stringify(promotionReqData));
-    promoteGene(promotionReqData);
-
-
+    promoteGene(promotionReqData).then((res) => {
+      if (res !== null) {
+        toast.success("Success. The gene has been promoted.");
+        genePromotionRegistry.delete(GeneID);
+      }
+    });
   };
 
   return (

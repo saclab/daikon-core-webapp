@@ -50,10 +50,10 @@ export default class GeneStoreAdmin {
     console.log("geneStoreAdmin: promoteGene() Start");
     this.displayLoading = true;
     try {
-      var resp = await agent.TargetAdmin.create(promotionReq);
+      var res = await agent.TargetAdmin.create(promotionReq);
       
       runInAction(() => {
-        console.log(resp);
+        console.log(res);
       });
     } catch (error) {
       console.log(error);
@@ -62,5 +62,6 @@ export default class GeneStoreAdmin {
         this.displayLoading = false;
       });
     }
+    return res;
   };
 }
