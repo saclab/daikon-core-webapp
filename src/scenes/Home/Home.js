@@ -14,11 +14,11 @@ const Home = () => {
         <p>
           The Target and Project Tracker (TPT) is a tool for visualizing and
           managing targets, pre-projects and projects within the TBDA and its
-          discovery portfolio. 
+          discovery portfolio.
         </p>
-        <p> 
-          This is intended to be used by Program and
-          Portfolio Managers, Project Managers, and Scientists.
+        <p>
+          This is intended to be used by Program and Portfolio Managers, Project
+          Managers, and Scientists.
         </p>
       </div>
 
@@ -33,7 +33,7 @@ const Home = () => {
                 header={header}
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of candidate genes 
+                  Shows a list of candidate genes
                   <NavLink to="/gene/">
                     <i className="pi pi-arrow-right"></i>
                   </NavLink>
@@ -49,7 +49,7 @@ const Home = () => {
                 header={header}
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of targets 
+                  Shows a list of targets
                   <a href="/target">
                     <i className="pi pi-arrow-right"></i>
                   </a>
@@ -65,7 +65,7 @@ const Home = () => {
                 header={header}
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of screened targets 
+                  Shows a list of screened targets
                   <a href="/screen">
                     <i className="pi pi-arrow-right"></i>
                   </a>
@@ -85,7 +85,7 @@ const Home = () => {
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
                   Shows a list of Targets
-                  <a href="/genomes">
+                  <a href="/fha">
                     <i className="pi pi-arrow-right"></i>
                   </a>
                 </p>
@@ -100,7 +100,7 @@ const Home = () => {
                 header={header}
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of all portfolios  
+                  Shows a list of all portfolios
                   <a href="/portfolio">
                     <i className="pi pi-arrow-right"></i>
                   </a>
@@ -110,14 +110,14 @@ const Home = () => {
             <div className="p-mr-2">
               {" "}
               <Card
-                title="Post-Portfolio"
+                title="Post Portfolio"
                 subTitle="(8)"
                 style={{ width: "14em" }}
                 header={header}
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of Targets 
-                  <a href="/targets">
+                  Displays Post portfolio details
+                  <a href="/postportfolio">
                     <i className="pi pi-arrow-right"></i>
                   </a>
                 </p>
