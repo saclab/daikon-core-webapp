@@ -34,7 +34,6 @@ const TargetView = ({ match, history }) => {
     if (target === null || target.id !== match.params.id) {
       fetchTarget(match.params.id);
     }
-    
   }, [match.params.id, target, fetchTarget]);
 
   const items = [
@@ -94,7 +93,7 @@ const TargetView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-common icon-target"
                   heading={target.accessionNumber}
-                  link = {'some data'}
+                  link={"some data"}
                 />
               </div>
               <div className="p-mb-2">
@@ -103,7 +102,9 @@ const TargetView = ({ match, history }) => {
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
                   <TabPanel header="Header II" headerClassName="hide">
-                    <TargetScorecard />
+                    <TargetScorecard
+                      data={target.targetScorecard.targetScoreCardValues}
+                    />
                   </TabPanel>
                   <TabPanel header="Header I" headerClassName="hide">
                     <TargetPromotionForm
