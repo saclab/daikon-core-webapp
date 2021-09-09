@@ -95,10 +95,18 @@ const TargetAdminEditDetails = ({ match, history }) => {
                       <div className="p-col">
                         <InputNumber
                           id="score"
+                         
+                          showButtons
+                          buttonLayout="horizontal"
+                          decrementButtonClassName="p-button-danger"
+                          incrementButtonClassName="p-button-success"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          step={0.25}
                           type="text"
                           style={{ width: "800px" }}
                           value={selectedTarget.score}
-                          onChange={(e) =>
+                          onValueChange={(e) =>
                             (selectedTarget.score = e.target.value)
                           }
                         />
@@ -116,6 +124,7 @@ const TargetAdminEditDetails = ({ match, history }) => {
                       <div className="p-col">
                         <InputNumber
                           id="htsfeasibility"
+                          
                           showButtons
                           buttonLayout="horizontal"
                           decrementButtonClassName="p-button-danger"
@@ -144,10 +153,17 @@ const TargetAdminEditDetails = ({ match, history }) => {
                       <div className="p-col">
                         <InputNumber
                           id="sbdfeasibility"
+                          showButtons
+                          buttonLayout="horizontal"
+                          decrementButtonClassName="p-button-danger"
+                          incrementButtonClassName="p-button-success"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          step={0.25}
                           type="text"
                           style={{ width: "800px" }}
                           value={selectedTarget.sbdFeasibility}
-                          onChange={(e) =>
+                          onValueChange={(e) =>
                             (selectedTarget.sbdFeasibility = e.target.value)
                           }
                         />
@@ -165,10 +181,17 @@ const TargetAdminEditDetails = ({ match, history }) => {
                       <div className="p-col">
                         <InputNumber
                           id="progressibility"
+                          showButtons
+                          buttonLayout="horizontal"
+                          decrementButtonClassName="p-button-danger"
+                          incrementButtonClassName="p-button-success"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          step={0.25}
                           type="text"
                           style={{ width: "800px" }}
                           value={selectedTarget.progressibility}
-                          onChange={(e) =>
+                          onValueChange={(e) =>
                             (selectedTarget.progressibility = e.target.value)
                           }
                         />
@@ -186,10 +209,17 @@ const TargetAdminEditDetails = ({ match, history }) => {
                       <div className="p-col">
                         <InputNumber
                           id="safety"
+                          showButtons
+                          buttonLayout="horizontal"
+                          decrementButtonClassName="p-button-danger"
+                          incrementButtonClassName="p-button-success"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          step={0.25}
                           type="text"
                           style={{ width: "800px" }}
                           value={selectedTarget.safety}
-                          onChange={(e) =>
+                          onValueChange={(e) =>
                             (selectedTarget.safety = e.target.value)
                           }
                         />
