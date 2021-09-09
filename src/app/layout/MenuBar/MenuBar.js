@@ -30,7 +30,12 @@ const MenuBar = () => {
       command: () => history.push("/portfolio/"),
     },
 
-    { label: "Post-Portfolio", icon: "icon icon-common icon-biotech" },
+    {
+      label: "Post-Portfolio",
+      icon: "icon icon-common icon-biotech",
+      command: () => history.push("/postportfolio/"),
+    },
+
     // { label: "Clinical", icon: "icon icon-conceptual icon-proteins" },
   ];
 
