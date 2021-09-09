@@ -40,6 +40,11 @@ export default class TargetStore {
   fetchTargetList = async () => {
     console.log("targetStore: fetchTargetList() Start");
     this.displayLoading = true;
+    if (this.targetRegistry.size !== 0) {
+      console.log("targetStore: fetchTargetList() cache hit");
+      this.displayLoading = false;
+      return;
+    }
     try {
       var resp = await agent.Target.list();
       runInAction(() => {
@@ -109,13 +114,15 @@ export default class TargetStore {
     console.log("targetStore: fetchQuestions() Start");
     this.questionsLoading = true;
     // check cache
-    if (!this.questionsRegistry.size === 0) {
+    if (this.questionsRegistry.size !== 0) {
+      console.log("targetStore: fetchQuestions() cache hit");
       this.questionsLoading = false;
       return this.questionsRegistry;
     }
 
     // then fetch
     try {
+      console.log("targetStore: fetchQuestions() cache miss");
       var resp = await agent.Gene.promotionQuestions();
       runInAction(() => {
         console.log(resp);
