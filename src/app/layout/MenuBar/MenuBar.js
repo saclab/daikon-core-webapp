@@ -19,7 +19,11 @@ const MenuBar = () => {
       icon: "icon icon-conceptual icon-chemical",
       command: () => history.push("/screen/"),
     },
-    { label: "FHA", icon: "icon icon-conceptual icon-structures-3d" },
+    {
+      label: "FHA",
+      icon: "icon icon-conceptual icon-structures-3d",
+      command: () => history.push("/fha/"),
+    },
     {
       label: "Portfolio",
       icon: "icon icon-common icon-classification",
@@ -27,7 +31,7 @@ const MenuBar = () => {
     },
 
     { label: "Post-Portfolio", icon: "icon icon-common icon-biotech" },
-   // { label: "Clinical", icon: "icon icon-conceptual icon-proteins" },
+    // { label: "Clinical", icon: "icon icon-conceptual icon-proteins" },
   ];
 
   const setSelectedItem = () => {
