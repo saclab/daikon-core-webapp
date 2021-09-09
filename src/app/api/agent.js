@@ -118,7 +118,7 @@ const Admin = {
 
 const Target = {
   list: () => requests.get(`/target/`),
-  view: (id) => requests.get(`/target/${id}`),
+  details: (id) => requests.get(`/target/${id}`),
 };
 
 const TargetAdmin = {
