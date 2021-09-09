@@ -50,9 +50,9 @@ const Home = () => {
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
                   Shows a list of targets
-                  <a href="/target">
+                  <NavLink to="/target">
                     <i className="pi pi-arrow-right"></i>
-                  </a>
+                  </NavLink>
                 </p>
               </Card>
             </div>
@@ -66,9 +66,9 @@ const Home = () => {
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
                   Shows a list of screened targets
-                  <a href="/screen">
+                  <NavLink to="/screen">
                     <i className="pi pi-arrow-right"></i>
-                  </a>
+                  </NavLink>
                 </p>
               </Card>
             </div>
@@ -85,9 +85,9 @@ const Home = () => {
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
                   Shows a list of FHA screens
-                  <a href="/fha">
+                  <NavLink to="/fha">
                     <i className="pi pi-arrow-right"></i>
-                  </a>
+                  </NavLink>
                 </p>
               </Card>
             </div>
@@ -101,9 +101,9 @@ const Home = () => {
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
                   Shows a list of all portfolios
-                  <a href="/portfolio">
+                  <NavLink to="/portfolio">
                     <i className="pi pi-arrow-right"></i>
-                  </a>
+                  </NavLink>
                 </p>
               </Card>
             </div>
@@ -117,9 +117,9 @@ const Home = () => {
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
                   Displays Post portfolio details
-                  <a href="/postportfolio">
+                  <NavLink to="/postportfolio">
                     <i className="pi pi-arrow-right"></i>
-                  </a>
+                  </NavLink>
                 </p>
               </Card>
             </div>
