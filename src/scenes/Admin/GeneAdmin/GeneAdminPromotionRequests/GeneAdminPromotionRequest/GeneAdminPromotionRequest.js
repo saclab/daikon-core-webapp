@@ -1,8 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Divider } from "primereact/divider";
 import { SplitButton } from "primereact/splitbutton";
+import { Button } from "primereact/button";
+import { toast } from "react-toastify";
+
 import Question from "../../../../../app/common/Question/Question";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
+import Loading from "../../../../../app/layout/Loading/Loading";
+import Success from "../../../../../app/common/Success/Success";
 
 const GeneAdminPromotionRequest = ({
   GeneID,
@@ -11,8 +16,12 @@ const GeneAdminPromotionRequest = ({
 }) => {
   const rootStore = useContext(RootStoreContext);
 
-  const { fetchGenePromotionList, displayLoading, genePromotionRegistry } =
-    rootStore.geneStoreAdmin;
+  const {
+    fetchGenePromotionList,
+    displayLoading,
+    genePromotionRegistry,
+    promoteGene,
+  } = rootStore.geneStoreAdmin;
 
   const geneStore = rootStore.geneStore;
   const questionaire = AnswerRegistry.get(GeneID);
@@ -20,6 +29,7 @@ const GeneAdminPromotionRequest = ({
   const [targetPromotionFormValue, setTargetPromotionFormValue] = useState(
     questionaire.answers
   );
+  const [formSuccess, setFormSuccess] = useState(false);
 
   const updateTargetPromotionFormValue = (e) => {
     if (e.target.id.endsWith("Description")) {
@@ -40,7 +50,22 @@ const GeneAdminPromotionRequest = ({
     }
   };
 
-  console.log(questionaire);
+  if (displayLoading) {
+    return <Loading />;
+  }
+
+  const submitPromoteGeneForm = () => {
+    let promotionReqData = {
+      geneID: GeneID,
+      answers: targetPromotionFormValue,
+    };
+    promoteGene(promotionReqData).then((res) => {
+      if (res !== null) {
+        toast.success("Success. The gene has been promoted.");
+        genePromotionRegistry.delete(GeneID);
+      }
+    });
+  };
 
   return (
     <div>
@@ -321,6 +346,12 @@ const GeneAdminPromotionRequest = ({
       />
 
       <Divider />
+      <Button
+        label="Promote"
+        className="p-button-success"
+        style={{ float: "right" }}
+        onClick={() => submitPromoteGeneForm()}
+      />
     </div>
   );
 };

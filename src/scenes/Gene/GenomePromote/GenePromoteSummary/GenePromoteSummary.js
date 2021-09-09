@@ -338,6 +338,7 @@ const GenePromoteSummary = (props) => {
         icon="pi pi-arrow-right"
         model={nextButtonItems}
         className="p-button-success p-button-sm"
+        style={{ float: "right" }}
         onClick={() => {
           props.onFormSubmit();
         }}

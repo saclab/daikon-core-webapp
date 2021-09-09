@@ -3,11 +3,32 @@ import { Toast } from "primereact/toast";
 import { Fieldset } from "primereact/fieldset";
 import TargetScorecardWaffle from "./TargetScorecardWaffle/TargetScorecardWaffle";
 import TargetScorecardPercentDial from "./TargetScorecardPercentDial/TargetScorecardPercentDial";
-import TargetScorecardBar from "./TargetScorecardBar/TargetScorecardBar";
+import { observer } from "mobx-react-lite";
 import TargetGrid from "./TargetGrid/TargetGrid";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import Loading from "../../../../app/layout/Loading/Loading";
 
 const TargetScorecard = () => {
   const toast = useRef(null);
+
+  const rootStore = useContext(RootStoreContext);
+  const {
+    selectedTarget,
+    questionsLoading,
+    questionsRegistry,
+    fetchQuestions
+  } = rootStore.targetStore;
+
+  // const [state, setstate] = useState(initialState);
+  useEffect(() => {
+    fetchQuestions();
+    
+  }, [fetchQuestions])
+
+  if(questionsLoading) {
+    return <Loading />;
+  }
+
 
   return (
     <React.Fragment>
@@ -30,7 +51,7 @@ const TargetScorecard = () => {
             </div>
             <div className="p-mb-2">
               <Fieldset legend="Scorecard">
-                <TargetGrid />
+                <TargetGrid questions={questionsRegistry} target={selectedTarget}/>
               </Fieldset>
             </div>
           </div>
@@ -40,4 +61,4 @@ const TargetScorecard = () => {
   );
 };
 
-export default TargetScorecard;
+export default observer(TargetScorecard);
