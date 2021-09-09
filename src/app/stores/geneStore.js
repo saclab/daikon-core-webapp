@@ -67,6 +67,11 @@ export default class GeneStore {
   /* Fetch Gene list from API */
   fetchGeneList = async () => {
     console.log("geneStore: fetchGeneList() Start");
+    if (this.geneRegistry.size !== 0) {
+      console.log("geneStore: fetchGeneList() cache hit");
+      this.displayLoading = false;
+      return;
+    }
     this.displayLoading = true;
     try {
       var resp = await agent.Gene.list();
