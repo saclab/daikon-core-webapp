@@ -67,7 +67,7 @@ export default class TargetStore {
     let fetchedTarget = this.targetRegistryExpanded.get(id);
     console.log("CACHE");
     console.log(fetchedTarget);
-    if (fetchedTarget && fetchedTarget.hasOwnProperty("targetPromotionForm")) {
+    if (fetchedTarget) {
       console.log("targetStore: fetchTarget found in cache");
       this.selectedTarget = fetchedTarget;
       this.displayLoading = false;
@@ -75,7 +75,7 @@ export default class TargetStore {
     // if not found fetch from api
     else {
       try {
-        fetchedTarget = await agent.Target.view(id);
+        fetchedTarget = await agent.Target.details(id);
         runInAction(() => {
           console.log("targetStore: fetchTarget fetched from api");
           console.log(this.selectedTarget);

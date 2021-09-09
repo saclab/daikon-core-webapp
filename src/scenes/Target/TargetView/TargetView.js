@@ -31,12 +31,10 @@ const TargetView = ({ match, history }) => {
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
-    // if (target === null || target.id !== match.params.id) {
-    //   fetchTarget(match.params.id);
-    // }
-    if (target === null) {
+    if (target === null || target.id !== match.params.id) {
       fetchTarget(match.params.id);
     }
+    
   }, [match.params.id, target, fetchTarget]);
 
   const items = [
