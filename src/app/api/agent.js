@@ -116,6 +116,11 @@ const Admin = {
   addUser: (user) => requests.post(`/admin/accounts/`, user),
 };
 
+const Target = {
+  list: () => requests.get(`/target/`),
+  view: (id) => requests.get(`/target/${id}`),
+};
+
 const TargetAdmin = {
   create: (data) => requests.post(`/admin/target`, data),
 };
@@ -125,6 +130,7 @@ const exports = {
   GeneAdmin,
   User,
   Admin,
+  Target,
   TargetAdmin,
 };
 
