@@ -7,7 +7,7 @@ class AuthService {
             console.log("the app settings service was not provided");
             throw new Error('the app settings service was not provided');
         }
-        console.log("Auth Service created");
+        //console.log("Auth Service created");
         
         this.appSettings = appSettings;
         

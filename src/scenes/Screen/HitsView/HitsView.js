@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { Menu } from "primereact/menu";
-import { TabView, TabPanel } from "primereact/tabview";
+import React, { useEffect, useRef, useContext } from "react";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Toast } from "primereact/toast";
 import { BreadCrumb } from "primereact/breadcrumb";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import ScreenTable from "./HitsTable/HitsTable";
 import HitsTable from "./HitsTable/HitsTable";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const HitsView = ({ match, history }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
   /* MobX Store */
@@ -48,28 +44,6 @@ const HitsView = ({ match, history }) => {
     fetchScreenedTarget,
     screenedTarget,
   ]);
-
-  const items = [
-    {
-      label: "Sections",
-      items: [
-        {
-          label: "Status",
-          icon: "ri-git-repository-private-fill",
-          command: () => {
-            setActiveIndex(0);
-          },
-        },
-        {
-          label: "Hits",
-          icon: "ri-book-open-line",
-          command: () => {
-            setActiveIndex(1);
-          },
-        },
-      ],
-    },
-  ];
 
   /** Loading Overlay */
   if (displayLoading || displayScreenLoading) {
@@ -115,11 +89,10 @@ const HitsView = ({ match, history }) => {
                 <BreadCrumb model={breadCrumbItems} />
               </div>
               <div className="p-mb-2">
-              <SectionHeading
+                <SectionHeading
                   icon="icon icon-common icon-fullscreen"
                   heading={"Hits of Rv0667-1"}
                 />
-               
               </div>
               <div className="p-mb-2">
                 <HitsTable screens={screens} />

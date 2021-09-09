@@ -1,11 +1,11 @@
 import {
   action,
-  computed,
   makeObservable,
   observable,
   runInAction,
 } from "mobx";
-import localhost from "../api/localhost";
+import agent from "../api/agent";
+import { toast } from "react-toastify";
 
 export default class TargetStoreAdmin {
   rootStore;
@@ -21,7 +21,6 @@ export default class TargetStoreAdmin {
       fetchTargetAdmin: action,
       selectedTarget: observable,
       editTargetAdmin: action,
-      cancelEditTargetAdmin: action,
     });
   }
   /* Fetch specific TargetAdmin with id from API */
@@ -39,14 +38,15 @@ export default class TargetStoreAdmin {
       console.log("targetStoreAdmin: fetchedTargetAdmin found in cache");
       this.selectedTarget = fetchedTargetAdmin;
       this.displayLoading = false;
+
+      console.log(this.selectedTarget);
     }
     // if not found fetch from api
     else {
       try {
-        fetchedTargetAdmin = await localhost.TargetAdmin.details(id);
+        fetchedTargetAdmin = await agent.TargetAdmin.details(id);
         runInAction(() => {
           console.log("targetStoreAdmin: fetchTargetAdmin fetched from api");
-
           this.selectedTarget = fetchedTargetAdmin;
           this.targetRegistryAdmin.set(id, fetchedTargetAdmin);
         });
@@ -68,31 +68,29 @@ export default class TargetStoreAdmin {
     console.log("targetStoreAdmin: editTargetAdmin Start");
     this.displayLoading = true;
     let updatedTarget = null;
-    console.log(this.selectedTarget);
+    
     // send to servers
     try {
-      updatedTarget = await localhost.TargetAdmin.edit(this.selectedTarget);
+      updatedTarget = await agent.TargetAdmin.edit(this.selectedTarget);
       runInAction(() => {
-        console.log("targetStoreAdmin: fetchTarget fetched from api");
-        console.log(this.selectedTarget);
+        console.log(updatedTarget);
+        toast.success("Changes are saved");
         this.selectedTarget = updatedTarget;
         this.targetRegistryAdmin.set(updatedTarget.id, updatedTarget);
         
       });
     } catch (error) {
       console.log(error);
+      toast.error(error.data.title);
     } finally {
       runInAction(() => {
         this.displayLoading = false;
         console.log("targetStoreAdmin: edit Complete");
       });
     }
+    return updatedTarget;
   };
 
-  cancelEditTargetAdmin = () => {
-    console.log("targetStoreAdmin: cancelEditTargetAdmin");
-    this.selectedTarget = this.targetRegistryAdmin.get(this.selectedTarget.id);
-  };
 
 
 }

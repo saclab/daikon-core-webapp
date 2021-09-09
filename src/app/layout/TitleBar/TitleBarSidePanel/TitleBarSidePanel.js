@@ -7,7 +7,7 @@ import { RootStoreContext } from "../../../stores/rootStore";
 
 const TitleBarSidePanel = ({ toggle, user }) => {
   const rootStore = useContext(RootStoreContext);
-  let { adminMode, setAdminMode } = rootStore.appSettingsStore;
+  let { setAdminMode } = rootStore.appSettingsStore;
 
   const adminTools = (
     <div className="p-mb-2">
