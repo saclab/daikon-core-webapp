@@ -38,10 +38,6 @@ const TargetPromotionForm = (props) => {
 
     return (
       <div>
-      <h2>Submit For Review</h2>
-      <hr />
-     
-
       <div>
         <div className="card">
           <h4 style={{background: "#cccccc", height: "1.6rem"}}>Impact of chemical inhibition</h4>

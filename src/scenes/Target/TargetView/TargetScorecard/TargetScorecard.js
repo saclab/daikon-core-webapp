@@ -40,10 +40,10 @@ const TargetScorecard = () => {
               <Fieldset legend="Overview">
                 <div className="p-d-flex">
                   <div className="p-mr-2">
-                    <TargetScorecardWaffle />
+                    {/* <TargetScorecardWaffle /> */}
                   </div>
                   <div className="p-mr-2">
-                    <TargetScorecardPercentDial />
+                    {/* <TargetScorecardPercentDial /> */}
                   </div>
                   
                 </div>
