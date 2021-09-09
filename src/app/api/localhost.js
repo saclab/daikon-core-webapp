@@ -49,7 +49,7 @@ axiosLocalhostInstance.interceptors.response.use(undefined, (error) => {
       ) {
         history.push("/notfound");
       } else if (status === 400 && data != null) {
-        toast.error("400 The Request Failed");
+        toast.error("400 The Request Failed <br />" + data);
       }
 
       /* 500 Errors */
@@ -87,16 +87,15 @@ const Portfolio = {
 };
 
 const TargetAdmin = {
-  details: (id) => requests.get(`/targets/targets-edit.json`), 
-  edit: (updatedTarget) => requests.post(`/targets/targets-edit.json`), 
-}
-
+  details: (id) => requests.get(`/targets/targets-edit.json`),
+  edit: (updatedTarget) => requests.post(`/targets/targets-edit.json`),
+};
 
 const exports = {
   Target,
   Screen,
   Portfolio,
-  TargetAdmin
+  TargetAdmin,
 };
 
 export default exports;

@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Divider } from "primereact/divider";
 import { SplitButton } from "primereact/splitbutton";
+import { Button } from "primereact/button";
+
 import Question from "../../../../../app/common/Question/Question";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
+import Loading from "../../../../../app/layout/Loading/Loading";
 
 const GeneAdminPromotionRequest = ({
   GeneID,
@@ -11,8 +14,12 @@ const GeneAdminPromotionRequest = ({
 }) => {
   const rootStore = useContext(RootStoreContext);
 
-  const { fetchGenePromotionList, displayLoading, genePromotionRegistry } =
-    rootStore.geneStoreAdmin;
+  const {
+    fetchGenePromotionList,
+    displayLoading,
+    genePromotionRegistry,
+    promoteGene,
+  } = rootStore.geneStoreAdmin;
 
   const geneStore = rootStore.geneStore;
   const questionaire = AnswerRegistry.get(GeneID);
@@ -40,7 +47,21 @@ const GeneAdminPromotionRequest = ({
     }
   };
 
-  console.log(questionaire);
+  if (displayLoading) {
+    return <Loading />;
+  }
+
+  const submitPromoteGeneForm = () => {
+    let promotionReqData = {
+      geneID: GeneID,
+      answers: targetPromotionFormValue,
+    };
+   
+    console.log(JSON.stringify(promotionReqData));
+    promoteGene(promotionReqData);
+
+
+  };
 
   return (
     <div>
@@ -321,6 +342,12 @@ const GeneAdminPromotionRequest = ({
       />
 
       <Divider />
+      <Button
+        label="Promote"
+        className="p-button-success"
+        style={{ float: "right" }}
+        onClick={() => submitPromoteGeneForm()}
+      />
     </div>
   );
 };
