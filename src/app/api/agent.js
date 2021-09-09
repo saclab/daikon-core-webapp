@@ -69,7 +69,9 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
       ) {
         history.push("/notfound");
       } else if (status === 400 && data != null) {
-        toast.error("400 The Request Failed");
+        toast.error("400 The Request Failed : " + data);
+      } else if (status === 400 && data === null) {
+        toast.error("400 Bad request");
       }
 
       /* 500 Errors */
@@ -95,12 +97,13 @@ const Gene = {
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
   history: (id) => requests.get(`/gene/${id}/history`),
   promotionQuestions: () => requests.get(`/geneconfig/promote/questionaire`),
-  submitPromotionQuestionaire: (id, data) => requests.post(`/gene/${id}/promotionrequest`, data),
+  submitPromotionQuestionaire: (id, data) =>
+    requests.post(`/gene/${id}/promotionrequest`, data),
 };
 
 const GeneAdmin = {
   promotionList: () => requests.get("/admin/gene/promotionrequests"),
-}
+};
 
 const User = {
   current: () => requests.get("/account"),
@@ -113,16 +116,21 @@ const Admin = {
   addUser: (user) => requests.post(`/admin/accounts/`, user),
 };
 
+const Target = {
+  list: () => requests.get(`/target/`),
+  details: (id) => requests.get(`/target/${id}`)
+};
+
 const TargetAdmin = {
-  details: (id) => requests.get(`/targets/targets-edit.json`), 
-  edit: (updatedTarget) => requests.post(`/targets/targets-edit.json`), 
-}
+  create: (data) => requests.post(`/admin/target`, data),
+};
 const exports = {
   AuthServiceInstance,
   Gene,
   GeneAdmin,
   User,
   Admin,
+  Target,
   TargetAdmin,
 };
 

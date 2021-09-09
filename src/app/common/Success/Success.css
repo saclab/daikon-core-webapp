@@ -1,0 +1,22 @@
+.Success {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.SuccessWrap {
+  
+  position: relative;
+  background: linear-gradient(to right, #1099ae 0%, #330867 100%);
+  width: 610px;
+  height: 310px;
+}
+
+.SuccessBox  {
+  background: #ffffff;
+  margin: 5px 5px 5px 5px;
+  padding: 20px;
+  width: 600px;
+  height: 300px;
+  
+}
