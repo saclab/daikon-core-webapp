@@ -84,7 +84,7 @@ const Home = () => {
                 header={header}
               >
                 <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of Targets
+                  Shows a list of FHA screens
                   <a href="/fha">
                     <i className="pi pi-arrow-right"></i>
                   </a>
