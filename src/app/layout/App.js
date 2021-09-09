@@ -57,7 +57,7 @@ const App = () => {
 
   useEffect(() => {
     if (authServiceInstance.account && !networkErr && !user && !userNotFound) {
-      console.log("UseEffect getUser()");
+      //console.log("UseEffect getUser()");
       getUser().catch((e) => {
         console.log("++++++++CAUGHT NETWORK ERROR");
         setNetworkErr(true);
@@ -65,7 +65,7 @@ const App = () => {
     }
 
     if (adminMode) {
-      console.log("Admin mode is set");
+      //console.log("Admin mode is set");
       setMenuBar(<MenuBarAdmin />);
     }
   }, [
@@ -152,8 +152,8 @@ const App = () => {
   }
 
   if (user) {
-    console.log("Will render signedinUser");
-    console.log(user);
+    // console.log("Will render signedinUser");
+    // console.log(user);
 
     return signedInRender;
   }

@@ -1,6 +1,5 @@
 import {
   action,
-  computed,
   makeObservable,
   observable,
   runInAction,
@@ -39,6 +38,8 @@ export default class TargetStoreAdmin {
       console.log("targetStoreAdmin: fetchedTargetAdmin found in cache");
       this.selectedTarget = fetchedTargetAdmin;
       this.displayLoading = false;
+
+      console.log(this.selectedTarget);
     }
     // if not found fetch from api
     else {
@@ -67,11 +68,12 @@ export default class TargetStoreAdmin {
     console.log("targetStoreAdmin: editTargetAdmin Start");
     this.displayLoading = true;
     let updatedTarget = null;
-    console.log(this.selectedTarget);
+    
     // send to servers
     try {
       updatedTarget = await agent.TargetAdmin.edit(this.selectedTarget);
       runInAction(() => {
+        console.log(updatedTarget);
         toast.success("Changes are saved");
         this.selectedTarget = updatedTarget;
         this.targetRegistryAdmin.set(updatedTarget.id, updatedTarget);

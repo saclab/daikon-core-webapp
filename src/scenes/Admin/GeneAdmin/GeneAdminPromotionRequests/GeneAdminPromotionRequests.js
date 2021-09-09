@@ -6,7 +6,6 @@ import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading
 import history from "../../../../history";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
-import Question from "../../../../app/common/Question/Question";
 import GeneAdminPromotionRequest from "./GeneAdminPromotionRequest/GeneAdminPromotionRequest";
 const GeneAdminPromotionRequests = () => {
   const rootStore = useContext(RootStoreContext);
@@ -32,6 +31,7 @@ const GeneAdminPromotionRequests = () => {
       //cleanup
     };
   }, [
+    geneStore,
     genePromotionRegistry,
     fetchGenePromotionList,
     geneStore.genes,
