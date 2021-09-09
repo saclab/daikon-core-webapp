@@ -14,6 +14,8 @@ export default class TargetStore {
   targetRegistry = new Map();
   targetRegistryExpanded = new Map();
   selectedTarget = null;
+  questionsRegistry = new Map();
+  questionsLoading = false;
   
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -27,6 +29,10 @@ export default class TargetStore {
       target: computed,
       fetchTarget: action,
       selectedTarget: observable,
+
+      questionsLoading: observable,
+      fetchQuestions: action
+
     });
   }
 
@@ -98,6 +104,38 @@ export default class TargetStore {
     console.log(this.selectedTarget);
     return this.selectedTarget;
   }
+
+  fetchQuestions = async () => {
+    console.log("targetStore: fetchQuestions() Start");
+    this.questionsLoading = true;
+    // check cache
+    if (!this.questionsRegistry.size === 0) {
+      this.questionsLoading = false;
+      return this.questionsRegistry;
+    }
+
+    // then fetch
+    try {
+      var resp = await agent.Gene.promotionQuestions();
+      runInAction(() => {
+        console.log(resp);
+        resp.forEach((fetchedPromotionQuestion) => {
+          this.questionsRegistry.set(
+            fetchedPromotionQuestion.identification,
+            fetchedPromotionQuestion
+          );
+        });
+        console.log(this.questionsRegistry);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.questionsLoading = false;
+        return this.questionsRegistry;
+      });
+    }
+  };
 
   
 }
