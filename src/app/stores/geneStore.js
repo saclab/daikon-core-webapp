@@ -327,5 +327,6 @@ export default class GeneStore {
       });
     }
     return res;
+    
   };
 }
