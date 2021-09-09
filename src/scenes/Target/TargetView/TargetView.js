@@ -31,12 +31,12 @@ const TargetView = ({ match, history }) => {
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
-    // if (target === null || target.id !== match.params.id) {
-    //   fetchTarget(match.params.id);
-    // }
-    if (target === null) {
+    if (target === null || target.id !== match.params.id) {
       fetchTarget(match.params.id);
     }
+    // if (target === null) {
+    //   fetchTarget(match.params.id);
+    // }
   }, [match.params.id, target, fetchTarget]);
 
   const items = [
@@ -111,11 +111,7 @@ const TargetView = ({ match, history }) => {
                     <TargetPromotionForm
                       id={match.params.id}
                       target={target}
-                      edit={() => editTarget()}
-                      cancelEdit={() => cancelEditTarget()}
-                      fetchHistory={() => fetchTargetHistory()}
-                      historyDisplayLoading={historyDisplayLoading}
-                      history={targetHistory}
+                      
                     />
                   </TabPanel>
                   <TabPanel
