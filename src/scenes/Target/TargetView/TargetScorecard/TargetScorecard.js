@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { Toast } from "primereact/toast";
 import { Fieldset } from "primereact/fieldset";
 import TargetScorecardWaffle from "./TargetScorecardWaffle/TargetScorecardWaffle";

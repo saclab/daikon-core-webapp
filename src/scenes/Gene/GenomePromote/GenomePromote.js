@@ -5,20 +5,17 @@ import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
 
 import cssClass from "./GenomePromote.module.css";
-import GenomePromoteFormTarget from "./GenomePromoteFormTarget/GenomePromoteFormTarget";
 import GenomePromoteFormImpactOfChemInhibit from "./GenomePromoteFormImpactOfChemInhibit/GenomePromoteFormImpactOfChemInhibit";
 import GenomePromoteFormChemicalInhibition from "./GenomePromoteFormChemicalInhibition/GenomePromoteFormChemicalInhibition";
 import GenomePromoteFormImpactOfGeneticInhibit from "./GenomePromoteFormImpactOfGeneticInhibit/GenomePromoteFormImpactOfGeneticInhibit";
 import GenomePromoteFormLiabilities from "./GenomePromoteFormLiabilities/GenomePromoteFormLiabilities";
-import GenomePromoteFormTractability from "./GenomePromoteFormTractability/GenomePromoteFormTractability";
-import GenomePromoteFormInteractions from "./GenomePromoteFormInteractions/GenomePromoteFormInteractions";
-import GenomePromoteBucketScore from "./GenomePromoteBucketScore/GenomePromoteBucketScore";
+
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
 import Success from "../../../app/common/Success/Success";
 
-const GenomePromote = ({ match, params, history }) => {
+const GenomePromote = ({ match }) => {
   const toast = useRef(null);
   const rootStore = useContext(RootStoreContext);
 
@@ -38,7 +35,13 @@ const GenomePromote = ({ match, params, history }) => {
     if (gene === null || gene.id !== match.params.id) {
       fetchGene(match.params.id);
     }
-  }, [promotionQuestionsRegistry, getPromotionQuestions, gene, fetchGene]);
+  }, [
+    promotionQuestionsRegistry,
+    getPromotionQuestions,
+    gene,
+    fetchGene,
+    match.params.id,
+  ]);
 
   const [formSuccess, setFormSuccess] = useState(false);
 
@@ -244,18 +247,19 @@ const GenomePromote = ({ match, params, history }) => {
   });
 
   const updateTargetPromotionFormValue = (e) => {
+    var { location, newFormValue, newField } = null;
     if (e.target.id.endsWith("Description")) {
       console.log("Description Field");
-      var location = e.target.id.slice(0, -11);
-      var newFormValue = { ...targetPromotionFormValue };
-      var newField = { ...newFormValue[location] };
+      location = e.target.id.slice(0, -11);
+      newFormValue = { ...targetPromotionFormValue };
+      newField = { ...newFormValue[location] };
       newField.answerDescription = e.target.value;
       newFormValue[location] = newField;
       setTargetPromotionFormValue(newFormValue);
     } else {
-      var location = e.target.id;
-      var newFormValue = { ...targetPromotionFormValue };
-      var newField = { ...newFormValue[location] };
+      location = e.target.id;
+      newFormValue = { ...targetPromotionFormValue };
+      newField = { ...newFormValue[location] };
       newField.answerValue = e.target.value;
       newFormValue[location] = newField;
       setTargetPromotionFormValue(newFormValue);
@@ -264,7 +268,7 @@ const GenomePromote = ({ match, params, history }) => {
 
   const submitTargetPromotionFormValueForm = () => {
     var validationFail = false;
-    Object.keys(targetPromotionFormValue).map((key, value) => {
+    Object.keys(targetPromotionFormValue).map((key) => {
       if (targetPromotionFormValue[key].answerValue === "") {
         validationFail = true;
       }

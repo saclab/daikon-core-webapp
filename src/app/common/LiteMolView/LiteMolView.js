@@ -24,7 +24,7 @@ const LiteMolView = ({id, url, format}) => {
     console.log("loaded molview");
 
     
-  }, []);
+  }, [format, id, target, url]);
 
   return (
     

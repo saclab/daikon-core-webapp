@@ -4,7 +4,7 @@ import history from "../../history";
 import AuthService from "../../services/AuthService";
 import AppSettingsService from "../../services/AppSettingsService";
 
-console.log("API SERVICE Initialized");
+
 
 /*  MSAL SERVICE CREATION */
 const appSettings = new AppSettingsService();
@@ -32,8 +32,8 @@ axiosServerInstance.interceptors.request.use(
 const responseBody = (response) => response.data;
 
 /* Temp function to simulate server network delay */
-const sleep = (ms) => (response) =>
-  new Promise((resolve) => setTimeout(() => resolve(response), ms));
+// const sleep = (ms) => (response) =>
+//   new Promise((resolve) => setTimeout(() => resolve(response), ms));
 
 /* TYPES OF REQUESTES SUPPORTED */
 const requests = {
