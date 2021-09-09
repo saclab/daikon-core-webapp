@@ -10,7 +10,7 @@ const MenuBar = () => {
       command: () => history.push("/gene/"),
     },
     {
-      label: "Target",
+      label: "Targets",
       icon: "icon icon-common icon-target",
       command: () => history.push("/target/"),
     },
@@ -19,15 +19,24 @@ const MenuBar = () => {
       icon: "icon icon-conceptual icon-chemical",
       command: () => history.push("/screen/"),
     },
-    { label: "FHA", icon: "icon icon-conceptual icon-structures-3d" },
+    {
+      label: "FHA",
+      icon: "icon icon-conceptual icon-structures-3d",
+      command: () => history.push("/fha/"),
+    },
     {
       label: "Portfolio",
       icon: "icon icon-common icon-classification",
       command: () => history.push("/portfolio/"),
     },
 
-    { label: "IND", icon: "icon icon-conceptual icon-proteins" },
-    { label: "Clinical", icon: "icon icon-common icon-biotech" },
+    {
+      label: "Post-Portfolio",
+      icon: "icon icon-common icon-biotech",
+      command: () => history.push("/postportfolio/"),
+    },
+
+    // { label: "Clinical", icon: "icon icon-conceptual icon-proteins" },
   ];
 
   const setSelectedItem = () => {
