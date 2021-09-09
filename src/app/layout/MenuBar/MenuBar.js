@@ -10,7 +10,7 @@ const MenuBar = () => {
       command: () => history.push("/gene/"),
     },
     {
-      label: "Target",
+      label: "Targets",
       icon: "icon icon-common icon-target",
       command: () => history.push("/target/"),
     },
