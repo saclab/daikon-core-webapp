@@ -80,7 +80,7 @@ const TargetAdminDash = () => {
           value={targets}
           paginator
           rows={10}
-          // header={header}
+          header={header}
           className="p-admin"
           //globalFilter={globalFilter}
           emptyMessage="No genes found."

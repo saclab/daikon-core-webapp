@@ -2,8 +2,6 @@ import React from "react";
 import { Button } from "primereact/button";
 import { Menubar } from 'primereact/menubar';
 
-import { Badge } from "primereact/badge";
-
 // import "./MenuBarAdmin.css";
 import history from "../../../history";
 const MenuBarAdmin = () => {
