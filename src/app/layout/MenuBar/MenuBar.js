@@ -26,8 +26,8 @@ const MenuBar = () => {
       command: () => history.push("/portfolio/"),
     },
 
-    { label: "IND", icon: "icon icon-conceptual icon-proteins" },
-    { label: "Clinical", icon: "icon icon-common icon-biotech" },
+    { label: "Post-Portfolio", icon: "icon icon-common icon-biotech" },
+   // { label: "Clinical", icon: "icon icon-conceptual icon-proteins" },
   ];
 
   const setSelectedItem = () => {
