@@ -2,13 +2,11 @@ import { action, makeObservable, observable, runInAction } from "mobx";
 import history from "../../history";
 import agent from "../api/agent";
 
-
 export default class UserStore {
   rootStore;
   authServiceInstance;
 
   constructor(rootStore) {
-    console.log("User Store Initialized");
     this.rootStore = rootStore;
     this.authServiceInstance = agent.AuthServiceInstance;
     makeObservable(this, {
@@ -16,7 +14,7 @@ export default class UserStore {
       getUser: action,
       logout: action,
       fetching: observable,
-      userNotFound: observable
+      userNotFound: observable,
     });
   }
 
@@ -28,20 +26,17 @@ export default class UserStore {
   // @action
   getUser = async () => {
     this.fetching = true;
-    console.log("Attempting to get user from bmgf token...");
+    // console.log("Attempting to get user from bmgf token...");
     try {
-      
       const user = await agent.User.current();
       runInAction(() => {
-  
         if (!user) {
           this.userNotFound = true;
           console.log("Failed getUser() at store");
-        }
-        else {
+        } else {
           this.user = user;
-          console.log("Succeed getUser() at store");
-          console.log(this.user);
+          // console.log("Succeed getUser() at store");
+          // console.log(this.user);
         }
         this.fetching = false;
       });

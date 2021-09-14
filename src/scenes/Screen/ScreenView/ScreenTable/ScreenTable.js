@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -22,8 +22,6 @@ const ScreenStatus = ({ screens }) => {
       </React.Fragment>
     );
   };
-
-  
 
   const GeneNameBodyTemplate = (rowData) => {
     return (
@@ -92,7 +90,9 @@ const ScreenStatus = ({ screens }) => {
     return (
       <React.Fragment>
         <span className="p-column-title">Hits</span>
-        <NavLink to={"/screen/"+ rowData.TargetId +"/hits/" + rowData.id}>{rowData.Hits}</NavLink>
+        <NavLink to={"/screen/" + rowData.TargetId + "/hits/" + rowData.id}>
+          {rowData.Hits}
+        </NavLink>
       </React.Fragment>
     );
   };
@@ -115,24 +115,26 @@ const ScreenStatus = ({ screens }) => {
     );
   };
 
-  const hitsHeader = (<React.Fragment>
-    <i class="icon icon-common icon-fullscreen"></i> &nbsp; Hits
-  </React.Fragment>);
+  const hitsHeader = (
+    <React.Fragment>
+      <i class="icon icon-common icon-fullscreen"></i> &nbsp; Hits
+    </React.Fragment>
+  );
 
   /* Table Header  */
-  const header = (
-    <div className="table-header">
-      <span className="heading">Screens</span>
-      {/* <span className="p-input-icon-left">
-          <i className="pi pi-search" />
-          <InputText
-            type="search"
-            onInput={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search"
-          />
-        </span> */}
-    </div>
-  );
+  // const header = (
+  //   <div className="table-header">
+  //     <span className="heading">Screens</span>
+  //     {/* <span className="p-input-icon-left">
+  //         <i className="pi pi-search" />
+  //         <InputText
+  //           type="search"
+  //           onInput={(e) => setGlobalFilter(e.target.value)}
+  //           placeholder="Search"
+  //         />
+  //       </span> */}
+  //   </div>
+  // );
 
   return (
     <div className="datatable-screen-table">
@@ -153,7 +155,7 @@ const ScreenStatus = ({ screens }) => {
             header="Screen Name"
             body={ScreenNameBodyTemplate}
           />
-         
+
           <Column
             field="GeneName"
             header="Gene Name"

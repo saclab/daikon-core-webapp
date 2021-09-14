@@ -2,8 +2,6 @@ import React from "react";
 import { Button } from "primereact/button";
 import { Menubar } from 'primereact/menubar';
 
-import { Badge } from "primereact/badge";
-
 // import "./MenuBarAdmin.css";
 import history from "../../../history";
 const MenuBarAdmin = () => {
@@ -45,6 +43,7 @@ const MenuBarAdmin = () => {
   icon="icon icon-common icon-close"
   label="Exit"
   className={["p-mr-2", "p-button-danger"].join(" ")}
+  onClick={() => window.location.replace("/")}
 />
 
   return (

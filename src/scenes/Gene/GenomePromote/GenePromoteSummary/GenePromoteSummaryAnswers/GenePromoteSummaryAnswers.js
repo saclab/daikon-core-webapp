@@ -5,7 +5,7 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
   return (
     <div className="p-d-flex" style={{ marginTop: "2px" }}>
       <div className="p-mr-2">
-        <p style={{ width: "18rem" }}>
+        <p style={{ width: "18rem", marginRight: "25px"}}>
           <b>{oKey} | </b>
           {questionObj.get(oKey).questionBody} :{" "}
         </p>

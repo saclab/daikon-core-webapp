@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { Menu } from "primereact/menu";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
@@ -8,7 +8,7 @@ import { TabView, TabPanel } from "primereact/tabview";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import NotFound from "../../../../app/layout/NotFound/NotFound";
 import { observer } from "mobx-react-lite";
-import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 
 const TargetAdminEditDetails = ({ match, history }) => {
@@ -21,7 +21,7 @@ const TargetAdminEditDetails = ({ match, history }) => {
     console.log("EFFECT");
     console.log(match.params.id);
 
-    if (selectedTarget === null) {
+    if (selectedTarget === null || selectedTarget.id !== match.params.id) {
       fetchTargetAdmin(match.params.id);
     }
   }, [match.params.id, selectedTarget, fetchTargetAdmin]);
@@ -55,7 +55,7 @@ const TargetAdminEditDetails = ({ match, history }) => {
       {
         label: "Target",
         command: () => {
-          history.push("/admin/selectedTarget/");
+          history.push("/admin/target/");
         },
       },
       { label: selectedTarget.accessionNumber },
@@ -77,13 +77,12 @@ const TargetAdminEditDetails = ({ match, history }) => {
               <div className="p-mb-2">
                 <SectionHeading
                   icon="icon icon-common icon-selectedTarget"
-                  heading={selectedTarget.accessionNumber}                  
+                  heading={selectedTarget.accessionNumber}
                   style={{ width: "2000px" }}
-                  
                 />
               </div>
               <div className="p-mb-2">
-                <TabView >
+                <TabView>
                   <TabPanel style={{ width: "1200px" }}>
                     <div className="p-field p-grid">
                       <label
@@ -94,13 +93,22 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         Score
                       </label>
                       <div className="p-col">
-                        <InputText
+                        <InputNumber
                           id="score"
+                         
+                          showButtons
+                          buttonLayout="horizontal"
+                          decrementButtonClassName="p-button-danger"
+                          incrementButtonClassName="p-button-success"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          step={0.25}
                           type="text"
                           style={{ width: "800px" }}
                           value={selectedTarget.score}
-                          onChange={(e) => (selectedTarget.score = e.target.value)}
-                          
+                          onValueChange={(e) =>
+                            (selectedTarget.score = e.target.value)
+                          }
                         />
                       </div>
                     </div>
@@ -114,13 +122,22 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         HTS Feasibility
                       </label>
                       <div className="p-col">
-                        <InputText
+                        <InputNumber
                           id="htsfeasibility"
+                          
+                          showButtons
+                          buttonLayout="horizontal"
+                          decrementButtonClassName="p-button-danger"
+                          incrementButtonClassName="p-button-success"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          step={0.25}
                           type="text"
                           style={{ width: "800px" }}
                           value={selectedTarget.htsFeasibility}
-                          onChange={(e) => (selectedTarget.htsFeasibility = e.target.value)}
-                          
+                          onValueChange={(e) =>
+                            (selectedTarget.htsFeasibility = e.target.value)
+                          }
                         />
                       </div>
                     </div>
@@ -134,13 +151,21 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         SBD Feasibility
                       </label>
                       <div className="p-col">
-                        <InputText
+                        <InputNumber
                           id="sbdfeasibility"
+                          showButtons
+                          buttonLayout="horizontal"
+                          decrementButtonClassName="p-button-danger"
+                          incrementButtonClassName="p-button-success"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          step={0.25}
                           type="text"
                           style={{ width: "800px" }}
                           value={selectedTarget.sbdFeasibility}
-                          onChange={(e) => (selectedTarget.sbdFeasibility = e.target.value)}
-                          
+                          onValueChange={(e) =>
+                            (selectedTarget.sbdFeasibility = e.target.value)
+                          }
                         />
                       </div>
                     </div>
@@ -154,13 +179,21 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         Progressibility
                       </label>
                       <div className="p-col">
-                        <InputText
+                        <InputNumber
                           id="progressibility"
+                          showButtons
+                          buttonLayout="horizontal"
+                          decrementButtonClassName="p-button-danger"
+                          incrementButtonClassName="p-button-success"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          step={0.25}
                           type="text"
                           style={{ width: "800px" }}
                           value={selectedTarget.progressibility}
-                          onChange={(e) => (selectedTarget.progressibility = e.target.value)}
-                          
+                          onValueChange={(e) =>
+                            (selectedTarget.progressibility = e.target.value)
+                          }
                         />
                       </div>
                     </div>
@@ -174,13 +207,21 @@ const TargetAdminEditDetails = ({ match, history }) => {
                         Safety
                       </label>
                       <div className="p-col">
-                        <InputText
+                        <InputNumber
                           id="safety"
+                          showButtons
+                          buttonLayout="horizontal"
+                          decrementButtonClassName="p-button-danger"
+                          incrementButtonClassName="p-button-success"
+                          incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus"
+                          step={0.25}
                           type="text"
                           style={{ width: "800px" }}
                           value={selectedTarget.safety}
-                          onChange={(e) => (selectedTarget.safety = e.target.value)}
-                          
+                          onValueChange={(e) =>
+                            (selectedTarget.safety = e.target.value)
+                          }
                         />
                       </div>
                     </div>
@@ -193,7 +234,6 @@ const TargetAdminEditDetails = ({ match, history }) => {
                     className="p-button-primary"
                     icon="pi pi-check"
                     onClick={() => editTargetAdmin()}
-
                   />
                 </div>
               </div>

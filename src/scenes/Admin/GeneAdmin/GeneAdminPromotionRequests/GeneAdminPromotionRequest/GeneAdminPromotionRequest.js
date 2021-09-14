@@ -1,8 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Divider } from "primereact/divider";
-import { SplitButton } from "primereact/splitbutton";
+import { Button } from "primereact/button";
+import { toast } from "react-toastify";
+
 import Question from "../../../../../app/common/Question/Question";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
+import Loading from "../../../../../app/layout/Loading/Loading";
 
 const GeneAdminPromotionRequest = ({
   GeneID,
@@ -11,10 +14,9 @@ const GeneAdminPromotionRequest = ({
 }) => {
   const rootStore = useContext(RootStoreContext);
 
-  const { fetchGenePromotionList, displayLoading, genePromotionRegistry } =
+  const { displayLoading, genePromotionRegistry, promoteGene } =
     rootStore.geneStoreAdmin;
 
-  const geneStore = rootStore.geneStore;
   const questionaire = AnswerRegistry.get(GeneID);
 
   const [targetPromotionFormValue, setTargetPromotionFormValue] = useState(
@@ -22,25 +24,42 @@ const GeneAdminPromotionRequest = ({
   );
 
   const updateTargetPromotionFormValue = (e) => {
+    var { location, newFormValue, newField } = null;
+
     if (e.target.id.endsWith("Description")) {
       console.log("Description Field");
-      var location = e.target.id.slice(0, -11);
-      var newFormValue = { ...targetPromotionFormValue };
-      var newField = { ...newFormValue[location] };
+      location = e.target.id.slice(0, -11);
+      newFormValue = { ...targetPromotionFormValue };
+      newField = { ...newFormValue[location] };
       newField.answerDescription = e.target.value;
       newFormValue[location] = newField;
       setTargetPromotionFormValue(newFormValue);
     } else {
-      var location = e.target.id;
-      var newFormValue = { ...targetPromotionFormValue };
-      var newField = { ...newFormValue[location] };
+      location = e.target.id;
+      newFormValue = { ...targetPromotionFormValue };
+      newField = { ...newFormValue[location] };
       newField.answerValue = e.target.value;
       newFormValue[location] = newField;
       setTargetPromotionFormValue(newFormValue);
     }
   };
 
-  console.log(questionaire);
+  if (displayLoading) {
+    return <Loading />;
+  }
+
+  const submitPromoteGeneForm = () => {
+    let promotionReqData = {
+      geneID: GeneID,
+      answers: targetPromotionFormValue,
+    };
+    promoteGene(promotionReqData).then((res) => {
+      if (res !== null) {
+        toast.success("Success. The gene has been promoted.");
+        genePromotionRegistry.delete(GeneID);
+      }
+    });
+  };
 
   return (
     <div>
@@ -321,6 +340,12 @@ const GeneAdminPromotionRequest = ({
       />
 
       <Divider />
+      <Button
+        label="Promote"
+        className="p-button-success"
+        style={{ float: "right" }}
+        onClick={() => submitPromoteGeneForm()}
+      />
     </div>
   );
 };

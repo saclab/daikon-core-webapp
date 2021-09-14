@@ -94,19 +94,19 @@ const TargetDashTable = () => {
   };
 
   /* Table Header  */
-  const header = (
-    <div className="table-header">
-      <span className="heading">H37Rv Targets</span>
-      {/* <span className="p-input-icon-left">
-        <i className="pi pi-search" />
-        <InputText
-          type="search"
-          onInput={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search"
-        />
-      </span> */}
-    </div>
-  );
+  // const header = (
+  //   <div className="table-header">
+  //     <span className="heading">H37Rv Targets</span>
+  //     {/* <span className="p-input-icon-left">
+  //       <i className="pi pi-search" />
+  //       <InputText
+  //         type="search"
+  //         onInput={(e) => setGlobalFilter(e.target.value)}
+  //         placeholder="Search"
+  //       />
+  //     </span> */}
+  //   </div>
+  // );
 
   /** Loading Overlay */
   if (displayLoading) {
