@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, {  useRef } from "react";
+
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "./HitsTable.css";
 import SmilesView from "../../../../app/common/SmilesView/SmilesView";
 import Vote from "../../../../app/common/Vote/Vote";
 
-const HitsTable = ({ screens }) => {
+const HitsTable = () => {
   /* Local State Management */
-  const [displayMolViewContainer, setDisplayMolViewContainer] = useState(false);
+  //const [displayMolViewContainer, setDisplayMolViewContainer] = useState(false);
 
   /* local variables */
 
@@ -210,19 +210,19 @@ const HitsTable = ({ screens }) => {
   };
 
   /* Table Header  */
-  const header = (
-    <div className="table-header">
-      <span className="heading">Hits of Rv0667-1</span>
-      {/* <span className="p-input-icon-left">
-          <i className="pi pi-search" />
-          <InputText
-            type="search"
-            onInput={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search"
-          />
-        </span> */}
-    </div>
-  );
+  // const header = (
+  //   <div className="table-header">
+  //     <span className="heading">Hits of Rv0667-1</span>
+  //     {/* <span className="p-input-icon-left">
+  //         <i className="pi pi-search" />
+  //         <InputText
+  //           type="search"
+  //           onInput={(e) => setGlobalFilter(e.target.value)}
+  //           placeholder="Search"
+  //         />
+  //       </span> */}
+  //   </div>
+  // );
 
   return (
     <div className="datatable-screen-table">

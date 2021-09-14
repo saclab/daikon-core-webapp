@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { Menu } from "primereact/menu";
-import { TabView, TabPanel } from "primereact/tabview";
+import React, { useEffect, useRef, useContext } from "react";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Toast } from "primereact/toast";
 import { BreadCrumb } from "primereact/breadcrumb";
@@ -11,7 +9,6 @@ import ScreenTable from "./ScreenTable/ScreenTable";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const ScreenView = ({ match, history }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
   /* MobX Store */
@@ -47,28 +44,6 @@ const ScreenView = ({ match, history }) => {
     fetchScreenedTarget,
     screenedTarget,
   ]);
-
-  const items = [
-    {
-      label: "Sections",
-      items: [
-        {
-          label: "Status",
-          icon: "ri-git-repository-private-fill",
-          command: () => {
-            setActiveIndex(0);
-          },
-        },
-        {
-          label: "Hits",
-          icon: "ri-book-open-line",
-          command: () => {
-            setActiveIndex(1);
-          },
-        },
-      ],
-    },
-  ];
 
   /** Loading Overlay */
   if (displayLoading || displayScreenLoading) {
@@ -107,9 +82,8 @@ const ScreenView = ({ match, history }) => {
               <div className="p-mb-2">
                 <SectionHeading
                   icon="icon icon-conceptual icon-chemical"
-                  heading={"Screens of "+screenedTarget.AccessionNumber}
+                  heading={"Screens of " + screenedTarget.AccessionNumber}
                 />
-                
               </div>
               <div className="p-mb-2">
                 <ScreenTable screens={screens} />

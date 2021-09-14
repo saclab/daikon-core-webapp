@@ -1,6 +1,5 @@
 import {
   action,
-  computed,
   makeObservable,
   observable,
   runInAction,
@@ -20,6 +19,8 @@ export default class GeneStoreAdmin {
       displayLoading: observable,
       fetchGenePromotionList: action,
       genePromotionRegistry: observable,
+
+      promoteGene: action,
     });
   }
 
@@ -30,7 +31,7 @@ export default class GeneStoreAdmin {
     try {
       var resp = await agent.GeneAdmin.promotionList();
       runInAction(() => {
-       // console.log(resp);
+        // console.log(resp);
         resp.forEach((fetchedGene) => {
           this.genePromotionRegistry.set(fetchedGene.geneID, fetchedGene);
         });
@@ -42,5 +43,24 @@ export default class GeneStoreAdmin {
         this.displayLoading = false;
       });
     }
+  };
+
+  promoteGene = async (promotionReq) => {
+    console.log("geneStoreAdmin: promoteGene() Start");
+    this.displayLoading = true;
+    try {
+      var res = await agent.TargetAdmin.create(promotionReq);
+      
+      runInAction(() => {
+        console.log(res);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.displayLoading = false;
+      });
+    }
+    return res;
   };
 }

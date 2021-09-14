@@ -1,115 +1,344 @@
-import React, { useState } from "react";
-import { Accordion, AccordionTab } from "primereact/accordion";
-import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-import { Button } from "primereact/button";
+import React, { useEffect, useContext } from "react";
+import { Divider } from "primereact/divider";
+import { observer } from "mobx-react-lite";
 
-const TargetPromotionForm = ({
-  id,
-  target,
-  edit,
-  cancelEdit,
-  fetchHistory,
-  historyDisplayLoading,
-  history,
-}) => {
-  const [activeIndex, setActiveIndex] = useState([0]);
+import GenePromoteSummaryAnswers from "../../../Gene/GenomePromote/GenePromoteSummary/GenePromoteSummaryAnswers/GenePromoteSummaryAnswers";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import Loading from "../../../../app/layout/Loading/Loading";
 
-  console.log("From target Promotion Form");
-  console.log(target);
-  let openAll = () => {
-    console.log(activeIndex);
-    setActiveIndex([0, 1, 2, 3, 4, 5, 6]);
-  };
-  return (
-    <div className="p-d-flex p-flex-column" style={{ minWidth: "900px" }}>
-      <div className="p-mb-2 p-as-end">
-        <Button
-          label="Expand All"
-          icon="pi pi-plus"
-          onClick={openAll}
-          className="p-button-text p-button-plain"
-        />
+const TargetPromotionForm = (props) => {
+  /* MobX Store */
+  const rootStore = useContext(RootStoreContext);
+  const geneStore = rootStore.geneStore;
+  const targetStore = rootStore.targetStore;
+
+  useEffect(() => {
+    if (geneStore.promotionQuestionsRegistry.size === 0) {
+      geneStore.getPromotionQuestions();
+    }
+    
+    console.log(geneStore.promotionQuestionsDisplayLoading);
+  }, [geneStore.getPromotionQuestions, geneStore.promotionQuestionsDisplayLoading]);
+
+  if (geneStore.promotionQuestionsDisplayLoading) {
+    <Loading />;
+  }
+
+  if (!geneStore.promotionQuestionsDisplayLoading && geneStore.promotionQuestionsRegistry.size !== 0) {
+    console.log("Question Registry");
+    console.log(geneStore.promotionQuestionsRegistry);
+
+    let answers = {};
+    targetStore.target.targetScorecard.targetScoreCardValues.forEach((ele) => {
+      answers[ele.questionIdentification] = {
+        answerValue: ele.answer,
+        answerDescription: ele.description,
+      };
+    });
+
+    return (
+      <div>
+      <div>
+        <div className="card">
+          <h4 style={{background: "#cccccc", height: "1.6rem"}}>Impact of chemical inhibition</h4>
+
+          <h5>a) During infections</h5>
+
+          <GenePromoteSummaryAnswers
+            oKey="2a1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="2a1b"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="2a2"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="2a3a"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="2a3b"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="2a4a"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="2a5"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <h5>b) on replication Mtb in vitro</h5>
+          <GenePromoteSummaryAnswers
+            oKey="2b1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="2b2"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="2b4"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <h5>c) on nonreplicating Mtb in vitro</h5>
+          <GenePromoteSummaryAnswers
+            oKey="2c1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="2c2"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="2c3"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="2c4"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="2c5"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <Divider />
+        </div>
+
+        <div className="card">
+          <h4 style={{background: "#cccccc", height: "1.6rem"}}>Chemical inhibition</h4>
+          <h5>a) in live Mtb</h5>
+          <GenePromoteSummaryAnswers
+            oKey="3a1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="3a2"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="3a3"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="3a4"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <h5>b) in vitro</h5>
+          <GenePromoteSummaryAnswers
+            oKey="3b1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="3b2"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <Divider />
+        </div>
+        <div className="card">
+
+          <h4 style={{background: "#cccccc", height: "1.6rem"}}>Impact of genetic inhibition</h4>
+          <h5>a) During infections</h5>
+
+          <GenePromoteSummaryAnswers
+            oKey="4a1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="4a2a"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="4a2b"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="4a3a"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="4a3b"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="4a4"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <h5>b) on replication Mtb in vitro</h5>
+          <GenePromoteSummaryAnswers
+            oKey="4b1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="4b2"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="4b3"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <h5>c) on nonreplicating Mtb in vitro</h5>
+          <GenePromoteSummaryAnswers
+            oKey="4c1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="4c2"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="4c3"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="4c4"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <GenePromoteSummaryAnswers
+            oKey="4c5"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <Divider />
+        </div>
+
+        <div className="card">
+
+          <h4 style={{background: "#cccccc", height: "1.6rem"}}>Liabilities</h4>
+
+          <h5>Metabolic liabilities</h5>
+          <GenePromoteSummaryAnswers
+            oKey="5a1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+
+          <GenePromoteSummaryAnswers
+            oKey="5a2"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          
+
+          <h5>Genetic</h5>
+          <GenePromoteSummaryAnswers
+            oKey="5a3"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          
+
+          <h5>Other</h5>
+          <GenePromoteSummaryAnswers
+            oKey="5b1"
+            questionObj={geneStore.promotionQuestionsRegistry}
+            ansObj={answers}
+          />
+         
+          <Divider />
+        </div>
       </div>
-      <div className="p-mb-2">
-        <Accordion
-          multiple
-          activeIndex={activeIndex}
-          onTabChange={(e) => setActiveIndex(e.index)}
-        >
-          <AccordionTab header="Target">
-            <KeyValList
-              data={target.targetPromotionForm.target}
-              editFunc={() => edit()}
-              cancelEdit={() => cancelEdit()}
-              fetchHistory={() => fetchHistory()}
-              historyDisplayLoading={historyDisplayLoading}
-              history={history}
-            />
-          </AccordionTab>
-          <AccordionTab header="Impact of chemical inhibition">
-            <KeyValList
-              data={target.targetPromotionForm.impactOfChemicalInhibition}
-              editFunc={() => edit()}
-              cancelEdit={() => cancelEdit()}
-              fetchHistory={() => fetchHistory()}
-              historyDisplayLoading={historyDisplayLoading}
-              history={history}
-            />
-          </AccordionTab>
-          <AccordionTab header="Chemical inhibition">
-            <KeyValList
-              data={target.targetPromotionForm.chemicalInhibition}
-              editFunc={() => edit()}
-              cancelEdit={() => cancelEdit()}
-              fetchHistory={() => fetchHistory()}
-              historyDisplayLoading={historyDisplayLoading}
-              history={history}
-            />
-          </AccordionTab>
-          <AccordionTab header="Impact of genetic inhibition">
-            <KeyValList
-              data={target.targetPromotionForm.impactOfGeneticInhibition}
-              editFunc={() => edit()}
-              cancelEdit={() => cancelEdit()}
-              fetchHistory={() => fetchHistory()}
-              historyDisplayLoading={historyDisplayLoading}
-              history={history}
-            />
-          </AccordionTab>
-          <AccordionTab header="Liabilities">
-            <KeyValList
-              data={target.targetPromotionForm.liabilities}
-              editFunc={() => edit()}
-              cancelEdit={() => cancelEdit()}
-              fetchHistory={() => fetchHistory()}
-              historyDisplayLoading={historyDisplayLoading}
-              history={history}
-            />
-          </AccordionTab>
-          <AccordionTab header="Tractability">
-            <KeyValList
-              data={target.targetPromotionForm.tractability}
-              editFunc={() => edit()}
-              cancelEdit={() => cancelEdit()}
-              fetchHistory={() => fetchHistory()}
-              historyDisplayLoading={historyDisplayLoading}
-              history={history}
-            />
-          </AccordionTab>
-          <AccordionTab header="Interactions">
-            <KeyValList
-              data={target.targetPromotionForm.interactions}
-              editFunc={() => edit()}
-              cancelEdit={() => cancelEdit()}
-              fetchHistory={() => fetchHistory()}
-              historyDisplayLoading={historyDisplayLoading}
-              history={history}
-            />
-          </AccordionTab>
-        </Accordion>
-      </div>
+
     </div>
-  );
+    );
+  }
+
+  return <Loading />
 };
 
-export default TargetPromotionForm;
+export default observer(TargetPromotionForm);
