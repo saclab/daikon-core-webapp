@@ -5,6 +5,9 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
+import { NavLink } from "react-router-dom";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 import ScreenTable from "./ScreenTable/ScreenTable";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
@@ -13,89 +16,120 @@ const ScreenView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {
-    fetchScreens,
-    screens,
-    displayLoading,
-    screenedTarget,
-    fetchScreenedTarget,
-    displayScreenLoading,
-  } = rootStore.screenStore;
-
+  const { displayLoading, screenRegistry, fetchScreens, filterScreensByGene } =
+    rootStore.screenStore;
   useEffect(() => {
-    console.log("EFFECT");
-    console.log(match.params.id);
-    // if (screenedTargets === null || screenedTargets.id !== match.params.id) {
-    //   fetchScreenedTargets(match.params.id);
-    // }
-
-    if (screenedTarget === null) {
-      fetchScreenedTarget(match.params.id);
+    if (screenRegistry.size === 0) {
+      fetchScreens();
     }
+  }, [screenRegistry, fetchScreens]);
 
-    if (screenedTarget && screens.length === 0) {
-      console.log("Fetching screens from store");
-      fetchScreens(match.params.id);
-    }
-  }, [
-    match.params.id,
-    screens,
-    fetchScreens,
-    fetchScreenedTarget,
-    screenedTarget,
-  ]);
+  const dt = useRef(null);
 
-  /** Loading Overlay */
-  if (displayLoading || displayScreenLoading) {
-    console.log("Loading.....");
-    return <Loading />;
-  }
-  if (screenedTarget !== null) {
-    console.log(screenedTarget);
-    const breadCrumbItems = [
-      {
-        label: "Screened Targets",
-        command: () => {
-          history.push("/screenedTargets/");
-        },
-      },
-      { label: screenedTarget.AccessionNumber },
-    ];
+  if (!displayLoading) {
+    /* Table Body Templates */
 
-    if (screens !== null) {
-      console.log("screens array");
-      console.log(screens);
-      console.log(screens[match.params.id]);
-    }
+    const AccessionNumberBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Accession Number</span>
+          <NavLink to={"/screen/" + rowData.geneName}>
+            {rowData.accessionNumber}
+          </NavLink>
+        </React.Fragment>
+      );
+    };
 
+    const GeneNameBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Gene Name</span>
+          {rowData.geneName}
+        </React.Fragment>
+      );
+    };
+
+    const StatusBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Status</span>
+          {rowData.status}
+        </React.Fragment>
+      );
+    };
+
+    const NotesBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Notes</span>
+          {rowData.notes}
+        </React.Fragment>
+      );
+    };
+
+    /* Table Header  */
+    // const header = (
+    //   <div className="table-header">
+    //     <span className="heading">List of Targets being Screened</span>
+    //     {/* <span className="p-input-icon-left">
+    //       <i className="pi pi-search" />
+    //       <InputText
+    //         type="search"
+    //         onInput={(e) => setGlobalFilter(e.target.value)}
+    //         placeholder="Search"
+    //       />
+    //     </span> */}
+    //   </div>
+    // );
     return (
-      <React.Fragment>
-        <Toast ref={toast} />
-        <br />
-        <div className="p-d-flex">
-          <div className="p-mr-2">{/* <Menu model={items} /> */}</div>
-          <div className="p-mr-2">
-            <div className="p-d-flex p-flex-column">
-              <div className="p-mb-2">
-                <BreadCrumb model={breadCrumbItems} />
-              </div>
-              <div className="p-mb-2">
-                <SectionHeading
-                  icon="icon icon-conceptual icon-chemical"
-                  heading={"Screens of " + screenedTarget.AccessionNumber}
-                />
-              </div>
-              <div className="p-mb-2">
-                <ScreenTable screens={screens} />
-              </div>
-            </div>
-          </div>
+      <div className="datatable-screens">
+        <SectionHeading
+          icon="icon icon-conceptual icon-chemical"
+          heading="Screened Targets"
+        />
+
+        <div className="card">
+          <DataTable
+            ref={dt}
+            value={filterScreensByGene(match.params.id)}
+            paginator
+            rows={10}
+            className="p-datatable-screens"
+            //globalFilter={globalFilter}
+            emptyMessage="No Screens found."
+          >
+            <Column
+              field="accessionNumber"
+              header="Accession Number"
+              body={AccessionNumberBodyTemplate}
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Search by A.Number"
+              className="narrow-column"
+            />
+
+            <Column
+              field="geneName"
+              header="Protein Name"
+              body={GeneNameBodyTemplate}
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Search by Protein Name"
+              className="narrow-column"
+            />
+
+            <Column field="status" header="Status" body={StatusBodyTemplate} />
+
+            <Column field="notes" header="Notes" body={NotesBodyTemplate} />
+          </DataTable>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 
-  return <NotFound />;
+  /** Loading Overlay */
+
+  return <Loading />;
 };
 
 export default observer(ScreenView);

@@ -248,7 +248,10 @@ const GenomePromote = ({ match }) => {
   // });
 
   const updateTargetPromotionFormValue = (e) => {
-    var { location, newFormValue, newField } = null;
+    var location = null;
+    var newFormValue = null;
+    var newField = null;
+
     if (e.target.id.endsWith("Description")) {
       console.log("Description Field");
       location = e.target.id.slice(0, -11);
