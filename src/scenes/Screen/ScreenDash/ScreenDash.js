@@ -32,7 +32,7 @@ const ScreenDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Accession Number</span>
-          <NavLink to={"/screen/" + rowData.id}>
+          <NavLink to={"/screen/" + rowData.geneName}>
             {rowData.accessionNumber}
           </NavLink>
         </React.Fragment>

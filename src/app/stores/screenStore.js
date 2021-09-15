@@ -14,7 +14,6 @@ export default class ScreenStore {
   screenRegistry = new Map();
   screenRegistryExpanded = new Map();
   selectedScreen = null;
-  
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -27,7 +26,7 @@ export default class ScreenStore {
       fetchScreen: action,
       screenRegistry: observable,
       screenRegistryExpanded: observable,
-     
+      filterScreensByGene: action,
     });
   }
 
@@ -71,6 +70,12 @@ export default class ScreenStore {
     });
     return Array.from(targetsScreened.values());
   }
+
+  filterScreensByGene = (geneName) => {
+    let filteredScreen = Array.from(this.screenRegistry.values()).filter((screen) => {return screen.geneName === geneName});
+
+    return filteredScreen;
+  };
 
   /* Fetch specific Screen with id from API */
 
