@@ -20,12 +20,7 @@ const TargetView = ({ match, history }) => {
   const {
     fetchTarget,
     target,
-    displayLoading,
-    editTarget,
-    cancelEditTarget,
-    fetchTargetHistory,
-    historyDisplayLoading,
-    targetHistory,
+    displayLoading
   } = rootStore.targetStore;
 
   useEffect(() => {
