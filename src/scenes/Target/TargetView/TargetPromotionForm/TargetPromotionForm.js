@@ -18,7 +18,7 @@ const TargetPromotionForm = (props) => {
     }
     
     console.log(geneStore.promotionQuestionsDisplayLoading);
-  }, [geneStore.getPromotionQuestions, geneStore.promotionQuestionsDisplayLoading]);
+  }, [geneStore.getPromotionQuestions, geneStore.promotionQuestionsDisplayLoading, geneStore]);
 
   if (geneStore.promotionQuestionsDisplayLoading) {
     <Loading />;

@@ -126,6 +126,15 @@ const TargetAdmin = {
   details: (id) => requests.get(`/target/${id}`),
   edit: (updatedTarget) => requests.post(`/admin/target/${updatedTarget.id}`, updatedTarget),
 };
+
+
+const Screen = {
+  list: () => requests.get(`/screen/`),
+  details: (id) => requests.get(`/screen/${id}`),
+  create: (newScreen) => requests.post(`/screen`, newScreen)
+};
+
+
 const exports = {
   AuthServiceInstance,
   Gene,
@@ -134,6 +143,7 @@ const exports = {
   Admin,
   Target,
   TargetAdmin,
+  Screen
 };
 
 export default exports;

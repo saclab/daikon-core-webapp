@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useContext } from "react";
 import { Toast } from "primereact/toast";
 import { Fieldset } from "primereact/fieldset";
-import TargetScorecardWaffle from "./TargetScorecardWaffle/TargetScorecardWaffle";
-import TargetScorecardPercentDial from "./TargetScorecardPercentDial/TargetScorecardPercentDial";
 import { observer } from "mobx-react-lite";
 import TargetGrid from "./TargetGrid/TargetGrid";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
