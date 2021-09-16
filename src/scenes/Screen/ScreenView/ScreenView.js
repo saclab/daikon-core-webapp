@@ -7,8 +7,8 @@ import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
+import { Tag } from "primereact/tag";
 import { Column } from "primereact/column";
-import ScreenTable from "./ScreenTable/ScreenTable";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const ScreenView = ({ match, history }) => {
@@ -29,22 +29,77 @@ const ScreenView = ({ match, history }) => {
   if (!displayLoading) {
     /* Table Body Templates */
 
-    const AccessionNumberBodyTemplate = (rowData) => {
+    const ScreenNameBodyTemplate = (rowData) => {
       return (
         <React.Fragment>
-          <span className="p-column-title">Accession Number</span>
-          <NavLink to={"/screen/" + rowData.geneName}>
-            {rowData.accessionNumber}
-          </NavLink>
+          <span className="p-column-title">Screen Name</span>
+          {rowData.screenName}
         </React.Fragment>
       );
     };
 
-    const GeneNameBodyTemplate = (rowData) => {
+    const LibraryBodyTemplate = (rowData) => {
       return (
         <React.Fragment>
-          <span className="p-column-title">Gene Name</span>
-          {rowData.geneName}
+          <span className="p-column-title">Library</span>
+          {rowData.library}
+        </React.Fragment>
+      );
+    };
+
+    const ScientistNameBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Scientist</span>
+          {rowData.scientist}
+        </React.Fragment>
+      );
+    };
+
+    const StartDateBodyTemplate = (rowData) => {     
+    
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Start Date</span>
+          {new Date(rowData.startDate).toLocaleDateString()}
+        </React.Fragment>
+      );
+    };
+
+    const EndDateBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">End Date</span>
+          {new Date(rowData.endDate).toLocaleDateString()}
+        </React.Fragment>
+      );
+    };
+
+    const MethodBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Method</span>
+          {rowData.method}
+        </React.Fragment>
+      );
+    };
+
+    const ProtocolBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Protocol</span>
+          {rowData.protocol}
+        </React.Fragment>
+      );
+    };
+
+    const HitsBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Hits</span>
+          <NavLink to={"/screen/" + rowData.TargetId + "/hits/" + rowData.id}>
+            {rowData.hits}
+          </NavLink>
         </React.Fragment>
       );
     };
@@ -58,14 +113,20 @@ const ScreenView = ({ match, history }) => {
       );
     };
 
-    const NotesBodyTemplate = (rowData) => {
+    const CommentsBodyTemplate = (rowData) => {
       return (
         <React.Fragment>
-          <span className="p-column-title">Notes</span>
-          {rowData.notes}
+          <span className="p-column-title">Comments</span>
+          {rowData.comment}
         </React.Fragment>
       );
     };
+
+    const hitsHeader = (
+      <React.Fragment>
+        <i className="icon icon-common icon-fullscreen"></i> &nbsp; Hits
+      </React.Fragment>
+    );
 
     /* Table Header  */
     // const header = (
@@ -85,7 +146,7 @@ const ScreenView = ({ match, history }) => {
       <div className="datatable-screens">
         <SectionHeading
           icon="icon icon-conceptual icon-chemical"
-          heading="Screened Targets"
+          heading={"Screens of " + match.params.id}
         />
 
         <div className="card">
@@ -99,28 +160,44 @@ const ScreenView = ({ match, history }) => {
             emptyMessage="No Screens found."
           >
             <Column
-              field="accessionNumber"
-              header="Accession Number"
-              body={AccessionNumberBodyTemplate}
-              filter
-              filterMatchMode="contains"
-              filterPlaceholder="Search by A.Number"
-              className="narrow-column"
+              field="ScreenName"
+              header="Screen Name"
+              body={ScreenNameBodyTemplate}
             />
 
+            <Column field="Status" header="Status" body={StatusBodyTemplate} />
             <Column
-              field="geneName"
-              header="Protein Name"
-              body={GeneNameBodyTemplate}
-              filter
-              filterMatchMode="contains"
-              filterPlaceholder="Search by Protein Name"
-              className="narrow-column"
+              field="Library"
+              header="Library"
+              body={LibraryBodyTemplate}
             />
-
-            <Column field="status" header="Status" body={StatusBodyTemplate} />
-
-            <Column field="notes" header="Notes" body={NotesBodyTemplate} />
+            <Column
+              field="ScientistName"
+              header="Scientist"
+              body={ScientistNameBodyTemplate}
+            />
+            <Column
+              field="StartDate"
+              header="Start Date"
+              body={StartDateBodyTemplate}
+            />
+            <Column
+              field="EndDate"
+              header="End Date"
+              body={EndDateBodyTemplate}
+            />
+            <Column field="Method" header="Method" body={MethodBodyTemplate} />
+            <Column
+              field="Protocol"
+              header="Protocol"
+              body={ProtocolBodyTemplate}
+            />
+            <Column field="Hits" header={hitsHeader} body={HitsBodyTemplate} />
+            <Column
+              field="Comments"
+              header="Comments"
+              body={CommentsBodyTemplate}
+            />
           </DataTable>
         </div>
       </div>
