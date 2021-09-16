@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Menu } from "primereact/menu";
 import { TabView, TabPanel } from "primereact/tabview";
+import { Dialog } from "primereact/dialog";
+import { Button } from "primereact/button";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -17,11 +19,7 @@ const TargetView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {
-    fetchTarget,
-    target,
-    displayLoading
-  } = rootStore.targetStore;
+  const { fetchTarget, target, displayLoading } = rootStore.targetStore;
 
   useEffect(() => {
     console.log("EFFECT");
@@ -33,6 +31,8 @@ const TargetView = ({ match, history }) => {
     //   fetchTarget(match.params.id);
     // }
   }, [match.params.id, target, fetchTarget]);
+
+  const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
 
   const items = [
     {
@@ -50,6 +50,18 @@ const TargetView = ({ match, history }) => {
           icon: "ri-book-open-line",
           command: () => {
             setActiveIndex(1);
+          },
+        },
+      ],
+    },
+    {
+      label: "Actions",
+      items: [
+        {
+          label: "Promote to Screen",
+          icon: "pi pi-external-link",
+          command: (event) => {
+            setDisplayPromotionDialog(true);
           },
         },
       ],
@@ -74,9 +86,36 @@ const TargetView = ({ match, history }) => {
       { label: target.accessionNumber },
     ];
 
+    const renderFooterPromotionDialog = () => {
+      return (
+          <div>
+              <Button label="No" icon="pi pi-times" onClick={() => setDisplayPromotionDialog(false)} className="p-button-text" />
+              <Button label="Yes" icon="pi pi-check" onClick={() => console.log("promote")} autoFocus />
+          </div>
+      );
+  }
+
     return (
       <React.Fragment>
         <Toast ref={toast} />
+        <Dialog
+          header="Header"
+          visible={displayPromotionDialog}
+          style={{ width: "50vw" }}
+          maximizable
+          footer={() => renderFooterPromotionDialog()}
+          onHide={() => setDisplayPromotionDialog(false)}
+        >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </Dialog>
         <br />
         <div className="p-d-flex">
           <div className="p-mr-2">
@@ -105,11 +144,7 @@ const TargetView = ({ match, history }) => {
                     />
                   </TabPanel>
                   <TabPanel header="Header I" headerClassName="hide">
-                    <TargetPromotionForm
-                      id={match.params.id}
-                      target={target}
-                      
-                    />
+                    <TargetPromotionForm id={match.params.id} target={target} />
                   </TabPanel>
                   <TabPanel
                     header="Header III"
