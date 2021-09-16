@@ -23,23 +23,23 @@ const TargetScreenPromotionQuestionaire = () => {
       let errors = {};
 
       if (!data.library) {
-        errors.library = "library is required.";
+        errors.library = "Library is required.";
       }
 
       if (!data.startDate) {
-        errors.startDate = "startDate is required.";
+        errors.startDate = "Start Date is required.";
       }
 
       if (!data.endDate) {
-        errors.endDate = "endDate is required.";
+        errors.endDate = "End Date is required.";
       }
 
       if (!data.method) {
-        errors.method = "method is required.";
+        errors.method = "Method is required.";
       }
 
       if (!data.protocol) {
-        errors.protocol = "protocol is required.";
+        errors.protocol = "Protocol is required.";
       }
 
       return errors;
