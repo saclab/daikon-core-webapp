@@ -106,7 +106,7 @@ const TargetScreenPromotionQuestionaire = () => {
           </div>
         </Dialog>
 
-        <div className="p-d-flex p-jc-center">
+        <div >
           <div className="card">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
               <div className="p-field">

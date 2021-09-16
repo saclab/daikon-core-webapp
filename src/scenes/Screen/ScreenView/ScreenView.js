@@ -95,7 +95,8 @@ const ScreenView = ({ match, history }) => {
         <React.Fragment>
           <span className="p-column-title">Hits</span>
           <NavLink to={"/screen/" + rowData.TargetId + "/hits/" + rowData.id}>
-            {rowData.hits}
+            20
+            {/* {rowData.hits} */}
           </NavLink>
         </React.Fragment>
       );
