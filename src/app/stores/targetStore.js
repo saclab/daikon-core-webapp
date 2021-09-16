@@ -7,7 +7,6 @@ import {
 } from "mobx";
 import agent from "../api/agent";
 
-
 export default class TargetStore {
   rootStore;
   displayLoading = false;
@@ -16,7 +15,9 @@ export default class TargetStore {
   selectedTarget = null;
   questionsRegistry = new Map();
   questionsLoading = false;
-  
+  cacheValid = false;
+  promoteTargetToScreenDisplayLoading = false;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -31,8 +32,10 @@ export default class TargetStore {
       selectedTarget: observable,
 
       questionsLoading: observable,
-      fetchQuestions: action
+      fetchQuestions: action,
 
+      promoteTargetToScreenDisplayLoading: observable,
+      promoteTargetToScreen: action,
     });
   }
 
@@ -144,5 +147,24 @@ export default class TargetStore {
     }
   };
 
-  
+  /* submit Promotion Questionaire from API */
+  promoteTargetToScreen = async (newScreen) => {
+    console.log("targetStore: promoteTargetToScreen Start");
+    this.promoteTargetToScreenDisplayLoading = true;
+    let res = null;
+
+    // send to server
+    try {
+      res = await agent.Screen.create(newScreen);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.rootStore.screenStore.screenRegistryCacheValid = false;
+        this.promoteTargetToScreenDisplayLoading = false;
+        console.log("targetStore: promoteTargetToScreen Complete");
+      });
+    }
+    return res;
+  };
 }

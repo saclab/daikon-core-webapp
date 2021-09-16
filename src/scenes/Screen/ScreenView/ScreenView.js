@@ -19,10 +19,8 @@ const ScreenView = ({ match, history }) => {
   const { displayLoading, screenRegistry, fetchScreens, filterScreensByGene } =
     rootStore.screenStore;
   useEffect(() => {
-    if (screenRegistry.size === 0) {
-      fetchScreens();
-    }
-  }, [screenRegistry, fetchScreens]);
+    fetchScreens();
+  }, [fetchScreens]);
 
   const dt = useRef(null);
 
@@ -56,8 +54,7 @@ const ScreenView = ({ match, history }) => {
       );
     };
 
-    const StartDateBodyTemplate = (rowData) => {     
-    
+    const StartDateBodyTemplate = (rowData) => {
       return (
         <React.Fragment>
           <span className="p-column-title">Start Date</span>
