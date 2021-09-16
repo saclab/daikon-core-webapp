@@ -87,14 +87,7 @@ const TargetView = ({ match, history }) => {
       { label: target.accessionNumber },
     ];
 
-    const renderFooterPromotionDialog = () => {
-      return (
-          <div>
-              <Button label="No" icon="pi pi-times" onClick={() => setDisplayPromotionDialog(false)} className="p-button-text" />
-              <Button label="Yes" icon="pi pi-check" onClick={() => console.log("promote")} autoFocus />
-          </div>
-      );
-  }
+    
 
     return (
       <React.Fragment>
@@ -104,7 +97,7 @@ const TargetView = ({ match, history }) => {
           visible={displayPromotionDialog}
           style={{ width: "50vw" }}
           maximizable
-          footer={() => renderFooterPromotionDialog()}
+          
           onHide={() => setDisplayPromotionDialog(false)}
         >
           <TargetScreenPromotionQuestionaire />
