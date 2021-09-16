@@ -16,10 +16,8 @@ const ScreenDash = () => {
   /* Local State Management */
 
   useEffect(() => {
-    if (screenRegistry.size === 0) {
-      fetchScreens();
-    }
-  }, [screenRegistry, fetchScreens]); // eslint-disable-line react-hooks/exhaustive-deps
+    fetchScreens();
+  }, [fetchScreens]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */
 
