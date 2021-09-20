@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Menu } from "primereact/menu";
 import { TabView, TabPanel } from "primereact/tabview";
+import { Dialog } from "primereact/dialog";
+import { Button } from "primereact/button";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -10,6 +12,7 @@ import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
 
 const TargetView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -17,11 +20,7 @@ const TargetView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {
-    fetchTarget,
-    target,
-    displayLoading
-  } = rootStore.targetStore;
+  const { fetchTarget, target, displayLoading } = rootStore.targetStore;
 
   useEffect(() => {
     console.log("EFFECT");
@@ -33,6 +32,8 @@ const TargetView = ({ match, history }) => {
     //   fetchTarget(match.params.id);
     // }
   }, [match.params.id, target, fetchTarget]);
+
+  const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
 
   const items = [
     {
@@ -50,6 +51,18 @@ const TargetView = ({ match, history }) => {
           icon: "ri-book-open-line",
           command: () => {
             setActiveIndex(1);
+          },
+        },
+      ],
+    },
+    {
+      label: "Actions",
+      items: [
+        {
+          label: "Promote to Screen",
+          icon: "pi pi-external-link",
+          command: (event) => {
+            setDisplayPromotionDialog(true);
           },
         },
       ],
@@ -74,9 +87,21 @@ const TargetView = ({ match, history }) => {
       { label: target.accessionNumber },
     ];
 
+    
+
     return (
       <React.Fragment>
         <Toast ref={toast} />
+        <Dialog
+          header={"Adding screen information for " + target.accessionNumber} 
+          visible={displayPromotionDialog}
+          style={{ width: "50vw" }}
+          maximizable
+          
+          onHide={() => setDisplayPromotionDialog(false)}
+        >
+          <TargetScreenPromotionQuestionaire />
+        </Dialog>
         <br />
         <div className="p-d-flex">
           <div className="p-mr-2">
@@ -105,11 +130,7 @@ const TargetView = ({ match, history }) => {
                     />
                   </TabPanel>
                   <TabPanel header="Header I" headerClassName="hide">
-                    <TargetPromotionForm
-                      id={match.params.id}
-                      target={target}
-                      
-                    />
+                    <TargetPromotionForm id={match.params.id} target={target} />
                   </TabPanel>
                   <TabPanel
                     header="Header III"
