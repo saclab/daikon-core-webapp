@@ -16,10 +16,8 @@ const ScreenDash = () => {
   /* Local State Management */
 
   useEffect(() => {
-    if (screenRegistry.size === 0) {
-      fetchScreens();
-    }
-  }, [screenRegistry, fetchScreens]); // eslint-disable-line react-hooks/exhaustive-deps
+    fetchScreens();
+  }, [fetchScreens]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */
 
@@ -32,7 +30,7 @@ const ScreenDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Accession Number</span>
-          <NavLink to={"/screen/" + rowData.id}>
+          <NavLink to={"/screen/" + rowData.geneName}>
             {rowData.accessionNumber}
           </NavLink>
         </React.Fragment>

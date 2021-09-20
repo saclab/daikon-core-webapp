@@ -5,7 +5,10 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import ScreenTable from "./ScreenTable/ScreenTable";
+import { NavLink } from "react-router-dom";
+import { DataTable } from "primereact/datatable";
+import { Tag } from "primereact/tag";
+import { Column } from "primereact/column";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const ScreenView = ({ match, history }) => {
@@ -13,89 +16,195 @@ const ScreenView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {
-    fetchScreens,
-    screens,
-    displayLoading,
-    screenedTarget,
-    fetchScreenedTarget,
-    displayScreenLoading,
-  } = rootStore.screenStore;
-
+  const { displayLoading, screenRegistry, fetchScreens, filterScreensByGene } =
+    rootStore.screenStore;
   useEffect(() => {
-    console.log("EFFECT");
-    console.log(match.params.id);
-    // if (screenedTargets === null || screenedTargets.id !== match.params.id) {
-    //   fetchScreenedTargets(match.params.id);
-    // }
+    fetchScreens();
+  }, [fetchScreens]);
 
-    if (screenedTarget === null) {
-      fetchScreenedTarget(match.params.id);
-    }
+  const dt = useRef(null);
 
-    if (screenedTarget && screens.length === 0) {
-      console.log("Fetching screens from store");
-      fetchScreens(match.params.id);
-    }
-  }, [
-    match.params.id,
-    screens,
-    fetchScreens,
-    fetchScreenedTarget,
-    screenedTarget,
-  ]);
+  if (!displayLoading) {
+    /* Table Body Templates */
 
-  /** Loading Overlay */
-  if (displayLoading || displayScreenLoading) {
-    console.log("Loading.....");
-    return <Loading />;
-  }
-  if (screenedTarget !== null) {
-    console.log(screenedTarget);
-    const breadCrumbItems = [
-      {
-        label: "Screened Targets",
-        command: () => {
-          history.push("/screenedTargets/");
-        },
-      },
-      { label: screenedTarget.AccessionNumber },
-    ];
+    const ScreenNameBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Screen Name</span>
+          {rowData.screenName}
+        </React.Fragment>
+      );
+    };
 
-    if (screens !== null) {
-      console.log("screens array");
-      console.log(screens);
-      console.log(screens[match.params.id]);
-    }
+    const LibraryBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Library</span>
+          {rowData.library}
+        </React.Fragment>
+      );
+    };
 
-    return (
+    const ScientistNameBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Scientist</span>
+          {rowData.scientist}
+        </React.Fragment>
+      );
+    };
+
+    const StartDateBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Start Date</span>
+          {new Date(rowData.startDate).toLocaleDateString()}
+        </React.Fragment>
+      );
+    };
+
+    const EndDateBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">End Date</span>
+          {new Date(rowData.endDate).toLocaleDateString()}
+        </React.Fragment>
+      );
+    };
+
+    const MethodBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Method</span>
+          {rowData.method}
+        </React.Fragment>
+      );
+    };
+
+    const ProtocolBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Protocol</span>
+          {rowData.protocol}
+        </React.Fragment>
+      );
+    };
+
+    const HitsBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Hits</span>
+          <NavLink to={"/screen/" + rowData.TargetId + "/hits/" + rowData.id}>
+            20
+            {/* {rowData.hits} */}
+          </NavLink>
+        </React.Fragment>
+      );
+    };
+
+    const StatusBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Status</span>
+          {rowData.status}
+        </React.Fragment>
+      );
+    };
+
+    const CommentsBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Comments</span>
+          {rowData.comment}
+        </React.Fragment>
+      );
+    };
+
+    const hitsHeader = (
       <React.Fragment>
-        <Toast ref={toast} />
-        <br />
-        <div className="p-d-flex">
-          <div className="p-mr-2">{/* <Menu model={items} /> */}</div>
-          <div className="p-mr-2">
-            <div className="p-d-flex p-flex-column">
-              <div className="p-mb-2">
-                <BreadCrumb model={breadCrumbItems} />
-              </div>
-              <div className="p-mb-2">
-                <SectionHeading
-                  icon="icon icon-conceptual icon-chemical"
-                  heading={"Screens of " + screenedTarget.AccessionNumber}
-                />
-              </div>
-              <div className="p-mb-2">
-                <ScreenTable screens={screens} />
-              </div>
-            </div>
-          </div>
-        </div>
+        <i className="icon icon-common icon-fullscreen"></i> &nbsp; Hits
       </React.Fragment>
+    );
+
+    /* Table Header  */
+    // const header = (
+    //   <div className="table-header">
+    //     <span className="heading">List of Targets being Screened</span>
+    //     {/* <span className="p-input-icon-left">
+    //       <i className="pi pi-search" />
+    //       <InputText
+    //         type="search"
+    //         onInput={(e) => setGlobalFilter(e.target.value)}
+    //         placeholder="Search"
+    //       />
+    //     </span> */}
+    //   </div>
+    // );
+    return (
+      <div className="datatable-screens">
+        <SectionHeading
+          icon="icon icon-conceptual icon-chemical"
+          heading={"Screens of " + match.params.id}
+        />
+
+        <div className="card">
+          <DataTable
+            ref={dt}
+            value={filterScreensByGene(match.params.id)}
+            paginator
+            rows={10}
+            className="p-datatable-screens"
+            //globalFilter={globalFilter}
+            emptyMessage="No Screens found."
+          >
+            <Column
+              field="ScreenName"
+              header="Screen Name"
+              body={ScreenNameBodyTemplate}
+            />
+
+            <Column field="Status" header="Status" body={StatusBodyTemplate} />
+            <Column
+              field="Library"
+              header="Library"
+              body={LibraryBodyTemplate}
+            />
+            <Column
+              field="ScientistName"
+              header="Scientist"
+              body={ScientistNameBodyTemplate}
+            />
+            <Column
+              field="StartDate"
+              header="Start Date"
+              body={StartDateBodyTemplate}
+            />
+            <Column
+              field="EndDate"
+              header="End Date"
+              body={EndDateBodyTemplate}
+            />
+            <Column field="Method" header="Method" body={MethodBodyTemplate} />
+            <Column
+              field="Protocol"
+              header="Protocol"
+              body={ProtocolBodyTemplate}
+            />
+            <Column field="Hits" header={hitsHeader} body={HitsBodyTemplate} />
+            <Column
+              field="Comments"
+              header="Comments"
+              body={CommentsBodyTemplate}
+            />
+          </DataTable>
+        </div>
+      </div>
     );
   }
 
-  return <NotFound />;
+  /** Loading Overlay */
+
+  return <Loading />;
 };
 
 export default observer(ScreenView);

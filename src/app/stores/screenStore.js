@@ -12,9 +12,9 @@ export default class ScreenStore {
 
   displayLoading = false;
   screenRegistry = new Map();
+  screenRegistryCacheValid = false;
   screenRegistryExpanded = new Map();
   selectedScreen = null;
-  
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -26,8 +26,9 @@ export default class ScreenStore {
       uniqueScreens: computed,
       fetchScreen: action,
       screenRegistry: observable,
+      screenRegistryCacheValid: observable,
       screenRegistryExpanded: observable,
-     
+      filterScreensByGene: action,
     });
   }
 
@@ -35,18 +36,20 @@ export default class ScreenStore {
   fetchScreens = async () => {
     console.log("screenStore: fetchScreens() Start");
     this.displayLoading = true;
-    if (this.screenRegistry.size !== 0) {
+    if (this.screenRegistryCacheValid && this.screenRegistry.size !== 0) {
       console.log("screenStore: fetchScreens() cache hit");
       this.displayLoading = false;
       return;
     }
     try {
+      console.log("screenStore: fetchScreens() cache miss");
       var resp = await agent.Screen.list();
       runInAction(() => {
         console.log(resp);
         resp.forEach((fetchedScreen) => {
           this.screenRegistry.set(fetchedScreen.id, fetchedScreen);
         });
+        this.screenRegistryCacheValid = true;
       });
     } catch (error) {
       console.log(error);
@@ -71,6 +74,12 @@ export default class ScreenStore {
     });
     return Array.from(targetsScreened.values());
   }
+
+  filterScreensByGene = (geneName) => {
+    let filteredScreen = Array.from(this.screenRegistry.values()).filter((screen) => {return screen.geneName === geneName});
+
+    return filteredScreen;
+  };
 
   /* Fetch specific Screen with id from API */
 
@@ -105,4 +114,5 @@ export default class ScreenStore {
       }
     }
   };
+  
 }

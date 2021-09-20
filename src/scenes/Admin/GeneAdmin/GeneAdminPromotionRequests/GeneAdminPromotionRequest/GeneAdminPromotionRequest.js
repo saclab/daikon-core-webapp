@@ -24,7 +24,9 @@ const GeneAdminPromotionRequest = ({
   );
 
   const updateTargetPromotionFormValue = (e) => {
-    var { location, newFormValue, newField } = null;
+    var location = null;
+    var newFormValue = null;
+    var newField = null;
 
     if (e.target.id.endsWith("Description")) {
       console.log("Description Field");
