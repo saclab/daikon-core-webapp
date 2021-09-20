@@ -102,7 +102,7 @@ const PostPortfolioDash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
         <b>
-          <NavLink to={"/portfolio/" + rowData.ProjectNo}>{rowData.ProjectName}</NavLink>
+          <NavLink to={"/postportfolio/" + rowData.ProjectNo}>{rowData.ProjectName}</NavLink>
         </b>
       </React.Fragment>
     );

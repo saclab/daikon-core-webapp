@@ -44,6 +44,7 @@ import TargetAdminDash from "../../scenes/Admin/TargetAdmin/TargetAdminDash";
 import TargetAdminEditDetails from "../../scenes/Admin/TargetAdmin/TargetAdminEditDetails/TargetAdminEditDetails";
 import FHA from "../../scenes/FHA/FHA";
 import PostPortfolioDash from "../../scenes/PostPortfolio/PostPortfolioDash/PostPortfolioDash";
+import PostPortfolioView from "../../scenes/PostPortfolio/PostPortfolioView/PostPortfolioView";
 
 
 const App = () => {
@@ -128,6 +129,7 @@ const App = () => {
 
             <Route exact path="/fha" component={FHA} />
             <Route exact path="/postportfolio" component={PostPortfolioDash} />
+            <Route path="/postportfolio/:id" component={PostPortfolioView} />
 
             <Route exact path="/admin" component={AdminDash} />
             <Route exact path="/admin/user-management" component={UserList} />
