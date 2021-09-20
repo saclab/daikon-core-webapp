@@ -28,7 +28,7 @@ import {
         historyDisplayLoading: observable,
   
         postPortfolios: computed,
-        fetchPostPostPortfolioList: action,
+        fetchPostPortfolioList: action,
         postPortfolioRegistry: observable,
   
         postPortfolio: computed,
@@ -46,8 +46,8 @@ import {
     }
   
     /* Fetch Target list from API */
-    fetchPostPostPortfolioList = async () => {
-      console.log("postPortfolioStore: fetchPostPostPortfolioList() Start");
+    fetchPostPortfolioList = async () => {
+      console.log("postPortfolioStore: fetchPostPortfolioList() Start");
       this.displayLoading = true;
       try {
         var resp = await localhost.PostPortfolio.list();

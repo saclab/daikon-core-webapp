@@ -43,7 +43,7 @@ import GeneAdminDash from "../../scenes/Admin/GeneAdmin/GeneAdminDash";
 import TargetAdminDash from "../../scenes/Admin/TargetAdmin/TargetAdminDash";
 import TargetAdminEditDetails from "../../scenes/Admin/TargetAdmin/TargetAdminEditDetails/TargetAdminEditDetails";
 import FHA from "../../scenes/FHA/FHA";
-import PostPortfolioDash from "../../scenes/PostPortfolio/PostPortfolioDash/PostPortfolio";
+import PostPortfolioDash from "../../scenes/PostPortfolio/PostPortfolioDash/PostPortfolioDash";
 
 
 const App = () => {
