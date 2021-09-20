@@ -43,7 +43,8 @@ import GeneAdminDash from "../../scenes/Admin/GeneAdmin/GeneAdminDash";
 import TargetAdminDash from "../../scenes/Admin/TargetAdmin/TargetAdminDash";
 import TargetAdminEditDetails from "../../scenes/Admin/TargetAdmin/TargetAdminEditDetails/TargetAdminEditDetails";
 import FHA from "../../scenes/FHA/FHA";
-import PostPortfolio from "../../scenes/PostPortfolio/PostPortfolio";
+import PostPortfolioDash from "../../scenes/PostPortfolio/PostPortfolioDash/PostPortfolio";
+
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -121,10 +122,12 @@ const App = () => {
             <Route exact path="/portfolio" component={PortfolioDash} />
             <Route path="/portfolio/:id" component={PortfolioView} />
 
+            
+
             <Route path="/test/bench" component={TestMolView} />
 
             <Route exact path="/fha" component={FHA} />
-            <Route exact path="/postportfolio" component={PostPortfolio} />
+            <Route exact path="/postportfolio" component={PostPortfolioDash} />
 
             <Route exact path="/admin" component={AdminDash} />
             <Route exact path="/admin/user-management" component={UserList} />

@@ -2,9 +2,9 @@ import React, { useRef } from "react";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
-import SectionHeading from "../../app/common/SectionHeading/SectionHeading";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
-const PostPortfolio = ({history}) => {
+const PostPortfolioDash = ({history}) => {
     const toast = useRef(null);
   const items = [
     {
@@ -54,4 +54,4 @@ const PostPortfolio = ({history}) => {
   );
 };
 
-export default PostPortfolio;
+export default PostPortfolioDash;
