@@ -94,6 +94,7 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
 const Gene = {
   list: () => requests.get("/gene"),
   view: (id) => requests.get(`/gene/${id}`),
+  viewByAccessionNo: (accessionNo) => requests.get(`/gene/by-accession/${accessionNo}`),
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
   history: (id) => requests.get(`/gene/${id}/history`),
   promotionQuestions: () => requests.get(`/geneconfig/promote/questionaire`),
