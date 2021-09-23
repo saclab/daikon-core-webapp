@@ -34,7 +34,7 @@ const TargetAdminDash = () => {
 
 
   return (
-    <div style={{ width: "700px" }}>
+    <div>
       <Toast ref={toast} />
       <br />
       <div className="p-d-flex">
