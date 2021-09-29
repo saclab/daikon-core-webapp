@@ -1,134 +1,66 @@
-import React, { useEffect, useRef, useContext } from "react";
-import { NavLink } from "react-router-dom";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import "./TargetAdminDash.css";
-import { observer } from "mobx-react-lite";
-import Loading from "../../../app/layout/Loading/Loading";
-import { RootStoreContext } from "../../../app/stores/rootStore";
+import React, { useState, useRef } from "react";
+import { TabView, TabPanel } from "primereact/tabview";
+
+import { Menu } from "primereact/menu";
+import { Toast } from "primereact/toast";
+import TargetAdminList from "./TargetAdminList/TargetAdminList";
+import TargetAdminImporter from "./TargetAdminImporter/TargetAdminImporter";
 
 const TargetAdminDash = () => {
-  const rootStore = useContext(RootStoreContext);
-  const { fetchTargetList, displayLoading, targets } = rootStore.targetStore;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const toast = useRef(null);
 
-  useEffect(() => {
-    console.log("TargetSearch: fetchTargetList()");
-    fetchTargetList();
-  }, [fetchTargetList]); // eslint-disable-line react-hooks/exhaustive-deps
+  const items = [
+    {
+      label: "Sections",
+      items: [
+        {
+          label: "Target List",
+          icon: "ri-git-repository-private-fill",
+          command: () => {
+            setActiveIndex(0);
+          },
+        },
+        {
+          label: "Import/Export Targets",
+          icon: "ri-book-open-line",
+          command: () => {
+            setActiveIndex(1);
+          },
+        },
+      ],
+    },
+  ];
 
-  const dt = useRef(null);
-
-  const AccessionNumberBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <NavLink to={"/admin/target/" + rowData.id}>
-          {rowData.accessionNumber}
-        </NavLink>
-      </React.Fragment>
-    );
-  };
-
-  const GeneNameBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.geneName}</React.Fragment>;
-  };
-
-  const ScoreBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.score}</React.Fragment>;
-  };
-
-  const HTSFeasibilityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.htsFeasibility}</React.Fragment>;
-  };
-
-  const SBDFeasibilityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.sbdFeasibility}</React.Fragment>;
-  };
-
-  const ProgressibilityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.progressibility}</React.Fragment>;
-  };
-
-  const SafetyBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.safety}</React.Fragment>;
-  };
-
-  /* Table Header  */
-  const header = (
-    <div className="table-header">
-      <span className="heading">H37Rv Targets</span>
-      {/* <span className="p-input-icon-left">
-        <i className="pi pi-search" />
-        <InputText
-          type="search"
-          onInput={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search"
-        />
-      </span> */}
-    </div>
-  );
-
-  if (displayLoading) {
-    return <Loading />;
-  }
 
   return (
-    <div className="target-admin-list">
+    <div>
+      <Toast ref={toast} />
       <br />
-      <div>
-        <DataTable
-          ref={dt}
-          value={targets}
-          paginator
-          rows={10}
-          header={header}
-          className="p-admin"
-          //globalFilter={globalFilter}
-          emptyMessage="No genes found."
-        >
-          <Column
-            field="accessionNumber"
-            header="Accession Number"
-            body={AccessionNumberBodyTemplate}
-            filter
-            filterMatchMode="contains"
-            filterPlaceholder="Search by A.Number"
-            className="narrow-column"
-          />
-
-          <Column
-            field="geneName"
-            header="Protein Name"
-            body={GeneNameBodyTemplate}
-            filter
-            filterMatchMode="contains"
-            filterPlaceholder="Search by Protein Name"
-            className="narrow-column"
-          />
-
-          <Column field="Score" header="Score" body={ScoreBodyTemplate} />
-
-          <Column
-            field="htsfeasibility"
-            header="HTS Feasibility"
-            body={HTSFeasibilityBodyTemplate}
-          />
-
-          <Column
-            field="sbdfeasibility"
-            header="SBD Feasibility"
-            body={SBDFeasibilityBodyTemplate}
-          />
-
-          <Column
-            field="progressibility"
-            header="Progressibility"
-            body={ProgressibilityBodyTemplate}
-          />
-
-          <Column field="safety" header="Safety" body={SafetyBodyTemplate} />
-        </DataTable>
+      <div className="p-d-flex">
+        <div className="p-mr-2">
+          <Menu model={items} />
+        </div>
+        <div className="p-mr-2">
+          <div className="p-d-flex p-flex-column">
+            <div className="p-mb-2">
+              <TabView
+                activeIndex={activeIndex}
+                onTabChange={(e) => setActiveIndex(e.index)}
+              >
+                <TabPanel header="Header I" headerClassName="hide">
+                  <TargetAdminList />
+                </TabPanel>
+                <TabPanel header="Header II" headerClassName="hide">
+                  <TargetAdminImporter />
+                </TabPanel>
+              </TabView>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-export default observer(TargetAdminDash);
+
+export default TargetAdminDash;
