@@ -48,32 +48,26 @@ const TargetDashTable = () => {
     );
   };
 
-  const ScoreBodyTemplate = (rowData) => {
+  const ImpactScoreBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Score</span>
+        <span className="p-column-title">Impact Score</span>
         {rowData.score}
       </React.Fragment>
     );
   };
 
-  const HTSFeasibilityBodyTemplate = (rowData) => {
+  const LikeScoreBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">HTS Feasibility</span>
-        {rowData.htsFeasibility}
+        <span className="p-column-title">Like Score</span>
+        {rowData.score}
       </React.Fragment>
     );
   };
 
-  const SBDFeasibilityBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">SBD Feasibility</span>
-        {rowData.sbdFeasibility}
-      </React.Fragment>
-    );
-  };
+
+
 
   const ProgressibilityBodyTemplate = (rowData) => {
     return (
@@ -147,19 +141,8 @@ const TargetDashTable = () => {
             className="narrow-column"
           />
 
-          <Column field="Score" header="Score" body={ScoreBodyTemplate} />
-
-          <Column
-            field="htsfeasibility"
-            header="HTS Feasibility"
-            body={HTSFeasibilityBodyTemplate}
-          />
-
-          <Column
-            field="sbdfeasibility"
-            header="SBD Feasibility"
-            body={SBDFeasibilityBodyTemplate}
-          />
+          <Column field="impactScore" header="Impact Score" body={ImpactScoreBodyTemplate} />
+          <Column field="likeScore" header="Like Score" body={LikeScoreBodyTemplate} />
 
           <Column
             field="progressibility"
