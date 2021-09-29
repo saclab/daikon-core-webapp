@@ -132,6 +132,11 @@ export default class GeneStore {
     }
   };
 
+
+  fetchGeneByAccessionNo = (accessionNo) => {
+    return agent.Gene.viewByAccessionNo(accessionNo)
+  }
+
   get gene() {
     return this.selectedGene;
   }
