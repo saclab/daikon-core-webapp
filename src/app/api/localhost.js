@@ -86,6 +86,11 @@ const Portfolio = {
   view: (id) => requests.get(`/portfolios/portfolio-view.json`),
 };
 
+const PostPortfolio = {
+  list: () => requests.get(`/postportfolios/postportfolios.json`),
+  view: (id) => requests.get(`/postportfolios/postportfolio-view.json`),
+};
+
 const TargetAdmin = {
   details: (id) => requests.get(`/targets/targets-edit.json`),
   edit: (updatedTarget) => requests.post(`/targets/targets-edit.json`),
@@ -96,6 +101,7 @@ const exports = {
   Screen,
   Portfolio,
   TargetAdmin,
+  PostPortfolio
 };
 
 export default exports;

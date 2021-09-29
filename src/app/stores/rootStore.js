@@ -10,6 +10,8 @@ import PortfolioStore from "./portfolioStore";
 import AppSettingsStore from "./appSettingsStore";
 import GeneStoreAdmin from "./geneStoreAdmin";
 import TargetStoreAdmin from "./targetStoreAdmin";
+import PostPortfolioStore from "./postPortfolioStore";
+
 
 configure({ enforceActions: "always" });
 
@@ -24,6 +26,8 @@ export class RootStore {
   appSettingsStore;
   geneStoreAdmin;
   targetStoreAdmin;
+  portfolioStore;
+  
 
   constructor() {
     this.appSettingsStore = new AppSettingsStore(this);
@@ -36,6 +40,8 @@ export class RootStore {
     this.portfolioStore = new PortfolioStore(this);
     this.geneStoreAdmin = new GeneStoreAdmin(this);
     this.targetStoreAdmin = new TargetStoreAdmin(this);
+    this.postPortfolioStore = new PostPortfolioStore(this);
+  
   }
 }
 export const RootStoreContext = createContext(new RootStore());
