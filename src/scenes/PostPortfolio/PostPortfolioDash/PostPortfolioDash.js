@@ -33,7 +33,7 @@ const PostPortfolioDash = () => {
 
   /* STAGE FILTER */
   const [selectedStage, setSelectedStage] = useState(null);
-  const stages = ["H2L", "LO", "SP"];
+  const stages = ["IND Enabling", "Clinical"];
 
   const onStageChange = (e) => {
     console.log(e.value);
