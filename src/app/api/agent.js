@@ -103,7 +103,7 @@ const Gene = {
 };
 
 const GeneAdmin = {
-  promotionList: () => requests.get("/admin/gene/promotionrequests"),
+  promotionRequests: () => requests.get("/admin/gene/promotionrequests"),
 };
 
 const User = {

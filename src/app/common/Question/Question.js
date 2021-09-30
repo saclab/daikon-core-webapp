@@ -27,7 +27,7 @@ const Question = ({ question, updateObject, readObject }) => {
           id={question.identification}
           style={{ width: "10rem" }}
           options={question.possibleAnswers}
-          value={readObject?.[question.identification]?.answerValue}
+          value={readObject?.[question.identification]?.answer}
           onChange={(e) => updateObject(e)}
         />
       </div>
@@ -36,7 +36,7 @@ const Question = ({ question, updateObject, readObject }) => {
           <InputTextarea rows={1}
             style={{ minWidth: "40rem" }}
             id={question.identification+"Description"}
-            value={readObject?.[question.identification]?.answerDescription}
+            value={readObject?.[question.identification]?.description}
             onChange={(e) => updateObject(e)}
             placeHolder="Description"
           />
