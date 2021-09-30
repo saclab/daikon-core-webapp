@@ -66,12 +66,12 @@ const GeneAdminPromotionRequests = () => {
     let tabs = [];
     genePromotionRegistry.forEach((value) => {
       console.log(value);
-      let heading = geneStore.geneRegistry.get(value.geneID).accessionNumber;
+      let heading = geneStore.geneRegistry.get(value.geneId).accessionNumber;
       tabs.push(
         <TabPanel header={heading} key={heading}>
           <div className="p-field p-grid">
             <GeneAdminPromotionRequest
-              GeneID={value.geneID}
+              GeneID={value.geneId}
               AnswerRegistry={genePromotionRegistry}
               QuestionsRegistry={geneStore.promotionQuestionsRegistry}
             />
