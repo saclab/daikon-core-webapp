@@ -33,14 +33,14 @@ const GeneAdminPromotionRequest = ({
       location = e.target.id.slice(0, -11);
       newFormValue = { ...targetPromotionFormValue };
       newField = { ...newFormValue[location] };
-      newField.answerDescription = e.target.value;
+      newField.description = e.target.value;
       newFormValue[location] = newField;
       setTargetPromotionFormValue(newFormValue);
     } else {
       location = e.target.id;
       newFormValue = { ...targetPromotionFormValue };
       newField = { ...newFormValue[location] };
-      newField.answerValue = e.target.value;
+      newField.answer = e.target.value;
       newFormValue[location] = newField;
       setTargetPromotionFormValue(newFormValue);
     }
@@ -51,12 +51,24 @@ const GeneAdminPromotionRequest = ({
   }
 
   const submitPromoteGeneForm = () => {
-    let promotionReqData = {
-      geneID: GeneID,
-      answers: targetPromotionFormValue,
+    
+    var promotionReqData = {
+      geneId: GeneID,
+      genePromotionRequestValues: [],
     };
+
+    Object.keys(targetPromotionFormValue).map((key) => {
+      promotionReqData.genePromotionRequestValues.push({
+        questionId : QuestionsRegistry.get(key).id,
+        answer: targetPromotionFormValue[key].answer,
+        description :targetPromotionFormValue[key].description
+      });
+    });
+
+
     promoteGene(promotionReqData).then((res) => {
-      if (res !== null) {
+      console.log(res);
+      if (res?.id) {
         toast.success("Success. The gene has been promoted.");
         genePromotionRegistry.delete(GeneID);
       }
