@@ -1,9 +1,4 @@
-import {
-  action,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import agent from "../api/agent";
 
 export default class GeneStoreAdmin {
@@ -29,11 +24,25 @@ export default class GeneStoreAdmin {
     console.log("geneStoreAdmin: fetchGenePromotionList() Start");
     this.displayLoading = true;
     try {
-      var resp = await agent.GeneAdmin.promotionList();
+      var resp = await agent.GeneAdmin.promotionRequests();
       runInAction(() => {
-        // console.log(resp);
+        console.log("++++++++++++++++++++++++++++");
+        console.log(resp);
         resp.forEach((fetchedGene) => {
-          this.genePromotionRegistry.set(fetchedGene.geneID, fetchedGene);
+          let formattedGene = {
+            geneAccessionNumber: fetchedGene.geneAccessionNumber,
+            geneId: fetchedGene.geneId,
+            answers : {}
+          };
+          fetchedGene.genePromotionRequestValues.forEach((value) => {
+            formattedGene.answers[value.question.identification] = {
+              answer: value.answer,
+              answeredBy: value.answeredBy,
+              description: value.description,
+            };
+          });
+
+          this.genePromotionRegistry.set(fetchedGene.geneId, formattedGene);
         });
       });
     } catch (error) {
@@ -50,7 +59,7 @@ export default class GeneStoreAdmin {
     this.displayLoading = true;
     try {
       var res = await agent.TargetAdmin.create(promotionReq);
-      
+
       runInAction(() => {
         console.log(res);
       });

@@ -17,7 +17,7 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
           value={ansObj[oKey].answerValue}
           readOnly={true}
         /> */}
-        <p style={{ width: "7rem" }}>{ansObj[oKey].answerValue}</p>
+        <p style={{ width: "7rem" }}>{ansObj[oKey].answer}</p>
       </div>
       <div className="p-mr-2 p-as-stretch">
         <span className="p-float-label">
@@ -28,7 +28,7 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
             readOnly={true}
           /> */}
 
-          <p style={{ minWidth: "40rem" }}>{ansObj[oKey].answerDescription}</p>
+          <p style={{ minWidth: "40rem" }}>{ansObj[oKey].description}</p>
         </span>
       </div>
     </div>

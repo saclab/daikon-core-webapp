@@ -46,204 +46,204 @@ const GenomePromote = ({ match }) => {
   const [formSuccess, setFormSuccess] = useState(false);
 
   const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
-    "2a1": { answerValue: "", answerDescription: "" },
-    "2a1b": { answerValue: "", answerDescription: "" },
-    "2a2": { answerValue: "", answerDescription: "" },
-    "2a3a": { answerValue: "", answerDescription: "" },
-    "2a3b": { answerValue: "", answerDescription: "" },
-    "2a4a": { answerValue: "", answerDescription: "" },
-    "2a5": { answerValue: "", answerDescription: "" },
-    "2b1": { answerValue: "", answerDescription: "" },
-    "2b2": { answerValue: "", answerDescription: "" },
-    "2b4": { answerValue: "", answerDescription: "" },
-    "2c1": { answerValue: "", answerDescription: "" },
-    "2c2": { answerValue: "", answerDescription: "" },
-    "2c3": { answerValue: "", answerDescription: "" },
-    "2c4": { answerValue: "", answerDescription: "" },
-    "2c5": { answerValue: "", answerDescription: "" },
-    "3a1": { answerValue: "", answerDescription: "" },
-    "3a2": { answerValue: "", answerDescription: "" },
-    "3a3": { answerValue: "", answerDescription: "" },
-    "3a4": { answerValue: "", answerDescription: "" },
-    "3b1": { answerValue: "", answerDescription: "" },
-    "3b2": { answerValue: "", answerDescription: "" },
-    "4a1": { answerValue: "", answerDescription: "" },
-    "4a2a": { answerValue: "", answerDescription: "" },
-    "4a2b": { answerValue: "", answerDescription: "" },
-    "4a3a": { answerValue: "", answerDescription: "" },
-    "4a3b": { answerValue: "", answerDescription: "" },
-    "4a4": { answerValue: "", answerDescription: "" },
-    "4b1": { answerValue: "", answerDescription: "" },
-    "4b2": { answerValue: "", answerDescription: "" },
-    "4b3": { answerValue: "", answerDescription: "" },
-    "4c1": { answerValue: "", answerDescription: "" },
-    "4c2": { answerValue: "", answerDescription: "" },
-    "4c3": { answerValue: "", answerDescription: "" },
-    "4c4": { answerValue: "", answerDescription: "" },
-    "4c5": { answerValue: "", answerDescription: "" },
-    "5a1": { answerValue: "", answerDescription: "" },
-    "5a2": { answerValue: "", answerDescription: "" },
-    "5a3": { answerValue: "", answerDescription: "" },
-    "5b1": { answerValue: "", answerDescription: "" },
+    "2a1": { answer: "", description: "" },
+    "2a1b": { answer: "", description: "" },
+    "2a2": { answer: "", description: "" },
+    "2a3a": { answer: "", description: "" },
+    "2a3b": { answer: "", description: "" },
+    "2a4a": { answer: "", description: "" },
+    "2a5": { answer: "", description: "" },
+    "2b1": { answer: "", description: "" },
+    "2b2": { answer: "", description: "" },
+    "2b4": { answer: "", description: "" },
+    "2c1": { answer: "", description: "" },
+    "2c2": { answer: "", description: "" },
+    "2c3": { answer: "", description: "" },
+    "2c4": { answer: "", description: "" },
+    "2c5": { answer: "", description: "" },
+    "3a1": { answer: "", description: "" },
+    "3a2": { answer: "", description: "" },
+    "3a3": { answer: "", description: "" },
+    "3a4": { answer: "", description: "" },
+    "3b1": { answer: "", description: "" },
+    "3b2": { answer: "", description: "" },
+    "4a1": { answer: "", description: "" },
+    "4a2a": { answer: "", description: "" },
+    "4a2b": { answer: "", description: "" },
+    "4a3a": { answer: "", description: "" },
+    "4a3b": { answer: "", description: "" },
+    "4a4": { answer: "", description: "" },
+    "4b1": { answer: "", description: "" },
+    "4b2": { answer: "", description: "" },
+    "4b3": { answer: "", description: "" },
+    "4c1": { answer: "", description: "" },
+    "4c2": { answer: "", description: "" },
+    "4c3": { answer: "", description: "" },
+    "4c4": { answer: "", description: "" },
+    "4c5": { answer: "", description: "" },
+    "5a1": { answer: "", description: "" },
+    "5a2": { answer: "", description: "" },
+    "5a3": { answer: "", description: "" },
+    "5b1": { answer: "", description: "" },
   });
 
   // Test data:
   // const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
   //   "3a2": {
-  //     answerValue: "Yes",
-  //     answerDescription: "p",
+  //     answer: "Yes",
+  //     description: "p",
   //   },
   //   "2b4": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "3a1": {
-  //     answerValue: "Yes",
-  //     answerDescription: "p",
+  //     answer: "Yes",
+  //     description: "p",
   //   },
   //   "2c5": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2c4": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2c3": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2c2": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2c1": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2a4a": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2b1": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2a5": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2a3b": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2a3a": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2a2": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "2a1b": {
-  //     answerValue: "Yes",
-  //     answerDescription: "p",
+  //     answer: "Yes",
+  //     description: "p",
   //   },
   //   "3a3": {
-  //     answerValue: "Yes",
-  //     answerDescription: "p",
+  //     answer: "Yes",
+  //     description: "p",
   //   },
   //   "2b2": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "3a4": {
-  //     answerValue: "Yes",
-  //     answerDescription: "p",
+  //     answer: "Yes",
+  //     description: "p",
   //   },
   //   "4c1": {
-  //     answerValue: "Active",
-  //     answerDescription: "cdcd",
+  //     answer: "Active",
+  //     description: "cdcd",
   //   },
   //   "3b2": {
-  //     answerValue: "Yes",
-  //     answerDescription: "p",
+  //     answer: "Yes",
+  //     description: "p",
   //   },
   //   "5b1": {
-  //     answerValue: "Active",
-  //     answerDescription: "cdc",
+  //     answer: "Active",
+  //     description: "cdc",
   //   },
   //   "5a3": {
-  //     answerValue: "Yes",
-  //     answerDescription: "cdcd",
+  //     answer: "Yes",
+  //     description: "cdcd",
   //   },
   //   "5a2": {
-  //     answerValue: "Active",
-  //     answerDescription: "cdcd",
+  //     answer: "Active",
+  //     description: "cdcd",
   //   },
   //   "5a1": {
-  //     answerValue: "Inactive",
-  //     answerDescription: "dc",
+  //     answer: "Inactive",
+  //     description: "dc",
   //   },
   //   "4c5": {
-  //     answerValue: "Inactive",
-  //     answerDescription: "cdc",
+  //     answer: "Inactive",
+  //     description: "cdc",
   //   },
   //   "4c4": {
-  //     answerValue: "Active",
-  //     answerDescription: "cdcd",
+  //     answer: "Active",
+  //     description: "cdcd",
   //   },
   //   "4c3": {
-  //     answerValue: "Inactive",
-  //     answerDescription: "cdcdc",
+  //     answer: "Inactive",
+  //     description: "cdcdc",
   //   },
   //   "4c2": {
-  //     answerValue: "Active",
-  //     answerDescription: "cdcd",
+  //     answer: "Active",
+  //     description: "cdcd",
   //   },
   //   "4b3": {
-  //     answerValue: "Inactive",
-  //     answerDescription: "cdcd",
+  //     answer: "Inactive",
+  //     description: "cdcd",
   //   },
   //   "4b2": {
-  //     answerValue: "Active",
-  //     answerDescription: "cdcd",
+  //     answer: "Active",
+  //     description: "cdcd",
   //   },
   //   "4b1": {
-  //     answerValue: "Inactive",
-  //     answerDescription: "sxcc",
+  //     answer: "Inactive",
+  //     description: "sxcc",
   //   },
   //   "4a4": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "4a3b": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "4a3a": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "4a2b": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "4a2a": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "4a1": {
-  //     answerValue: "Active",
-  //     answerDescription: "p",
+  //     answer: "Active",
+  //     description: "p",
   //   },
   //   "3b1": {
-  //     answerValue: "Yes",
-  //     answerDescription: "p",
+  //     answer: "Yes",
+  //     description: "p",
   //   },
   //   "2a1": {
-  //     answerValue: "Yes",
-  //     answerDescription: "qwe",
+  //     answer: "Yes",
+  //     description: "qwe",
   //   },
   // });
 
@@ -257,14 +257,14 @@ const GenomePromote = ({ match }) => {
       location = e.target.id.slice(0, -11);
       newFormValue = { ...targetPromotionFormValue };
       newField = { ...newFormValue[location] };
-      newField.answerDescription = e.target.value;
+      newField.description = e.target.value;
       newFormValue[location] = newField;
       setTargetPromotionFormValue(newFormValue);
     } else {
       location = e.target.id;
       newFormValue = { ...targetPromotionFormValue };
       newField = { ...newFormValue[location] };
-      newField.answerValue = e.target.value;
+      newField.answer = e.target.value;
       newFormValue[location] = newField;
       setTargetPromotionFormValue(newFormValue);
     }
@@ -273,15 +273,15 @@ const GenomePromote = ({ match }) => {
   const submitTargetPromotionFormValueForm = () => {
     var validationFail = false;
     Object.keys(targetPromotionFormValue).map((key) => {
-      if (targetPromotionFormValue[key].answerValue === "") {
+      if (targetPromotionFormValue[key].answer === "") {
         validationFail = true;
       }
       if (
         !(
-          targetPromotionFormValue[key].answerValue === "Unknown" ||
-          targetPromotionFormValue[key].answerValue === "n/a"
+          targetPromotionFormValue[key].answer === "Unknown" ||
+          targetPromotionFormValue[key].answer === "n/a"
         ) &&
-        targetPromotionFormValue[key].answerDescription === ""
+        targetPromotionFormValue[key].description === ""
       ) {
         validationFail = true;
       }
@@ -299,8 +299,17 @@ const GenomePromote = ({ match }) => {
 
     var data = {
       id: gene.id,
-      answers: targetPromotionFormValue,
+      genePromotionRequestValues: [],
     };
+
+    Object.keys(targetPromotionFormValue).map((key) => {
+      data.genePromotionRequestValues.push({
+        questionId : promotionQuestionsRegistry.get(key).id,
+        answer: targetPromotionFormValue[key].answer,
+        description :targetPromotionFormValue[key].description
+      });
+    });
+
 
     console.log(data);
 
