@@ -12,26 +12,31 @@ import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 const GeneSearch = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { fetchGeneList, displayLoading, genes } = rootStore.geneStore;
+  const { fetchGeneList, displayLoading, genes, geneFunctionalCategories } = rootStore.geneStore;
 
   /* Local State Management */
+  const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
+  
+  // const [globalFilter, setGlobalFilter] = useState(null);
 
   useEffect(() => {
     console.log("GeneSearch: fetchGeneList()");
     fetchGeneList();
   }, [fetchGeneList]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
-  // const [globalFilter, setGlobalFilter] = useState(null);
-
   /* local variables */
 
+  // if (!displayLoading && genes.length >= 0) {
+  //   let fcfilter = [...new Set(genes.map((g) => g.functionalCategory))];
+  //   setFunctionalCategoryValues(fcfilter);
+  // }
+
   const dt = useRef(null);
-  const FunctionalCategoryValues = [
-    "information pathways",
-    "lipid metabolism",
-    "intermediary metabolism and respiration",
-  ];
+  // const FunctionalCategoryValues = [
+  //   "information pathways",
+  //   "lipid metabolism",
+  //   "intermediary metabolism and respiration",
+  // ];
 
   /* Table Body Templates */
 
@@ -92,7 +97,7 @@ const GeneSearch = () => {
   const FunctionalCategoryFilter = (
     <Dropdown
       value={selectedFunctionalCategory}
-      options={FunctionalCategoryValues}
+      options={geneFunctionalCategories}
       onChange={onFunctionalCategoryChange}
       itemTemplate={FunctionalCategoryItemTemplate}
       placeholder="Select a Category"

@@ -22,8 +22,10 @@ export default class GeneStore {
   promotionQuestionsDisplayLoading = false;
 
   geneRegistry = new Map();
+  geneFunctionalCategories = [];
   geneRegistryExpanded = new Map();
   geneHistoryRegistry = new Map();
+
   selectedGene = null;
   selectedGeneHistory = null;
 
@@ -31,6 +33,7 @@ export default class GeneStore {
   selectedPdbCrossReference = null;
 
   promotionQuestionsRegistry = new Map();
+
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -43,6 +46,7 @@ export default class GeneStore {
       genes: computed,
       fetchGeneList: action,
       geneRegistry: observable,
+      geneFunctionalCategories: observable,
 
       gene: computed,
       fetchGene: action,
@@ -86,6 +90,7 @@ export default class GeneStore {
       console.log(error);
     } finally {
       runInAction(() => {
+        this.geneFunctionalCategories = [...new Set(this.genes.map((g) => g.functionalCategory))]
         this.displayLoading = false;
       });
     }
