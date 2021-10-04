@@ -13,10 +13,20 @@ const TargetAdminImporter = () => {
   const [dataFormatingStatus, setDataFormatingStatus] = useState(false);
   const [consolidatedDTO, setConsolidatedDTO] = useState([]);
 
-
   //fetchGeneByAccessionNo
-  const { fetchGeneByAccessionNo } = rootStore.geneStore;
-  const {promoteGene, displayLoading} = rootStore.geneStoreAdmin;
+  const { fetchGeneByAccessionNo, getPromotionQuestions, promotionQuestionsRegistry } = rootStore.geneStore;
+  const { importTarget, displayLoading } = rootStore.targetStoreAdmin;
+
+
+  
+  useEffect(() => {
+    if (promotionQuestionsRegistry.size === 0) {
+      getPromotionQuestions();
+    }
+  }, [
+    promotionQuestionsRegistry,
+    getPromotionQuestions,
+  ]);
 
   let handleOnError = (err, file, inputElem, reason) => {
     console.log("---------------------------");
@@ -67,80 +77,88 @@ const TargetAdminImporter = () => {
 
       let geneID = gene.id;
 
-      let dataObject = null;
-
-      let answers = {
-        "2a1": { answerValue: row["2a1_r"], answerDescription: row["2a1_t"] },
+      let targetPromotionFormValue = {
+        "2a1": { answer: row["2a1_r"], description: row["2a1_t"] },
         "2a1b": {
-          answerValue: row["2a1b_r"],
-          answerDescription: row["2a1b_t"],
+          answer: row["2a1b_r"],
+          description: row["2a1b_t"],
         },
-        "2a2": { answerValue: row["2a2_r"], answerDescription: row["2a2_t"] },
+        "2a2": { answer: row["2a2_r"], description: row["2a2_t"] },
         "2a3a": {
-          answerValue: row["2a3a_r"],
-          answerDescription: row["2a3a_t"],
+          answer: row["2a3a_r"],
+          description: row["2a3a_t"],
         },
         "2a3b": {
-          answerValue: row["2a3b_r"],
-          answerDescription: row["2a3b_t"],
+          answer: row["2a3b_r"],
+          description: row["2a3b_t"],
         },
         "2a4a": {
-          answerValue: row["2a4a_r"],
-          answerDescription: row["2a4a_t"],
+          answer: row["2a4a_r"],
+          description: row["2a4a_t"],
         },
-        "2a5": { answerValue: row["2a5_r"], answerDescription: row["2a5_t"] },
-        "2b1": { answerValue: row["2b1_r"], answerDescription: row["2b1_t"] },
-        "2b2": { answerValue: row["2b2_r"], answerDescription: row["2b2_t"] },
-        "2b4": { answerValue: row["2b4_r"], answerDescription: row["2b4_t"] },
-        "2c1": { answerValue: row["2c1_r"], answerDescription: row["2c1_t"] },
-        "2c2": { answerValue: row["2c2_r"], answerDescription: row["2c2_t"] },
-        "2c3": { answerValue: row["2c3_r"], answerDescription: row["2c3_t"] },
-        "2c4": { answerValue: row["2c4_r"], answerDescription: row["2c4_t"] },
-        "2c5": { answerValue: row["2c5_r"], answerDescription: row["2c5_t"] },
-        "3a1": { answerValue: row["3a1_r"], answerDescription: row["3a1_t"] },
-        "3a2": { answerValue: row["3a2_r"], answerDescription: row["3a2_t"] },
-        "3a3": { answerValue: row["3a3_r"], answerDescription: row["3a3_t"] },
-        "3a4": { answerValue: row["3a4_r"], answerDescription: row["3a4_t"] },
-        "3b1": { answerValue: row["3b1_r"], answerDescription: row["3b1_t"] },
-        "3b2": { answerValue: row["3b2_r"], answerDescription: row["3b2_t"] },
-        "4a1": { answerValue: row["4a1_r"], answerDescription: row["4a1_t"] },
+        "2a5": { answer: row["2a5_r"], description: row["2a5_t"] },
+        "2b1": { answer: row["2b1_r"], description: row["2b1_t"] },
+        "2b2": { answer: row["2b2_r"], description: row["2b2_t"] },
+        "2b4": { answer: row["2b4_r"], description: row["2b4_t"] },
+        "2c1": { answer: row["2c1_r"], description: row["2c1_t"] },
+        "2c2": { answer: row["2c2_r"], description: row["2c2_t"] },
+        "2c3": { answer: row["2c3_r"], description: row["2c3_t"] },
+        "2c4": { answer: row["2c4_r"], description: row["2c4_t"] },
+        "2c5": { answer: row["2c5_r"], description: row["2c5_t"] },
+        "3a1": { answer: row["3a1_r"], description: row["3a1_t"] },
+        "3a2": { answer: row["3a2_r"], description: row["3a2_t"] },
+        "3a3": { answer: row["3a3_r"], description: row["3a3_t"] },
+        "3a4": { answer: row["3a4_r"], description: row["3a4_t"] },
+        "3b1": { answer: row["3b1_r"], description: row["3b1_t"] },
+        "3b2": { answer: row["3b2_r"], description: row["3b2_t"] },
+        "4a1": { answer: row["4a1_r"], description: row["4a1_t"] },
         "4a2a": {
-          answerValue: row["4a2a_r"],
-          answerDescription: row["4a2a_t"],
+          answer: row["4a2a_r"],
+          description: row["4a2a_t"],
         },
         "4a2b": {
-          answerValue: row["4a2b_r"],
-          answerDescription: row["4a2b_t"],
+          answer: row["4a2b_r"],
+          description: row["4a2b_t"],
         },
         "4a3a": {
-          answerValue: row["4a3a_r"],
-          answerDescription: row["4a3a_t"],
+          answer: row["4a3a_r"],
+          description: row["4a3a_t"],
         },
         "4a3b": {
-          answerValue: row["4a3b_r"],
-          answerDescription: row["4a3b_t"],
+          answer: row["4a3b_r"],
+          description: row["4a3b_t"],
         },
-        "4a4": { answerValue: row["4a4_r"], answerDescription: row["4a4_t"] },
-        "4b1": { answerValue: row["4b1_r"], answerDescription: row["4b1_t"] },
-        "4b2": { answerValue: row["4b2_r"], answerDescription: row["4b2_t"] },
-        "4b3": { answerValue: row["4b3_r"], answerDescription: row["4b3_t"] },
-        "4c1": { answerValue: row["4c1_r"], answerDescription: row["4c1_t"] },
-        "4c2": { answerValue: row["4c2_r"], answerDescription: row["4c2_t"] },
-        "4c3": { answerValue: row["4c3_r"], answerDescription: row["4c3_t"] },
-        "4c4": { answerValue: row["4c4_r"], answerDescription: row["4c4_t"] },
-        "4c5": { answerValue: row["4c5_r"], answerDescription: row["4c5_t"] },
-        "5a1": { answerValue: row["5a1_r"], answerDescription: row["5a1_t"] },
-        "5a2": { answerValue: row["5a2_r"], answerDescription: row["5a2_t"] },
-        "5a3": { answerValue: row["5a3_r"], answerDescription: row["5a3_t"] },
-        "5b1": { answerValue: row["5b1_r"], answerDescription: row["5b1_t"] },
+        "4a4": { answer: row["4a4_r"], description: row["4a4_t"] },
+        "4b1": { answer: row["4b1_r"], description: row["4b1_t"] },
+        "4b2": { answer: row["4b2_r"], description: row["4b2_t"] },
+        "4b3": { answer: row["4b3_r"], description: row["4b3_t"] },
+        "4c1": { answer: row["4c1_r"], description: row["4c1_t"] },
+        "4c2": { answer: row["4c2_r"], description: row["4c2_t"] },
+        "4c3": { answer: row["4c3_r"], description: row["4c3_t"] },
+        "4c4": { answer: row["4c4_r"], description: row["4c4_t"] },
+        "4c5": { answer: row["4c5_r"], description: row["4c5_t"] },
+        "5a1": { answer: row["5a1_r"], description: row["5a1_t"] },
+        "5a2": { answer: row["5a2_r"], description: row["5a2_t"] },
+        "5a3": { answer: row["5a3_r"], description: row["5a3_t"] },
+        "5b1": { answer: row["5b1_r"], description: row["5b1_t"] },
       };
 
-      dataObject = {
+      var dataObject = {
         geneID: geneID,
-        geneName : row["1b"],
+        geneName: row["1b"],
         status: "imported",
-        answers: answers,
+        bucket: row["Bucket"],
+        genePromotionRequestValues: []
       };
+
+      Object.keys(targetPromotionFormValue).map((key) => {
+        dataObject.genePromotionRequestValues.push({
+          questionId: promotionQuestionsRegistry.get(key).id,
+          answer: targetPromotionFormValue[key].answer,
+          description: targetPromotionFormValue[key].description,
+        });
+      });
+
       consolidatedDTO.push(dataObject);
     }
 
@@ -151,23 +169,20 @@ const TargetAdminImporter = () => {
     console.log("DTO END");
   };
 
-
   let importToServer = async () => {
     console.log("Starting import");
     console.log(consolidatedDTO);
-    
+
     for (let i = 0; i < consolidatedDTO.length; i++) {
-      
       let targetToImport = consolidatedDTO[i];
       setsSatusText("Importing " + targetToImport.geneName);
       console.log(targetToImport);
-      await promoteGene(targetToImport).catch((e) => {
+      await importTarget(targetToImport).catch((e) => {
         console.log("Cannot import", e);
       });
     }
     setsSatusText("Complete");
-
-  }
+  };
 
   if (loading) {
     <Loading message="Preparing data transfer object" />;
@@ -190,7 +205,11 @@ const TargetAdminImporter = () => {
       <br />
       {statusText} <br />
       <br />
-      {dataFormatingStatus ? <Button label="Import" onClick={() => importToServer()}/> : ""}
+      {dataFormatingStatus ? (
+        <Button label="Import" onClick={() => importToServer()} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
