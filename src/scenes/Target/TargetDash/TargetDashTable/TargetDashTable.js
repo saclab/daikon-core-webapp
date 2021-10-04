@@ -41,7 +41,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Gene Name</span>
-        {_.capitalize(rowData.geneName)}
+        {_.upperFirst(rowData.geneName)}
       </React.Fragment>
     );
   };

@@ -41,14 +41,14 @@ const TargetView = ({ match, history }) => {
       items: [
         {
           label: "Target Scorecard",
-          icon: "ri-git-repository-private-fill",
+          icon: "icon icon-common icon-flag-checkered",
           command: () => {
             setActiveIndex(0);
           },
         },
         {
           label: "Target Promotion Form",
-          icon: "ri-book-open-line",
+          icon: "pi pi-table",
           command: () => {
             setActiveIndex(1);
           },
@@ -59,10 +59,17 @@ const TargetView = ({ match, history }) => {
       label: "Actions",
       items: [
         {
-          label: "Promote to Screen",
-          icon: "pi pi-external-link",
+          label: "Add a Screen",
+          icon: "icon icon-common icon-database-submit",
           command: (event) => {
             setDisplayPromotionDialog(true);
+          },
+        },
+        {
+          label: "View Screens",
+          icon: "pi pi-external-link",
+          command: (event) => {
+            history.push("/screen/"+target.geneName);
           },
         },
       ],

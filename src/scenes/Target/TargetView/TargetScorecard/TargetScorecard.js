@@ -1,10 +1,12 @@
 import React, { useRef, useEffect, useContext } from "react";
+import _ from "lodash";
 import { Toast } from "primereact/toast";
 import { Fieldset } from "primereact/fieldset";
 import { observer } from "mobx-react-lite";
 import TargetGrid from "./TargetGrid/TargetGrid";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
+import TargetScorecardPercentDial from "./TargetScorecardPercentDial/TargetScorecardPercentDial";
 
 const TargetScorecard = () => {
   const toast = useRef(null);
@@ -39,6 +41,7 @@ const TargetScorecard = () => {
                 <div className="p-d-flex">
                   <div className="p-mr-2">
                     <h3>Bucket : <b>{selectedTarget.bucket}</b></h3>
+                    <h3>Protein : <b>{_.upperFirst(selectedTarget.geneName)}</b></h3>
                   </div>
                   <div className="p-mr-2">
                     {/* <TargetScorecardPercentDial /> */}
