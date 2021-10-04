@@ -106,7 +106,7 @@ const TargetDashChart = () => {
             onClick={onClick}
           />
           
-          <text x="15" y="0" fill="black">
+          <text x="15" y="0" fill="black" fontSize="smaller">
             {node.id.substring(0, node.id.length - 2)}
           </text>
           
@@ -123,7 +123,7 @@ const TargetDashChart = () => {
   }
 
   return (
-    <div style={{ height: "500px", width: "500px", marginTop:"10px"}}>
+    <div style={{ height: "650px", width: "650px", marginTop:"10px"}}>
       <ResponsiveScatterPlot
         data={data}
         margin={{ top: 0, right: 10, bottom: 80, left: 80 }}
@@ -133,7 +133,7 @@ const TargetDashChart = () => {
         colors="nivo"
         axisTop={null}
         axisRight={null}
-        nodeSize={25}
+        nodeSize={5}
         onClick={nodeClicked}
         axisBottom={{
           orient: "bottom",

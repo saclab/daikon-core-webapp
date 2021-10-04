@@ -124,6 +124,7 @@ const Target = {
 
 const TargetAdmin = {
   create: (data) => requests.post(`/admin/target`, data),
+  import: (data) => requests.post(`/admin/target/import`, data),
   details: (id) => requests.get(`/target/${id}`),
   edit: (updatedTarget) => requests.post(`/admin/target/${updatedTarget.id}`, updatedTarget),
 };

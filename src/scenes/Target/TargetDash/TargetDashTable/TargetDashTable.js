@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useContext } from "react";
+import _ from 'lodash';
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -7,10 +8,7 @@ import Loading from "../../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 
-
 const TargetDashTable = () => {
-
-
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const { fetchTargetList, displayLoading, targets } = rootStore.targetStore;
@@ -43,7 +41,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Gene Name</span>
-        {rowData.geneName}
+        {_.capitalize(rowData.geneName)}
       </React.Fragment>
     );
   };
@@ -62,27 +60,6 @@ const TargetDashTable = () => {
       <React.Fragment>
         <span className="p-column-title">Like Score</span>
         {rowData.score}
-      </React.Fragment>
-    );
-  };
-
-
-
-
-  const ProgressibilityBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Progressibility</span>
-        {rowData.progressibility}
-      </React.Fragment>
-    );
-  };
-
-  const SafetyBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Safety</span>
-        {rowData.safety}
       </React.Fragment>
     );
   };
@@ -119,7 +96,7 @@ const TargetDashTable = () => {
           // header={header}
           className="p-datatable-targets"
           //globalFilter={globalFilter}
-          emptyMessage="No genes found."
+          emptyMessage="No Targets found."
         >
           <Column
             field="accessionNumber"
@@ -141,16 +118,16 @@ const TargetDashTable = () => {
             className="narrow-column"
           />
 
-          <Column field="impactScore" header="Impact Score" body={ImpactScoreBodyTemplate} />
-          <Column field="likeScore" header="Like Score" body={LikeScoreBodyTemplate} />
-
           <Column
-            field="progressibility"
-            header="Progressibility"
-            body={ProgressibilityBodyTemplate}
+            field="impactScore"
+            header="Impact Score"
+            body={ImpactScoreBodyTemplate}
           />
-
-          <Column field="safety" header="Safety" body={SafetyBodyTemplate} />
+          <Column
+            field="likeScore"
+            header="Like Score"
+            body={LikeScoreBodyTemplate}
+          />
         </DataTable>
       </div>
     </div>

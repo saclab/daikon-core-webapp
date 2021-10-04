@@ -38,7 +38,7 @@ const TargetScorecard = () => {
               <Fieldset legend="Overview">
                 <div className="p-d-flex">
                   <div className="p-mr-2">
-                    {/* <TargetScorecardWaffle /> */}
+                    <h3>Bucket : <b>{selectedTarget.bucket}</b></h3>
                   </div>
                   <div className="p-mr-2">
                     {/* <TargetScorecardPercentDial /> */}
