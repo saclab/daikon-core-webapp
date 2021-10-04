@@ -124,13 +124,13 @@ const TargetView = ({ match, history }) => {
                   activeIndex={activeIndex}
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
-                  <TabPanel header="Header II" headerClassName="hide">
+                  <TabPanel header="Target Scorecard" headerClassName="hide">
                     <TargetScorecard
                       data={target.targetScorecard.targetScoreCardValues}
                     />
                   </TabPanel>
-                  <TabPanel header="Header I" headerClassName="hide">
-                    <TargetPromotionForm id={match.params.id} target={target} />
+                  <TabPanel header="Target Form" headerClassName="hide">
+                    <TargetPromotionForm data={target.targetScorecard.targetScoreCardValues} />
                   </TabPanel>
                   <TabPanel
                     header="Header III"
