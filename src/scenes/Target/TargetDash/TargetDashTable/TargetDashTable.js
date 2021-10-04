@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useContext } from "react";
-import _ from 'lodash';
+import _ from "lodash";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -50,7 +50,7 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Impact Score</span>
-        {rowData.score}
+        {rowData.impactScore}
       </React.Fragment>
     );
   };
@@ -59,7 +59,16 @@ const TargetDashTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Like Score</span>
-        {rowData.score}
+        {rowData.likeScore}
+      </React.Fragment>
+    );
+  };
+
+  const BucketScoreBodyTemplate = (rowData) => {
+    return (
+      <React.Fragment>
+        <span className="p-column-title">Bucket</span>
+        {rowData.bucket?rowData.bucket:"n.a"}
       </React.Fragment>
     );
   };
@@ -127,6 +136,11 @@ const TargetDashTable = () => {
             field="likeScore"
             header="Like Score"
             body={LikeScoreBodyTemplate}
+          />
+          <Column
+            field="bucket"
+            header="Bucket"
+            body={BucketScoreBodyTemplate}
           />
         </DataTable>
       </div>
