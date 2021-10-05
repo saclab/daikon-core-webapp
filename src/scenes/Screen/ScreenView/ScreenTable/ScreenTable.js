@@ -117,7 +117,7 @@ const ScreenStatus = ({ screens }) => {
 
   const hitsHeader = (
     <React.Fragment>
-      <i class="icon icon-common icon-fullscreen"></i> &nbsp; Hits
+      <i className="icon icon-common icon-fullscreen"></i> &nbsp; Hits
     </React.Fragment>
   );
 

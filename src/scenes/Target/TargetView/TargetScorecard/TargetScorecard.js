@@ -16,19 +16,17 @@ const TargetScorecard = () => {
     selectedTarget,
     questionsLoading,
     questionsRegistry,
-    fetchQuestions
+    fetchQuestions,
   } = rootStore.targetStore;
 
   // const [state, setstate] = useState(initialState);
   useEffect(() => {
     fetchQuestions();
-    
-  }, [fetchQuestions])
+  }, [fetchQuestions]);
 
-  if(questionsLoading) {
+  if (questionsLoading) {
     return <Loading />;
   }
-
 
   return (
     <React.Fragment>
@@ -40,19 +38,27 @@ const TargetScorecard = () => {
               <Fieldset legend="Overview">
                 <div className="p-d-flex">
                   <div className="p-mr-2">
-                    <h3>Bucket : <b>{selectedTarget.bucket}</b></h3>
-                    <h3>Protein : <b>{_.upperFirst(selectedTarget.geneName)}</b></h3>
+                    <h3>
+                      <i className="ri-blaze-line"></i> Bucket :{" "}
+                      <b>{selectedTarget.bucket}</b>
+                    </h3>
+                    <h3>
+                      <i className="icon icon-conceptual icon-proteins"></i> Protein
+                      : <b>{_.upperFirst(selectedTarget.geneName)}</b>
+                    </h3>
                   </div>
                   <div className="p-mr-2">
                     {/* <TargetScorecardPercentDial /> */}
                   </div>
-                  
                 </div>
               </Fieldset>
             </div>
             <div className="p-mb-2">
               <Fieldset legend="Scorecard">
-                <TargetGrid questions={questionsRegistry} target={selectedTarget}/>
+                <TargetGrid
+                  questions={questionsRegistry}
+                  target={selectedTarget}
+                />
               </Fieldset>
             </div>
           </div>

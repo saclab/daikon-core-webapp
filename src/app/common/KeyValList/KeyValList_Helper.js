@@ -64,7 +64,7 @@ export function _helper_renderHistoryTimeline(
 
 export function _helper_renderHeaderofEditDialog() {
   return <React.Fragment>
-    <i class="icon icon-common icon-database"></i> &nbsp; Editing Database
+    <i className="icon icon-common icon-database"></i> &nbsp; Editing Database
   </React.Fragment>
 }
 

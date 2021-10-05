@@ -228,7 +228,7 @@ const KeyValList = ({
         onHide={() => setDisplayHistorySideBar(false)}
       >
         <div style={{ margin: "15px" }}>
-          <h2><i class="icon icon-common icon-history"></i> History</h2>
+          <h2><i className="icon icon-common icon-history"></i> History</h2>
           <h1>
             <StartCase string={selectedId} />
           </h1>
