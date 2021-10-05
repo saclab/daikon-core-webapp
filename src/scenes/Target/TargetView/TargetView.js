@@ -94,13 +94,19 @@ const TargetView = ({ match, history }) => {
       { label: target.accessionNumber },
     ];
 
+    let addScreenHeader = () => {
+      return <React.Fragment>
+        <i className="icon icon-common icon-database"></i> &nbsp; Adding Screening Information For {target.geneName}
+      </React.Fragment>
+    }
+
     
 
     return (
       <React.Fragment>
         <Toast ref={toast} />
         <Dialog
-          header={"Adding screen information for " + target.accessionNumber} 
+          header={addScreenHeader()} 
           visible={displayPromotionDialog}
           style={{ width: "50vw" }}
           maximizable

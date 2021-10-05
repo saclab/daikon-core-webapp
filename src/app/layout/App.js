@@ -117,7 +117,7 @@ const App = () => {
             <Route path="/target/:id" component={TargetView} />
 
             <Route exact path="/screen" component={ScreenDash} />
-            <Route path="/screen/:screenId/hits/:hitsId" component={HitsView} />
+            <Route path="/screen/:screenId/hits/" component={HitsView} />
             <Route path="/screen/:id" component={ScreenView} />
 
             <Route exact path="/portfolio" component={PortfolioDash} />

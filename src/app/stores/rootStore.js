@@ -11,6 +11,7 @@ import AppSettingsStore from "./appSettingsStore";
 import GeneStoreAdmin from "./geneStoreAdmin";
 import TargetStoreAdmin from "./targetStoreAdmin";
 import PostPortfolioStore from "./postPortfolioStore";
+import HitsStore from "./hitsStore";
 
 
 configure({ enforceActions: "always" });
@@ -27,6 +28,7 @@ export class RootStore {
   geneStoreAdmin;
   targetStoreAdmin;
   portfolioStore;
+  hitsStore;
   
 
   constructor() {
@@ -37,6 +39,7 @@ export class RootStore {
     this.userStore = new UserStore(this);
     this.adminStore = new AdminStore(this);
     this.screenStore = new ScreenStore(this);
+    this.hitsStore = new HitsStore(this);
     this.portfolioStore = new PortfolioStore(this);
     this.geneStoreAdmin = new GeneStoreAdmin(this);
     this.targetStoreAdmin = new TargetStoreAdmin(this);

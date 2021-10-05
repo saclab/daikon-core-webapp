@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
+import { CSVReader } from "react-papaparse";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
@@ -19,6 +21,7 @@ const TargetScreenPromotionQuestionaire = () => {
   } = rootStore.targetStore;
 
   const [showMessage, setShowMessage] = useState(false);
+  const [hitList, setHitList] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -55,8 +58,10 @@ const TargetScreenPromotionQuestionaire = () => {
       return errors;
     },
     onSubmit: (data) => {
+      console.log(hitList);
       console.log(data);
       data["targetID"] = selectedTarget.id;
+      data["hits"] = hitList;
       console.log(data);
       promoteTargetToScreen(data);
       setShowMessage(true);
@@ -85,6 +90,45 @@ const TargetScreenPromotionQuestionaire = () => {
     </div>
   );
 
+  let handleOnError = (err, file, inputElem, reason) => {
+    console.log("---------------------------");
+    console.log(err);
+    console.log("---------------------------");
+  };
+
+  let handleOnDrop = (data) => {
+    // setLoading(true);
+
+    console.log("---------------------------");
+    console.log(data);
+     dto(data);
+
+    console.log("---------------------------");
+  };
+
+  let handleOnRemoveFile = (data) => {
+    console.log("---------------------------");
+    console.log(data);
+    console.log("---------------------------");
+    // setDataFormatingStatus(false);
+  };
+
+  let dto = (hitslits) => {
+    hitslits.forEach(hit => {
+     
+      let formattedHit = {
+              compoundId : hit.data["Compound ID"],
+              enzymeActivity : "",
+              MIC : hit.data["MIC (μM)"],
+              structure : hit.data["Smile String"],
+              clusterGroup : hit.data["Cluster Group"],
+      }
+      
+      hitList.push(formattedHit);
+
+    });
+  }
+
   if (!promoteTargetToScreenDisplayLoading) {
     return (
       <div className="form-demo">
@@ -102,40 +146,46 @@ const TargetScreenPromotionQuestionaire = () => {
               className="pi pi-check-circle"
               style={{ fontSize: "5rem", color: "var(--green-500)" }}
             ></i>
-            <h5>Form Submitted!</h5>
+            <h5>Screening infomation has been added!</h5>
           </div>
         </Dialog>
 
-        <div >
+        <div>
           <div className="card">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
               <div className="p-field">
-                <span className="p-float-label">
-                  <InputText
-                    id="library"
-                    answer="library"
-                    value={formik.values.library}
-                    onChange={formik.handleChange}
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("library"),
-                    })}
-                  />
-                  <label
-                    htmlFor="library"
-                    className={classNames({
-                      "p-error": isFormFieldValid("library"),
-                    })}
-                  >
-                    Library
-                  </label>
-                </span>
+                <label
+                  htmlFor="library"
+                  className={classNames({
+                    "p-error": isFormFieldValid("library"),
+                  })}
+                >
+                  Library
+                </label>
+                <InputText
+                  id="library"
+                  answer="library"
+                  value={formik.values.library}
+                  onChange={formik.handleChange}
+                  autoFocus
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("library"),
+                  })}
+                />
+
                 {getFormErrorMessage("library")}
               </div>
 
               <div className="p-field">
-                <span className="p-float-label">
-                  {/* <InputText
+                <label
+                  htmlFor="startDate"
+                  className={classNames({
+                    "p-error": isFormFieldValid("startDate"),
+                  })}
+                >
+                  Start Date
+                </label>
+                {/* <InputText
                     id="startDate"
                     answer="startDate"
                     value={formik.values.startDate}
@@ -145,138 +195,137 @@ const TargetScreenPromotionQuestionaire = () => {
                       "p-invalid": isFormFieldValid("startDate"),
                     })}
                   /> */}
-                  <Calendar
-                    id="startDate"
-                    name="startDate"
-                    value={formik.values.startDate}
-                    onChange={formik.handleChange}
-                    dateFormat="dd/mm/yy"
-                    mask="99/99/9999"
-                    showIcon
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("startDate"),
-                    })}
-                  />
-                  <label
-                    htmlFor="startDate"
-                    className={classNames({
-                      "p-error": isFormFieldValid("startDate"),
-                    })}
-                  >
-                    Start Date
-                  </label>
-                </span>
+                <Calendar
+                  id="startDate"
+                  name="startDate"
+                  value={formik.values.startDate}
+                  onChange={formik.handleChange}
+                  dateFormat="dd/mm/yy"
+                  mask="99/99/9999"
+                  showIcon
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("startDate"),
+                  })}
+                />
+
                 {getFormErrorMessage("startDate")}
               </div>
 
               <div className="p-field">
-                <span className="p-float-label">
-                  {/* <InputText
-                    id="endDate"
-                    answer="endDate"
-                    value={formik.values.endDate}
-                    onChange={formik.handleChange}
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("endDate"),
-                    })}
-                  /> */}
+                <label
+                  htmlFor="endDate"
+                  className={classNames({
+                    "p-error": isFormFieldValid("endDate"),
+                  })}
+                >
+                  End Date
+                </label>
 
-                  <Calendar
-                    id="endDate"
-                    name="endDate"
-                    value={formik.values.endDate}
-                    onChange={formik.handleChange}
-                    dateFormat="dd/mm/yy"
-                    mask="99/99/9999"
-                    showIcon
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("endDate"),
-                    })}
-                  />
-                  <label
-                    htmlFor="endDate"
-                    className={classNames({
-                      "p-error": isFormFieldValid("endDate"),
-                    })}
-                  >
-                    End Date
-                  </label>
-                </span>
+                <Calendar
+                  id="endDate"
+                  name="endDate"
+                  value={formik.values.endDate}
+                  onChange={formik.handleChange}
+                  dateFormat="dd/mm/yy"
+                  mask="99/99/9999"
+                  showIcon
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("endDate"),
+                  })}
+                />
+
                 {getFormErrorMessage("endDate")}
               </div>
 
               <div className="p-field">
-                <span className="p-float-label">
-                  <InputText
-                    id="method"
-                    answer="method"
-                    value={formik.values.method}
-                    onChange={formik.handleChange}
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("method"),
-                    })}
-                  />
-                  <label
-                    htmlFor="method"
-                    className={classNames({
-                      "p-error": isFormFieldValid("method"),
-                    })}
-                  >
-                    Method
-                  </label>
-                </span>
+                <label
+                  htmlFor="method"
+                  className={classNames({
+                    "p-error": isFormFieldValid("method"),
+                  })}
+                >
+                  Method
+                </label>
+                <InputText
+                  id="method"
+                  answer="method"
+                  value={formik.values.method}
+                  onChange={formik.handleChange}
+                  autoFocus
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("method"),
+                  })}
+                />
+
                 {getFormErrorMessage("method")}
               </div>
 
               <div className="p-field">
-                <span className="p-float-label">
-                  <InputText
-                    id="protocol"
-                    answer="protocol"
-                    value={formik.values.protocol}
-                    onChange={formik.handleChange}
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("protocol"),
-                    })}
-                  />
-                  <label
-                    htmlFor="protocol"
-                    className={classNames({
-                      "p-error": isFormFieldValid("protocol"),
-                    })}
-                  >
-                    Protocol
-                  </label>
-                </span>
+                <label
+                  htmlFor="protocol"
+                  className={classNames({
+                    "p-error": isFormFieldValid("protocol"),
+                  })}
+                >
+                  Protocol
+                </label>
+
+                <InputTextarea
+                  rows={5}
+                  id="protocol"
+                  answer="protocol"
+                  value={formik.values.protocol}
+                  onChange={formik.handleChange}
+                  autoFocus
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("protocol"),
+                  })}
+                />
+
                 {getFormErrorMessage("protocol")}
               </div>
               <div className="p-field">
-                <span className="p-float-label">
-                  <InputText
-                    id="comment"
-                    answer="comment"
-                    value={formik.values.comment}
-                    onChange={formik.handleChange}
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("comment"),
-                    })}
-                  />
-                  <label
-                    htmlFor="comment"
-                    className={classNames({
-                      "p-error": isFormFieldValid("comment"),
-                    })}
-                  >
-                    Enter your comments
-                  </label>
-                </span>
+                <label
+                  htmlFor="comment"
+                  className={classNames({
+                    "p-error": isFormFieldValid("comment"),
+                  })}
+                >
+                  Comments
+                </label>
+                <InputText
+                  id="comment"
+                  answer="comment"
+                  value={formik.values.comment}
+                  onChange={formik.handleChange}
+                  autoFocus
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("comment"),
+                  })}
+                />
               </div>
 
-              <Button type="submit" label="Submit" className="p-mt-2" />
+              <div className="p-field">
+                <label>Import Hits CSV</label>
+                <CSVReader
+                  onDrop={handleOnDrop}
+                  onError={handleOnError}
+                  noDrag
+                  style={{}}
+                  config={{ header: true }}
+                  addRemoveButton
+                  onRemoveFile={handleOnRemoveFile}
+                >
+                  <span>Select CSV Data Source for Hits</span>
+                </CSVReader>
+              </div>
+
+              <Button
+                icon="icon icon-common icon-database-submit"
+                type="submit"
+                label="Submit"
+                className="p-mt-2"
+              />
             </form>
           </div>
         </div>

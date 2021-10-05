@@ -39,6 +39,7 @@ const TargetDashChart = () => {
         {
           x: 0.4,
           y: 0.6,
+          guid : "403b9d75-ac24-48d5-994d-7d51f33f1982",
         },
       ],
     },

@@ -110,7 +110,7 @@ const GeneSearch = () => {
   // const header = (
   //   <div className="table-header">
   //     <span className="heading">
-  //       (<i class="icon icon-conceptual icon-dna"></i>) H37Rv Genes
+  //       (<i className="icon icon-conceptual icon-dna"></i>) H37Rv Genes
   //     </span>
   //     {/* <span className="p-input-icon-left">
   //       <i className="pi pi-search" />

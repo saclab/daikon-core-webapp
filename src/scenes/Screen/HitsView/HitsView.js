@@ -14,44 +14,32 @@ const HitsView = ({ match, history }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
-    fetchScreens,
+    selectedScreen,
     screens,
     displayLoading,
-    screenedTarget,
-    fetchScreenedTarget,
-    displayScreenLoading,
+    fetchScreen
   } = rootStore.screenStore;
 
   useEffect(() => {
     console.log("EFFECT");
-    console.log(match.params.id);
-    // if (screenedTargets === null || screenedTargets.id !== match.params.id) {
-    //   fetchScreenedTargets(match.params.id);
-    // }
-
-    if (screenedTarget === null) {
-      fetchScreenedTarget(match.params.id);
+    console.log(match.params.screenId);
+    if (selectedScreen === null || selectedScreen.id !== match.params.screenId) {
+      fetchScreen(match.params.screenId);
     }
 
-    if (screenedTarget && screens.length === 0) {
-      console.log("Fetching screens from store");
-      fetchScreens(match.params.id);
-    }
   }, [
-    match.params.id,
-    screens,
-    fetchScreens,
-    fetchScreenedTarget,
-    screenedTarget,
+    match.params.screenId,
+    selectedScreen,
+    fetchScreen,
   ]);
 
   /** Loading Overlay */
-  if (displayLoading || displayScreenLoading) {
+  if (displayLoading) {
     console.log("Loading.....");
     return <Loading />;
   }
-  if (screenedTarget !== null) {
-    console.log(screenedTarget);
+  if (selectedScreen !== null) {
+    console.log(selectedScreen);
     const breadCrumbItems = [
       {
         label: "Screened Targets",
@@ -60,9 +48,9 @@ const HitsView = ({ match, history }) => {
         },
       },
       {
-        label: "Rv0667",
+        label: selectedScreen.geneName,
         command: () => {
-          history.push("/screen/1000/");
+          history.push("/screen/"+selectedScreen.geneName);
         },
       },
 
@@ -70,12 +58,6 @@ const HitsView = ({ match, history }) => {
         label: "Rv0667-1",
       },
     ];
-
-    if (screens !== null) {
-      console.log("screens array");
-      console.log(screens);
-      console.log(screens[match.params.id]);
-    }
 
     return (
       <React.Fragment>
@@ -95,7 +77,7 @@ const HitsView = ({ match, history }) => {
                 />
               </div>
               <div className="p-mb-2">
-                <HitsTable screens={screens} />
+                <HitsTable hits={selectedScreen.hits} />
               </div>
             </div>
           </div>

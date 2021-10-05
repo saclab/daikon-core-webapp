@@ -37,7 +37,7 @@ const MenuBarAdmin = () => {
     { label: "Clinical", icon: "icon icon-common icon-biotech" },
   ];
 
-  const start = <><h2><i class="icon icon-common icon-asterisk"></i> Admin Panel | </h2></>
+  const start = <><h2><i className="icon icon-common icon-asterisk"></i> Admin Panel | </h2></>
   const end = <Button
   type="Button"
   icon="icon icon-common icon-close"

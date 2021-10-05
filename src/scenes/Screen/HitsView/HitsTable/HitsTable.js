@@ -6,7 +6,7 @@ import "./HitsTable.css";
 import SmilesView from "../../../../app/common/SmilesView/SmilesView";
 import Vote from "../../../../app/common/Vote/Vote";
 
-const HitsTable = () => {
+const HitsTable = ({hits}) => {
   /* Local State Management */
   //const [displayMolViewContainer, setDisplayMolViewContainer] = useState(false);
 
@@ -135,20 +135,11 @@ const HitsTable = () => {
 
   /* Table Body Templates */
 
-  const GeneNameBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Gene Name</span>
-        {rowData.GeneName}
-      </React.Fragment>
-    );
-  };
-
   const LibraryBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
         <span className="p-column-title">Library</span>
-        {rowData.Library}
+        {rowData.library}
       </React.Fragment>
     );
   };
@@ -157,7 +148,7 @@ const HitsTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Compound Id</span>
-        {rowData.CompoundId}
+        {rowData.compoundId}
       </React.Fragment>
     );
   };
@@ -167,7 +158,7 @@ const HitsTable = () => {
       <React.Fragment>
         <span className="p-column-title">Structure</span>
         <div style={{ minWidth: "350px", marginRight: "50px" }}>
-          <SmilesView smiles={rowData.Structure} />
+          <SmilesView smiles={rowData.structure} />
         </div>
       </React.Fragment>
     );
@@ -177,7 +168,7 @@ const HitsTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Enzyme Activity (IC50)</span>
-        {rowData.EnzymeActivity}
+        {rowData.enzymeActivity}
       </React.Fragment>
     );
   };
@@ -186,7 +177,7 @@ const HitsTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Method</span>
-        {rowData.Method}
+        {rowData.method}
       </React.Fragment>
     );
   };
@@ -195,7 +186,16 @@ const HitsTable = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">MIC</span>
-        {rowData.MIC}
+        {rowData.mic}
+      </React.Fragment>
+    );
+  };
+
+  const ClusterBodyTemplate = (rowData) => {
+    return (
+      <React.Fragment>
+        <span className="p-column-title">Cluster</span>
+        {rowData.clusterGroup}
       </React.Fragment>
     );
   };
@@ -229,24 +229,18 @@ const HitsTable = () => {
       <div className="card">
         <DataTable
           ref={dt}
-          value={data}
+          value={hits}
           paginator
-          rows={10}
-          // header={header}
+          rows={50}
+          //header={header}
           className="p-datatable-screen-table"
           //globalFilter={globalFilter}
-          emptyMessage="No genes found."
+          emptyMessage="No hits found."
           resizableColumns
           columnResizeMode="fit"
           showGridlines
         >
-          <Column
-            field="GeneName"
-            header="Gene Name"
-            body={GeneNameBodyTemplate}
-            style={{ width: "9%" }}
-          />
-
+          
           <Column
             field="Library"
             header="Library"
@@ -277,6 +271,12 @@ const HitsTable = () => {
             header="MIC"
             body={MICBodyTemplate}
             style={{ width: "5%" }}
+          />
+          <Column
+            field="Cluster"
+            header="Cluster"
+            body={ClusterBodyTemplate}
+            style={{ width: "100px" }}
           />
           <Column
             field="Structure"
