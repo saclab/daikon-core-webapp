@@ -133,7 +133,7 @@ const TargetGrid = ({ questions, target }) => {
             </td>
             <td></td>
             <td
-              className={"questionTooltip " + answers["2a5"]}
+              className={"questionTooltip " + answers["2c1"]}
               data-pr-tooltip={questions.get("2c1").questionBody}
               data-pr-position="left"
             >
