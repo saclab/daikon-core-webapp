@@ -139,9 +139,8 @@ const GeneView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-conceptual icon-dna"
                   heading={gene.accessionNumber}
-                  link = {'some data'}
+                  link={"some data"}
                 />
-               
               </div>
               <div className="p-mb-2">
                 <TabView
@@ -163,7 +162,15 @@ const GeneView = ({ match, history }) => {
                     <GenomeViewBackgroundInformation />
                   </TabPanel>
                   <TabPanel header="Header III" headerClassName="hide">
-                    <GenomeViewNonPublicData />
+                    <GenomeViewNonPublicData
+                      id={match.params.id}
+                      gene={gene}
+                      edit={() => editGene()}
+                      cancelEdit={() => cancelEditGene()}
+                      fetchGeneHistory={() => fetchGeneHistory()}
+                      historyDisplayLoading={historyDisplayLoading}
+                      geneHistory={geneHistory}
+                    />
                   </TabPanel>
                 </TabView>
               </div>
