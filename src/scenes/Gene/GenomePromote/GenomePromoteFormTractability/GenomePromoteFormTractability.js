@@ -8,7 +8,7 @@ const GenomePromoteFormTractability = (props) => {
       label: "Back",
       icon: "pi pi-arrow-left",
       command: () => {
-        props.onFormSet(1);
+        props.onFormSet(3);
       },
     },
     {

@@ -51,7 +51,6 @@ const GeneAdminPromotionRequest = ({
   }
 
   const submitPromoteGeneForm = () => {
-    
     var promotionReqData = {
       geneId: GeneID,
       genePromotionRequestValues: [],
@@ -59,12 +58,11 @@ const GeneAdminPromotionRequest = ({
 
     Object.keys(targetPromotionFormValue).map((key) => {
       promotionReqData.genePromotionRequestValues.push({
-        questionId : QuestionsRegistry.get(key).id,
+        questionId: QuestionsRegistry.get(key).id,
         answer: targetPromotionFormValue[key].answer,
-        description :targetPromotionFormValue[key].description
+        description: targetPromotionFormValue[key].description,
       });
     });
-
 
     promoteGene(promotionReqData).then((res) => {
       console.log(res);
@@ -354,6 +352,194 @@ const GeneAdminPromotionRequest = ({
       />
 
       <Divider />
+
+      <h2>
+        <br />
+        Chemical inhibition
+      </h2>
+      <h5>a) in live Mtb</h5>
+      <Question
+        question={QuestionsRegistry.get("3a1")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("3a2")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("3a3")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("3a4")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <h5>b) in vitro</h5>
+      <Question
+        question={QuestionsRegistry.get("3b1")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("3b2")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Divider />
+
+      <h2>
+        <br />
+        Tractability
+      </h2>
+      <h5>a) High throughput screening feasibility</h5>
+
+      <Question
+        question={QuestionsRegistry.get("6a1")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6a2")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6a3")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6a4")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6a5")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6a6")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6a7")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <h5>b) Structure based feasibility</h5>
+      <Question
+        question={QuestionsRegistry.get("6b1")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6b2")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6b3")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6b4")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6b5")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <h5>c) Progressibility considerations</h5>
+      <Question
+        question={QuestionsRegistry.get("6c1")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6c2")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6c3")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6c4")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6c5")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6c6")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Divider />
+
+      <h5>d) Safety considerations</h5>
+      <Question
+        question={QuestionsRegistry.get("6d1")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6d2")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6d3")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
+      <Question
+        question={QuestionsRegistry.get("6d4")}
+        updateObject={(e) => updateTargetPromotionFormValue(e)}
+        readObject={targetPromotionFormValue}
+      />
+
       <Button
         label="Promote"
         className="p-button-success"
