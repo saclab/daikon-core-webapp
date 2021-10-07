@@ -9,7 +9,7 @@ const GenePromoteSummary = (props) => {
       label: "Back",
       icon: "pi pi-arrow-left",
       command: () => {
-        props.onFormSet(3);
+        props.onFormSet(4);
       },
     },
     {
@@ -316,7 +316,7 @@ const GenePromoteSummary = (props) => {
           <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
             Tractability
           </h4>
-          <h5>a) Sub Module 1</h5>
+          <h5>a) High throughput screening feasibility</h5>
 
           <GenePromoteSummaryAnswers
             oKey="6a1"
@@ -360,7 +360,7 @@ const GenePromoteSummary = (props) => {
             ansObj={props.targetPromotionFormValue}
           />
 
-          <h5>b) Sub Module 2</h5>
+          <h5>b) Structure based feasibility</h5>
           <GenePromoteSummaryAnswers
             oKey="6b1"
             questionObj={props.promotionQuestionsRegistry}
@@ -391,7 +391,7 @@ const GenePromoteSummary = (props) => {
             ansObj={props.targetPromotionFormValue}
           />
 
-          <h5>c) Sub Module 3</h5>
+          <h5>c) Progressibility considerations</h5>
           <GenePromoteSummaryAnswers
             oKey="6c1"
             questionObj={props.promotionQuestionsRegistry}
@@ -428,7 +428,7 @@ const GenePromoteSummary = (props) => {
             ansObj={props.targetPromotionFormValue}
           />
 
-          <h5>d) Sub Module 4</h5>
+          <h5>d) Safety considerations</h5>
           <GenePromoteSummaryAnswers
             oKey="6d1"
             questionObj={props.promotionQuestionsRegistry}
