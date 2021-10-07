@@ -5,7 +5,15 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import DisplayTable from "../../../../app/common/DisplayTable/DisplayTable";
-const GenomeViewNonPublicData = () => {
+import KeyValList from "../../../../app/common/KeyValList/KeyValList";
+const GenomeViewNonPublicData = ({
+  gene,
+  edit,
+  cancelEdit,
+  fetchGeneHistory,
+  historyDisplayLoading,
+  geneHistory,
+}) => {
   const [genomeNonPublicData, setGenomeNonPublicData] = useState(null);
 
   useEffect(() => {
@@ -125,19 +133,24 @@ const GenomeViewNonPublicData = () => {
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Vulnerability">
-                <DataTable value={genomeNonPublicData.Vulnerability}>
-                  <Column field="Rank" header="Rank"></Column>
-                  <Column field="u_vi" header="u_vi"></Column>
-                  <Column field="I_vi" header="I_vi"></Column>
-                  <Column field="vi_ratio" header="vi_ratio"></Column>
-                  <Column field="Condition(s)" header="Condition(s)"></Column>
-                  <Column field="Operon" header="Operon"></Column>
-                  <Column field="Confounded" header="Confounded"></Column>
-                  <Column
-                    field="Shell_2015 operon"
-                    header="Shell_2015 operon"
-                  ></Column>
-                </DataTable>
+                <KeyValList
+                  data={gene.geneVulnerability}
+                  filter={[
+                    "rank",
+                    "uVi",
+                    "iVi",
+                    "viRatio",
+                    "vulnerabilityCondition",
+                    "operon",
+                    "confounded",
+                    "shell2015Operon",
+                  ]}
+                  editFunc={() => edit()}
+                  cancelEdit={() => cancelEdit()}
+                  fetchHistory={() => fetchGeneHistory()}
+                  historyDisplayLoading={historyDisplayLoading}
+                  history={geneHistory}
+                />
               </Fieldset>
             </div>
           </div>

@@ -11,16 +11,7 @@ const GeneViewMycobrowswer = ({
   geneHistory,
 }) => {
   console.log("From Gene View");
-  var geneCombined = {
-    geneName: gene.geneName,
-    function: gene?.function,
-    product: gene?.product,
-    functionalCategory: gene.functionalCategory,
-    type: gene.genePublicData?.type,
-    comments: gene.genePublicData?.comments,
-    proteomics: gene.genePublicData?.proteomics,
-    mutant: gene.genePublicData?.mutant,
-  };
+
   return (
     <div>
       <div className="p-d-flex">
@@ -29,15 +20,22 @@ const GeneViewMycobrowswer = ({
             <div className="p-mb-2">
               <Fieldset legend="General annotation">
                 <KeyValList
-                  data={geneCombined}
+                  data={gene}
                   filter={[
                     "geneName",
                     "function",
                     "product",
                     "functionalCategory",
                     "type",
-                    "comments",
                   ]}
+                  fetchHistory={() => fetchGeneHistory()}
+                  historyDisplayLoading={historyDisplayLoading}
+                  history={geneHistory}
+                />
+                <hr style={{ borderTop: "1px solid #CCCCCC"}} />
+                <KeyValList
+                  data={gene.genePublicData}
+                  filter={["comments"]}
                   editFunc={() => edit()}
                   cancelEdit={() => cancelEdit()}
                   fetchHistory={() => fetchGeneHistory()}
