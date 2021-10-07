@@ -14,19 +14,18 @@ const TargetAdminImporter = () => {
   const [consolidatedDTO, setConsolidatedDTO] = useState([]);
 
   //fetchGeneByAccessionNo
-  const { fetchGeneByAccessionNo, getPromotionQuestions, promotionQuestionsRegistry } = rootStore.geneStore;
+  const {
+    fetchGeneByAccessionNo,
+    getPromotionQuestions,
+    promotionQuestionsRegistry,
+  } = rootStore.geneStore;
   const { importTarget, displayLoading } = rootStore.targetStoreAdmin;
 
-
-  
   useEffect(() => {
     if (promotionQuestionsRegistry.size === 0) {
       getPromotionQuestions();
     }
-  }, [
-    promotionQuestionsRegistry,
-    getPromotionQuestions,
-  ]);
+  }, [promotionQuestionsRegistry, getPromotionQuestions]);
 
   let handleOnError = (err, file, inputElem, reason) => {
     console.log("---------------------------");
@@ -79,23 +78,11 @@ const TargetAdminImporter = () => {
 
       let targetPromotionFormValue = {
         "2a1": { answer: row["2a1_r"], description: row["2a1_t"] },
-        "2a1b": {
-          answer: row["2a1b_r"],
-          description: row["2a1b_t"],
-        },
+        "2a1b": { answer: row["2a1b_r"], description: row["2a1b_t"] },
         "2a2": { answer: row["2a2_r"], description: row["2a2_t"] },
-        "2a3a": {
-          answer: row["2a3a_r"],
-          description: row["2a3a_t"],
-        },
-        "2a3b": {
-          answer: row["2a3b_r"],
-          description: row["2a3b_t"],
-        },
-        "2a4a": {
-          answer: row["2a4a_r"],
-          description: row["2a4a_t"],
-        },
+        "2a3a": { answer: row["2a3a_r"], description: row["2a3a_t"] },
+        "2a3b": { answer: row["2a3b_r"], description: row["2a3b_t"] },
+        "2a4a": { answer: row["2a4a_r"], description: row["2a4a_t"] },
         "2a5": { answer: row["2a5_r"], description: row["2a5_t"] },
         "2b1": { answer: row["2b1_r"], description: row["2b1_t"] },
         "2b2": { answer: row["2b2_r"], description: row["2b2_t"] },
@@ -112,22 +99,10 @@ const TargetAdminImporter = () => {
         "3b1": { answer: row["3b1_r"], description: row["3b1_t"] },
         "3b2": { answer: row["3b2_r"], description: row["3b2_t"] },
         "4a1": { answer: row["4a1_r"], description: row["4a1_t"] },
-        "4a2a": {
-          answer: row["4a2a_r"],
-          description: row["4a2a_t"],
-        },
-        "4a2b": {
-          answer: row["4a2b_r"],
-          description: row["4a2b_t"],
-        },
-        "4a3a": {
-          answer: row["4a3a_r"],
-          description: row["4a3a_t"],
-        },
-        "4a3b": {
-          answer: row["4a3b_r"],
-          description: row["4a3b_t"],
-        },
+        "4a2a": { answer: row["4a2a_r"], description: row["4a2a_t"] },
+        "4a2b": { answer: row["4a2b_r"], description: row["4a2b_t"] },
+        "4a3a": { answer: row["4a3a_r"], description: row["4a3a_t"] },
+        "4a3b": { answer: row["4a3b_r"], description: row["4a3b_t"] },
         "4a4": { answer: row["4a4_r"], description: row["4a4_t"] },
         "4b1": { answer: row["4b1_r"], description: row["4b1_t"] },
         "4b2": { answer: row["4b2_r"], description: row["4b2_t"] },
@@ -141,6 +116,28 @@ const TargetAdminImporter = () => {
         "5a2": { answer: row["5a2_r"], description: row["5a2_t"] },
         "5a3": { answer: row["5a3_r"], description: row["5a3_t"] },
         "5b1": { answer: row["5b1_r"], description: row["5b1_t"] },
+        "6a1": { answer: row["6a1_r"], description: row["6a1_t"] },
+        "6a2": { answer: row["6a2_r"], description: row["6a2_t"] },
+        "6a3": { answer: row["6a3_r"], description: row["6a3_t"] },
+        "6a4": { answer: row["6a4_r"], description: row["6a4_t"] },
+        "6a5": { answer: row["6a5_r"], description: row["6a5_t"] },
+        "6a6": { answer: row["6a6_r"], description: row["6a6_t"] },
+        "6a7": { answer: row["6a7_r"], description: row["6a7_t"] },
+        "5b1": { answer: row["5b1_r"], description: row["5b1_t"] },
+        "6b1": { answer: row["6b1_r"], description: row["6b1_t"] },
+        "6b2": { answer: row["6b2_r"], description: row["6b2_t"] },
+        "6b3": { answer: row["6b3_r"], description: row["6b3_t"] },
+        "6b4": { answer: row["6b4_r"], description: row["6b4_t"] },
+        "6b5": { answer: row["6b5_r"], description: row["6b5_t"] },
+        "6c1": { answer: row["6c1_r"], description: row["6c1_t"] },
+        "6c2": { answer: row["6c2_r"], description: row["6c2_t"] },
+        "6c3": { answer: row["6c3_r"], description: row["6c3_t"] },
+        "6c4": { answer: row["6c4_r"], description: row["6c4_t"] },
+        "6c5": { answer: row["6c5_r"], description: row["6c5_t"] },
+        "6d1": { answer: row["6d1_r"], description: row["6d1_t"] },
+        "6d2": { answer: row["6d2_r"], description: row["6d2_t"] },
+        "6d3": { answer: row["6d3_r"], description: row["6d3_t"] },
+        "6d4": { answer: row["6d4_r"], description: row["6d4_t"] },
       };
 
       var dataObject = {
@@ -148,7 +145,7 @@ const TargetAdminImporter = () => {
         geneName: row["1b"],
         status: "imported",
         bucket: row["Bucket"],
-        genePromotionRequestValues: []
+        genePromotionRequestValues: [],
       };
 
       Object.keys(targetPromotionFormValue).map((key) => {
