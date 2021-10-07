@@ -7,7 +7,6 @@ import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
 
-
 const TargetAdminList = () => {
   const rootStore = useContext(RootStoreContext);
   const { fetchTargetList, displayLoading, targets } = rootStore.targetStore;
@@ -33,25 +32,35 @@ const TargetAdminList = () => {
     return <React.Fragment>{rowData.geneName}</React.Fragment>;
   };
 
-  const ScoreBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.score}</React.Fragment>;
+    const ImpactScoreBodyTemplate = (rowData) => {
+    return <React.Fragment>{rowData.impactScore}</React.Fragment>;
   };
 
-  const HTSFeasibilityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.htsFeasibility}</React.Fragment>;
+  const LikeScoreBodyTemplate = (rowData) => {
+    return <React.Fragment>{rowData.likeScore}</React.Fragment>;
   };
 
-  const SBDFeasibilityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.sbdFeasibility}</React.Fragment>;
+  const BucketScoreBodyTemplate = (rowData) => {
+    return (
+      <React.Fragment>{rowData.bucket ? rowData.bucket : "n.a"}</React.Fragment>
+    );
   };
 
-  const ProgressibilityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.progressibility}</React.Fragment>;
-  };
+  // const HTSFeasibilityBodyTemplate = (rowData) => {
+  //   return <React.Fragment>{rowData.htsFeasibility}</React.Fragment>;
+  // };
 
-  const SafetyBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.safety}</React.Fragment>;
-  };
+  // const SBDFeasibilityBodyTemplate = (rowData) => {
+  //   return <React.Fragment>{rowData.sbdFeasibility}</React.Fragment>;
+  // };
+
+  // const ProgressibilityBodyTemplate = (rowData) => {
+  //   return <React.Fragment>{rowData.progressibility}</React.Fragment>;
+  // };
+
+  // const SafetyBodyTemplate = (rowData) => {
+  //   return <React.Fragment>{rowData.safety}</React.Fragment>;
+  // };
 
   /* Table Header  */
   const header = (
@@ -106,9 +115,23 @@ const TargetAdminList = () => {
             className="narrow-column"
           />
 
-          <Column field="Score" header="Score" body={ScoreBodyTemplate} />
-
           <Column
+            field="impactScore"
+            header="Biological Impact Score"
+            body={ImpactScoreBodyTemplate}
+          />
+          <Column
+            field="likeScore"
+            header="Likelihood Score"
+            body={LikeScoreBodyTemplate}
+          />
+          <Column
+            field="bucket"
+            header="Bucket Score"
+            body={BucketScoreBodyTemplate}
+          />
+
+          {/* <Column
             field="htsfeasibility"
             header="HTS Feasibility"
             body={HTSFeasibilityBodyTemplate}
@@ -126,7 +149,7 @@ const TargetAdminList = () => {
             body={ProgressibilityBodyTemplate}
           />
 
-          <Column field="safety" header="Safety" body={SafetyBodyTemplate} />
+          <Column field="safety" header="Safety" body={SafetyBodyTemplate} /> */}
         </DataTable>
       </div>
     </div>
