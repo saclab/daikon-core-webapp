@@ -159,7 +159,7 @@ const KeyValList = ({
     }
 
     let tBody = Object.keys(data).map((key, value) => {
-      let finalValue = data[key];
+      let finalValue = data[key]?data[key]:"Not Available";
       if (typeof link !== "undefined") {
         if (key in link) {
           finalValue = (
@@ -262,8 +262,11 @@ const KeyValList = ({
           cols={60}
           value={data ? data[selectedId] : null}
           autoFocus
-          onChange={(e) =>
+          onChange={(e) =>{
+            console.log(data[selectedId]);
+            console.log(e.target.value);
             runInAction(() => (data[selectedId] = e.target.value))
+          }
           }
         />
       </Dialog>
