@@ -6,7 +6,6 @@ import "./TargetGrid.css";
 const TargetGrid = ({ questions, target }) => {
   let answers = {};
 
- 
   if (questions.size === 0 || target === null) {
     return <h2>Please wait..</h2>;
   }
@@ -21,7 +20,6 @@ const TargetGrid = ({ questions, target }) => {
     if (ans.answer === "Unknown" || ans.answer === "n/a") {
       answers[ans.questionIdentification] = "grayCell";
     }
-
   });
 
   return (
@@ -381,6 +379,189 @@ const TargetGrid = ({ questions, target }) => {
               data-pr-position="left"
             >
               5b1
+            </td>
+            <td colSpan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td rowSpan="4" className="verticalText">
+              {" "}
+              <span>Tractability</span>
+            </td>
+            <td>High throughput screening feasibility</td>
+            <td>
+              <b>6a</b>
+            </td>
+            <td></td>
+            <td
+              className={"questionTooltip " + answers["6a1"]}
+              data-pr-tooltip={questions.get("6a1").questionBody}
+              data-pr-position="left"
+            >
+              6a1
+            </td>
+            <td
+              className={"questionTooltip " + answers["6a2"]}
+              data-pr-tooltip={questions.get("6a2").questionBody}
+              data-pr-position="left"
+            >
+              6a2
+            </td>
+            <td
+              className={"questionTooltip " + answers["6a3"]}
+              data-pr-tooltip={questions.get("6a3").questionBody}
+              data-pr-position="left"
+            >
+              6a3
+            </td>
+            <td
+              className={"questionTooltip " + answers["6a4"]}
+              data-pr-tooltip={questions.get("6a4").questionBody}
+              data-pr-position="left"
+            >
+              6a4
+            </td>
+            <td
+              className={"questionTooltip " + answers["6a5"]}
+              data-pr-tooltip={questions.get("6a5").questionBody}
+              data-pr-position="left"
+            >
+              6a5
+            </td>
+            <td
+              className={"questionTooltip " + answers["6a6"]}
+              data-pr-tooltip={questions.get("6a6").questionBody}
+              data-pr-position="left"
+            >
+              6a6
+            </td>
+            <td
+              className={"questionTooltip " + answers["6a7"]}
+              data-pr-tooltip={questions.get("6a7").questionBody}
+              data-pr-position="left"
+            >
+              6a7
+            </td>
+            <td colSpan="1">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Structure based feasibility</td>
+            <td>
+              <b>6b</b>
+            </td>
+            <td></td>
+            <td
+              className={"questionTooltip " + answers["6b1"]}
+              data-pr-tooltip={questions.get("6b1").questionBody}
+              data-pr-position="left"
+            >
+              6b1
+            </td>
+            <td
+              className={"questionTooltip " + answers["6b2"]}
+              data-pr-tooltip={questions.get("6b2").questionBody}
+              data-pr-position="left"
+            >
+              6b2
+            </td>
+            <td
+              className={"questionTooltip " + answers["6b3"]}
+              data-pr-tooltip={questions.get("6b3").questionBody}
+              data-pr-position="left"
+            >
+              6b3
+            </td>
+            <td
+              className={"questionTooltip " + answers["6b4"]}
+              data-pr-tooltip={questions.get("6b4").questionBody}
+              data-pr-position="left"
+            >
+              6b4
+            </td>
+            <td
+              className={"questionTooltip " + answers["6b5"]}
+              data-pr-tooltip={questions.get("6b5").questionBody}
+              data-pr-position="left"
+            >
+              6b5
+            </td>
+            <td colSpan="3">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Progressibility considerations</td>
+            <td>
+              <b>6c</b>
+            </td>
+            <td></td>
+            <td
+              className={"questionTooltip " + answers["6c1"]}
+              data-pr-tooltip={questions.get("6c1").questionBody}
+              data-pr-position="left"
+            >
+              6c1
+            </td>
+            <td
+              className={"questionTooltip " + answers["6c2"]}
+              data-pr-tooltip={questions.get("6c2").questionBody}
+              data-pr-position="left"
+            >
+              6c2
+            </td>
+            <td
+              className={"questionTooltip " + answers["6c3"]}
+              data-pr-tooltip={questions.get("6c3").questionBody}
+              data-pr-position="left"
+            >
+              6c3
+            </td>
+            <td
+              className={"questionTooltip " + answers["6c4"]}
+              data-pr-tooltip={questions.get("6c4").questionBody}
+              data-pr-position="left"
+            >
+              6c4
+            </td>
+            <td
+              className={"questionTooltip " + answers["6c5"]}
+              data-pr-tooltip={questions.get("6c5").questionBody}
+              data-pr-position="left"
+            >
+              6c5
+            </td>
+            <td colSpan="3">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Safety considerations</td>
+            <td>
+              <b>6d</b>
+            </td>
+            <td></td>
+            <td
+              className={"questionTooltip " + answers["6d1"]}
+              data-pr-tooltip={questions.get("6d1").questionBody}
+              data-pr-position="left"
+            >
+              6d1
+            </td>
+            <td
+              className={"questionTooltip " + answers["6d2"]}
+              data-pr-tooltip={questions.get("6d2").questionBody}
+              data-pr-position="left"
+            >
+              6d2
+            </td>
+            <td
+              className={"questionTooltip " + answers["6d3"]}
+              data-pr-tooltip={questions.get("6d3").questionBody}
+              data-pr-position="left"
+            >
+              6d3
+            </td>
+            <td
+              className={"questionTooltip " + answers["6d4"]}
+              data-pr-tooltip={questions.get("6d4").questionBody}
+              data-pr-position="left"
+            >
+              6d4
             </td>
             <td colSpan="4">&nbsp;</td>
           </tr>
