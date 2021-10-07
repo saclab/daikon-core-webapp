@@ -5,9 +5,9 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
   return (
     <div className="p-d-flex" style={{ marginTop: "2px" }}>
       <div className="p-mr-2">
-        <p style={{ width: "18rem", marginRight: "25px"}}>
+        <p style={{ width: "19rem", marginRight: "25px"}}>
           <b>{oKey} | </b>
-          {questionObj.get(oKey).questionBody} :{" "}
+          {questionObj.get(oKey)?.questionBody} :{" "}
         </p>
       </div>
       <div className="p-mr-2">
@@ -17,7 +17,7 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
           value={ansObj[oKey].answerValue}
           readOnly={true}
         /> */}
-        <p style={{ width: "7rem" }}>{ansObj[oKey].answer}</p>
+        <p style={{ width: "7rem" }}>{ansObj[oKey]?.answer}</p>
       </div>
       <div className="p-mr-2 p-as-stretch">
         <span className="p-float-label">
@@ -28,7 +28,7 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
             readOnly={true}
           /> */}
 
-          <p style={{ minWidth: "40rem" }}>{ansObj[oKey].description}</p>
+          <p style={{ minWidth: "40rem" }}>{ansObj[oKey]?.description}</p>
         </span>
       </div>
     </div>
