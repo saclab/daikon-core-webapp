@@ -9,6 +9,7 @@ import GenomePromoteFormImpactOfChemInhibit from "./GenomePromoteFormImpactOfChe
 import GenomePromoteFormChemicalInhibition from "./GenomePromoteFormChemicalInhibition/GenomePromoteFormChemicalInhibition";
 import GenomePromoteFormImpactOfGeneticInhibit from "./GenomePromoteFormImpactOfGeneticInhibit/GenomePromoteFormImpactOfGeneticInhibit";
 import GenomePromoteFormLiabilities from "./GenomePromoteFormLiabilities/GenomePromoteFormLiabilities";
+import GenomePromoteFormTractability from "./GenomePromoteFormTractability/GenomePromoteFormTractability";
 
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
@@ -85,6 +86,28 @@ const GenomePromote = ({ match }) => {
     "5a2": { answer: "", description: "" },
     "5a3": { answer: "", description: "" },
     "5b1": { answer: "", description: "" },
+    "6a1": { answer: "", description: "" },
+    "6a2": { answer: "", description: "" },
+    "6a3": { answer: "", description: "" },
+    "6a4": { answer: "", description: "" },
+    "6a5": { answer: "", description: "" },
+    "6a6": { answer: "", description: "" },
+    "6a7": { answer: "", description: "" },
+    "6b1": { answer: "", description: "" },
+    "6b2": { answer: "", description: "" },
+    "6b3": { answer: "", description: "" },
+    "6b4": { answer: "", description: "" },
+    "6b5": { answer: "", description: "" },
+    "6c1": { answer: "", description: "" },
+    "6c2": { answer: "", description: "" },
+    "6c3": { answer: "", description: "" },
+    "6c4": { answer: "", description: "" },
+    "6c5": { answer: "", description: "" },
+    "6c6": { answer: "", description: "" },
+    "6d1": { answer: "", description: "" },
+    "6d2": { answer: "", description: "" },
+    "6d3": { answer: "", description: "" },
+    "6d4": { answer: "", description: "" },
   });
 
   // Test data:
@@ -304,12 +327,11 @@ const GenomePromote = ({ match }) => {
 
     Object.keys(targetPromotionFormValue).map((key) => {
       data.genePromotionRequestValues.push({
-        questionId : promotionQuestionsRegistry.get(key).id,
+        questionId: promotionQuestionsRegistry.get(key).id,
         answer: targetPromotionFormValue[key].answer,
-        description :targetPromotionFormValue[key].description
+        description: targetPromotionFormValue[key].description,
       });
     });
-
 
     console.log(data);
 
@@ -325,8 +347,8 @@ const GenomePromote = ({ match }) => {
     { label: "Chemical inhibition" },
     { label: "Impact of genetic inhibition" },
     { label: "Liabilities" },
-    // { label: "Tractability" },
-    // { label: "Interactions" },
+    //{ label: "Target" },
+    { label: "Tractability" },
     { label: "Submit" },
   ];
 
@@ -401,6 +423,18 @@ const GenomePromote = ({ match }) => {
 
         case 4:
           return (
+            <GenomePromoteFormTractability
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
+              onFormSet={(active) => setActiveForm(active)}
+            />
+          );
+
+        case 5:
+          return (
             <GenePromoteSummary
               promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
@@ -408,18 +442,6 @@ const GenomePromote = ({ match }) => {
               onFormSubmit={submitTargetPromotionFormValueForm}
             />
           );
-
-        // case 4:
-        //   return (
-        //     <GenomePromoteFormTractability
-        //       promotionQuestionsRegistry={promotionQuestionsRegistry}
-        //       targetPromotionFormValue={targetPromotionFormValue}
-        //       updateTargetPromotionFormValue={(e) =>
-        //         updateTargetPromotionFormValue(e)
-        //       }
-        //       onFormSet={(active) => setActiveForm(active)}
-        //     />
-        //   );
 
         // case 5:
         //   return (
