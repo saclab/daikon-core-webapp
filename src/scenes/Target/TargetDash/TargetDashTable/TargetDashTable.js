@@ -49,7 +49,7 @@ const TargetDashTable = () => {
   const ImpactScoreBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Impact Score</span>
+        <span className="p-column-title">Biological Impact Score</span>
         {rowData.impactScore}
       </React.Fragment>
     );
@@ -58,7 +58,7 @@ const TargetDashTable = () => {
   const LikeScoreBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Like Score</span>
+        <span className="p-column-title">Likelihood Score</span>
         {rowData.likeScore}
       </React.Fragment>
     );
@@ -67,7 +67,7 @@ const TargetDashTable = () => {
   const BucketScoreBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Bucket</span>
+        <span className="p-column-title">Bucket score</span>
         {rowData.bucket?rowData.bucket:"n.a"}
       </React.Fragment>
     );
@@ -129,17 +129,17 @@ const TargetDashTable = () => {
 
           <Column
             field="impactScore"
-            header="Impact Score"
+            header="Biological Impact Score"
             body={ImpactScoreBodyTemplate}
           />
           <Column
             field="likeScore"
-            header="Like Score"
+            header="Likelihood Score"
             body={LikeScoreBodyTemplate}
           />
           <Column
             field="bucket"
-            header="Bucket"
+            header="Bucket Score"
             body={BucketScoreBodyTemplate}
           />
         </DataTable>
