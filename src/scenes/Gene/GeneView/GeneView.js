@@ -12,6 +12,7 @@ import Loading from "../../../app/layout/Loading/Loading";
 import GeneViewMycobrowswer from "./GeneViewMycobrowswer/GeneViewMycobrowswer";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import Discussion from "../../Discussion/Discussion";
 
 const GeneView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -57,13 +58,24 @@ const GeneView = ({ match, history }) => {
         //     setActiveIndex(1);
         //   },
         // },
+       
         {
           label: "Non-Public Data",
+          icon: "ri-git-repository-private-fill",
+          command: () => {
+            setActiveIndex(1);
+          },
+        },
+
+        {
+          label: "Discussion",
           icon: "ri-git-repository-private-fill",
           command: () => {
             setActiveIndex(2);
           },
         },
+
+        
       ],
     },
     {
@@ -158,10 +170,8 @@ const GeneView = ({ match, history }) => {
                       geneHistory={geneHistory}
                     />
                   </TabPanel>
+                  
                   <TabPanel header="Header II" headerClassName="hide">
-                    <GenomeViewBackgroundInformation />
-                  </TabPanel>
-                  <TabPanel header="Header III" headerClassName="hide">
                     <GenomeViewNonPublicData
                       id={match.params.id}
                       gene={gene}
@@ -171,6 +181,10 @@ const GeneView = ({ match, history }) => {
                       historyDisplayLoading={historyDisplayLoading}
                       geneHistory={geneHistory}
                     />
+                  </TabPanel>
+
+                  <TabPanel header="Header III" headerClassName="hide">
+                    <Discussion />
                   </TabPanel>
                 </TabView>
               </div>
