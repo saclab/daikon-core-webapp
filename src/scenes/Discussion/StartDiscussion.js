@@ -17,8 +17,12 @@ const StartDiscussion = () => {
         />
         <br />
         <br />
-        
-        <Button label="Post" className="p-button-raised p-button-success" icon="pi pi-comment"/>
+
+        <Button
+          label="Post"
+          className="p-button-raised p-button-success"
+          icon="pi pi-comment"
+        />
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { Fieldset } from "primereact/fieldset";
 import { Button } from "primereact/button";
 import StartDiscussion from "./StartDiscussion";
 
-
 import { Dialog } from "primereact/dialog";
 
 const Discussion = () => {
@@ -16,8 +15,7 @@ const Discussion = () => {
   let startNewDiscussion = () => {
     return (
       <React.Fragment>
-        <i className="pi pi-comments"></i> &nbsp; Start a new
-        discussion
+        <i className="pi pi-comments"></i> &nbsp; Start a new discussion
       </React.Fragment>
     );
   };
