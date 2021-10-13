@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Fieldset } from "primereact/fieldset";
 import { Button } from "primereact/button";
 import StartDiscussion from "./StartDiscussion";
-
+import { Tag } from "primereact/tag";
 import { Dialog } from "primereact/dialog";
 
 const Discussion = () => {
@@ -22,13 +22,14 @@ const Discussion = () => {
 
   return (
     <React.Fragment>
-      <Button
-        label="Start a discussion"
-        className="p-button-outlined p-button-secondary p-button-text"
-        icon="pi pi-plus"
-        onClick={displayAllDiscussions}
-      />
-
+      <div style={{ float: "right" }}>
+        <Button
+          className="p-button-rounded p-button-info"
+          icon="pi pi-plus"
+          onClick={displayAllDiscussions}
+        />
+      </div>
+      <br />
       <Dialog
         header={startNewDiscussion()}
         visible={displayDiscussionDialog}
@@ -41,7 +42,20 @@ const Discussion = () => {
 
       <div className="card">
         <Fieldset legend="Discussion board">
-          <p></p>
+          <p style={{backgroundColor:'#D3D3D3'}}>&nbsp; 
+             The likelihood and impact scores for this gene is probably going to
+            be low. Can we use these scores to populate the map in the target
+            area. If it can be stored, but not display, the other columns which
+            represent sub scores that would be great. 
+          </p>
+
+          <Tag className="p-mr-2" icon="pi pi-user" value="Posted by "></Tag>
+          <Tag
+            className="p-mr-2"
+            severity="success"
+            value="panda@tamu.edu"
+          ></Tag>
+          <Tag className="p-mr-2" severity="warning" value="10/12/2021"></Tag>
         </Fieldset>
 
         <br />
