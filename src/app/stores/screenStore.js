@@ -16,6 +16,9 @@ export default class ScreenStore {
   screenRegistryExpanded = new Map();
   selectedScreen = null;
 
+  validatedHitsIndex = 0;
+  screenSequenceIndex = 0;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -29,6 +32,12 @@ export default class ScreenStore {
       screenRegistryCacheValid: observable,
       screenRegistryExpanded: observable,
       filterScreensByGene: action,
+
+      validatedHitsIndex: observable,
+      setValidatedHitsIndex : action,
+
+      screenSequenceIndex: observable,
+      setScreenSequenceIndex : action
     });
   }
 
@@ -114,5 +123,8 @@ export default class ScreenStore {
       }
     }
   };
+
+  setValidatedHitsIndex = (index) => this.validatedHitsIndex = index;
+  setScreenSequenceIndex = (index) => this.screenSequenceIndex = index;
   
 }
