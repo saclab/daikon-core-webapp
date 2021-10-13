@@ -1,12 +1,13 @@
 import React from "react";
 import { Panel } from "primereact/panel";
 
-const SectionHeading = ({ icon, heading, sub, link, color }) => {
+const SectionHeading = ({ icon, heading, sub, link, color, textColor }) => {
   const headerTemplate = (options) => {
     const toggleIcon = options.collapsed
       ? "icon icon-common icon-ellipsis-h"
       : "pi pi-chevron-up";
     let background = color ? color : "#28477f";
+    let htextColor = textColor ? textColor : "#ffffff";
     let linkButton = (
       <div className="p-mr-2" style={{ float: "right", marginLeft: "auto" }}>
         <button
@@ -17,7 +18,7 @@ const SectionHeading = ({ icon, heading, sub, link, color }) => {
             style={{
               margin: "0px",
               fontWeight: "lighter",
-              color: "#ffffff",
+              color: htextColor,
             }}
           >
             <i className={toggleIcon}></i>
@@ -36,9 +37,9 @@ const SectionHeading = ({ icon, heading, sub, link, color }) => {
           marginBottom: "1em",
         }}
       >
-        <div className="p-d-flex" style={{ width: "100%" }}>
+        <div className="p-d-flex" style={{ minWidth: "70em" }}>
           <div className="p-mr-2">
-            <h1 style={{ margin: "0px", fontWeight: "lighter" }}>
+            <h1 style={{ margin: "0px", fontWeight: "lighter", color: htextColor}}>
               <i className={icon}></i> {heading}
             </h1>
           </div>
