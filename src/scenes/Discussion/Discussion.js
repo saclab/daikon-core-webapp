@@ -43,7 +43,7 @@ const Discussion = () => {
       <div className="card">
         <Fieldset legend="Discussion board">
           <p style={{backgroundColor:'#D3D3D3'}}>&nbsp; 
-             The likelihood and impact scores for this gene is probably going to
+            The likelihood and impact scores for this gene is probably going to
             be low. Can we use these scores to populate the map in the target
             area. If it can be stored, but not display, the other columns which
             represent sub scores that would be great. 
@@ -55,7 +55,7 @@ const Discussion = () => {
             severity="success"
             value="panda@tamu.edu"
           ></Tag>
-          <Tag className="p-mr-2" severity="warning" value="10/12/2021"></Tag>
+          <Tag className="p-mr-2" severity="warning" value="06 Oct 2021, 13:27"></Tag>
         </Fieldset>
 
         <br />
