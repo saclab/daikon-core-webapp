@@ -101,7 +101,7 @@ const TargetScreenPromotionQuestionaire = () => {
 
     console.log("---------------------------");
     console.log(data);
-     dto(data);
+    dto(data);
 
     console.log("---------------------------");
   };
@@ -114,20 +114,18 @@ const TargetScreenPromotionQuestionaire = () => {
   };
 
   let dto = (hitslits) => {
-    hitslits.forEach(hit => {
-     
+    hitslits.forEach((hit) => {
       let formattedHit = {
-              compoundId : hit.data["Compound ID"],
-              enzymeActivity : "",
-              MIC : hit.data["MIC (μM)"],
-              structure : hit.data["Smile String"],
-              clusterGroup : hit.data["Cluster Group"],
-      }
-      
-      hitList.push(formattedHit);
+        compoundId: hit.data["Compound ID"],
+        enzymeActivity: "",
+        MIC: hit.data["MIC (μM)"],
+        structure: hit.data["Smile String"],
+        clusterGroup: hit.data["Cluster Group"],
+      };
 
+      hitList.push(formattedHit);
     });
-  }
+  };
 
   if (!promoteTargetToScreenDisplayLoading) {
     return (

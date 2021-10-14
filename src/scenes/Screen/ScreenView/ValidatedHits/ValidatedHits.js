@@ -13,7 +13,7 @@ const ValidatedHits = ({geneName}) => {
   const rootStore = useContext(RootStoreContext);
   const { filterScreensByGene, validatedHitsIndex, setValidatedHitsIndex } = rootStore.screenStore;
 
-
+  console.log("==== VALIDATED HITS");
   let filteredScreensbyGene = filterScreensByGene(geneName);
   let tabs = [];
 

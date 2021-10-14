@@ -11,16 +11,18 @@ const ValidatedHitsList = ({screenId}) => {
   const dt = useRef(null);
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { displayLoading, fetchScreen, selectedScreen } = rootStore.screenStore;
+  const { loadingFetchScreen, fetchScreen, selectedScreen } = rootStore.screenStore;
+
+  console.log("==== VALIDATED HIT LIST");
   useEffect(() => {
     fetchScreen(screenId);
   }, [fetchScreen]);
 
-  if (displayLoading || selectedScreen === null) {
+  if (loadingFetchScreen || selectedScreen === null) {
     return <Loading />;
   }
 
-  if (!displayLoading && selectedScreen) {
+  if (!loadingFetchScreen && selectedScreen) {
     console.log(selectedScreen);
   }
 
