@@ -1,24 +1,39 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { TabView, TabPanel } from "primereact/tabview";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import ScreenSequence from "./ScreenSequence/ScreenSequence";
+import Loading from "../../../../app/layout/Loading/Loading";
 
 const ScreenSequences = ({ geneName }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { filterScreensByGene, screenSequenceIndex, setScreenSequenceIndex } = rootStore.screenStore;
+  const {
+    filterScreensByGene,
+    filteredScreens,
+    displayLoading,
+    screenSequenceIndex,
+    setScreenSequenceIndex,
+  } = rootStore.screenStore;
 
+  console.log("====SCREEN SEQUENCES");
+  
 
-  let filteredScreensbyGene = filterScreensByGene(geneName);
+  useEffect(() => {
+    if (filteredScreens.length === 0) filterScreensByGene(geneName);
+  }, [filteredScreens, filterScreensByGene]);
+
+  if (displayLoading) {
+    return <Loading />
+  }
+
   let tabs = [];
 
-  console.log(filteredScreensbyGene.length);
+  console.log(filteredScreens.length);
 
-  if (filteredScreensbyGene.length > 0) {
-    filteredScreensbyGene.forEach((screen) => {
+  if (tabs.length === 0 && filteredScreens.length > 0) {
+    console.log("====SCREEN SEQUENCES--TABS");
+    filteredScreens.forEach((screen) => {
       console.log(screen);
       tabs.push(
         <TabPanel header={screen.screenName} key={screen.id}>

@@ -21,26 +21,32 @@ const ScreenView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { displayLoading, screenRegistry, fetchScreens, filterScreensByGene } =
-    rootStore.screenStore;
+  const {
+    loadingFetchScreens,
+    screenRegistry,
+    fetchScreens,
+    filterScreensByGene,
+  } = rootStore.screenStore;
   useEffect(() => {
-    fetchScreens();
-  }, [fetchScreens]);
+    if (screenRegistry.size === 0) fetchScreens();
+  }, [fetchScreens, screenRegistry]);
+
+  console.log("====SCREEN VIEW");
 
   const SideMenuItems = [
     {
       label: "Sections",
       items: [
         {
-          label: "Validated Hits",
-          icon: "icon icon-conceptual icon-structures-3d",
+          label: "Ongoing",
+          icon: "icon icon-common icon-circle-notch",
           command: () => {
             setActiveIndex(0);
           },
         },
         {
-          label: "Ongoing",
-          icon: "icon icon-common icon-circle-notch",
+          label: "Validated Hits",
+          icon: "icon icon-conceptual icon-structures-3d",
           command: () => {
             setActiveIndex(1);
           },
@@ -49,7 +55,7 @@ const ScreenView = ({ match, history }) => {
     },
   ];
 
-  if (!displayLoading) {
+  if (!loadingFetchScreens && screenRegistry.size >= 0) {
     return (
       <React.Fragment>
         <Toast ref={toast} />
@@ -74,6 +80,15 @@ const ScreenView = ({ match, history }) => {
                   activeIndex={activeIndex}
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
+                  <TabPanel header="Ongoing" headerClassName="hide">
+                    <SectionHeading
+                      icon="icon icon-common icon-circle-notch"
+                      heading={" Ongoing"}
+                      color={"#f4f4f4"}
+                      textColor={"#000000"}
+                    />
+                    <ScreenSequences geneName={match.params.id} />
+                  </TabPanel>
                   <TabPanel header="Validated Hits" headerClassName="hide">
                     <SectionHeading
                       icon="icon icon-conceptual icon-structures-3d"
@@ -82,15 +97,6 @@ const ScreenView = ({ match, history }) => {
                       textColor={"#000000"}
                     />
                     <ValidatedHits geneName={match.params.id} />
-                  </TabPanel>
-                  <TabPanel header="Ongoing" headerClassName="hide">
-                  <SectionHeading
-                      icon="icon icon-common icon-circle-notch"
-                      heading={" Ongoing"}
-                      color={"#f4f4f4"}
-                      textColor={"#000000"}
-                    />
-                    <ScreenSequences geneName={match.params.id} />
                   </TabPanel>
                 </TabView>
               </div>
