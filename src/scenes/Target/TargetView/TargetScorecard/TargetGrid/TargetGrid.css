@@ -33,3 +33,13 @@
   background-color: #E5E8E8;
   color: #424949;
 }
+
+.targetGrid .darkGreenCell {
+  background-color: #68D3BD;
+  color: #424949;
+}
+
+.targetGrid .darkRedCell {
+  background-color: #f19c94;
+  color: #424949;
+}

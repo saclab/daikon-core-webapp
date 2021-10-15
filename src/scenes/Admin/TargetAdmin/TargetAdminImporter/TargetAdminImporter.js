@@ -4,6 +4,7 @@ import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 
 const TargetAdminImporter = () => {
   const rootStore = useContext(RootStoreContext);
@@ -12,6 +13,13 @@ const TargetAdminImporter = () => {
   const [statusText, setsSatusText] = useState("");
   const [dataFormatingStatus, setDataFormatingStatus] = useState(false);
   const [consolidatedDTO, setConsolidatedDTO] = useState([]);
+  const [statusProps, setStatusProps] = useState({
+    csvLength: 0,
+    importTargetLength: 0,
+    failedDTOs: [],
+    succeedImport: 0,
+    failedImpotrs: [],
+  });
 
   //fetchGeneByAccessionNo
   const {
@@ -51,6 +59,7 @@ const TargetAdminImporter = () => {
   };
 
   let dto = async (data) => {
+    let failedForDTOs = [];
     console.log("---------------------------");
     console.log("DTO START");
     setLoading(true);
@@ -72,7 +81,10 @@ const TargetAdminImporter = () => {
       console.log("gene");
       console.log(gene);
 
-      if (typeof gene === "undefined") continue;
+      if (typeof gene === "undefined") {
+        failedForDTOs.push(i + ":" + row["AccessionNo"]);
+        continue;
+      }
 
       let geneID = gene.id;
 
@@ -145,16 +157,16 @@ const TargetAdminImporter = () => {
         geneName: row["GeneName"],
         status: "imported",
         bucket: row["Bucket"],
-        impactScore : row["ImpactScore"],
-        impactComplete : row["ImpactComplete"],
-        likeScore : row["LikeScore"],
-        likeComplete : row["LikeComplete"],
-        screeningScore : row["ScreeningScore"],
-        screeningComplete : row["ScreeningComplete"],
-        structureScore : row["StructureScore"],
-        structureComplete : row["StructureComplete"],
-        vulnerabilityRatio : row["VulnerabilityRatio"],
-        vulnerabilityRank : row["VulnerabilityRank"],
+        impactScore: row["ImpactScore"],
+        impactComplete: row["ImpactComplete"],
+        likeScore: row["LikeScore"],
+        likeComplete: row["LikeComplete"],
+        screeningScore: row["ScreeningScore"],
+        screeningComplete: row["ScreeningComplete"],
+        structureScore: row["StructureScore"],
+        structureComplete: row["StructureComplete"],
+        vulnerabilityRatio: row["VulnerabilityRatio"],
+        vulnerabilityRank: row["VulnerabilityRank"],
         genePromotionRequestValues: [],
       };
 
@@ -169,16 +181,25 @@ const TargetAdminImporter = () => {
       consolidatedDTO.push(dataObject);
     }
 
+    setStatusProps({
+      ...statusProps,
+      csvLength: data.length,
+      importTargetLength: consolidatedDTO.length,
+      failedDTOs: [...failedForDTOs],
+    });
+
     setLoading(false);
     setDataFormatingStatus(true);
     setsSatusText(consolidatedDTO.length + " targets found");
     console.log("---------------------------");
     console.log("DTO END");
+
+    console.log(statusProps.importTargetLength);
   };
 
   let importToServer = async () => {
+    let failedDTOImports = [];
     console.log("Starting import");
-    console.log(consolidatedDTO);
 
     for (let i = 0; i < consolidatedDTO.length; i++) {
       let targetToImport = consolidatedDTO[i];
@@ -186,14 +207,42 @@ const TargetAdminImporter = () => {
       console.log(targetToImport);
       await importTarget(targetToImport).catch((e) => {
         console.log("Cannot import", e);
+        failedDTOImports.push(targetToImport.geneName);
       });
     }
+
+    setStatusProps({
+      ...statusProps,
+      succeedImport: consolidatedDTO.length - failedDTOImports.length,
+      failedImpotrs: failedDTOImports,
+    });
+
     setsSatusText("Complete");
   };
 
   if (loading) {
     <Loading message="Preparing data transfer object" />;
   }
+
+  let dataFormattingResults = (
+    <Card title="Console" style={{ width: "70em" }}>
+      No of targets in CSV = {statusProps.csvLength} <br />
+      No of targets that matched a gene in db : =
+      {statusProps.importTargetLength} <br />
+      <div style={{ width: "60rem", overflowWrap: "anywhere" }}>
+        Match not found for : {statusProps.failedDTOs.join()}
+      </div>
+      <br />
+      <hr />
+      <Button label="Import" onClick={() => importToServer()} />
+      <br />
+      <hr />
+      No of targets imported to server = {statusProps.succeedImport} <br />
+      <div style={{ width: "60rem", overflowWrap: "anywhere" }}>
+        Failed for : {statusProps.failedImpotrs.join()}
+      </div>
+    </Card>
+  );
 
   return (
     <div>
@@ -212,11 +261,7 @@ const TargetAdminImporter = () => {
       <br />
       {statusText} <br />
       <br />
-      {dataFormatingStatus ? (
-        <Button label="Import" onClick={() => importToServer()} />
-      ) : (
-        ""
-      )}
+      {dataFormatingStatus ? dataFormattingResults : ""}
     </div>
   );
 };

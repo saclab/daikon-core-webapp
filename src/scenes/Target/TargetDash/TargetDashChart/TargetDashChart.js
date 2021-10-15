@@ -103,18 +103,7 @@ const TargetDashChart = ({ targets }) => {
           "legends",
           "annotations",
         ]}
-        annotations={[
-          {
-            type: "circle",
-            match: { id: "PptT" },
-            noteX: 50,
-            noteY: 50,
-            offset: 3,
-            noteTextOffset: -3,
-            noteWidth: 10,
-            note: "an annotation",
-          },
-        ]}
+        
         renderNode={CustomNode}
       />
     </div>

@@ -11,16 +11,47 @@ const TargetGrid = ({ questions, target }) => {
   }
 
   target.targetScorecard.targetScoreCardValues.forEach((ans) => {
+    console.log(ans);
     if (ans.answer === "Active" || ans.answer === "Yes") {
       answers[ans.questionIdentification] = "greenCell";
     }
     if (ans.answer === "Inactive" || ans.answer === "No") {
       answers[ans.questionIdentification] = "redCell";
     }
-    if (ans.answer === "Unknown" || ans.answer === "n/a") {
+    if (ans.answer === "Unknown" || ans.answer === "NA") {
       answers[ans.questionIdentification] = "grayCell";
     }
+
+    if (ans.answer === "High") {
+      answers[ans.questionIdentification] = "darkGreenCell";
+    }
+
+    if (ans.answer === "Medium") {
+      answers[ans.questionIdentification] = "yellowCell";
+    }
+
+    if (ans.answer === "Low") {
+      answers[ans.questionIdentification] = "darkRedCell";
+    }
+
+    /* Exceptions */
+    if (ans.questionIdentification === "5a1" || ans.questionIdentification === "5a3") {
+
+      if (ans.answer === "Yes") {
+        answers[ans.questionIdentification] = "redCell";
+      }
+      if (ans.answer === "No") {
+        answers[ans.questionIdentification] = "greenCell";
+      }
+    }
+
+
+
+
+
   });
+
+  console.log(answers);
 
   return (
     <div className="targetGrid">
