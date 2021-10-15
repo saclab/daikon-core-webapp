@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+import { observer } from "mobx-react-lite";
 
 import TargetDashChart from "./TargetDashChart/TargetDashChart";
 import TargetDashTable from "./TargetDashTable/TargetDashTable";
@@ -8,14 +9,14 @@ import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 const TargetDash = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { fetchTargetList, displayLoading } = rootStore.targetStore;
+  const { fetchTargetList, displayLoading, targets } = rootStore.targetStore;
 
   /* Local State Management */
 
   useEffect(() => {
     console.log("TargetSearch: fetchTargetList()");
-    fetchTargetList();
-  }, [fetchTargetList]); // eslint-disable-line react-hooks/exhaustive-deps
+    if(targets.length === 0) fetchTargetList();
+  }, [fetchTargetList, targets]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /** Loading Overlay */
   if (displayLoading) {
@@ -33,10 +34,10 @@ const TargetDash = () => {
         <div className="p-mb-2">
           <div className="p-d-flex">
             <div className="p-mr-2">
-              <TargetDashChart />
+              <TargetDashChart targets={targets}/>
             </div>
             <div className="p-mr-2">
-              <TargetDashTable />
+              <TargetDashTable targets={targets}/>
             </div>
           </div>
         </div>
@@ -45,4 +46,4 @@ const TargetDash = () => {
   );
 };
 
-export default TargetDash;
+export default observer(TargetDash);

@@ -4,24 +4,10 @@ import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "./TargetDashDataTable.css";
-import Loading from "../../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
 
-const TargetDashTable = () => {
-  /* MobX Store */
-  const rootStore = useContext(RootStoreContext);
-  const { fetchTargetList, displayLoading, targets } = rootStore.targetStore;
-
-  /* Local State Management */
-
-  useEffect(() => {
-    console.log("TargetSearch: fetchTargetList()");
-    fetchTargetList();
-  }, [fetchTargetList]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  /* local variables */
-
+const TargetDashTable = ({targets}) => {
+  
   const dt = useRef(null);
 
   /* Table Body Templates */
@@ -88,10 +74,7 @@ const TargetDashTable = () => {
   //   </div>
   // );
 
-  /** Loading Overlay */
-  if (displayLoading) {
-    return <Loading />;
-  }
+
 
   return (
     <div className="datatable-targets">
