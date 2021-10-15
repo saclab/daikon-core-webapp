@@ -58,14 +58,14 @@ const TargetAdminImporter = () => {
     for (let i = 0; i < data.length; i++) {
       let row = data[i].data;
       console.log(row);
-      console.log("Fetching for " + row["1b"]);
+      console.log("Fetching for " + row["AccessionNo"]);
 
-      setsSatusText("Preparing " + row["1b"]);
-      if (row["1b"] === "") {
+      setsSatusText("Preparing " + row["AccessionNo"]);
+      if (row["AccessionNo"] === "") {
         continue;
       }
 
-      let gene = await fetchGeneByAccessionNo(row["1b"]).catch((e) => {
+      let gene = await fetchGeneByAccessionNo(row["AccessionNo"]).catch((e) => {
         console.log("Cannot find gene", e);
       });
 
@@ -142,9 +142,19 @@ const TargetAdminImporter = () => {
 
       var dataObject = {
         geneID: geneID,
-        geneName: row["1b"],
+        geneName: row["GeneName"],
         status: "imported",
         bucket: row["Bucket"],
+        impactScore : row["ImpactScore"],
+        impactComplete : row["ImpactComplete"],
+        likeScore : row["LikeScore"],
+        likeComplete : row["LikeComplete"],
+        screeningScore : row["ScreeningScore"],
+        screeningComplete : row["ScreeningComplete"],
+        structureScore : row["StructureScore"],
+        structureComplete : row["StructureComplete"],
+        vulnerabilityRatio : row["VulnerabilityRatio"],
+        vulnerabilityRank : row["VulnerabilityRank"],
         genePromotionRequestValues: [],
       };
 
