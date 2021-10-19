@@ -96,12 +96,17 @@ const TargetAdmin = {
   edit: (updatedTarget) => requests.post(`/targets/targets-edit.json`),
 };
 
+const Comment = {
+  list: (reference) => requests.get(`/comments/comments-genes.json`),
+};
+
 const exports = {
   Target,
   Screen,
   Portfolio,
   TargetAdmin,
-  PostPortfolio
+  PostPortfolio,
+  Comment
 };
 
 export default exports;
