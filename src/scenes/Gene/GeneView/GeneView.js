@@ -6,13 +6,12 @@ import { confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
 import GenomeViewNonPublicData from "./GenomeViewNonPublicData/GenomeViewNonPublicData";
-import GenomeViewBackgroundInformation from "./GenomeViewBackgroundInformation/GenomeViewBackgroundInformation";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import GeneViewMycobrowswer from "./GeneViewMycobrowswer/GeneViewMycobrowswer";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import Discussion from "../../Discussion/Discussion";
+import Discussion from "../../../app/common/Discussion/Discussion";
 
 const GeneView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -184,7 +183,9 @@ const GeneView = ({ match, history }) => {
                   </TabPanel>
 
                   <TabPanel header="Header III" headerClassName="hide">
-                    <Discussion />
+                    <Discussion
+                    reference={gene.accessionNumber} 
+                    />
                   </TabPanel>
                 </TabView>
               </div>
