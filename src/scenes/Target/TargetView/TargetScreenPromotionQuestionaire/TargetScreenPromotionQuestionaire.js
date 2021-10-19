@@ -90,45 +90,6 @@ const TargetScreenPromotionQuestionaire = () => {
     </div>
   );
 
-  let handleOnError = (err, file, inputElem, reason) => {
-    console.log("---------------------------");
-    console.log(err);
-    console.log("---------------------------");
-  };
-
-  let handleOnDrop = (data) => {
-    // setLoading(true);
-
-    console.log("---------------------------");
-    console.log(data);
-     dto(data);
-
-    console.log("---------------------------");
-  };
-
-  let handleOnRemoveFile = (data) => {
-    console.log("---------------------------");
-    console.log(data);
-    console.log("---------------------------");
-    // setDataFormatingStatus(false);
-  };
-
-  let dto = (hitslits) => {
-    hitslits.forEach(hit => {
-     
-      let formattedHit = {
-              compoundId : hit.data["Compound ID"],
-              enzymeActivity : "",
-              MIC : hit.data["MIC (μM)"],
-              structure : hit.data["Smile String"],
-              clusterGroup : hit.data["Cluster Group"],
-      }
-      
-      hitList.push(formattedHit);
-
-    });
-  }
-
   if (!promoteTargetToScreenDisplayLoading) {
     return (
       <div className="form-demo">
@@ -239,53 +200,6 @@ const TargetScreenPromotionQuestionaire = () => {
 
               <div className="p-field">
                 <label
-                  htmlFor="method"
-                  className={classNames({
-                    "p-error": isFormFieldValid("method"),
-                  })}
-                >
-                  Method
-                </label>
-                <InputText
-                  id="method"
-                  answer="method"
-                  value={formik.values.method}
-                  onChange={formik.handleChange}
-                  autoFocus
-                  className={classNames({
-                    "p-invalid": isFormFieldValid("method"),
-                  })}
-                />
-
-                {getFormErrorMessage("method")}
-              </div>
-
-              <div className="p-field">
-                <label
-                  htmlFor="protocol"
-                  className={classNames({
-                    "p-error": isFormFieldValid("protocol"),
-                  })}
-                >
-                  Protocol
-                </label>
-
-                <InputTextarea
-                  rows={5}
-                  id="protocol"
-                  answer="protocol"
-                  value={formik.values.protocol}
-                  onChange={formik.handleChange}
-                  autoFocus
-                  className={classNames({
-                    "p-invalid": isFormFieldValid("protocol"),
-                  })}
-                />
-
-                {getFormErrorMessage("protocol")}
-              </div>
-              <div className="p-field">
-                <label
                   htmlFor="comment"
                   className={classNames({
                     "p-error": isFormFieldValid("comment"),
@@ -303,21 +217,6 @@ const TargetScreenPromotionQuestionaire = () => {
                     "p-invalid": isFormFieldValid("comment"),
                   })}
                 />
-              </div>
-
-              <div className="p-field">
-                <label>Import Hits CSV</label>
-                <CSVReader
-                  onDrop={handleOnDrop}
-                  onError={handleOnError}
-                  noDrag
-                  style={{}}
-                  config={{ header: true }}
-                  addRemoveButton
-                  onRemoveFile={handleOnRemoveFile}
-                >
-                  <span>Select CSV Data Source for Hits</span>
-                </CSVReader>
               </div>
 
               <Button
