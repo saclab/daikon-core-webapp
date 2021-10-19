@@ -96,6 +96,7 @@ export default class TargetStoreAdmin {
       });
     } catch (error) {
       console.log(error);
+      throw error;
     } finally {
       runInAction(() => {
         this.displayLoading = false;

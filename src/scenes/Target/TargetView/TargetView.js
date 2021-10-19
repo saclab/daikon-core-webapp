@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Menu } from "primereact/menu";
 import { TabView, TabPanel } from "primereact/tabview";
-import { Dialog } from "primereact/dialog";
+import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
@@ -94,27 +94,26 @@ const TargetView = ({ match, history }) => {
       { label: target.accessionNumber },
     ];
 
-    let addScreenHeader = () => {
-      return <React.Fragment>
-        <i className="icon icon-common icon-database"></i> &nbsp; Adding Screening Information For {target.geneName}
-      </React.Fragment>
-    }
-
     
 
     return (
       <React.Fragment>
         <Toast ref={toast} />
-        <Dialog
-          header={addScreenHeader()} 
+        <Sidebar
           visible={displayPromotionDialog}
-          style={{ width: "50vw" }}
-          maximizable
+          position="right"
+          style={{ width: "30em", overflowX: "auto" }}
+          blockScroll={true}
           
           onHide={() => setDisplayPromotionDialog(false)}
         >
+          <h3>{target.geneName}</h3>
+            <i className="icon icon-common icon-plus-circle"></i> &nbsp; Add
+            a <b>New</b> Screen
+            <hr />
+            <br />
           <TargetScreenPromotionQuestionaire />
-        </Dialog>
+        </Sidebar>
         <br />
         <div className="p-d-flex">
           <div className="p-mr-2">

@@ -10,20 +10,20 @@ import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 
 const ScreenDash = () => {
   const rootStore = useContext(RootStoreContext);
-  const { displayLoading, screenRegistry, fetchScreens, uniqueScreens } =
+  const { loadingFetchScreens, screenRegistry, fetchScreens, uniqueScreens } =
     rootStore.screenStore;
 
   /* Local State Management */
 
   useEffect(() => {
-    fetchScreens();
-  }, [fetchScreens]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (screenRegistry.size === 0) fetchScreens();
+  }, [screenRegistry, fetchScreens]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */
 
   const dt = useRef(null);
 
-  if (!displayLoading) {
+  if (!loadingFetchScreens) {
     /* Table Body Templates */
 
     const AccessionNumberBodyTemplate = (rowData) => {

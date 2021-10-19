@@ -33,7 +33,6 @@ import TargetDash from "../../scenes/Target/TargetDash/TargetDash";
 import TargetView from "../../scenes/Target/TargetView/TargetView";
 import ScreenDash from "../../scenes/Screen/ScreenDash/ScreenDash";
 import ScreenView from "../../scenes/Screen/ScreenView/ScreenView";
-import HitsView from "../../scenes/Screen/HitsView/HitsView";
 import TestMolView from "../test/TestMolView/TestMolView";
 import PortfolioDash from "../../scenes/Portfolio/PortfolioDash/PortfolioDash";
 import PortfolioView from "../../scenes/Portfolio/PortfolioView/PortfolioView";
@@ -117,7 +116,7 @@ const App = () => {
             <Route path="/target/:id" component={TargetView} />
 
             <Route exact path="/screen" component={ScreenDash} />
-            <Route path="/screen/:screenId/hits/" component={HitsView} />
+           
             <Route path="/screen/:id" component={ScreenView} />
 
             <Route exact path="/portfolio" component={PortfolioDash} />

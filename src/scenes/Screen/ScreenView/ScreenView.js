@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { TabView, TabPanel } from "primereact/tabview";
+import { Menu } from "primereact/menu";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Toast } from "primereact/toast";
 import { BreadCrumb } from "primereact/breadcrumb";
@@ -10,194 +12,98 @@ import { DataTable } from "primereact/datatable";
 import { Tag } from "primereact/tag";
 import { Column } from "primereact/column";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import ScreenSequences from "./ScreenSequences/ScreenSequences";
+import ValidatedHits from "./ValidatedHits/ValidatedHits";
 
 const ScreenView = ({ match, history }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { displayLoading, screenRegistry, fetchScreens, filterScreensByGene } =
-    rootStore.screenStore;
+  const {
+    loadingFetchScreens,
+    screenRegistry,
+    fetchScreens,
+    filterScreensByGene,
+  } = rootStore.screenStore;
   useEffect(() => {
-    fetchScreens();
-  }, [fetchScreens]);
+    if (screenRegistry.size === 0) fetchScreens();
+  }, [fetchScreens, screenRegistry]);
 
-  const dt = useRef(null);
+  console.log("====SCREEN VIEW");
 
-  if (!displayLoading) {
-    /* Table Body Templates */
+  const SideMenuItems = [
+    {
+      label: "Sections",
+      items: [
+        {
+          label: "Ongoing",
+          icon: "icon icon-common icon-circle-notch",
+          command: () => {
+            setActiveIndex(0);
+          },
+        },
+        {
+          label: "Validated Hits",
+          icon: "icon icon-conceptual icon-structures-3d",
+          command: () => {
+            setActiveIndex(1);
+          },
+        },
+      ],
+    },
+  ];
 
-    const ScreenNameBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Screen Name</span>
-          {rowData.screenName}
-        </React.Fragment>
-      );
-    };
-
-    const LibraryBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Library</span>
-          {rowData.library}
-        </React.Fragment>
-      );
-    };
-
-    const ScientistNameBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Scientist</span>
-          {rowData.scientist}
-        </React.Fragment>
-      );
-    };
-
-    const StartDateBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Start Date</span>
-          {new Date(rowData.startDate).toLocaleDateString()}
-        </React.Fragment>
-      );
-    };
-
-    const EndDateBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">End Date</span>
-          {new Date(rowData.endDate).toLocaleDateString()}
-        </React.Fragment>
-      );
-    };
-
-    const MethodBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Method</span>
-          {rowData.method}
-        </React.Fragment>
-      );
-    };
-
-    const ProtocolBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Protocol</span>
-          {rowData.protocol}
-        </React.Fragment>
-      );
-    };
-
-    const HitsBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Hits</span>
-          <NavLink to={"/screen/" + rowData.id + "/hits/"}>
-            {rowData.hitCount}
-          </NavLink>
-        </React.Fragment>
-      );
-    };
-
-    const StatusBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Status</span>
-          {rowData.status}
-        </React.Fragment>
-      );
-    };
-
-    const CommentsBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Comments</span>
-          {rowData.comment}
-        </React.Fragment>
-      );
-    };
-
-    const hitsHeader = (
-      <React.Fragment>
-        <i className="icon icon-common icon-fullscreen"></i> &nbsp; Hits
-      </React.Fragment>
-    );
-
-    /* Table Header  */
-    // const header = (
-    //   <div className="table-header">
-    //     <span className="heading">List of Targets being Screened</span>
-    //     {/* <span className="p-input-icon-left">
-    //       <i className="pi pi-search" />
-    //       <InputText
-    //         type="search"
-    //         onInput={(e) => setGlobalFilter(e.target.value)}
-    //         placeholder="Search"
-    //       />
-    //     </span> */}
-    //   </div>
-    // );
+  if (!loadingFetchScreens && screenRegistry.size >= 0) {
     return (
-      <div className="datatable-screens">
-        <SectionHeading
-          icon="icon icon-conceptual icon-chemical"
-          heading={"Screens of " + match.params.id}
-        />
-
-        <div className="card">
-          <DataTable
-            ref={dt}
-            value={filterScreensByGene(match.params.id)}
-            paginator
-            rows={10}
-            className="p-datatable-screens"
-            //globalFilter={globalFilter}
-            emptyMessage="No Screens found."
-          >
-            <Column
-              field="ScreenName"
-              header="Screen Name"
-              body={ScreenNameBodyTemplate}
-            />
-
-            <Column field="Status" header="Status" body={StatusBodyTemplate} />
-            <Column
-              field="Library"
-              header="Library"
-              body={LibraryBodyTemplate}
-            />
-            <Column
-              field="ScientistName"
-              header="Scientist"
-              body={ScientistNameBodyTemplate}
-            />
-            <Column
-              field="StartDate"
-              header="Start Date"
-              body={StartDateBodyTemplate}
-            />
-            <Column
-              field="EndDate"
-              header="End Date"
-              body={EndDateBodyTemplate}
-            />
-            <Column field="Method" header="Method" body={MethodBodyTemplate} />
-            <Column
-              field="Protocol"
-              header="Protocol"
-              body={ProtocolBodyTemplate}
-            />
-            <Column field="Hits" header={hitsHeader} body={HitsBodyTemplate} />
-            <Column
-              field="Comments"
-              header="Comments"
-              body={CommentsBodyTemplate}
-            />
-          </DataTable>
+      <React.Fragment>
+        <Toast ref={toast} />
+        <br />
+        <div className="p-d-flex">
+          <div className="p-mr-2">
+            <Menu model={SideMenuItems} />
+          </div>
+          <div className="p-mr-2">
+            <div className="p-d-flex p-flex-column">
+              <div className="p-mb-2">
+                {/* <BreadCrumb model={breadCrumbItems} /> */}
+              </div>
+              <div className="p-mb-2">
+                <SectionHeading
+                  icon="icon icon-conceptual icon-chemical"
+                  heading={"Screens of " + match.params.id}
+                />
+              </div>
+              <div className="p-mb-2">
+                <TabView
+                  activeIndex={activeIndex}
+                  onTabChange={(e) => setActiveIndex(e.index)}
+                >
+                  <TabPanel header="Ongoing" headerClassName="hide">
+                    <SectionHeading
+                      icon="icon icon-common icon-circle-notch"
+                      heading={" Ongoing"}
+                      color={"#f4f4f4"}
+                      textColor={"#000000"}
+                    />
+                    <ScreenSequences geneName={match.params.id} />
+                  </TabPanel>
+                  <TabPanel header="Validated Hits" headerClassName="hide">
+                    <SectionHeading
+                      icon="icon icon-conceptual icon-structures-3d"
+                      heading={"Validated Hits"}
+                      color={"#f4f4f4"}
+                      textColor={"#000000"}
+                    />
+                    <ValidatedHits geneName={match.params.id} />
+                  </TabPanel>
+                </TabView>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 

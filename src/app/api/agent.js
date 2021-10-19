@@ -68,8 +68,10 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
         data.errors.hasOwnProperty("id")
       ) {
         history.push("/notfound");
-      } else if (status === 400 && data != null) {
-        toast.error("400 The Request Failed : " + data);
+      } else if (status === 400 && data !== null) {
+        console.log("----AGENT----");
+        console.log(data?.title);
+        toast.error("400 The Request Failed : " + data?.title);
       } else if (status === 400 && data === null) {
         toast.error("400 Bad request");
       }
@@ -80,10 +82,12 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
       }
 
       if (status === 401) {
-        console.log("unauthorized please redirect to login");
+        console.log("401 Unauthorized or insufficient privileges");
       }
     } catch (e) {
     } finally {
+      console.log("----AGENT---- THROWING error");
+      console.log(error.response);
       throw error.response;
     }
   }
@@ -133,8 +137,10 @@ const TargetAdmin = {
 const Screen = {
   list: () => requests.get(`/screen/`),
   details: (id) => requests.get(`/screen/${id}`),
-  create: (newScreen) => requests.post(`/screen`, newScreen)
+  create: (newScreen) => requests.post(`/screen`, newScreen),
+  createSequence : (screenId, newSequence) => requests.post(`/screensequence/${screenId}`, newSequence)
 };
+
 
 
 const exports = {

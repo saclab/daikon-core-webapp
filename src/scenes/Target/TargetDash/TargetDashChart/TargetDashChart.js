@@ -1,86 +1,29 @@
-import React from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
+import _ from "lodash";
+
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
 import history from "../../../../history";
-const TargetDashChart = () => {
-  let data = [
-    {
-      id: "RpoB",
-      data: [
-        {
-          x: 0.75,
-          y: 0.9,
-          guid: "aaaaa"
-        },
-      ],
-    },
-    {
-      id: "birA",
-      data: [
-        {
-          x: 0.51,
-          y: 0.51,
-          guid: "aaaaab"
-        },
-      ],
-    },
-    {
-      id: "Pks13",
-      data: [
-        {
-          x: 0.45,
-          y: 0.65,
-          guid: "aaaaac"
-        },
-      ],
-    },
-    {
-      id: "PptT",
-      data: [
-        {
-          x: 0.4,
-          y: 0.6,
-          guid : "403b9d75-ac24-48d5-994d-7d51f33f1982",
-        },
-      ],
-    },
-    {
-      id: "AccA3",
-      data: [
-        {
-          x: 0.26,
-          y: 0.4,
-        },
-      ],
-    },
-    {
-      id: "MenG/H",
-      data: [
-        {
-          x: 0.25,
-          y: 0.3,
-        },
-      ],
-    },
-    {
-      id: "MDH",
-      data: [
-        {
-          x: 0.1,
-          y: 0.3,
-        },
-      ],
-    },
-    {
-      id: "CyA",
-      data: [
-        {
-          x: 0.35,
-          y: 0.8,
-        },
-      ],
-    },
-  ];
+const TargetDashChart = ({ targets }) => {
+  let graphData = [];
 
+  console.log("START generating graphdata");
+  console.log(targets.length);
+  targets.forEach((target) => {
+    graphData.push({
+      id: target.geneName,
+      data: [
+        {
+          x: target.likeScore,
+          y: target.impactScore,
+          guid: target.id,
+        },
+      ],
+    });
+  });
+  console.log("END generating graphdata");
+
+  console.log("Rendering graph");
+  console.log(graphData.length);
   const CustomNode = ({
     node,
     x,
@@ -95,7 +38,6 @@ const TargetDashChart = () => {
   }) => {
     return (
       <React.Fragment>
-        
         <g transform={`translate(${x},${y}) rotate(45)`}>
           <circle
             r={size / 2}
@@ -106,13 +48,11 @@ const TargetDashChart = () => {
             onMouseLeave={onMouseLeave}
             onClick={onClick}
           />
-          
+
           <text x="15" y="0" fill="black" fontSize="smaller">
             {node.id.substring(0, node.id.length - 2)}
           </text>
-          
         </g>
-        
       </React.Fragment>
     );
   };
@@ -120,13 +60,13 @@ const TargetDashChart = () => {
   let nodeClicked = (node, event) => {
     console.log(node);
     console.log(event);
-    history.push("./"+node.data.guid);
-  }
+    history.push("./" + node.data.guid);
+  };
 
   return (
-    <div style={{ height: "650px", width: "650px", marginTop:"10px"}}>
+    <div style={{ height: "650px", width: "650px", marginTop: "10px" }}>
       <ResponsiveScatterPlot
-        data={data}
+        data={graphData}
         margin={{ top: 0, right: 10, bottom: 80, left: 80 }}
         xScale={{ type: "linear", min: 0, max: 1 }}
         yScale={{ type: "linear", min: 0, max: 1 }}
@@ -141,7 +81,7 @@ const TargetDashChart = () => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Like Score",
+          legend: "Likelihood Score --->",
           legendPosition: "middle",
           legendOffset: 46,
         }}
@@ -150,7 +90,7 @@ const TargetDashChart = () => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Impact Score",
+          legend: "Biological Impact Score --->",
           legendPosition: "middle",
           legendOffset: -60,
         }}
@@ -163,18 +103,7 @@ const TargetDashChart = () => {
           "legends",
           "annotations",
         ]}
-        annotations={[
-          {
-            type: "circle",
-            match: { id: "PptT" },
-            noteX: 50,
-            noteY: 50,
-            offset: 3,
-            noteTextOffset: -3,
-            noteWidth: 10,
-            note: "an annotation",
-          },
-        ]}
+        
         renderNode={CustomNode}
       />
     </div>
