@@ -6,12 +6,12 @@ import { confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
 import GenomeViewNonPublicData from "./GenomeViewNonPublicData/GenomeViewNonPublicData";
-import GenomeViewBackgroundInformation from "./GenomeViewBackgroundInformation/GenomeViewBackgroundInformation";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import GeneViewMycobrowswer from "./GeneViewMycobrowswer/GeneViewMycobrowswer";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import Discussion from "../../../app/common/Discussion/Discussion";
 
 const GeneView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -57,13 +57,24 @@ const GeneView = ({ match, history }) => {
         //     setActiveIndex(1);
         //   },
         // },
+       
         {
           label: "Non-Public Data",
+          icon: "ri-git-repository-private-fill",
+          command: () => {
+            setActiveIndex(1);
+          },
+        },
+
+        {
+          label: "Discussion",
           icon: "ri-git-repository-private-fill",
           command: () => {
             setActiveIndex(2);
           },
         },
+
+        
       ],
     },
     {
@@ -158,10 +169,8 @@ const GeneView = ({ match, history }) => {
                       geneHistory={geneHistory}
                     />
                   </TabPanel>
+                  
                   <TabPanel header="Header II" headerClassName="hide">
-                    <GenomeViewBackgroundInformation />
-                  </TabPanel>
-                  <TabPanel header="Header III" headerClassName="hide">
                     <GenomeViewNonPublicData
                       id={match.params.id}
                       gene={gene}
@@ -170,6 +179,12 @@ const GeneView = ({ match, history }) => {
                       fetchGeneHistory={() => fetchGeneHistory()}
                       historyDisplayLoading={historyDisplayLoading}
                       geneHistory={geneHistory}
+                    />
+                  </TabPanel>
+
+                  <TabPanel header="Header III" headerClassName="hide">
+                    <Discussion
+                    reference={gene.accessionNumber} 
                     />
                   </TabPanel>
                 </TabView>

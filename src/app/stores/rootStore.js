@@ -12,6 +12,7 @@ import GeneStoreAdmin from "./geneStoreAdmin";
 import TargetStoreAdmin from "./targetStoreAdmin";
 import PostPortfolioStore from "./postPortfolioStore";
 import HitsStore from "./hitsStore";
+import CommentStore from "./commentStore";
 
 
 configure({ enforceActions: "always" });
@@ -29,6 +30,7 @@ export class RootStore {
   targetStoreAdmin;
   portfolioStore;
   hitsStore;
+  commentStore;
   
 
   constructor() {
@@ -44,6 +46,7 @@ export class RootStore {
     this.geneStoreAdmin = new GeneStoreAdmin(this);
     this.targetStoreAdmin = new TargetStoreAdmin(this);
     this.postPortfolioStore = new PostPortfolioStore(this);
+    this.commentStore = new CommentStore(this);
   
   }
 }

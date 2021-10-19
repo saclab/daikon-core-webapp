@@ -44,6 +44,8 @@ import TargetAdminEditDetails from "../../scenes/Admin/TargetAdmin/TargetAdminEd
 import FHA from "../../scenes/FHA/FHA";
 import PostPortfolioDash from "../../scenes/PostPortfolio/PostPortfolioDash/PostPortfolioDash";
 import PostPortfolioView from "../../scenes/PostPortfolio/PostPortfolioView/PostPortfolioView";
+import Discussion from "../common/Discussion/Discussion";
+
 
 
 const App = () => {
@@ -136,6 +138,7 @@ const App = () => {
             <Route exact path="/admin/gene" component={GeneAdminDash} />
             <Route exact path="/admin/target" component={TargetAdminDash} />
             <Route path="/admin/target/:id" component={TargetAdminEditDetails} />
+            <Route path="/gene/:id/comment" component={Discussion} />
 
             <Route component={NotFound} />
           </Switch>
