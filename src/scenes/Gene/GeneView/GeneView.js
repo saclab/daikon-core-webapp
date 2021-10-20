@@ -68,7 +68,7 @@ const GeneView = ({ match, history }) => {
 
         {
           label: "Discussion",
-          icon: "ri-git-repository-private-fill",
+          icon: "ri-discuss-line",
           command: () => {
             setActiveIndex(2);
           },
