@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import dateFormat, { masks } from "dateformat";
+import { Sidebar } from "primereact/sidebar";
 
 import { Fieldset } from "primereact/fieldset";
 import { Button } from "primereact/button";
@@ -14,10 +15,20 @@ import { RootStoreContext } from "../../stores/rootStore";
 import Loading from "../../layout/Loading/Loading";
 import StartDiscussion from "./StartDiscussion";
 
-const Discussion = ({ reference }) => {
+const Discussion = ({ reference, section }) => {
   const rootStore = useContext(RootStoreContext);
-  const { fetchDiscussions, loadingDiscussions, discussions } =
-    rootStore.discussionStore;
+  const {
+    fetchDiscussions,
+    loadingDiscussions,
+    discussions,
+    newDiscussion,
+    postingDiscussion,
+    editDiscussion,
+    editingDiscussion,
+    newReply,
+    postingReply,
+  } = rootStore.discussionStore;
+  const { user } = rootStore.userStore;
 
   useEffect(() => {
     fetchDiscussions(reference);
@@ -31,6 +42,9 @@ const Discussion = ({ reference }) => {
   const [userReplyValue, setuserReplyValue] = useState({});
   const [displayReplyBox, setDisplayReplyBox] = useState({});
 
+  const [displayEditBox, setDisplayEditBox] = useState({});
+  const [editBoxValue, setEditBoxValue] = useState({});
+
   const displayAllDiscussions = () => {
     setDisplayDiscussionDialog(true);
   };
@@ -39,24 +53,29 @@ const Discussion = ({ reference }) => {
     return <Loading />;
   }
 
-  let startNewDiscussion = () => {
-    return (
-      <React.Fragment>
-        <i className="pi pi-comments"></i> &nbsp; Start a new discussion
-      </React.Fragment>
-    );
-  };
-
   let mapReplyValues = (id, value) => {
     let tempValue = { ...userReplyValue };
     tempValue[id] = value;
     setuserReplyValue(tempValue);
   };
 
-  let mapDisplayReplyBox = (id) => {
+  let mapDisplayReplyBox = (id, value) => {
     let tempValue = { ...displayReplyBox };
-    tempValue[id] = true;
+    tempValue[id] = value;
     setDisplayReplyBox(tempValue);
+  };
+
+  let mapEditBoxValues = (id, value) => {
+    let tempValue = { ...editBoxValue };
+    tempValue[id] = value;
+    setEditBoxValue(tempValue);
+  };
+
+  let mapDisplayEditBox = (discussion, visible) => {
+    mapEditBoxValues(discussion.id, discussion.description);
+    let tempValue = { ...displayEditBox };
+    tempValue[discussion.id] = visible;
+    setDisplayEditBox(tempValue);
   };
 
   let subtitleTemplate = (discussion) => {
@@ -73,6 +92,38 @@ const Discussion = ({ reference }) => {
     );
   };
 
+  let submitEditDiscussion = (discussion) => {
+    if (discussion.description === editBoxValue[discussion.id]) {
+      mapDisplayEditBox(discussion, false);
+      return;
+    }
+
+    editDiscussion({
+      ...discussion,
+      description: editBoxValue[discussion.id],
+    }).then((res) => {
+      if (res !== null) mapDisplayEditBox(discussion, false);
+    });
+  };
+
+  let submitReply = (discussion) => {
+
+    
+    let replyV = userReplyValue[discussion.id]?.trim();
+    console.log("replyV = " + replyV);
+
+    if (replyV === '' || replyV === undefined || replyV === null) {
+      mapDisplayReplyBox(discussion.id, false);
+      return;
+    }
+    newReply(discussion, {
+      discussionId: discussion.id,
+      body: replyV,
+    }).then((res) => {
+      if (res !== null) mapDisplayReplyBox(discussion.id, false);
+    });
+  };
+
   let titleTemplate = (discussion) => {
     return (
       <div>
@@ -87,90 +138,178 @@ const Discussion = ({ reference }) => {
     );
   };
 
-  let formatteddiscussions = discussions.map((discussion) => {
-    let formattedReplies = <React.Fragment />;
-    if (discussion.replies.length > 0) {
-      formattedReplies = discussion.replies.map((reply) => {
-        return (
-          <div key={reply.id}>
-            <Divider align="left">
-              <div className="p-d-inline-flex p-ai-center">
-                {subtitleTemplate(reply)}
+  let formatteddiscussions =
+    discussions.length > 0 ? (
+      discussions.map((discussion) => {
+        let formattedReplies = <React.Fragment />;
+        if (discussion.replies.length > 0) {
+          formattedReplies = discussion.replies.map((reply) => {
+            return (
+              <div key={reply.id}>
+                <Divider align="left">
+                  <div className="p-d-inline-flex p-ai-center">
+                    {subtitleTemplate(reply)}
+                  </div>
+                </Divider>
+                <p>{reply.body}</p>
               </div>
-            </Divider>
-            <p>{reply.body}</p>
-          </div>
-        );
-      });
-    }
+            );
+          });
+        }
 
-    return (
-      <Card
-        title={titleTemplate(discussion)}
-        subTitle={subtitleTemplate(discussion)}
-        key={discussion.id}
-        style={{ marginTop: "10px" }}
-      >
-        <p>
-          {discussion.body}{" "}
-          <Button
-            label="Reply"
-            className="p-button-link"
-            icon="ri-arrow-left-up-line"
-            style={{ padding: "0rem 0rem" }}
-            onClick={() => mapDisplayReplyBox(discussion.id)}
-          />
-        </p>
-        <Divider align="left" type="dashed">
-          <b>Replies</b>
-        </Divider>
-        <div style={{ marginLeft: "50px" }}>
-          {displayReplyBox[discussion.id] && (
-            <React.Fragment>
-              <InputTextarea
-                value={userReplyValue[discussion.id]}
-                onChange={(e) => mapReplyValues(discussion.id, e.target.value)}
-                rows={2}
-                style={{ width: "100%" }}
-                autoResize
-                autoFocus
-      
-              />
+        return (
+          <Card
+            title={titleTemplate(discussion)}
+            subTitle={subtitleTemplate(discussion)}
+            key={discussion.id}
+            style={{ marginTop: "10px" , width: "100%"}}
+          >
+            <p>
+              {displayEditBox[discussion.id] ? (
+                <React.Fragment>
+                  <InputTextarea
+                    value={editBoxValue[discussion.id]}
+                    onChange={(e) =>
+                      mapEditBoxValues(discussion.id, e.target.value)
+                    }
+                    rows={2}
+                    style={{ width: "100%" }}
+                    autoResize
+                    autoFocus
+                  />
+                  <Button
+                    className="p-button-rounded"
+                    style={{
+                      background: "#28477f",
+                      border: "0px solid #28477f",
+                      padding: "0.4rem 0.6rem",
+                      float: "right",
+                      marginTop: "0.2rem",
+                      fontSize: "small",
+                    }}
+                    label="Save Edit"
+                    icon="pi pi-reply"
+                    onClick={() => {
+                      submitEditDiscussion(discussion);
+                    }}
+                    loading={editingDiscussion}
+                  />
+                </React.Fragment>
+              ) : (
+                <p style={{ marginBottom: "0.2rem" }}>
+                  {discussion.description}
+                </p>
+              )}
+              <br />
+
+              {discussion.postedBy === user.email &&
+                (!displayEditBox[discussion.id] ? (
+                  <Button
+                    label="Edit"
+                    className="p-button-link"
+                    icon="ri-edit-2-line"
+                    style={{ padding: "0.4rem 0.6rem", float: "right" }}
+                    onClick={() => mapDisplayEditBox(discussion, true)}
+                  />
+                ) : (
+                  <Button
+                    label="Cancel Edit"
+                    className="p-button-link"
+                    icon="ri-close-circle-line"
+                    style={{ padding: "0.4rem 0.6rem", float: "right" }}
+                    onClick={() => mapDisplayEditBox(discussion, false)}
+                  />
+                ))}
               <Button
-              className="p-button-rounded"
-                style={{
-                  background: "#28477f",
-                  border: "0px solid #28477f",
-                  padding: "0.4rem 0.6rem",
-                  float: "right",
-                  marginTop : "0.2rem",
-                  fontSize: "small"
-                }}
                 label="Reply"
-                icon="pi pi-reply"
+                className="p-button-link"
+                icon="ri-reply-line"
+                style={{ padding: "0.4rem 0.6rem", float: "right" }}
+                onClick={() => mapDisplayReplyBox(discussion.id, true)}
               />
-            </React.Fragment>
-          )}
+            </p>
+            <Divider align="left" type="dashed">
+              <b>Replies</b>
+            </Divider>
+            <div style={{ marginLeft: "50px" }}>
+              {displayReplyBox[discussion.id] && (
+                <React.Fragment>
+                  <InputTextarea
+                    value={userReplyValue[discussion.id]}
+                    onChange={(e) =>
+                      mapReplyValues(discussion.id, e.target.value)
+                    }
+                    rows={2}
+                    style={{ width: "100%" }}
+                    autoResize
+                    autoFocus
+                  />
+                  <Button
+                    className="p-button-rounded"
+                    style={{
+                      background: "#28477f",
+                      border: "0px solid #28477f",
+                      padding: "0.4rem 0.6rem",
+                      float: "right",
+                      marginTop: "0.2rem",
+                      fontSize: "small",
+                    }}
+                    label="Reply"
+                    icon="pi pi-reply"
+                    onClick={() => submitReply(discussion)}
+                  />
+                </React.Fragment>
+              )}
 
-          {formattedReplies}
-        </div>
+              {formattedReplies}
+            </div>
 
-        <br />
-      </Card>
+            <br />
+          </Card>
+        );
+      })
+    ) : (
+      <React.Fragment />
     );
-  });
 
   return (
     <React.Fragment>
-      <Dialog
-        header={startNewDiscussion()}
+      <Sidebar
         visible={displayDiscussionDialog}
-        style={{ width: "50vw" }}
-        maximizable
+        position="right"
+        style={{ width: "30em", overflowX: "auto" }}
+        blockScroll={true}
         onHide={() => setDisplayDiscussionDialog(false)}
       >
-        <StartDiscussion />
-      </Dialog>
+        <h2>Start a new topic.</h2>
+
+        <Tag
+          style={{
+            background: "#CCCCCC",
+            padding: "0.1rem 0.5rem",
+            fontSize: "x-large",
+          }}
+          value={section}
+        />
+        <Tag
+          style={{
+            background: "#28477f",
+            padding: "0.1rem 0.5rem",
+            fontSize: "x-large",
+            marginLeft: "1rem",
+          }}
+          value={reference}
+        />
+        <br />
+        <br />
+        <StartDiscussion
+          reference={reference}
+          section={section}
+          newDiscussion={newDiscussion}
+          postingDiscussion={postingDiscussion}
+          close={() => setDisplayDiscussionDialog(false)}
+        />
+      </Sidebar>
 
       <Fieldset legend="Discussion board">
         <Button
