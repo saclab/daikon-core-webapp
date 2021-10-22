@@ -4,8 +4,6 @@ import history from "../../history";
 import AuthService from "../../services/AuthService";
 import AppSettingsService from "../../services/AppSettingsService";
 
-
-
 /*  MSAL SERVICE CREATION */
 const appSettings = new AppSettingsService();
 const AuthServiceInstance = new AuthService(appSettings);
@@ -98,7 +96,8 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
 const Gene = {
   list: () => requests.get("/gene"),
   view: (id) => requests.get(`/gene/${id}`),
-  viewByAccessionNo: (accessionNo) => requests.get(`/gene/by-accession/${accessionNo}`),
+  viewByAccessionNo: (accessionNo) =>
+    requests.get(`/gene/by-accession/${accessionNo}`),
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
   history: (id) => requests.get(`/gene/${id}/history`),
   promotionQuestions: () => requests.get(`/geneconfig/promote/questionaire`),
@@ -123,25 +122,37 @@ const Admin = {
 
 const Target = {
   list: () => requests.get(`/target/`),
-  details: (id) => requests.get(`/target/${id}`)
+  details: (id) => requests.get(`/target/${id}`),
 };
 
 const TargetAdmin = {
   create: (data) => requests.post(`/admin/target`, data),
   import: (data) => requests.post(`/admin/target/import`, data),
   details: (id) => requests.get(`/target/${id}`),
-  edit: (updatedTarget) => requests.post(`/admin/target/${updatedTarget.id}`, updatedTarget),
+  edit: (updatedTarget) =>
+    requests.post(`/admin/target/${updatedTarget.id}`, updatedTarget),
 };
-
 
 const Screen = {
   list: () => requests.get(`/screen/`),
   details: (id) => requests.get(`/screen/${id}`),
   create: (newScreen) => requests.post(`/screen`, newScreen),
-  createSequence : (screenId, newSequence) => requests.post(`/screensequence/${screenId}`, newSequence)
+  createSequence: (screenId, newSequence) =>
+    requests.post(`/screensequence/${screenId}`, newSequence),
 };
 
-
+const Discussion = {
+  list: (reference) => requests.get(`/Discussion/${reference}`),
+  new: (discussion) => requests.post(`/Discussion/`, discussion),
+  edit: (id, discussion) => requests.post(`/Discussion/${id}`, discussion),
+  delete: (id) => requests.del(`/Discussion/${id}`),
+  reply: (discussionId, reply) =>
+    requests.post(`/Discussion/${discussionId}/reply`, reply),
+  editReply: (discussionId, replyId, reply) =>
+    requests.post(`/Discussion/${discussionId}/reply/${replyId}`, reply),
+  deleteReply: (discussionId, replyId) =>
+    requests.del(`/Discussion/${discussionId}/reply/${replyId}`),
+};
 
 const exports = {
   AuthServiceInstance,
@@ -151,7 +162,8 @@ const exports = {
   Admin,
   Target,
   TargetAdmin,
-  Screen
+  Screen,
+  Discussion,
 };
 
 export default exports;
