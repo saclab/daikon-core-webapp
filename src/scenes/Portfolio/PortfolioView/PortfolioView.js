@@ -75,7 +75,7 @@ const PortfolioView = ({ match, history }) => {
           <div className="p-mr-2">
             <Menu model={items} />
           </div>
-          <div className="p-mr-2">
+          <div className="p-mr-2" style={{width:"100vw"}}>
             <div className="p-d-flex p-flex-column">
               <div className="p-mb-2">
                 <BreadCrumb model={breadCrumbItems} />
