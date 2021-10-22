@@ -101,7 +101,7 @@ const App = () => {
 
         <div className={cssClass.Scene}>
           <br />
-          <Switch>
+          <Switch >
             <Route exact path="/" component={Home} />
 
             <Route
