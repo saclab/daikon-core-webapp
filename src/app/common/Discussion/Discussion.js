@@ -60,6 +60,7 @@ const Discussion = ({ reference, section }) => {
   };
 
   let mapDisplayReplyBox = (id, value) => {
+    mapReplyValues(id, "");
     let tempValue = { ...displayReplyBox };
     tempValue[id] = value;
     setDisplayReplyBox(tempValue);
@@ -107,12 +108,10 @@ const Discussion = ({ reference, section }) => {
   };
 
   let submitReply = (discussion) => {
-
-    
     let replyV = userReplyValue[discussion.id]?.trim();
     console.log("replyV = " + replyV);
 
-    if (replyV === '' || replyV === undefined || replyV === null) {
+    if (replyV === "" || replyV === undefined || replyV === null) {
       mapDisplayReplyBox(discussion.id, false);
       return;
     }
@@ -120,7 +119,10 @@ const Discussion = ({ reference, section }) => {
       discussionId: discussion.id,
       body: replyV,
     }).then((res) => {
-      if (res !== null) mapDisplayReplyBox(discussion.id, false);
+      if (res !== null) {
+        mapDisplayReplyBox(discussion.id, false);
+        mapEditBoxValues(discussion.id, "");
+      }
     });
   };
 
@@ -162,7 +164,7 @@ const Discussion = ({ reference, section }) => {
             title={titleTemplate(discussion)}
             subTitle={subtitleTemplate(discussion)}
             key={discussion.id}
-            style={{ marginTop: "10px" , width: "100%"}}
+            style={{ marginTop: "10px", width: "100%" }}
           >
             <p>
               {displayEditBox[discussion.id] ? (
@@ -196,7 +198,7 @@ const Discussion = ({ reference, section }) => {
                   />
                 </React.Fragment>
               ) : (
-                <p style={{ marginBottom: "0.2rem" }}>
+                <p style={{ marginBottom: "0.2rem" , whiteSpace: "pre-line"}}>
                   {discussion.description}
                 </p>
               )}
