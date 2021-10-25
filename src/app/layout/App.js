@@ -45,8 +45,7 @@ import FHA from "../../scenes/FHA/FHA";
 import PostPortfolioDash from "../../scenes/PostPortfolio/PostPortfolioDash/PostPortfolioDash";
 import PostPortfolioView from "../../scenes/PostPortfolio/PostPortfolioView/PostPortfolioView";
 import Discussion from "../common/Discussion/Discussion";
-
-
+import UserManager from "../../scenes/Admin/UserManager/UserManager";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -101,7 +100,7 @@ const App = () => {
 
         <div className={cssClass.Scene}>
           <br />
-          <Switch >
+          <Switch>
             <Route exact path="/" component={Home} />
 
             <Route
@@ -109,6 +108,7 @@ const App = () => {
               path="/admin/user-management/new"
               component={Admin_Authorize}
             />
+            <Route exact path="/admin/user-manager/" component={UserManager} />
 
             <Route exact path="/gene" component={GeneSearch} />
             <Route path="/gene/:id/promote" component={GenomePromote} />
@@ -118,13 +118,11 @@ const App = () => {
             <Route path="/target/:id" component={TargetView} />
 
             <Route exact path="/screen" component={ScreenDash} />
-           
+
             <Route path="/screen/:id" component={ScreenView} />
 
             <Route exact path="/portfolio" component={PortfolioDash} />
             <Route path="/portfolio/:id" component={PortfolioView} />
-
-            
 
             <Route path="/test/bench" component={TestMolView} />
 
@@ -137,7 +135,10 @@ const App = () => {
 
             <Route exact path="/admin/gene" component={GeneAdminDash} />
             <Route exact path="/admin/target" component={TargetAdminDash} />
-            <Route path="/admin/target/:id" component={TargetAdminEditDetails} />
+            <Route
+              path="/admin/target/:id"
+              component={TargetAdminEditDetails}
+            />
             <Route path="/gene/:id/comment" component={Discussion} />
 
             <Route component={NotFound} />
