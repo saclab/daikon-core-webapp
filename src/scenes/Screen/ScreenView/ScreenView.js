@@ -14,6 +14,7 @@ import { Column } from "primereact/column";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import ScreenSequences from "./ScreenSequences/ScreenSequences";
 import ValidatedHits from "./ValidatedHits/ValidatedHits";
+import Discussion from "../../../app/common/Discussion/Discussion";
 
 const ScreenView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -26,6 +27,7 @@ const ScreenView = ({ match, history }) => {
     screenRegistry,
     fetchScreens,
     filterScreensByGene,
+    selectedScreen
   } = rootStore.screenStore;
   useEffect(() => {
     if (screenRegistry.size === 0) fetchScreens();
@@ -51,6 +53,13 @@ const ScreenView = ({ match, history }) => {
             setActiveIndex(1);
           },
         },
+        {
+          label: "Discussion",
+          icon: "ri-discuss-line",
+          command: () => {
+            setActiveIndex(2);
+          },
+        },
       ],
     },
   ];
@@ -64,7 +73,7 @@ const ScreenView = ({ match, history }) => {
           <div className="p-mr-2">
             <Menu model={SideMenuItems} />
           </div>
-          <div className="p-mr-2">
+          <div className="p-mr-2" style={{ width: "100vw" }}>
             <div className="p-d-flex p-flex-column">
               <div className="p-mb-2">
                 {/* <BreadCrumb model={breadCrumbItems} /> */}
@@ -97,6 +106,12 @@ const ScreenView = ({ match, history }) => {
                       textColor={"#000000"}
                     />
                     <ValidatedHits geneName={match.params.id} />
+                  </TabPanel>
+                  <TabPanel header="Discussion" headerClassName="hide">
+                    <Discussion
+                      reference={selectedScreen?.accessionNumber}
+                      section={"Screen"}
+                    />
                   </TabPanel>
                 </TabView>
               </div>

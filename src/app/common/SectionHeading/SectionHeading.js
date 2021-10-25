@@ -37,7 +37,7 @@ const SectionHeading = ({ icon, heading, sub, link, color, textColor }) => {
           marginBottom: "1em",
         }}
       >
-        <div className="p-d-flex" style={{ minWidth: "70em" }}>
+        <div className="p-d-flex" >
           <div className="p-mr-2">
             <h1 style={{ margin: "0px", fontWeight: "lighter", color: htextColor}}>
               <i className={icon}></i> {heading}
