@@ -12,6 +12,11 @@ const MenuBarAdmin = () => {
       command: () => history.push("/gene/"),
     },
     {
+      label: "User Manager",
+      icon: "ri-user-settings-fill",
+      command: () => history.push("/admin/user-manager/"),
+    },
+    {
       label: "Genes",
       icon: "icon icon-conceptual icon-dna",
       command: () => history.push("/admin/gene/"),
