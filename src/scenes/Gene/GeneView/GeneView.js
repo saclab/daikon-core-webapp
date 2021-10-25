@@ -180,7 +180,7 @@ const GeneView = ({ match, history }) => {
                     />
                   </TabPanel>
 
-                  <TabPanel header="Header III" headerClassName="hide">
+                  <TabPanel header="Discussion" headerClassName="hide">
                     <Discussion
                       reference={gene.accessionNumber}
                       section={"Gene"}

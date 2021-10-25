@@ -13,6 +13,7 @@ import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
+import Discussion from "../../../app/common/Discussion/Discussion";
 
 const TargetView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -53,6 +54,13 @@ const TargetView = ({ match, history }) => {
             setActiveIndex(1);
           },
         },
+        {
+          label: "Discussion",
+          icon: "ri-discuss-line",
+          command: () => {
+            setActiveIndex(2);
+          },
+        },
       ],
     },
     {
@@ -69,7 +77,7 @@ const TargetView = ({ match, history }) => {
           label: "View Screens",
           icon: "pi pi-external-link",
           command: (event) => {
-            history.push("/screen/"+target.geneName);
+            history.push("/screen/" + target.geneName);
           },
         },
       ],
@@ -94,8 +102,6 @@ const TargetView = ({ match, history }) => {
       { label: target.accessionNumber },
     ];
 
-    
-
     return (
       <React.Fragment>
         <Toast ref={toast} />
@@ -104,14 +110,13 @@ const TargetView = ({ match, history }) => {
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
           blockScroll={true}
-          
           onHide={() => setDisplayPromotionDialog(false)}
         >
           <h3>{target.geneName}</h3>
-            <i className="icon icon-common icon-plus-circle"></i> &nbsp; Add
-            a <b>New</b> Screen
-            <hr />
-            <br />
+          <i className="icon icon-common icon-plus-circle"></i> &nbsp; Add a{" "}
+          <b>New</b> Screen
+          <hr />
+          <br />
           <TargetScreenPromotionQuestionaire />
         </Sidebar>
         <br />
@@ -119,7 +124,7 @@ const TargetView = ({ match, history }) => {
           <div className="p-mr-2">
             <Menu model={items} />
           </div>
-          <div className="p-mr-2" style={{width:"100vw"}}>
+          <div className="p-mr-2" style={{ width: "100vw" }}>
             <div className="p-d-flex p-flex-column">
               <div className="p-mb-2">
                 <BreadCrumb model={breadCrumbItems} />
@@ -141,13 +146,19 @@ const TargetView = ({ match, history }) => {
                       data={target.targetScorecard.targetScoreCardValues}
                     />
                   </TabPanel>
+
                   <TabPanel header="Target Form" headerClassName="hide">
-                    <TargetPromotionForm data={target.targetScorecard.targetScoreCardValues} />
+                    <TargetPromotionForm
+                      data={target.targetScorecard.targetScoreCardValues}
+                    />
                   </TabPanel>
-                  <TabPanel
-                    header="Header III"
-                    headerClassName="hide"
-                  ></TabPanel>
+
+                  <TabPanel header="Discussion" headerClassName="hide">
+                    <Discussion
+                      reference={target.accessionNumber}
+                      section={"Target"}
+                    />
+                  </TabPanel>
                 </TabView>
               </div>
             </div>
