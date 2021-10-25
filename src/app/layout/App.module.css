@@ -1,6 +1,7 @@
 .Scene {
   min-width: 1280px;
-	margin: 0px 50px 0px 50px;
+  max-width: 96vw;
+	margin: 0px 2vw 0px 2vw;
   float: none !important;
   background-color: white;
 }

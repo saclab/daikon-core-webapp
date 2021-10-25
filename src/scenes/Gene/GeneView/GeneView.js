@@ -57,7 +57,7 @@ const GeneView = ({ match, history }) => {
         //     setActiveIndex(1);
         //   },
         // },
-       
+
         {
           label: "Non-Public Data",
           icon: "ri-git-repository-private-fill",
@@ -68,13 +68,11 @@ const GeneView = ({ match, history }) => {
 
         {
           label: "Discussion",
-          icon: "ri-git-repository-private-fill",
+          icon: "ri-discuss-line",
           command: () => {
             setActiveIndex(2);
           },
         },
-
-        
       ],
     },
     {
@@ -134,14 +132,14 @@ const GeneView = ({ match, history }) => {
     ];
 
     return (
-      <React.Fragment>
+      <div >
         <Toast ref={toast} />
         <br />
         <div className="p-d-flex">
           <div className="p-mr-2">
             <Menu model={items} />
           </div>
-          <div className="p-mr-2">
+          <div className="p-mr-2" style={{width:"100vw"}}>
             <div className="p-d-flex p-flex-column">
               <div className="p-mb-2">
                 <BreadCrumb model={breadCrumbItems} />
@@ -169,7 +167,7 @@ const GeneView = ({ match, history }) => {
                       geneHistory={geneHistory}
                     />
                   </TabPanel>
-                  
+
                   <TabPanel header="Header II" headerClassName="hide">
                     <GenomeViewNonPublicData
                       id={match.params.id}
@@ -182,9 +180,10 @@ const GeneView = ({ match, history }) => {
                     />
                   </TabPanel>
 
-                  <TabPanel header="Header III" headerClassName="hide">
+                  <TabPanel header="Discussion" headerClassName="hide">
                     <Discussion
-                    reference={gene.accessionNumber} 
+                      reference={gene.accessionNumber}
+                      section={"Gene"}
                     />
                   </TabPanel>
                 </TabView>
@@ -192,7 +191,7 @@ const GeneView = ({ match, history }) => {
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 
