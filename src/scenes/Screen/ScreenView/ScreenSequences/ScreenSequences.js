@@ -20,7 +20,7 @@ const ScreenSequences = ({ geneName }) => {
   
 
   useEffect(() => {
-    if (filteredScreens.length === 0) filterScreensByGene(geneName);
+     filterScreensByGene(geneName);
   }, [filteredScreens, filterScreensByGene]);
 
   if (displayLoading) {

@@ -6,6 +6,7 @@ import {
   runInAction,
 } from "mobx";
 import agent from "../api/agent";
+import { toast } from "react-toastify";
 
 export default class TargetStore {
   rootStore;
@@ -156,8 +157,12 @@ export default class TargetStore {
     // send to server
     try {
       res = await agent.Screen.create(newScreen);
+      runInAction(() => {
+        toast.success("Successfully added a new screening series. Please navigate to view screens");
+      });
     } catch (error) {
       console.log(error);
+      
     } finally {
       runInAction(() => {
         this.rootStore.screenStore.screenRegistryCacheValid = false;

@@ -118,11 +118,15 @@ const TargetView = ({ match, history }) => {
           <hr />
           <Message
             severity="info"
-            text={"This would create a new screening series. If you are intending to add screening information to an existing screening set please add it via the screening tab."}
+            text={
+              "This would create a new screening series. If you are intending to add screening information to an existing screening set please add it via the screening tab."
+            }
           />
           <br />
           <br />
-          <TargetScreenPromotionQuestionaire />
+          <TargetScreenPromotionQuestionaire
+            closeSidebar={() => setDisplayPromotionDialog(false)}
+          />
         </Sidebar>
         <br />
         <div className="p-d-flex">
