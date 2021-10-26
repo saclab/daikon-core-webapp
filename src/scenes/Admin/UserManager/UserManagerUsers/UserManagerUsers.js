@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Sidebar } from "primereact/sidebar";
-import { Badge } from "primereact/badge";
+import { ProgressBar } from 'primereact/progressbar';
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -15,12 +15,14 @@ import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import history from "../../../../history";
 import UserManagerUserForm from "./UserManagerUserForm/UserManagerUserForm";
+import UserManagerUserEditForm from "./UserManagerUserEditForm/UserManagerUserEditForm";
 
 const UserManagerUsers = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
 
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
+  const [displayEditDialog, setDisplayEditDialog] = useState(false);
 
   const {
     fetchUsersList,
@@ -29,6 +31,8 @@ const UserManagerUsers = () => {
     addUser,
     loadingAccount,
     updateUser,
+    fetchAccount,
+    selectedAccount,
     fetchOrgs,
     Orgs,
     OrgNames,
@@ -53,16 +57,6 @@ const UserManagerUsers = () => {
     }
   }, [currentUser, Users, fetchUsersList, fetchOrgs, fetchRoles]);
 
-  let emptyUser = {
-    id: null,
-    displayName: "",
-    email: null,
-    roles: [],
-    org: null,
-  };
-  const [user, setUser] = useState(emptyUser);
-  const [userDialog, setUserDialog] = useState(false);
-
   /** Loading Overlay */
   if (displayLoading || loadingRoles || LoadingOrgs) {
     return <Loading />;
@@ -74,7 +68,10 @@ const UserManagerUsers = () => {
         <Button
           icon="icon icon-common icon-edit-user"
           className="p-button-sm p-mr-2"
-          onClick={() => rowData}
+          onClick={() => {
+            fetchAccount(rowData.email);
+            setDisplayEditDialog(true);
+          }}
         />
       </React.Fragment>
     );
@@ -135,6 +132,36 @@ const UserManagerUsers = () => {
             loadingAddAccount={loadingAccount}
             closeSideBar={() => setDisplayAddDialog(false)}
           />
+        </div>
+      </Sidebar>
+
+      <Sidebar
+        visible={displayEditDialog}
+        position="right"
+        // style={{ width: "50%", overflowX: "auto" }}
+        blockScroll={true}
+        onHide={() => setDisplayEditDialog(false)}
+        className="p-sidebar-sm"
+      >
+        <div className="card">
+          <h3>
+            <i className="icon icon-common icon-plus-circle" /> Edit User
+          </h3>
+
+          <hr />
+          <br />
+          {loadingAccount ? (
+            <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar>
+          ) : (
+            <UserManagerUserEditForm
+              org={Orgs}
+              roles={Roles}
+              editAccount={updateUser}
+              loadingAddAccount={loadingAccount}
+              user={selectedAccount}
+              closeSideBar={() => setDisplayEditDialog(false)}
+            />
+          )}
         </div>
       </Sidebar>
     </div>

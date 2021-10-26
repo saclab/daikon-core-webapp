@@ -14,7 +14,7 @@ export default class AdminStore {
   displayLoading = false;
   loadingAccount = false;
   userRegistry = new Map();
-  user = null;
+  selectedAccount = null;
 
   loadingRoles = false;
   rolesRegistry = new Map();
@@ -32,6 +32,8 @@ export default class AdminStore {
       updateUser: action,
       Users: computed,
       loadingAccount : observable,
+      fetchAccount : action,
+      selectedAccount : observable,
 
       fetchRoles: action,
       rolesRegistry: observable,
@@ -111,6 +113,26 @@ export default class AdminStore {
       });
     }
     return resp;
+  };
+
+  fetchAccount = async (email) => {
+    console.log("Admin Store : fetching account for :");
+    console.log(email);
+    this.loadingAccount = true;
+    try {
+      var resp = await agent.Accounts.details(email);
+      runInAction(() => {
+        console.log(resp);
+        this.selectedAccount = resp;
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        //console.log("AdminStore -> displayLoading = false");
+        this.loadingAccount = false;
+      });
+    }
   };
 
   /* Fetch Org list from API */
