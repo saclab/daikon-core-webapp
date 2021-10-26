@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
+import { Sidebar } from "primereact/sidebar";
 import { Badge } from "primereact/badge";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
@@ -9,13 +10,34 @@ import { SelectButton } from "primereact/selectbutton";
 import { Column } from "primereact/column";
 import { Message } from "primereact/message";
 import { BreadCrumb } from "primereact/breadcrumb";
+
 import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import history from "../../../../history";
+import UserManagerUserForm from "./UserManagerUserForm/UserManagerUserForm";
 
 const UserManagerUsers = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
+
+  const [displayAddDialog, setDisplayAddDialog] = useState(false);
+
+  const {
+    fetchUsersList,
+    displayLoading,
+    Users,
+    addUser,
+    loadingAccount,
+    updateUser,
+    fetchOrgs,
+    Orgs,
+    OrgNames,
+    LoadingOrgs,
+    fetchRoles,
+    Roles,
+    RoleNames,
+    loadingRoles,
+  } = rootStore.adminStore;
 
   /* Hide if not admin */
   const currentUser = rootStore.userStore.user;
@@ -23,15 +45,13 @@ const UserManagerUsers = () => {
     if (!currentUser.roles.includes("admin")) {
       history.push("/notfound");
     }
-  });
 
-  const { fetchUsersList, displayLoading, Users, updateUser } =
-    rootStore.adminStore;
-
-  const items = [{ label: "Administrator" }, { label: "User Management" }];
-  const home = {
-    icon: "pi pi-home",
-  };
+    if (Users.length === 0) {
+      fetchUsersList();
+      fetchOrgs();
+      fetchRoles();
+    }
+  }, [currentUser, Users, fetchUsersList, fetchOrgs, fetchRoles]);
 
   let emptyUser = {
     id: null,
@@ -43,31 +63,10 @@ const UserManagerUsers = () => {
   const [user, setUser] = useState(emptyUser);
   const [userDialog, setUserDialog] = useState(false);
 
-  useEffect(() => {
-    //console.log("UserList: -> Fetching userlist via store");
-    fetchUsersList();
-  }, [fetchUsersList]); // eslint-disable-line react-hooks/exhaustive-deps
-
   /** Loading Overlay */
-  if (displayLoading) {
+  if (displayLoading || loadingRoles || LoadingOrgs) {
     return <Loading />;
   }
-
-  const editUser = (user) => {
-    setUser({ ...user });
-    setUserDialog(true);
-  };
-
-  const hideUserDialog = () => {
-    //setSubmitted(false);
-    setUserDialog(false);
-  };
-
-  const saveUser = () => {
-    //setSubmitted(false);
-    updateUser(user);
-    setUserDialog(false);
-  };
 
   const actionBodyTemplate = (rowData) => {
     return (
@@ -75,7 +74,7 @@ const UserManagerUsers = () => {
         <Button
           icon="icon icon-common icon-edit-user"
           className="p-button-sm p-mr-2"
-          onClick={() => editUser(rowData)}
+          onClick={() => rowData}
         />
       </React.Fragment>
     );
@@ -93,7 +92,7 @@ const UserManagerUsers = () => {
         label="Add a new user"
         className="p-button-text"
         style={{ height: "30px", marginRight: "5px" }}
-        onClick={() => {}}
+        onClick={() => setDisplayAddDialog(true)}
       />
 
       <div className="card">
@@ -110,8 +109,36 @@ const UserManagerUsers = () => {
           <Column body={actionBodyTemplate}></Column>
         </DataTable>
       </div>
+      <Sidebar
+        visible={displayAddDialog}
+        position="right"
+        // style={{ width: "50%", overflowX: "auto" }}
+        blockScroll={true}
+        onHide={() => setDisplayAddDialog(false)}
+        className="p-sidebar-sm"
+      >
+        <div className="card">
+          <h3>
+            <i className="icon icon-common icon-plus-circle" /> Authorize a New
+            User
+          </h3>
+          <Message
+            severity="info"
+            text="Before proceeding please make sure that the user is already added in the AD and is allowed to use this app."
+          />
+          <hr />
+          <br />
+          <UserManagerUserForm
+            org={Orgs}
+            roles={Roles}
+            addAccount={addUser}
+            loadingAddAccount={loadingAccount}
+            closeSideBar={() => setDisplayAddDialog(false)}
+          />
+        </div>
+      </Sidebar>
     </div>
   );
 };
 
-export default UserManagerUsers;
+export default observer(UserManagerUsers);
