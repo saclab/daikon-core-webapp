@@ -57,7 +57,9 @@ export default class AdminStore {
     try {
       var resp = await agent.Accounts.listAccounts();
       runInAction(() => {
+        this.userRegistry.clear();
         resp.forEach((user) => {
+          
           this.userRegistry.set(user.id, user);
         });
       });
@@ -80,9 +82,10 @@ export default class AdminStore {
     try {
       var resp = await agent.Accounts.editAccount(user);
       runInAction(() => {
-        this.userRegistry.set(user.id, user);
+        
         toast.success("The user has been modified");
         console.log("FROM ADMIN STORE:updateUser");
+        this.fetchUsersList();
         console.log(resp);
       });
     } catch (error) {
@@ -142,6 +145,7 @@ export default class AdminStore {
     try {
       var resp = await agent.Accounts.listOrgs();
       runInAction(() => {
+        this.orgsRegistry.clear();
         resp.forEach((org) => {
           this.orgsRegistry.set(org.id, org);
         });
