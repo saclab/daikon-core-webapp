@@ -38,13 +38,13 @@ const UserManager = () => {
             setActiveIndex(1);
           },
         },
-        {
-          label: "Roles",
-          icon: "icon icon-common icon-group",
-          command: () => {
-            setActiveIndex(2);
-          },
-        },
+        // {
+        //   label: "Roles",
+        //   icon: "icon icon-common icon-group",
+        //   command: () => {
+        //     setActiveIndex(2);
+        //   },
+        // },
       ],
     },
   ];
@@ -90,7 +90,7 @@ const UserManager = () => {
                   />
                   <UserManagerOrgs />
                 </TabPanel>
-                <TabPanel header="Roles" headerClassName="hide">
+                {/* <TabPanel header="Roles" headerClassName="hide">
                 <SectionHeading
                     icon="icon icon-common icon-group"
                     heading={"Roles"}
@@ -98,7 +98,7 @@ const UserManager = () => {
                     textColor={"#000000"}
                   />
                   Roles
-                </TabPanel>
+                </TabPanel> */}
               </TabView>
             </div>
           </div>

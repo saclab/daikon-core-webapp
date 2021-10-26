@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Sidebar } from "primereact/sidebar";
-import { ProgressBar } from 'primereact/progressbar';
+import { ProgressBar } from "primereact/progressbar";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
+import { InputSwitch } from "primereact/inputswitch";
 import { SelectButton } from "primereact/selectbutton";
 import { Column } from "primereact/column";
 import { Message } from "primereact/message";
@@ -77,6 +77,14 @@ const UserManagerUsers = () => {
     );
   };
 
+  let orgBodyTemplate = (rowData) => {
+    return <p>{rowData?.org?.name} </p>;
+  };
+
+  let orgLockTemplate = (rowData) => {
+    return <InputSwitch checked={rowData.lock} readOnly/>;
+  };
+
   return (
     <div>
       {/* <Message
@@ -98,11 +106,16 @@ const UserManagerUsers = () => {
           value={Users}
           header="Authorized Users"
           className="p-datatable-sm"
+          sortMode="single" sortField="name" sortOrder={1}
         >
           <Column field="displayName" header="Full Name" sortable />
           <Column field="email" header="Email" />
-          <Column field="email" header="Organization" />
-          <Column header="Status" />
+          <Column field="org" header="Organization" body={orgBodyTemplate} sortable/>
+          <Column
+            field="lock"
+            header="Account Locked?"
+            body={orgLockTemplate}
+          />
           <Column body={actionBodyTemplate}></Column>
         </DataTable>
       </div>
@@ -151,7 +164,10 @@ const UserManagerUsers = () => {
           <hr />
           <br />
           {loadingAccount ? (
-            <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar>
+            <ProgressBar
+              mode="indeterminate"
+              style={{ height: "6px" }}
+            ></ProgressBar>
           ) : (
             <UserManagerUserEditForm
               org={Orgs}
