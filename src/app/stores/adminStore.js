@@ -31,9 +31,9 @@ export default class AdminStore {
       userRegistry: observable,
       updateUser: action,
       Users: computed,
-      loadingAccount : observable,
-      fetchAccount : action,
-      selectedAccount : observable,
+      loadingAccount: observable,
+      fetchAccount: action,
+      selectedAccount: observable,
 
       fetchRoles: action,
       rolesRegistry: observable,
@@ -47,6 +47,7 @@ export default class AdminStore {
       Orgs: computed,
       OrgNames: computed,
       LoadingOrgs: observable,
+      updateOrg: action
     });
   }
 
@@ -163,9 +164,48 @@ export default class AdminStore {
     return this.Orgs.map((org) => org.name);
   }
 
-  addOrg = async () => {
+  addOrg = async (newOrg) => {
+    console.log("Admin Store : adding addOrg :");
+    console.log(newOrg);
 
-  }
+    this.LoadingOrgs = true;
+    try {
+      var resp = await agent.Accounts.createOrg(newOrg);
+      runInAction(() => {
+        this.fetchOrgs();
+        toast.success("New organization added : " + newOrg.name);
+      });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      runInAction(() => {
+        this.LoadingOrgs = false;
+      });
+    }
+    return resp;
+  };
+
+  updateOrg = async (org) => {
+    console.log("Admin Store : updating addOrg :");
+    console.log(org);
+    this.LoadingOrgs = true;
+    try {
+      var resp = await agent.Accounts.editOrg(org.id, org);
+      runInAction(() => {
+        this.fetchOrgs();
+        toast.success("The org has been modified");
+        console.log("FROM ADMIN STORE:updateOrg");
+        console.log(resp);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.LoadingOrgs = false;
+      });
+    }
+  };
 
   /* Fetch Roles list from API */
   fetchRoles = async () => {

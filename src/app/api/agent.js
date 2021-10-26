@@ -128,6 +128,7 @@ const Admin = {
 const Accounts = {
   listRoles: () => requests.get("/admin/accounts/roles"),
   listOrgs: () => requests.get("/admin/accounts/orgs"),
+  editOrg: (id, org) => requests.post(`/admin/accounts/orgs/${id}`, org),
   createOrg: (newOrg) => requests.post(`/admin/accounts/orgs`, newOrg),
   listAccounts: () => requests.get("/admin/accounts"),
   details: (email) => requests.get(`/admin/accounts/${email}`),

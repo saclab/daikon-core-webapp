@@ -12,6 +12,7 @@ import { Tag } from "primereact/tag";
 import { Column } from "primereact/column";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import UserManagerUsers from "./UserManagerUsers/UserManagerUsers";
+import UserManagerOrgs from "./UserManagerOrgs/UserManagerOrgs";
 
 
 
@@ -87,7 +88,7 @@ const UserManager = () => {
                     color={"#f4f4f4"}
                     textColor={"#000000"}
                   />
-                  Orgs
+                  <UserManagerOrgs />
                 </TabPanel>
                 <TabPanel header="Roles" headerClassName="hide">
                 <SectionHeading
