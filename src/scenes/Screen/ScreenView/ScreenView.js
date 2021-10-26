@@ -30,8 +30,8 @@ const ScreenView = ({ match, history }) => {
     selectedScreen
   } = rootStore.screenStore;
   useEffect(() => {
-    if (screenRegistry.size === 0) fetchScreens();
-  }, [fetchScreens, screenRegistry]);
+    if (screenRegistry.size === 0 || selectedScreen.geneName !== match.params.id) fetchScreens();
+  }, [fetchScreens, screenRegistry, match.params.id]);
 
   console.log("====SCREEN VIEW");
 
