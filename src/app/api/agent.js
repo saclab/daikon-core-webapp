@@ -130,6 +130,7 @@ const Accounts = {
   listOrgs: () => requests.get("/admin/accounts/orgs"),
   createOrg: (newOrg) => requests.post(`/admin/accounts/orgs`, newOrg),
   listAccounts: () => requests.get("/admin/accounts"),
+  details: (email) => requests.get(`/admin/accounts/${email}`),
   createAccount: (user) => requests.post(`/admin/accounts/`, user),
   editAccount: (user) => requests.post(`/admin/accounts/${user.id}`, user),
 };
