@@ -68,7 +68,7 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
         history.push("/notfound");
       } else if (status === 400 && data !== null) {
         console.log("----AGENT----");
-        console.log(typeof (data));
+        console.log(typeof data);
         if (typeof data === "string") {
           toast.error("400 The Request Failed : " + data);
         } else {
@@ -157,6 +157,10 @@ const Screen = {
     requests.post(`/screensequence/${screenId}`, newSequence),
 };
 
+const Hit = {
+  create: (newHit) => requests.post(`/hit/`, newHit),
+};
+
 const Discussion = {
   list: (reference) => requests.get(`/Discussion/${reference}`),
   new: (discussion) => requests.post(`/Discussion/`, discussion),
@@ -180,6 +184,7 @@ const exports = {
   Target,
   TargetAdmin,
   Screen,
+  Hit,
   Discussion,
 };
 
