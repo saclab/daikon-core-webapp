@@ -40,21 +40,21 @@ const ValidatedHitsList = ({ screenId }) => {
   };
 
   const CompoundIdBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.compoundId}</React.Fragment>;
+    return <React.Fragment>{rowData?.compound?.saccId}</React.Fragment>;
   };
 
   const StructureBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
         <div style={{ minWidth: "350px", marginRight: "50px" }}>
-          <SmilesView smiles={rowData.structure} />
+          <SmilesView smiles={rowData?.compound?.smile} />
         </div>
       </React.Fragment>
     );
   };
 
   const EnzymeActivityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.enzymeActivity}</React.Fragment>;
+    return <React.Fragment>{rowData.iC50}</React.Fragment>;
   };
 
   const MethodBodyTemplate = (rowData) => {
@@ -147,7 +147,7 @@ const ValidatedHitsList = ({ screenId }) => {
             />
             <Column
               field="Cluster"
-              header="Cluster"
+              header="Cluster Group No"
               body={ClusterBodyTemplate}
               style={{ width: "100px" }}
             />
