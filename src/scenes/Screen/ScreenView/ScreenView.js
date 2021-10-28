@@ -80,7 +80,7 @@ const ScreenView = ({ match, history }) => {
               </div>
               <div className="p-mb-2">
                 <SectionHeading
-                  icon="icon icon-conceptual icon-chemical"
+                  icon="icon icon-common icon-search"
                   heading={"Screens of " + match.params.id}
                 />
               </div>
