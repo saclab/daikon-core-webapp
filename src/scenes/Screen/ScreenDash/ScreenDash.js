@@ -81,7 +81,7 @@ const ScreenDash = () => {
     return (
       <div className="datatable-screens">
         <SectionHeading
-          icon="icon icon-conceptual icon-chemical"
+          icon="icon icon-common icon-search"
           heading="Screened Targets"
         />
 
