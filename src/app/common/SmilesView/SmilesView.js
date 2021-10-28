@@ -1,7 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import SmilesDrawer from "smiles-drawer";
+import { ContextMenu } from "primereact/contextmenu";
+import { toast } from "react-toastify";
 
 const SmilesView = ({ smiles, width = 200, height = 200 }) => {
+  const cm = useRef(null);
+
   useEffect(() => {
     let options = { width: width, height: height };
 
@@ -18,9 +22,21 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
     );
   }, [height, smiles, width]);
 
+  const contextMenuItems = [
+    {
+      label: "Copy Smile String",
+      icon: "icon icon-conceptual icon-structures-3d",
+      command: () => {
+        navigator.clipboard.writeText(smiles);
+        toast.success("Copied " + smiles + " to clipboard");
+      },
+    },
+  ];
+
   return (
     <React.Fragment>
-      <canvas id={smiles} />
+      <ContextMenu model={contextMenuItems} ref={cm} />
+      <canvas id={smiles} onContextMenu={(e) => cm.current.show(e)} />
     </React.Fragment>
   );
 };
