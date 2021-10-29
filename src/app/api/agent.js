@@ -68,8 +68,13 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
         history.push("/notfound");
       } else if (status === 400 && data !== null) {
         console.log("----AGENT----");
-        console.log(data?.title);
-        toast.error("400 The Request Failed : " + data?.title);
+        console.log(typeof data);
+        if (typeof data === "string") {
+          toast.error("400 The Request Failed : " + data);
+        } else {
+          console.log(data?.title);
+          toast.error("400 The Request Failed : " + data?.title);
+        }
       } else if (status === 400 && data === null) {
         toast.error("400 Bad request");
       }
@@ -120,6 +125,17 @@ const Admin = {
   addUser: (user) => requests.post(`/admin/accounts/`, user),
 };
 
+const Accounts = {
+  listRoles: () => requests.get("/admin/accounts/roles"),
+  listOrgs: () => requests.get("/admin/accounts/orgs"),
+  editOrg: (id, org) => requests.post(`/admin/accounts/orgs/${id}`, org),
+  createOrg: (newOrg) => requests.post(`/admin/accounts/orgs`, newOrg),
+  listAccounts: () => requests.get("/admin/accounts"),
+  details: (email) => requests.get(`/admin/accounts/${email}`),
+  createAccount: (user) => requests.post(`/admin/accounts/`, user),
+  editAccount: (user) => requests.post(`/admin/accounts/${user.id}`, user),
+};
+
 const Target = {
   list: () => requests.get(`/target/`),
   details: (id) => requests.get(`/target/${id}`),
@@ -141,6 +157,10 @@ const Screen = {
     requests.post(`/screensequence/${screenId}`, newSequence),
 };
 
+const Hit = {
+  create: (newHit) => requests.post(`/hit/`, newHit),
+};
+
 const Discussion = {
   list: (reference) => requests.get(`/Discussion/${reference}`),
   new: (discussion) => requests.post(`/Discussion/`, discussion),
@@ -156,6 +176,7 @@ const Discussion = {
 
 const exports = {
   AuthServiceInstance,
+  Accounts,
   Gene,
   GeneAdmin,
   User,
@@ -163,6 +184,7 @@ const exports = {
   Target,
   TargetAdmin,
   Screen,
+  Hit,
   Discussion,
 };
 

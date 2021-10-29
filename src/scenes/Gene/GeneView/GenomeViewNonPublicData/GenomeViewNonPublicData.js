@@ -34,14 +34,6 @@ const GenomeViewNonPublicData = ({
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Essentiality">
-                {/* <DataTable value={genomeNonPublicData.Essentiality}>
-                  <Column field="Classification" header="Classification"></Column>
-                  <Column field="Condition" header="Condition"></Column>
-                  <Column field="Strain" header="Strain"></Column>
-                  <Column field="Method" header="Method"></Column>
-                  <Column field="Reference" header="Reference"></Column>
-                  <Column field="Notes" header="Notes"></Column>
-                </DataTable> */}
                 <DisplayTable
                   columns={[
                     "Classification",

@@ -16,30 +16,6 @@ const TitleBarSidePanel = ({ toggle, user }) => {
       <div className="card">
         <Button
           type="button"
-          label="Authorize"
-          icon="pi pi-plus"
-          className="p-mr-2 p-mb-2 p-button-text p-button-plain p-button-sm"
-          onClick={() => {
-            toggle();
-            history.push("/admin/user-management/new");
-          }}
-        />
-        <Button
-          type="button"
-          label="Manage Users"
-          icon="pi pi-user-edit"
-          className="p-mb-2 p-button-text p-button-plain p-button-sm"
-          onClick={() => {
-            toggle();
-            history.push("/admin/user-management");
-          }}
-        />
-        <br />
-      </div>
-      <Divider type="dashed" />
-      <div className="card">
-        <Button
-          type="button"
           label="Admin Panel"
           icon="pi arrow-right"
           className="p-mr-2 p-mb-2 p-button-text p-button-plain p-button-sm"

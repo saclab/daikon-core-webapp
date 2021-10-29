@@ -16,12 +16,12 @@ const MenuBar = () => {
     },
     {
       label: "Screen",
-      icon: "icon icon-conceptual icon-chemical",
+      icon: "icon icon-common icon-search",
       command: () => history.push("/screen/"),
     },
     {
       label: "FHA",
-      icon: "icon icon-conceptual icon-structures-3d",
+      icon: "icon icon-conceptual icon-chemical",
       command: () => history.push("/fha/"),
     },
     {

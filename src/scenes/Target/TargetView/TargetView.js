@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Menu } from "primereact/menu";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Sidebar } from "primereact/sidebar";
-import { Button } from "primereact/button";
+import { Message } from "primereact/message";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -116,8 +116,17 @@ const TargetView = ({ match, history }) => {
           <i className="icon icon-common icon-plus-circle"></i> &nbsp; Add a{" "}
           <b>New</b> Screen
           <hr />
+          <Message
+            severity="info"
+            text={
+              "This would create a new screening series. If you are intending to add screening information to an existing screening set please add it via the screening tab."
+            }
+          />
           <br />
-          <TargetScreenPromotionQuestionaire />
+          <br />
+          <TargetScreenPromotionQuestionaire
+            closeSidebar={() => setDisplayPromotionDialog(false)}
+          />
         </Sidebar>
         <br />
         <div className="p-d-flex">
