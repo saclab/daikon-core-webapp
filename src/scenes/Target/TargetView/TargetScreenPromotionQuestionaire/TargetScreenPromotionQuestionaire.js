@@ -1,17 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
-import { CSVReader } from "react-papaparse";
+import { ProgressBar } from "primereact/progressbar";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
 import { observer } from "mobx-react-lite";
+import { Dropdown } from "primereact/dropdown";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
+import history from "../../../../history";
 
-const TargetScreenPromotionQuestionaire = () => {
+const TargetScreenPromotionQuestionaire = ({closeSidebar}) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
@@ -20,51 +22,40 @@ const TargetScreenPromotionQuestionaire = () => {
     promoteTargetToScreenDisplayLoading,
   } = rootStore.targetStore;
 
+  const { fetchOrgs, Orgs, OrgNames, LoadingOrgs } = rootStore.adminStore;
+
   const [showMessage, setShowMessage] = useState(false);
-  const [hitList, setHitList] = useState([]);
+
+  useEffect(() => {
+    fetchOrgs();
+  }, [fetchOrgs]);
 
   const formik = useFormik({
     initialValues: {
-      library: "",
-      startDate: "",
-      endDate: "",
-      method: "",
-      protocol: "",
-      comment: "",
+      org: "",
+      promotionDate: "",
+      notes: "",
     },
     validate: (data) => {
       let errors = {};
 
-      if (!data.library) {
-        errors.library = "Library is required.";
-      }
-
-      if (!data.startDate) {
-        errors.startDate = "Start Date is required.";
-      }
-
-      if (!data.endDate) {
-        errors.endDate = "End Date is required.";
-      }
-
-      if (!data.method) {
-        errors.method = "Method is required.";
-      }
-
-      if (!data.protocol) {
-        errors.protocol = "Protocol is required.";
+      if (!data.promotionDate) {
+        errors.library = "Promotion date  is required.";
       }
 
       return errors;
     },
     onSubmit: (data) => {
-      console.log(hitList);
-      console.log(data);
       data["targetID"] = selectedTarget.id;
-      data["hits"] = hitList;
+      data["orgId"] = data.org.id;
       console.log(data);
-      promoteTargetToScreen(data);
-      setShowMessage(true);
+      promoteTargetToScreen(data).then((res) => {
+        if (res !== null) {
+          closeSidebar();
+        }
+      });
+      //setShowMessage(true);
+      //history.push()
       //formik.resetForm();
     },
   });
@@ -90,7 +81,7 @@ const TargetScreenPromotionQuestionaire = () => {
     </div>
   );
 
-  if (!promoteTargetToScreenDisplayLoading) {
+  if (!promoteTargetToScreenDisplayLoading && !LoadingOrgs) {
     return (
       <div className="form-demo">
         <Dialog
@@ -114,107 +105,74 @@ const TargetScreenPromotionQuestionaire = () => {
         <div>
           <div className="card">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
-              <div className="p-field">
+              <div className="p-field p-col-12 p-md-12">
                 <label
-                  htmlFor="library"
+                  htmlFor="promotionDate"
                   className={classNames({
-                    "p-error": isFormFieldValid("library"),
+                    "p-error": isFormFieldValid("promotionDate"),
                   })}
                 >
-                  Library
+                  Promotion Date
                 </label>
-                <InputText
-                  id="library"
-                  answer="library"
-                  value={formik.values.library}
-                  onChange={formik.handleChange}
-                  autoFocus
-                  className={classNames({
-                    "p-invalid": isFormFieldValid("library"),
-                  })}
-                />
 
-                {getFormErrorMessage("library")}
-              </div>
-
-              <div className="p-field">
-                <label
-                  htmlFor="startDate"
-                  className={classNames({
-                    "p-error": isFormFieldValid("startDate"),
-                  })}
-                >
-                  Start Date
-                </label>
-                {/* <InputText
-                    id="startDate"
-                    answer="startDate"
-                    value={formik.values.startDate}
-                    onChange={formik.handleChange}
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("startDate"),
-                    })}
-                  /> */}
                 <Calendar
-                  id="startDate"
-                  name="startDate"
-                  value={formik.values.startDate}
+                  id="promotionDate"
+                  name="promotionDate"
+                  value={formik.values.promotionDate}
                   onChange={formik.handleChange}
                   dateFormat="dd/mm/yy"
                   mask="99/99/9999"
                   showIcon
                   className={classNames({
-                    "p-invalid": isFormFieldValid("startDate"),
+                    "p-invalid": isFormFieldValid("promotionDate"),
                   })}
                 />
 
-                {getFormErrorMessage("startDate")}
+                {getFormErrorMessage("promotionDate")}
               </div>
-
-              <div className="p-field">
+              <div className="p-field p-col-12 p-md-12">
                 <label
-                  htmlFor="endDate"
+                  htmlFor="org"
                   className={classNames({
-                    "p-error": isFormFieldValid("endDate"),
+                    "p-error": isFormFieldValid("org"),
                   })}
                 >
-                  End Date
+                  Screening Organization
                 </label>
 
-                <Calendar
-                  id="endDate"
-                  name="endDate"
-                  value={formik.values.endDate}
-                  onChange={formik.handleChange}
-                  dateFormat="dd/mm/yy"
-                  mask="99/99/9999"
-                  showIcon
+                <Dropdown
+                  value={formik.values.org}
+                  options={Orgs}
+                  onChange={formik.handleChange("org")}
+                  optionLabel="name"
+                  placeholder="Select an org"
+                  filter
+                  showClear
+                  filterBy="name"
                   className={classNames({
-                    "p-invalid": isFormFieldValid("endDate"),
+                    "p-invalid": isFormFieldValid("org"),
                   })}
                 />
-
-                {getFormErrorMessage("endDate")}
+                {getFormErrorMessage("org")}
               </div>
 
-              <div className="p-field">
+              <div className="p-field p-col-12 p-md-12">
                 <label
-                  htmlFor="comment"
+                  htmlFor="notes"
                   className={classNames({
                     "p-error": isFormFieldValid("comment"),
                   })}
                 >
-                  Comments
+                  Notes
                 </label>
-                <InputText
-                  id="comment"
-                  answer="comment"
-                  value={formik.values.comment}
+                <InputTextarea
+                  id="notes"
+                  answer="notes"
+                  value={formik.values.notes}
                   onChange={formik.handleChange}
                   autoFocus
                   className={classNames({
-                    "p-invalid": isFormFieldValid("comment"),
+                    "p-invalid": isFormFieldValid("notes"),
                   })}
                 />
               </div>
@@ -222,7 +180,7 @@ const TargetScreenPromotionQuestionaire = () => {
               <Button
                 icon="icon icon-common icon-database-submit"
                 type="submit"
-                label="Submit"
+                label="Add Screen"
                 className="p-mt-2"
               />
             </form>
@@ -232,7 +190,7 @@ const TargetScreenPromotionQuestionaire = () => {
     );
   }
 
-  return <Loading />;
+  return <ProgressBar mode="indeterminate" style={{ height: "6px" }} />;
 };
 
 export default observer(TargetScreenPromotionQuestionaire);
