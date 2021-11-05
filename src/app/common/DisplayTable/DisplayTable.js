@@ -7,12 +7,14 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 import { ProgressBar } from "primereact/progressbar";
 import { BlockUI } from "primereact/blockui";
+import { Sidebar } from "primereact/sidebar";
+import { InputText } from "primereact/inputtext";
 
 const DisplayTable = ({ columns, data, edit, loading }) => {
   const [tableData, setTableData] = useState([...data]);
   const [originalRows, setoriginalRows] = useState(null);
 
-  const [displayLoadingBar, setDisplayLoadingBar] = useState(loading);
+  const [displayAddDialog, setDisplayAddDialog] = useState(false);
 
   console.log("Loading is " + loading);
   let onRowEditInit = (event) => {
@@ -39,7 +41,6 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
   };
 
   let onRowEditSave = (e) => {
-    setDisplayLoadingBar(true);
     console.log("onRowEditSave");
     console.log(e.data);
     edit(e.data);
@@ -78,10 +79,40 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
         label="Add"
         className="p-button-text p-button-sm"
         style={{ height: "30px", marginRight: "5px" }}
-        //onClick={() => setDisplayHitsImportSidebar(true)}
+        onClick={() => setDisplayAddDialog(true)}
       />
     </div>
   );
+
+
+  /* Add Form Section */
+
+  let generateAddFormFields = columns.map((element) => {
+    return (
+      <div className="p-field p-col-12 p-md-12">
+        <label
+          htmlFor={element}
+          // className={classNames({
+          //   "p-error": isFormFieldValid("email"),
+          // })}
+        >
+          <StartCase string={element} />
+        </label>
+        <InputText
+          id={element}
+          // value={formik.values.email}
+          // onChange={formik.handleChange}
+          
+          // className={classNames({
+          //   "p-invalid": isFormFieldValid("email"),
+          // })}
+        />
+
+        {/* {getFormErrorMessage("email")} */}
+      </div>
+    );
+  });
+  /* End Add Form Section */
 
   return (
     <div>
@@ -107,6 +138,31 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
           ></Column>
         </DataTable>
       </BlockUI>
+      <Sidebar
+        visible={displayAddDialog}
+        position="right"
+        // style={{ width: "50%", overflowX: "auto" }}
+        blockScroll={true}
+        onHide={() => setDisplayAddDialog(false)}
+        className="p-sidebar-md"
+      >
+        <div className="card">
+          <h3>
+            <i className="icon icon-common icon-plus-circle" /> Add
+          </h3>
+
+          <hr />
+          <br />
+          {loading ? (
+            <ProgressBar
+              mode="indeterminate"
+              style={{ height: "6px" }}
+            ></ProgressBar>
+          ) : (
+            <form className="p-fluid">{generateAddFormFields}</form>
+          )}
+        </div>
+      </Sidebar>
     </div>
   );
 };
