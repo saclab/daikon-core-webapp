@@ -105,17 +105,24 @@ const GenomeViewNonPublicData = ({
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Protein Activity Assay List">
-                <DataTable value={genomeNonPublicData.ProteinActivityAssay}>
-                  <Column
-                    field="Protein Activity Assay"
-                    header="Protein Activity Assay"
-                  ></Column>
-                  <Column field="Assay Type" header="Assay Type"></Column>
-                  <Column
-                    field="Assay Throughput"
-                    header="Assay Throughput"
-                  ></Column>
-                </DataTable>
+                <DisplayTable
+                  heading={"Add Protein Activity Assay"}
+                  columns={[
+                    "proteinActivityAssay",
+                    "assayType",
+                    "assayThroughput",
+                  ]}
+                  mandatory={[
+                    "proteinActivityAssay",
+                    "assayType",
+                    "assayThroughput",
+                  ]}
+                  data={gene.geneProteinActivityAssay}
+                  add={addProteinActivityAssay}
+                  edit={editProteinActivityAssay}
+                  adding={addingProteinActivityAssay}
+                  editing={editingProteinActivityAssay}
+                />
               </Fieldset>
             </div>
           </div>
@@ -135,12 +142,16 @@ const GenomeViewNonPublicData = ({
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="CRISPRi Strain List">
-                <DataTable value={genomeNonPublicData.CRISPRiStrain}>
-                  <Column
-                    field="CRISPRi Strain"
-                    header="CRISPRi Strain"
-                  ></Column>
-                </DataTable>
+                <DisplayTable
+                  heading={"Add CRISPRi Strain"}
+                  columns={["crispRiStrain"]}
+                  mandatory={["crispRiStrain"]}
+                  data={gene.geneCRISPRiStrain}
+                  add={addCRISPRiStrain}
+                  edit={editCRISPRiStrain}
+                  adding={addingCRISPRiStrain}
+                  editing={editingCRISPRiStrain}
+                />
               </Fieldset>
             </div>
           </div>
