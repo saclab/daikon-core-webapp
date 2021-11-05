@@ -113,6 +113,8 @@ const Gene = {
       `/gene/${geneId}/essentiality/${essentialityId}`,
       modEssentiality
     ),
+  addEssentiality: (geneId, newEssentiality) =>
+    requests.post(`/gene/${geneId}/essentiality`, newEssentiality),
 };
 
 const GeneAdmin = {

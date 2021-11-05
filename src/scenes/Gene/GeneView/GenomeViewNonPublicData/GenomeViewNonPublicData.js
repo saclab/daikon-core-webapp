@@ -20,7 +20,7 @@ const GenomeViewNonPublicData = ({
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { selectedGene, editEssentiality, loadingEssentiality } =
+  const { selectedGene, addEssentiality, editEssentiality, addingEssentiality, editingEssentiality } =
     rootStore.geneStore;
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const GenomeViewNonPublicData = ({
             <div className="p-mb-2">
               <Fieldset legend="Essentiality">
                 <DisplayTable
+                  heading={"Add Essentiality Data"}
                   columns={[
                     "classification",
                     "essentialityCondition",
@@ -50,9 +51,12 @@ const GenomeViewNonPublicData = ({
                     "reference",
                     "notes",
                   ]}
+                  mandatory={["classification"]}
                   data={gene.geneEssentiality}
+                  add={addEssentiality}
                   edit={editEssentiality}
-                  loading={loadingEssentiality}
+                  adding={addingEssentiality}
+                  editing={editingEssentiality}
                 />
               </Fieldset>
             </div>

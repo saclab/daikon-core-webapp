@@ -21,7 +21,8 @@ export default class GeneStore {
   uniprotDisplayLoading = false;
   historyDisplayLoading = false;
   promotionQuestionsDisplayLoading = false;
-  loadingEssentiality = false;
+  editingEssentiality = false;
+  addingEssentiality = false;
 
   geneRegistry = new Map();
   geneFunctionalCategories = [];
@@ -68,8 +69,10 @@ export default class GeneStore {
       getPromotionQuestions: action,
       submitPromotionQuestionaire: action,
 
+      addEssentiality: action,
       editEssentiality: action,
-      loadingEssentiality: observable,
+      editingEssentiality: observable,
+      addingEssentiality: observable,
     });
   }
 
@@ -375,10 +378,8 @@ export default class GeneStore {
 
   editEssentiality = async (editedEssentiality) => {
     console.log("geneStore: editEssentiality Start");
-    
-    this.loadingEssentiality = true;
-    console.log("geneStore: loadingEssentiality " + this.loadingEssentiality);
-    console.log(this.selectedGene);
+
+    this.editingEssentiality = true;
     // send to server
     try {
       var resp = await agent.Gene.editEssentiality(
@@ -388,14 +389,36 @@ export default class GeneStore {
       );
       runInAction(() => {
         this.reloadGene(editedEssentiality.geneId);
-        toast.success("Success");
+        toast.success("Ok, edited essentiality data.");
       });
     } catch (error) {
       console.log(error);
     } finally {
       runInAction(() => {
-        this.loadingEssentiality = false;
-        console.log("geneStore: loadingEssentiality " + this.loadingEssentiality);
+        this.editingEssentiality = false;
+      });
+    }
+  };
+
+  addEssentiality = async (newEssentiality) => {
+    console.log("geneStore: addEssentiality Start");
+
+    this.addingEssentiality = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.addEssentiality(
+        this.selectedGene.id,
+        newEssentiality
+      );
+      runInAction(() => {
+        this.reloadGene(this.selectedGene.id);
+        toast.success("Ok, added new essentiality");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.addingEssentiality = false;
       });
     }
   };
