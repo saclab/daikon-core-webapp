@@ -108,6 +108,79 @@ const Gene = {
   promotionQuestions: () => requests.get(`/geneconfig/promote/questionaire`),
   submitPromotionQuestionaire: (id, data) =>
     requests.post(`/gene/${id}/promotionrequest`, data),
+  editEssentiality: (geneId, essentialityId, modEssentiality) =>
+    requests.post(
+      `/gene/${geneId}/essentiality/${essentialityId}`,
+      modEssentiality
+    ),
+  addEssentiality: (geneId, newEssentiality) =>
+    requests.post(`/gene/${geneId}/essentiality`, newEssentiality),
+
+  editEssentiality: (geneId, essentialityId, modEssentiality) =>
+    requests.post(
+      `/gene/${geneId}/essentiality/${essentialityId}`,
+      modEssentiality
+    ),
+  addProteinProduction: (geneId, newProteinProduction) =>
+    requests.post(`/gene/${geneId}/proteinproduction`, newProteinProduction),
+
+  editProteinProduction: (geneId, proteinproductionId, modProteinProduction) =>
+    requests.post(
+      `/gene/${geneId}/proteinproduction/${proteinproductionId}`,
+      modProteinProduction
+    ),
+
+  addProteinProductionAssasy: (geneId, newProteinProductionAssasy) =>
+    requests.post(
+      `/gene/${geneId}/proteinactivityassay`,
+      newProteinProductionAssasy
+    ),
+
+  editProteinProductionAssasy: (
+    geneId,
+    proteinProductionAssasyId,
+    modProteinProductionAssasy
+  ) =>
+    requests.post(
+      `/gene/${geneId}/proteinactivityassay/${proteinProductionAssasyId}`,
+      modProteinProductionAssasy
+    ),
+
+  addCRISPRiStrain: (geneId, newCRISPRiStrain) =>
+    requests.post(`/gene/${geneId}/crispristrain`, newCRISPRiStrain),
+
+  editCRISPRiStrain: (geneId, cRISPRiStrainId, modCRISPRiStrain) =>
+    requests.post(
+      `/gene/${geneId}/crispristrain/${cRISPRiStrainId}`,
+      modCRISPRiStrain
+    ),
+
+  addResistanceMutation: (geneId, newResistanceMutation) =>
+    requests.post(`/gene/${geneId}/resistancemutation`, newResistanceMutation),
+  editResistanceMutation: (
+    geneId,
+    resistanceMutationId,
+    modResistanceMutation
+  ) =>
+    requests.post(
+      `/gene/${geneId}/resistancemutation/${resistanceMutationId}`,
+      modResistanceMutation
+    ),
+
+  addUnpublishedStructure: (geneId, newUnpublishedStructure) =>
+    requests.post(
+      `/gene/${geneId}/unpublishedstructures`,
+      newUnpublishedStructure
+    ),
+  editUnpublishedStructure: (
+    geneId,
+    unpublishedStructureId,
+    modUnpublishedStructure
+  ) =>
+    requests.post(
+      `/gene/${geneId}/unpublishedstructures/${unpublishedStructureId}`,
+      modUnpublishedStructure
+    ),
 };
 
 const GeneAdmin = {
