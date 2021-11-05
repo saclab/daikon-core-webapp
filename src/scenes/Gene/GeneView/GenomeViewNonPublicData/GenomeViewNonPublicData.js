@@ -20,8 +20,21 @@ const GenomeViewNonPublicData = ({
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { selectedGene, addEssentiality, editEssentiality, addingEssentiality, editingEssentiality } =
-    rootStore.geneStore;
+  const {
+    selectedGene,
+    addEssentiality,
+    editEssentiality,
+    addingEssentiality,
+    editingEssentiality,
+    addProteinProduction,
+    editProteinProduction,
+    addingProteinProduction,
+    editingProteinProduction,
+    editingUnpublishedStructures,
+    addingUnpublishedStructures,
+    addUnpublishedStructures,
+    editUnpublishedStructures,
+  } = rootStore.geneStore;
 
   useEffect(() => {
     axios.get("/data/genomes/nonPublicData/rv1297.json").then((resp) => {
@@ -64,15 +77,16 @@ const GenomeViewNonPublicData = ({
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Protein Production List">
-                <DataTable value={genomeNonPublicData.ProteinProduction}>
-                  <Column
-                    field="Protein Production"
-                    header="Protein Production"
-                  ></Column>
-                  <Column field="Quantity" header="Quantity"></Column>
-                  <Column field="Purity" header="Purity"></Column>
-                  <Column field="Date" header="Date"></Column>
-                </DataTable>
+                <DisplayTable
+                  heading={"Add Protein Production"}
+                  columns={["proteinProduction", "quantity", "purity", "date"]}
+                  mandatory={["proteinProduction"]}
+                  data={gene.geneProteinProduction}
+                  add={addProteinProduction}
+                  edit={editProteinProduction}
+                  adding={addingProteinProduction}
+                  editing={editingProteinProduction}
+                />
               </Fieldset>
             </div>
           </div>
@@ -162,15 +176,22 @@ const GenomeViewNonPublicData = ({
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Unpublished Structural Information">
-                <DataTable
-                  value={genomeNonPublicData.UnpublishedStructuralInfo}
-                >
-                  <Column field="Organization" header="Organization"></Column>
-                  <Column field="Method" header="Method"></Column>
-                  <Column field="Resolution" header="Resolution"></Column>
-                  <Column field="Condition(s)" header="Condition(s)"></Column>
-                  <Column field="Ligand" header="Ligand"></Column>
-                </DataTable>
+                <DisplayTable
+                  heading={"Add Unpublished Structural Information"}
+                  columns={[
+                    "organization",
+                    "method",
+                    "resolution",
+                    "condition",
+                    "ligand",
+                  ]}
+                  mandatory={["ligand"]}
+                  data={gene.geneUnpublishedStructures}
+                  add={addUnpublishedStructures}
+                  edit={editUnpublishedStructures}
+                  adding={addingUnpublishedStructures}
+                  editing={editingUnpublishedStructures}
+                />
               </Fieldset>
             </div>
           </div>
