@@ -18,6 +18,7 @@ import Home from "../../scenes/Home/Home";
 import cssClass from "./App.module.css";
 import NotFound from "./NotFound/NotFound";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import { RootStoreContext } from "../stores/rootStore";
 import Loading from "./Loading/Loading";
 import { observer } from "mobx-react-lite";
@@ -93,7 +94,7 @@ const App = () => {
 
   let signedInRender = (
     <Fragment>
-      <ToastContainer />
+      <ToastContainer pauseOnHover theme="light" />
       <Fragment>
         <TitleBar />
         {menuBar}

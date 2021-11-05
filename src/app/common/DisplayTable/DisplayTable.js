@@ -11,14 +11,26 @@ import { Sidebar } from "primereact/sidebar";
 import { InputText } from "primereact/inputtext";
 import { useFormik } from "formik";
 import { classNames } from "primereact/utils";
+import { confirmDialog } from "primereact/confirmdialog";
+import { toast } from "react-toastify";
+import _ from "lodash";
+import "./DisplayTable.css";
 
-const DisplayTable = ({ columns, data, edit, loading }) => {
+const DisplayTable = ({
+  heading,
+  columns,
+  data,
+  edit,
+  adding,
+  editing,
+  add,
+  mandatory,
+}) => {
   const [tableData, setTableData] = useState([...data]);
   const [originalRows, setoriginalRows] = useState(null);
 
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
 
-  //console.log("Loading is " + loading);
   let onRowEditInit = (event) => {
     //console.log("onRowEditInit():");
     let t = {};
@@ -45,7 +57,13 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
   let onRowEditSave = (e) => {
     //console.log("onRowEditSave");
     //console.log(e.data);
-    edit(e.data);
+    confirmDialog({
+      header: "Modifying Database",
+      message: "Are you sure you want to proceed?",
+      icon: "pi pi-exclamation-triangle",
+      accept: () => edit(e.data),
+      reject: () => toast.info("Cancelled. Local data might be invalid. Please resync the app.")
+    });
   };
 
   let rowEditorFunc = (props, element) => {
@@ -95,16 +113,20 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
     initialValues: { ...addForminitialValues },
     validate: (data) => {
       let errors = {};
-
-      // if (!data.name) {
-      //     errors.name = 'Name is required.';
-      // }
+      console.log("Validation");
+      for (var key of Object.keys(data)) {
+        if (mandatory && mandatory.includes(key) && !data[key]) {
+          errors[key] = _.startCase(key) + " is required.";
+        }
+      }
       return errors;
     },
     onSubmit: (data) => {
-      console.log("Foemik Submitting");
+      console.log("Formik Submitting");
       console.log(data);
-      //formik.resetForm();
+      add(data)
+
+      formik.resetForm();
     },
   });
 
@@ -127,7 +149,8 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
             "p-error": isFormFieldValid(element),
           })}
         >
-          <StartCase string={element} />
+          <StartCase string={element} />{" "}
+          {mandatory && mandatory.includes(element) ? "*" : ""}
         </label>
         <InputText
           id={element}
@@ -142,14 +165,15 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
       </div>
     );
   });
+
   /* End Add Form Section */
 
   return (
     <div>
-      {loading && (
+      {editing && (
         <ProgressBar mode="indeterminate" style={{ height: "6px" }} />
       )}
-      <BlockUI blocked={loading}>
+      <BlockUI blocked={editing}>
         <DataTable
           value={tableData}
           header={tableHeader}
@@ -159,6 +183,7 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
           onRowEditCancel={onRowEditCancel}
           onRowEditSave={onRowEditSave}
           size="small"
+          className="p-datatable-displaytable"
         >
           {generateColumns}
           <Column
@@ -171,19 +196,22 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
       <Sidebar
         visible={displayAddDialog}
         position="right"
-        // style={{ width: "50%", overflowX: "auto" }}
         blockScroll={true}
-        onHide={() => setDisplayAddDialog(false)}
+        onHide={() => {
+          formik.resetForm();
+          setDisplayAddDialog(false);
+        }}
         className="p-sidebar-md"
       >
         <div className="card">
           <h3>
-            <i className="icon icon-common icon-plus-circle" /> Add
+            <i className="icon icon-common icon-plus-circle" />{" "}
+            {heading ? heading : "Add"}
           </h3>
 
           <hr />
           <br />
-          {loading ? (
+          {adding ? (
             <ProgressBar
               mode="indeterminate"
               style={{ height: "6px" }}
@@ -196,7 +224,7 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
                 type="submit"
                 label="Add to database"
                 className="p-mt-2"
-                loading={loading}
+                loading={adding}
               />
             </form>
           )}
