@@ -34,6 +34,18 @@ const GenomeViewNonPublicData = ({
     addingUnpublishedStructures,
     addUnpublishedStructures,
     editUnpublishedStructures,
+    editingResistanceMutation,
+    addingResistanceMutation,
+    addResistanceMutation,
+    editResistanceMutation,
+    editingProteinActivityAssay,
+    addingProteinActivityAssay,
+    addProteinActivityAssay,
+    editProteinActivityAssay,
+    editingCRISPRiStrain,
+    addingCRISPRiStrain,
+    addCRISPRiStrain,
+    editCRISPRiStrain,
   } = rootStore.geneStore;
 
   useEffect(() => {
@@ -135,17 +147,30 @@ const GenomeViewNonPublicData = ({
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Resistance Mutations">
-                <DataTable value={genomeNonPublicData.ResistanceMutation}>
-                  <Column field="Mutation" header="Mutation"></Column>
-                  <Column field="Isolate" header="Isolate"></Column>
-                  <Column field="Parent Strain" header="Parent Strain"></Column>
-                  <Column
-                    field="Compound (SMILES)"
-                    header="Compound (SMILES)"
-                  ></Column>
-                  <Column field="Shift in MIC" header="Shift in MIC"></Column>
-                  <Column field="Lab" header="Lab"></Column>
-                </DataTable>
+                <DisplayTable
+                  heading={"Add Resistance Mutation"}
+                  columns={[
+                    "mutation",
+                    "isolate",
+                    "parentStrain",
+                    "compound",
+                    "shiftInMIC",
+                    "org",
+                  ]}
+                  mandatory={[
+                    "mutation",
+                    "isolate",
+                    "parentStrain",
+                    "compound",
+                    "shiftInMIC",
+                    "org",
+                  ]}
+                  data={gene.geneResistanceMutation}
+                  add={addResistanceMutation}
+                  edit={editResistanceMutation}
+                  adding={addingResistanceMutation}
+                  editing={editingResistanceMutation}
+                />
               </Fieldset>
             </div>
           </div>
