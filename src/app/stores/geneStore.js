@@ -511,7 +511,7 @@ export default class GeneStore {
     this.editingProteinActivityAssay = true;
     // send to server
     try {
-      var resp = await agent.Gene.editProteinActivityAssay(
+      var resp = await agent.Gene.editProteinProductionAssasy(
         editedProteinActivityAssay.geneId,
         editedProteinActivityAssay.id,
         editedProteinActivityAssay
@@ -535,7 +535,7 @@ export default class GeneStore {
     this.addingProteinActivityAssay = true;
     // send to server
     try {
-      var resp = await agent.Gene.addProteinActivityAssay(
+      var resp = await agent.Gene.addProteinProductionAssasy(
         this.selectedGene.id,
         newProteinActivityAssay
       );
