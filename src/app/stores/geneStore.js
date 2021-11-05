@@ -5,6 +5,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
+import { toast } from "react-toastify";
 import agent from "../api/agent";
 import uniprot from "../api/uniprot";
 import Ebi from "../api/ebi";
@@ -20,6 +21,7 @@ export default class GeneStore {
   uniprotDisplayLoading = false;
   historyDisplayLoading = false;
   promotionQuestionsDisplayLoading = false;
+  loadingEssentiality = false;
 
   geneRegistry = new Map();
   geneFunctionalCategories = [];
@@ -33,7 +35,6 @@ export default class GeneStore {
   selectedPdbCrossReference = null;
 
   promotionQuestionsRegistry = new Map();
-
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -51,6 +52,7 @@ export default class GeneStore {
       gene: computed,
       fetchGene: action,
       selectedGene: observable,
+      reloadGene: action,
 
       fetchGeneHistory: action,
       selectedGeneHistory: observable,
@@ -65,6 +67,9 @@ export default class GeneStore {
 
       getPromotionQuestions: action,
       submitPromotionQuestionaire: action,
+
+      editEssentiality: action,
+      loadingEssentiality: observable,
     });
   }
 
@@ -90,7 +95,9 @@ export default class GeneStore {
       console.log(error);
     } finally {
       runInAction(() => {
-        this.geneFunctionalCategories = [...new Set(this.genes.map((g) => g.functionalCategory))]
+        this.geneFunctionalCategories = [
+          ...new Set(this.genes.map((g) => g.functionalCategory)),
+        ];
         this.displayLoading = false;
       });
     }
@@ -137,10 +144,32 @@ export default class GeneStore {
     }
   };
 
+  reloadGene = async (id) => {
+    id = id === null ? this.selectedGene.id : id;
+
+    console.log("geneStore: reloadGene Start");
+    this.displayLoading = true;
+    try {
+      let fetchedGene = await agent.Gene.view(id);
+      runInAction(() => {
+        console.log("geneStore: reloadGene fetched from api");
+        console.log(this.selectedGene);
+        this.selectedGene = fetchedGene;
+        this.geneRegistryExpanded.set(id, fetchedGene);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.displayLoading = false;
+        console.log("geneStore: reloadGene Complete");
+      });
+    }
+  };
 
   fetchGeneByAccessionNo = (accessionNo) => {
-    return agent.Gene.viewByAccessionNo(accessionNo)
-  }
+    return agent.Gene.viewByAccessionNo(accessionNo);
+  };
 
   get gene() {
     return this.selectedGene;
@@ -342,6 +371,32 @@ export default class GeneStore {
       });
     }
     return res;
+  };
+
+  editEssentiality = async (editedEssentiality) => {
+    console.log("geneStore: editEssentiality Start");
     
+    this.loadingEssentiality = true;
+    console.log("geneStore: loadingEssentiality " + this.loadingEssentiality);
+    console.log(this.selectedGene);
+    // send to server
+    try {
+      var resp = await agent.Gene.editEssentiality(
+        editedEssentiality.geneId,
+        editedEssentiality.id,
+        editedEssentiality
+      );
+      runInAction(() => {
+        this.reloadGene(editedEssentiality.geneId);
+        toast.success("Success");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.loadingEssentiality = false;
+        console.log("geneStore: loadingEssentiality " + this.loadingEssentiality);
+      });
+    }
   };
 }

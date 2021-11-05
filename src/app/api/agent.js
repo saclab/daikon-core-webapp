@@ -108,6 +108,11 @@ const Gene = {
   promotionQuestions: () => requests.get(`/geneconfig/promote/questionaire`),
   submitPromotionQuestionaire: (id, data) =>
     requests.post(`/gene/${id}/promotionrequest`, data),
+  editEssentiality: (geneId, essentialityId, modEssentiality) =>
+    requests.post(
+      `/gene/${geneId}/essentiality/${essentialityId}`,
+      modEssentiality
+    ),
 };
 
 const GeneAdmin = {
