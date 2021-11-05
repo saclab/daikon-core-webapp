@@ -1,26 +1,48 @@
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
+import { StartCase } from "react-lodash";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
+import { ProgressBar } from "primereact/progressbar";
+import { BlockUI } from "primereact/blockui";
+import { Sidebar } from "primereact/sidebar";
+import { InputText } from "primereact/inputtext";
+import { useFormik } from "formik";
+import { classNames } from "primereact/utils";
+import { confirmDialog } from "primereact/confirmdialog";
+import { toast } from "react-toastify";
+import _ from "lodash";
+import "./DisplayTable.css";
 
-const DisplayTable = ({ columns, data }) => {
-  const [tableData, setTableData] = useState(data);
+const DisplayTable = ({
+  heading,
+  columns,
+  data,
+  edit,
+  adding,
+  editing,
+  add,
+  mandatory,
+}) => {
+  const [tableData, setTableData] = useState([...data]);
   const [originalRows, setoriginalRows] = useState(null);
 
+  const [displayAddDialog, setDisplayAddDialog] = useState(false);
+
   let onRowEditInit = (event) => {
-    console.log("onRowEditInit():");
+    //console.log("onRowEditInit():");
     let t = {};
     t[event.index] = { ...tableData[event.index] };
     setoriginalRows(t);
-    console.log(originalRows);
+    //console.log(originalRows);
   };
 
   let onRowEditCancel = (event) => {
     let products = [...tableData];
     products[event.index] = originalRows[event.index];
-    console.log(products);
+    //console.log(products);
     delete originalRows[event.index];
     setTableData(products);
   };
@@ -32,13 +54,25 @@ const DisplayTable = ({ columns, data }) => {
     setTableData(temp);
   };
 
+  let onRowEditSave = (e) => {
+    //console.log("onRowEditSave");
+    //console.log(e.data);
+    confirmDialog({
+      header: "Modifying Database",
+      message: "Are you sure you want to proceed?",
+      icon: "pi pi-exclamation-triangle",
+      accept: () => edit(e.data),
+      reject: () => toast.info("Cancelled. Local data might be invalid. Please resync the app.")
+    });
+  };
+
   let rowEditorFunc = (props, element) => {
     return (
       <InputTextarea
         type="text"
         value={props.rowData[element]}
         onChange={(e) => {
-          console.log("onChange");
+          //console.log("onChange");
           onRowEdit(props.rowData.id, element, e.target.value);
         }}
       />
@@ -51,7 +85,7 @@ const DisplayTable = ({ columns, data }) => {
         key={element}
         columnKey={element}
         field={element}
-        header={element}
+        header={<StartCase string={element} />}
         editor={(props) => rowEditorFunc(props, props.columnKey)}
       />
     );
@@ -65,28 +99,137 @@ const DisplayTable = ({ columns, data }) => {
         label="Add"
         className="p-button-text p-button-sm"
         style={{ height: "30px", marginRight: "5px" }}
-        //onClick={() => setDisplayHitsImportSidebar(true)}
+        onClick={() => setDisplayAddDialog(true)}
       />
     </div>
   );
 
+  /* Add Form Section */
+
+  let addForminitialValues = {};
+  columns.forEach((key) => (addForminitialValues[key] = ""));
+
+  const formik = useFormik({
+    initialValues: { ...addForminitialValues },
+    validate: (data) => {
+      let errors = {};
+      console.log("Validation");
+      for (var key of Object.keys(data)) {
+        if (mandatory && mandatory.includes(key) && !data[key]) {
+          errors[key] = _.startCase(key) + " is required.";
+        }
+      }
+      return errors;
+    },
+    onSubmit: (data) => {
+      console.log("Formik Submitting");
+      console.log(data);
+      add(data)
+
+      formik.resetForm();
+    },
+  });
+
+  const isFormFieldValid = (name) =>
+    !!(formik.touched[name] && formik.errors[name]);
+  const getFormErrorMessage = (name) => {
+    return (
+      isFormFieldValid(name) && (
+        <small className="p-error">{formik.errors[name]}</small>
+      )
+    );
+  };
+
+  let generateAddFormFields = columns.map((element) => {
+    return (
+      <div className="p-field p-col-12 p-md-12" key={element}>
+        <label
+          htmlFor={element}
+          className={classNames({
+            "p-error": isFormFieldValid(element),
+          })}
+        >
+          <StartCase string={element} />{" "}
+          {mandatory && mandatory.includes(element) ? "*" : ""}
+        </label>
+        <InputText
+          id={element}
+          value={formik.values[element]}
+          onChange={formik.handleChange}
+          className={classNames({
+            "p-invalid": isFormFieldValid(element),
+          })}
+        />
+
+        {getFormErrorMessage(element)}
+      </div>
+    );
+  });
+
+  /* End Add Form Section */
+
   return (
     <div>
-      <DataTable
-        value={tableData}
-        header={tableHeader}
-        editMode="row"
-        dataKey="id"
-        onRowEditInit={onRowEditInit}
-        onRowEditCancel={onRowEditCancel}
+      {editing && (
+        <ProgressBar mode="indeterminate" style={{ height: "6px" }} />
+      )}
+      <BlockUI blocked={editing}>
+        <DataTable
+          value={tableData}
+          header={tableHeader}
+          editMode="row"
+          dataKey="id"
+          onRowEditInit={onRowEditInit}
+          onRowEditCancel={onRowEditCancel}
+          onRowEditSave={onRowEditSave}
+          size="small"
+          className="p-datatable-displaytable"
+        >
+          {generateColumns}
+          <Column
+            rowEditor
+            headerStyle={{ width: "7rem" }}
+            bodyStyle={{ textAlign: "center" }}
+          ></Column>
+        </DataTable>
+      </BlockUI>
+      <Sidebar
+        visible={displayAddDialog}
+        position="right"
+        blockScroll={true}
+        onHide={() => {
+          formik.resetForm();
+          setDisplayAddDialog(false);
+        }}
+        className="p-sidebar-md"
       >
-        {generateColumns}
-        <Column
-          rowEditor
-          headerStyle={{ width: "7rem" }}
-          bodyStyle={{ textAlign: "center" }}
-        ></Column>
-      </DataTable>
+        <div className="card">
+          <h3>
+            <i className="icon icon-common icon-plus-circle" />{" "}
+            {heading ? heading : "Add"}
+          </h3>
+
+          <hr />
+          <br />
+          {adding ? (
+            <ProgressBar
+              mode="indeterminate"
+              style={{ height: "6px" }}
+            ></ProgressBar>
+          ) : (
+            <form className="p-fluid" onSubmit={formik.handleSubmit}>
+              {generateAddFormFields}
+              <Button
+                icon="icon icon-common icon-database-submit"
+                type="submit"
+                label="Add to database"
+                className="p-mt-2"
+                loading={adding}
+              />
+            </form>
+          )}
+        </div>
+      </Sidebar>
     </div>
   );
 };
