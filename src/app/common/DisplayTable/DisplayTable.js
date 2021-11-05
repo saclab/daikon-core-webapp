@@ -9,6 +9,8 @@ import { ProgressBar } from "primereact/progressbar";
 import { BlockUI } from "primereact/blockui";
 import { Sidebar } from "primereact/sidebar";
 import { InputText } from "primereact/inputtext";
+import { useFormik } from "formik";
+import { classNames } from "primereact/utils";
 
 const DisplayTable = ({ columns, data, edit, loading }) => {
   const [tableData, setTableData] = useState([...data]);
@@ -16,19 +18,19 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
 
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
 
-  console.log("Loading is " + loading);
+  //console.log("Loading is " + loading);
   let onRowEditInit = (event) => {
-    console.log("onRowEditInit():");
+    //console.log("onRowEditInit():");
     let t = {};
     t[event.index] = { ...tableData[event.index] };
     setoriginalRows(t);
-    console.log(originalRows);
+    //console.log(originalRows);
   };
 
   let onRowEditCancel = (event) => {
     let products = [...tableData];
     products[event.index] = originalRows[event.index];
-    console.log(products);
+    //console.log(products);
     delete originalRows[event.index];
     setTableData(products);
   };
@@ -41,8 +43,8 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
   };
 
   let onRowEditSave = (e) => {
-    console.log("onRowEditSave");
-    console.log(e.data);
+    //console.log("onRowEditSave");
+    //console.log(e.data);
     edit(e.data);
   };
 
@@ -52,7 +54,7 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
         type="text"
         value={props.rowData[element]}
         onChange={(e) => {
-          console.log("onChange");
+          //console.log("onChange");
           onRowEdit(props.rowData.id, element, e.target.value);
         }}
       />
@@ -84,31 +86,59 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
     </div>
   );
 
-
   /* Add Form Section */
+
+  let addForminitialValues = {};
+  columns.forEach((key) => (addForminitialValues[key] = ""));
+
+  const formik = useFormik({
+    initialValues: { ...addForminitialValues },
+    validate: (data) => {
+      let errors = {};
+
+      // if (!data.name) {
+      //     errors.name = 'Name is required.';
+      // }
+      return errors;
+    },
+    onSubmit: (data) => {
+      console.log("Foemik Submitting");
+      console.log(data);
+      //formik.resetForm();
+    },
+  });
+
+  const isFormFieldValid = (name) =>
+    !!(formik.touched[name] && formik.errors[name]);
+  const getFormErrorMessage = (name) => {
+    return (
+      isFormFieldValid(name) && (
+        <small className="p-error">{formik.errors[name]}</small>
+      )
+    );
+  };
 
   let generateAddFormFields = columns.map((element) => {
     return (
-      <div className="p-field p-col-12 p-md-12">
+      <div className="p-field p-col-12 p-md-12" key={element}>
         <label
           htmlFor={element}
-          // className={classNames({
-          //   "p-error": isFormFieldValid("email"),
-          // })}
+          className={classNames({
+            "p-error": isFormFieldValid(element),
+          })}
         >
           <StartCase string={element} />
         </label>
         <InputText
           id={element}
-          // value={formik.values.email}
-          // onChange={formik.handleChange}
-          
-          // className={classNames({
-          //   "p-invalid": isFormFieldValid("email"),
-          // })}
+          value={formik.values[element]}
+          onChange={formik.handleChange}
+          className={classNames({
+            "p-invalid": isFormFieldValid(element),
+          })}
         />
 
-        {/* {getFormErrorMessage("email")} */}
+        {getFormErrorMessage(element)}
       </div>
     );
   });
@@ -159,7 +189,16 @@ const DisplayTable = ({ columns, data, edit, loading }) => {
               style={{ height: "6px" }}
             ></ProgressBar>
           ) : (
-            <form className="p-fluid">{generateAddFormFields}</form>
+            <form className="p-fluid" onSubmit={formik.handleSubmit}>
+              {generateAddFormFields}
+              <Button
+                icon="icon icon-common icon-database-submit"
+                type="submit"
+                label="Add to database"
+                className="p-mt-2"
+                loading={loading}
+              />
+            </form>
           )}
         </div>
       </Sidebar>
