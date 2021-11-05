@@ -652,7 +652,7 @@ export default class GeneStore {
     this.editingUnpublishedStructures = true;
     // send to server
     try {
-      var resp = await agent.Gene.editUnpublishedStructures(
+      var resp = await agent.Gene.editUnpublishedStructure(
         editedUnpublishedStructures.geneId,
         editedUnpublishedStructures.id,
         editedUnpublishedStructures
@@ -676,7 +676,7 @@ export default class GeneStore {
     this.addingUnpublishedStructures = true;
     // send to server
     try {
-      var resp = await agent.Gene.addUnpublishedStructures(
+      var resp = await agent.Gene.addUnpublishedStructure(
         this.selectedGene.id,
         newUnpublishedStructures
       );
