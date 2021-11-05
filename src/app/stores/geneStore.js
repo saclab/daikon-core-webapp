@@ -23,6 +23,16 @@ export default class GeneStore {
   promotionQuestionsDisplayLoading = false;
   editingEssentiality = false;
   addingEssentiality = false;
+  editingProteinProduction = false;
+  addingProteinProduction = false;
+  editingProteinActivityAssay = false;
+  addingProteinActivityAssay = false;
+  editingCRISPRiStrain = false;
+  addingCRISPRiStrain = false;
+  editingResistanceMutation = false;
+  addingeditingResistanceMutation = false;
+  editingUnpublishedStructures = false;
+  addingUnpublishedStructures = false;
 
   geneRegistry = new Map();
   geneFunctionalCategories = [];
@@ -73,6 +83,31 @@ export default class GeneStore {
       editEssentiality: action,
       editingEssentiality: observable,
       addingEssentiality: observable,
+
+      editingProteinProduction: observable,
+      addingProteinProduction: observable,
+      addProteinProduction: action,
+      editProteinProduction: action,
+
+      editingProteinActivityAssay: observable,
+      addingProteinActivityAssay: observable,
+      addProteinActivityAssay: action,
+      editProteinActivityAssay: action,
+
+      editingCRISPRiStrain: observable,
+      addingCRISPRiStrain: observable,
+      addCRISPRiStrain: action,
+      editCRISPRiStrain: action,
+
+      editingResistanceMutation: observable,
+      addingeditingResistanceMutation: observable,
+      addResistanceMutation: action,
+      editResistanceMutation: action,
+
+      editingUnpublishedStructures: observable,
+      addingUnpublishedStructures: observable,
+      addUnpublishedStructures: action,
+      editUnpublishedStructures: action,
     });
   }
 
@@ -419,6 +454,241 @@ export default class GeneStore {
     } finally {
       runInAction(() => {
         this.addingEssentiality = false;
+      });
+    }
+  };
+
+  editProteinProduction = async (editedProteinProduction) => {
+    console.log("geneStore: editProteinProduction Start");
+
+    this.editingProteinProduction = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.editProteinProduction(
+        editedProteinProduction.geneId,
+        editedProteinProduction.id,
+        editedProteinProduction
+      );
+      runInAction(() => {
+        this.reloadGene(editedProteinProduction.geneId);
+        toast.success("Ok, edited ProteinProduction data.");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingProteinProduction = false;
+      });
+    }
+  };
+
+  addProteinProduction = async (newProteinProduction) => {
+    console.log("geneStore: addProteinProduction Start");
+
+    this.addingProteinProduction = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.addProteinProduction(
+        this.selectedGene.id,
+        newProteinProduction
+      );
+      runInAction(() => {
+        this.reloadGene(this.selectedGene.id);
+        toast.success("Ok, added new ProteinProduction");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.addingProteinProduction = false;
+      });
+    }
+  };
+
+  editProteinActivityAssay = async (editedProteinActivityAssay) => {
+    console.log("geneStore: editProteinActivityAssay Start");
+
+    this.editingProteinActivityAssay = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.editProteinActivityAssay(
+        editedProteinActivityAssay.geneId,
+        editedProteinActivityAssay.id,
+        editedProteinActivityAssay
+      );
+      runInAction(() => {
+        this.reloadGene(editedProteinActivityAssay.geneId);
+        toast.success("Ok, edited ProteinActivityAssay data.");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingProteinActivityAssay = false;
+      });
+    }
+  };
+
+  addProteinActivityAssay = async (newProteinActivityAssay) => {
+    console.log("geneStore: addProteinActivityAssay Start");
+
+    this.addingProteinActivityAssay = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.addProteinActivityAssay(
+        this.selectedGene.id,
+        newProteinActivityAssay
+      );
+      runInAction(() => {
+        this.reloadGene(this.selectedGene.id);
+        toast.success("Ok, added new ProteinActivityAssay");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.addingProteinActivityAssay = false;
+      });
+    }
+  };
+
+  editCRISPRiStrain = async (editedCRISPRiStrain) => {
+    console.log("geneStore: editCRISPRiStrain Start");
+
+    this.editingCRISPRiStrain = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.editCRISPRiStrain(
+        editedCRISPRiStrain.geneId,
+        editedCRISPRiStrain.id,
+        editedCRISPRiStrain
+      );
+      runInAction(() => {
+        this.reloadGene(editedCRISPRiStrain.geneId);
+        toast.success("Ok, edited CRISPRiStrain data.");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingCRISPRiStrain = false;
+      });
+    }
+  };
+
+  addCRISPRiStrain = async (newCRISPRiStrain) => {
+    console.log("geneStore: addCRISPRiStrain Start");
+
+    this.addingCRISPRiStrain = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.addCRISPRiStrain(
+        this.selectedGene.id,
+        newCRISPRiStrain
+      );
+      runInAction(() => {
+        this.reloadGene(this.selectedGene.id);
+        toast.success("Ok, added new CRISPRiStrain");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.addingCRISPRiStrain = false;
+      });
+    }
+  };
+
+  editResistanceMutation = async (editedResistanceMutation) => {
+    console.log("geneStore: editResistanceMutation Start");
+
+    this.editingResistanceMutation = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.editResistanceMutation(
+        editedResistanceMutation.geneId,
+        editedResistanceMutation.id,
+        editedResistanceMutation
+      );
+      runInAction(() => {
+        this.reloadGene(editedResistanceMutation.geneId);
+        toast.success("Ok, edited ResistanceMutation data.");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingResistanceMutation = false;
+      });
+    }
+  };
+
+  addResistanceMutation = async (newResistanceMutation) => {
+    console.log("geneStore: addResistanceMutation Start");
+
+    this.addingResistanceMutation = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.addResistanceMutation(
+        this.selectedGene.id,
+        newResistanceMutation
+      );
+      runInAction(() => {
+        this.reloadGene(this.selectedGene.id);
+        toast.success("Ok, added new ResistanceMutation");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.addingResistanceMutation = false;
+      });
+    }
+  };
+
+  editUnpublishedStructures = async (editedUnpublishedStructures) => {
+    console.log("geneStore: editUnpublishedStructures Start");
+
+    this.editingUnpublishedStructures = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.editUnpublishedStructures(
+        editedUnpublishedStructures.geneId,
+        editedUnpublishedStructures.id,
+        editedUnpublishedStructures
+      );
+      runInAction(() => {
+        this.reloadGene(editedUnpublishedStructures.geneId);
+        toast.success("Ok, edited UnpublishedStructures data.");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingUnpublishedStructures = false;
+      });
+    }
+  };
+
+  addUnpublishedStructures = async (newUnpublishedStructures) => {
+    console.log("geneStore: addUnpublishedStructures Start");
+
+    this.addingUnpublishedStructures = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.addUnpublishedStructures(
+        this.selectedGene.id,
+        newUnpublishedStructures
+      );
+      runInAction(() => {
+        this.reloadGene(this.selectedGene.id);
+        toast.success("Ok, added new UnpublishedStructures");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.addingUnpublishedStructures = false;
       });
     }
   };
