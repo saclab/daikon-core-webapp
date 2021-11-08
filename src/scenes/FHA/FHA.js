@@ -42,7 +42,7 @@ const FHA = ({history}) => {
             </div>
             <div className="p-mb-2" style={{ width: "1000px" }}>
                 <SectionHeading
-                  icon="icon icon-common icon-classification"
+                  icon="icon icon-conceptual icon-chemical"
                   heading={"FHA"}
                   
                 />

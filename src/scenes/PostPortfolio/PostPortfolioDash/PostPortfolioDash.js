@@ -174,7 +174,7 @@ const PostPortfolioDash = () => {
   return (
     <div className="datatable-postportfolio-dash">
       <SectionHeading
-        icon="icon icon-common icon-classification"
+        icon="icon icon-common icon-drug"
         heading="Post Portfolio"
       />
       <div className="card">
