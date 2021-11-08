@@ -82,7 +82,7 @@ const PostPortfolioView = ({ match, history }) => {
               </div>
               <div className="p-mb-2">
                 <SectionHeading
-                  icon="icon icon-common icon-classification"
+                  icon="icon icon-common icon-drug"
                   heading={"Project X"}
                 />
               </div>
