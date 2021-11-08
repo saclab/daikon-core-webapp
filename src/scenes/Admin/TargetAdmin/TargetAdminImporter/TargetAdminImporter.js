@@ -95,6 +95,7 @@ const TargetAdminImporter = () => {
         "2a3a": { answer: row["2a3a_r"], description: row["2a3a_t"] },
         "2a3b": { answer: row["2a3b_r"], description: row["2a3b_t"] },
         "2a4a": { answer: row["2a4a_r"], description: row["2a4a_t"] },
+        "2a4b": { answer: row["2a4b_r"], description: row["2a4b_t"] },
         "2a5": { answer: row["2a5_r"], description: row["2a5_t"] },
         "2b1": { answer: row["2b1_r"], description: row["2b1_t"] },
         "2b2": { answer: row["2b2_r"], description: row["2b2_t"] },
@@ -150,30 +151,38 @@ const TargetAdminImporter = () => {
         "6d2": { answer: row["6d2_r"], description: row["6d2_t"] },
         "6d3": { answer: row["6d3_r"], description: row["6d3_t"] },
         "6d4": { answer: row["6d4_r"], description: row["6d4_t"] },
+        "7a1": { answer: row["7a1_r"], description: row["7a1_t"] },
+        "7a2": { answer: row["7a2_r"], description: row["7a2_t"] },
+        "7b1": { answer: row["7b1_r"], description: row["7b1_t"] },
+        "7b2": { answer: row["7b2_r"], description: row["7b2_t"] },
+        "7c1": { answer: row["7c1_r"], description: row["7c1_t"] },
+        "7c2": { answer: row["7c2_r"], description: row["7c2_t"] },
+        "7d1": { answer: row["7d1_r"], description: row["7d1_t"] },
+        "7d2": { answer: row["7d2_r"], description: row["7d2_t"] },
       };
 
       var dataObject = {
         geneID: geneID,
         geneName: row["GeneName"],
         status: "imported",
-        bucket: row["Bucket"],
-        impactScore: row["ImpactScore"],
-        impactComplete: row["ImpactComplete"],
-        likeScore: row["LikeScore"],
-        likeComplete: row["LikeComplete"],
-        screeningScore: row["ScreeningScore"],
-        screeningComplete: row["ScreeningComplete"],
-        structureScore: row["StructureScore"],
-        structureComplete: row["StructureComplete"],
-        vulnerabilityRatio: row["VulnerabilityRatio"],
-        vulnerabilityRank: row["VulnerabilityRank"],
+        bucket: row["Bucket"]!==''?row["Bucket"]:'NA',
+        impactScore: row["ImpactScore"]!==''?row["ImpactScore"]:'0.00',
+        impactComplete: row["ImpactComplete"]!==''?row["ImpactComplete"]:'0.00',
+        likeScore: row["LikeScore"]!==''?row["LikeScore"]:'0.00',
+        likeComplete: row["LikeComplete"]!==''?row["LikeComplete"]:'0.00',
+        screeningScore: row["ScreeningScore"]!==''?row["ScreeningScore"]:'0.00',
+        screeningComplete: row["ScreeningComplete"]!==''?row["ScreeningComplete"]:'0.00',
+        structureScore: row["StructureScore"]!==''?row["StructureScore"]:'0.00',
+        structureComplete: row["StructureComplete"]!==''?row["StructureComplete"]:'0.00',
+        vulnerabilityRatio: row["VulnerabilityRatio"]!==''?row["VulnerabilityRatio"]:'0.00',
+        vulnerabilityRank: row["VulnerabilityRank"]!==''?row["VulnerabilityRank"]:'0.00',
         genePromotionRequestValues: [],
       };
 
       Object.keys(targetPromotionFormValue).map((key) => {
         dataObject.genePromotionRequestValues.push({
           questionId: promotionQuestionsRegistry.get(key).id,
-          answer: targetPromotionFormValue[key].answer,
+          answer: targetPromotionFormValue[key].answer!==''?targetPromotionFormValue[key].answer:'NA',
           description: targetPromotionFormValue[key].description,
         });
       });
