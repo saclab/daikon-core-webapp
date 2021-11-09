@@ -26,6 +26,9 @@ const DisplayTable = ({
   add,
   mandatory,
 }) => {
+  /* Check if data property is missing, if yes create a blank array to prevent nulls */
+  data = data === null ? [] : data;
+
   const [tableData, setTableData] = useState([...data]);
   const [originalRows, setoriginalRows] = useState(null);
 
@@ -62,7 +65,10 @@ const DisplayTable = ({
       message: "Are you sure you want to proceed?",
       icon: "pi pi-exclamation-triangle",
       accept: () => edit(e.data),
-      reject: () => toast.info("Cancelled. Local data might be invalid. Please resync the app.")
+      reject: () =>
+        toast.info(
+          "Cancelled. Local data might be invalid. Please resync the app."
+        ),
     });
   };
 
@@ -124,7 +130,7 @@ const DisplayTable = ({
     onSubmit: (data) => {
       console.log("Formik Submitting");
       console.log(data);
-      add(data)
+      add(data);
 
       formik.resetForm();
     },
