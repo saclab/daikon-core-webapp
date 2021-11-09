@@ -86,7 +86,7 @@ const TargetDashTable = ({targets}) => {
           paginator
           rows={10}
           // header={header}
-          className="p-datatable-targets"
+          className="datatable-targets"
           //globalFilter={globalFilter}
           emptyMessage="No Targets found."
         >
@@ -98,6 +98,7 @@ const TargetDashTable = ({targets}) => {
             filterMatchMode="contains"
             filterPlaceholder="Search by A.Number"
             className="narrow-column"
+            sortable
           />
 
           <Column
@@ -114,16 +115,19 @@ const TargetDashTable = ({targets}) => {
             field="impactScore"
             header="Biological Impact Score"
             body={ImpactScoreBodyTemplate}
+            sortable
           />
           <Column
             field="likeScore"
             header="Likelihood Score"
             body={LikeScoreBodyTemplate}
+            sortable
           />
           <Column
             field="bucket"
             header="Bucket Score"
             body={BucketScoreBodyTemplate}
+            sortable
           />
         </DataTable>
       </div>
