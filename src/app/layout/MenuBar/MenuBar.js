@@ -26,13 +26,13 @@ const MenuBar = () => {
     },
     {
       label: "Portfolio",
-      icon: "icon icon-common icon-classification",
+      icon: "icon icon-common icon-analyse",
       command: () => history.push("/portfolio/"),
     },
 
     {
       label: "Post-Portfolio",
-      icon: "icon icon-common icon-biotech",
+      icon: "icon icon-common icon-drug",
       command: () => history.push("/postportfolio/"),
     },
 

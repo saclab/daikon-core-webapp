@@ -174,7 +174,7 @@ const PortfolioDash = () => {
   return (
     <div className="datatable-portfolio-dash">
       <SectionHeading
-        icon="icon icon-common icon-classification"
+        icon="icon icon-common icon-analyse"
         heading="Portfolio"
       />
       <div className="card">

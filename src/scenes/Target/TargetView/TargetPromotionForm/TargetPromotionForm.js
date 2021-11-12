@@ -44,7 +44,13 @@ const TargetPromotionForm = ({ data }) => {
       <div>
         <div>
           <div className="card">
-            <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
+            <h4
+              style={{
+                background: "#cccccc",
+                height: "1.5rem",
+                margin: "1rem",
+              }}
+            >
               Impact of chemical inhibition
             </h4>
 
@@ -318,148 +324,207 @@ const TargetPromotionForm = ({ data }) => {
             <Divider />
           </div>
           <div className="card">
-          <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
-            Tractability
-          </h4>
-          <h5>a) High throughput screening feasibility</h5>
+            <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
+              Tractability
+            </h4>
+            <h5>a) High throughput screening feasibility</h5>
 
-          <GenePromoteSummaryAnswers
-            oKey="6a1"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6a1"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6a2"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6a2"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6a3"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6a3"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6a4"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6a4"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6a5"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6a5"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6a6"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6a6"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6a7"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6a7"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <h5>b) Structure based feasibility</h5>
-          <GenePromoteSummaryAnswers
-            oKey="6b1"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <h5>b) Structure based feasibility</h5>
+            <GenePromoteSummaryAnswers
+              oKey="6b1"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6b2"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6b2"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6b3"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6b3"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6b4"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6b4"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6b5"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6b5"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <h5>c) Progressibility considerations</h5>
-          <GenePromoteSummaryAnswers
-            oKey="6c1"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <h5>c) Progressibility considerations</h5>
+            <GenePromoteSummaryAnswers
+              oKey="6c1"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6c2"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6c2"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6c3"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6c3"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6c4"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6c4"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6c5"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6c5"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6c6"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6c6"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <h5>d) Safety considerations</h5>
-          <GenePromoteSummaryAnswers
-            oKey="6d1"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <h5>d) Safety considerations</h5>
+            <GenePromoteSummaryAnswers
+              oKey="6d1"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6d2"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6d2"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6d3"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6d3"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <GenePromoteSummaryAnswers
-            oKey="6d4"
-            questionObj={geneStore.promotionQuestionsRegistry}
-            ansObj={answers}
-          />
+            <GenePromoteSummaryAnswers
+              oKey="6d4"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
 
-          <Divider />
-        </div>
+            <Divider />
+          </div>
+          <div className="card">
+            <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
+              Interaction with other drugs/compounds
+            </h4>
+            <h5>a) Chemical inhibition during growth in vitro</h5>
+
+            <GenePromoteSummaryAnswers
+              oKey="7a1"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
+
+            <GenePromoteSummaryAnswers
+              oKey="7a2"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
+
+            <h5>b) Chemical inhibition during infection</h5>
+            <GenePromoteSummaryAnswers
+              oKey="7b1"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
+
+            <GenePromoteSummaryAnswers
+              oKey="7b2"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
+
+            <h5>c) Genetic inhibition during infection</h5>
+            <GenePromoteSummaryAnswers
+              oKey="7c1"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
+
+            <GenePromoteSummaryAnswers
+              oKey="7c2"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
+
+            <h5>d) Genetic inhibition during infection</h5>
+            <GenePromoteSummaryAnswers
+              oKey="7d1"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
+
+            <GenePromoteSummaryAnswers
+              oKey="7d2"
+              questionObj={geneStore.promotionQuestionsRegistry}
+              ansObj={answers}
+            />
+
+            <Divider />
+          </div>
         </div>
       </div>
     );

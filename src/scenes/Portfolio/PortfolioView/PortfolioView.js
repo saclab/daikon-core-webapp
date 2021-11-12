@@ -82,7 +82,7 @@ const PortfolioView = ({ match, history }) => {
               </div>
               <div className="p-mb-2">
                 <SectionHeading
-                  icon="icon icon-common icon-classification"
+                  icon="icon icon-common icon-analyse"
                   heading={"Project X"}
                 />
               </div>
