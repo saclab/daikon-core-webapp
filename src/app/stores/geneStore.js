@@ -33,6 +33,8 @@ export default class GeneStore {
   addingeditingResistanceMutation = false;
   editingUnpublishedStructures = false;
   addingUnpublishedStructures = false;
+  editingVulnerability = false;
+  addingVulnerability = false;
 
   geneRegistry = new Map();
   geneFunctionalCategories = [];
@@ -108,6 +110,11 @@ export default class GeneStore {
       addingUnpublishedStructures: observable,
       addUnpublishedStructures: action,
       editUnpublishedStructures: action,
+
+      editingVulnerability: observable,
+      addingVulnerability: observable,
+      addVulnerability: action,
+      editVulnerability: action,
     });
   }
 
@@ -689,6 +696,55 @@ export default class GeneStore {
     } finally {
       runInAction(() => {
         this.addingUnpublishedStructures = false;
+      });
+    }
+  };
+
+  editVulnerability = async (editedVulnerability = this.selectedGene.geneVulnerability) => {
+    console.log("geneStore: editVulnerabiliity Start");
+    console.log(editedVulnerability);
+    
+
+    this.editingVulnerabiliity = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.editVulnerability(
+        editedVulnerability.geneId,
+        editedVulnerability.id,
+        editedVulnerability
+      );
+      runInAction(() => {
+        this.reloadGene(editedVulnerability.geneId);
+        toast.success("Ok, edited vulnerability data.");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingVulnerabiliity = false;
+      });
+    }
+  };
+
+  addVulnerability = async (newVulnerability) => {
+    console.log("geneStore: addVulnerabiliity Start");
+
+    this.addingVulnerabiliity = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.addVulnerability(
+        this.selectedGene.id,
+        newVulnerability
+      );
+      runInAction(() => {
+        this.reloadGene(this.selectedGene.id);
+        toast.success("Ok, added new UnpublishedStructures");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.addingVulnerabiliity = false;
       });
     }
   };
