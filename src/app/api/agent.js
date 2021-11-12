@@ -181,6 +181,13 @@ const Gene = {
       `/gene/${geneId}/unpublishedstructures/${unpublishedStructureId}`,
       modUnpublishedStructure
     ),
+  addVulnerability: (geneId, newVulnerability) =>
+    requests.post(`/gene/${geneId}/vulnerability`, newVulnerability),
+  editVulnerability: (geneId, vulnerabilityId, modVulnerability) =>
+    requests.post(
+      `/gene/${geneId}/vulnerability/${vulnerabilityId}`,
+      modVulnerability
+    ),
 };
 
 const GeneAdmin = {

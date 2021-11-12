@@ -32,7 +32,7 @@ const GeneViewMycobrowswer = ({
                   historyDisplayLoading={historyDisplayLoading}
                   history={geneHistory}
                 />
-                <hr style={{ borderTop: "1px solid #CCCCCC"}} />
+                <hr style={{ borderTop: "1px solid #CCCCCC" }} />
                 <KeyValList
                   data={gene.genePublicData}
                   filter={["comments"]}
@@ -55,6 +55,9 @@ const GeneViewMycobrowswer = ({
                   ]}
                   editFunc={() => edit()}
                   cancelEdit={() => cancelEdit()}
+                  fetchHistory={() => fetchGeneHistory()}
+                  historyDisplayLoading={historyDisplayLoading}
+                  history={geneHistory}
                 />
               </Fieldset>
             </div>
@@ -122,9 +125,14 @@ const GeneViewMycobrowswer = ({
                 <KeyValList
                   data={gene.genePublicData}
                   filter={["m_Leprae", "m_Marinum", "m_Smegmatis"]}
-                  link={{ m_Leprae: "https://mycobrowser.epfl.ch/genes/" }}
+                  labels={{ m_Leprae: "M. leprae", m_Marinum: "M. marinum", m_Smegmatis: "M. smegmatis" }}
+                 
+                  // link={{ m_Leprae: "https://mycobrowser.epfl.ch/genes/" }}
                   editFunc={() => edit()}
                   cancelEdit={() => cancelEdit()}
+                  fetchHistory={() => fetchGeneHistory()}
+                  historyDisplayLoading={historyDisplayLoading}
+                  history={geneHistory}
                 />
               </Fieldset>
             </div>

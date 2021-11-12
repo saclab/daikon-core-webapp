@@ -35,8 +35,10 @@ const TargetGrid = ({ questions, target }) => {
     }
 
     /* Exceptions */
-    if (ans.questionIdentification === "5a1" || ans.questionIdentification === "5a3") {
-
+    if (
+      ans.questionIdentification === "5a1" ||
+      ans.questionIdentification === "5a3"
+    ) {
       if (ans.answer === "Yes") {
         answers[ans.questionIdentification] = "redCell";
       }
@@ -44,11 +46,6 @@ const TargetGrid = ({ questions, target }) => {
         answers[ans.questionIdentification] = "greenCell";
       }
     }
-
-
-
-
-
   });
 
   console.log(answers);
@@ -595,6 +592,100 @@ const TargetGrid = ({ questions, target }) => {
               6d4
             </td>
             <td colSpan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td rowSpan="4" className="verticalText">
+              <span>Interaction with other drugs/compounds</span>
+            </td>
+            <td>Chemical inhibition during growth in vitro</td>
+            <td>
+              <b>7a</b>
+            </td>
+            <td></td>
+
+            <td
+              className={"questionTooltip " + answers["7a1"]}
+              data-pr-tooltip={questions.get("7a1").questionBody}
+              data-pr-position="left"
+            >
+              7a1
+            </td>
+
+            <td
+              className={"questionTooltip " + answers["7a2"]}
+              data-pr-tooltip={questions.get("7a2").questionBody}
+              data-pr-position="left"
+            >
+              7a2
+            </td>
+            <td colSpan="6">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Chemical inhibition during infection</td>
+            <td>
+              <b>7b</b>
+            </td>
+            <td></td>
+            <td
+              className={"questionTooltip " + answers["7b1"]}
+              data-pr-tooltip={questions.get("7b1").questionBody}
+              data-pr-position="left"
+            >
+              7b1
+            </td>
+            <td
+              className={"questionTooltip " + answers["7b2"]}
+              data-pr-tooltip={questions.get("7b2").questionBody}
+              data-pr-position="left"
+            >
+              7b2
+            </td>
+            
+            <td colSpan="6">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Genetic inhibition during infection</td>
+            <td>
+              <b>7c</b>
+            </td>
+            <td></td>
+            <td
+              className={"questionTooltip " + answers["7c1"]}
+              data-pr-tooltip={questions.get("7c1").questionBody}
+              data-pr-position="left"
+            >
+              7c1
+            </td>
+            <td
+              className={"questionTooltip " + answers["7c2"]}
+              data-pr-tooltip={questions.get("7c2").questionBody}
+              data-pr-position="left"
+            >
+              7c2
+            </td>
+            <td colSpan="6">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Genetic inhibition during infection</td>
+            <td>
+              <b>7d</b>
+            </td>
+            <td></td>
+            <td
+              className={"questionTooltip " + answers["7d1"]}
+              data-pr-tooltip={questions.get("7d1").questionBody}
+              data-pr-position="left"
+            >
+              7d1
+            </td>
+            <td
+              className={"questionTooltip " + answers["7d2"]}
+              data-pr-tooltip={questions.get("7d2").questionBody}
+              data-pr-position="left"
+            >
+              7d2
+            </td>
+            <td colSpan="6">&nbsp;</td>
           </tr>
         </tbody>
       </table>
