@@ -13,7 +13,7 @@ import {
   _helper_renderHistoryTimeline,
   _helper_renderFooterOfEditDialog,
   _helper_filterHilightChanged,
-  _helper_renderHeaderofEditDialog
+  _helper_renderHeaderofEditDialog,
 } from "./KeyValList_Helper";
 import {
   _command_contextMenuCopyCommand,
@@ -26,6 +26,7 @@ import {
 
 const KeyValList = ({
   data,
+  labels,
   filter,
   link,
   editFunc,
@@ -159,7 +160,7 @@ const KeyValList = ({
     }
 
     let tBody = Object.keys(data).map((key, value) => {
-      let finalValue = data[key]?data[key]:"Not Available";
+      let finalValue = data[key] ? data[key] : "Not Available";
       if (typeof link !== "undefined") {
         if (key in link) {
           finalValue = (
@@ -191,7 +192,11 @@ const KeyValList = ({
           <tr key={key}>
             <td>
               <b>
-                <StartCase string={key} />
+                {typeof labels !== "undefined" && labels[key] ? (
+                  labels[key]
+                ) : (
+                  <StartCase string={key} />
+                )}
               </b>
             </td>
 
@@ -228,7 +233,9 @@ const KeyValList = ({
         onHide={() => setDisplayHistorySideBar(false)}
       >
         <div style={{ margin: "15px" }}>
-          <h2><i className="icon icon-common icon-history"></i> History</h2>
+          <h2>
+            <i className="icon icon-common icon-history"></i> History
+          </h2>
           <h1>
             <StartCase string={selectedId} />
           </h1>
@@ -255,19 +262,22 @@ const KeyValList = ({
         )}
       >
         <h2>
-          <StartCase string={selectedId} />
+          {typeof labels !== "undefined" && labels[selectedId] ? (
+            labels[selectedId]
+          ) : (
+            <StartCase string={selectedId} />
+          )}
         </h2>
         <InputTextarea
           rows={15}
           cols={60}
           value={data ? data[selectedId] : null}
           autoFocus
-          onChange={(e) =>{
+          onChange={(e) => {
             console.log(data[selectedId]);
             console.log(e.target.value);
-            runInAction(() => (data[selectedId] = e.target.value))
-          }
-          }
+            runInAction(() => (data[selectedId] = e.target.value));
+          }}
         />
       </Dialog>
 

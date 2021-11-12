@@ -46,6 +46,10 @@ const GenomeViewNonPublicData = ({
     addingCRISPRiStrain,
     addCRISPRiStrain,
     editCRISPRiStrain,
+    editingVulnerability,
+    addingVulnerability,
+    addVulnerability,
+    editVulnerability,
   } = rootStore.geneStore;
 
   useEffect(() => {
@@ -200,7 +204,7 @@ const GenomeViewNonPublicData = ({
                     "confounded",
                     "shell2015Operon",
                   ]}
-                  editFunc={() => edit()}
+                  editFunc={() => editVulnerability()}
                   cancelEdit={() => cancelEdit()}
                   fetchHistory={() => fetchGeneHistory()}
                   historyDisplayLoading={historyDisplayLoading}
