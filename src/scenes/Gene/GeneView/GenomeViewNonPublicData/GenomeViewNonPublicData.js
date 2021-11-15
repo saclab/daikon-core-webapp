@@ -50,6 +50,10 @@ const GenomeViewNonPublicData = ({
     addingVulnerability,
     addVulnerability,
     editVulnerability,
+    addHypomorph,
+    editHypomorph,
+    addingHypomorph,
+    editingHypomorph,
   } = rootStore.geneStore;
 
   useEffect(() => {
@@ -132,14 +136,17 @@ const GenomeViewNonPublicData = ({
           </div>
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
-              <Fieldset legend="Hypomorph, Knockdown strain, Phenotype List">
-                <DataTable value={genomeNonPublicData.HypomorphKnockdownStrain}>
-                  <Column
-                    field="Knockdown strain"
-                    header="Knockdown strain"
-                  ></Column>
-                  <Column field="Phenotype" header="Phenotype"></Column>
-                </DataTable>
+              <Fieldset legend="Hypomorph">
+                <DisplayTable
+                  heading={"Add Hypomorph Strain"}
+                  columns={["knockdownStrain", "phenotype"]}
+                  mandatory={["knockdownStrain", "phenotype"]}
+                  data={gene.geneHypomorphs}
+                  add={addHypomorph}
+                  edit={editHypomorph}
+                  adding={addingHypomorph}
+                  editing={editingHypomorph}
+                />
               </Fieldset>
             </div>
           </div>

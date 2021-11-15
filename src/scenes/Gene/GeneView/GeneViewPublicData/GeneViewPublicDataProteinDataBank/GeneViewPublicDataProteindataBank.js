@@ -6,7 +6,7 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import LiteMolView from "../../../../../app/common/LiteMolView/LiteMolView";
 
-const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
+const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const { uniprotDisplayLoading, pdbCrossReference, fetchPdbCrossReference } =
@@ -18,9 +18,6 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
   const [molViewFormat, setmolViewFormat] = useState("");
 
   useEffect(() => {
-    console.log("EFFECT GeneViewMycoBrowswerProteindataBank");
-    console.log(accessionNumber);
-    console.log(uniprotDisplayLoading);
     if (
       pdbCrossReference === null ||
       pdbCrossReference.accessionNumber !== accessionNumber
@@ -47,25 +44,21 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
   };
 
   let displayLigands = (ligands) => {
-
     return Object.keys(ligands).map((key) => {
-     
       return (
-        <p key={key} style={{margin :"0px"}}>
-          {ligands[key]} x {key} 
+        <p key={key} style={{ margin: "0px" }}>
+          {ligands[key]} x {key}
         </p>
-      )
-
-    })
-  }
+      );
+    });
+  };
 
   if (uniprotDisplayLoading) {
     return <Skeleton width="10rem" height="4rem"></Skeleton>;
   } else if (!uniprotDisplayLoading && pdbCrossReference !== null) {
     let generateData = pdbCrossReference.data.map((obj) => {
-      
       return (
-        <tr key={obj.id} style={{verticalAlign: "top"}}>
+        <tr key={obj.id} style={{ verticalAlign: "top" }}>
           <td>
             <a
               href={"https://www.ebi.ac.uk/pdbe/entry/pdb/" + obj.id}
@@ -93,7 +86,7 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
             </a>
           </td>
           <td>
-            <div style={{ width: '10rem',  fontSize: "small",  }}>
+            <div style={{ width: "10rem", fontSize: "small" }}>
               {displayLigands(obj.ligands)}
             </div>
           </td>
@@ -143,4 +136,4 @@ const GeneViewMycoBrowswerProteindataBank = ({ accessionNumber }) => {
   }
 };
 
-export default observer(GeneViewMycoBrowswerProteindataBank);
+export default observer(GeneViewPublicDataProteindataBank);

@@ -27,7 +27,7 @@ const DisplayTable = ({
   mandatory,
 }) => {
   /* Check if data property is missing, if yes create a blank array to prevent nulls */
-  data = data === null ? [] : data;
+  data = (typeof data === 'undefined' || data === null) ? [] : data;
 
   const [tableData, setTableData] = useState([...data]);
   const [originalRows, setoriginalRows] = useState(null);
