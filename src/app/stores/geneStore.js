@@ -35,6 +35,8 @@ export default class GeneStore {
   addingUnpublishedStructures = false;
   editingVulnerability = false;
   addingVulnerability = false;
+  editingHypomorph = false;
+  addingHypomorph = false;
 
   geneRegistry = new Map();
   geneFunctionalCategories = [];
@@ -115,6 +117,11 @@ export default class GeneStore {
       addingVulnerability: observable,
       addVulnerability: action,
       editVulnerability: action,
+
+      editingHypomorph: observable,
+      addingHypomorph: observable,
+      addHypomorph: action,
+      editHypomorph: action,
     });
   }
 
@@ -700,10 +707,11 @@ export default class GeneStore {
     }
   };
 
-  editVulnerability = async (editedVulnerability = this.selectedGene.geneVulnerability) => {
+  editVulnerability = async (
+    editedVulnerability = this.selectedGene.geneVulnerability
+  ) => {
     console.log("geneStore: editVulnerabiliity Start");
     console.log(editedVulnerability);
-    
 
     this.editingVulnerabiliity = true;
     // send to server
@@ -745,6 +753,53 @@ export default class GeneStore {
     } finally {
       runInAction(() => {
         this.addingVulnerabiliity = false;
+      });
+    }
+  };
+
+  editHypomorph = async (editedHypomorph) => {
+    console.log("geneStore: editHypomorph Start");
+
+    this.editingHypomorph = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.editHypomorph(
+        editedHypomorph.geneId,
+        editedHypomorph.id,
+        editedHypomorph
+      );
+      runInAction(() => {
+        this.reloadGene(editedHypomorph.geneId);
+        toast.success("Ok, edited hypomorph data.");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingHypomorph = false;
+      });
+    }
+  };
+
+  addHypomorph = async (newHypomorph) => {
+    console.log("geneStore: addHypomorph Start");
+
+    this.addingHypomorph = true;
+    // send to server
+    try {
+      var resp = await agent.Gene.addHypomorph(
+        this.selectedGene.id,
+        newHypomorph
+      );
+      runInAction(() => {
+        this.reloadGene(this.selectedGene.id);
+        toast.success("Ok, added new Hypomorph");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.addingHypomorph = false;
       });
     }
   };
