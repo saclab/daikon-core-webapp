@@ -188,6 +188,11 @@ const Gene = {
       `/gene/${geneId}/vulnerability/${vulnerabilityId}`,
       modVulnerability
     ),
+  addHypomorph: (geneId, newHypomorph) =>
+    requests.post(`/gene/${geneId}/hypomorph`, newHypomorph),
+
+  editHypomorph: (geneId, hypomorphId, modHypomorph) =>
+    requests.post(`/gene/${geneId}/hypomorph/${hypomorphId}`, modHypomorph),
 };
 
 const GeneAdmin = {
