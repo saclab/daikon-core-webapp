@@ -1,5 +1,6 @@
 import React from "react";
 import { Panel } from "primereact/panel";
+import { Horizion } from "../Horizion/Horizion";
 
 const SectionHeading = ({ icon, heading, sub, link, color, textColor }) => {
   const headerTemplate = (options) => {
@@ -51,7 +52,7 @@ const SectionHeading = ({ icon, heading, sub, link, color, textColor }) => {
   };
   return (
     <Panel headerTemplate={headerTemplate} collapsed={true} toggleable>
-      Links
+      <Horizion />
     </Panel>
   );
 };
