@@ -143,7 +143,7 @@ const TargetView = ({ match, history }) => {
                   icon="icon icon-common icon-target"
                   heading={target.accessionNumber}
                   accessionNumber={target.accessionNumber}
-                  link={"some data"}
+                  displayHorizion={true}
                 />
               </div>
               <div className="p-mb-2">

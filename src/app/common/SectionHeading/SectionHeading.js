@@ -2,14 +2,14 @@ import React from "react";
 import { Panel } from "primereact/panel";
 import Horizion from "../Horizion/Horizion";
 
-const SectionHeading = ({ icon, heading, sub, link, color, textColor, accessionNumber }) => {
+const SectionHeading = ({ icon, heading, sub, displayHorizion, color, textColor, accessionNumber }) => {
   const headerTemplate = (options) => {
     const toggleIcon = options.collapsed
       ? "icon icon-common icon-ellipsis-h"
       : "pi pi-chevron-up";
     let background = color ? color : "#28477f";
     let htextColor = textColor ? textColor : "#ffffff";
-    let linkButton = (
+    let displayHorizionButton = (
       <div className="p-mr-2" style={{ float: "right", marginLeft: "auto" }}>
         <button
           className={options.togglerClassName}
@@ -51,7 +51,7 @@ const SectionHeading = ({ icon, heading, sub, link, color, textColor, accessionN
             </h1>
           </div>
           <div className="p-mr-2">{sub}</div>
-          {link ? linkButton : <p />}
+          {displayHorizion ? displayHorizionButton : <p />}
         </div>
       </div>
     );
