@@ -46,6 +46,7 @@ export default class ScreenStore {
       loadingScreenSequence : observable,
 
       filterScreensByGene: action,
+      filterScreensByAccession: action,
       filteredScreens: observable,
 
       validatedHitsIndex: observable,
@@ -105,6 +106,19 @@ export default class ScreenStore {
     this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
       (screen) => {
         return screen.geneName === geneName;
+      }
+    );
+    this.loadingFilterScreensByGene = false;
+
+    return this.filteredScreens;
+  };
+
+  filterScreensByAccession = (accessionNo) => {
+    this.loadingFilterScreensByGene = true;
+    this.filteredScreens = [];
+    this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
+      (screen) => {
+        return screen.accessionNo === accessionNo;
       }
     );
     this.loadingFilterScreensByGene = false;

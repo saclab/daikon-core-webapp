@@ -260,7 +260,7 @@ const Discussion = {
 };
 
 const Horizion = {
-  generate: (reference) => requests.get(`/Horizion/${accessionNo}`),
+  generate: (accessionNo) => requests.get(`/Horizion/${accessionNo}`),
 }
 
 const exports = {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Panel } from "primereact/panel";
-import { Horizion } from "../Horizion/Horizion";
+import Horizion from "../Horizion/Horizion";
 
-const SectionHeading = ({ icon, heading, sub, link, color, textColor }) => {
+const SectionHeading = ({ icon, heading, sub, link, color, textColor, accessionNumber }) => {
   const headerTemplate = (options) => {
     const toggleIcon = options.collapsed
       ? "icon icon-common icon-ellipsis-h"
@@ -38,9 +38,15 @@ const SectionHeading = ({ icon, heading, sub, link, color, textColor }) => {
           marginBottom: "1em",
         }}
       >
-        <div className="p-d-flex" >
+        <div className="p-d-flex">
           <div className="p-mr-2">
-            <h1 style={{ margin: "0px", fontWeight: "lighter", color: htextColor}}>
+            <h1
+              style={{
+                margin: "0px",
+                fontWeight: "lighter",
+                color: htextColor,
+              }}
+            >
               <i className={icon}></i> {heading}
             </h1>
           </div>
@@ -52,7 +58,7 @@ const SectionHeading = ({ icon, heading, sub, link, color, textColor }) => {
   };
   return (
     <Panel headerTemplate={headerTemplate} collapsed={true} toggleable>
-      <Horizion />
+      <Horizion accessionNumber={accessionNumber} />
     </Panel>
   );
 };
