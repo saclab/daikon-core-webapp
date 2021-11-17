@@ -17,14 +17,18 @@ const ScreenSequences = ({ geneName }) => {
   } = rootStore.screenStore;
 
   console.log("====SCREEN SEQUENCES");
-  
 
   useEffect(() => {
-    if (filteredScreens === null || filteredScreens.length === 0 || filteredScreens[0].geneName !== geneName) filterScreensByGene(geneName);
+    if (
+      filteredScreens === null ||
+      filteredScreens.length === 0 ||
+      filteredScreens[0].geneName !== geneName
+    )
+      filterScreensByGene(geneName);
   }, [filteredScreens, filterScreensByGene]);
 
   if (displayLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   let tabs = [];
