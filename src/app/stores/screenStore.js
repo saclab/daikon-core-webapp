@@ -113,12 +113,12 @@ export default class ScreenStore {
     return this.filteredScreens;
   };
 
-  filterScreensByAccession = (accessionNo) => {
+  filterScreensByAccession = (accessionNumber) => {
     this.loadingFilterScreensByGene = true;
     this.filteredScreens = [];
     this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
       (screen) => {
-        return screen.accessionNo === accessionNo;
+        return screen.accessionNumber === accessionNumber;
       }
     );
     this.loadingFilterScreensByGene = false;
