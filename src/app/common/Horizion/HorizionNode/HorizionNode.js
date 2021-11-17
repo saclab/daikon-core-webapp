@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
 
 const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
-  console.log(dataObj);
+ 
 
   switch (dataObj.dataObj.name) {
     case "Gene":

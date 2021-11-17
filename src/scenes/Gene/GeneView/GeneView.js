@@ -148,6 +148,7 @@ const GeneView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-conceptual icon-dna"
                   heading={gene.accessionNumber}
+                  accessionNumber={gene.accessionNumber}
                   link={"some data"}
                 />
               </div>
