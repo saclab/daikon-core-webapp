@@ -259,6 +259,10 @@ const Discussion = {
     requests.del(`/Discussion/${discussionId}/reply/${replyId}`),
 };
 
+const Horizion = {
+  generate: (reference) => requests.get(`/Horizion/${accessionNo}`),
+}
+
 const exports = {
   AuthServiceInstance,
   Accounts,
@@ -271,6 +275,7 @@ const exports = {
   Screen,
   Hit,
   Discussion,
+  Horizion
 };
 
 export default exports;
