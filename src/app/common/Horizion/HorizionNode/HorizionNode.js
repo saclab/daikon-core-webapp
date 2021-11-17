@@ -2,10 +2,9 @@ import React from "react";
 import cssClass from "./HorizionNode.module.css";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
+import history from "../../../../history";
 
 const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
- 
-
   switch (dataObj.dataObj.name) {
     case "Gene":
       return (
@@ -18,6 +17,11 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
                 color: "#000000",
                 border: "0px solid #000000",
                 fontSize: "2em",
+              }}
+              onClick={() => {
+                history.push(
+                  `/gene/${dataObj.dataObj.attributes.id}`
+                );
               }}
             />
           </foreignObject>
@@ -47,6 +51,11 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
+              onClick={() => {
+                history.push(
+                  `/target/${dataObj.dataObj.attributes.id}`
+                );
+              }}
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
@@ -57,7 +66,8 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
                 <br />
                 {dataObj.dataObj.attributes.proteinName}
                 <br />
-                {dataObj.dataObj.attributes.bucketScore} <i className="ri-blaze-line"></i>
+                {dataObj.dataObj.attributes.bucketScore}{" "}
+                <i className="ri-blaze-line"></i>
               </p>
             </div>
           </foreignObject>
@@ -75,6 +85,11 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
                 color: "#000000",
                 border: "0px solid #000000",
                 fontSize: "2em",
+              }}
+              onClick={() => {
+                history.push(
+                  `/screen/${dataObj.dataObj.attributes.accessionNumber}`
+                );
               }}
             />
           </foreignObject>
@@ -104,7 +119,7 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
-          <div>
+            <div>
               <p>
                 <b>FHA</b> <br />
                 Project-X
@@ -129,7 +144,7 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
-          <div>
+            <div>
               <p>
                 <b>Portfolio</b> <br />
                 Project-X
@@ -154,7 +169,7 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
-          <div>
+            <div>
               <p>
                 <b>Post Portfolio</b> <br />
                 Project-X
