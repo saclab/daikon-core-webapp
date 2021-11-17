@@ -26,7 +26,7 @@ const ScreenView = ({ match, history }) => {
     loadingFetchScreens,
     screenRegistry,
     fetchScreens,
-    filterScreensByGene,
+    filterScreensByAccession,
     selectedScreen
   } = rootStore.screenStore;
   useEffect(() => {
@@ -96,7 +96,7 @@ const ScreenView = ({ match, history }) => {
                       color={"#f4f4f4"}
                       textColor={"#000000"}
                     />
-                    <ScreenSequences geneName={match.params.id} />
+                    <ScreenSequences accessionNumber={match.params.id} />
                   </TabPanel>
                   <TabPanel header="Validated Hits" headerClassName="hide">
                     <SectionHeading
@@ -105,7 +105,7 @@ const ScreenView = ({ match, history }) => {
                       color={"#f4f4f4"}
                       textColor={"#000000"}
                     />
-                    <ValidatedHits geneName={match.params.id} />
+                    <ValidatedHits accessionNumber={match.params.id} />
                   </TabPanel>
                   <TabPanel header="Discussion" headerClassName="hide">
                     <Discussion

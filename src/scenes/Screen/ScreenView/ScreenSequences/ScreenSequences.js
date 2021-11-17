@@ -5,11 +5,11 @@ import { RootStoreContext } from "../../../../app/stores/rootStore";
 import ScreenSequence from "./ScreenSequence/ScreenSequence";
 import Loading from "../../../../app/layout/Loading/Loading";
 
-const ScreenSequences = ({ geneName }) => {
+const ScreenSequences = ({ accessionNumber }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
-    filterScreensByGene,
+    filterScreensByAccession,
     filteredScreens,
     displayLoading,
     screenSequenceIndex,
@@ -22,10 +22,10 @@ const ScreenSequences = ({ geneName }) => {
     if (
       filteredScreens === null ||
       filteredScreens.length === 0 ||
-      filteredScreens[0].geneName !== geneName
+      filteredScreens[0].accessionNumber !== accessionNumber
     )
-      filterScreensByGene(geneName);
-  }, [filteredScreens, filterScreensByGene]);
+      filterScreensByAccession(accessionNumber);
+  }, [filteredScreens, filterScreensByAccession, accessionNumber]);
 
   if (displayLoading) {
     return <Loading />;

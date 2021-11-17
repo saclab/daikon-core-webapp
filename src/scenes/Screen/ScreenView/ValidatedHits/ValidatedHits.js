@@ -5,22 +5,22 @@ import { RootStoreContext } from "../../../../app/stores/rootStore";
 import ValidatedHitsList from "./ValidatedHitsList/ValidatedHitsList";
 
 
-const ValidatedHits = ({geneName}) => {
+const ValidatedHits = ({accessionNumber}) => {
   
 
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { filterScreensByGene, validatedHitsIndex, setValidatedHitsIndex } = rootStore.screenStore;
+  const { filterScreensByAccession, validatedHitsIndex, setValidatedHitsIndex } = rootStore.screenStore;
 
   console.log("==== VALIDATED HITS");
-  let filteredScreensbyGene = filterScreensByGene(geneName);
+  let filteredScreensByAccession = filterScreensByAccession(accessionNumber);
   let tabs = [];
 
-  console.log(filteredScreensbyGene.length);
+  console.log(filteredScreensByAccession.length);
 
-  if (tabs.length===0 && filteredScreensbyGene.length > 0) {
-    filteredScreensbyGene.forEach((screen) => {
+  if (tabs.length===0 && filteredScreensByAccession.length > 0) {
+    filteredScreensByAccession.forEach((screen) => {
       console.log(screen);
       tabs.push(
         <TabPanel header={screen.screenName} key={screen.id}>
