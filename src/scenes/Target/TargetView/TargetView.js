@@ -142,7 +142,8 @@ const TargetView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-common icon-target"
                   heading={target.accessionNumber}
-                  link={"some data"}
+                  accessionNumber={target.accessionNumber}
+                  displayHorizion={true}
                 />
               </div>
               <div className="p-mb-2">

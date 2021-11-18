@@ -3,14 +3,8 @@ import { TabView, TabPanel } from "primereact/tabview";
 import { Menu } from "primereact/menu";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Toast } from "primereact/toast";
-import { BreadCrumb } from "primereact/breadcrumb";
-import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import { NavLink } from "react-router-dom";
-import { DataTable } from "primereact/datatable";
-import { Tag } from "primereact/tag";
-import { Column } from "primereact/column";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import ScreenSequences from "./ScreenSequences/ScreenSequences";
 import ValidatedHits from "./ValidatedHits/ValidatedHits";
@@ -22,13 +16,8 @@ const ScreenView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {
-    loadingFetchScreens,
-    screenRegistry,
-    fetchScreens,
-    filterScreensByGene,
-    selectedScreen
-  } = rootStore.screenStore;
+  const { loadingFetchScreens, screenRegistry, fetchScreens, selectedScreen } =
+    rootStore.screenStore;
   useEffect(() => {
     if (screenRegistry.size === 0) fetchScreens();
   }, [fetchScreens, screenRegistry]);
@@ -82,6 +71,8 @@ const ScreenView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-common icon-search"
                   heading={"Screens of " + match.params.id}
+                  accessionNumber={match.params.id}
+                  displayHorizion={true}
                 />
               </div>
               <div className="p-mb-2">
@@ -96,7 +87,7 @@ const ScreenView = ({ match, history }) => {
                       color={"#f4f4f4"}
                       textColor={"#000000"}
                     />
-                    <ScreenSequences geneName={match.params.id} />
+                    <ScreenSequences accessionNumber={match.params.id} />
                   </TabPanel>
                   <TabPanel header="Validated Hits" headerClassName="hide">
                     <SectionHeading
@@ -105,7 +96,7 @@ const ScreenView = ({ match, history }) => {
                       color={"#f4f4f4"}
                       textColor={"#000000"}
                     />
-                    <ValidatedHits geneName={match.params.id} />
+                    <ValidatedHits accessionNumber={match.params.id} />
                   </TabPanel>
                   <TabPanel header="Discussion" headerClassName="hide">
                     <Discussion

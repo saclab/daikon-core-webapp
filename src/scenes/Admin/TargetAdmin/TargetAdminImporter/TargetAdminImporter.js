@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CSVReader } from "react-papaparse";
 import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
@@ -27,7 +27,7 @@ const TargetAdminImporter = () => {
     getPromotionQuestions,
     promotionQuestionsRegistry,
   } = rootStore.geneStore;
-  const { importTarget, displayLoading } = rootStore.targetStoreAdmin;
+  const { importTarget } = rootStore.targetStoreAdmin;
 
   useEffect(() => {
     if (promotionQuestionsRegistry.size === 0) {
@@ -136,7 +136,6 @@ const TargetAdminImporter = () => {
         "6a5": { answer: row["6a5_r"], description: row["6a5_t"] },
         "6a6": { answer: row["6a6_r"], description: row["6a6_t"] },
         "6a7": { answer: row["6a7_r"], description: row["6a7_t"] },
-        "5b1": { answer: row["5b1_r"], description: row["5b1_t"] },
         "6b1": { answer: row["6b1_r"], description: row["6b1_t"] },
         "6b2": { answer: row["6b2_r"], description: row["6b2_t"] },
         "6b3": { answer: row["6b3_r"], description: row["6b3_t"] },
@@ -165,24 +164,34 @@ const TargetAdminImporter = () => {
         geneID: geneID,
         geneName: row["GeneName"],
         status: "imported",
-        bucket: row["Bucket"]!==''?row["Bucket"]:'NA',
-        impactScore: row["ImpactScore"]!==''?row["ImpactScore"]:'0.00',
-        impactComplete: row["ImpactComplete"]!==''?row["ImpactComplete"]:'0.00',
-        likeScore: row["LikeScore"]!==''?row["LikeScore"]:'0.00',
-        likeComplete: row["LikeComplete"]!==''?row["LikeComplete"]:'0.00',
-        screeningScore: row["ScreeningScore"]!==''?row["ScreeningScore"]:'0.00',
-        screeningComplete: row["ScreeningComplete"]!==''?row["ScreeningComplete"]:'0.00',
-        structureScore: row["StructureScore"]!==''?row["StructureScore"]:'0.00',
-        structureComplete: row["StructureComplete"]!==''?row["StructureComplete"]:'0.00',
-        vulnerabilityRatio: row["VulnerabilityRatio"]!==''?row["VulnerabilityRatio"]:'0.00',
-        vulnerabilityRank: row["VulnerabilityRank"]!==''?row["VulnerabilityRank"]:'0.00',
+        bucket: row["Bucket"] !== "" ? row["Bucket"] : "NA",
+        impactScore: row["ImpactScore"] !== "" ? row["ImpactScore"] : "0.00",
+        impactComplete:
+          row["ImpactComplete"] !== "" ? row["ImpactComplete"] : "0.00",
+        likeScore: row["LikeScore"] !== "" ? row["LikeScore"] : "0.00",
+        likeComplete: row["LikeComplete"] !== "" ? row["LikeComplete"] : "0.00",
+        screeningScore:
+          row["ScreeningScore"] !== "" ? row["ScreeningScore"] : "0.00",
+        screeningComplete:
+          row["ScreeningComplete"] !== "" ? row["ScreeningComplete"] : "0.00",
+        structureScore:
+          row["StructureScore"] !== "" ? row["StructureScore"] : "0.00",
+        structureComplete:
+          row["StructureComplete"] !== "" ? row["StructureComplete"] : "0.00",
+        vulnerabilityRatio:
+          row["VulnerabilityRatio"] !== "" ? row["VulnerabilityRatio"] : "0.00",
+        vulnerabilityRank:
+          row["VulnerabilityRank"] !== "" ? row["VulnerabilityRank"] : "0.00",
         genePromotionRequestValues: [],
       };
 
       Object.keys(targetPromotionFormValue).map((key) => {
         dataObject.genePromotionRequestValues.push({
           questionId: promotionQuestionsRegistry.get(key).id,
-          answer: targetPromotionFormValue[key].answer!==''?targetPromotionFormValue[key].answer:'NA',
+          answer:
+            targetPromotionFormValue[key].answer !== ""
+              ? targetPromotionFormValue[key].answer
+              : "NA",
           description: targetPromotionFormValue[key].description,
         });
       });

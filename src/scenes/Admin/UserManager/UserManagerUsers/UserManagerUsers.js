@@ -4,12 +4,9 @@ import { Sidebar } from "primereact/sidebar";
 import { ProgressBar } from "primereact/progressbar";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { InputSwitch } from "primereact/inputswitch";
-import { SelectButton } from "primereact/selectbutton";
 import { Column } from "primereact/column";
 import { Message } from "primereact/message";
-import { BreadCrumb } from "primereact/breadcrumb";
 
 import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
@@ -35,11 +32,9 @@ const UserManagerUsers = () => {
     selectedAccount,
     fetchOrgs,
     Orgs,
-    OrgNames,
     LoadingOrgs,
     fetchRoles,
     Roles,
-    RoleNames,
     loadingRoles,
   } = rootStore.adminStore;
 
@@ -82,7 +77,7 @@ const UserManagerUsers = () => {
   };
 
   let orgLockTemplate = (rowData) => {
-    return <InputSwitch checked={rowData.lock} readOnly/>;
+    return <InputSwitch checked={rowData.lock} readOnly />;
   };
 
   return (
@@ -106,11 +101,18 @@ const UserManagerUsers = () => {
           value={Users}
           header="Authorized Users"
           className="p-datatable-sm"
-          sortMode="single" sortField="name" sortOrder={1}
+          sortMode="single"
+          sortField="name"
+          sortOrder={1}
         >
           <Column field="displayName" header="Full Name" sortable />
           <Column field="email" header="Email" />
-          <Column field="org" header="Organization" body={orgBodyTemplate} sortable/>
+          <Column
+            field="org"
+            header="Organization"
+            body={orgBodyTemplate}
+            sortable
+          />
           <Column
             field="lock"
             header="Account Locked?"

@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ProgressBar } from "primereact/progressbar";
 import { Button } from "primereact/button";
@@ -10,10 +9,8 @@ import { Calendar } from "primereact/calendar";
 import { observer } from "mobx-react-lite";
 import { Dropdown } from "primereact/dropdown";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
-import Loading from "../../../../app/layout/Loading/Loading";
-import history from "../../../../history";
 
-const TargetScreenPromotionQuestionaire = ({closeSidebar}) => {
+const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
@@ -22,7 +19,7 @@ const TargetScreenPromotionQuestionaire = ({closeSidebar}) => {
     promoteTargetToScreenDisplayLoading,
   } = rootStore.targetStore;
 
-  const { fetchOrgs, Orgs, OrgNames, LoadingOrgs } = rootStore.adminStore;
+  const { fetchOrgs, Orgs, LoadingOrgs } = rootStore.adminStore;
 
   const [showMessage, setShowMessage] = useState(false);
 

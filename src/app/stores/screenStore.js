@@ -21,7 +21,7 @@ export default class ScreenStore {
   screenRegistryCacheValid = false;
   screenRegistryExpanded = new Map();
   selectedScreen = null;
-  filteredScreens = new Array();
+  filteredScreens = [];
 
   validatedHitsIndex = 0;
   screenSequenceIndex = 0;
@@ -43,9 +43,10 @@ export default class ScreenStore {
       screenRegistryExpanded: observable,
 
       addScreeenSequence: action,
-      loadingScreenSequence : observable,
+      loadingScreenSequence: observable,
 
       filterScreensByGene: action,
+      filterScreensByAccession: action,
       filteredScreens: observable,
 
       validatedHitsIndex: observable,
@@ -105,6 +106,19 @@ export default class ScreenStore {
     this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
       (screen) => {
         return screen.geneName === geneName;
+      }
+    );
+    this.loadingFilterScreensByGene = false;
+
+    return this.filteredScreens;
+  };
+
+  filterScreensByAccession = (accessionNumber) => {
+    this.loadingFilterScreensByGene = true;
+    this.filteredScreens = [];
+    this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
+      (screen) => {
+        return screen.accessionNumber === accessionNumber;
       }
     );
     this.loadingFilterScreensByGene = false;

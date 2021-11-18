@@ -23,7 +23,7 @@ const ValidatedHitsList = ({ screenId }) => {
   console.log("==== VALIDATED HIT LIST");
   useEffect(() => {
     fetchScreen(screenId);
-  }, [fetchScreen]);
+  }, [fetchScreen, screenId]);
 
   if (loadingFetchScreen || selectedScreen === null) {
     return <Loading />;
@@ -79,14 +79,16 @@ const ValidatedHitsList = ({ screenId }) => {
 
   const tableHeader = (
     <div className="p-d-flex p-ai-center">
-      <Button
-        type="button"
-        icon="icon icon-common icon-plus-circle"
-        label="Import"
-        className="p-button-text"
-        style={{ height: "30px", marginRight: "5px" }}
-        onClick={() => setDisplayHitsImportSidebar(true)}
-      />
+      {selectedScreen.validatedHits.length === 0 && (
+        <Button
+          type="button"
+          icon="icon icon-common icon-plus-circle"
+          label="Import"
+          className="p-button-text"
+          style={{ height: "30px", marginRight: "5px" }}
+          onClick={() => setDisplayHitsImportSidebar(true)}
+        />
+      )}
       <Button
         type="button"
         icon="icon icon-fileformats icon-CSV"
@@ -137,19 +139,20 @@ const ValidatedHitsList = ({ screenId }) => {
               field="Method"
               header="Method"
               body={MethodBodyTemplate}
-              style={{ width: "12%" }}
+              style={{ width: "100px" }}
             />
             <Column
               field="MIC"
               header="MIC"
               body={MICBodyTemplate}
-              style={{ width: "5%" }}
+              style={{ width: "100px" }}
             />
             <Column
               field="Cluster"
               header="Cluster Group No"
               body={ClusterBodyTemplate}
-              style={{ width: "100px" }}
+              style={{ width: "50px" }}
+              sortable
             />
             <Column
               field="Structure"
@@ -169,7 +172,6 @@ const ValidatedHitsList = ({ screenId }) => {
       <Sidebar
         visible={displayHitsImportSidebar}
         position="right"
-        
         // style={{ width: "50%", overflowX: "auto" }}
         blockScroll={true}
         onHide={() => setDisplayHitsImportSidebar(false)}
@@ -177,13 +179,13 @@ const ValidatedHitsList = ({ screenId }) => {
       >
         <div className="card">
           <h3>
-            <i className="icon icon-common icon-plus-circle" />  Import Validated Hits
+            <i className="icon icon-common icon-plus-circle" /> Import Validated
+            Hits
           </h3>
-          
+
           <hr />
           <br />
-          <ValidatedHitsImporter screenId={selectedScreen.id}/>
-          
+          <ValidatedHitsImporter screenId={selectedScreen.id} />
         </div>
       </Sidebar>
     </div>
