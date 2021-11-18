@@ -1,30 +1,30 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { TabView, TabPanel } from "primereact/tabview";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import ValidatedHitsList from "./ValidatedHitsList/ValidatedHitsList";
 
-
-const ValidatedHits = ({geneName}) => {
-  
-
-
+const ValidatedHits = ({ accessionNumber }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { filterScreensByGene, validatedHitsIndex, setValidatedHitsIndex } = rootStore.screenStore;
+  const {
+    filterScreensByAccession,
+    validatedHitsIndex,
+    setValidatedHitsIndex,
+  } = rootStore.screenStore;
 
   console.log("==== VALIDATED HITS");
-  let filteredScreensbyGene = filterScreensByGene(geneName);
+  let filteredScreensByAccession = filterScreensByAccession(accessionNumber);
   let tabs = [];
 
-  console.log(filteredScreensbyGene.length);
+  console.log(filteredScreensByAccession.length);
 
-  if (tabs.length===0 && filteredScreensbyGene.length > 0) {
-    filteredScreensbyGene.forEach((screen) => {
+  if (tabs.length === 0 && filteredScreensByAccession.length > 0) {
+    filteredScreensByAccession.forEach((screen) => {
       console.log(screen);
       tabs.push(
         <TabPanel header={screen.screenName} key={screen.id}>
-          <ValidatedHitsList screenId={screen.id}/>
+          <ValidatedHitsList screenId={screen.id} />
         </TabPanel>
       );
     });
@@ -41,6 +41,5 @@ const ValidatedHits = ({geneName}) => {
     </div>
   );
 };
-
 
 export default observer(ValidatedHits);

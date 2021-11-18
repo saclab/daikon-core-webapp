@@ -1,14 +1,15 @@
 import React from "react";
 import { Panel } from "primereact/panel";
+import Horizion from "../Horizion/Horizion";
 
-const SectionHeading = ({ icon, heading, sub, link, color, textColor }) => {
+const SectionHeading = ({ icon, heading, sub, displayHorizion, color, textColor, accessionNumber }) => {
   const headerTemplate = (options) => {
     const toggleIcon = options.collapsed
       ? "icon icon-common icon-ellipsis-h"
       : "pi pi-chevron-up";
     let background = color ? color : "#28477f";
     let htextColor = textColor ? textColor : "#ffffff";
-    let linkButton = (
+    let displayHorizionButton = (
       <div className="p-mr-2" style={{ float: "right", marginLeft: "auto" }}>
         <button
           className={options.togglerClassName}
@@ -37,21 +38,27 @@ const SectionHeading = ({ icon, heading, sub, link, color, textColor }) => {
           marginBottom: "1em",
         }}
       >
-        <div className="p-d-flex" >
+        <div className="p-d-flex">
           <div className="p-mr-2">
-            <h1 style={{ margin: "0px", fontWeight: "lighter", color: htextColor}}>
+            <h1
+              style={{
+                margin: "0px",
+                fontWeight: "lighter",
+                color: htextColor,
+              }}
+            >
               <i className={icon}></i> {heading}
             </h1>
           </div>
           <div className="p-mr-2">{sub}</div>
-          {link ? linkButton : <p />}
+          {displayHorizion ? displayHorizionButton : <p />}
         </div>
       </div>
     );
   };
   return (
     <Panel headerTemplate={headerTemplate} collapsed={true} toggleable>
-      Links
+      <Horizion accessionNumber={accessionNumber} />
     </Panel>
   );
 };

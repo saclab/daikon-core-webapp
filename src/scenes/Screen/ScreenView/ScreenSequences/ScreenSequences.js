@@ -1,15 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { TabView, TabPanel } from "primereact/tabview";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import ScreenSequence from "./ScreenSequence/ScreenSequence";
 import Loading from "../../../../app/layout/Loading/Loading";
 
-const ScreenSequences = ({ geneName }) => {
+const ScreenSequences = ({ accessionNumber }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
-    filterScreensByGene,
+    filterScreensByAccession,
     filteredScreens,
     displayLoading,
     screenSequenceIndex,
@@ -17,14 +17,18 @@ const ScreenSequences = ({ geneName }) => {
   } = rootStore.screenStore;
 
   console.log("====SCREEN SEQUENCES");
-  
 
   useEffect(() => {
-    if (filteredScreens === null || filteredScreens.length === 0 || filteredScreens[0].geneName !== geneName) filterScreensByGene(geneName);
-  }, [filteredScreens, filterScreensByGene]);
+    if (
+      filteredScreens === null ||
+      filteredScreens.length === 0 ||
+      filteredScreens[0].accessionNumber !== accessionNumber
+    )
+      filterScreensByAccession(accessionNumber);
+  }, [filteredScreens, filterScreensByAccession, accessionNumber]);
 
   if (displayLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   let tabs = [];

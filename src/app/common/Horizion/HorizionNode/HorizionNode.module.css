@@ -1,0 +1,25 @@
+.HorizionNode  {
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-right: auto;
+  text-align: left;
+}
+
+
+
+.HorizionNode tr {
+  list-style-type: none;
+  text-align: left;
+}
+
+.HorizionNode td {
+  margin: 0; 
+  padding: 0;
+  text-align: left;
+  font-size: large;
+}
+
+.HorizionNode table {
+ margin-top: 10px;
+ border-style: none;
+}

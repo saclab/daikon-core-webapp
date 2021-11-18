@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { TabMenu } from "primereact/tabmenu";
 import "./MenuBar.css";
 import history from "../../../history";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 const MenuBar = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  let location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes("/gene/")) setActiveIndex(0);
+    else if (location.pathname.includes("/target/")) setActiveIndex(1);
+    else if (location.pathname.includes("/screen/")) setActiveIndex(2);
+    else if (location.pathname.includes("/fha/")) setActiveIndex(3);
+    else if (location.pathname.includes("/portfolio/")) setActiveIndex(4);
+    else if (location.pathname.includes("/postportfolio/")) setActiveIndex(5);
+  }, [location, setActiveIndex]);
+
   const items = [
     {
       label: "Genes",
@@ -38,25 +52,13 @@ const MenuBar = () => {
 
     // { label: "Clinical", icon: "icon icon-conceptual icon-proteins" },
   ];
-
-  const setSelectedItem = () => {
-    switch (window.location.pathname) {
-      case "/gene/":
-        return items[0];
-      case "/target/":
-        return items[1];
-      case "/screen/":
-        return items[2];
-      case "/portfolio/":
-        return items[4];
-      default:
-        return "ww";
-    }
-  };
-
   return (
     <div className={["p-d-flex", "p-jc-center", "pipeline-menu"].join(" ")}>
-      <TabMenu model={items} activeItem={setSelectedItem()} />
+      <TabMenu
+        model={items}
+        activeIndex={activeIndex}
+        onTabChange={(e) => setActiveIndex(e.index)}
+      />
     </div>
   );
 };

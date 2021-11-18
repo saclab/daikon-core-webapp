@@ -13,6 +13,7 @@ import TargetStoreAdmin from "./targetStoreAdmin";
 import PostPortfolioStore from "./postPortfolioStore";
 import HitsStore from "./hitsStore";
 import DiscussionStore from "./discussionStore";
+import GeneralStore from "./generalStore";
 
 
 configure({ enforceActions: "always" });
@@ -31,6 +32,7 @@ export class RootStore {
   portfolioStore;
   hitsStore;
   discussionStore;
+  generalStore;
   
 
   constructor() {
@@ -47,6 +49,7 @@ export class RootStore {
     this.targetStoreAdmin = new TargetStoreAdmin(this);
     this.postPortfolioStore = new PostPortfolioStore(this);
     this.discussionStore = new DiscussionStore(this);
+    this.generalStore = new GeneralStore(this);
   
   }
 }

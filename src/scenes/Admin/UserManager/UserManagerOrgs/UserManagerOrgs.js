@@ -4,13 +4,8 @@ import { Sidebar } from "primereact/sidebar";
 import { ProgressBar } from "primereact/progressbar";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
-import { SelectButton } from "primereact/selectbutton";
 import { Column } from "primereact/column";
 import { Message } from "primereact/message";
-import { BreadCrumb } from "primereact/breadcrumb";
-
 import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import history from "../../../../history";
@@ -26,15 +21,8 @@ const UserManagerOrgs = () => {
 
   const [selectedOrg, setSelectedOrg] = useState(null);
 
-  const {
-    fetchOrgs,
-    Orgs,
-    OrgNames,
-    LoadingOrgs,
-    addOrg,
-    orgsRegistry,
-    updateOrg,
-  } = rootStore.adminStore;
+  const { fetchOrgs, Orgs, LoadingOrgs, addOrg, orgsRegistry, updateOrg } =
+    rootStore.adminStore;
 
   /* Hide if not admin */
   const currentUser = rootStore.userStore.user;
@@ -46,7 +34,7 @@ const UserManagerOrgs = () => {
     if (Orgs.length === 0) {
       fetchOrgs();
     }
-  }, [fetchOrgs, Orgs]);
+  }, [fetchOrgs, Orgs, currentUser.roles]);
 
   /** Loading Overlay */
   if (!displayEditDialog && LoadingOrgs) {

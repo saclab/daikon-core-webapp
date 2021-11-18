@@ -1,8 +1,8 @@
 import { Fieldset } from "primereact/fieldset";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-import GeneViewMycoBrowswerProteindataBank from "./GeneViewMycobrowswerProteinDataBank/GeneViewMycoBrowswerProteindataBank";
+import GeneViewPublicDataProteindataBank from "./GeneViewPublicDataProteinDataBank/GeneViewPublicDataProteindataBank";
 
-const GeneViewMycobrowswer = ({
+const GeneViewPublicData = ({
   gene,
   edit,
   cancelEdit,
@@ -64,7 +64,7 @@ const GeneViewMycobrowswer = ({
 
             <div className="p-mb-2">
               <Fieldset legend="Protein Databank">
-                <GeneViewMycoBrowswerProteindataBank
+                <GeneViewPublicDataProteindataBank
                   accessionNumber={gene.accessionNumber}
                 />
               </Fieldset>
@@ -143,4 +143,4 @@ const GeneViewMycobrowswer = ({
   );
 };
 
-export default GeneViewMycobrowswer;
+export default GeneViewPublicData;

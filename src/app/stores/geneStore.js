@@ -35,6 +35,8 @@ export default class GeneStore {
   addingUnpublishedStructures = false;
   editingVulnerability = false;
   addingVulnerability = false;
+  editingHypomorph = false;
+  addingHypomorph = false;
 
   geneRegistry = new Map();
   geneFunctionalCategories = [];
@@ -115,6 +117,11 @@ export default class GeneStore {
       addingVulnerability: observable,
       addVulnerability: action,
       editVulnerability: action,
+
+      editingHypomorph: observable,
+      addingHypomorph: observable,
+      addHypomorph: action,
+      editHypomorph: action,
     });
   }
 
@@ -424,7 +431,7 @@ export default class GeneStore {
     this.editingEssentiality = true;
     // send to server
     try {
-      var resp = await agent.Gene.editEssentiality(
+      await agent.Gene.editEssentiality(
         editedEssentiality.geneId,
         editedEssentiality.id,
         editedEssentiality
@@ -448,10 +455,7 @@ export default class GeneStore {
     this.addingEssentiality = true;
     // send to server
     try {
-      var resp = await agent.Gene.addEssentiality(
-        this.selectedGene.id,
-        newEssentiality
-      );
+      await agent.Gene.addEssentiality(this.selectedGene.id, newEssentiality);
       runInAction(() => {
         this.reloadGene(this.selectedGene.id);
         toast.success("Ok, added new essentiality");
@@ -471,7 +475,7 @@ export default class GeneStore {
     this.editingProteinProduction = true;
     // send to server
     try {
-      var resp = await agent.Gene.editProteinProduction(
+      await agent.Gene.editProteinProduction(
         editedProteinProduction.geneId,
         editedProteinProduction.id,
         editedProteinProduction
@@ -495,7 +499,7 @@ export default class GeneStore {
     this.addingProteinProduction = true;
     // send to server
     try {
-      var resp = await agent.Gene.addProteinProduction(
+      await agent.Gene.addProteinProduction(
         this.selectedGene.id,
         newProteinProduction
       );
@@ -518,7 +522,7 @@ export default class GeneStore {
     this.editingProteinActivityAssay = true;
     // send to server
     try {
-      var resp = await agent.Gene.editProteinProductionAssasy(
+      await agent.Gene.editProteinProductionAssasy(
         editedProteinActivityAssay.geneId,
         editedProteinActivityAssay.id,
         editedProteinActivityAssay
@@ -542,7 +546,7 @@ export default class GeneStore {
     this.addingProteinActivityAssay = true;
     // send to server
     try {
-      var resp = await agent.Gene.addProteinProductionAssasy(
+      await agent.Gene.addProteinProductionAssasy(
         this.selectedGene.id,
         newProteinActivityAssay
       );
@@ -565,7 +569,7 @@ export default class GeneStore {
     this.editingCRISPRiStrain = true;
     // send to server
     try {
-      var resp = await agent.Gene.editCRISPRiStrain(
+      await agent.Gene.editCRISPRiStrain(
         editedCRISPRiStrain.geneId,
         editedCRISPRiStrain.id,
         editedCRISPRiStrain
@@ -589,10 +593,7 @@ export default class GeneStore {
     this.addingCRISPRiStrain = true;
     // send to server
     try {
-      var resp = await agent.Gene.addCRISPRiStrain(
-        this.selectedGene.id,
-        newCRISPRiStrain
-      );
+      await agent.Gene.addCRISPRiStrain(this.selectedGene.id, newCRISPRiStrain);
       runInAction(() => {
         this.reloadGene(this.selectedGene.id);
         toast.success("Ok, added new CRISPRiStrain");
@@ -612,7 +613,7 @@ export default class GeneStore {
     this.editingResistanceMutation = true;
     // send to server
     try {
-      var resp = await agent.Gene.editResistanceMutation(
+      agent.Gene.editResistanceMutation(
         editedResistanceMutation.geneId,
         editedResistanceMutation.id,
         editedResistanceMutation
@@ -636,7 +637,7 @@ export default class GeneStore {
     this.addingResistanceMutation = true;
     // send to server
     try {
-      var resp = await agent.Gene.addResistanceMutation(
+      await agent.Gene.addResistanceMutation(
         this.selectedGene.id,
         newResistanceMutation
       );
@@ -659,7 +660,7 @@ export default class GeneStore {
     this.editingUnpublishedStructures = true;
     // send to server
     try {
-      var resp = await agent.Gene.editUnpublishedStructure(
+      await agent.Gene.editUnpublishedStructure(
         editedUnpublishedStructures.geneId,
         editedUnpublishedStructures.id,
         editedUnpublishedStructures
@@ -683,7 +684,7 @@ export default class GeneStore {
     this.addingUnpublishedStructures = true;
     // send to server
     try {
-      var resp = await agent.Gene.addUnpublishedStructure(
+      await agent.Gene.addUnpublishedStructure(
         this.selectedGene.id,
         newUnpublishedStructures
       );
@@ -700,19 +701,15 @@ export default class GeneStore {
     }
   };
 
-  editVulnerability = async (editedVulnerability = this.selectedGene.geneVulnerability) => {
+  editVulnerability = async (
+    editedVulnerability = this.selectedGene.geneVulnerability
+  ) => {
     console.log("geneStore: editVulnerabiliity Start");
     console.log(editedVulnerability);
-    
 
     this.editingVulnerabiliity = true;
     // send to server
     try {
-      var resp = await agent.Gene.editVulnerability(
-        editedVulnerability.geneId,
-        editedVulnerability.id,
-        editedVulnerability
-      );
       runInAction(() => {
         this.reloadGene(editedVulnerability.geneId);
         toast.success("Ok, edited vulnerability data.");
@@ -732,10 +729,6 @@ export default class GeneStore {
     this.addingVulnerabiliity = true;
     // send to server
     try {
-      var resp = await agent.Gene.addVulnerability(
-        this.selectedGene.id,
-        newVulnerability
-      );
       runInAction(() => {
         this.reloadGene(this.selectedGene.id);
         toast.success("Ok, added new UnpublishedStructures");
@@ -745,6 +738,44 @@ export default class GeneStore {
     } finally {
       runInAction(() => {
         this.addingVulnerabiliity = false;
+      });
+    }
+  };
+
+  editHypomorph = async (editedHypomorph) => {
+    console.log("geneStore: editHypomorph Start");
+
+    this.editingHypomorph = true;
+    // send to server
+    try {
+      runInAction(() => {
+        this.reloadGene(editedHypomorph.geneId);
+        toast.success("Ok, edited hypomorph data.");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingHypomorph = false;
+      });
+    }
+  };
+
+  addHypomorph = async (newHypomorph) => {
+    console.log("geneStore: addHypomorph Start");
+
+    this.addingHypomorph = true;
+    // send to server
+    try {
+      runInAction(() => {
+        this.reloadGene(this.selectedGene.id);
+        toast.success("Ok, added new Hypomorph");
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.addingHypomorph = false;
       });
     }
   };

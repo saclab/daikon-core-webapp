@@ -1,20 +1,10 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRef } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
-import { BreadCrumb } from "primereact/breadcrumb";
-import NotFound from "../../../app/layout/NotFound/NotFound";
-import Loading from "../../../app/layout/Loading/Loading";
-import { observer } from "mobx-react-lite";
-import { NavLink } from "react-router-dom";
-import { DataTable } from "primereact/datatable";
-import { Tag } from "primereact/tag";
-import { Column } from "primereact/column";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import UserManagerUsers from "./UserManagerUsers/UserManagerUsers";
 import UserManagerOrgs from "./UserManagerOrgs/UserManagerOrgs";
-
-
 
 const UserManager = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -79,7 +69,7 @@ const UserManager = () => {
                     color={"#f4f4f4"}
                     textColor={"#000000"}
                   />
-                 <UserManagerUsers />
+                  <UserManagerUsers />
                 </TabPanel>
                 <TabPanel header="Orgs" headerClassName="hide">
                   <SectionHeading

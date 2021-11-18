@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { Avatar } from "primereact/avatar";
-
-import { Mention } from "primereact/mention";
 
 const StartDiscussion = ({
   section,
@@ -15,8 +12,6 @@ const StartDiscussion = ({
 }) => {
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
-
-  const [suggestions, setSuggestions] = useState([]);
 
   let submitNewDiscussion = () => {
     let formatedDiscussion = {
@@ -33,55 +28,6 @@ const StartDiscussion = ({
       console.log(res);
       if (res !== null) close();
     });
-  };
-
-  let people = [
-    {
-      name: "Siddhant Rath",
-      email: "sid@tamu.edu",
-    },
-    {
-      name: "Saswati Panda",
-      email: "panda@tamu.edu",
-    },
-  ];
-
-  const onSearch = (event) => {
-    //in a real application, make a request to a remote url with the query and return suggestions, for demo we filter at client side
-    setTimeout(() => {
-      const query = event.query;
-      let suggestions;
-
-      if (!query.trim().length) {
-        suggestions = [...people];
-      } else {
-        suggestions = people.filter((person) => {
-          return person.name.toLowerCase().startsWith(query.toLowerCase());
-        });
-      }
-
-      setSuggestions(suggestions);
-    }, 250);
-  };
-
-  const itemTemplate = (suggestion) => {
-    return (
-      <div className="p-d-flex p-ai-center">
-        <Avatar
-          icon="pi pi-user"
-          size="small"
-          style={{ width: "1rem", height: "1rem" }}
-        />
-        <span className="p-d-flex p-dir-col p-ml-2">
-          {suggestion.name}
-          <small
-            style={{ fontSize: ".75rem", color: "var(--text-secondary-color)" }}
-          >
-            @{suggestion.email}
-          </small>
-        </span>
-      </div>
-    );
   };
 
   return (

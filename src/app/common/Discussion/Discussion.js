@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import dateFormat, { masks } from "dateformat";
+import React, { useState, useEffect, useContext } from "react";
 import { Sidebar } from "primereact/sidebar";
-
+import dateFormat from "dateformat";
 import { Fieldset } from "primereact/fieldset";
 import { Button } from "primereact/button";
 import { observer } from "mobx-react-lite";
 import { Tag } from "primereact/tag";
 import { Divider } from "primereact/divider";
 import { Card } from "primereact/card";
-import { Dialog } from "primereact/dialog";
 import { Avatar } from "primereact/avatar";
 import { InputTextarea } from "primereact/inputtextarea";
 import { RootStoreContext } from "../../stores/rootStore";
@@ -26,17 +24,14 @@ const Discussion = ({ reference, section }) => {
     editDiscussion,
     editingDiscussion,
     newReply,
-    postingReply,
   } = rootStore.discussionStore;
   const { user } = rootStore.userStore;
 
   useEffect(() => {
     fetchDiscussions(reference);
-  }, [fetchDiscussions]);
+  }, [fetchDiscussions, reference]);
 
   /* local variables */
-
-  const dt = useRef(null);
 
   const [displayDiscussionDialog, setDisplayDiscussionDialog] = useState(false);
   const [userReplyValue, setuserReplyValue] = useState({});
@@ -198,7 +193,7 @@ const Discussion = ({ reference, section }) => {
                   />
                 </React.Fragment>
               ) : (
-                <p style={{ marginBottom: "0.2rem" , whiteSpace: "pre-line"}}>
+                <p style={{ marginBottom: "0.2rem", whiteSpace: "pre-line" }}>
                   {discussion.description}
                 </p>
               )}

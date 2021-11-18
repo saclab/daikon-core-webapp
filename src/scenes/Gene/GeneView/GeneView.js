@@ -8,7 +8,7 @@ import { observer } from "mobx-react-lite";
 import GenomeViewNonPublicData from "./GenomeViewNonPublicData/GenomeViewNonPublicData";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
-import GeneViewMycobrowswer from "./GeneViewMycobrowswer/GeneViewMycobrowswer";
+import GeneViewPublicData from "./GeneViewPublicData/GeneViewPublicData";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Discussion from "../../../app/common/Discussion/Discussion";
@@ -43,7 +43,7 @@ const GeneView = ({ match, history }) => {
       label: "Sections",
       items: [
         {
-          label: "Mycobrowser Information",
+          label: "Public Data",
           icon: "ri-book-open-line",
           command: () => {
             setActiveIndex(0);
@@ -148,7 +148,8 @@ const GeneView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-conceptual icon-dna"
                   heading={gene.accessionNumber}
-                  link={"some data"}
+                  accessionNumber={gene.accessionNumber}
+                  displayHorizion={true}
                 />
               </div>
               <div className="p-mb-2">
@@ -157,7 +158,7 @@ const GeneView = ({ match, history }) => {
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
                   <TabPanel header="Header I" headerClassName="hide">
-                    <GeneViewMycobrowswer
+                    <GeneViewPublicData
                       id={match.params.id}
                       gene={gene}
                       edit={() => editGene()}
