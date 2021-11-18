@@ -6,7 +6,6 @@ import { observer } from "mobx-react-lite";
 import TargetGrid from "./TargetGrid/TargetGrid";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
-import TargetScorecardPercentDial from "./TargetScorecardPercentDial/TargetScorecardPercentDial";
 
 const TargetScorecard = () => {
   const toast = useRef(null);
@@ -43,8 +42,8 @@ const TargetScorecard = () => {
                       <b>{selectedTarget.bucket}</b>
                     </h3>
                     <h3>
-                      <i className="icon icon-conceptual icon-proteins"></i> Protein
-                      : <b>{_.upperFirst(selectedTarget.geneName)}</b>
+                      <i className="icon icon-conceptual icon-proteins"></i>{" "}
+                      Protein : <b>{_.upperFirst(selectedTarget.geneName)}</b>
                     </h3>
                   </div>
                   <div className="p-mr-2">

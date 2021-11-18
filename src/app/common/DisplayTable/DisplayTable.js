@@ -52,7 +52,7 @@ const DisplayTable = ({
 
   let onRowEdit = (rowId, columnName, value) => {
     let temp = [...tableData];
-    let objIndex = temp.findIndex((obj) => obj.id == rowId);
+    let objIndex = temp.findIndex((obj) => obj.id === rowId);
     temp[objIndex][columnName] = value;
     setTableData(temp);
   };

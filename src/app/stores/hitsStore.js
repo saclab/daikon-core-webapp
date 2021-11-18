@@ -1,24 +1,16 @@
-import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import agent from "../api/agent";
 
 export default class HitsStore {
   rootStore;
 
-  
   postingHit = false;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
-      postingHit : observable,
-      newHit : action
-     
+      postingHit: observable,
+      newHit: action,
     });
   }
 
@@ -46,5 +38,4 @@ export default class HitsStore {
     console.log(res);
     return res;
   };
-  
 }

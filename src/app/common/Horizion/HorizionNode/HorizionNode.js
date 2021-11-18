@@ -1,7 +1,5 @@
 import React from "react";
-import cssClass from "./HorizionNode.module.css";
 import { Button } from "primereact/button";
-import { Tag } from "primereact/tag";
 import history from "../../../../history";
 
 const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
@@ -19,9 +17,7 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                history.push(
-                  `/gene/${dataObj.dataObj.attributes.id}`
-                );
+                history.push(`/gene/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -38,7 +34,6 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
-      break;
     case "Target":
       return (
         <g>
@@ -52,9 +47,7 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                history.push(
-                  `/target/${dataObj.dataObj.attributes.id}`
-                );
+                history.push(`/target/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -73,7 +66,6 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
-      break;
     case "Screen":
       return (
         <g>
@@ -103,7 +95,6 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
-      break;
     case "FHA":
       return (
         <g>
@@ -128,7 +119,6 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
-      break;
     case "Portfolio":
       return (
         <g>
@@ -153,7 +143,6 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
-      break;
     case "PostPortfolio":
       return (
         <g>
@@ -178,7 +167,6 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
-      break;
     default:
       return (
         <g>

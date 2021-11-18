@@ -3,8 +3,6 @@ import { observer } from "mobx-react-lite";
 import { Fieldset } from "primereact/fieldset";
 import axios from "axios";
 import { ProgressSpinner } from "primereact/progressspinner";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import DisplayTable from "../../../../app/common/DisplayTable/DisplayTable";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
@@ -21,7 +19,6 @@ const GenomeViewNonPublicData = ({
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
-    selectedGene,
     addEssentiality,
     editEssentiality,
     addingEssentiality,
@@ -46,9 +43,6 @@ const GenomeViewNonPublicData = ({
     addingCRISPRiStrain,
     addCRISPRiStrain,
     editCRISPRiStrain,
-    editingVulnerability,
-    addingVulnerability,
-    addVulnerability,
     editVulnerability,
     addHypomorph,
     editHypomorph,

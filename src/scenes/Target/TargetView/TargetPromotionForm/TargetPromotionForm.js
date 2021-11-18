@@ -10,7 +10,6 @@ const TargetPromotionForm = ({ data }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const geneStore = rootStore.geneStore;
-  const targetStore = rootStore.targetStore;
 
   useEffect(() => {
     if (geneStore.promotionQuestionsRegistry.size === 0) {

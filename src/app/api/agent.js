@@ -116,11 +116,6 @@ const Gene = {
   addEssentiality: (geneId, newEssentiality) =>
     requests.post(`/gene/${geneId}/essentiality`, newEssentiality),
 
-  editEssentiality: (geneId, essentialityId, modEssentiality) =>
-    requests.post(
-      `/gene/${geneId}/essentiality/${essentialityId}`,
-      modEssentiality
-    ),
   addProteinProduction: (geneId, newProteinProduction) =>
     requests.post(`/gene/${geneId}/proteinproduction`, newProteinProduction),
 
@@ -261,7 +256,7 @@ const Discussion = {
 
 const Horizion = {
   generate: (accessionNo) => requests.get(`/Horizion/${accessionNo}`),
-}
+};
 
 const exports = {
   AuthServiceInstance,
@@ -275,7 +270,7 @@ const exports = {
   Screen,
   Hit,
   Discussion,
-  Horizion
+  Horizion,
 };
 
 export default exports;

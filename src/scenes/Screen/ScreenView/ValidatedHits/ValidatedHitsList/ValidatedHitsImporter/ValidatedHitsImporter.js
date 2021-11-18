@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { CSVReader } from "react-papaparse";
 import { observer } from "mobx-react-lite";
 import { DataTable } from "primereact/datatable";
@@ -20,8 +20,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { newHit, postingHit } =
-    rootStore.hitsStore;
+  const { newHit, postingHit } = rootStore.hitsStore;
 
   let handleOnError = (err, file, inputElem, reason) => {
     console.log("---------------------------");
@@ -69,12 +68,11 @@ const ValidatedHitsImporter = ({ screenId }) => {
 
     for (let i = 0; i < hits.length; i++) {
       let res = await newHit(hits[i]);
-      if(res!== null) {
-        setImportingLogs("Imported " + hits[i].SaccId)
+      if (res !== null) {
+        setImportingLogs("Imported " + hits[i].SaccId);
         successList.push(hits[i].SaccId);
-      }
-      else {
-        setImportingLogs("Failed  " + hits[i].SaccId)
+      } else {
+        setImportingLogs("Failed  " + hits[i].SaccId);
         failedList.push(hits[i].SaccId);
       }
     }
@@ -136,7 +134,9 @@ const ValidatedHitsImporter = ({ screenId }) => {
   let importContainer = (
     <React.Fragment>
       <h2>Step 4 : Importing...</h2>
-      {postingHit && <ProgressBar mode="indeterminate" style={{ height: "6px" }} />}
+      {postingHit && (
+        <ProgressBar mode="indeterminate" style={{ height: "6px" }} />
+      )}
       <p>{importingLogs}</p>
       <hr />
     </React.Fragment>
@@ -152,7 +152,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
       Failed : {failedList.length} <br />
       Failed for {failedList.toString()} <br />
     </React.Fragment>
-  )
+  );
   return (
     <div>
       {displayCSVImporter && csvImporter}
