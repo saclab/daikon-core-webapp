@@ -21,7 +21,7 @@ export default class ScreenStore {
   screenRegistryCacheValid = false;
   screenRegistryExpanded = new Map();
   selectedScreen = null;
-  filteredScreens = new Array();
+  filteredScreens = [];
 
   validatedHitsIndex = 0;
   screenSequenceIndex = 0;
@@ -43,7 +43,7 @@ export default class ScreenStore {
       screenRegistryExpanded: observable,
 
       addScreeenSequence: action,
-      loadingScreenSequence : observable,
+      loadingScreenSequence: observable,
 
       filterScreensByGene: action,
       filterScreensByAccession: action,

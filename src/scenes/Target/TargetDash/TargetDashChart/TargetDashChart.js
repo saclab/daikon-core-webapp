@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useContext, useState } from "react";
-import _ from "lodash";
+import React from "react";
 
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
 import history from "../../../../history";
@@ -103,7 +102,6 @@ const TargetDashChart = ({ targets }) => {
           "legends",
           "annotations",
         ]}
-        
         renderNode={CustomNode}
       />
     </div>

@@ -1,11 +1,4 @@
-import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
-import { toast } from "react-toastify";
+import { action, makeObservable, observable, runInAction } from "mobx";
 
 import agent from "../api/agent";
 
@@ -24,7 +17,6 @@ export default class GeneralStore {
       selectedHorizion: observable,
     });
   }
-
 
   fetchHorizion = async (accessionNo) => {
     console.log("GeneralStore: fetchHorizion Start");
@@ -45,7 +37,7 @@ export default class GeneralStore {
         fetchedHorizion = await agent.Horizion.generate(accessionNo);
         runInAction(() => {
           console.log("GeneralStore: fetchHorizion fetched from api");
-          this.selectedHorizion = fetchedHorizion;    
+          this.selectedHorizion = fetchedHorizion;
         });
       } catch (error) {
         console.log(error);

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useRef } from "react";
 import _ from "lodash";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
@@ -6,8 +6,7 @@ import { Column } from "primereact/column";
 import "./TargetDashDataTable.css";
 import { observer } from "mobx-react-lite";
 
-const TargetDashTable = ({targets}) => {
-  
+const TargetDashTable = ({ targets }) => {
   const dt = useRef(null);
 
   /* Table Body Templates */
@@ -54,7 +53,7 @@ const TargetDashTable = ({targets}) => {
     return (
       <React.Fragment>
         <span className="p-column-title">Bucket score</span>
-        {rowData.bucket?rowData.bucket:"n.a"}
+        {rowData.bucket ? rowData.bucket : "n.a"}
       </React.Fragment>
     );
   };
@@ -73,8 +72,6 @@ const TargetDashTable = ({targets}) => {
   //     </span> */}
   //   </div>
   // );
-
-
 
   return (
     <div className="datatable-targets">

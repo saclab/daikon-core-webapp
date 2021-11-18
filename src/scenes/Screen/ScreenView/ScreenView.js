@@ -3,14 +3,8 @@ import { TabView, TabPanel } from "primereact/tabview";
 import { Menu } from "primereact/menu";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Toast } from "primereact/toast";
-import { BreadCrumb } from "primereact/breadcrumb";
-import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import { NavLink } from "react-router-dom";
-import { DataTable } from "primereact/datatable";
-import { Tag } from "primereact/tag";
-import { Column } from "primereact/column";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import ScreenSequences from "./ScreenSequences/ScreenSequences";
 import ValidatedHits from "./ValidatedHits/ValidatedHits";
@@ -22,13 +16,8 @@ const ScreenView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {
-    loadingFetchScreens,
-    screenRegistry,
-    fetchScreens,
-    filterScreensByAccession,
-    selectedScreen
-  } = rootStore.screenStore;
+  const { loadingFetchScreens, screenRegistry, fetchScreens, selectedScreen } =
+    rootStore.screenStore;
   useEffect(() => {
     if (screenRegistry.size === 0) fetchScreens();
   }, [fetchScreens, screenRegistry]);

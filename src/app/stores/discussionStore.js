@@ -1,10 +1,4 @@
-import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 
 import agent from "../api/agent";
@@ -13,7 +7,7 @@ export default class DiscussionStore {
   rootStore;
 
   loadingDiscussions = false;
-  discussions = new Array();
+  discussions = [];
 
   postingDiscussion = false;
   postingReply = false;
@@ -82,7 +76,6 @@ export default class DiscussionStore {
     return res;
   };
 
-
   editDiscussion = async (discussion) => {
     console.log("commentStore: editDiscussion() Start");
     this.editingDiscussion = true;
@@ -109,8 +102,6 @@ export default class DiscussionStore {
     console.log(res);
     return res;
   };
-
-
 
   newReply = async (discussion, reply) => {
     console.log("commentStore: newReply() Start");
