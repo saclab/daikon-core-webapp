@@ -258,6 +258,14 @@ const Horizion = {
   generate: (accessionNo) => requests.get(`/Horizion/${accessionNo}`),
 };
 
+const General = {
+  appVars: () => requests.get(`/general/app-vars/`),
+};
+
+const Projects = {
+  createFHA: (newFHA) => requests.post(`/admin/project/`, newFHA),
+};
+
 const exports = {
   AuthServiceInstance,
   Accounts,
@@ -271,6 +279,8 @@ const exports = {
   Hit,
   Discussion,
   Horizion,
+  General,
+  Projects,
 };
 
 export default exports;

@@ -4,11 +4,13 @@ import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { Column } from "primereact/column";
+import { Dialog } from "primereact/dialog";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
 import Vote from "../../../../../app/common/Vote/Vote";
 import SmilesView from "../../../../../app/common/SmilesView/SmilesView";
 import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter";
+import ValidatedHitsPromoteToFHAEntry from "./ValidatedHitsPromoteToFHAEntry/ValidatedHitsPromoteToFHAEntry";
 
 const ValidatedHitsList = ({ screenId }) => {
   const dt = useRef(null);
@@ -18,6 +20,11 @@ const ValidatedHitsList = ({ screenId }) => {
     rootStore.screenStore;
 
   const [displayHitsImportSidebar, setDisplayHitsImportSidebar] =
+    useState(false);
+
+  const [displayEnableSelection, setDisplayEnableSelection] = useState(false);
+  const [selectedCompounds, setSelectedCompounds] = useState(null);
+  const [displayPromoteToFHAEntry, setDisplayPromoteToFHAEntry] =
     useState(false);
 
   console.log("==== VALIDATED HIT LIST");
@@ -89,13 +96,45 @@ const ValidatedHitsList = ({ screenId }) => {
           onClick={() => setDisplayHitsImportSidebar(true)}
         />
       )}
-      <Button
-        type="button"
-        icon="icon icon-fileformats icon-CSV"
-        label="Export"
-        className="p-button-text"
-        style={{ height: "30px", marginRight: "5px" }}
-      />
+      {selectedScreen.validatedHits.length !== 0 && (
+        <Button
+          type="button"
+          icon="icon icon-fileformats icon-CSV"
+          label="Export"
+          className="p-button-text"
+          style={{ height: "30px", marginRight: "5px" }}
+        />
+      )}
+      {selectedScreen.validatedHits.length !== 0 && !displayEnableSelection && (
+        <Button
+          type="button"
+          icon="pi pi-check-square"
+          label="Enable selection"
+          className="p-button-text"
+          style={{ height: "30px", marginRight: "5px" }}
+          onClick={() => setDisplayEnableSelection(true)}
+        />
+      )}
+      {displayEnableSelection && (
+        <Button
+          type="button"
+          icon="pi pi-arrow-right"
+          label="Promote selections to FHA"
+          className="p-button-text"
+          style={{ height: "30px", marginRight: "5px" }}
+          onClick={() => setDisplayPromoteToFHAEntry(true)}
+        />
+      )}
+      {displayEnableSelection && (
+        <Button
+          type="button"
+          icon="pi pi-times-circle"
+          label="Cancel"
+          className="p-button-text"
+          style={{ height: "30px", marginRight: "5px" }}
+          onClick={() => setDisplayEnableSelection(false)}
+        />
+      )}
     </div>
   );
 
@@ -106,8 +145,9 @@ const ValidatedHitsList = ({ screenId }) => {
           <DataTable
             ref={dt}
             value={selectedScreen.validatedHits}
-            paginator
-            rows={50}
+            // paginator
+            scrollable
+            // rows={50}
             header={tableHeader}
             className="p-datatable-screen-table"
             //globalFilter={globalFilter}
@@ -115,7 +155,17 @@ const ValidatedHitsList = ({ screenId }) => {
             resizableColumns
             columnResizeMode="fit"
             showGridlines
+            responsiveLayout="scroll"
+            selection={selectedCompounds}
+            onSelectionChange={(e) => setSelectedCompounds(e.value)}
+            dataKey="id"
           >
+            {displayEnableSelection && (
+              <Column
+                selectionMode="multiple"
+                headerStyle={{ width: "3em" }}
+              ></Column>
+            )}
             <Column
               field="Library"
               header="Library"
@@ -148,7 +198,7 @@ const ValidatedHitsList = ({ screenId }) => {
               style={{ width: "100px" }}
             />
             <Column
-              field="Cluster"
+              field="clusterGroup"
               header="Cluster Group No"
               body={ClusterBodyTemplate}
               style={{ width: "50px" }}
@@ -188,6 +238,21 @@ const ValidatedHitsList = ({ screenId }) => {
           <ValidatedHitsImporter screenId={selectedScreen.id} />
         </div>
       </Sidebar>
+      <Dialog
+        header="Promote to FHA"
+        visible={displayPromoteToFHAEntry}
+        style={{ width: "50vw" }}
+        //footer={renderFooter("displayBasic2")}
+        onHide={() => setDisplayPromoteToFHAEntry(false)}
+        style={{ width: "90%" }}
+        blockScroll={true}
+        maximizable={true}
+      >
+        <ValidatedHitsPromoteToFHAEntry
+          compounds={selectedCompounds}
+          screen={selectedScreen}
+        />
+      </Dialog>
     </div>
   );
 };

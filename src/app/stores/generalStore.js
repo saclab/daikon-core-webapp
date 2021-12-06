@@ -1,4 +1,5 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
+// import { toast } from "react-toastify";
 
 import agent from "../api/agent";
 
@@ -9,12 +10,19 @@ export default class GeneralStore {
   horizionRegistry = new Map();
   selectedHorizion = null;
 
+  fetchingAppVars = false;
+  appVars = null;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
       generatingHorizion: observable,
       fetchHorizion: action,
       selectedHorizion: observable,
+
+      fetchingAppVars: observable,
+      appVars: observable,
+      fetchAppVars: action,
     });
   }
 
@@ -47,6 +55,24 @@ export default class GeneralStore {
           console.log("GeneralStore: fetchHorizion Complete");
         });
       }
+    }
+  };
+
+  fetchAppVars = async () => {
+    try {
+      this.fetchingAppVars = true;
+      let fetchedAppVars = await agent.General.appVars();
+      runInAction(() => {
+        console.log("GeneralStore: fetchedAppVars fetched from api");
+        this.appVars = fetchedAppVars;
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.fetchingAppVars = false;
+        console.log("GeneralStore: fetchedAppVars Complete");
+      });
     }
   };
 }
