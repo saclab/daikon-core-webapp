@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 const SmilesView = ({ smiles, width = 200, height = 200 }) => {
   const cm = useRef(null);
 
+  let canId = smiles + Date.now();
+
   useEffect(() => {
     let options = { width: width, height: height };
 
@@ -14,7 +16,7 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
     SmilesDrawer.parse(
       smiles,
       function (tree) {
-        smilesDrawer.draw(tree, smiles, "light", false);
+        smilesDrawer.draw(tree, canId, "light", false);
       },
       function (err) {
         console.log(err);
@@ -36,7 +38,7 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
   return (
     <React.Fragment>
       <ContextMenu model={contextMenuItems} ref={cm} />
-      <canvas id={smiles} onContextMenu={(e) => cm.current.show(e)} />
+      <canvas id={canId} onContextMenu={(e) => cm.current.show(e)} />
     </React.Fragment>
   );
 };

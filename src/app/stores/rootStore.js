@@ -14,7 +14,7 @@ import PostPortfolioStore from "./postPortfolioStore";
 import HitsStore from "./hitsStore";
 import DiscussionStore from "./discussionStore";
 import GeneralStore from "./generalStore";
-
+import FHAStore from "./fhaStore";
 
 configure({ enforceActions: "always" });
 
@@ -33,7 +33,7 @@ export class RootStore {
   hitsStore;
   discussionStore;
   generalStore;
-  
+  fhaStore;
 
   constructor() {
     this.appSettingsStore = new AppSettingsStore(this);
@@ -50,7 +50,7 @@ export class RootStore {
     this.postPortfolioStore = new PostPortfolioStore(this);
     this.discussionStore = new DiscussionStore(this);
     this.generalStore = new GeneralStore(this);
-  
+    this.fhaStore = new FHAStore(this);
   }
 }
 export const RootStoreContext = createContext(new RootStore());

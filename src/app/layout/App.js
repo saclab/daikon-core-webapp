@@ -54,6 +54,7 @@ const App = () => {
   const rootStore = useContext(RootStoreContext);
   const { user, getUser, fetching, userNotFound } = rootStore.userStore;
   const { adminMode } = rootStore.appSettingsStore;
+  const { fetchingAppVars, appVars, fetchAppVars } = rootStore.generalStore;
   const [networkErr, setNetworkErr] = useState(false);
 
   const [menuBar, setMenuBar] = useState(<MenuBar />);
@@ -65,6 +66,10 @@ const App = () => {
         console.log("++++++++CAUGHT NETWORK ERROR");
         setNetworkErr(true);
       });
+
+      if (appVars === null) {
+        fetchAppVars();
+      }
     }
 
     if (adminMode) {
@@ -78,13 +83,15 @@ const App = () => {
     userNotFound,
     authServiceInstance.account,
     adminMode,
+    appVars,
+    fetchAppVars,
   ]);
 
   if (networkErr) {
     return <NetworkError />;
   }
 
-  if (fetching) {
+  if (fetching || fetchingAppVars) {
     return <Loading />;
   }
 
