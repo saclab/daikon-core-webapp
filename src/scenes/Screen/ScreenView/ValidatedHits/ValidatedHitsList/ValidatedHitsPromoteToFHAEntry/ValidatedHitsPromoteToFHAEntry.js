@@ -338,8 +338,8 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen }) => {
         onSelect={(e) => setActiveStep(e.index)}
         readOnly={false}
       />
-      {activeStep == 0 && selection}
-      {activeStep == 1 && projectInformation}
+      {activeStep === 0 && selection}
+      {activeStep === 1 && projectInformation}
     </div>
   );
 };
