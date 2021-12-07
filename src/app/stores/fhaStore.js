@@ -33,7 +33,7 @@ export default class FHAStore {
     try {
       res = await agent.Projects.createFHA(newFha);
       runInAction(() => {
-        toast.success("Successfully added screening information");
+        toast.success("Successfully created new FHA");
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {
