@@ -15,7 +15,7 @@ import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
 import SmilesView from "../../../../../../app/common/SmilesView/SmilesView";
 import { RootStoreContext } from "../../../../../../app/stores/rootStore";
-const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen }) => {
+const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
   const [activeStep, setActiveStep] = useState(0);
   const dt = useRef(null);
 
@@ -37,9 +37,6 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen }) => {
     },
     {
       label: "Project Information",
-    },
-    {
-      label: "Summary",
     },
   ];
 
@@ -152,8 +149,16 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen }) => {
       data.baseHits = compounds;
       data.representationStructure = selectedPrimaryHit.compound;
       console.log(data);
-      createFHA(data);
-      //formik.resetForm();
+      createFHA(data).then((res) => {
+        console.log("res");
+        console.log(res);
+        
+        if (res !== null) {
+          formik.resetForm();
+          close();
+        }
+        
+      });
     },
   });
 

@@ -251,6 +251,7 @@ const ValidatedHitsList = ({ screenId }) => {
         <ValidatedHitsPromoteToFHAEntry
           compounds={selectedCompounds}
           screen={selectedScreen}
+          close={() => setDisplayPromoteToFHAEntry(false)}
         />
       </Dialog>
     </div>
