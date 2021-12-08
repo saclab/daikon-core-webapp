@@ -37,7 +37,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
       let errors = {};
 
       if (!data.promotionDate) {
-        errors.library = "Promotion date  is required.";
+        errors.promotionDate = "Promotion date  is required.";
       }
 
       return errors;

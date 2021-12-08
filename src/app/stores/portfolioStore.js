@@ -5,46 +5,51 @@ import {
   observable,
   runInAction,
 } from "mobx";
+
+import { toast } from "react-toastify";
 import localhost from "../api/localhost";
+import agent from "../api/agent";
 
 
 export default class PortfolioStore {
   rootStore;
 
+  /* OLD */
   displayLoading = false;
-  
   historyDisplayLoading = false;
-
   portfolioRegistry = new Map();
   portfolioRegistryExpanded = new Map();
   portfolioHistoryRegistry = new Map();
   selectedPortfolio = null;
   selectedPortfolioHistory = null;
+  /* END */
+
+  creatingH2L = false;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
       displayLoading: observable,
       historyDisplayLoading: observable,
-
       portfolios: computed,
       fetchPortfolioList: action,
       portfolioRegistry: observable,
-
       portfolio: computed,
       fetchPortfolio: action,
       selectedPortfolio: observable,
-
       fetchPortfolioHistory: action,
       selectedPortfolioHistory: observable,
       portfolioHistory: computed,
-
-
       editPortfolio: action,
       cancelEditPortfolio: action,
+
+
+      creatingH2L: observable,
+      createH2L : action,
+
     });
   }
-
+  /* LEGACY */
   /* Fetch Target list from API */
   fetchPortfolioList = async () => {
     console.log("portfolioStore: fetchPortfolioList() Start");
@@ -188,4 +193,37 @@ export default class PortfolioStore {
     console.log("portfolioStore: cancelEditPortfolio");
     this.selectedPortfolio = this.portfolioRegistryExpanded.get(this.selectedPortfolio.id);
   };
+
+  /* END */
+
+
+  createH2L = async (newH2L) => {
+    console.log("PortfolioStore: createH2L Start");
+    console.log(newH2L);
+    this.creatingH2L = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.createH2L(this.rootStore.projectStore.selectedProject.id, newH2L);
+      runInAction(() => {
+        toast.success("Successfully created new FHA");
+        this.rootStore.projectStore.projectRegistryCacheValid = false;
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.creatingH2L = false;
+        console.log("PortfolioStore: createH2L Complete");
+      });
+    }
+    return res;
+  };
+
+
+
+
+
+
 }

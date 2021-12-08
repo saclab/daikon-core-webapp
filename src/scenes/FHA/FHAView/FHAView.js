@@ -10,9 +10,13 @@ import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import FHAViewInformation from "./FHAViewInformation/FHAViewInformation";
 import Discussion from "../../../app/common/Discussion/Discussion";
+import { Sidebar } from "primereact/sidebar";
+import { Message } from "primereact/message";
+import FHAPromotionQuestionaire from './FHAPromotionQuestionaire/FHAPromotionQuestionaire';
 
 const FHAView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
   const toast = useRef(null);
 
   /* MobX Store */
@@ -66,7 +70,7 @@ const FHAView = ({ match, history }) => {
           label: "Promote to H2L",
           icon: "icon icon-common icon-database-submit",
           command: (event) => {
-            // setDisplayPromotionDialog(true);
+            setDisplayPromotionDialog(true);
           },
         },
       ],
@@ -137,6 +141,27 @@ const FHAView = ({ match, history }) => {
             </div>
           </div>
         </div>
+        <Sidebar
+          visible={displayPromotionDialog}
+          position="right"
+          style={{ width: "30em", overflowX: "auto" }}
+          blockScroll={true}
+          onHide={() => setDisplayPromotionDialog(false)}
+        >
+          <h3>{selectedProject.projectName}</h3>
+          <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
+          to <b>H2L</b>
+          <hr />
+          <Message
+            severity="info"
+            text={"This would create a new porfolio with stage H2L."}
+          />
+          <br />
+          <br />
+          <FHAPromotionQuestionaire
+            closeSidebar={() => setDisplayPromotionDialog(false)}
+          />
+        </Sidebar>
       </React.Fragment>
     );
   }
