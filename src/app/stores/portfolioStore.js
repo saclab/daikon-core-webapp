@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import localhost from "../api/localhost";
 import agent from "../api/agent";
 
-
 export default class PortfolioStore {
   rootStore;
 
@@ -43,10 +42,9 @@ export default class PortfolioStore {
       editPortfolio: action,
       cancelEditPortfolio: action,
 
-
       creatingH2L: observable,
-      createH2L : action,
-
+      createH2L: action,
+      filterPortfolioProjects: action,
     });
   }
   /* LEGACY */
@@ -87,7 +85,10 @@ export default class PortfolioStore {
     let fetchedPortfolio = this.portfolioRegistryExpanded.get(id);
     console.log("CACHE");
     console.log(fetchedPortfolio);
-    if (fetchedPortfolio && fetchedPortfolio.hasOwnProperty("portfolioPromotionForm")) {
+    if (
+      fetchedPortfolio &&
+      fetchedPortfolio.hasOwnProperty("portfolioPromotionForm")
+    ) {
       console.log("portfolioStore: fetchPortfolio found in cache");
       this.selectedPortfolio = fetchedPortfolio;
       this.displayLoading = false;
@@ -163,7 +164,6 @@ export default class PortfolioStore {
 
   /* End Target History */
 
-
   editPortfolio = async () => {
     console.log("portfolioStore: editPortfolio Start");
     this.displayLoading = true;
@@ -191,11 +191,12 @@ export default class PortfolioStore {
 
   cancelEditPortfolio = () => {
     console.log("portfolioStore: cancelEditPortfolio");
-    this.selectedPortfolio = this.portfolioRegistryExpanded.get(this.selectedPortfolio.id);
+    this.selectedPortfolio = this.portfolioRegistryExpanded.get(
+      this.selectedPortfolio.id
+    );
   };
 
   /* END */
-
 
   createH2L = async (newH2L) => {
     console.log("PortfolioStore: createH2L Start");
@@ -204,7 +205,10 @@ export default class PortfolioStore {
     let res = null;
     // send to server
     try {
-      res = await agent.Projects.createH2L(this.rootStore.projectStore.selectedProject.id, newH2L);
+      res = await agent.Projects.createH2L(
+        this.rootStore.projectStore.selectedProject.id,
+        newH2L
+      );
       runInAction(() => {
         toast.success("Successfully created new FHA");
         this.rootStore.projectStore.projectRegistryCacheValid = false;
@@ -221,9 +225,15 @@ export default class PortfolioStore {
     return res;
   };
 
-
-
-
-
-
+  filterPortfolioProjects = () => {
+    return Array.from(
+      this.rootStore.projectStore.projectRegistry.values()
+    ).filter((project) => {
+      return (
+        project.currentStage === "H2L" ||
+        project.currentStage === "LO" ||
+        project.currentStage === "SP"
+      );
+    });
+  };
 }
