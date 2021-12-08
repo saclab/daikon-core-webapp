@@ -7,7 +7,9 @@ export default class ProjectStore {
   rootStore;
 
   loadingProjects = false;
+  loadingProject = false;
   projectRegistry = new Map();
+  projectRegistryExpanded = new Map();
   projectRegistryCacheValid = false;
   selectedProject = null;
 
@@ -15,8 +17,11 @@ export default class ProjectStore {
     this.rootStore = rootStore;
     makeObservable(this, {
       loadingProjects: observable,
+      loadingProject: observable,
       fetchProjects: action,
+      fetchProject: action,
       projectRegistry: observable,
+      projectRegistryExpanded: observable,
       projectRegistryCacheValid: observable,
       selectedProject: observable,
     });
@@ -46,6 +51,37 @@ export default class ProjectStore {
       runInAction(() => {
         this.loadingProjects = false;
       });
+    }
+  };
+
+  fetchProject = async (id) => {
+    console.log("projectStore: fetchProject Start for id " + id);
+    this.loadingProject = true;
+
+    // first check cache
+    let fetchedProject = this.projectRegistryExpanded.get(id);
+    if (fetchedProject) {
+      console.log("projectStore: fetchProject found in cache");
+      this.selectedProject = fetchedProject;
+      this.loadingProject = false;
+    }
+    // if not found fetch from api
+    else {
+      try {
+        fetchedProject = await agent.Projects.details(id);
+        runInAction(() => {
+          console.log("projectStore: fetchProject fetched from api");
+          this.selectedProject = fetchedProject;
+          this.projectRegistryExpanded.set(id, fetchedProject);
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        runInAction(() => {
+          this.loadingProject = false;
+          console.log("projectStore: fetchProject Complete");
+        });
+      }
     }
   };
 }

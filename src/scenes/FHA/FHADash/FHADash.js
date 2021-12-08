@@ -91,7 +91,7 @@ const FHADash = () => {
         <React.Fragment>
           <span className="p-column-title">Project Name</span>
           <b>
-            <NavLink to={"/portfolio/" + rowData.id}>
+            <NavLink to={"/fha/" + rowData.id}>
               {rowData.projectName}
             </NavLink>
           </b>
