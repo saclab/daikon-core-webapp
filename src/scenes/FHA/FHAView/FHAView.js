@@ -12,7 +12,7 @@ import FHAViewInformation from "./FHAViewInformation/FHAViewInformation";
 import Discussion from "../../../app/common/Discussion/Discussion";
 import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
-import FHAPromotionQuestionaire from './FHAPromotionQuestionaire/FHAPromotionQuestionaire';
+import FHAPromotionQuestionaire from "./FHAPromotionQuestionaire/FHAPromotionQuestionaire";
 
 const FHAView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -33,7 +33,7 @@ const FHAView = ({ match, history }) => {
     }
   }, [match.params.id, selectedProject, fetchProject]);
 
-  const items = [
+  const sideMenuItems = [
     {
       label: "Sections",
       items: [
@@ -62,20 +62,38 @@ const FHAView = ({ match, history }) => {
     },
   ];
 
-  if (user.roles.includes("admin")) {
-    items.push({
-      label: "Actions",
-      items: [
+  var actions = {
+    label: "Actions",
+    items: []
+  };
+
+  if (user.roles.includes("admin") && !selectedProject?.h2LEnabled) {
+    actions.items.push(
         {
           label: "Promote to H2L",
           icon: "icon icon-common icon-database-submit",
           command: (event) => {
             setDisplayPromotionDialog(true);
-          },
-        },
-      ],
-    });
+          }
+        }
+      );
   }
+
+  if (selectedProject?.h2LEnabled) {
+    actions.items.push(
+      {
+        label: "View Portfolio",
+        icon: "icon icon-common icon-database-submit",
+        command: (event) => {
+          history.push(`/portfolio/${selectedProject.id}`)
+        }
+      }
+    );
+  }
+
+  sideMenuItems.push(actions);
+
+
 
   /** Loading Overlay */
   if (loadingProject) {
@@ -101,7 +119,7 @@ const FHAView = ({ match, history }) => {
         <br />
         <div className="p-d-flex">
           <div className="p-mr-2">
-            <Menu model={items} />
+            <Menu model={sideMenuItems} />
           </div>
           <div className="p-mr-2" style={{ width: "100vw" }}>
             <div className="p-d-flex p-flex-column">

@@ -49,10 +49,9 @@ export default class FHAStore {
   };
 
   filterFhaProjects = () => {
-    return Array.from(
-      this.rootStore.projectStore.projectRegistry.values()
-    ).filter((project) => {
-      return project.currentStage === "FHA";
-    });
+    return Array.from(this.rootStore.projectStore.projectRegistry.values());
+    // .filter((project) => {
+    //   return project.currentStage === "FHA";
+    // });
   };
 }
