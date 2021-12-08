@@ -265,6 +265,7 @@ const General = {
 const Projects = {
   createFHA: (newFHA) => requests.post(`/admin/project/`, newFHA),
   list: () => requests.get(`/project`),
+  details: (id) => requests.get(`/project/${id}`),
 };
 
 const exports = {

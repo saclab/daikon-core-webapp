@@ -107,13 +107,16 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
+              onClick={() => {
+                history.push(`/fha/${dataObj.dataObj.attributes.id}`);
+              }}
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
               <p>
                 <b>FHA</b> <br />
-                Project-X
+                {dataObj.dataObj.attributes.projectName}
               </p>
             </div>
           </foreignObject>

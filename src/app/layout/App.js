@@ -47,6 +47,7 @@ import PostPortfolioView from "../../scenes/PostPortfolio/PostPortfolioView/Post
 import Discussion from "../common/Discussion/Discussion";
 import UserManager from "../../scenes/Admin/UserManager/UserManager";
 import FHADash from '../../scenes/FHA/FHADash/FHADash';
+import FHAView from "../../scenes/FHA/FHAView/FHAView";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -135,6 +136,9 @@ const App = () => {
             <Route path="/test/bench" component={TestMolView} />
 
             <Route exact path="/fha" component={FHADash} />
+            <Route path="/fha/:id" component={FHAView} />
+
+
             <Route exact path="/postportfolio" component={PostPortfolioDash} />
             <Route path="/postportfolio/:id" component={PostPortfolioView} />
 
