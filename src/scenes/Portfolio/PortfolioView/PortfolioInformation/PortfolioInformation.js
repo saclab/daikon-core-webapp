@@ -1,31 +1,51 @@
-import { Fieldset } from "primereact/fieldset";
-import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import React from "react";
-import SmilesView from "../../../../app/common/SmilesView/SmilesView";
+import { Fieldset } from "primereact/fieldset";
+import dateFormat from "dateformat";
+import { Card } from "primereact/card";
+import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 
-const PortfolioInformation = ({ edit, cancelEdit, portfolioData }) => {
+import { ScrollPanel } from "primereact/scrollpanel";
+import { ScrollTop } from "primereact/scrolltop";
+import SmilesView from "../../../../app/common/SmilesView/SmilesView";
+import "./ScrollPanel.css";
+import { Timeline } from "primereact/timeline";
+
+const PortfolioInformation = ({ id, project }) => {
+  let relatedStructures = project.baseHits.map((hit) => {
+    console.log("hit");
+    console.log(hit);
+    return (
+      <div style={{ minWidth: "250px", marginTop: "-20px" }}>
+        <SmilesView smiles={hit.baseHit.compound.smile} />
+      </div>
+    );
+  });
+
+  let timelineEvents = [];
+  timelineEvents.push({ stage: "FHA", date: project.fhaStart });
+  timelineEvents.push({ stage: "H2L", date: project.h2LStart });
+
   return (
     <div>
       <div className="p-d-flex">
         <div className="p-mr-2">
           <div className="p-d-flex p-flex-column">
-            <div className="p-mb-2"  style={{ minHeight: "450px"}}>
+            <div className="p-mb-2" style={{ minHeight: "450px" }}>
               <Fieldset legend="General annotation">
                 <KeyValList
-                  data={portfolioData}
+                  data={project}
                   filter={[
-                    "target",
-                    "projectNo",
+                    "accessionNo",
+                    "geneName",
+                    "id",
                     "projectName",
-                    "primaryOrganization",
+                    "primaryOrg.name",
                     "supportingOrganization",
                     "status",
                     "stage",
                     "priority",
                     "probability",
                   ]}
-                  editFunc={() => edit()}
-                  cancelEdit={() => cancelEdit()}
                 />
               </Fieldset>
             </div>
@@ -33,19 +53,20 @@ const PortfolioInformation = ({ edit, cancelEdit, portfolioData }) => {
         </div>
         <div className="p-mr-2">
           <div className="p-d-flex p-flex-column">
-            <div className="p-mb-2" style={{ minHeight: "350px"}}>
+            <div className="p-mb-2" style={{ minHeight: "350px" }}>
               <Fieldset legend="Project Start Dates">
-                <KeyValList
-                  data={portfolioData}
-                  filter={[
-                    "fhaStartDate",
-                    "h2lStartDate",
-                    "loStartDate",
-                    "spStartDate",
-                    "pcdDate",
-                    "indStartDate",
-                    "clinicalStartDate",
-                  ]}
+                <Timeline
+                  value={timelineEvents}
+                  opposite={(item) => item.stage}
+                  content={(item) => (
+                    <small className="p-text-secondary">
+                    
+                      {dateFormat(
+                        item.date,
+                        "mmmm dS, yyyy"
+                      )}
+                    </small>
+                  )}
                 />
               </Fieldset>
             </div>
@@ -53,12 +74,29 @@ const PortfolioInformation = ({ edit, cancelEdit, portfolioData }) => {
         </div>
         <div className="p-mr-2">
           <div className="p-d-flex p-flex-column">
-            <div className="p-mb-2">
-              <Fieldset legend="Structure">
+            <div className="p-mb-2 scrollpanel-structure">
+              <Fieldset legend="Structures">
                 <React.Fragment>
-                  <div style={{ minWidth: "250px", marginLeft: "50px"  }}>
-                    <SmilesView smiles={portfolioData.structure} />
-                  </div>
+                  <ScrollPanel
+                    style={{ minWidth: "250px", height: "350px" }}
+                    className="custombar1"
+                  >
+                    <h3 style={{ marginTop: "0px" }}>Reference</h3>
+                    <div style={{ minWidth: "250px", marginTop: "-20px" }}>
+                      <SmilesView
+                        smiles={project.representationStructure.smile}
+                      />
+                    </div>
+                    <hr />
+                    <h3 style={{ marginTop: "0px" }}>Others</h3>
+                    {relatedStructures}
+                    <ScrollTop
+                      target="parent"
+                      threshold={100}
+                      className="custom-scrolltop"
+                      icon="pi pi-arrow-up"
+                    />
+                  </ScrollPanel>
                 </React.Fragment>
               </Fieldset>
             </div>

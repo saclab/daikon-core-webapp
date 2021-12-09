@@ -7,17 +7,21 @@ import { ScrollPanel } from "primereact/scrollpanel";
 import { ScrollTop } from "primereact/scrolltop";
 import SmilesView from "../../../../app/common/SmilesView/SmilesView";
 import "./ScrollPanel.css";
+import { Timeline } from 'primereact/timeline';
+import dateFormat from "dateformat";
 
 const FHAViewInformation = ({ id, project }) => {
   let relatedStructures = project.baseHits.map((hit) => {
-    console.log("hit");
-    console.log(hit);
+  
     return (
       <div style={{ minWidth: "250px", marginTop: "-20px" }}>
         <SmilesView smiles={hit.baseHit.compound.smile} />
       </div>
     );
   });
+
+  let timelineEvents = [];
+  timelineEvents.push({ stage: "FHA", date: project.fhaStart });
 
   return (
     <div>
@@ -58,18 +62,19 @@ const FHAViewInformation = ({ id, project }) => {
         <div className="p-mr-2">
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2" style={{ minHeight: "350px" }}>
-              <Fieldset legend="Project Start Dates">
-                <KeyValList
-                  data={project}
-                  filter={[
-                    "fhaStartDate",
-                    "h2lStartDate",
-                    "loStartDate",
-                    "spStartDate",
-                    "pcdDate",
-                    "indStartDate",
-                    "clinicalStartDate",
-                  ]}
+              <Fieldset legend="FHA Start Date">
+              <Timeline
+                  value={timelineEvents}
+                  opposite={(item) => item.stage}
+                  content={(item) => (
+                    <small className="p-text-secondary">
+                    
+                      {dateFormat(
+                        item.date,
+                        "mmmm dS, yyyy"
+                      )}
+                    </small>
+                  )}
                 />
               </Fieldset>
             </div>
