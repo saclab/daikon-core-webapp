@@ -7,6 +7,19 @@ import AppSettingsService from "../../services/AppSettingsService";
 /* Check Pre Configuration */
 
 const AppPrecheck = () => {
+ 
+  if (
+    process.env.REACT_APP_MSAL_CLIENT_ID === undefined ||
+    process.env.REACT_APP_WEB_API_BASE_URI === undefined ||
+    process.env.REACT_APP_MSAL_CLIENT_SCOPE === undefined ||
+    process.env.REACT_APP_MSAL_TENANT_AUTHORITY_URI === undefined ||
+    process.env.REACT_APP_MSAL_CACHE_LOCATION === undefined ||
+    process.env.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === undefined ||
+    process.env.REACT_APP_MSAL_LOGIN_REDIRECT_URI === undefined
+  ) {
+    return false;
+  }
+
   if (
     process.env.REACT_APP_MSAL_CLIENT_ID === "" ||
     process.env.REACT_APP_WEB_API_BASE_URI === "" ||
