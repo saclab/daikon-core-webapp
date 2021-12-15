@@ -13,10 +13,16 @@ import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
 import PortfolioInformation from "./PortfolioInformation/PortfolioInformation";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
+import PortfolioPromotionsPromoteToLO from "./PortfolioPromotions/PortfolioPromotionsPromoteToLO";
 
 const PortfolioView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
+  const [displayLOPromotionDialog, setDisplayLOPromotionDialog] =
+    useState(false);
+  const [displaySPPromotionDialog, setDisplaySPPromotionDialog] =
+    useState(false);
+  const [displayINDPromotionDialog, setDisplayINDPromotionDialog] =
+    useState(false);
   const toast = useRef(null);
 
   /* MobX Store */
@@ -40,7 +46,11 @@ const PortfolioView = ({ match, history }) => {
     return <Loading />;
   }
 
-  if (!loadingProject && selectedProject !== null && selectedProject.id === match.params.id) {
+  if (
+    !loadingProject &&
+    selectedProject !== null &&
+    selectedProject.id === match.params.id
+  ) {
     const sideMenuItems = [
       {
         label: "Sections",
@@ -75,22 +85,44 @@ const PortfolioView = ({ match, history }) => {
       items: [],
     };
 
-    if (user.roles.includes("admin") && !selectedProject?.h2LEnabled) {
-      actions.items.push({
-        label: "Promote to H2L",
-        icon: "icon icon-common icon-database-submit",
-        command: (event) => {
-          setDisplayPromotionDialog(true);
-        },
-      });
+    if (user.roles.includes("admin")) {
+      if (selectedProject.currentStage === "H2L") {
+        actions.items.push({
+          label: "Promote to LO",
+          icon: "icon icon-common icon-database-submit",
+          command: (event) => {
+            setDisplayLOPromotionDialog(true);
+          },
+        });
+      }
+
+      if (selectedProject.currentStage === "LO") {
+        actions.items.push({
+          label: "Promote to SP",
+          icon: "icon icon-common icon-database-submit",
+          command: (event) => {
+            setDisplaySPPromotionDialog(true);
+          },
+        });
+      }
+
+      if (selectedProject.currentStage === "SP") {
+        actions.items.push({
+          label: "Promote to IND",
+          icon: "icon icon-common icon-database-submit",
+          command: (event) => {
+            setDisplayINDPromotionDialog(true);
+          },
+        });
+      }
     }
 
-    if (selectedProject?.h2LEnabled) {
+    if (selectedProject?.indEnabled) {
       actions.items.push({
-        label: "View Portfolio",
+        label: "View Post Portfolio",
         icon: "icon icon-common icon-database-submit",
         command: (event) => {
-          history.push(`/portfolio/${selectedProject.id}`);
+          history.push(`/postportfolio/${selectedProject.id}`);
         },
       });
     }
@@ -159,19 +191,58 @@ const PortfolioView = ({ match, history }) => {
           </div>
         </div>
         <Sidebar
-          visible={displayPromotionDialog}
+          visible={displayLOPromotionDialog}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
           blockScroll={true}
-          onHide={() => setDisplayPromotionDialog(false)}
+          onHide={() => setDisplayLOPromotionDialog(false)}
         >
           <h3>{selectedProject.projectName}</h3>
           <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
-          to <b>H2L</b>
+          to <b>LO</b>
           <hr />
           <Message
             severity="info"
-            text={"This would create a new porfolio with stage H2L."}
+            text={"This would promote the project to LO."}
+          />
+          <br />
+          <br />
+          <PortfolioPromotionsPromoteToLO closeSidebar={() => setDisplayLOPromotionDialog(false)}/>
+        </Sidebar>
+
+        <Sidebar
+          visible={displaySPPromotionDialog}
+          position="right"
+          style={{ width: "30em", overflowX: "auto" }}
+          blockScroll={true}
+          onHide={() => setDisplaySPPromotionDialog(false)}
+        >
+          <h3>{selectedProject.projectName}</h3>
+          <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
+          to <b>SP</b>
+          <hr />
+          <Message
+            severity="info"
+            text={"This would promote the project to SP."}
+          />
+          <br />
+          <br />
+        </Sidebar>
+
+        <Sidebar
+          visible={displayINDPromotionDialog}
+          position="right"
+          style={{ width: "30em", overflowX: "auto" }}
+          blockScroll={true}
+          onHide={() => setDisplayINDPromotionDialog(false)}
+        >
+          <h3>{selectedProject.projectName}</h3>
+          <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
+          to <b>IND</b>
+          <hr />
+          <Message
+            severity="info"
+            text={"This would promote the project to post portfolio stage IND."}
           />
           <br />
           <br />
