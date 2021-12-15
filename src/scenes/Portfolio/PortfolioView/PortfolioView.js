@@ -12,7 +12,7 @@ import Discussion from "../../../app/common/Discussion/Discussion";
 import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
 import PortfolioInformation from "./PortfolioInformation/PortfolioInformation";
-
+import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 
 const PortfolioView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -29,78 +29,73 @@ const PortfolioView = ({ match, history }) => {
     console.log("EFFECT");
     console.log(match.params.id);
     if (selectedProject === null || selectedProject.id !== match.params.id) {
+      console.log("Will fetch from store" + match.params.id);
       fetchProject(match.params.id);
     }
   }, [match.params.id, selectedProject, fetchProject]);
-
-  const sideMenuItems = [
-    {
-      label: "Sections",
-      items: [
-        {
-          label: "Portfolio Information",
-          icon: "icon icon-common icon-analyse",
-          command: () => {
-            setActiveIndex(0);
-          },
-        },
-        {
-          label: "Links",
-          icon: "icon icon-common icon-external-link-square-alt",
-          command: () => {
-            setActiveIndex(1);
-          },
-        },
-        {
-          label: "Discussion",
-          icon: "ri-discuss-line",
-          command: () => {
-            setActiveIndex(2);
-          },
-        },
-      ],
-    },
-  ];
-
-  var actions = {
-    label: "Actions",
-    items: []
-  };
-
-  if (user.roles.includes("admin") && !selectedProject?.h2LEnabled) {
-    actions.items.push(
-        {
-          label: "Promote to H2L",
-          icon: "icon icon-common icon-database-submit",
-          command: (event) => {
-            setDisplayPromotionDialog(true);
-          }
-        }
-      );
-  }
-
-  if (selectedProject?.h2LEnabled) {
-    actions.items.push(
-      {
-        label: "View Portfolio",
-        icon: "icon icon-common icon-database-submit",
-        command: (event) => {
-          history.push(`/portfolio/${selectedProject.id}`)
-        }
-      }
-    );
-  }
-
-  sideMenuItems.push(actions);
-
-
 
   /** Loading Overlay */
   if (loadingProject) {
     console.log("Loading.....");
     return <Loading />;
   }
-  if (selectedProject !== null) {
+
+  if (!loadingProject && selectedProject !== null && selectedProject.id === match.params.id) {
+    const sideMenuItems = [
+      {
+        label: "Sections",
+        items: [
+          {
+            label: "Portfolio Information",
+            icon: "icon icon-common icon-analyse",
+            command: () => {
+              setActiveIndex(0);
+            },
+          },
+          {
+            label: "Links",
+            icon: "icon icon-common icon-external-link-square-alt",
+            command: () => {
+              setActiveIndex(1);
+            },
+          },
+          {
+            label: "Discussion",
+            icon: "ri-discuss-line",
+            command: () => {
+              setActiveIndex(2);
+            },
+          },
+        ],
+      },
+    ];
+
+    var actions = {
+      label: "Actions",
+      items: [],
+    };
+
+    if (user.roles.includes("admin") && !selectedProject?.h2LEnabled) {
+      actions.items.push({
+        label: "Promote to H2L",
+        icon: "icon icon-common icon-database-submit",
+        command: (event) => {
+          setDisplayPromotionDialog(true);
+        },
+      });
+    }
+
+    if (selectedProject?.h2LEnabled) {
+      actions.items.push({
+        label: "View Portfolio",
+        icon: "icon icon-common icon-database-submit",
+        command: (event) => {
+          history.push(`/portfolio/${selectedProject.id}`);
+        },
+      });
+    }
+
+    sideMenuItems.push(actions);
     console.log("selectedProject");
     console.log(selectedProject);
     const breadCrumbItems = [
@@ -129,7 +124,11 @@ const PortfolioView = ({ match, history }) => {
               <div className="p-mb-2">
                 <SectionHeading
                   icon="icon icon-common icon-analyse"
-                  heading={selectedProject.projectName + " | " + selectedProject?.currentStage}
+                  heading={
+                    selectedProject.projectName +
+                    " | " +
+                    selectedProject?.currentStage
+                  }
                   accessionNumber={selectedProject.accessionNo}
                   displayHorizion={true}
                 />
@@ -176,13 +175,12 @@ const PortfolioView = ({ match, history }) => {
           />
           <br />
           <br />
-          
         </Sidebar>
       </React.Fragment>
     );
   }
 
-  return <NotFound />;
+  return <FailedLoading />;
 };
 
 export default observer(PortfolioView);

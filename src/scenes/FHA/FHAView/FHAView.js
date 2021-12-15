@@ -13,6 +13,7 @@ import Discussion from "../../../app/common/Discussion/Discussion";
 import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
 import FHAPromotionQuestionaire from "./FHAPromotionQuestionaire/FHAPromotionQuestionaire";
+import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 
 const FHAView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -33,74 +34,68 @@ const FHAView = ({ match, history }) => {
     }
   }, [match.params.id, selectedProject, fetchProject]);
 
-  const sideMenuItems = [
-    {
-      label: "Sections",
-      items: [
-        {
-          label: "FHA Information",
-          icon: "icon icon-conceptual icon-chemical",
-          command: () => {
-            setActiveIndex(0);
-          },
-        },
-        {
-          label: "Links",
-          icon: "icon icon-common icon-external-link-square-alt",
-          command: () => {
-            setActiveIndex(1);
-          },
-        },
-        {
-          label: "Discussion",
-          icon: "ri-discuss-line",
-          command: () => {
-            setActiveIndex(2);
-          },
-        },
-      ],
-    },
-  ];
-
-  var actions = {
-    label: "Actions",
-    items: []
-  };
-
-  if (user.roles.includes("admin") && !selectedProject?.h2LEnabled) {
-    actions.items.push(
-        {
-          label: "Promote to H2L",
-          icon: "icon icon-common icon-database-submit",
-          command: (event) => {
-            setDisplayPromotionDialog(true);
-          }
-        }
-      );
-  }
-
-  if (selectedProject?.h2LEnabled) {
-    actions.items.push(
-      {
-        label: "View Portfolio",
-        icon: "icon icon-common icon-database-submit",
-        command: (event) => {
-          history.push(`/portfolio/${selectedProject.id}`)
-        }
-      }
-    );
-  }
-
-  sideMenuItems.push(actions);
-
-
-
   /** Loading Overlay */
   if (loadingProject) {
     console.log("Loading.....");
     return <Loading />;
   }
-  if (selectedProject !== null) {
+  if (!loadingProject && selectedProject !== null) {
+    const sideMenuItems = [
+      {
+        label: "Sections",
+        items: [
+          {
+            label: "FHA Information",
+            icon: "icon icon-conceptual icon-chemical",
+            command: () => {
+              setActiveIndex(0);
+            },
+          },
+          {
+            label: "Links",
+            icon: "icon icon-common icon-external-link-square-alt",
+            command: () => {
+              setActiveIndex(1);
+            },
+          },
+          {
+            label: "Discussion",
+            icon: "ri-discuss-line",
+            command: () => {
+              setActiveIndex(2);
+            },
+          },
+        ],
+      },
+    ];
+
+    var actions = {
+      label: "Actions",
+      items: [],
+    };
+
+    if (user.roles.includes("admin") && !selectedProject?.h2LEnabled) {
+      actions.items.push({
+        label: "Promote to H2L",
+        icon: "icon icon-common icon-database-submit",
+        command: (event) => {
+          setDisplayPromotionDialog(true);
+        },
+      });
+    }
+
+    if (selectedProject?.h2LEnabled) {
+      actions.items.push({
+        label: "View Portfolio",
+        icon: "icon icon-common icon-database-submit",
+        command: (event) => {
+          history.push(`/portfolio/${selectedProject.id}`);
+        },
+      });
+    }
+
+    sideMenuItems.push(actions);
+
     console.log("selectedProject");
     console.log(selectedProject);
     const breadCrumbItems = [
@@ -184,7 +179,7 @@ const FHAView = ({ match, history }) => {
     );
   }
 
-  return <NotFound />;
+  return <FailedLoading />;
 };
 
 export default observer(FHAView);
