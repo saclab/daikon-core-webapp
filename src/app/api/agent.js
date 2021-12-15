@@ -266,6 +266,8 @@ const Projects = {
   createFHA: (newFHA) => requests.post(`/admin/project/`, newFHA),
   createH2L: (id, h2lInfo) =>
     requests.post(`/admin/project/${id}/createH2L`, h2lInfo),
+  createLO: (id, lOlInfo) =>
+    requests.post(`/admin/project/${id}/createLO`, lOlInfo),
   list: () => requests.get(`/project`),
   details: (id) => requests.get(`/project/${id}`),
   getcompoundevolution: (projectId) =>
