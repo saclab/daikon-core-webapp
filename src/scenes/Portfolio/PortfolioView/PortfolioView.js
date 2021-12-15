@@ -14,6 +14,7 @@ import { Message } from "primereact/message";
 import PortfolioInformation from "./PortfolioInformation/PortfolioInformation";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import PortfolioPromotionsPromoteToLO from "./PortfolioPromotions/PortfolioPromotionsPromoteToLO";
+import PortfolioPromotionsPromoteToSP from "./PortfolioPromotions/PortfolioPromotionsPromoteToSP";
 
 const PortfolioView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -144,7 +145,7 @@ const PortfolioView = ({ match, history }) => {
       <React.Fragment>
         <Toast ref={toast} />
         <br />
-        <div className="p-d-flex" >
+        <div className="p-d-flex">
           <div className="p-mr-2">
             <Menu model={sideMenuItems} />
           </div>
@@ -207,7 +208,9 @@ const PortfolioView = ({ match, history }) => {
           />
           <br />
           <br />
-          <PortfolioPromotionsPromoteToLO closeSidebar={() => setDisplayLOPromotionDialog(false)}/>
+          <PortfolioPromotionsPromoteToLO
+            closeSidebar={() => setDisplayLOPromotionDialog(false)}
+          />
         </Sidebar>
 
         <Sidebar
@@ -227,6 +230,9 @@ const PortfolioView = ({ match, history }) => {
           />
           <br />
           <br />
+          <PortfolioPromotionsPromoteToSP
+            closeSidebar={() => setDisplaySPPromotionDialog(false)}
+          />
         </Sidebar>
 
         <Sidebar
