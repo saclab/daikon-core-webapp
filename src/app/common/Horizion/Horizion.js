@@ -3,6 +3,8 @@ import { observer } from "mobx-react-lite";
 import Tree from "react-d3-tree";
 import { RootStoreContext } from "../../stores/rootStore";
 import HorizionNode from "./HorizionNode/HorizionNode";
+import PleaseWait from "../PleaseWait/PleaseWait";
+import FailedLoading from "../FailedLoading/FailedLoading";
 
 const Horizion = ({ accessionNumber }) => {
   const rootStore = useContext(RootStoreContext);
@@ -25,68 +27,10 @@ const Horizion = ({ accessionNumber }) => {
   }
 
   if (generatingHorizion) {
-    return <h2>Please Wait...</h2>;
+    return <PleaseWait />;
   }
 
   if (!generatingHorizion && selectedHorizion !== null) {
-    // const orgChart = {
-    //   name: "Gene",
-    //   attributes: {
-    //     accessionNumber: "Rv-1234",
-    //     geneName: "pptT",
-    //   },
-    //   children: [
-    //     {
-    //       name: "Target",
-    //       attributes: {
-    //         accessionNumber: "Rv-1234",
-    //         proteinName: "PptT",
-    //         bucketScore: "2a",
-    //       },
-    //       children: [
-    //         {
-    //           name: "Screen",
-    //           attributes: {
-    //             accessionNumber: "Rv-1234",
-    //             proteinName: "pptT",
-    //             screenName: "PptT-1",
-    //           },
-    //           children: [
-    //             {
-    //               name: "FHA",
-    //               attributes: {
-    //                 projectName: "project-x",
-    //               },
-    //               children: [
-    //                 {
-    //                   name: "Portfolio",
-    //                   attributes: {
-    //                     projectName: "project-x",
-    //                   },
-    //                   children: [
-    //                     {
-    //                       name: "PostPortfolio",
-    //                       attributes: {
-    //                         projectName: "project-x",
-    //                       },
-    //                     },
-    //                   ],
-    //                 },
-    //               ],
-    //             },
-    //           ],
-    //         },
-    //         {
-    //           name: "Screen",
-    //           attributes: {
-    //             screenName: "pptT-2",
-    //           },
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // };
-
     const nodeSize = {
       x: 230,
       y: 200,
@@ -103,7 +47,6 @@ const Horizion = ({ accessionNumber }) => {
       x: 50,
       y: 130,
     };
-
 
     const foreignObjectProps = {
       width: nodeSize.x,
@@ -135,7 +78,7 @@ const Horizion = ({ accessionNumber }) => {
     );
   }
 
-  return <h2>Please Wait...</h2>;
+  return <FailedLoading />;
 };
 
 export default observer(Horizion);

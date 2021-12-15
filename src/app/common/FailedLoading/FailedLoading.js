@@ -10,7 +10,13 @@ const FailedLoading = () => {
         margin: "auto",
       }}
     >
-      Failed loading component
+      <i className="pi pi-exclamation-circle"></i>{" "}
+      <p style={{ padding: "1em", color: "#AAAAAA" }}>
+        Failed loading component.
+      </p>
+      <p style={{ padding: "0em", color: "#AAAAAA" }}>
+      Please try re-syncing the page or if the problem persists, please report to an administrator.
+      </p>
     </div>
   );
 };

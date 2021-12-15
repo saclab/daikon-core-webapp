@@ -15,7 +15,7 @@ const PortfolioPromotionsPromoteToLO = ({ closeSidebar }) => {
   const { loadingProject, fetchProject, selectedProject } =
     rootStore.projectStore;
 
-  const { creatingH2L, createH2L } = rootStore.portfolioStore;
+  const { creatingLO, createLO } = rootStore.portfolioStore;
 
   const formik = useFormik({
     initialValues: {
@@ -34,7 +34,7 @@ const PortfolioPromotionsPromoteToLO = ({ closeSidebar }) => {
     onSubmit: (data) => {
       data["id"] = selectedProject.id;
       console.log(data);
-      createH2L(data).then((res) => {
+      createLO(data).then((res) => {
         if (res !== null) {
           closeSidebar();
           formik.resetForm();
@@ -55,7 +55,7 @@ const PortfolioPromotionsPromoteToLO = ({ closeSidebar }) => {
     );
   };
 
-  if (!creatingH2L && !loadingProject) {
+  if (!creatingLO && !loadingProject) {
     return (
       <div className="form-demo">
         <div>
