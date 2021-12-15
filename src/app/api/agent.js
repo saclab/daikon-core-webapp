@@ -268,6 +268,8 @@ const Projects = {
     requests.post(`/admin/project/${id}/createH2L`, h2lInfo),
   createLO: (id, lOlInfo) =>
     requests.post(`/admin/project/${id}/createLO`, lOlInfo),
+  createSP: (id, sPlInfo) =>
+    requests.post(`/admin/project/${id}/createSP`, sPlInfo),
   list: () => requests.get(`/project`),
   details: (id) => requests.get(`/project/${id}`),
   getcompoundevolution: (projectId) =>
