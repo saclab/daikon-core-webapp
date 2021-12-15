@@ -144,7 +144,7 @@ const PortfolioView = ({ match, history }) => {
       <React.Fragment>
         <Toast ref={toast} />
         <br />
-        <div className="p-d-flex">
+        <div className="p-d-flex" >
           <div className="p-mr-2">
             <Menu model={sideMenuItems} />
           </div>

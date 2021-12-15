@@ -79,7 +79,7 @@ const CompoundEvolutionTimeline = ({ project }) => {
     };
 
     return (
-      <div className="timeline-demo">
+      <div className="compound-evolution-timeline">
         <Divider align="right">
           <Button
             label="Add a compound"
