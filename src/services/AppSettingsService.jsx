@@ -22,9 +22,11 @@ class AppSettingsService {
     } else if (stringValue.toLowerCase() === "false") {
       return false;
     } else {
-      throw new Error(
-        "MSAL_AUTH_STATE_IN_COOKIE setting is not a valid boolean."
-      );
+      // throw new Error(
+      //   "MSAL_AUTH_STATE_IN_COOKIE setting is not a valid boolean."
+      // );
+      console.log("GetMsalStoreAuthInCookie INVALID CONF")
+      return false;
     }
   }
   GetLoginRedirectUri() {

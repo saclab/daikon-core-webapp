@@ -10,27 +10,32 @@ import history from "./history";
 import reportWebVitals from "./reportWebVitals";
 import AuthFailure from "./app/layout/Errors/AuthFailure/AuthFailure";
 import agent from "./app/api/agent";
+import ConfigurationMissing from "./app/common/ConfigurationMissing/ConfigurationMissing";
 
 
-agent.AuthServiceInstance
-  .HandlePageLoadEvent()
-  .then(() => {
-    // auth flow was successful.
-    // start the application now.
-    ReactDOM.render(
-      <Router history={history}>
-        <App />
-      </Router>,
-      document.getElementById("root")
-    );
-  })
-  .catch((error) => {
-    // auth flow has failed.
-    // display an error instead of starting the main application.
-    ReactDOM.render(
-      <AuthFailure errorMessage={error.stack} />,
-      document.getElementById("root")
-    );
-  });
+if (!agent.AppPrecheck()) {
+  ReactDOM.render(<ConfigurationMissing />, document.getElementById("root"));
+  
+} else {
+  agent.AuthServiceInstance.HandlePageLoadEvent()
+    .then(() => {
+      // auth flow was successful.
+      // start the application now.
+      ReactDOM.render(
+        <Router history={history}>
+          <App />
+        </Router>,
+        document.getElementById("root")
+      );
+    })
+    .catch((error) => {
+      // auth flow has failed.
+      // display an error instead of starting the main application.
+      ReactDOM.render(
+        <AuthFailure errorMessage={error.stack} />,
+        document.getElementById("root")
+      );
+    });
+}
 
 reportWebVitals();
