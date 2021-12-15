@@ -15,6 +15,8 @@ class AuthService {
         // console.log("GetMsalClientConfiguration() :");
         // console.log(msalConfig);
         this.msalApplication = new PublicClientApplication(msalConfig);
+
+        this.appSettings.GetMsalStoreAuthInCookie()
     }
 
     // msal application object

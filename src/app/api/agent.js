@@ -4,6 +4,23 @@ import history from "../../history";
 import AuthService from "../../services/AuthService";
 import AppSettingsService from "../../services/AppSettingsService";
 
+/* Check Pre Configuration */
+
+const AppPrecheck = () => {
+  if (
+    process.env.REACT_APP_MSAL_CLIENT_ID === "" ||
+    process.env.REACT_APP_WEB_API_BASE_URI === "" ||
+    process.env.REACT_APP_MSAL_CLIENT_SCOPE === "" ||
+    process.env.REACT_APP_MSAL_TENANT_AUTHORITY_URI === "" ||
+    process.env.REACT_APP_MSAL_CACHE_LOCATION === "" ||
+    process.env.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === "" ||
+    process.env.REACT_APP_MSAL_LOGIN_REDIRECT_URI === ""
+  ) {
+    return false;
+  }
+
+  return true;
+};
 /*  MSAL SERVICE CREATION */
 const appSettings = new AppSettingsService();
 const AuthServiceInstance = new AuthService(appSettings);
@@ -282,6 +299,7 @@ const Projects = {
 };
 
 const exports = {
+  AppPrecheck,
   AuthServiceInstance,
   Accounts,
   Gene,
