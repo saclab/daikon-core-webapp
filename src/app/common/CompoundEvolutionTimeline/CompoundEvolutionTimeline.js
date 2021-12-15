@@ -29,6 +29,7 @@ const CompoundEvolutionTimeline = ({ project }) => {
   useEffect(() => {
     fetchCompoundEvolution(project.id);
   }, [fetchCompoundEvolution, project]);
+  
 
   if (loadingProject || loadingCompoundEvolution) {
     return (
