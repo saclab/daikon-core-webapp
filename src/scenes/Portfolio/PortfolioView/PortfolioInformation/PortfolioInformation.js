@@ -32,7 +32,7 @@ const PortfolioInformation = ({ id, project }) => {
         </div>
       </div>
       {/* Second div for structure evolution */}
-      <div className="p-d-flex p-flex-column p-flex-md-row">
+      <div className="p-d-flex p-flex-column p-flex-md-row"  >
         <Fieldset legend="Compound Evolution">
           <CompoundEvolutionTimeline project={project} />
         </Fieldset>
