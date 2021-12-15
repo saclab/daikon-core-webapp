@@ -17,6 +17,12 @@ class AppSettingsService {
   GetMsalStoreAuthInCookie() {
     let stringValue = process.env.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE;
 
+    if(typeof stringValue == 'undefined' || stringValue === null || stringValue === undefined)
+    {
+      console.log("GetMsalStoreAuthInCookie INVALID CONF")
+      return false;
+    }
+    
     if (stringValue.toLowerCase() === "true") {
       return true;
     } else if (stringValue.toLowerCase() === "false") {
