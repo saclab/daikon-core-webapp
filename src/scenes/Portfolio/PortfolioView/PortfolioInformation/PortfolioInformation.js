@@ -1,69 +1,41 @@
-import { Fieldset } from "primereact/fieldset";
-import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import React from "react";
-import SmilesView from "../../../../app/common/SmilesView/SmilesView";
+import { Fieldset } from "primereact/fieldset";
+import dateFormat from "dateformat";
+import { Card } from "primereact/card";
+import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 
-const PortfolioInformation = ({ edit, cancelEdit, portfolioData }) => {
+import { ScrollPanel } from "primereact/scrollpanel";
+import { ScrollTop } from "primereact/scrolltop";
+import SmilesView from "../../../../app/common/SmilesView/SmilesView";
+import "./ScrollPanel.css";
+import { Timeline } from "primereact/timeline";
+import PortfolioInformationGeneralInformation from "./LocalComponents/PortfolioInformationGeneralInformation";
+import PortfolioInformationDates from "./LocalComponents/PortfolioInformationDates";
+import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
+
+const PortfolioInformation = ({ id, project }) => {
+  
+
   return (
     <div>
-      <div className="p-d-flex">
-        <div className="p-mr-2">
-          <div className="p-d-flex p-flex-column">
-            <div className="p-mb-2"  style={{ minHeight: "450px"}}>
-              <Fieldset legend="General annotation">
-                <KeyValList
-                  data={portfolioData}
-                  filter={[
-                    "target",
-                    "projectNo",
-                    "projectName",
-                    "primaryOrganization",
-                    "supportingOrganization",
-                    "status",
-                    "stage",
-                    "priority",
-                    "probability",
-                  ]}
-                  editFunc={() => edit()}
-                  cancelEdit={() => cancelEdit()}
-                />
-              </Fieldset>
-            </div>
-          </div>
+      {/* First div for general information and dates */}
+      <div className="p-d-flex p-flex-column p-flex-md-row">
+        <div className="p-mb-2 p-mr-2">
+          <Fieldset legend="Project Information">
+            <PortfolioInformationGeneralInformation project={project} />
+          </Fieldset>
         </div>
-        <div className="p-mr-2">
-          <div className="p-d-flex p-flex-column">
-            <div className="p-mb-2" style={{ minHeight: "350px"}}>
-              <Fieldset legend="Project Start Dates">
-                <KeyValList
-                  data={portfolioData}
-                  filter={[
-                    "fhaStartDate",
-                    "h2lStartDate",
-                    "loStartDate",
-                    "spStartDate",
-                    "pcdDate",
-                    "indStartDate",
-                    "clinicalStartDate",
-                  ]}
-                />
-              </Fieldset>
-            </div>
-          </div>
+        <div className="p-mb-2 p-mr-2">
+          <Fieldset legend="Project Dates">
+            <PortfolioInformationDates project={project} />
+          </Fieldset>
         </div>
-        <div className="p-mr-2">
-          <div className="p-d-flex p-flex-column">
-            <div className="p-mb-2">
-              <Fieldset legend="Structure">
-                <React.Fragment>
-                  <div style={{ minWidth: "250px", marginLeft: "50px"  }}>
-                    <SmilesView smiles={portfolioData.structure} />
-                  </div>
-                </React.Fragment>
-              </Fieldset>
-            </div>
-          </div>
-        </div>
+      </div>
+      {/* Second div for structure evolution */}
+      <div className="p-d-flex p-flex-column p-flex-md-row"  >
+        <Fieldset legend="Compound Evolution">
+          <CompoundEvolutionTimeline project={project} />
+        </Fieldset>
       </div>
     </div>
   );

@@ -107,13 +107,16 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
+              onClick={() => {
+                history.push(`/fha/${dataObj.dataObj.attributes.id}`);
+              }}
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
               <p>
                 <b>FHA</b> <br />
-                Project-X
+                {dataObj.dataObj.attributes.projectName}
               </p>
             </div>
           </foreignObject>
@@ -131,13 +134,22 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
+              onClick={() => {
+                history.push(`/portfolio/${dataObj.dataObj.attributes.id}`);
+              }}
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
               <p>
                 <b>Portfolio</b> <br />
-                Project-X
+                {dataObj.dataObj.attributes.projectName}
+                <br />-
+                {["H2L", "LO", "SP"].includes(
+                  dataObj.dataObj.attributes.currentStage
+                )
+                  ? dataObj.dataObj.attributes.currentStage
+                  : "Complete"}
               </p>
             </div>
           </foreignObject>
