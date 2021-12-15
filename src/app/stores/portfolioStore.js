@@ -24,6 +24,8 @@ export default class PortfolioStore {
   /* END */
 
   creatingH2L = false;
+  creatingLO = false;
+  creatingSP = false;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -44,6 +46,13 @@ export default class PortfolioStore {
 
       creatingH2L: observable,
       createH2L: action,
+
+      creatingLO: observable,
+      createLO: action,
+
+      creatingSP: observable,
+      createSP: action,
+
       filterPortfolioProjects: action,
     });
   }
@@ -220,6 +229,60 @@ export default class PortfolioStore {
       runInAction(() => {
         this.creatingH2L = false;
         console.log("PortfolioStore: createH2L Complete");
+      });
+    }
+    return res;
+  };
+
+  createLO = async (newLO) => {
+    console.log("PortfolioStore: createLO Start");
+    console.log(newLO);
+    this.creatingLO = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.createLO(
+        this.rootStore.projectStore.selectedProject.id,
+        newLO
+      );
+      runInAction(() => {
+        toast.success("Successfully promoted project to LO");
+        this.rootStore.projectStore.projectRegistryCacheValid = false;
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.creatingLO = false;
+        console.log("PortfolioStore: createLO Complete");
+      });
+    }
+    return res;
+  };
+
+  createSP = async (newSP) => {
+    console.log("PortfolioStore: createSP Start");
+    console.log(newSP);
+    this.creatingSP = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.createSP(
+        this.rootStore.projectStore.selectedProject.id,
+        newSP
+      );
+      runInAction(() => {
+        toast.success("Successfully promoted project to SP");
+        this.rootStore.projectStore.projectRegistryCacheValid = false;
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.creatingSP = false;
+        console.log("PortfolioStore: createSP Complete");
       });
     }
     return res;
