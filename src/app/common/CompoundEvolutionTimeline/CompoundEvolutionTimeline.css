@@ -1,0 +1,36 @@
+/* TimelineDemo.css */
+compound-evolution-timeline {
+  padding-right: 1em;
+}
+.compound-evolution-timeline .custom-marker {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.compound-evolution-timeline .p-timeline-event-content,
+.compound-evolution-timeline .p-timeline-event-opposite {
+  line-height: 1;
+  flex: 10;
+}
+
+.compound-evolution-timeline .customized-timeline .p-timeline-event:nth-child(even) {
+  flex-direction: row !important;
+}
+.compound-evolution-timeline
+  .customized-timeline
+  .p-timeline-event:nth-child(even)
+  .p-timeline-event-content {
+  text-align: left !important;
+}
+.compound-evolution-timeline .customized-timeline .p-timeline-event-opposite {
+  flex: 0;
+}
+.compound-evolution-timeline .customized-timeline .p-card {
+  margin-top: 1rem;
+}

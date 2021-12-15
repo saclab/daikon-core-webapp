@@ -10,7 +10,7 @@ const SectionHeading = ({ icon, heading, sub, displayHorizion, color, textColor,
     let background = color ? color : "#28477f";
     let htextColor = textColor ? textColor : "#ffffff";
     let displayHorizionButton = (
-      <div className="p-mr-2" style={{ float: "right", marginLeft: "auto" }}>
+      <div className="p-mr-2" style={{ float: "right", marginLeft: "auto",  paddingRight: "0.5em"}}>
         <button
           className={options.togglerClassName}
           onClick={options.onTogglerClick}

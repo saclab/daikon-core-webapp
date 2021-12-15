@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const SmilesView = ({ smiles, width = 200, height = 200 }) => {
   const cm = useRef(null);
 
-  let canId = smiles + Date.now();
+  let canId = smiles + Date.now() + Math.floor(Math.random() * 100);
 
   useEffect(() => {
     let options = { width: width, height: height };
