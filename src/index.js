@@ -13,6 +13,8 @@ import agent from "./app/api/agent";
 import ConfigurationMissing from "./app/common/ConfigurationMissing/ConfigurationMissing";
 
 console.log("Starting app pre checks");
+
+
 if (!agent.AppPrecheck()) {
   console.log("prechecks failed.");
   ReactDOM.render(<ConfigurationMissing />, document.getElementById("root"));
