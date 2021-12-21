@@ -180,7 +180,7 @@ const PostPortfolioDash = () => {
       <div className="card">
         <DataTable
           ref={dt}
-          value={postPortfolios}
+          value={[]}
           paginator
           rows={10}
           // header={header}
