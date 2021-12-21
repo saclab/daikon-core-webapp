@@ -93,10 +93,12 @@ const ScreenSequence = ({ screenId }) => {
           ref={op}
           showCloseIcon
           id="overlay_panel"
+          dismissable
           style={{ width: "450px" }}
-          className="overlaypanel-demo"
         >
-          <pre style={{ maxWidth: "450px", overflow: "auto" }}>{selectedProtocol}</pre>
+          <pre style={{ maxWidth: "450px", overflow: "auto" }}>
+            {selectedProtocol}
+          </pre>
         </OverlayPanel>
         <Sidebar
           visible={displayAddDialog}
