@@ -42,6 +42,10 @@ const ValidatedHitsList = ({ screenId }) => {
 
   /* Table Body Templates */
 
+  const SourceBodyTemplate = (rowData) => {
+    return <React.Fragment>{rowData.source}</React.Fragment>;
+  };
+
   const LibraryBodyTemplate = (rowData) => {
     return <React.Fragment>{rowData.library}</React.Fragment>;
   };
@@ -167,6 +171,12 @@ const ValidatedHitsList = ({ screenId }) => {
               ></Column>
             )}
             <Column
+              field="Source"
+              header="Source"
+              body={SourceBodyTemplate}
+              style={{ width: "12%" }}
+            />
+            <Column
               field="Library"
               header="Library"
               body={LibraryBodyTemplate}
@@ -201,7 +211,7 @@ const ValidatedHitsList = ({ screenId }) => {
               field="clusterGroup"
               header="Cluster Group No"
               body={ClusterBodyTemplate}
-              style={{ width: "50px" }}
+              style={{ width: "130px" }}
               sortable
             />
             <Column
