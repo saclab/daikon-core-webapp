@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
@@ -6,8 +6,12 @@ import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
+import { RootStoreContext } from "../../../../../../app/stores/rootStore";
 
-const ScreenSequenceAddForm = ({screenId, onAdd, loading}) => {
+const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
+  const rootStore = useContext(RootStoreContext);
+  const { appVars } = rootStore.generalStore;
+
   const formik = useFormik({
     initialValues: {
       library: "",
@@ -48,7 +52,7 @@ const ScreenSequenceAddForm = ({screenId, onAdd, loading}) => {
       }
 
       if (!data.noOfCompoundsScreened) {
-        errors.noOfCompoundsScreened = "No of Compounds screened is required."
+        errors.noOfCompoundsScreened = "No of Compounds screened is required.";
       }
 
       if (!data.unverifiedHitCount) {
@@ -175,6 +179,7 @@ const ScreenSequenceAddForm = ({screenId, onAdd, loading}) => {
             <Dropdown
               id="method"
               answer="method"
+              options={appVars?.screeningMethods}
               value={formik.values.method}
               placeholder="Select a method"
               onChange={formik.handleChange}
@@ -281,11 +286,6 @@ const ScreenSequenceAddForm = ({screenId, onAdd, loading}) => {
             {getFormErrorMessage("noOfCompoundsScreened")}
           </div>
 
-
-
-
-
-          
           <div className="p-field p-col-12 p-md-12">
             <label
               htmlFor="comment"
