@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
-
+import { OverlayPanel } from "primereact/overlaypanel";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
 import ScreenSequenceAddForm from "./ScreenSequenceAddForm/ScreenSequenceAddForm";
 
 const ScreenSequence = ({ screenId }) => {
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
+  const [selectedProtocol, setSelectedProtocol] = useState("");
+  const op = useRef(null);
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
@@ -56,8 +58,45 @@ const ScreenSequence = ({ screenId }) => {
   if (!loadingFetchScreen && selectedScreen) {
     console.log("====SCREEN SEQUENCE + SELECTED SCREEN");
 
+    let protocolBodyTemplate = (rowData) => {
+      if (rowData?.protocol === null) {
+        return <>Not Available</>;
+      }
+      return (
+        <div
+          className="p-mb-3 p-text-nowrap p-text-truncate"
+          style={{ width: "6rem" }}
+        >
+          <Button
+            className="p-button-text p-button-plain"
+            label={
+              rowData?.protocol !== null
+                ? rowData?.protocol.substring(0, 7) + "..."
+                : ""
+            }
+            onClick={(e) => {
+              setSelectedProtocol(rowData.protocol);
+              op.current.toggle(e);
+            }}
+            aria-haspopup
+            aria-controls="overlay_panel"
+            style={{ padding: "0px", margin: "0px" }}
+          />
+        </div>
+      );
+    };
+
     return (
       <div>
+        <OverlayPanel
+          ref={op}
+          showCloseIcon
+          id="overlay_panel"
+          style={{ width: "450px" }}
+          className="overlaypanel-demo"
+        >
+          <pre style={{ maxWidth: "450px", overflow: "auto" }}>{selectedProtocol}</pre>
+        </OverlayPanel>
         <Sidebar
           visible={displayAddDialog}
           position="right"
@@ -89,7 +128,12 @@ const ScreenSequence = ({ screenId }) => {
           >
             <Column field="library" header="Library"></Column>
             <Column field="method" header="Method"></Column>
-            <Column field="protocol" header="Protocol"></Column>
+            <Column body={protocolBodyTemplate} header="Protocol"></Column>
+            <Column field="concentration" header="Concentration"></Column>
+            <Column
+              field="noOfCompoundsScreened"
+              header="No of compounds screened"
+            ></Column>
             <Column field="scientist" header="Scientist"></Column>
             <Column field="startDate" header="Start Date"></Column>
             <Column field="endDate" header="End Date"></Column>

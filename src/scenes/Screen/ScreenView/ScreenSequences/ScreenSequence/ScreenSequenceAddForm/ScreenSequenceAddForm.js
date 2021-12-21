@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
+import { RootStoreContext } from "../../../../../../app/stores/rootStore";
 
-const ScreenSequenceAddForm = ({screenId, onAdd, loading}) => {
+const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
+  const rootStore = useContext(RootStoreContext);
+  const { appVars } = rootStore.generalStore;
+
   const formik = useFormik({
     initialValues: {
       library: "",
@@ -14,6 +19,8 @@ const ScreenSequenceAddForm = ({screenId, onAdd, loading}) => {
       endDate: "",
       method: "",
       protocol: "",
+      concentration: "",
+      noOfCompoundsScreened: "",
       comment: "",
       unverifiedHitCount: "",
     },
@@ -39,6 +46,15 @@ const ScreenSequenceAddForm = ({screenId, onAdd, loading}) => {
       if (!data.protocol) {
         errors.protocol = "Protocol is required.";
       }
+
+      if (!data.concentration) {
+        errors.concentration = "Concentration is required.";
+      }
+
+      if (!data.noOfCompoundsScreened) {
+        errors.noOfCompoundsScreened = "No of Compounds screened is required.";
+      }
+
       if (!data.unverifiedHitCount) {
         errors.unverifiedHitCount = "Hit Count is required.";
       }
@@ -160,10 +176,12 @@ const ScreenSequenceAddForm = ({screenId, onAdd, loading}) => {
             >
               Method
             </label>
-            <InputText
+            <Dropdown
               id="method"
               answer="method"
+              options={appVars?.screeningMethods}
               value={formik.values.method}
+              placeholder="Select a method"
               onChange={formik.handleChange}
               autoFocus
               className={classNames({
@@ -222,8 +240,52 @@ const ScreenSequenceAddForm = ({screenId, onAdd, loading}) => {
             {getFormErrorMessage("unverifiedHitCount")}
           </div>
 
+          <div className="p-field p-col-12 p-md-12">
+            <label
+              htmlFor="concentration"
+              className={classNames({
+                "p-error": isFormFieldValid("concentration"),
+              })}
+            >
+              Concentration
+            </label>
+            <InputText
+              id="concentration"
+              answer="concentration"
+              value={formik.values.concentration}
+              onChange={formik.handleChange}
+              autoFocus
+              className={classNames({
+                "p-invalid": isFormFieldValid("concentration"),
+              })}
+            />
 
-          
+            {getFormErrorMessage("concentration")}
+          </div>
+
+          <div className="p-field p-col-12 p-md-12">
+            <label
+              htmlFor="noOfCompoundsScreened"
+              className={classNames({
+                "p-error": isFormFieldValid("noOfCompoundsScreened"),
+              })}
+            >
+              No of Compounds Screened
+            </label>
+            <InputText
+              id="noOfCompoundsScreened"
+              answer="noOfCompoundsScreened"
+              value={formik.values.noOfCompoundsScreened}
+              onChange={formik.handleChange}
+              autoFocus
+              className={classNames({
+                "p-invalid": isFormFieldValid("noOfCompoundsScreened"),
+              })}
+            />
+
+            {getFormErrorMessage("noOfCompoundsScreened")}
+          </div>
+
           <div className="p-field p-col-12 p-md-12">
             <label
               htmlFor="comment"

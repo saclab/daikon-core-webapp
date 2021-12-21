@@ -37,6 +37,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
     data.forEach((hit) => {
       hits.push({
         ScreenId: screenId,
+        Source: hit.data?.Source,
         Library: hit.data?.Library,
         SaccId: hit.data?.SaccId,
         IC50: hit.data?.IC50,
@@ -105,6 +106,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
       <h3>Total hits found in CSV : {hits.length}</h3>{" "}
       <div className="card">
         <DataTable value={hits}>
+          <Column field="Source" header="Source"></Column>
           <Column field="Library" header="Library"></Column>
           <Column field="SaccId" header="SaccId"></Column>
           <Column field="Method" header="Method"></Column>
