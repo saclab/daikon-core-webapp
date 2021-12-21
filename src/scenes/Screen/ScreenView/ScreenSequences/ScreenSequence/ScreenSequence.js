@@ -90,6 +90,8 @@ const ScreenSequence = ({ screenId }) => {
             <Column field="library" header="Library"></Column>
             <Column field="method" header="Method"></Column>
             <Column field="protocol" header="Protocol"></Column>
+            <Column field="concentration" header="Concentration"></Column>
+            <Column field="noOfCompoundsScreened" header="No of compounds screened"></Column>
             <Column field="scientist" header="Scientist"></Column>
             <Column field="startDate" header="Start Date"></Column>
             <Column field="endDate" header="End Date"></Column>
