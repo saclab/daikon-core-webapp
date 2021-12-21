@@ -8,6 +8,7 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
 import ScreenSequenceAddForm from "./ScreenSequenceAddForm/ScreenSequenceAddForm";
+import PleaseWait from "../../../../../app/common/PleaseWait/PleaseWait";
 
 const ScreenSequence = ({ screenId }) => {
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
@@ -32,7 +33,7 @@ const ScreenSequence = ({ screenId }) => {
   console.log("====SCREEN SEQUENCE");
 
   if (loadingFetchScreen || selectedScreen === null) {
-    return <h1> Plese wait .. </h1>;
+    return <PleaseWait />;
   }
 
   const tableHeader = (
