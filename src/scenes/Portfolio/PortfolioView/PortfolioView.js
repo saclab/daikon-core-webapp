@@ -15,6 +15,7 @@ import PortfolioInformation from "./PortfolioInformation/PortfolioInformation";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import PortfolioPromotionsPromoteToLO from "./PortfolioPromotions/PortfolioPromotionsPromoteToLO";
 import PortfolioPromotionsPromoteToSP from "./PortfolioPromotions/PortfolioPromotionsPromoteToSP";
+import PortfolioBaseHits from "./PortfolioBaseHits/PortfolioBaseHits";
 
 const PortfolioView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -64,8 +65,8 @@ const PortfolioView = ({ match, history }) => {
             },
           },
           {
-            label: "Links",
-            icon: "icon icon-common icon-external-link-square-alt",
+            label: "Base Hits",
+            icon: "icon icon-conceptual icon-structures-3d",
             command: () => {
               setActiveIndex(1);
             },
@@ -178,7 +179,7 @@ const PortfolioView = ({ match, history }) => {
                     />
                   </TabPanel>
                   <TabPanel header="Header II" headerClassName="hide">
-                    tab 2
+                    <PortfolioBaseHits project={selectedProject} />
                   </TabPanel>
                   <TabPanel header="Header III" headerClassName="hide">
                     <Discussion
