@@ -77,7 +77,7 @@ const TargetView = ({ match, history }) => {
           label: "View Screens",
           icon: "pi pi-external-link",
           command: (event) => {
-            history.push("/screen/" + target.geneName);
+            history.push("/screen/" + target.accessionNumber);
           },
         },
       ],

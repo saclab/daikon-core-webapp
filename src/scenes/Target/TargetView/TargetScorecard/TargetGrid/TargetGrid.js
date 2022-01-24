@@ -2,12 +2,13 @@ import React from "react";
 import { Tooltip } from "primereact/tooltip";
 
 import "./TargetGrid.css";
+import PleaseWait from "../../../../../app/common/PleaseWait/PleaseWait";
 
 const TargetGrid = ({ questions, target }) => {
   let answers = {};
 
   if (questions.size === 0 || target === null) {
-    return <h2>Please wait..</h2>;
+    return <PleaseWait />;
   }
 
   target.targetScorecard.targetScoreCardValues.forEach((ans) => {
