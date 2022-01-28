@@ -131,13 +131,14 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
 const Gene = {
   list: () => requests.get("/gene"),
   view: (id) => requests.get(`/gene/${id}`),
+  validateTargetName: (name) => requests.get(`/gene/${name}/validateNewTargetName`),
   viewByAccessionNo: (accessionNo) =>
     requests.get(`/gene/by-accession/${accessionNo}`),
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
   history: (id) => requests.get(`/gene/${id}/history`),
   promotionQuestions: () => requests.get(`/geneconfig/promote/questionaire`),
-  submitPromotionQuestionaire: (id, data) =>
-    requests.post(`/gene/${id}/promotionrequest`, data),
+  submitPromotionQuestionaire: (targetName, data) =>
+    requests.post(`/gene/promotionrequest/${targetName}`, data),
   editEssentiality: (geneId, essentialityId, modEssentiality) =>
     requests.post(
       `/gene/${geneId}/essentiality/${essentialityId}`,

@@ -38,6 +38,9 @@ export default class GeneStore {
   editingHypomorph = false;
   addingHypomorph = false;
 
+  validateTargetNameLoading = false;
+  proposedTargetNameValidated = "";
+
   geneRegistry = new Map();
   geneFunctionalCategories = [];
   geneRegistryExpanded = new Map();
@@ -50,6 +53,8 @@ export default class GeneStore {
   selectedPdbCrossReference = null;
 
   promotionQuestionsRegistry = new Map();
+
+  genePromotionDataObj = {};
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -122,6 +127,13 @@ export default class GeneStore {
       addingHypomorph: observable,
       addHypomorph: action,
       editHypomorph: action,
+
+      validateTargetName: action,
+      validateTargetNameLoading: observable,
+      proposedTargetNameValidated: observable,
+
+      saveGenePromotionDataObj: action,
+      getGenePromotionDataObj: action,
     });
   }
 
@@ -403,7 +415,7 @@ export default class GeneStore {
   };
 
   /* submit Promotion Questionaire from API */
-  submitPromotionQuestionaire = async (data) => {
+  submitPromotionQuestionaire = async (targetName, data) => {
     console.log("geneStore: submitPromotionQuestionaire Start");
     this.promotionQuestionsDisplayLoading = true;
     let res = null;
@@ -411,7 +423,7 @@ export default class GeneStore {
     // send to server
     try {
       res = await agent.Gene.submitPromotionQuestionaire(
-        this.selectedGene.id,
+        targetName,
         data
       );
     } catch (error) {
@@ -778,5 +790,31 @@ export default class GeneStore {
         this.addingHypomorph = false;
       });
     }
+  };
+
+  validateTargetName = async (proposedTargetName) => {
+    console.log("geneStore: validatedTargetName() Start");
+
+    this.validateTargetNameLoading = true;
+    this.proposedTargetNameValidated = "";
+    try {
+      this.proposedTargetNameValidated = await agent.Gene.validateTargetName(
+        proposedTargetName
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.validateTargetNameLoading = false;
+      });
+    }
+  };
+
+  saveGenePromotionDataObj = (data) => {
+    this.genePromotionDataObj = { ...data };
+  };
+
+  getGenePromotionDataObj = () => {
+    return this.genePromotionDataObj;
   };
 }
