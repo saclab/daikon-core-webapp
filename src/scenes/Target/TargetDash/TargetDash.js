@@ -23,6 +23,8 @@ const TargetDash = () => {
     return <Loading />;
   }
 
+  console.log(targets);
+
   return (
     <div>
       <SectionHeading
