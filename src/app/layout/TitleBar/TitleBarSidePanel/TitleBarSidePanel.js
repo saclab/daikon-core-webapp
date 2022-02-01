@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
+import { InputText } from 'primereact/inputtext';
 import { Divider } from "primereact/divider";
 import history from "../../../../history";
 import { RootStoreContext } from "../../../stores/rootStore";
@@ -31,9 +32,21 @@ const TitleBarSidePanel = ({ toggle, user }) => {
 
   return (
     <div className="p-d-flex p-flex-column">
+      <div>
+        <h2>Target & Project Tracket</h2>
+      </div>
+      <div>
+      <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText placeholder="Search" />
+        </span>
+      </div>
       {user.roles.includes("admin") ? adminTools : ""}
       <div className="p-mb-2">
         <h4>Project Management Tools</h4>
+
+        
+
         <Divider type="dashed" />
       </div>
       <div>

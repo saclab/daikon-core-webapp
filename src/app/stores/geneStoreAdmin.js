@@ -28,21 +28,22 @@ export default class GeneStoreAdmin {
       runInAction(() => {
         console.log("++++++++++++++++++++++++++++");
         console.log(resp);
-        resp.forEach((fetchedGene) => {
-          let formattedGene = {
-            geneAccessionNumber: fetchedGene.geneAccessionNumber,
-            geneId: fetchedGene.geneId,
+        resp.forEach((fetchedPromotionRequest) => {
+          let formattedPromotionRequest = {
+            targetName: fetchedPromotionRequest.targetName,
+            genePromtionRequestGenes: fetchedPromotionRequest.genePromtionRequestGenes,
+            targetType: fetchedPromotionRequest.targetType,
             answers : {}
           };
-          fetchedGene.genePromotionRequestValues.forEach((value) => {
-            formattedGene.answers[value.question.identification] = {
+          fetchedPromotionRequest.genePromotionRequestValues.forEach((value) => {
+            formattedPromotionRequest.answers[value.question.identification] = {
               answer: value.answer,
               answeredBy: value.answeredBy,
               description: value.description,
             };
           });
 
-          this.genePromotionRegistry.set(fetchedGene.geneId, formattedGene);
+          this.genePromotionRegistry.set(fetchedPromotionRequest.targetName, formattedPromotionRequest);
         });
       });
     } catch (error) {
