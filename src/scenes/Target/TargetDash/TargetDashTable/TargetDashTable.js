@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import _ from "lodash";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
@@ -9,25 +9,44 @@ import { observer } from "mobx-react-lite";
 const TargetDashTable = ({ targets }) => {
   const dt = useRef(null);
 
+  const [tableData, setTableData] = useState(null);
+
+  useEffect(() => {
+    if (tableData === null) {
+      let generateTableData = targets.map((target) => {
+        let associatedGenes = target.targetGenes.map(
+          (gene) => gene.accessionNumber + " This is a long tetxt with many numbers"
+        );
+        return {
+          ...target,
+          associatedGenes: associatedGenes,
+        };
+      });
+
+      setTableData(generateTableData);
+    }
+  }, [targets]);
+
   /* Table Body Templates */
 
-  const AccessionNumberBodyTemplate = (rowData) => {
+  const TargetNameBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Accession Number</span>
-        <NavLink to={"/target/" + rowData.id}>
-          {rowData.accessionNumber}
-        </NavLink>
+        <span className="p-column-title">Target Name</span>
+        <NavLink to={"/target/" + rowData.id}>{rowData.name}</NavLink>
       </React.Fragment>
     );
   };
 
-  const GeneNameBodyTemplate = (rowData) => {
+  const AssociatedGenesBodyTemplate = (rowData) => {
     return (
-      <React.Fragment>
+      <div
+        className="surface-overlay border-round border-1 p-3 mt-3 white-space-nowrap overflow-hidden text-overflow-ellipsis"
+        style={{width:"2px"}}
+      >
         <span className="p-column-title">Gene Name</span>
-        {_.upperFirst(rowData.geneName)}
-      </React.Fragment>
+        {rowData.associatedGenes}
+      </div>
     );
   };
 
@@ -79,7 +98,7 @@ const TargetDashTable = ({ targets }) => {
       <div className="card">
         <DataTable
           ref={dt}
-          value={targets}
+          value={tableData}
           paginator
           rows={10}
           // header={header}
@@ -88,23 +107,23 @@ const TargetDashTable = ({ targets }) => {
           emptyMessage="No Targets found."
         >
           <Column
-            field="accessionNumber"
-            header="Accession Number"
-            body={AccessionNumberBodyTemplate}
+            field="name"
+            header="Target Name"
+            body={TargetNameBodyTemplate}
             filter
             filterMatchMode="contains"
-            filterPlaceholder="Search by A.Number"
+            filterPlaceholder="Search by Target"
             className="narrow-column"
             sortable
           />
 
           <Column
-            field="geneName"
-            header="Protein Name"
-            body={GeneNameBodyTemplate}
+            field="associatedGenes"
+            header="Associated Genes"
+            body={AssociatedGenesBodyTemplate}
             filter
             filterMatchMode="contains"
-            filterPlaceholder="Search by Protein Name"
+            filterPlaceholder="Search by Gene"
             className="narrow-column"
           />
 
