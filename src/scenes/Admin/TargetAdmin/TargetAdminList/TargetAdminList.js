@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -11,6 +11,8 @@ const TargetAdminList = () => {
   const rootStore = useContext(RootStoreContext);
   const { fetchTargetList, displayLoading, targets } = rootStore.targetStore;
 
+  const [tableData, setTableData] = useState(null);
+
   useEffect(() => {
     console.log("TargetSearch: fetchTargetList()");
     fetchTargetList();
@@ -18,21 +20,26 @@ const TargetAdminList = () => {
 
   const dt = useRef(null);
 
-  const AccessionNumberBodyTemplate = (rowData) => {
+  const TargetNameBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <NavLink to={"/admin/target/" + rowData.id}>
-          {rowData.accessionNumber}
-        </NavLink>
+        <NavLink to={"/admin/target/" + rowData.id}>{rowData.name}</NavLink>
       </React.Fragment>
     );
   };
 
-  const GeneNameBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.geneName}</React.Fragment>;
+  const AssociatedGenesBodyTemplate = (rowData) => {
+    return (
+      <div
+        className="surface-overlay border-round border-1 p-3 mt-3 white-space-nowrap overflow-hidden text-overflow-ellipsis"
+        style={{ width: "2px" }}
+      >
+        {rowData.targetGenesAccesionNumbers.join()}
+      </div>
+    );
   };
 
-    const ImpactScoreBodyTemplate = (rowData) => {
+  const ImpactScoreBodyTemplate = (rowData) => {
     return <React.Fragment>{rowData.impactScore}</React.Fragment>;
   };
 
@@ -93,25 +100,26 @@ const TargetAdminList = () => {
           header={header}
           className="p-admin"
           //globalFilter={globalFilter}
-          emptyMessage="No genes found."
+          emptyMessage="No targets found."
         >
           <Column
-            field="accessionNumber"
-            header="Accession Number"
-            body={AccessionNumberBodyTemplate}
+            field="name"
+            header="Target Name"
+            body={TargetNameBodyTemplate}
             filter
             filterMatchMode="contains"
-            filterPlaceholder="Search by A.Number"
+            filterPlaceholder="Search by Target"
             className="narrow-column"
+            sortable
           />
 
           <Column
-            field="geneName"
-            header="Protein Name"
-            body={GeneNameBodyTemplate}
+            field="associatedGenes"
+            header="Associated Genes"
+            body={AssociatedGenesBodyTemplate}
             filter
             filterMatchMode="contains"
-            filterPlaceholder="Search by Protein Name"
+            filterPlaceholder="Search by Gene"
             className="narrow-column"
           />
 

@@ -43,7 +43,7 @@ const TargetScorecard = () => {
                     </h3>
                     <h3>
                       <i className="icon icon-conceptual icon-proteins"></i>{" "}
-                      Protein : <b>{_.upperFirst(selectedTarget.geneName)}</b>
+                      Associated Genes : <b>{selectedTarget.targetGenesAccesionNumbers.join()}</b>
                     </h3>
                   </div>
                   <div className="p-mr-2">

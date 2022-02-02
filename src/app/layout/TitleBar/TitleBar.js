@@ -19,9 +19,7 @@ const TitleBar = () => {
   const { user } = rootStore.userStore;
 
   const Strains = [
-    { name: "Mycobacterium tuberculosis H37Rv", code: "H37Rv" },
-    { name: "Mycobacterium tuberculosis 18b", code: "18b" },
-    { name: "Mycobacterium smegmatis MC2-155", code: "MC2-155" },
+    { name: "Mycobacterium tuberculosis H37Rv", code: "H37Rv" }
   ];
 
   return (

@@ -15,7 +15,7 @@ const TargetDashTable = ({ targets }) => {
     if (tableData === null) {
       let generateTableData = targets.map((target) => {
         let associatedGenes = target.targetGenes.map(
-          (gene) => gene.accessionNumber + " This is a long tetxt with many numbers"
+          (gene) => gene.accessionNumber + " This is a long text with many numbers"
         );
         return {
           ...target,
