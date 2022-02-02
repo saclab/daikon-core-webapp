@@ -145,7 +145,7 @@ const FHAView = ({ match, history }) => {
                   </TabPanel>
                   <TabPanel header="Header III" headerClassName="hide">
                     <Discussion
-                      reference={selectedProject?.accessionNo}
+                      reference={selectedProject?.targetName}
                       section={"FHA"}
                     />
                   </TabPanel>
