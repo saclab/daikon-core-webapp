@@ -15,19 +15,23 @@ const PortfolioInformationGeneralInformation = ({ project }) => {
     <div>
       <div style={{ width: "30rem", lineHeight: "50%" }}>
         <div className="p-d-inline-flex">
-          <div className="p-mr-2" style={{padding : "0.5rem"}}>Current Stage : </div>
+          <div className="p-mr-2" style={{ padding: "0.5rem" }}>
+            Current Stage :{" "}
+          </div>
           <div className="p-mr-2">
             <StageTag stage={project.currentStage} />
           </div>
         </div>
+        <div style={{ width: "30rem", lineHeight: "100%" }}>
+          <p>{project.h2LDescription}</p>
+        </div>
 
-        <p>{project.h2LDescription}</p>
-        <p>Id : {project.id}</p>
-        <p>Accession No: {project.accessionNo}</p>
-        <p>Status : {project.status}</p>
-        <p>Primary Org : {project?.primaryOrg?.name}</p>
+        <p>Expanded Id : {project.id}</p>
+        <p>Target: <b>{project.targetName}</b></p>
+        <p>Status : <b>{project.status}</b></p>
+        <p>Primary Org : <b>{project?.primaryOrg?.name}</b></p>
         <p>Supporting Orgs :</p>
-        <div style={{ marginLeft: "1rem" }}> {displaySupportingOrgs}</div>
+        <div style={{ marginLeft: "1rem" }}> <b>{displaySupportingOrgs}</b></div>
       </div>
     </div>
   );

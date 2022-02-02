@@ -183,7 +183,7 @@ const PortfolioView = ({ match, history }) => {
                   </TabPanel>
                   <TabPanel header="Header III" headerClassName="hide">
                     <Discussion
-                      reference={selectedProject?.accessionNo}
+                      reference={selectedProject?.targetName}
                       section={"Portfolio"}
                     />
                   </TabPanel>
