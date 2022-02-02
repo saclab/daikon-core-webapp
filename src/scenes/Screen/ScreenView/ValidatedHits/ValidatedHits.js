@@ -4,23 +4,23 @@ import { TabView, TabPanel } from "primereact/tabview";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import ValidatedHitsList from "./ValidatedHitsList/ValidatedHitsList";
 
-const ValidatedHits = ({ accessionNumber }) => {
+const ValidatedHits = ({ TargetName }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
-    filterScreensByAccession,
+    filterScreensByTarget,
     validatedHitsIndex,
     setValidatedHitsIndex,
   } = rootStore.screenStore;
 
   console.log("==== VALIDATED HITS");
-  let filteredScreensByAccession = filterScreensByAccession(accessionNumber);
+  let filteredScreensByTarget = filterScreensByTarget(TargetName);
   let tabs = [];
 
-  console.log(filteredScreensByAccession.length);
+  console.log(filteredScreensByTarget.length);
 
-  if (tabs.length === 0 && filteredScreensByAccession.length > 0) {
-    filteredScreensByAccession.forEach((screen) => {
+  if (tabs.length === 0 && filteredScreensByTarget.length > 0) {
+    filteredScreensByTarget.forEach((screen) => {
       console.log(screen);
       tabs.push(
         <TabPanel header={screen.screenName} key={screen.id}>
