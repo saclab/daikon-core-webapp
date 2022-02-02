@@ -96,11 +96,11 @@ const ScreenView = ({ match, history }) => {
                       color={"#f4f4f4"}
                       textColor={"#000000"}
                     />
-                    <ValidatedHits accessionNumber={match.params.id} />
+                    <ValidatedHits TargetName={match.params.id} />
                   </TabPanel>
                   <TabPanel header="Discussion" headerClassName="hide">
                     <Discussion
-                      reference={selectedScreen?.accessionNumber}
+                      reference={selectedScreen?.targetName}
                       section={"Screen"}
                     />
                   </TabPanel>
