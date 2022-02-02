@@ -9,24 +9,6 @@ import { observer } from "mobx-react-lite";
 const TargetDashTable = ({ targets }) => {
   const dt = useRef(null);
 
-  const [tableData, setTableData] = useState(null);
-
-  useEffect(() => {
-    if (tableData === null) {
-      let generateTableData = targets.map((target) => {
-        let associatedGenes = target.targetGenes.map(
-          (gene) => gene.accessionNumber + " This is a long text with many numbers"
-        );
-        return {
-          ...target,
-          associatedGenes: associatedGenes,
-        };
-      });
-
-      setTableData(generateTableData);
-    }
-  }, [targets]);
-
   /* Table Body Templates */
 
   const TargetNameBodyTemplate = (rowData) => {
@@ -45,7 +27,7 @@ const TargetDashTable = ({ targets }) => {
         style={{width:"2px"}}
       >
         <span className="p-column-title">Gene Name</span>
-        {rowData.associatedGenes}
+        {rowData.targetGenesAccesionNumbers.join()}
       </div>
     );
   };
@@ -98,7 +80,7 @@ const TargetDashTable = ({ targets }) => {
       <div className="card">
         <DataTable
           ref={dt}
-          value={tableData}
+          value={targets}
           paginator
           rows={10}
           // header={header}
