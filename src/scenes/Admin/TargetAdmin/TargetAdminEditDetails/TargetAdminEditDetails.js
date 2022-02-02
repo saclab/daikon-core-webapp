@@ -58,7 +58,7 @@ const TargetAdminEditDetails = ({ match, history }) => {
           history.push("/admin/target/");
         },
       },
-      { label: selectedTarget.accessionNumber },
+      { label: selectedTarget.name },
     ];
 
     return (
@@ -77,156 +77,150 @@ const TargetAdminEditDetails = ({ match, history }) => {
               <div className="p-mb-2">
                 <SectionHeading
                   icon="icon icon-common icon-selectedTarget"
-                  heading={selectedTarget.accessionNumber}
+                  heading={selectedTarget.name}
                   style={{ width: "2000px" }}
                 />
               </div>
               <div className="p-mb-2">
-                <TabView>
-                  <TabPanel style={{ width: "1200px" }}>
-                    <div className="p-field p-grid">
-                      <label
-                        htmlFor="score"
-                        className="p-col-fixed"
-                        style={{ width: "200px" }}
-                      >
-                        Score
-                      </label>
-                      <div className="p-col">
-                        <InputNumber
-                          id="score"
-                         
-                          showButtons
-                          buttonLayout="horizontal"
-                          decrementButtonClassName="p-button-danger"
-                          incrementButtonClassName="p-button-success"
-                          incrementButtonIcon="pi pi-plus"
-                          decrementButtonIcon="pi pi-minus"
-                          step={0.25}
-                          type="text"
-                          style={{ width: "800px" }}
-                          value={selectedTarget.score}
-                          onValueChange={(e) =>
-                            (selectedTarget.score = e.target.value)
-                          }
-                        />
-                      </div>
-                    </div>
+                <div className="p-field p-grid">
+                  <label
+                    htmlFor="score"
+                    className="p-col-fixed"
+                    style={{ width: "200px" }}
+                  >
+                    Score
+                  </label>
+                  <div className="p-col">
+                    <InputNumber
+                      id="score"
+                      showButtons
+                      buttonLayout="horizontal"
+                      decrementButtonClassName="p-button-danger"
+                      incrementButtonClassName="p-button-success"
+                      incrementButtonIcon="pi pi-plus"
+                      decrementButtonIcon="pi pi-minus"
+                      step={0.25}
+                      type="text"
+                      style={{ width: "800px" }}
+                      value={selectedTarget.score}
+                      onValueChange={(e) =>
+                        (selectedTarget.score = e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
 
-                    <div className="p-field p-grid">
-                      <label
-                        htmlFor="htsfeasibility"
-                        className="p-col-fixed"
-                        style={{ width: "200px" }}
-                      >
-                        HTS Feasibility
-                      </label>
-                      <div className="p-col">
-                        <InputNumber
-                          id="htsfeasibility"
-                          
-                          showButtons
-                          buttonLayout="horizontal"
-                          decrementButtonClassName="p-button-danger"
-                          incrementButtonClassName="p-button-success"
-                          incrementButtonIcon="pi pi-plus"
-                          decrementButtonIcon="pi pi-minus"
-                          step={0.25}
-                          type="text"
-                          style={{ width: "800px" }}
-                          value={selectedTarget.htsFeasibility}
-                          onValueChange={(e) =>
-                            (selectedTarget.htsFeasibility = e.target.value)
-                          }
-                        />
-                      </div>
-                    </div>
+                <div className="p-field p-grid">
+                  <label
+                    htmlFor="htsfeasibility"
+                    className="p-col-fixed"
+                    style={{ width: "200px" }}
+                  >
+                    HTS Feasibility
+                  </label>
+                  <div className="p-col">
+                    <InputNumber
+                      id="htsfeasibility"
+                      showButtons
+                      buttonLayout="horizontal"
+                      decrementButtonClassName="p-button-danger"
+                      incrementButtonClassName="p-button-success"
+                      incrementButtonIcon="pi pi-plus"
+                      decrementButtonIcon="pi pi-minus"
+                      step={0.25}
+                      type="text"
+                      style={{ width: "800px" }}
+                      value={selectedTarget.htsFeasibility}
+                      onValueChange={(e) =>
+                        (selectedTarget.htsFeasibility = e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
 
-                    <div className="p-field p-grid">
-                      <label
-                        htmlFor="sbdfeasibility"
-                        className="p-col-fixed"
-                        style={{ width: "200px" }}
-                      >
-                        SBD Feasibility
-                      </label>
-                      <div className="p-col">
-                        <InputNumber
-                          id="sbdfeasibility"
-                          showButtons
-                          buttonLayout="horizontal"
-                          decrementButtonClassName="p-button-danger"
-                          incrementButtonClassName="p-button-success"
-                          incrementButtonIcon="pi pi-plus"
-                          decrementButtonIcon="pi pi-minus"
-                          step={0.25}
-                          type="text"
-                          style={{ width: "800px" }}
-                          value={selectedTarget.sbdFeasibility}
-                          onValueChange={(e) =>
-                            (selectedTarget.sbdFeasibility = e.target.value)
-                          }
-                        />
-                      </div>
-                    </div>
+                <div className="p-field p-grid">
+                  <label
+                    htmlFor="sbdfeasibility"
+                    className="p-col-fixed"
+                    style={{ width: "200px" }}
+                  >
+                    SBD Feasibility
+                  </label>
+                  <div className="p-col">
+                    <InputNumber
+                      id="sbdfeasibility"
+                      showButtons
+                      buttonLayout="horizontal"
+                      decrementButtonClassName="p-button-danger"
+                      incrementButtonClassName="p-button-success"
+                      incrementButtonIcon="pi pi-plus"
+                      decrementButtonIcon="pi pi-minus"
+                      step={0.25}
+                      type="text"
+                      style={{ width: "800px" }}
+                      value={selectedTarget.sbdFeasibility}
+                      onValueChange={(e) =>
+                        (selectedTarget.sbdFeasibility = e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
 
-                    <div className="p-field p-grid">
-                      <label
-                        htmlFor="progressibility"
-                        className="p-col-fixed"
-                        style={{ width: "200px" }}
-                      >
-                        Progressibility
-                      </label>
-                      <div className="p-col">
-                        <InputNumber
-                          id="progressibility"
-                          showButtons
-                          buttonLayout="horizontal"
-                          decrementButtonClassName="p-button-danger"
-                          incrementButtonClassName="p-button-success"
-                          incrementButtonIcon="pi pi-plus"
-                          decrementButtonIcon="pi pi-minus"
-                          step={0.25}
-                          type="text"
-                          style={{ width: "800px" }}
-                          value={selectedTarget.progressibility}
-                          onValueChange={(e) =>
-                            (selectedTarget.progressibility = e.target.value)
-                          }
-                        />
-                      </div>
-                    </div>
+                <div className="p-field p-grid">
+                  <label
+                    htmlFor="progressibility"
+                    className="p-col-fixed"
+                    style={{ width: "200px" }}
+                  >
+                    Progressibility
+                  </label>
+                  <div className="p-col">
+                    <InputNumber
+                      id="progressibility"
+                      showButtons
+                      buttonLayout="horizontal"
+                      decrementButtonClassName="p-button-danger"
+                      incrementButtonClassName="p-button-success"
+                      incrementButtonIcon="pi pi-plus"
+                      decrementButtonIcon="pi pi-minus"
+                      step={0.25}
+                      type="text"
+                      style={{ width: "800px" }}
+                      value={selectedTarget.progressibility}
+                      onValueChange={(e) =>
+                        (selectedTarget.progressibility = e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
 
-                    <div className="p-field p-grid">
-                      <label
-                        htmlFor="safety"
-                        className="p-col-fixed"
-                        style={{ width: "200px" }}
-                      >
-                        Safety
-                      </label>
-                      <div className="p-col">
-                        <InputNumber
-                          id="safety"
-                          showButtons
-                          buttonLayout="horizontal"
-                          decrementButtonClassName="p-button-danger"
-                          incrementButtonClassName="p-button-success"
-                          incrementButtonIcon="pi pi-plus"
-                          decrementButtonIcon="pi pi-minus"
-                          step={0.25}
-                          type="text"
-                          style={{ width: "800px" }}
-                          value={selectedTarget.safety}
-                          onValueChange={(e) =>
-                            (selectedTarget.safety = e.target.value)
-                          }
-                        />
-                      </div>
-                    </div>
-                  </TabPanel>
-                </TabView>
+                <div className="p-field p-grid">
+                  <label
+                    htmlFor="safety"
+                    className="p-col-fixed"
+                    style={{ width: "200px" }}
+                  >
+                    Safety
+                  </label>
+                  <div className="p-col">
+                    <InputNumber
+                      id="safety"
+                      showButtons
+                      buttonLayout="horizontal"
+                      decrementButtonClassName="p-button-danger"
+                      incrementButtonClassName="p-button-success"
+                      incrementButtonIcon="pi pi-plus"
+                      decrementButtonIcon="pi pi-minus"
+                      step={0.25}
+                      type="text"
+                      style={{ width: "800px" }}
+                      value={selectedTarget.safety}
+                      onValueChange={(e) =>
+                        (selectedTarget.safety = e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
 
                 <div className="p-d-flex p-jc-end">
                   <Button
