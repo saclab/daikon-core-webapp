@@ -87,7 +87,7 @@ const ScreenView = ({ match, history }) => {
                       color={"#f4f4f4"}
                       textColor={"#000000"}
                     />
-                    <ScreenSequences accessionNumber={match.params.id} />
+                    <ScreenSequences TargetName={match.params.id} />
                   </TabPanel>
                   <TabPanel header="Validated Hits" headerClassName="hide">
                     <SectionHeading
