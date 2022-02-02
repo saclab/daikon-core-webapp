@@ -48,7 +48,7 @@ const FHAViewInformation = ({ id, project }) => {
                   <KeyValList
                     data={project}
                     filter={[
-                      "accessionNo",
+                      "targetName",
                       "geneName",
                       "id",
                       "projectName",
@@ -116,7 +116,7 @@ const FHAViewInformation = ({ id, project }) => {
     );
   }
 
-  return <FailedLoading />
+  return <FailedLoading />;
 };
 
 export default observer(FHAViewInformation);
