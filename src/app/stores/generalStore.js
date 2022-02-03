@@ -6,9 +6,9 @@ import agent from "../api/agent";
 export default class GeneralStore {
   rootStore;
 
-  generatingHorizion = false;
-  horizionRegistry = new Map();
-  selectedHorizion = null;
+  generatingHorizon = false;
+  horizonRegistry = new Map();
+  selectedHorizon = null;
 
   fetchingAppVars = false;
   appVars = null;
@@ -16,9 +16,9 @@ export default class GeneralStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
-      generatingHorizion: observable,
-      fetchHorizion: action,
-      selectedHorizion: observable,
+      generatingHorizon: observable,
+      fetchHorizon: action,
+      selectedHorizon: observable,
 
       fetchingAppVars: observable,
       appVars: observable,
@@ -26,33 +26,34 @@ export default class GeneralStore {
     });
   }
 
-  fetchHorizion = async (accessionNo) => {
-    console.log("GeneralStore: fetchHorizion Start");
-    this.generatingHorizion = true;
+  fetchHorizon = async (targetName) => {
+    console.log("GeneralStore: fetchHorizon Start");
+    this.generatingHorizon = true;
 
     // first check cache
-    let fetchedHorizion = this.horizionRegistry.get(accessionNo);
+    let fetchedHorizon = this.horizonRegistry.get(targetName);
     console.log("CACHE");
-    console.log(fetchedHorizion);
-    if (fetchedHorizion) {
-      console.log("GeneralStore: fetchHorizion found in cache");
-      this.selectedHorizion = fetchedHorizion;
-      this.generatingHorizion = false;
+    console.log(fetchedHorizon);
+    if (fetchedHorizon) {
+      console.log("GeneralStore: fetchHorizon found in cache");
+      this.selectedHorizon = fetchedHorizon;
+      this.generatingHorizon = false;
     }
     // if not found fetch from api
     else {
       try {
-        fetchedHorizion = await agent.Horizion.generate(accessionNo);
+        fetchedHorizon = await agent.Horizon.generate(targetName);
         runInAction(() => {
-          console.log("GeneralStore: fetchHorizion fetched from api");
-          this.selectedHorizion = fetchedHorizion;
+          console.log("GeneralStore: fetchHorizon fetched from api");
+          this.horizonRegistry.set(targetName, fetchedHorizon)
+          this.selectedHorizon = fetchedHorizon;
         });
       } catch (error) {
         console.log(error);
       } finally {
         runInAction(() => {
-          this.generatingHorizion = false;
-          console.log("GeneralStore: fetchHorizion Complete");
+          this.generatingHorizon = false;
+          console.log("GeneralStore: fetchHorizon Complete");
         });
       }
     }

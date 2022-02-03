@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "primereact/button";
 import history from "../../../../history";
 
-const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
+const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
   switch (dataObj.dataObj.name) {
     case "Gene":
       return (
@@ -55,9 +55,9 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
             <div>
               <p>
                 <b>Target</b> <br />
-                {dataObj.dataObj.attributes.accessionNumber}
+                {dataObj.dataObj.attributes.targetName}
                 <br />
-                {dataObj.dataObj.attributes.proteinName}
+                {dataObj.dataObj.attributes.targetType}
                 <br />
                 {dataObj.dataObj.attributes.bucketScore}{" "}
                 <i className="ri-blaze-line"></i>
@@ -80,7 +80,7 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
               }}
               onClick={() => {
                 history.push(
-                  `/screen/${dataObj.dataObj.attributes.accessionNumber}`
+                  `/screen/${dataObj.dataObj.attributes.targetName}`
                 );
               }}
             />
@@ -188,4 +188,4 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
   }
 };
 
-export default HorizionNode;
+export default HorizonNode;

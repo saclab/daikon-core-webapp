@@ -2,35 +2,35 @@ import React, { useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
 import Tree from "react-d3-tree";
 import { RootStoreContext } from "../../stores/rootStore";
-import HorizionNode from "./HorizionNode/HorizionNode";
+import HorizonNode from "./HorizonNode/HorizonNode";
 import PleaseWait from "../PleaseWait/PleaseWait";
 import FailedLoading from "../FailedLoading/FailedLoading";
 
-const Horizion = ({ accessionNumber }) => {
+const Horizon = ({ targetName }) => {
   const rootStore = useContext(RootStoreContext);
-  const { generatingHorizion, fetchHorizion, selectedHorizion } =
+  const { generatingHorizon, fetchHorizon, selectedHorizon } =
     rootStore.generalStore;
 
   useEffect(() => {
     console.log("EFFECT");
-    console.log(accessionNumber);
+    console.log(targetName);
     if (
-      selectedHorizion === null ||
-      selectedHorizion.attributes.accessionNumber !== accessionNumber
+      selectedHorizon === null ||
+      selectedHorizon.attributes.targetName !== targetName
     ) {
-      accessionNumber && fetchHorizion(accessionNumber);
+      targetName && fetchHorizon(targetName);
     }
-  }, [accessionNumber, fetchHorizion, selectedHorizion]);
+  }, [targetName, fetchHorizon, selectedHorizon]);
 
-  if (accessionNumber === null || accessionNumber === "undefined") {
+  if (targetName === null || targetName === "undefined") {
     return <>Nothing</>;
   }
 
-  if (generatingHorizion) {
+  if (generatingHorizon) {
     return <PleaseWait />;
   }
 
-  if (!generatingHorizion && selectedHorizion !== null) {
+  if (!generatingHorizon && selectedHorizon !== null) {
     const nodeSize = {
       x: 230,
       y: 200,
@@ -58,7 +58,7 @@ const Horizion = ({ accessionNumber }) => {
       // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
       <div id="treeWrapper" style={{ width: "100%", height: "20rem" }}>
         <Tree
-          data={selectedHorizion}
+          data={selectedHorizon}
           nodeSize={nodeSize}
           //nodeSvgShape={nodeSvgShape}
           textLayout={textLayout}
@@ -67,7 +67,7 @@ const Horizion = ({ accessionNumber }) => {
           collapsible={false}
           allowForeignObjects
           renderCustomNodeElement={(rd3tProps) => (
-            <HorizionNode
+            <HorizonNode
               dataObj={rd3tProps.nodeDatum}
               toggleNode={rd3tProps.toggleNode}
               foreignObjectProps={foreignObjectProps}
@@ -81,4 +81,4 @@ const Horizion = ({ accessionNumber }) => {
   return <FailedLoading />;
 };
 
-export default observer(Horizion);
+export default observer(Horizon);

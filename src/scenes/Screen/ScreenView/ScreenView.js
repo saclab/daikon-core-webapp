@@ -72,7 +72,7 @@ const ScreenView = ({ match, history }) => {
                   icon="icon icon-common icon-search"
                   heading={"Screens of " + match.params.id}
                   accessionNumber={match.params.id}
-                  displayHorizion={true}
+                  displayHorizon={true}
                 />
               </div>
               <div className="p-mb-2">
