@@ -9,6 +9,7 @@ import { InputText } from "primereact/inputtext";
 import GeneGroupAdd from "./GeneGroupAdd";
 import { Message } from "primereact/message";
 import { Fieldset } from "primereact/fieldset";
+import GeneGroupList from './GeneGroupList';
 
 const GeneGroups = () => {
   const breadCrumbItems = [
@@ -55,7 +56,9 @@ const GeneGroups = () => {
               legend={"View Gene Groups"}
               toggleable
               collapsed={true}
-            ></Fieldset>
+            >
+              <GeneGroupList />
+            </Fieldset>
           </div>
         </Card>
       </div>

@@ -8,6 +8,7 @@ export default class GeneStoreAdmin {
   displayLoading = false;
   creatingGeneGroup = false;
   loadingGeneGroup = false;
+  geneGroups = [];
 
   genePromotionRegistry = new Map();
 
@@ -22,6 +23,7 @@ export default class GeneStoreAdmin {
       creatingGeneGroup: observable,
       loadingGeneGroup: observable,
       createGeneGroup: action,
+      geneGroups: observable,
     });
   }
 
@@ -96,7 +98,6 @@ export default class GeneStoreAdmin {
       runInAction(() => {
         toast.success("Successfully created Gene Group");
         this.creatingGeneGroup = false;
-        return res;
       });
     } catch (error) {
       console.log(error);
@@ -106,5 +107,19 @@ export default class GeneStoreAdmin {
       });
     }
     return res;
+  };
+
+  listGeneGroups = async () => {
+    console.log("geneStoreAdmin: createGeneGroup() Start");
+    this.loadingGeneGroup = true;
+    try {
+      this.geneGroups = await agent.GeneAdmin.listGeneGroups();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.loadingGeneGroup = false;
+      });
+    }
   };
 }

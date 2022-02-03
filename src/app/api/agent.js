@@ -224,6 +224,8 @@ const Gene = {
 const GeneAdmin = {
   promotionRequests: () => requests.get("/admin/gene/promotionrequests"),
   createGeneGroup: (geneGroup) => requests.post(`/admin/gene/groups`, geneGroup),
+  listGeneGroups: () => requests.get(`/admin/gene/groups`),
+  searchByIdGeneGroup: (geneId) => requests.get(`/admin/gene/groups/search-by-gene-id/${geneId}`),
 
 };
 
