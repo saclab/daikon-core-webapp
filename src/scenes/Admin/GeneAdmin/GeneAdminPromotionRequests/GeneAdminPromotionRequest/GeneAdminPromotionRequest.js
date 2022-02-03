@@ -93,7 +93,7 @@ const GeneAdminPromotionRequest = ({
 
   return (
     <div>
-      <div class="p-d-flex p-flex-column">
+      <div className="p-d-flex p-flex-column">
         <div className="p-mr-2" style={{ minWidth: "1000px" }}>
           <Panel header="Summary" toggleable>
             <h4>Target Type : {questionaire.targetType}</h4>
@@ -564,7 +564,7 @@ const GeneAdminPromotionRequest = ({
           </Panel>
           <br />
         </div>
-        <div class="flex">
+        <div className="flex">
           <Panel header="Additional Questions (Admin only)" toggleable>
             <h2>Interaction with other drugs/compounds</h2>
 
