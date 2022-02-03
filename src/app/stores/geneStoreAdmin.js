@@ -1,10 +1,13 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
 import agent from "../api/agent";
+import { toast } from "react-toastify";
 
 export default class GeneStoreAdmin {
   rootStore;
 
   displayLoading = false;
+  creatingGeneGroup = false;
+  loadingGeneGroup = false;
 
   genePromotionRegistry = new Map();
 
@@ -14,8 +17,11 @@ export default class GeneStoreAdmin {
       displayLoading: observable,
       fetchGenePromotionList: action,
       genePromotionRegistry: observable,
-
       promoteGene: action,
+
+      creatingGeneGroup: observable,
+      loadingGeneGroup: observable,
+      createGeneGroup: action,
     });
   }
 
@@ -31,19 +37,26 @@ export default class GeneStoreAdmin {
         resp.forEach((fetchedPromotionRequest) => {
           let formattedPromotionRequest = {
             targetName: fetchedPromotionRequest.targetName,
-            genePromtionRequestGenes: fetchedPromotionRequest.genePromtionRequestGenes,
+            genePromtionRequestGenes:
+              fetchedPromotionRequest.genePromtionRequestGenes,
             targetType: fetchedPromotionRequest.targetType,
-            answers : {}
+            answers: {},
           };
-          fetchedPromotionRequest.genePromotionRequestValues.forEach((value) => {
-            formattedPromotionRequest.answers[value.question.identification] = {
-              answer: value.answer,
-              answeredBy: value.answeredBy,
-              description: value.description,
-            };
-          });
+          fetchedPromotionRequest.genePromotionRequestValues.forEach(
+            (value) => {
+              formattedPromotionRequest.answers[value.question.identification] =
+                {
+                  answer: value.answer,
+                  answeredBy: value.answeredBy,
+                  description: value.description,
+                };
+            }
+          );
 
-          this.genePromotionRegistry.set(fetchedPromotionRequest.targetName, formattedPromotionRequest);
+          this.genePromotionRegistry.set(
+            fetchedPromotionRequest.targetName,
+            formattedPromotionRequest
+          );
         });
       });
     } catch (error) {
@@ -69,6 +82,27 @@ export default class GeneStoreAdmin {
     } finally {
       runInAction(() => {
         this.displayLoading = false;
+      });
+    }
+    return res;
+  };
+
+  createGeneGroup = async (geneGroup) => {
+    console.log("geneStoreAdmin: createGeneGroup() Start");
+    this.creatingGeneGroup = true;
+    try {
+      var res = await agent.GeneAdmin.createGeneGroup(geneGroup);
+
+      runInAction(() => {
+        toast.success("Successfully created Gene Group");
+        this.creatingGeneGroup = false;
+        return res;
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.creatingGeneGroup = false;
       });
     }
     return res;

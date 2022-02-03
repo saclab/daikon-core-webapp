@@ -3,8 +3,12 @@ import { observer } from "mobx-react-lite";
 import { BreadCrumb } from "primereact/breadcrumb";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import history from "../../../../history";
-import { Card } from 'primereact/card';
-import { RadioButton } from 'primereact/radiobutton';
+import { Card } from "primereact/card";
+import { RadioButton } from "primereact/radiobutton";
+import { InputText } from "primereact/inputtext";
+import GeneGroupAdd from "./GeneGroupAdd";
+import { Message } from "primereact/message";
+import { Fieldset } from "primereact/fieldset";
 
 const GeneGroups = () => {
   const breadCrumbItems = [
@@ -29,19 +33,29 @@ const GeneGroups = () => {
           heading={"Gene Groups"}
         />
 
-        <Card subTitle={"Create a Gene Group"}>
-          <div className="field-radiobutton">
-            <table>
-              <tr>
-                <td>
-                  
-                </td>
-                <td>
-                  Simple Proteins are large biomolecules and macromolecules that
-                  comprise one or more long chains of amino acid residues.
-                </td>
-              </tr>
-            </table>
+        <Card>
+          <div>
+            A gene group is a collection of genes that can result in creation of
+            complex structures.
+            <br />
+            <hr />
+            <Fieldset
+              legend={"Create a Gene Group"}
+              toggleable
+              collapsed={true}
+            >
+              <Message
+                severity="warn"
+                text="A group can not be altered or deleted after creation."
+              />
+              <GeneGroupAdd />
+            </Fieldset>
+            <br />
+            <Fieldset
+              legend={"View Gene Groups"}
+              toggleable
+              collapsed={true}
+            ></Fieldset>
           </div>
         </Card>
       </div>
