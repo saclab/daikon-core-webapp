@@ -40,9 +40,9 @@ const Question = ({ question, updateObject, readObject }) => {
             rows={1}
             style={{ minWidth: "40rem" }}
             id={question.identification + "Description"}
-            value={readObject?.[question.identification]?.description}
+            value={readObject?.[question.identification]?.description || ""}
             onChange={(e) => updateObject(e)}
-            placeHolder="Description"
+            placeholder="Description"
           />
         </span>
       </div>
