@@ -285,8 +285,8 @@ const Discussion = {
     requests.del(`/Discussion/${discussionId}/reply/${replyId}`),
 };
 
-const Horizion = {
-  generate: (accessionNo) => requests.get(`/Horizion/${accessionNo}`),
+const Horizon = {
+  generate: (accessionNo) => requests.get(`/Horizon/${accessionNo}`),
 };
 
 const General = {
@@ -325,7 +325,7 @@ const exports = {
   Screen,
   Hit,
   Discussion,
-  Horizion,
+  Horizon,
   General,
   Projects,
 };

@@ -158,7 +158,7 @@ const GeneView = ({ match, history }) => {
                     icon="icon icon-conceptual icon-dna"
                     heading={gene.accessionNumber}
                     accessionNumber={gene.accessionNumber}
-                    displayHorizion={true}
+                    displayHorizon={true}
                   />
                 </div>
                 <div className="p-mb-2">

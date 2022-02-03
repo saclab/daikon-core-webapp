@@ -164,7 +164,7 @@ const PortfolioView = ({ match, history }) => {
                     selectedProject?.currentStage
                   }
                   accessionNumber={selectedProject.accessionNo}
-                  displayHorizion={true}
+                  displayHorizon={true}
                 />
               </div>
               <div className="p-mb-2">
