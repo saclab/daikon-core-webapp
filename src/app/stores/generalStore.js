@@ -9,6 +9,7 @@ export default class GeneralStore {
   generatingHorizon = false;
   horizonRegistry = new Map();
   selectedHorizon = null;
+  horizonLength = "20rem";
 
   fetchingAppVars = false;
   appVars = null;
@@ -23,6 +24,7 @@ export default class GeneralStore {
       fetchingAppVars: observable,
       appVars: observable,
       fetchAppVars: action,
+      horizonLength: observable,
     });
   }
 
@@ -37,6 +39,8 @@ export default class GeneralStore {
     if (fetchedHorizon) {
       console.log("GeneralStore: fetchHorizon found in cache");
       this.selectedHorizon = fetchedHorizon;
+      this.horizonLength =
+            (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.75) + "rem";
       this.generatingHorizon = false;
       console.log(this.selectedHorizon);
     }
@@ -46,8 +50,10 @@ export default class GeneralStore {
         fetchedHorizon = await agent.Horizon.generate(targetName);
         runInAction(() => {
           console.log("GeneralStore: fetchHorizon fetched from api");
-          this.horizonRegistry.set(targetName, fetchedHorizon)
+          this.horizonRegistry.set(targetName, fetchedHorizon);
           this.selectedHorizon = fetchedHorizon;
+          this.horizonLength =
+          (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.75) + "rem";
           console.log(this.selectedHorizon);
         });
       } catch (error) {
