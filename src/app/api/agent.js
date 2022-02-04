@@ -291,7 +291,8 @@ const Discussion = {
 };
 
 const Horizon = {
-  generate: (accessionNo) => requests.get(`/Horizon/${accessionNo}`),
+  generate: (targetName) => requests.get(`/Horizon/${targetName}`),
+  generateByAccession: (accessionNo) => requests.get(`/Horizon/by-accession/${accessionNo}`),
 };
 
 const General = {

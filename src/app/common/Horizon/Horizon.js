@@ -6,22 +6,43 @@ import HorizonNode from "./HorizonNode/HorizonNode";
 import PleaseWait from "../PleaseWait/PleaseWait";
 import FailedLoading from "../FailedLoading/FailedLoading";
 
-const Horizon = ({ targetName }) => {
+const Horizon = ({ accessionNumber, targetName }) => {
   const rootStore = useContext(RootStoreContext);
-  const { generatingHorizon, fetchHorizon, selectedHorizon, horizonLength } =
-    rootStore.generalStore;
-
+  const {
+    generatingHorizon,
+    fetchHorizon,
+    fetchHorizonByAccession,
+    selectedHorizon,
+    horizonLength,
+  } = rootStore.generalStore;
 
   useEffect(() => {
-    console.log("EFFECT");
-    console.log(targetName);
-    if (
-      selectedHorizon === null ||
-      selectedHorizon.attributes.targetName !== targetName
-    ) {
-      targetName && fetchHorizon(targetName);
+    if (targetName) {
+      console.log(targetName);
+      if (
+        selectedHorizon === null ||
+        selectedHorizon.attributes.targetName !== targetName
+      ) {
+        targetName && fetchHorizon(targetName);
+      }
     }
-  }, [targetName, fetchHorizon, selectedHorizon]);
+
+    if (accessionNumber) {
+      console.log(accessionNumber);
+      if (
+        selectedHorizon === null ||
+        selectedHorizon.attributes.accessionNumber !== accessionNumber
+      ) {
+        accessionNumber && fetchHorizonByAccession(accessionNumber);
+      }
+    }
+  }, [
+    targetName,
+    accessionNumber,
+    fetchHorizon,
+    fetchHorizonByAccession,
+    selectedHorizon,
+  ]);
 
   if (targetName === null || targetName === "undefined") {
     return <>Nothing</>;
@@ -32,9 +53,9 @@ const Horizon = ({ targetName }) => {
   }
 
   if (!generatingHorizon && selectedHorizon !== null) {
-
-
-    console.log("No of keys : " + JSON.stringify(selectedHorizon).match(/[^\\]":/g).length);
+    console.log(
+      "No of keys : " + JSON.stringify(selectedHorizon).match(/[^\\]":/g).length
+    );
     const nodeSize = {
       x: 230,
       y: 200,
