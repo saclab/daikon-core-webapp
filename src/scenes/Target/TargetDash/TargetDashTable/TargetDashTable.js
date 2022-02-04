@@ -21,15 +21,25 @@ const TargetDashTable = ({ targets }) => {
   };
 
   const AssociatedGenesBodyTemplate = (rowData) => {
-    return (
-      <div
-        className="surface-overlay border-round border-1 p-3 mt-3 white-space-nowrap overflow-hidden text-overflow-ellipsis"
-        style={{width:"2px"}}
-      >
-        <span className="p-column-title">Gene Name</span>
-        {rowData.targetGenesAccesionNumbers.join()}
-      </div>
-    );
+    console.log("AssociatedGenesBodyTemplate");
+    console.log(rowData.targetGenesAccesionNumbers);
+    if (rowData.targetGenesAccesionNumbers.length > 2) {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Gene Name</span>
+          {rowData.targetGenesAccesionNumbers[0]},{" "}
+          {rowData.targetGenesAccesionNumbers[1]} and{" "}
+          {rowData.targetGenesAccesionNumbers.length - 2} others
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Gene Name</span>
+          {rowData.targetGenesAccesionNumbers.join(', ')}
+        </React.Fragment>
+      );
+    }
   };
 
   const ImpactScoreBodyTemplate = (rowData) => {
