@@ -34,6 +34,45 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
+    case "GeneGroup":
+
+      let accessionDisplay = dataObj.dataObj.attributes.accessionNumbers.map((acn) =>
+      {
+        return (
+          <React.Fragment>
+            <i className="icon icon-conceptual icon-dna" /> {acn}<br />
+          </React.Fragment>
+        )
+      });
+      return (
+        <g>
+          <foreignObject x="-10" y="-30" width="40" height="50">
+            <Button
+              icon="icon icon-common icon-object-group"
+              style={{
+                background: "#ffffff",
+                color: "#000000",
+                border: "0px solid #000000",
+                fontSize: "2em",
+              }}
+              onClick={() => {
+                // history.push(`/gene/${dataObj.dataObj.attributes.id}`);
+              }}
+            />
+          </foreignObject>
+          <foreignObject x="10" y="0" width="190" height="160">
+            <div>
+              <p>
+                <b>Gene Group</b>
+                <br />
+                {accessionDisplay}
+                <br />
+                {/* {dataObj.dataObj.attributes.geneName} */}
+              </p>
+            </div>
+          </foreignObject>
+        </g>
+      );
     case "Target":
       return (
         <g>
