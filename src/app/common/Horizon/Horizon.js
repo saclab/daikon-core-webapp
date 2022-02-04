@@ -8,8 +8,9 @@ import FailedLoading from "../FailedLoading/FailedLoading";
 
 const Horizon = ({ targetName }) => {
   const rootStore = useContext(RootStoreContext);
-  const { generatingHorizon, fetchHorizon, selectedHorizon } =
+  const { generatingHorizon, fetchHorizon, selectedHorizon, horizonLength } =
     rootStore.generalStore;
+
 
   useEffect(() => {
     console.log("EFFECT");
@@ -31,6 +32,9 @@ const Horizon = ({ targetName }) => {
   }
 
   if (!generatingHorizon && selectedHorizon !== null) {
+
+
+    console.log("No of keys : " + JSON.stringify(selectedHorizon).match(/[^\\]":/g).length);
     const nodeSize = {
       x: 230,
       y: 200,
@@ -43,9 +47,9 @@ const Horizon = ({ targetName }) => {
       transform: undefined,
     };
 
-    const translate = {
+    let translate = {
       x: 50,
-      y: 130,
+      y: (JSON.stringify(selectedHorizon).match(/[^\\]":/g).length / 2) * 8,
     };
 
     const foreignObjectProps = {
@@ -56,7 +60,7 @@ const Horizon = ({ targetName }) => {
 
     return (
       // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
-      <div id="treeWrapper" style={{ width: "100%", height: "20rem" }}>
+      <div id="treeWrapper" style={{ width: "100%", height: horizonLength }}>
         <Tree
           data={selectedHorizon}
           nodeSize={nodeSize}
