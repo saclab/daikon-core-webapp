@@ -26,6 +26,13 @@ const GenePromoteTargetSelectionWindow = ({
   const [callValidateTargetName, setCallValidateTargetName] = useState(false);
   const [disableContinue, setDisableContinue] = useState(false);
 
+  const [calledSearchGeneGroup, setCalledSearchGeneGroup] = useState(false);
+  const [selectedProteinComplexName, setSelectedProteinComplexName] =
+    useState(null);
+  const [selectedProteinComplexIds, setSelectedProteinComplexIds] = useState(
+    []
+  );
+
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
@@ -35,6 +42,9 @@ const GenePromoteTargetSelectionWindow = ({
     proposedTargetNameValidated,
     saveGenePromotionDataObj,
     genePromotionDataObj,
+    searchingGeneGroup,
+    searchedGeneGroup,
+    searchGeneGroup,
   } = rootStore.geneStore;
 
   let onExit = () => {
@@ -44,6 +54,9 @@ const GenePromoteTargetSelectionWindow = ({
     setProposedTargetName("");
     setCallValidateTargetName(false);
     setDisableContinue(false);
+    setCalledSearchGeneGroup(false);
+    setSelectedProteinComplexName(null);
+    setSelectedProteinComplexIds([]);
   };
 
   const renderDisplayPromotionDialogFooter = () => {
@@ -88,6 +101,17 @@ const GenePromoteTargetSelectionWindow = ({
       } else {
         setCallValidateTargetName(true);
         setActiveScreen("screenValidateSimpleProteinTargetName");
+      }
+    }
+
+    if (activeScreen === "screenSelectProteinComplexTarget") {
+      if (selectedProteinComplexName === null) {
+        toast.error("Invalid Protein Name");
+        setDisableContinue(true);
+        return;
+      } else {
+        setCallValidateTargetName(true);
+        setActiveScreen("screenValidateProteinComplex");
       }
     }
   };
@@ -199,6 +223,67 @@ const GenePromoteTargetSelectionWindow = ({
     </React.Fragment>
   );
 
+  let onSelectProteinComplex = (e) => {
+    setSelectedProteinComplexIds(e.value);
+    setSelectedProteinComplexName(e.target.name);
+    setCallValidateTargetName(false);
+  };
+
+  let screenSelectProteinComplexTarget = () => {
+    if (!calledSearchGeneGroup) {
+      setCalledSearchGeneGroup(true);
+      searchGeneGroup(gene.id);
+    }
+
+    if (!searchingGeneGroup && calledSearchGeneGroup) {
+      console.log(searchedGeneGroup);
+
+      if (searchedGeneGroup?.length === 0) {
+        return (
+          <p>
+            There are no Gene Groups associated with {gene.accessionNumber}.
+            <br /> Please contact admin.
+          </p>
+        );
+      } else {
+        let options = searchedGeneGroup.map((geneGroup) => {
+          let accessionNos = [
+            ...geneGroup.genes.map((gene) => gene.accessionNumber),
+          ];
+          let geneIds = [
+            ...geneGroup.genes.map((gene) => {
+              return { GeneId: gene.geneId };
+            }),
+          ];
+          return (
+            <div className="field-radiobutton" style={{ marginTop: "10px" }}>
+              <RadioButton
+                id={geneGroup.name}
+                inputId={geneGroup.name}
+                name={geneGroup.name}
+                value={geneIds}
+                checked={selectedProteinComplexName === geneGroup.name}
+                onChange={(e) => onSelectProteinComplex(e)}
+                style={{ marginRight: "10px" }}
+              />
+              <label htmlFor={geneGroup.name}>
+                {geneGroup.name} [{accessionNos.join(", ")}]
+              </label>
+            </div>
+          );
+        });
+        return (
+          <Card>
+            <p>Select a protein complex.</p>
+            {options}
+          </Card>
+        );
+      }
+    }
+
+    return <p>Tetst</p>;
+  };
+
   let screenValidateSimpleProteinTargetName = () => {
     console.log("Rendering screenValidateSimpleProteinTargetName");
 
@@ -224,7 +309,10 @@ const GenePromoteTargetSelectionWindow = ({
         if (disableContinue === false) setDisableContinue(true);
         return (
           <React.Fragment>
-            <h2><i className="pi pi-exclamation-triangle" /> Promotion Request Exists</h2>
+            <h2>
+              <i className="pi pi-exclamation-triangle" /> Promotion Request
+              Exists
+            </h2>
             <p>
               A promost request is pending for {proposedTargetName}. Please
               contact an administrator for further details
@@ -238,8 +326,59 @@ const GenePromoteTargetSelectionWindow = ({
           <React.Fragment>
             <h2>The Target already exists</h2>
             <p>
-              Target {proposedTargetName} is already promoted. Please view
-              it in the Target's section.
+              Target {proposedTargetName} is already promoted. Please view it in
+              the Target's section.
+            </p>
+          </React.Fragment>
+        );
+      }
+    }
+  };
+
+  let screenValidateProteinComplex = () => {
+    console.log("Rendering screenValidateProteinComplex");
+
+    if (!validateTargetNameLoading && callValidateTargetName) {
+      setCallValidateTargetName(false);
+      validateTargetName(selectedProteinComplexName);
+    }
+
+    if (validateTargetNameLoading) {
+      return <ProgressBar mode="indeterminate" style={{ height: "6px" }} />;
+    }
+    if (!validateTargetNameLoading) {
+      if (proposedTargetNameValidated === "Valid") {
+        saveGenePromotionDataObj({
+          targetName: selectedProteinComplexName,
+          targetType: "protein-complex",
+          genePromtionRequestGenes: selectedProteinComplexIds,
+        });
+
+        history.push(`/gene/${selectedProteinComplexName}/promote`);
+      }
+      if (proposedTargetNameValidated === "PromotionRequestExists") {
+        if (disableContinue === false) setDisableContinue(true);
+        return (
+          <React.Fragment>
+            <h2>
+              <i className="pi pi-exclamation-triangle" /> Promotion Request
+              Exists
+            </h2>
+            <p>
+              A promost request is pending for {proposedTargetName}. Please
+              contact an administrator for further details
+            </p>
+          </React.Fragment>
+        );
+      }
+      if (proposedTargetNameValidated === "TargetExists") {
+        if (disableContinue === false) setDisableContinue(true);
+        return (
+          <React.Fragment>
+            <h2>The Target already exists</h2>
+            <p>
+              Target {selectedProteinComplexName} is already promoted. Please
+              view it in the Target's section.
             </p>
           </React.Fragment>
         );
@@ -263,6 +402,12 @@ const GenePromoteTargetSelectionWindow = ({
         : ""}
       {activeScreen === "screenValidateSimpleProteinTargetName"
         ? screenValidateSimpleProteinTargetName()
+        : ""}
+      {activeScreen === "screenSelectProteinComplexTarget"
+        ? screenSelectProteinComplexTarget()
+        : ""}
+      {activeScreen === "screenValidateProteinComplex"
+        ? screenValidateProteinComplex()
         : ""}
 
       {/* {proteinType !== "" ? <FailedLoading /> : ""} */}
