@@ -37,6 +37,7 @@ export default class GeneStore {
   addingVulnerability = false;
   editingHypomorph = false;
   addingHypomorph = false;
+  searchingGeneGroup = false;
 
   validateTargetNameLoading = false;
   proposedTargetNameValidated = "";
@@ -55,6 +56,8 @@ export default class GeneStore {
   promotionQuestionsRegistry = new Map();
 
   genePromotionDataObj = {};
+
+  searchedGeneGroup = null;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -134,6 +137,10 @@ export default class GeneStore {
 
       saveGenePromotionDataObj: action,
       getGenePromotionDataObj: action,
+
+      searchingGeneGroup: observable,
+      searchedGeneGroup: observable,
+      searchGeneGroup: action,
     });
   }
 
@@ -422,10 +429,7 @@ export default class GeneStore {
 
     // send to server
     try {
-      res = await agent.Gene.submitPromotionQuestionaire(
-        targetName,
-        data
-      );
+      res = await agent.Gene.submitPromotionQuestionaire(targetName, data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -816,5 +820,19 @@ export default class GeneStore {
 
   getGenePromotionDataObj = () => {
     return this.genePromotionDataObj;
+  };
+
+  searchGeneGroup = async (geneId) => {
+    console.log("geneStore: searchGeneGroup() Start");
+    this.searchingGeneGroup = true;
+    try {
+      this.searchedGeneGroup = await agent.Gene.searchByIdGeneGroup(geneId);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.searchingGeneGroup = false;
+      });
+    }
   };
 }
