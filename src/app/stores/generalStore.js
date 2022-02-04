@@ -38,6 +38,7 @@ export default class GeneralStore {
       console.log("GeneralStore: fetchHorizon found in cache");
       this.selectedHorizon = fetchedHorizon;
       this.generatingHorizon = false;
+      console.log(this.selectedHorizon);
     }
     // if not found fetch from api
     else {
@@ -47,6 +48,7 @@ export default class GeneralStore {
           console.log("GeneralStore: fetchHorizon fetched from api");
           this.horizonRegistry.set(targetName, fetchedHorizon)
           this.selectedHorizon = fetchedHorizon;
+          console.log(this.selectedHorizon);
         });
       } catch (error) {
         console.log(error);
