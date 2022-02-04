@@ -125,7 +125,7 @@ const FHAView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-conceptual icon-chemical"
                   heading={selectedProject.projectName}
-                  accessionNumber={selectedProject.accessionNo}
+                  targetName={selectedProject.targetName}
                   displayHorizon={true}
                 />
               </div>
