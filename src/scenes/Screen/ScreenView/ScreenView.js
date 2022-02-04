@@ -71,7 +71,7 @@ const ScreenView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-common icon-search"
                   heading={"Screens of " + match.params.id}
-                  accessionNumber={match.params.id}
+                  targetName={match.params.id}
                   displayHorizon={true}
                 />
               </div>
