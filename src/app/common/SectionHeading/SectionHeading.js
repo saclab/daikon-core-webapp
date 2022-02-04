@@ -2,7 +2,16 @@ import React from "react";
 import { Panel } from "primereact/panel";
 import Horizon from "../Horizon/Horizon";
 
-const SectionHeading = ({ icon, heading, sub, displayHorizon, color, textColor, accessionNumber, targetName }) => {
+const SectionHeading = ({
+  icon,
+  heading,
+  sub,
+  displayHorizon,
+  color,
+  textColor,
+  accessionNumber,
+  targetName,
+}) => {
   const headerTemplate = (options) => {
     const toggleIcon = options.collapsed
       ? "icon icon-common icon-ellipsis-h"
@@ -10,7 +19,10 @@ const SectionHeading = ({ icon, heading, sub, displayHorizon, color, textColor, 
     let background = color ? color : "#28477f";
     let htextColor = textColor ? textColor : "#ffffff";
     let displayHorizonButton = (
-      <div className="p-mr-2" style={{ float: "right", marginLeft: "auto",  paddingRight: "0.5em"}}>
+      <div
+        className="p-mr-2"
+        style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}
+      >
         <button
           className={options.togglerClassName}
           onClick={options.onTogglerClick}
@@ -58,7 +70,7 @@ const SectionHeading = ({ icon, heading, sub, displayHorizon, color, textColor, 
   };
   return (
     <Panel headerTemplate={headerTemplate} collapsed={true} toggleable>
-      <Horizon targetName={targetName} />
+      <Horizon accessionNumber={accessionNumber} targetName={targetName} />
     </Panel>
   );
 };

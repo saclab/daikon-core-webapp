@@ -34,6 +34,37 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
+
+    case "SimpleProtein":
+      return (
+        <g>
+          <foreignObject x="-10" y="-30" width="40" height="50">
+            <Button
+              icon="icon icon-conceptual icon-proteins"
+              style={{
+                background: "#ffffff",
+                color: "#000000",
+                border: "0px solid #000000",
+                fontSize: "2em",
+              }}
+              onClick={() => {
+                history.push(`/gene/${dataObj.dataObj.attributes.id}`);
+              }}
+            />
+          </foreignObject>
+          <foreignObject x="10" y="0" width="190" height="160">
+            <div>
+              <p>
+                <b>Protein</b>
+                
+                <br />
+                {dataObj.dataObj.attributes.targetName}
+              </p>
+            </div>
+          </foreignObject>
+        </g>
+      );
+
     case "GeneGroup":
       let accessionDisplay = [];
 
