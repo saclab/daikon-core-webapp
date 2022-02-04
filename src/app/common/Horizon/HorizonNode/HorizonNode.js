@@ -35,15 +35,44 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "GeneGroup":
+      let accessionDisplay = [];
 
-      let accessionDisplay = dataObj.dataObj.attributes.accessionNumbers.map((acn) =>
-      {
-        return (
+      console.log(dataObj.dataObj.attributes.accessionNumbers.length);
+
+      if (dataObj.dataObj.attributes.accessionNumbers.length > 5) {
+        accessionDisplay = (
           <React.Fragment>
-            <i className="icon icon-conceptual icon-dna" /> {acn}<br />
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[0]}
+            <br />
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[1]}
+            <br />
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[2]}
+            <br />
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[3]}
+            <br />
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[4]}
+            <br />
+            and {dataObj.dataObj.attributes.accessionNumbers.length - 5} others.
           </React.Fragment>
-        )
-      });
+        );
+      } else {
+        accessionDisplay = dataObj.dataObj.attributes.accessionNumbers.map(
+          (acn) => {
+            return (
+              <React.Fragment>
+                <i className="icon icon-conceptual icon-dna" /> {acn}
+                <br />
+              </React.Fragment>
+            );
+          }
+        );
+      }
+
       return (
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
@@ -63,7 +92,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
           <foreignObject x="10" y="0" width="190" height="160">
             <div>
               <p>
-                <b>Gene Group</b>
+                <b>[Gene Group]</b>
                 <br />
                 {accessionDisplay}
                 <br />
