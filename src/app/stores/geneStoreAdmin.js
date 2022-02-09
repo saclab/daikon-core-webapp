@@ -1,10 +1,14 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
 import agent from "../api/agent";
+import { toast } from "react-toastify";
 
 export default class GeneStoreAdmin {
   rootStore;
 
   displayLoading = false;
+  creatingGeneGroup = false;
+  loadingGeneGroup = false;
+  geneGroups = [];
 
   genePromotionRegistry = new Map();
 
@@ -14,8 +18,12 @@ export default class GeneStoreAdmin {
       displayLoading: observable,
       fetchGenePromotionList: action,
       genePromotionRegistry: observable,
-
       promoteGene: action,
+
+      creatingGeneGroup: observable,
+      loadingGeneGroup: observable,
+      createGeneGroup: action,
+      geneGroups: observable,
     });
   }
 
@@ -28,21 +36,29 @@ export default class GeneStoreAdmin {
       runInAction(() => {
         console.log("++++++++++++++++++++++++++++");
         console.log(resp);
-        resp.forEach((fetchedGene) => {
-          let formattedGene = {
-            geneAccessionNumber: fetchedGene.geneAccessionNumber,
-            geneId: fetchedGene.geneId,
-            answers : {}
+        resp.forEach((fetchedPromotionRequest) => {
+          let formattedPromotionRequest = {
+            targetName: fetchedPromotionRequest.targetName,
+            genePromtionRequestGenes:
+              fetchedPromotionRequest.genePromtionRequestGenes,
+            targetType: fetchedPromotionRequest.targetType,
+            answers: {},
           };
-          fetchedGene.genePromotionRequestValues.forEach((value) => {
-            formattedGene.answers[value.question.identification] = {
-              answer: value.answer,
-              answeredBy: value.answeredBy,
-              description: value.description,
-            };
-          });
+          fetchedPromotionRequest.genePromotionRequestValues.forEach(
+            (value) => {
+              formattedPromotionRequest.answers[value.question.identification] =
+                {
+                  answer: value.answer,
+                  answeredBy: value.answeredBy,
+                  description: value.description,
+                };
+            }
+          );
 
-          this.genePromotionRegistry.set(fetchedGene.geneId, formattedGene);
+          this.genePromotionRegistry.set(
+            fetchedPromotionRequest.targetName,
+            formattedPromotionRequest
+          );
         });
       });
     } catch (error) {
@@ -71,5 +87,39 @@ export default class GeneStoreAdmin {
       });
     }
     return res;
+  };
+
+  createGeneGroup = async (geneGroup) => {
+    console.log("geneStoreAdmin: createGeneGroup() Start");
+    this.creatingGeneGroup = true;
+    try {
+      var res = await agent.GeneAdmin.createGeneGroup(geneGroup);
+
+      runInAction(() => {
+        toast.success("Successfully created Gene Group");
+        this.creatingGeneGroup = false;
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.creatingGeneGroup = false;
+      });
+    }
+    return res;
+  };
+
+  listGeneGroups = async () => {
+    console.log("geneStoreAdmin: createGeneGroup() Start");
+    this.loadingGeneGroup = true;
+    try {
+      this.geneGroups = await agent.GeneAdmin.listGeneGroups();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.loadingGeneGroup = false;
+      });
+    }
   };
 }

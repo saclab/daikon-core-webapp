@@ -72,7 +72,7 @@ const GenomeViewNonPublicData = ({
                   heading={"Add Essentiality Data"}
                   columns={[
                     "classification",
-                    "essentialityCondition",
+                    "condition",
                     "strain",
                     "method",
                     "reference",
@@ -93,8 +93,8 @@ const GenomeViewNonPublicData = ({
               <Fieldset legend="Protein Production List">
                 <DisplayTable
                   heading={"Add Protein Production"}
-                  columns={["proteinProduction", "quantity", "purity", "date"]}
-                  mandatory={["proteinProduction"]}
+                  columns={["production", "method", "purity", "date"]}
+                  mandatory={["production"]}
                   data={gene.geneProteinProduction}
                   add={addProteinProduction}
                   edit={editProteinProduction}
@@ -110,14 +110,14 @@ const GenomeViewNonPublicData = ({
                 <DisplayTable
                   heading={"Add Protein Activity Assay"}
                   columns={[
-                    "proteinActivityAssay",
-                    "assayType",
-                    "assayThroughput",
+                    "activity",
+                    "type",
+                    "throughput",
                   ]}
                   mandatory={[
-                    "proteinActivityAssay",
-                    "assayType",
-                    "assayThroughput",
+                    "activity",
+                    "type",
+                    "throughput",
                   ]}
                   data={gene.geneProteinActivityAssay}
                   add={addProteinActivityAssay}
@@ -223,10 +223,9 @@ const GenomeViewNonPublicData = ({
                     "organization",
                     "method",
                     "resolution",
-                    "condition",
-                    "ligand",
+                    "ligands",
                   ]}
-                  mandatory={["ligand"]}
+                  mandatory={["ligands"]}
                   data={gene.geneUnpublishedStructures}
                   add={addUnpublishedStructures}
                   edit={editUnpublishedStructures}

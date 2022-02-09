@@ -13,7 +13,7 @@ export default class ScreenStore {
   rootStore;
 
   loadingFetchScreens = false;
-  loadingFilterScreensByGene = false;
+  loadingFilterScreensByTargetName = false;
   loadingFetchScreen = false;
   loadingScreenSequence = false;
 
@@ -30,7 +30,7 @@ export default class ScreenStore {
     this.rootStore = rootStore;
     makeObservable(this, {
       loadingFetchScreens: observable,
-      loadingFilterScreensByGene: observable,
+      loadingFilterScreensByTargetName: observable,
       loadingFetchScreen: observable,
 
       fetchScreens: action,
@@ -45,8 +45,7 @@ export default class ScreenStore {
       addScreeenSequence: action,
       loadingScreenSequence: observable,
 
-      filterScreensByGene: action,
-      filterScreensByAccession: action,
+      filterScreensByTarget: action,
       filteredScreens: observable,
 
       validatedHitsIndex: observable,
@@ -95,36 +94,25 @@ export default class ScreenStore {
 
     this.screenRegistry.forEach((value) => {
       console.log(value);
-      targetsScreened.set(value.accessionNumber, value);
+      targetsScreened.set(value.targetName, value);
     });
     return Array.from(targetsScreened.values());
   }
 
-  filterScreensByGene = (geneName) => {
-    this.loadingFilterScreensByGene = true;
+  filterScreensByTarget = (targetName) => {
+    this.loadingFilterScreensByTargetName = true;
     this.filteredScreens = [];
     this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
       (screen) => {
-        return screen.geneName === geneName;
+        return screen.targetName === targetName;
       }
     );
-    this.loadingFilterScreensByGene = false;
+    this.loadingFilterScreensByTargetName = false;
 
     return this.filteredScreens;
   };
 
-  filterScreensByAccession = (accessionNumber) => {
-    this.loadingFilterScreensByGene = true;
-    this.filteredScreens = [];
-    this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
-      (screen) => {
-        return screen.accessionNumber === accessionNumber;
-      }
-    );
-    this.loadingFilterScreensByGene = false;
-
-    return this.filteredScreens;
-  };
+  
 
   /* Fetch specific Screen with id from API */
 

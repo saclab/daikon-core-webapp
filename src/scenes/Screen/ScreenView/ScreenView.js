@@ -71,8 +71,8 @@ const ScreenView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-common icon-search"
                   heading={"Screens of " + match.params.id}
-                  accessionNumber={match.params.id}
-                  displayHorizion={true}
+                  targetName={match.params.id}
+                  displayHorizon={true}
                 />
               </div>
               <div className="p-mb-2">
@@ -87,7 +87,7 @@ const ScreenView = ({ match, history }) => {
                       color={"#f4f4f4"}
                       textColor={"#000000"}
                     />
-                    <ScreenSequences accessionNumber={match.params.id} />
+                    <ScreenSequences TargetName={match.params.id} />
                   </TabPanel>
                   <TabPanel header="Validated Hits" headerClassName="hide">
                     <SectionHeading
@@ -96,11 +96,11 @@ const ScreenView = ({ match, history }) => {
                       color={"#f4f4f4"}
                       textColor={"#000000"}
                     />
-                    <ValidatedHits accessionNumber={match.params.id} />
+                    <ValidatedHits TargetName={match.params.id} />
                   </TabPanel>
                   <TabPanel header="Discussion" headerClassName="hide">
                     <Discussion
-                      reference={selectedScreen?.accessionNumber}
+                      reference={selectedScreen?.targetName}
                       section={"Screen"}
                     />
                   </TabPanel>

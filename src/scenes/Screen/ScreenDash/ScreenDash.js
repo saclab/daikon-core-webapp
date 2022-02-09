@@ -26,22 +26,13 @@ const ScreenDash = () => {
   if (!loadingFetchScreens) {
     /* Table Body Templates */
 
-    const AccessionNumberBodyTemplate = (rowData) => {
+    const TargetNameBodyTemplate = (rowData) => {
       return (
         <React.Fragment>
-          <span className="p-column-title">Accession Number</span>
-          <NavLink to={"/screen/" + rowData.accessionNumber}>
-            {rowData.accessionNumber}
+          <span className="p-column-title">Target</span>
+          <NavLink to={"/screen/" + rowData.targetName}>
+            {rowData.targetName}
           </NavLink>
-        </React.Fragment>
-      );
-    };
-
-    const GeneNameBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Gene Name</span>
-          {rowData.geneName}
         </React.Fragment>
       );
     };
@@ -96,26 +87,16 @@ const ScreenDash = () => {
             emptyMessage="No Screens found."
           >
             <Column
-              field="accessionNumber"
-              header="Accession Number"
-              body={AccessionNumberBodyTemplate}
+              field="targetName"
+              header="Target Name"
+              body={TargetNameBodyTemplate}
               filter
               filterMatchMode="contains"
-              filterPlaceholder="Search by A.Number"
+              filterPlaceholder="Search by Target Name"
               className="narrow-column"
             />
 
-            <Column
-              field="geneName"
-              header="Protein Name"
-              body={GeneNameBodyTemplate}
-              filter
-              filterMatchMode="contains"
-              filterPlaceholder="Search by Protein Name"
-              className="narrow-column"
-            />
-
-            <Column field="status" header="Status" body={StatusBodyTemplate} />
+            {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
 
             <Column field="notes" header="Notes" body={NotesBodyTemplate} />
           </DataTable>

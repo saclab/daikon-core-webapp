@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
 import { BreadCrumb } from "primereact/breadcrumb";
+import { Dialog } from "primereact/dialog";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+import { RadioButton } from "primereact/radiobutton";
+import { SelectButton } from "primereact/selectbutton";
 import { Menu } from "primereact/menu";
 import { confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
@@ -12,9 +17,12 @@ import GeneViewPublicData from "./GeneViewPublicData/GeneViewPublicData";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Discussion from "../../../app/common/Discussion/Discussion";
+import GenePromoteTargetSelectionWindow from "../GenomePromote/GenePromoteTargetSelectionWindow/GenePromoteTargetSelectionWindow";
 
 const GeneView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
+
   const toast = useRef(null);
 
   /* MobX Store */
@@ -50,16 +58,8 @@ const GeneView = ({ match, history }) => {
           },
         },
 
-        // {
-        //   label: "Background Information",
-        //   icon: "ri-artboard-fill",
-        //   command: () => {
-        //     setActiveIndex(1);
-        //   },
-        // },
-
         {
-          label: "Non-Public Data",
+          label: "TBDA Data",
           icon: "ri-git-repository-private-fill",
           command: () => {
             setActiveIndex(1);
@@ -82,36 +82,12 @@ const GeneView = ({ match, history }) => {
           label: "Promote to Target",
           icon: "pi pi-external-link",
           command: (event) => {
-            confirmPromoteTarget(event);
+            setDisplayPromotionDialog(true);
           },
         },
       ],
     },
   ];
-
-  const confirmPromoteTarget = (event) => {
-    confirmDialog({
-      header: "Confirmation",
-      message:
-        "This would promote the current gene to a target. You will be asked to record more information on the next screen. Continue? ",
-      icon: "pi pi-question-circle",
-      accept,
-      reject,
-    });
-  };
-
-  const accept = () => {
-    history.push(`/gene/${match.params.id}/promote`);
-  };
-
-  const reject = () => {
-    toast.current.show({
-      severity: "info",
-      summary: "Rejected",
-      detail: "You have rejected",
-      life: 3000,
-    });
-  };
 
   /** Loading Overlay */
   if (displayLoading) {
@@ -132,67 +108,74 @@ const GeneView = ({ match, history }) => {
     ];
 
     return (
-      <div >
-        <Toast ref={toast} />
-        <br />
-        <div className="p-d-flex">
-          <div className="p-mr-2">
-            <Menu model={items} />
-          </div>
-          <div className="p-mr-2" style={{width:"100vw"}}>
-            <div className="p-d-flex p-flex-column">
-              <div className="p-mb-2">
-                <BreadCrumb model={breadCrumbItems} />
-              </div>
-              <div className="p-mb-2">
-                <SectionHeading
-                  icon="icon icon-conceptual icon-dna"
-                  heading={gene.accessionNumber}
-                  accessionNumber={gene.accessionNumber}
-                  displayHorizion={true}
-                />
-              </div>
-              <div className="p-mb-2">
-                <TabView
-                  activeIndex={activeIndex}
-                  onTabChange={(e) => setActiveIndex(e.index)}
-                >
-                  <TabPanel header="Header I" headerClassName="hide">
-                    <GeneViewPublicData
-                      id={match.params.id}
-                      gene={gene}
-                      edit={() => editGene()}
-                      cancelEdit={() => cancelEditGene()}
-                      fetchGeneHistory={() => fetchGeneHistory()}
-                      historyDisplayLoading={historyDisplayLoading}
-                      geneHistory={geneHistory}
-                    />
-                  </TabPanel>
+      <React.Fragment>
+        <div>
+          <Toast ref={toast} />
+          <br />
+          <div className="p-d-flex">
+            <div className="p-mr-2">
+              <Menu model={items} />
+            </div>
+            <div className="p-mr-2" style={{ width: "100vw" }}>
+              <div className="p-d-flex p-flex-column">
+                <div className="p-mb-2">
+                  <BreadCrumb model={breadCrumbItems} />
+                </div>
+                <div className="p-mb-2">
+                  <SectionHeading
+                    icon="icon icon-conceptual icon-dna"
+                    heading={gene.accessionNumber}
+                    accessionNumber={gene.accessionNumber}
+                    displayHorizon={true}
+                  />
+                </div>
+                <div className="p-mb-2">
+                  <TabView
+                    activeIndex={activeIndex}
+                    onTabChange={(e) => setActiveIndex(e.index)}
+                  >
+                    <TabPanel header="Header I" headerClassName="hide">
+                      <GeneViewPublicData
+                        id={match.params.id}
+                        gene={gene}
+                        edit={() => editGene()}
+                        cancelEdit={() => cancelEditGene()}
+                        fetchGeneHistory={() => fetchGeneHistory()}
+                        historyDisplayLoading={historyDisplayLoading}
+                        geneHistory={geneHistory}
+                      />
+                    </TabPanel>
 
-                  <TabPanel header="Header II" headerClassName="hide">
-                    <GenomeViewNonPublicData
-                      id={match.params.id}
-                      gene={gene}
-                      edit={() => editGene()}
-                      cancelEdit={() => cancelEditGene()}
-                      fetchGeneHistory={() => fetchGeneHistory()}
-                      historyDisplayLoading={historyDisplayLoading}
-                      geneHistory={geneHistory}
-                    />
-                  </TabPanel>
+                    <TabPanel header="Header II" headerClassName="hide">
+                      <GenomeViewNonPublicData
+                        id={match.params.id}
+                        gene={gene}
+                        edit={() => editGene()}
+                        cancelEdit={() => cancelEditGene()}
+                        fetchGeneHistory={() => fetchGeneHistory()}
+                        historyDisplayLoading={historyDisplayLoading}
+                        geneHistory={geneHistory}
+                      />
+                    </TabPanel>
 
-                  <TabPanel header="Discussion" headerClassName="hide">
-                    <Discussion
-                      reference={gene.accessionNumber}
-                      section={"Gene"}
-                    />
-                  </TabPanel>
-                </TabView>
+                    <TabPanel header="Discussion" headerClassName="hide">
+                      <Discussion
+                        reference={gene.accessionNumber}
+                        section={"Gene"}
+                      />
+                    </TabPanel>
+                  </TabView>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+
+        <GenePromoteTargetSelectionWindow
+          setDisplayPromotionDialog={setDisplayPromotionDialog}
+          displayPromotionDialog={displayPromotionDialog}
+        />
+      </React.Fragment>
     );
   }
 
