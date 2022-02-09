@@ -13,8 +13,8 @@
 }
 .LoginWrap {
   position: relative;
-  /* background: linear-gradient(to right, #30cfd0 0%, #330867 100%); */
- 
+  background: linear-gradient(to right, #30cfd0 0%, #330867 100%);
+
   /* background: #000000; */
   width: 510px;
   height: 610px;
@@ -29,21 +29,26 @@
 }
 
 .LoginLoginBox h2 {
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   font-weight: 500;
   font-size: xx-large;
   text-align: center;
   margin-bottom: 5vh;
-  background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+  background: linear-gradient(to right, #30cfd0 0%, #330867 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.LoginLoginBox p {
+  text-align: left;
+}
+
 .LoginBox Button {
   float: right;
 }
 #loginButton .p-button {
-  background: linear-gradient(to right, #30CFD0 0%, #330867 100%) !important;
+  background: linear-gradient(to right, #30cfd0 0%, #330867 100%) !important;
   border: 0px;
   padding-left: 50px;
   padding-right: 50px;
@@ -61,17 +66,15 @@
 
 .LoginLeft {
   width: 60%;
-  background-color: #ad9f86e1;
+  background-color: #ffffff;
   background-size: cover;
   /* Background image for represenation only in proto type, to be replaced before production; copyrights not held */
-  background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/8b8c2994436609.5e83ca2f195bf.gif');
-  
-
+  /* background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/8b8c2994436609.5e83ca2f195bf.gif'); */
 }
 
 .LoginRight {
   right: 0;
-  background-color: #ad9f86e1;
+  background-color: #ffffff;
   min-width: 610px;
 }
 
@@ -88,7 +91,7 @@
 }
 
 .LoginLeftH {
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   padding-left: 5vh;
   margin-bottom: 5vh;
 }
