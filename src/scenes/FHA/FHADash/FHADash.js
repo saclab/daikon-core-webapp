@@ -72,7 +72,7 @@ const FHADash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Target</span>
-          {rowData.geneName}
+          {rowData.targetName}
         </React.Fragment>
       );
     };
@@ -179,7 +179,7 @@ const FHADash = () => {
             />
 
             <Column
-              field="Target"
+              field="targetName"
               header="Target"
               body={TargetBodyTemplate}
               filter

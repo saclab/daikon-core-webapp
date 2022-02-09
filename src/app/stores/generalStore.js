@@ -6,9 +6,10 @@ import agent from "../api/agent";
 export default class GeneralStore {
   rootStore;
 
-  generatingHorizion = false;
-  horizionRegistry = new Map();
-  selectedHorizion = null;
+  generatingHorizon = false;
+  horizonRegistry = new Map();
+  selectedHorizon = null;
+  horizonLength = "20rem";
 
   fetchingAppVars = false;
   appVars = null;
@@ -16,43 +17,91 @@ export default class GeneralStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
-      generatingHorizion: observable,
-      fetchHorizion: action,
-      selectedHorizion: observable,
+      generatingHorizon: observable,
+      fetchHorizon: action,
+      fetchHorizonByAccession: action,
+      selectedHorizon: observable,
 
       fetchingAppVars: observable,
       appVars: observable,
       fetchAppVars: action,
+      horizonLength: observable,
     });
   }
 
-  fetchHorizion = async (accessionNo) => {
-    console.log("GeneralStore: fetchHorizion Start");
-    this.generatingHorizion = true;
+  fetchHorizon = async (targetName) => {
+    console.log("GeneralStore: fetchHorizon Start");
+    this.generatingHorizon = true;
 
     // first check cache
-    let fetchedHorizion = this.horizionRegistry.get(accessionNo);
+    let fetchedHorizon = this.horizonRegistry.get(targetName);
     console.log("CACHE");
-    console.log(fetchedHorizion);
-    if (fetchedHorizion) {
-      console.log("GeneralStore: fetchHorizion found in cache");
-      this.selectedHorizion = fetchedHorizion;
-      this.generatingHorizion = false;
+    console.log(fetchedHorizon);
+    if (fetchedHorizon) {
+      console.log("GeneralStore: fetchHorizon found in cache");
+      this.selectedHorizon = fetchedHorizon;
+      this.horizonLength =
+            (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.75) + "rem";
+      this.generatingHorizon = false;
+      console.log(this.selectedHorizon);
     }
     // if not found fetch from api
     else {
       try {
-        fetchedHorizion = await agent.Horizion.generate(accessionNo);
+        fetchedHorizon = await agent.Horizon.generate(targetName);
         runInAction(() => {
-          console.log("GeneralStore: fetchHorizion fetched from api");
-          this.selectedHorizion = fetchedHorizion;
+          console.log("GeneralStore: fetchHorizon fetched from api");
+          this.horizonRegistry.set(targetName, fetchedHorizon);
+          this.selectedHorizon = fetchedHorizon;
+          this.horizonLength =
+          (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.75) + "rem";
+          console.log(this.selectedHorizon);
         });
       } catch (error) {
         console.log(error);
       } finally {
         runInAction(() => {
-          this.generatingHorizion = false;
-          console.log("GeneralStore: fetchHorizion Complete");
+          this.generatingHorizon = false;
+          console.log("GeneralStore: fetchHorizon Complete");
+        });
+      }
+    }
+  };
+
+  fetchHorizonByAccession = async (accessionNumber) => {
+    console.log("GeneralStore: fetchHorizonByAccessionNumber Start");
+    this.generatingHorizon = true;
+
+    // first check cache
+    let fetchedHorizon = this.horizonRegistry.get(accessionNumber);
+    console.log("CACHE");
+    console.log(fetchedHorizon);
+    if (fetchedHorizon) {
+      console.log("GeneralStore: fetchHorizonByAccessionNumber found in cache");
+      this.selectedHorizon = fetchedHorizon;
+      this.horizonLength =
+            (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.75) + "rem";
+      this.generatingHorizon = false;
+      console.log(this.selectedHorizon);
+    }
+    // if not found fetch from api
+    else {
+      try {
+        fetchedHorizon = await agent.Horizon.generateByAccession(accessionNumber);
+        runInAction(() => {
+          console.log("GeneralStore: fetchHorizonByAccessionNumber fetched from api");
+          this.horizonRegistry.set(accessionNumber, fetchedHorizon);
+          this.selectedHorizon = fetchedHorizon;
+          this.horizonLength =
+          (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.75) + "rem";
+          console.log(this.selectedHorizon);
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        runInAction(() => {
+          this.generatingHorizon = false;
+          console.log("GeneralStore: fetchHorizonByAccessionNumber Complete");
         });
       }
     }

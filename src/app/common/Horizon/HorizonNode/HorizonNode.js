@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "primereact/button";
 import history from "../../../../history";
 
-const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
+const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
   switch (dataObj.dataObj.name) {
     case "Gene":
       return (
@@ -34,6 +34,105 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
+
+    case "SimpleProtein":
+      return (
+        <g>
+          <foreignObject x="-10" y="-30" width="40" height="50">
+            <Button
+              icon="icon icon-conceptual icon-expression"
+              style={{
+                background: "#ffffff",
+                color: "#000000",
+                border: "0px solid #000000",
+                fontSize: "2em",
+              }}
+              onClick={() => {
+                history.push(`/gene/${dataObj.dataObj.attributes.id}`);
+              }}
+            />
+          </foreignObject>
+          <foreignObject x="10" y="0" width="190" height="160">
+            <div>
+              <p>
+                <b>Protein</b>
+                
+                <br />
+                {dataObj.dataObj.attributes.targetName}
+              </p>
+            </div>
+          </foreignObject>
+        </g>
+      );
+
+    case "ProteinComplex":
+      let accessionDisplay = [];
+
+      console.log(dataObj.dataObj.attributes.accessionNumbers.length);
+
+      if (dataObj.dataObj.attributes.accessionNumbers.length > 5) {
+        accessionDisplay = (
+          <React.Fragment>
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[0]}
+            <br />
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[1]}
+            <br />
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[2]}
+            <br />
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[3]}
+            <br />
+            <i className="icon icon-conceptual icon-dna" />{" "}
+            {dataObj.dataObj.attributes.accessionNumbers[4]}
+            <br />
+            and {dataObj.dataObj.attributes.accessionNumbers.length - 5} others.
+          </React.Fragment>
+        );
+      } else {
+        accessionDisplay = dataObj.dataObj.attributes.accessionNumbers.map(
+          (acn) => {
+            return (
+              <React.Fragment>
+                <i className="icon icon-conceptual icon-dna" /> {acn}
+                <br />
+              </React.Fragment>
+            );
+          }
+        );
+      }
+
+      return (
+        <g>
+          <foreignObject x="-10" y="-30" width="40" height="50">
+            <Button
+              icon="icon icon-conceptual icon-proteins"
+              style={{
+                background: "#ffffff",
+                color: "#000000",
+                border: "0px solid #000000",
+                fontSize: "2em",
+              }}
+              onClick={() => {
+                // history.push(`/gene/${dataObj.dataObj.attributes.id}`);
+              }}
+            />
+          </foreignObject>
+          <foreignObject x="10" y="0" width="190" height="160">
+            <div>
+              <p>
+                <b>Protein Complex</b>
+                <br />
+                {accessionDisplay}
+                <br />
+                {/* {dataObj.dataObj.attributes.geneName} */}
+              </p>
+            </div>
+          </foreignObject>
+        </g>
+      );
     case "Target":
       return (
         <g>
@@ -55,9 +154,9 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
             <div>
               <p>
                 <b>Target</b> <br />
-                {dataObj.dataObj.attributes.accessionNumber}
+                {dataObj.dataObj.attributes.targetName}
                 <br />
-                {dataObj.dataObj.attributes.proteinName}
+                {dataObj.dataObj.attributes.targetType}
                 <br />
                 {dataObj.dataObj.attributes.bucketScore}{" "}
                 <i className="ri-blaze-line"></i>
@@ -80,7 +179,7 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
               }}
               onClick={() => {
                 history.push(
-                  `/screen/${dataObj.dataObj.attributes.accessionNumber}`
+                  `/screen/${dataObj.dataObj.attributes.targetName}`
                 );
               }}
             />
@@ -188,4 +287,4 @@ const HorizionNode = (dataObj, toggleNode, foreignObjectProps) => {
   }
 };
 
-export default HorizionNode;
+export default HorizonNode;

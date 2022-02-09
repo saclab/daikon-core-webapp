@@ -41,10 +41,13 @@ const TargetScorecard = () => {
                       <i className="ri-blaze-line"></i> Bucket :{" "}
                       <b>{selectedTarget.bucket}</b>
                     </h3>
-                    <h3>
-                      <i className="icon icon-conceptual icon-proteins"></i>{" "}
-                      Protein : <b>{_.upperFirst(selectedTarget.geneName)}</b>
-                    </h3>
+                    <div style={{ inlineSize: "900px", overflowWrap: "break-word" }}>
+                      <h4>
+                        <i className="icon icon-conceptual icon-proteins"></i>{" "}
+                        Associated Genes :{" "}
+                          {selectedTarget.targetGenesAccesionNumbers.join(', ')}
+                      </h4>
+                    </div>
                   </div>
                   <div className="p-mr-2">
                     {/* <TargetScorecardPercentDial /> */}

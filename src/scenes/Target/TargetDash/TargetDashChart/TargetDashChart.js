@@ -9,7 +9,7 @@ const TargetDashChart = ({ targets }) => {
   console.log(targets.length);
   targets.forEach((target) => {
     graphData.push({
-      id: target.geneName,
+      id: target.name,
       data: [
         {
           x: target.likeScore,

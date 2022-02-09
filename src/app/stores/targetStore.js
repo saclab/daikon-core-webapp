@@ -7,6 +7,7 @@ import {
 } from "mobx";
 import agent from "../api/agent";
 import { toast } from "react-toastify";
+import { _helper_associatedGenesAccessionNumbersToArray } from "./targetStoreHelper";
 
 export default class TargetStore {
   rootStore;
@@ -40,6 +41,8 @@ export default class TargetStore {
     });
   }
 
+  /* end helpers */
+
   /* Fetch Target list from API */
   fetchTargetList = async () => {
     console.log("targetStore: fetchTargetList() Start");
@@ -54,6 +57,13 @@ export default class TargetStore {
       runInAction(() => {
         console.log(resp);
         resp.forEach((fetchedTarget) => {
+          fetchedTarget = {
+            ...fetchedTarget,
+            targetGenesAccesionNumbers:
+              _helper_associatedGenesAccessionNumbersToArray(fetchedTarget),
+          };
+          console.log("_helper_associatedGenesAccessionNumbersToArray(fetchedTarget)")
+          console.log(_helper_associatedGenesAccessionNumbersToArray(fetchedTarget));
           this.targetRegistry.set(fetchedTarget.id, fetchedTarget);
         });
         console.log(this.targetRegistry);
@@ -93,6 +103,11 @@ export default class TargetStore {
         fetchedTarget = await agent.Target.details(id);
         runInAction(() => {
           console.log("targetStore: fetchTarget fetched from api");
+          fetchedTarget = {
+            ...fetchedTarget,
+            targetGenesAccesionNumbers:
+              _helper_associatedGenesAccessionNumbersToArray(fetchedTarget),
+          };
           console.log(this.selectedTarget);
           this.selectedTarget = fetchedTarget;
           this.targetRegistryExpanded.set(id, fetchedTarget);
@@ -158,11 +173,12 @@ export default class TargetStore {
     try {
       res = await agent.Screen.create(newScreen);
       runInAction(() => {
-        toast.success("Successfully added a new screening series. Please navigate to view screens");
+        toast.success(
+          "Successfully added a new screening series. Please navigate to view screens"
+        );
       });
     } catch (error) {
       console.log(error);
-      
     } finally {
       runInAction(() => {
         this.rootStore.screenStore.screenRegistryCacheValid = false;

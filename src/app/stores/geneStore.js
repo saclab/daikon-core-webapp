@@ -37,6 +37,10 @@ export default class GeneStore {
   addingVulnerability = false;
   editingHypomorph = false;
   addingHypomorph = false;
+  searchingGeneGroup = false;
+
+  validateTargetNameLoading = false;
+  proposedTargetNameValidated = "";
 
   geneRegistry = new Map();
   geneFunctionalCategories = [];
@@ -50,6 +54,10 @@ export default class GeneStore {
   selectedPdbCrossReference = null;
 
   promotionQuestionsRegistry = new Map();
+
+  genePromotionDataObj = {};
+
+  searchedGeneGroup = null;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -122,6 +130,17 @@ export default class GeneStore {
       addingHypomorph: observable,
       addHypomorph: action,
       editHypomorph: action,
+
+      validateTargetName: action,
+      validateTargetNameLoading: observable,
+      proposedTargetNameValidated: observable,
+
+      saveGenePromotionDataObj: action,
+      getGenePromotionDataObj: action,
+
+      searchingGeneGroup: observable,
+      searchedGeneGroup: observable,
+      searchGeneGroup: action,
     });
   }
 
@@ -403,17 +422,14 @@ export default class GeneStore {
   };
 
   /* submit Promotion Questionaire from API */
-  submitPromotionQuestionaire = async (data) => {
+  submitPromotionQuestionaire = async (targetName, data) => {
     console.log("geneStore: submitPromotionQuestionaire Start");
     this.promotionQuestionsDisplayLoading = true;
     let res = null;
 
     // send to server
     try {
-      res = await agent.Gene.submitPromotionQuestionaire(
-        this.selectedGene.id,
-        data
-      );
+      res = await agent.Gene.submitPromotionQuestionaire(targetName, data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -776,6 +792,46 @@ export default class GeneStore {
     } finally {
       runInAction(() => {
         this.addingHypomorph = false;
+      });
+    }
+  };
+
+  validateTargetName = async (proposedTargetName) => {
+    console.log("geneStore: validatedTargetName() Start");
+
+    this.validateTargetNameLoading = true;
+    this.proposedTargetNameValidated = "";
+    try {
+      this.proposedTargetNameValidated = await agent.Gene.validateTargetName(
+        proposedTargetName
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.validateTargetNameLoading = false;
+      });
+    }
+  };
+
+  saveGenePromotionDataObj = (data) => {
+    this.genePromotionDataObj = { ...data };
+  };
+
+  getGenePromotionDataObj = () => {
+    return this.genePromotionDataObj;
+  };
+
+  searchGeneGroup = async (geneId) => {
+    console.log("geneStore: searchGeneGroup() Start");
+    this.searchingGeneGroup = true;
+    try {
+      this.searchedGeneGroup = await agent.Gene.searchByIdGeneGroup(geneId);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.searchingGeneGroup = false;
       });
     }
   };

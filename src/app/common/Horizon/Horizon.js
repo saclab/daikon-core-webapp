@@ -1,0 +1,109 @@
+import React, { useEffect, useContext } from "react";
+import { observer } from "mobx-react-lite";
+import Tree from "react-d3-tree";
+import { RootStoreContext } from "../../stores/rootStore";
+import HorizonNode from "./HorizonNode/HorizonNode";
+import PleaseWait from "../PleaseWait/PleaseWait";
+import FailedLoading from "../FailedLoading/FailedLoading";
+
+const Horizon = ({ accessionNumber, targetName }) => {
+  const rootStore = useContext(RootStoreContext);
+  const {
+    generatingHorizon,
+    fetchHorizon,
+    fetchHorizonByAccession,
+    selectedHorizon,
+    horizonLength,
+  } = rootStore.generalStore;
+
+  useEffect(() => {
+    if (targetName) {
+      console.log(targetName);
+      if (
+        selectedHorizon === null ||
+        selectedHorizon.attributes.targetName !== targetName
+      ) {
+        targetName && fetchHorizon(targetName);
+      }
+    }
+
+    if (accessionNumber) {
+      console.log(accessionNumber);
+      if (
+        selectedHorizon === null ||
+        selectedHorizon.attributes.accessionNumber !== accessionNumber
+      ) {
+        accessionNumber && fetchHorizonByAccession(accessionNumber);
+      }
+    }
+  }, [
+    targetName,
+    accessionNumber,
+    fetchHorizon,
+    fetchHorizonByAccession,
+    selectedHorizon,
+  ]);
+
+  if (targetName === null || targetName === "undefined") {
+    return <>Nothing</>;
+  }
+
+  if (generatingHorizon) {
+    return <PleaseWait />;
+  }
+
+  if (!generatingHorizon && selectedHorizon !== null) {
+    console.log(
+      "No of keys : " + JSON.stringify(selectedHorizon).match(/[^\\]":/g).length
+    );
+    const nodeSize = {
+      x: 230,
+      y: 200,
+    };
+
+    const textLayout = {
+      textAnchor: "start",
+      x: 30,
+      y: -10,
+      transform: undefined,
+    };
+
+    let translate = {
+      x: 50,
+      y: (JSON.stringify(selectedHorizon).match(/[^\\]":/g).length / 2) * 8,
+    };
+
+    const foreignObjectProps = {
+      width: nodeSize.x,
+      height: nodeSize.y,
+      x: 20,
+    };
+
+    return (
+      // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
+      <div id="treeWrapper" style={{ width: "100%", height: horizonLength }}>
+        <Tree
+          data={selectedHorizon}
+          nodeSize={nodeSize}
+          //nodeSvgShape={nodeSvgShape}
+          textLayout={textLayout}
+          translate={translate}
+          zoom="0.8"
+          collapsible={false}
+          allowForeignObjects
+          renderCustomNodeElement={(rd3tProps) => (
+            <HorizonNode
+              dataObj={rd3tProps.nodeDatum}
+              toggleNode={rd3tProps.toggleNode}
+              foreignObjectProps={foreignObjectProps}
+            />
+          )}
+        />
+      </div>
+    );
+  }
+
+  return <FailedLoading />;
+};
+
+export default observer(Horizon);

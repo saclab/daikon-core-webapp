@@ -132,7 +132,10 @@ const ScreenSequence = ({ screenId }) => {
             <Column field="library" header="Library"></Column>
             <Column field="method" header="Method"></Column>
             <Column body={protocolBodyTemplate} header="Protocol"></Column>
-            <Column field="concentration" header="Concentration"></Column>
+            <Column
+              field="concentration"
+              header="Inhibitor Concentration"
+            ></Column>
             <Column
               field="noOfCompoundsScreened"
               header="No of compounds screened"

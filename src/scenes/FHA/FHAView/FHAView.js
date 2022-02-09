@@ -125,8 +125,8 @@ const FHAView = ({ match, history }) => {
                 <SectionHeading
                   icon="icon icon-conceptual icon-chemical"
                   heading={selectedProject.projectName}
-                  accessionNumber={selectedProject.accessionNo}
-                  displayHorizion={true}
+                  targetName={selectedProject.targetName}
+                  displayHorizon={true}
                 />
               </div>
               <div className="p-mb-2">
@@ -145,7 +145,7 @@ const FHAView = ({ match, history }) => {
                   </TabPanel>
                   <TabPanel header="Header III" headerClassName="hide">
                     <Discussion
-                      reference={selectedProject?.accessionNo}
+                      reference={selectedProject?.targetName}
                       section={"FHA"}
                     />
                   </TabPanel>

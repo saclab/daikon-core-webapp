@@ -163,8 +163,8 @@ const PortfolioView = ({ match, history }) => {
                     " | " +
                     selectedProject?.currentStage
                   }
-                  accessionNumber={selectedProject.accessionNo}
-                  displayHorizion={true}
+                  targetName={selectedProject.targetName}
+                  displayHorizon={true}
                 />
               </div>
               <div className="p-mb-2">
@@ -183,7 +183,7 @@ const PortfolioView = ({ match, history }) => {
                   </TabPanel>
                   <TabPanel header="Header III" headerClassName="hide">
                     <Discussion
-                      reference={selectedProject?.accessionNo}
+                      reference={selectedProject?.targetName}
                       section={"Portfolio"}
                     />
                   </TabPanel>

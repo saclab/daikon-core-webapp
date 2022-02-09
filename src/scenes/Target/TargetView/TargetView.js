@@ -77,7 +77,7 @@ const TargetView = ({ match, history }) => {
           label: "View Screens",
           icon: "pi pi-external-link",
           command: (event) => {
-            history.push("/screen/" + target.accessionNumber);
+            history.push("/screen/" + target.name);
           },
         },
       ],
@@ -99,7 +99,7 @@ const TargetView = ({ match, history }) => {
           history.push("/target/");
         },
       },
-      { label: target.accessionNumber },
+      { label: target.name },
     ];
 
     return (
@@ -112,7 +112,7 @@ const TargetView = ({ match, history }) => {
           blockScroll={true}
           onHide={() => setDisplayPromotionDialog(false)}
         >
-          <h3>{target.geneName}</h3>
+          <h3>{target.name}</h3>
           <i className="icon icon-common icon-plus-circle"></i> &nbsp; Add a{" "}
           <b>New</b> Screen
           <hr />
@@ -141,9 +141,9 @@ const TargetView = ({ match, history }) => {
               <div className="p-mb-2">
                 <SectionHeading
                   icon="icon icon-common icon-target"
-                  heading={target.accessionNumber}
-                  accessionNumber={target.accessionNumber}
-                  displayHorizion={true}
+                  heading={target.name}
+                  targetName={target.name}
+                  displayHorizon={true}
                 />
               </div>
               <div className="p-mb-2">
@@ -165,7 +165,7 @@ const TargetView = ({ match, history }) => {
 
                   <TabPanel header="Discussion" headerClassName="hide">
                     <Discussion
-                      reference={target.accessionNumber}
+                      reference={target.name}
                       section={"Target"}
                     />
                   </TabPanel>

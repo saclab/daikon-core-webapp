@@ -66,14 +66,16 @@ const GeneAdminPromotionRequests = () => {
     let tabs = [];
     genePromotionRegistry.forEach((value) => {
       console.log(value);
-      let heading = geneStore.geneRegistry.get(value.geneId).accessionNumber;
+      let heading = value.targetName;
       tabs.push(
         <TabPanel header={heading} key={heading}>
           <div className="p-field p-grid">
             <GeneAdminPromotionRequest
-              GeneID={value.geneId}
+              GenePromotionRequest={value}
+              TargetName={value.targetName}
               AnswerRegistry={genePromotionRegistry}
               QuestionsRegistry={geneStore.promotionQuestionsRegistry}
+              GeneRegistry={geneStore.geneRegistry}
             />
           </div>
         </TabPanel>
@@ -88,7 +90,7 @@ const GeneAdminPromotionRequests = () => {
         <div className="p-mb-2">
           <SectionHeading
             icon="icon icon-conceptual icon-dna"
-            color="#EE1E40"
+            color="#1ABC9C"
             heading={"Requests to promote genes to targets"}
           />
         </div>

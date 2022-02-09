@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Sidebar } from "primereact/sidebar";
+import { Dropdown } from "primereact/dropdown";
 
 import cssClass from "./TitleBar.module.css";
 import { Button } from "primereact/button";
@@ -16,6 +17,11 @@ const TitleBar = () => {
   const [visibleLeft, setVisibleLeft] = useState(false);
   const rootStore = useContext(RootStoreContext);
   const { user } = rootStore.userStore;
+
+  const Strains = [
+    { name: "Mycobacterium tuberculosis H37Rv", code: "H37Rv" }
+  ];
+
   return (
     <div className={cssClass.Header}>
       <Sidebar
@@ -28,7 +34,7 @@ const TitleBar = () => {
       <div className={["p-d-flex"].join(" ")}>
         <Button
           type="Button"
-          icon="pi pi-bars"
+          icon="icon icon-common icon-th"
           className={["p-mr-2", cssClass.BlackButton].join(" ")}
           onClick={() => setVisibleLeft(true)}
         />
@@ -41,7 +47,6 @@ const TitleBar = () => {
         >
           Target and Project Tracker (TPT)
         </Button>
-        
 
         <Button
           type="Button"
@@ -50,12 +55,20 @@ const TitleBar = () => {
           className={[cssClass.Push, "p-mr-2", cssClass.BlackButton].join(" ")}
           onClick={() => window.location.reload()}
         />
-        
 
         <Button
           type="Button"
           icon="pi pi-sliders-v"
           label="View"
+          className={["p-mr-2", cssClass.BlackButton].join(" ")}
+        />
+
+        <Dropdown
+          value={"Mycobacterium tuberculosis H37Rv"}
+          options={Strains}
+          // onChange={onCityChange}
+          optionLabel="name"
+          placeholder="H37Rv"
           className={["p-mr-2", cssClass.BlackButton].join(" ")}
         />
         <Button

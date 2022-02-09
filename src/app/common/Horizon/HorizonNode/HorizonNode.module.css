@@ -1,4 +1,4 @@
-.HorizionNode  {
+.HorizonNode  {
   margin-left: 20px;
   margin-top: 10px;
   margin-right: auto;
@@ -7,19 +7,19 @@
 
 
 
-.HorizionNode tr {
+.HorizonNode tr {
   list-style-type: none;
   text-align: left;
 }
 
-.HorizionNode td {
+.HorizonNode td {
   margin: 0; 
   padding: 0;
   text-align: left;
   font-size: large;
 }
 
-.HorizionNode table {
+.HorizonNode table {
  margin-top: 10px;
  border-style: none;
 }

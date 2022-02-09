@@ -7,7 +7,6 @@ import AppSettingsService from "../../services/AppSettingsService";
 /* Check Pre Configuration */
 
 const AppPrecheck = () => {
- 
   if (
     process.env.REACT_APP_MSAL_CLIENT_ID === undefined ||
     process.env.REACT_APP_WEB_API_BASE_URI === undefined ||
@@ -131,13 +130,17 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
 const Gene = {
   list: () => requests.get("/gene"),
   view: (id) => requests.get(`/gene/${id}`),
+  validateTargetName: (name) =>
+    requests.get(`/gene/${name}/validateNewTargetName`),
   viewByAccessionNo: (accessionNo) =>
     requests.get(`/gene/by-accession/${accessionNo}`),
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
   history: (id) => requests.get(`/gene/${id}/history`),
   promotionQuestions: () => requests.get(`/geneconfig/promote/questionaire`),
-  submitPromotionQuestionaire: (id, data) =>
-    requests.post(`/gene/${id}/promotionrequest`, data),
+  searchByIdGeneGroup: (geneId) =>
+    requests.get(`/geneconfig/groups/search-by-gene-id/${geneId}`),
+  submitPromotionQuestionaire: (targetName, data) =>
+    requests.post(`/gene/promotionrequest/${targetName}`, data),
   editEssentiality: (geneId, essentialityId, modEssentiality) =>
     requests.post(
       `/gene/${geneId}/essentiality/${essentialityId}`,
@@ -222,6 +225,9 @@ const Gene = {
 
 const GeneAdmin = {
   promotionRequests: () => requests.get("/admin/gene/promotionrequests"),
+  createGeneGroup: (geneGroup) =>
+    requests.post(`/admin/gene/groups`, geneGroup),
+  listGeneGroups: () => requests.get(`/admin/gene/groups`),
 };
 
 const User = {
@@ -284,8 +290,9 @@ const Discussion = {
     requests.del(`/Discussion/${discussionId}/reply/${replyId}`),
 };
 
-const Horizion = {
-  generate: (accessionNo) => requests.get(`/Horizion/${accessionNo}`),
+const Horizon = {
+  generate: (targetName) => requests.get(`/Horizon/${targetName}`),
+  generateByAccession: (accessionNo) => requests.get(`/Horizon/by-accession/${accessionNo}`),
 };
 
 const General = {
@@ -324,7 +331,7 @@ const exports = {
   Screen,
   Hit,
   Discussion,
-  Horizion,
+  Horizon,
   General,
   Projects,
 };
