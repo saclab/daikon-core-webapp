@@ -57,7 +57,12 @@ const TargetGrid = ({ questions, target }) => {
       <table>
         <tbody>
           <tr>
-            <td rowSpan="3" className="verticalText">
+            <td rowSpan="9" className="verticalText">
+              <span>Biological Impact</span>
+            </td>
+          </tr>
+          <tr>
+            <td rowSpan="3" style={{ maxWidth: "200px" }}>
               <span>Impact of Chemical inhibition</span>
             </td>
             <td>During infections</td>
@@ -250,7 +255,7 @@ const TargetGrid = ({ questions, target }) => {
             <td colSpan="2">&nbsp;</td>
           </tr>
           <tr>
-            <td rowSpan="3" className="verticalText">
+            <td rowSpan="3" style={{ maxWidth: "200px" }}>
               {" "}
               <span>Impact of Genetic inhibition</span>
             </td>
@@ -412,7 +417,12 @@ const TargetGrid = ({ questions, target }) => {
             <td colSpan="4">&nbsp;</td>
           </tr>
           <tr>
-            <td rowSpan="4" className="verticalText">
+            <td rowSpan="5" className="verticalText">
+              <span>Likelihood</span>
+            </td>
+          </tr>
+          <tr>
+            <td rowSpan="4" style={{ maxWidth: "200px" }}>
               {" "}
               <span>Tractability</span>
             </td>
@@ -595,7 +605,12 @@ const TargetGrid = ({ questions, target }) => {
             <td colSpan="4">&nbsp;</td>
           </tr>
           <tr>
-            <td rowSpan="4" className="verticalText">
+            <td rowSpan="5" className="verticalText">
+              <span></span>
+            </td>
+          </tr>
+          <tr>
+            <td rowSpan="4" style={{ maxWidth: "200px" }}>
               <span>Interaction with other drugs/compounds</span>
             </td>
             <td>Chemical inhibition during growth in vitro</td>
@@ -641,7 +656,7 @@ const TargetGrid = ({ questions, target }) => {
             >
               7b2
             </td>
-            
+
             <td colSpan="6">&nbsp;</td>
           </tr>
           <tr>
