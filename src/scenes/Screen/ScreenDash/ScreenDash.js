@@ -87,8 +87,8 @@ const ScreenDash = () => {
             emptyMessage="No Screens found."
           >
             <Column
-              field="accessionNumber"
-              header="Accession Number"
+              field="targetName"
+              header="Target Name"
               body={TargetNameBodyTemplate}
               filter
               filterMatchMode="contains"
@@ -96,7 +96,7 @@ const ScreenDash = () => {
               className="narrow-column"
             />
 
-            <Column field="status" header="Status" body={StatusBodyTemplate} />
+            {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
 
             <Column field="notes" header="Notes" body={NotesBodyTemplate} />
           </DataTable>
