@@ -40,7 +40,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
             <Button
-              icon="icon icon-conceptual icon-proteins"
+              icon="icon icon-conceptual icon-expression"
               style={{
                 background: "#ffffff",
                 color: "#000000",
@@ -65,7 +65,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
 
-    case "GeneGroup":
+    case "ProteinComplex":
       let accessionDisplay = [];
 
       console.log(dataObj.dataObj.attributes.accessionNumbers.length);
@@ -108,7 +108,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
             <Button
-              icon="icon icon-common icon-object-group"
+              icon="icon icon-conceptual icon-proteins"
               style={{
                 background: "#ffffff",
                 color: "#000000",
@@ -123,7 +123,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
           <foreignObject x="10" y="0" width="190" height="160">
             <div>
               <p>
-                <b>[Gene Group]</b>
+                <b>Protein Complex</b>
                 <br />
                 {accessionDisplay}
                 <br />
