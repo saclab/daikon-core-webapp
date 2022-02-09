@@ -58,16 +58,8 @@ const GeneView = ({ match, history }) => {
           },
         },
 
-        // {
-        //   label: "Background Information",
-        //   icon: "ri-artboard-fill",
-        //   command: () => {
-        //     setActiveIndex(1);
-        //   },
-        // },
-
         {
-          label: "Non-Public Data",
+          label: "TBDA Data",
           icon: "ri-git-repository-private-fill",
           command: () => {
             setActiveIndex(1);
@@ -96,30 +88,6 @@ const GeneView = ({ match, history }) => {
       ],
     },
   ];
-
-  const confirmPromoteTarget = (event) => {
-    confirmDialog({
-      header: "Confirmation",
-      message:
-        "This would promote the current gene to a target. You will be asked to record more information on the next screen. Continue? ",
-      icon: "pi pi-question-circle",
-      accept,
-      reject,
-    });
-  };
-
-  const accept = () => {
-    history.push(`/gene/${match.params.id}/promote`);
-  };
-
-  const reject = () => {
-    toast.current.show({
-      severity: "info",
-      summary: "Rejected",
-      detail: "You have rejected",
-      life: 3000,
-    });
-  };
 
   /** Loading Overlay */
   if (displayLoading) {
