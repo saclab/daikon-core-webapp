@@ -92,7 +92,7 @@ const ScreenDash = () => {
               body={TargetNameBodyTemplate}
               filter
               filterMatchMode="contains"
-              filterPlaceholder="Search by A.Number"
+              filterPlaceholder="Search by Target Name"
               className="narrow-column"
             />
 
