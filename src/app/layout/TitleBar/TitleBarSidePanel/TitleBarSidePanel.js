@@ -33,7 +33,7 @@ const TitleBarSidePanel = ({ toggle, user }) => {
   return (
     <div className="p-d-flex p-flex-column">
       <div>
-        <h2>Target & Project Tracket</h2>
+        <h2>Target & Project Tracker</h2>
       </div>
       <div>
       <span className="p-input-icon-left">
