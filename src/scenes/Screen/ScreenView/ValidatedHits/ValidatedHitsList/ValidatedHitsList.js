@@ -5,19 +5,23 @@ import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { Column } from "primereact/column";
 import { Dialog } from "primereact/dialog";
+import { TieredMenu } from "primereact/tieredmenu";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
 import Vote from "../../../../../app/common/Vote/Vote";
 import SmilesView from "../../../../../app/common/SmilesView/SmilesView";
 import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter";
 import ValidatedHitsPromoteToFHAEntry from "./ValidatedHitsPromoteToFHAEntry/ValidatedHitsPromoteToFHAEntry";
+import { toast } from "react-toastify";
 
 const ValidatedHitsList = ({ screenId }) => {
   const dt = useRef(null);
+  const tableMenu = useRef(null);
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const { loadingFetchScreen, fetchScreen, selectedScreen } =
     rootStore.screenStore;
+  const { user } = rootStore.userStore;
 
   const [displayHitsImportSidebar, setDisplayHitsImportSidebar] =
     useState(false);
@@ -26,6 +30,8 @@ const ValidatedHitsList = ({ screenId }) => {
   const [selectedCompounds, setSelectedCompounds] = useState(null);
   const [displayPromoteToFHAEntry, setDisplayPromoteToFHAEntry] =
     useState(false);
+
+  let tableMenuItems = [];
 
   console.log("==== VALIDATED HIT LIST");
   useEffect(() => {
@@ -39,6 +45,20 @@ const ValidatedHitsList = ({ screenId }) => {
   if (!loadingFetchScreen && selectedScreen) {
     console.log(selectedScreen);
   }
+
+  /* Local functions */
+
+  let validatePromoteToFHA = () => {
+    if (selectedCompounds === null) {
+      toast.warning(
+        "No compounds selected. Please select some compouns to promote them."
+      );
+      return;
+    }
+    setDisplayPromoteToFHAEntry(true);
+  };
+
+  /* End Local functions */
 
   /* Table Body Templates */
 
@@ -87,60 +107,118 @@ const ValidatedHitsList = ({ screenId }) => {
       </React.Fragment>
     );
   };
-
   const tableHeader = (
-    <div className="p-d-flex p-ai-center">
-      {selectedScreen.validatedHits.length === 0 && (
-        <Button
-          type="button"
-          icon="icon icon-common icon-plus-circle"
-          label="Import"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
-          onClick={() => setDisplayHitsImportSidebar(true)}
+    <div className="p-d-flex p-jc-end">
+      <div>
+        {displayEnableSelection && (
+          <Button
+            type="button"
+            icon="pi pi-times-circle"
+            label="Cancel Selection"
+            className="p-button-text"
+            style={{ height: "30px", marginRight: "5px" }}
+            onClick={() => setDisplayEnableSelection(false)}
+          />
+        )}
+      </div>
+      <div>
+        <TieredMenu
+          model={tableMenuItems}
+          popup
+          ref={tableMenu}
+          id="overlay_tmenu"
         />
-      )}
-      {selectedScreen.validatedHits.length !== 0 && (
         <Button
-          type="button"
-          icon="icon icon-fileformats icon-CSV"
-          label="Export"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
+          icon="pi pi-bars"
+          onClick={(event) => {
+            tableMenu.current.toggle(event);
+          }}
+          aria-haspopup
+          className="p-button-info ml-auto"
+          aria-controls="overlay_tmenu"
         />
-      )}
-      {selectedScreen.validatedHits.length !== 0 && !displayEnableSelection && (
-        <Button
-          type="button"
-          icon="pi pi-check-square"
-          label="Enable selection"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
-          onClick={() => setDisplayEnableSelection(true)}
-        />
-      )}
-      {displayEnableSelection && (
-        <Button
-          type="button"
-          icon="pi pi-arrow-right"
-          label="Promote selections to FHA"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
-          onClick={() => setDisplayPromoteToFHAEntry(true)}
-        />
-      )}
-      {displayEnableSelection && (
-        <Button
-          type="button"
-          icon="pi pi-times-circle"
-          label="Cancel"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
-          onClick={() => setDisplayEnableSelection(false)}
-        />
-      )}
+      </div>
     </div>
   );
+  /* End Table Body Templates */
+
+  /* Construct table menu items */
+  if (!loadingFetchScreen && selectedScreen) {
+    if (selectedScreen.validatedHits.length === 0) {
+      let itm = {
+        label: "Hits Management",
+        items: [
+          {
+            label: "Import Hits",
+            icon: "icon icon-common icon-plus-circle",
+            command: () => setDisplayHitsImportSidebar(true),
+          },
+        ],
+      };
+      tableMenuItems.push(itm);
+    }
+
+    if (selectedScreen.validatedHits.length !== 0) {
+      let itm = {
+        label: "Hits Management",
+        items: [
+          // {
+          //   label: "Import Hits",
+          //   icon: "icon icon-common icon-plus-circle",
+          // },
+          {
+            label: "Export Hits",
+            icon: "icon icon-fileformats icon-CSV",
+          },
+        ],
+      };
+      tableMenuItems.push(itm);
+    }
+
+    // Admin section
+    if (user.roles.includes("admin")) {
+      if (selectedScreen.validatedHits.length !== 0) {
+        let selectItem = {
+          label: "Enable Selection",
+          icon: "pi pi-check-square",
+          command: () => {
+            setDisplayEnableSelection(true);
+            tableMenu.current.toggle();
+          },
+        };
+        tableMenuItems.push(selectItem);
+
+        let votingItem = {
+          label: "Voting",
+          items: [
+            {
+              label: "Enable Voting",
+              icon: "pi pi-fw pi-file",
+            },
+            {
+              label: "Freeze Voting",
+              icon: "pi pi-fw pi-file",
+            },
+          ],
+        };
+        tableMenuItems.push(votingItem);
+
+        let promotionItem = {
+          label: "Promotion",
+          items: [
+            {
+              label: "Promote To FHA",
+              icon: "pi pi-arrow-right",
+              command: () => validatePromoteToFHA(),
+            },
+          ],
+        };
+
+        tableMenuItems.push(promotionItem);
+      }
+    }
+  }
+  /* END Construct table menu items */
 
   return (
     <div>
