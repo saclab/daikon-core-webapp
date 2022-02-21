@@ -122,7 +122,7 @@ const ValidatedHitsList = ({ screenId }) => {
   const VoteBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <Vote id={rowData.id} voteData={rowData.Vote} />
+        <Vote id={rowData.id} voteData={rowData.vote} />
       </React.Fragment>
     );
   };
@@ -269,7 +269,7 @@ const ValidatedHitsList = ({ screenId }) => {
                 headerStyle={{ width: "3em" }}
               ></Column>
             )}
-            <Column
+            {/* <Column
               field="Source"
               header="Source"
               body={SourceBodyTemplate}
@@ -280,7 +280,7 @@ const ValidatedHitsList = ({ screenId }) => {
               header="Library"
               body={LibraryBodyTemplate}
               style={{ width: "12%" }}
-            />
+            /> */}
             <Column
               field="CompoundId"
               header="Compound Id"
