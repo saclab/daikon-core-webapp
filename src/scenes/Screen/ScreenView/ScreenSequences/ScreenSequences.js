@@ -40,7 +40,7 @@ const ScreenSequences = ({ TargetName }) => {
     filteredScreens.forEach((screen) => {
       console.log(screen);
       tabs.push(
-        <TabPanel header={screen.screenName} key={screen.id}>
+        <TabPanel header={screen.screenName + " (" + screen.method + ")"} key={screen.id}>
           <ScreenSequence screenId={screen.id} />
         </TabPanel>
       );
@@ -52,6 +52,7 @@ const ScreenSequences = ({ TargetName }) => {
       <TabView
         activeIndex={screenSequenceIndex}
         onTabChange={(e) => setScreenSequenceIndex(e.index)}
+        scrollable
       >
         {tabs}
       </TabView>

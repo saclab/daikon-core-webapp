@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
+import _ from "lodash";
 import { observer } from "mobx-react-lite";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
@@ -58,6 +59,24 @@ const ValidatedHitsList = ({ screenId }) => {
     setDisplayPromoteToFHAEntry(true);
   };
 
+  let validateEnableVoting = () => {
+    if (selectedCompounds === null) {
+      toast.warning(
+        "No compounds selected. Please select some or all compouns to enable voting."
+      );
+      return;
+    }
+  };
+
+  let validateFreezeVoting = () => {
+    if (selectedCompounds === null) {
+      toast.warning(
+        "No compounds selected. Please select some or all compouns to freeze voting."
+      );
+      return;
+    }
+  };
+
   /* End Local functions */
 
   /* Table Body Templates */
@@ -85,7 +104,7 @@ const ValidatedHitsList = ({ screenId }) => {
   };
 
   const EnzymeActivityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.iC50}</React.Fragment>;
+    return <React.Fragment>{_.round(rowData.iC50, 2)}</React.Fragment>;
   };
 
   const MethodBodyTemplate = (rowData) => {
@@ -93,7 +112,7 @@ const ValidatedHitsList = ({ screenId }) => {
   };
 
   const MICBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.mic}</React.Fragment>;
+    return <React.Fragment>{_.round(rowData.mic, 2)}</React.Fragment>;
   };
 
   const ClusterBodyTemplate = (rowData) => {
@@ -193,11 +212,13 @@ const ValidatedHitsList = ({ screenId }) => {
           items: [
             {
               label: "Enable Voting",
-              icon: "pi pi-fw pi-file",
+              icon: "pi pi-check",
+              command: () => validateEnableVoting(),
             },
             {
               label: "Freeze Voting",
-              icon: "pi pi-fw pi-file",
+              icon: "pi pi-pause",
+              command: () => validateFreezeVoting(),
             },
           ],
         };

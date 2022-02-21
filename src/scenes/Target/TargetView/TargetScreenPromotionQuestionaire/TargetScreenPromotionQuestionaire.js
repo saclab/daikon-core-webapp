@@ -20,6 +20,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
   } = rootStore.targetStore;
 
   const { fetchOrgs, Orgs, LoadingOrgs } = rootStore.adminStore;
+  const { appVars } = rootStore.generalStore;
 
   const [showMessage, setShowMessage] = useState(false);
 
@@ -32,12 +33,17 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
       org: "",
       promotionDate: "",
       notes: "",
+      method: "",
     },
     validate: (data) => {
       let errors = {};
 
       if (!data.promotionDate) {
         errors.promotionDate = "Promotion date  is required.";
+      }
+
+      if (data.method === "") {
+        errors.method = "Method is required.";
       }
 
       return errors;
@@ -151,6 +157,31 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
                   })}
                 />
                 {getFormErrorMessage("org")}
+              </div>
+
+              <div className="p-field p-col-12 p-md-12">
+                <label
+                  htmlFor="method"
+                  className={classNames({
+                    "p-error": isFormFieldValid("method"),
+                  })}
+                >
+                  Method
+                </label>
+                <Dropdown
+                  id="method"
+                  answer="method"
+                  options={appVars?.screeningMethods}
+                  value={formik.values.method}
+                  placeholder="Select a method"
+                  onChange={formik.handleChange}
+                  autoFocus
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("method"),
+                  })}
+                />
+
+                {getFormErrorMessage("method")}
               </div>
 
               <div className="p-field p-col-12 p-md-12">

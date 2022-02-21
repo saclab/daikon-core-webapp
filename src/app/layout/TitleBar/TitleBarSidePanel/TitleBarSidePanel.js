@@ -18,7 +18,7 @@ const TitleBarSidePanel = ({ toggle, user }) => {
         <Button
           type="button"
           label="Admin Panel"
-          icon="pi arrow-right"
+          icon="icon icon-common icon-asterisk"
           className="p-mr-2 p-mb-2 p-button-text p-button-plain p-button-sm"
           onClick={() => {
             toggle();
