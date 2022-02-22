@@ -274,32 +274,32 @@ const ValidatedHitsList = ({ screenId }) => {
               header="Source"
               body={SourceBodyTemplate}
               style={{ width: "12%" }}
-            />
+            /> */}
             <Column
               field="Library"
               header="Library"
               body={LibraryBodyTemplate}
               style={{ width: "12%" }}
-            /> */}
+            />
             <Column
               field="CompoundId"
               header="Compound Id"
               body={CompoundIdBodyTemplate}
-              style={{ width: "12%" }}
+              style={{ width: "100px" }}
             />
 
             <Column
               field="EnzymeActivity"
               header="Enzyme Activity (IC50)"
               body={EnzymeActivityBodyTemplate}
-              style={{ width: "7%" }}
+              style={{ width: "100px" }}
             />
-            <Column
+            {/* <Column
               field="Method"
               header="Method"
               body={MethodBodyTemplate}
-              style={{ width: "100px" }}
-            />
+              style={{ width: "120px" }}
+            /> */}
             <Column
               field="MIC"
               header="MIC"
@@ -310,7 +310,7 @@ const ValidatedHitsList = ({ screenId }) => {
               field="clusterGroup"
               header="Cluster Group No"
               body={ClusterBodyTemplate}
-              style={{ width: "130px" }}
+              style={{ width: "90px" }}
               sortable
             />
             <Column

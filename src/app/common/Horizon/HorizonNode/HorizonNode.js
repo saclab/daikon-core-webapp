@@ -190,8 +190,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 <b>Screen</b> <br />
                 {dataObj.dataObj.attributes.screenName}
                 <br />
-                {/* Screen Method */}
-                {/* {dataObj.dataObj.attributes.Method} */}
+                <i>{dataObj.dataObj.attributes.screenMethod}</i>
               </p>
             </div>
           </foreignObject>
