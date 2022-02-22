@@ -15,7 +15,8 @@ import HitsStore from "./hitsStore";
 import DiscussionStore from "./discussionStore";
 import GeneralStore from "./generalStore";
 import FHAStore from "./fhaStore";
-import ProjectStore from './projectStore';
+import ProjectStore from "./projectStore";
+import VotingStore from "./VotingStore";
 
 configure({ enforceActions: "always" });
 
@@ -36,6 +37,7 @@ export class RootStore {
   generalStore;
   fhaStore;
   projectStore;
+  votingStore;
 
   constructor() {
     this.appSettingsStore = new AppSettingsStore(this);
@@ -54,6 +56,7 @@ export class RootStore {
     this.generalStore = new GeneralStore(this);
     this.fhaStore = new FHAStore(this);
     this.projectStore = new ProjectStore(this);
+    this.votingStore = new VotingStore(this);
   }
 }
 export const RootStoreContext = createContext(new RootStore());

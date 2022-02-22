@@ -122,7 +122,7 @@ const ValidatedHitsList = ({ screenId }) => {
   const VoteBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <Vote id={rowData.id} voteData={rowData.vote} />
+        <Vote id={rowData.vote.id} voteData={rowData.vote} callBack={() => fetchScreen(screenId, true)}/>
       </React.Fragment>
     );
   };
