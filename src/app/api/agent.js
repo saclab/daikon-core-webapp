@@ -292,7 +292,8 @@ const Discussion = {
 
 const Horizon = {
   generate: (targetName) => requests.get(`/Horizon/${targetName}`),
-  generateByAccession: (accessionNo) => requests.get(`/Horizon/by-accession/${accessionNo}`),
+  generateByAccession: (accessionNo) =>
+    requests.get(`/Horizon/by-accession/${accessionNo}`),
 };
 
 const General = {
@@ -318,6 +319,10 @@ const Projects = {
     ),
 };
 
+const Vote = {
+  castVote: (vote) => requests.post(`/vote/${vote.voteId}/`, vote),
+};
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -334,6 +339,7 @@ const exports = {
   Horizon,
   General,
   Projects,
+  Vote,
 };
 
 export default exports;

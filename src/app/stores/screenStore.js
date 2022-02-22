@@ -116,13 +116,13 @@ export default class ScreenStore {
 
   /* Fetch specific Screen with id from API */
 
-  fetchScreen = async (id) => {
+  fetchScreen = async (id, invalidateCache=false) => {
     console.log("screenStore: fetchScreen Start");
     this.loadingFetchScreen = true;
 
     // first check cache
     let fetchedScreen = this.screenRegistryExpanded.get(id);
-    if (fetchedScreen) {
+    if (!invalidateCache && fetchedScreen) {
       console.log("screenStore: fetchScreen found in cache");
       this.selectedScreen = fetchedScreen;
       this.loadingFetchScreen = false;
