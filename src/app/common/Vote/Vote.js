@@ -81,7 +81,7 @@ const Vote = ({ id, voteData, callBack }) => {
       if (voteData.hasUserVoted) {
         return generateUserVotedPanel();
       } else {
-        return votingButtonPanel;
+        if (voteData.isVotingAllowed) return votingButtonPanel;
       }
     };
 

@@ -321,6 +321,8 @@ const Projects = {
 
 const Vote = {
   castVote: (vote) => requests.post(`/vote/${vote.voteId}/`, vote),
+  enableVoting: (voteIds) => requests.post(`/admin/vote/enable/`, voteIds),
+  freezeVoting: (voteIds) => requests.post(`/admin/vote/freeze/`, voteIds),
 };
 
 const exports = {

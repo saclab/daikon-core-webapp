@@ -23,6 +23,8 @@ const ValidatedHitsList = ({ screenId }) => {
   const { loadingFetchScreen, fetchScreen, selectedScreen } =
     rootStore.screenStore;
   const { user } = rootStore.userStore;
+  const { enableVoting, enablingVoting, freezeVoting, freezingVoting } =
+    rootStore.votingStore;
 
   const [displayHitsImportSidebar, setDisplayHitsImportSidebar] =
     useState(false);
@@ -59,22 +61,34 @@ const ValidatedHitsList = ({ screenId }) => {
     setDisplayPromoteToFHAEntry(true);
   };
 
-  let validateEnableVoting = () => {
+  let enableVotingCalled = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No compounds selected. Please select some or all compouns to enable voting."
+        "No rows selected. Please select some or all compouns to enable voting."
       );
       return;
     }
+    // create guids
+    var voteIds = selectedCompounds.map(
+      (selectedCompound) => selectedCompound.voteId
+    );
+
+    enableVoting(voteIds).then(() => setDisplayEnableSelection(false));
   };
 
   let validateFreezeVoting = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No compounds selected. Please select some or all compouns to freeze voting."
+        "No rows selected. Please select some or all compouns to enable voting."
       );
       return;
     }
+    // create guids
+    var voteIds = selectedCompounds.map(
+      (selectedCompound) => selectedCompound.voteId
+    );
+
+    freezeVoting(voteIds).then(() => setDisplayEnableSelection(false));
   };
 
   /* End Local functions */
@@ -122,7 +136,11 @@ const ValidatedHitsList = ({ screenId }) => {
   const VoteBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <Vote id={rowData.vote.id} voteData={rowData.vote} callBack={() => fetchScreen(screenId, true)}/>
+        <Vote
+          id={rowData.vote.id}
+          voteData={rowData.vote}
+          callBack={() => fetchScreen(screenId, true)}
+        />
       </React.Fragment>
     );
   };
@@ -213,7 +231,7 @@ const ValidatedHitsList = ({ screenId }) => {
             {
               label: "Enable Voting",
               icon: "pi pi-check",
-              command: () => validateEnableVoting(),
+              command: () => enableVotingCalled(),
             },
             {
               label: "Freeze Voting",
