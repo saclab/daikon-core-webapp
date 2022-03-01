@@ -56,7 +56,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             <div>
               <p>
                 <b>Protein</b>
-                
+
                 <br />
                 {dataObj.dataObj.attributes.targetName}
               </p>
@@ -189,6 +189,8 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               <p>
                 <b>Screen</b> <br />
                 {dataObj.dataObj.attributes.screenName}
+                <br />
+                <i>{dataObj.dataObj.attributes.screenMethod}</i>
               </p>
             </div>
           </foreignObject>

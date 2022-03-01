@@ -1,23 +1,30 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
+import _ from "lodash";
 import { observer } from "mobx-react-lite";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { Column } from "primereact/column";
 import { Dialog } from "primereact/dialog";
+import { TieredMenu } from "primereact/tieredmenu";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
 import Vote from "../../../../../app/common/Vote/Vote";
 import SmilesView from "../../../../../app/common/SmilesView/SmilesView";
 import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter";
 import ValidatedHitsPromoteToFHAEntry from "./ValidatedHitsPromoteToFHAEntry/ValidatedHitsPromoteToFHAEntry";
+import { toast } from "react-toastify";
 
 const ValidatedHitsList = ({ screenId }) => {
   const dt = useRef(null);
+  const tableMenu = useRef(null);
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const { loadingFetchScreen, fetchScreen, selectedScreen } =
     rootStore.screenStore;
+  const { user } = rootStore.userStore;
+  const { enableVoting, enablingVoting, freezeVoting, freezingVoting } =
+    rootStore.votingStore;
 
   const [displayHitsImportSidebar, setDisplayHitsImportSidebar] =
     useState(false);
@@ -26,6 +33,8 @@ const ValidatedHitsList = ({ screenId }) => {
   const [selectedCompounds, setSelectedCompounds] = useState(null);
   const [displayPromoteToFHAEntry, setDisplayPromoteToFHAEntry] =
     useState(false);
+
+  let tableMenuItems = [];
 
   console.log("==== VALIDATED HIT LIST");
   useEffect(() => {
@@ -39,6 +48,50 @@ const ValidatedHitsList = ({ screenId }) => {
   if (!loadingFetchScreen && selectedScreen) {
     console.log(selectedScreen);
   }
+
+  /* Local functions */
+
+  let validatePromoteToFHA = () => {
+    if (selectedCompounds === null) {
+      toast.warning(
+        "No compounds selected. Please select some compouns to promote them."
+      );
+      return;
+    }
+    setDisplayPromoteToFHAEntry(true);
+  };
+
+  let enableVotingCalled = () => {
+    if (selectedCompounds === null) {
+      toast.warning(
+        "No rows selected. Please select some or all compouns to enable voting."
+      );
+      return;
+    }
+    // create guids
+    var voteIds = selectedCompounds.map(
+      (selectedCompound) => selectedCompound.voteId
+    );
+
+    enableVoting(voteIds).then(() => setDisplayEnableSelection(false));
+  };
+
+  let validateFreezeVoting = () => {
+    if (selectedCompounds === null) {
+      toast.warning(
+        "No rows selected. Please select some or all compouns to enable voting."
+      );
+      return;
+    }
+    // create guids
+    var voteIds = selectedCompounds.map(
+      (selectedCompound) => selectedCompound.voteId
+    );
+
+    freezeVoting(voteIds).then(() => setDisplayEnableSelection(false));
+  };
+
+  /* End Local functions */
 
   /* Table Body Templates */
 
@@ -65,7 +118,7 @@ const ValidatedHitsList = ({ screenId }) => {
   };
 
   const EnzymeActivityBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.iC50}</React.Fragment>;
+    return <React.Fragment>{_.round(rowData.iC50, 2)}</React.Fragment>;
   };
 
   const MethodBodyTemplate = (rowData) => {
@@ -73,7 +126,7 @@ const ValidatedHitsList = ({ screenId }) => {
   };
 
   const MICBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.mic}</React.Fragment>;
+    return <React.Fragment>{_.round(rowData.mic, 2)}</React.Fragment>;
   };
 
   const ClusterBodyTemplate = (rowData) => {
@@ -83,64 +136,128 @@ const ValidatedHitsList = ({ screenId }) => {
   const VoteBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <Vote id={rowData.id} voteData={rowData.Vote} />
+        <Vote
+          id={rowData.vote.id}
+          voteData={rowData.vote}
+          callBack={() => fetchScreen(screenId, true)}
+        />
       </React.Fragment>
     );
   };
-
   const tableHeader = (
-    <div className="p-d-flex p-ai-center">
-      {selectedScreen.validatedHits.length === 0 && (
-        <Button
-          type="button"
-          icon="icon icon-common icon-plus-circle"
-          label="Import"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
-          onClick={() => setDisplayHitsImportSidebar(true)}
+    <div className="p-d-flex p-jc-end">
+      <div>
+        {displayEnableSelection && (
+          <Button
+            type="button"
+            icon="pi pi-times-circle"
+            label="Cancel Selection"
+            className="p-button-text"
+            style={{ height: "30px", marginRight: "5px" }}
+            onClick={() => setDisplayEnableSelection(false)}
+          />
+        )}
+      </div>
+      <div>
+        <TieredMenu
+          model={tableMenuItems}
+          popup
+          ref={tableMenu}
+          id="overlay_tmenu"
         />
-      )}
-      {selectedScreen.validatedHits.length !== 0 && (
         <Button
-          type="button"
-          icon="icon icon-fileformats icon-CSV"
-          label="Export"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
+          icon="pi pi-bars"
+          onClick={(event) => {
+            tableMenu.current.toggle(event);
+          }}
+          aria-haspopup
+          className="p-button-info ml-auto"
+          aria-controls="overlay_tmenu"
         />
-      )}
-      {selectedScreen.validatedHits.length !== 0 && !displayEnableSelection && (
-        <Button
-          type="button"
-          icon="pi pi-check-square"
-          label="Enable selection"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
-          onClick={() => setDisplayEnableSelection(true)}
-        />
-      )}
-      {displayEnableSelection && (
-        <Button
-          type="button"
-          icon="pi pi-arrow-right"
-          label="Promote selections to FHA"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
-          onClick={() => setDisplayPromoteToFHAEntry(true)}
-        />
-      )}
-      {displayEnableSelection && (
-        <Button
-          type="button"
-          icon="pi pi-times-circle"
-          label="Cancel"
-          className="p-button-text"
-          style={{ height: "30px", marginRight: "5px" }}
-          onClick={() => setDisplayEnableSelection(false)}
-        />
-      )}
+      </div>
     </div>
   );
+  /* End Table Body Templates */
+
+  /* Construct table menu items */
+  if (!loadingFetchScreen && selectedScreen) {
+    if (selectedScreen.validatedHits.length === 0) {
+      let itm = {
+        label: "Hits Management",
+        items: [
+          {
+            label: "Import Hits",
+            icon: "icon icon-common icon-plus-circle",
+            command: () => setDisplayHitsImportSidebar(true),
+          },
+        ],
+      };
+      tableMenuItems.push(itm);
+    }
+
+    if (selectedScreen.validatedHits.length !== 0) {
+      let itm = {
+        label: "Hits Management",
+        items: [
+          // {
+          //   label: "Import Hits",
+          //   icon: "icon icon-common icon-plus-circle",
+          // },
+          {
+            label: "Export Hits",
+            icon: "icon icon-fileformats icon-CSV",
+          },
+        ],
+      };
+      tableMenuItems.push(itm);
+    }
+
+    // Admin section
+    if (user.roles.includes("admin")) {
+      if (selectedScreen.validatedHits.length !== 0) {
+        let selectItem = {
+          label: "Enable Selection",
+          icon: "pi pi-check-square",
+          command: () => {
+            setDisplayEnableSelection(true);
+            tableMenu.current.toggle();
+          },
+        };
+        tableMenuItems.push(selectItem);
+
+        let votingItem = {
+          label: "Voting",
+          items: [
+            {
+              label: "Enable Voting",
+              icon: "pi pi-check",
+              command: () => enableVotingCalled(),
+            },
+            {
+              label: "Freeze Voting",
+              icon: "pi pi-pause",
+              command: () => validateFreezeVoting(),
+            },
+          ],
+        };
+        tableMenuItems.push(votingItem);
+
+        let promotionItem = {
+          label: "Promotion",
+          items: [
+            {
+              label: "Promote To FHA",
+              icon: "pi pi-arrow-right",
+              command: () => validatePromoteToFHA(),
+            },
+          ],
+        };
+
+        tableMenuItems.push(promotionItem);
+      }
+    }
+  }
+  /* END Construct table menu items */
 
   return (
     <div>
@@ -170,12 +287,12 @@ const ValidatedHitsList = ({ screenId }) => {
                 headerStyle={{ width: "3em" }}
               ></Column>
             )}
-            <Column
+            {/* <Column
               field="Source"
               header="Source"
               body={SourceBodyTemplate}
               style={{ width: "12%" }}
-            />
+            /> */}
             <Column
               field="Library"
               header="Library"
@@ -186,21 +303,21 @@ const ValidatedHitsList = ({ screenId }) => {
               field="CompoundId"
               header="Compound Id"
               body={CompoundIdBodyTemplate}
-              style={{ width: "12%" }}
+              style={{ width: "100px" }}
             />
 
             <Column
               field="EnzymeActivity"
               header="Enzyme Activity (IC50)"
               body={EnzymeActivityBodyTemplate}
-              style={{ width: "7%" }}
+              style={{ width: "100px" }}
             />
-            <Column
+            {/* <Column
               field="Method"
               header="Method"
               body={MethodBodyTemplate}
-              style={{ width: "100px" }}
-            />
+              style={{ width: "120px" }}
+            /> */}
             <Column
               field="MIC"
               header="MIC"
@@ -211,7 +328,7 @@ const ValidatedHitsList = ({ screenId }) => {
               field="clusterGroup"
               header="Cluster Group No"
               body={ClusterBodyTemplate}
-              style={{ width: "130px" }}
+              style={{ width: "90px" }}
               sortable
             />
             <Column

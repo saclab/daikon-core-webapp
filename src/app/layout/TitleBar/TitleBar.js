@@ -56,12 +56,12 @@ const TitleBar = () => {
           onClick={() => window.location.reload()}
         />
 
-        <Button
+        {/* <Button
           type="Button"
           icon="pi pi-sliders-v"
           label="View"
           className={["p-mr-2", cssClass.BlackButton].join(" ")}
-        />
+        /> */}
 
         <Dropdown
           value={"Mycobacterium tuberculosis H37Rv"}
