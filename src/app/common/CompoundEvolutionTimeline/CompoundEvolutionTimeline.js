@@ -13,9 +13,9 @@ import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
 import CompoundEvolutionAddNew from "./CompoundEvolutionAddNew/CompoundEvolutionAddNew";
 import { RootStoreContext } from "../../stores/rootStore";
-import PleaseWait from '../PleaseWait/PleaseWait';
+import PleaseWait from "../PleaseWait/PleaseWait";
 import FailedLoading from "../FailedLoading/FailedLoading";
-const CompoundEvolutionTimeline = ({ project }) => {
+const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
   const [displayAddStructureForm, setdisplayAddStructureForm] = useState(false);
   const rootStore = useContext(RootStoreContext);
 
@@ -29,16 +29,23 @@ const CompoundEvolutionTimeline = ({ project }) => {
   useEffect(() => {
     fetchCompoundEvolution(project.id);
   }, [fetchCompoundEvolution, project]);
-  
 
   if (loadingProject || loadingCompoundEvolution) {
-    return (
-       <PleaseWait />
-      
-    );
+    return <PleaseWait />;
   }
 
   if (!loadingProject && !loadingCompoundEvolution) {
+    let evolutionData = selectedCompoundEvolution;
+    if (stageFilter && selectedCompoundEvolution) {
+      console.log("Stage Filter " + stageFilter);
+      console.log(selectedCompoundEvolution);
+      evolutionData = [
+        ...selectedCompoundEvolution.filter(
+          (e) => e.addedOnStage === stageFilter
+        ),
+      ];
+      console.log(evolutionData);
+    }
     const customizedContent = (item) => {
       return (
         <div className="p-d-flex">
@@ -86,11 +93,12 @@ const CompoundEvolutionTimeline = ({ project }) => {
             icon="pi pi-plus"
             className="p-button-outlined"
             onClick={() => setdisplayAddStructureForm(true)}
+            disabled={disableAdd}
           ></Button>
         </Divider>
 
         <Timeline
-          value={selectedCompoundEvolution}
+          value={evolutionData}
           className="customized-timeline"
           marker={customizedMarker}
           content={customizedContent}
@@ -121,7 +129,7 @@ const CompoundEvolutionTimeline = ({ project }) => {
     );
   }
 
-  return <FailedLoading />
+  return <FailedLoading />;
 };
 
 export default observer(CompoundEvolutionTimeline);
