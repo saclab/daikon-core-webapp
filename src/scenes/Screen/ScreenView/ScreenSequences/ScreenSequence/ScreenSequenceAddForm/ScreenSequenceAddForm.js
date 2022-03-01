@@ -16,8 +16,8 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
     initialValues: {
       library: "",
       startDate: "",
-      endDate: "",
-      method: "",
+      endDate: undefined,
+
       protocol: "",
       concentration: "",
       noOfCompoundsScreened: "",
@@ -33,14 +33,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
 
       if (!data.startDate) {
         errors.startDate = "Start Date is required.";
-      }
-
-      if (!data.endDate) {
-        errors.endDate = "End Date is required.";
-      }
-
-      if (!data.method) {
-        errors.method = "Method is required.";
       }
 
       if (!data.protocol) {
@@ -165,31 +157,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             />
 
             {getFormErrorMessage("endDate")}
-          </div>
-
-          <div className="p-field p-col-12 p-md-12">
-            <label
-              htmlFor="method"
-              className={classNames({
-                "p-error": isFormFieldValid("method"),
-              })}
-            >
-              Method
-            </label>
-            <Dropdown
-              id="method"
-              answer="method"
-              options={appVars?.screeningMethods}
-              value={formik.values.method}
-              placeholder="Select a method"
-              onChange={formik.handleChange}
-              autoFocus
-              className={classNames({
-                "p-invalid": isFormFieldValid("method"),
-              })}
-            />
-
-            {getFormErrorMessage("method")}
           </div>
 
           <div className="p-field p-col-12 p-md-12">

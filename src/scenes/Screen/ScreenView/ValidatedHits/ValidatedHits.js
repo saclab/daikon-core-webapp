@@ -23,7 +23,7 @@ const ValidatedHits = ({ TargetName }) => {
     filteredScreensByTarget.forEach((screen) => {
       console.log(screen);
       tabs.push(
-        <TabPanel header={screen.screenName} key={screen.id}>
+        <TabPanel header={screen.screenName + " (" + screen.method + ")"} key={screen.id}>
           <ValidatedHitsList screenId={screen.id} />
         </TabPanel>
       );
@@ -35,6 +35,7 @@ const ValidatedHits = ({ TargetName }) => {
       <TabView
         activeIndex={validatedHitsIndex}
         onTabChange={(e) => setValidatedHitsIndex(e.index)}
+        scrollable
       >
         {tabs}
       </TabView>

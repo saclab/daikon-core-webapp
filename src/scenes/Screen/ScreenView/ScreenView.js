@@ -29,7 +29,7 @@ const ScreenView = ({ match, history }) => {
       label: "Sections",
       items: [
         {
-          label: "Ongoing",
+          label: "Screens",
           icon: "icon icon-common icon-circle-notch",
           command: () => {
             setActiveIndex(0);
@@ -80,10 +80,10 @@ const ScreenView = ({ match, history }) => {
                   activeIndex={activeIndex}
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
-                  <TabPanel header="Ongoing" headerClassName="hide">
+                  <TabPanel header="Screens" headerClassName="hide">
                     <SectionHeading
                       icon="icon icon-common icon-circle-notch"
-                      heading={" Ongoing"}
+                      heading={" Screens"}
                       color={"#f4f4f4"}
                       textColor={"#000000"}
                     />

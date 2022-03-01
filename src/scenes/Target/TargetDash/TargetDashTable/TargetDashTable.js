@@ -36,7 +36,7 @@ const TargetDashTable = ({ targets }) => {
       return (
         <React.Fragment>
           <span className="p-column-title">Gene Name</span>
-          {rowData.targetGenesAccesionNumbers.join(', ')}
+          {rowData.targetGenesAccesionNumbers.join(", ")}
         </React.Fragment>
       );
     }
@@ -111,11 +111,12 @@ const TargetDashTable = ({ targets }) => {
 
           <Column
             field="associatedGenes"
+            filterField="targetGenesAccesionNumbers"
             header="Associated Genes"
             body={AssociatedGenesBodyTemplate}
             filter
             filterMatchMode="contains"
-            filterPlaceholder="Search by Gene"
+            filterPlaceholder="Search by Accession No."
             className="narrow-column"
           />
 

@@ -5,6 +5,7 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { OverlayPanel } from "primereact/overlaypanel";
+import { Card } from 'primereact/card';
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
 import ScreenSequenceAddForm from "./ScreenSequenceAddForm/ScreenSequenceAddForm";
@@ -125,12 +126,13 @@ const ScreenSequence = ({ screenId }) => {
           />
         </Sidebar>
         <div className="card">
+
           <DataTable
             value={selectedScreen.screenSequences}
             header={tableHeader}
           >
             <Column field="library" header="Library"></Column>
-            <Column field="method" header="Method"></Column>
+
             <Column body={protocolBodyTemplate} header="Protocol"></Column>
             <Column
               field="concentration"
