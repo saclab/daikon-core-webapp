@@ -40,229 +40,229 @@ const GenomePromote = ({ match }) => {
 
   const [formSuccess, setFormSuccess] = useState(false);
 
-  // const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
-  //   "2a1": { answer: "", description: "" },
-  //   "2a1b": { answer: "", description: "" },
-  //   "2a2": { answer: "", description: "" },
-  //   "2a3a": { answer: "", description: "" },
-  //   "2a3b": { answer: "", description: "" },
-  //   "2a4a": { answer: "", description: "" },
-  //   "2a5": { answer: "", description: "" },
-  //   "2b1": { answer: "", description: "" },
-  //   "2b2": { answer: "", description: "" },
-  //   "2b4": { answer: "", description: "" },
-  //   "2c1": { answer: "", description: "" },
-  //   "2c2": { answer: "", description: "" },
-  //   "2c3": { answer: "", description: "" },
-  //   "2c4": { answer: "", description: "" },
-  //   "2c5": { answer: "", description: "" },
-  //   "3a1": { answer: "", description: "" },
-  //   "3a2": { answer: "", description: "" },
-  //   "3a3": { answer: "", description: "" },
-  //   "3a4": { answer: "", description: "" },
-  //   "3b1": { answer: "", description: "" },
-  //   "3b2": { answer: "", description: "" },
-  //   "4a1": { answer: "", description: "" },
-  //   "4a2a": { answer: "", description: "" },
-  //   "4a2b": { answer: "", description: "" },
-  //   "4a3a": { answer: "", description: "" },
-  //   "4a3b": { answer: "", description: "" },
-  //   "4a4": { answer: "", description: "" },
-  //   "4b1": { answer: "", description: "" },
-  //   "4b2": { answer: "", description: "" },
-  //   "4b3": { answer: "", description: "" },
-  //   "4c1": { answer: "", description: "" },
-  //   "4c2": { answer: "", description: "" },
-  //   "4c3": { answer: "", description: "" },
-  //   "4c4": { answer: "", description: "" },
-  //   "4c5": { answer: "", description: "" },
-  //   "5a1": { answer: "", description: "" },
-  //   "5a2": { answer: "", description: "" },
-  //   "5a3": { answer: "", description: "" },
-  //   "5b1": { answer: "", description: "" },
-  //   "6a1": { answer: "", description: "" },
-  //   "6a2": { answer: "", description: "" },
-  //   "6a3": { answer: "", description: "" },
-  //   "6a4": { answer: "", description: "" },
-  //   "6a5": { answer: "", description: "" },
-  //   "6a6": { answer: "", description: "" },
-  //   "6a7": { answer: "", description: "" },
-  //   "6b1": { answer: "", description: "" },
-  //   "6b2": { answer: "", description: "" },
-  //   "6b3": { answer: "", description: "" },
-  //   "6b4": { answer: "", description: "" },
-  //   "6b5": { answer: "", description: "" },
-  //   "6c1": { answer: "", description: "" },
-  //   "6c2": { answer: "", description: "" },
-  //   "6c3": { answer: "", description: "" },
-  //   "6c4": { answer: "", description: "" },
-  //   "6c5": { answer: "", description: "" },
-  //   "6c6": { answer: "", description: "" },
-  //   "6d1": { answer: "", description: "" },
-  //   "6d2": { answer: "", description: "" },
-  //   "6d3": { answer: "", description: "" },
-  //   "6d4": { answer: "", description: "" },
-  // });
+  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
+    "2a1": { answer: "", description: "" },
+    "2a1b": { answer: "", description: "" },
+    "2a2": { answer: "", description: "" },
+    "2a3a": { answer: "", description: "" },
+    "2a3b": { answer: "", description: "" },
+    "2a4a": { answer: "", description: "" },
+    "2a5": { answer: "", description: "" },
+    "2b1": { answer: "", description: "" },
+    "2b2": { answer: "", description: "" },
+    "2b4": { answer: "", description: "" },
+    "2c1": { answer: "", description: "" },
+    "2c2": { answer: "", description: "" },
+    "2c3": { answer: "", description: "" },
+    "2c4": { answer: "", description: "" },
+    "2c5": { answer: "", description: "" },
+    "3a1": { answer: "", description: "" },
+    "3a2": { answer: "", description: "" },
+    "3a3": { answer: "", description: "" },
+    "3a4": { answer: "", description: "" },
+    "3b1": { answer: "", description: "" },
+    "3b2": { answer: "", description: "" },
+    "4a1": { answer: "", description: "" },
+    "4a2a": { answer: "", description: "" },
+    "4a2b": { answer: "", description: "" },
+    "4a3a": { answer: "", description: "" },
+    "4a3b": { answer: "", description: "" },
+    "4a4": { answer: "", description: "" },
+    "4b1": { answer: "", description: "" },
+    "4b2": { answer: "", description: "" },
+    "4b3": { answer: "", description: "" },
+    "4c1": { answer: "", description: "" },
+    "4c2": { answer: "", description: "" },
+    "4c3": { answer: "", description: "" },
+    "4c4": { answer: "", description: "" },
+    "4c5": { answer: "", description: "" },
+    "5a1": { answer: "", description: "" },
+    "5a2": { answer: "", description: "" },
+    "5a3": { answer: "", description: "" },
+    "5b1": { answer: "", description: "" },
+    "6a1": { answer: "", description: "" },
+    "6a2": { answer: "", description: "" },
+    "6a3": { answer: "", description: "" },
+    "6a4": { answer: "", description: "" },
+    "6a5": { answer: "", description: "" },
+    "6a6": { answer: "", description: "" },
+    "6a7": { answer: "", description: "" },
+    "6b1": { answer: "", description: "" },
+    "6b2": { answer: "", description: "" },
+    "6b3": { answer: "", description: "" },
+    "6b4": { answer: "", description: "" },
+    "6b5": { answer: "", description: "" },
+    "6c1": { answer: "", description: "" },
+    "6c2": { answer: "", description: "" },
+    "6c3": { answer: "", description: "" },
+    "6c4": { answer: "", description: "" },
+    "6c5": { answer: "", description: "" },
+    "6c6": { answer: "", description: "" },
+    "6d1": { answer: "", description: "" },
+    "6d2": { answer: "", description: "" },
+    "6d3": { answer: "", description: "" },
+    "6d4": { answer: "", description: "" },
+  });
 
   //Test data:
-  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
-    "3a2": {
-      answer: "Yes",
-      description: "p",
-    },
-    "2b4": {
-      answer: "Active",
-      description: "p",
-    },
-    "3a1": {
-      answer: "Yes",
-      description: "p",
-    },
-    "2c5": {
-      answer: "Active",
-      description: "p",
-    },
-    "2c4": {
-      answer: "Active",
-      description: "p",
-    },
-    "2c3": {
-      answer: "Active",
-      description: "p",
-    },
-    "2c2": {
-      answer: "Active",
-      description: "p",
-    },
-    "2c1": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a4a": {
-      answer: "Active",
-      description: "p",
-    },
-    "2b1": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a5": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a3b": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a3a": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a2": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a1b": {
-      answer: "Yes",
-      description: "p",
-    },
-    "3a3": {
-      answer: "Yes",
-      description: "p",
-    },
-    "2b2": {
-      answer: "Active",
-      description: "p",
-    },
-    "3a4": {
-      answer: "Yes",
-      description: "p",
-    },
-    "4c1": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "3b2": {
-      answer: "Yes",
-      description: "p",
-    },
-    "5b1": {
-      answer: "Active",
-      description: "cdc",
-    },
-    "5a3": {
-      answer: "Yes",
-      description: "cdcd",
-    },
-    "5a2": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "5a1": {
-      answer: "Inactive",
-      description: "dc",
-    },
-    "4c5": {
-      answer: "Inactive",
-      description: "cdc",
-    },
-    "4c4": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "4c3": {
-      answer: "Inactive",
-      description: "cdcdc",
-    },
-    "4c2": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "4b3": {
-      answer: "Inactive",
-      description: "cdcd",
-    },
-    "4b2": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "4b1": {
-      answer: "Inactive",
-      description: "sxcc",
-    },
-    "4a4": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a3b": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a3a": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a2b": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a2a": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a1": {
-      answer: "Active",
-      description: "p",
-    },
-    "3b1": {
-      answer: "Yes",
-      description: "p",
-    },
-    "2a1": {
-      answer: "Yes",
-      description: "qwe",
-    },
-  });
+  // const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
+  //   "3a2": {
+  //     answer: "Yes",
+  //     description: "p",
+  //   },
+  //   "2b4": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "3a1": {
+  //     answer: "Yes",
+  //     description: "p",
+  //   },
+  //   "2c5": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2c4": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2c3": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2c2": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2c1": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2a4a": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2b1": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2a5": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2a3b": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2a3a": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2a2": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "2a1b": {
+  //     answer: "Yes",
+  //     description: "p",
+  //   },
+  //   "3a3": {
+  //     answer: "Yes",
+  //     description: "p",
+  //   },
+  //   "2b2": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "3a4": {
+  //     answer: "Yes",
+  //     description: "p",
+  //   },
+  //   "4c1": {
+  //     answer: "Active",
+  //     description: "cdcd",
+  //   },
+  //   "3b2": {
+  //     answer: "Yes",
+  //     description: "p",
+  //   },
+  //   "5b1": {
+  //     answer: "Active",
+  //     description: "cdc",
+  //   },
+  //   "5a3": {
+  //     answer: "Yes",
+  //     description: "cdcd",
+  //   },
+  //   "5a2": {
+  //     answer: "Active",
+  //     description: "cdcd",
+  //   },
+  //   "5a1": {
+  //     answer: "Inactive",
+  //     description: "dc",
+  //   },
+  //   "4c5": {
+  //     answer: "Inactive",
+  //     description: "cdc",
+  //   },
+  //   "4c4": {
+  //     answer: "Active",
+  //     description: "cdcd",
+  //   },
+  //   "4c3": {
+  //     answer: "Inactive",
+  //     description: "cdcdc",
+  //   },
+  //   "4c2": {
+  //     answer: "Active",
+  //     description: "cdcd",
+  //   },
+  //   "4b3": {
+  //     answer: "Inactive",
+  //     description: "cdcd",
+  //   },
+  //   "4b2": {
+  //     answer: "Active",
+  //     description: "cdcd",
+  //   },
+  //   "4b1": {
+  //     answer: "Inactive",
+  //     description: "sxcc",
+  //   },
+  //   "4a4": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "4a3b": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "4a3a": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "4a2b": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "4a2a": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "4a1": {
+  //     answer: "Active",
+  //     description: "p",
+  //   },
+  //   "3b1": {
+  //     answer: "Yes",
+  //     description: "p",
+  //   },
+  //   "2a1": {
+  //     answer: "Yes",
+  //     description: "qwe",
+  //   },
+  // });
 
   const updateTargetPromotionFormValue = (e) => {
     var location = null;
@@ -304,8 +304,6 @@ const GenomePromote = ({ match }) => {
       }
     });
 
-    //!TEMP
-    //validationFail = false;
 
     if (validationFail) {
       toast.current.show({

@@ -67,10 +67,10 @@ const TargetAdminImporter = () => {
     for (let i = 0; i < data.length; i++) {
       let row = data[i].data;
       console.log(row);
-      console.log("Fetching for " + row["AccessionNo"]);
+      console.log("Fetching for " + row["Protein"]);
 
-      setsSatusText("Preparing " + row["AccessionNo"]);
-      if (row["AccessionNo"] === "") {
+      setsSatusText("Preparing " + row["Protein"]);
+      if (row["Protein"] === "") {
         continue;
       }
 
@@ -86,7 +86,7 @@ const TargetAdminImporter = () => {
         continue;
       }
 
-      let geneID = gene.id;
+      let targetName = row["Protein"];
 
       let targetPromotionFormValue = {
         "2a1": { answer: row["2a1_r"], description: row["2a1_t"] },
@@ -161,8 +161,9 @@ const TargetAdminImporter = () => {
       };
 
       var dataObject = {
-        geneID: geneID,
-        geneName: row["GeneName"],
+        
+        targetName: row["Protein"],
+        simpleProteinAccessionNumber: row["AccessionNo"],
         status: "imported",
         bucket: row["Bucket"] !== "" ? row["Bucket"] : "NA",
         impactScore: row["ImpactScore"] !== "" ? row["ImpactScore"] : "0.00",
