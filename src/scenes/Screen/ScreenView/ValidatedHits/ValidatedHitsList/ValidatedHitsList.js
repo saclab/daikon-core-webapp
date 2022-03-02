@@ -104,7 +104,7 @@ const ValidatedHitsList = ({ screenId }) => {
   };
 
   const CompoundIdBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData?.compound?.saccId}</React.Fragment>;
+    return <React.Fragment>{rowData?.compound?.externalCompundIds}</React.Fragment>;
   };
 
   const StructureBodyTemplate = (rowData) => {
@@ -346,25 +346,19 @@ const ValidatedHitsList = ({ screenId }) => {
           </DataTable>
         </div>
       </div>
-      <Sidebar
+      <Dialog
         visible={displayHitsImportSidebar}
-        position="right"
-        // style={{ width: "50%", overflowX: "auto" }}
+        header="Import Validated Hits"
+        style={{ width: "90%" }}
         blockScroll={true}
         onHide={() => setDisplayHitsImportSidebar(false)}
         className="p-sidebar-lg"
       >
         <div className="card">
-          <h3>
-            <i className="icon icon-common icon-plus-circle" /> Import Validated
-            Hits
-          </h3>
-
-          <hr />
           <br />
           <ValidatedHitsImporter screenId={selectedScreen.id} />
         </div>
-      </Sidebar>
+      </Dialog>
       <Dialog
         header="Promote to FHA"
         visible={displayPromoteToFHAEntry}

@@ -82,7 +82,7 @@ const TargetAdminImporter = () => {
       console.log(gene);
 
       if (typeof gene === "undefined") {
-        failedForDTOs.push(i + ":" + row["AccessionNo"]);
+        failedForDTOs.push(row["AccessionNo"] + " in row " + i);
         continue;
       }
 
@@ -161,7 +161,6 @@ const TargetAdminImporter = () => {
       };
 
       var dataObject = {
-        
         targetName: row["Protein"],
         simpleProteinAccessionNumber: row["AccessionNo"],
         status: "imported",
@@ -211,6 +210,8 @@ const TargetAdminImporter = () => {
     setDataFormatingStatus(true);
     setsSatusText(consolidatedDTO.length + " targets found");
     console.log("---------------------------");
+    console.log("Failed DTOs");
+    console.log(failedForDTOs);
     console.log("DTO END");
 
     console.log(statusProps.importTargetLength);
@@ -245,9 +246,9 @@ const TargetAdminImporter = () => {
 
   let dataFormattingResults = (
     <Card title="Console" style={{ width: "70em" }}>
-      No of targets in CSV = {statusProps.csvLength} <br />
-      No of targets that matched a gene in db : =
-      {statusProps.importTargetLength} <br />
+      No of targets in CSV = {statusProps.csvLength - 1} <br />
+      No of targets that matched a gene in db = {statusProps.importTargetLength}
+      <br />
       <div style={{ width: "60rem", overflowWrap: "anywhere" }}>
         Match not found for : {statusProps.failedDTOs.join()}
       </div>

@@ -86,7 +86,7 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
           onSelectionChange={(e) => setSelectedPrimaryHit(e.value)}
           dataKey="id"
         >
-          <Column field="compound.saccId" header="Compound Id" />
+          <Column field="compound.externalCompundIds" header="Compound Id" />
           <Column field="clusterGroup" header="Cluster Group No" />
           <Column
             field="Structure"

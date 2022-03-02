@@ -717,15 +717,18 @@ export default class GeneStore {
     }
   };
 
-  editVulnerability = async (
-    editedVulnerability = this.selectedGene.geneVulnerability
-  ) => {
+  editVulnerability = async (editedVulnerability) => {
     console.log("geneStore: editVulnerabiliity Start");
     console.log(editedVulnerability);
 
     this.editingVulnerabiliity = true;
     // send to server
     try {
+      await agent.Gene.editVulnerability(
+        editedVulnerability.geneId,
+        editedVulnerability.id,
+        editedVulnerability
+      );
       runInAction(() => {
         this.reloadGene(editedVulnerability.geneId);
         toast.success("Ok, edited vulnerability data.");
@@ -745,9 +748,10 @@ export default class GeneStore {
     this.addingVulnerabiliity = true;
     // send to server
     try {
+      await agent.Gene.addVulnerability(this.selectedGene.id, newVulnerability);
       runInAction(() => {
         this.reloadGene(this.selectedGene.id);
-        toast.success("Ok, added new UnpublishedStructures");
+        toast.success("Ok, added new vulnerability");
       });
     } catch (error) {
       console.log(error);

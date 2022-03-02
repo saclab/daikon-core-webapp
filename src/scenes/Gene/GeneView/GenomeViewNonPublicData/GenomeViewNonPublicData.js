@@ -44,21 +44,24 @@ const GenomeViewNonPublicData = ({
     addCRISPRiStrain,
     editCRISPRiStrain,
     editVulnerability,
+    addVulnerability,
+    editingVulnerability,
+    addingVulnerability,
     addHypomorph,
     editHypomorph,
     addingHypomorph,
     editingHypomorph,
   } = rootStore.geneStore;
 
-  useEffect(() => {
-    axios.get("/data/genomes/nonPublicData/rv1297.json").then((resp) => {
-      setGenomeNonPublicData(resp.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("/data/genomes/nonPublicData/rv1297.json").then((resp) => {
+  //     setGenomeNonPublicData(resp.data);
+  //   });
+  // }, []);
 
-  if (genomeNonPublicData === null) {
-    return <ProgressSpinner />;
-  }
+  // if (genomeNonPublicData === null) {
+  //   return <ProgressSpinner />;
+  // }
 
   // axios.get("data/genomes.json").then((res) => res.data.data)
   return (
@@ -109,16 +112,8 @@ const GenomeViewNonPublicData = ({
               <Fieldset legend="Protein Activity Assay List">
                 <DisplayTable
                   heading={"Add Protein Activity Assay"}
-                  columns={[
-                    "activity",
-                    "type",
-                    "throughput",
-                  ]}
-                  mandatory={[
-                    "activity",
-                    "type",
-                    "throughput",
-                  ]}
+                  columns={["activity", "type", "throughput"]}
+                  mandatory={["activity", "type", "throughput"]}
                   data={gene.geneProteinActivityAssay}
                   add={addProteinActivityAssay}
                   edit={editProteinActivityAssay}
@@ -193,7 +188,7 @@ const GenomeViewNonPublicData = ({
           <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
               <Fieldset legend="Vulnerability">
-                <KeyValList
+                {/* <KeyValList
                   data={gene.geneVulnerability}
                   filter={[
                     "rank",
@@ -210,6 +205,26 @@ const GenomeViewNonPublicData = ({
                   fetchHistory={() => fetchGeneHistory()}
                   historyDisplayLoading={historyDisplayLoading}
                   history={geneHistory}
+                /> */}
+
+                <DisplayTable
+                  heading={"Add Vulnerability"}
+                  columns={[
+                    "rank",
+                    "uVi",
+                    "iVi",
+                    "viRatio",
+                    "vulnerabilityCondition",
+                    "operon",
+                    "confounded",
+                    "shell2015Operon",
+                  ]}
+                  mandatory={["rank"]}
+                  data={gene.geneVulnerability}
+                  add={addVulnerability}
+                  edit={editVulnerability}
+                  adding={addingVulnerability}
+                  editing={editingVulnerability}
                 />
               </Fieldset>
             </div>
@@ -219,12 +234,7 @@ const GenomeViewNonPublicData = ({
               <Fieldset legend="Unpublished Structural Information">
                 <DisplayTable
                   heading={"Add Unpublished Structural Information"}
-                  columns={[
-                    "organization",
-                    "method",
-                    "resolution",
-                    "ligands",
-                  ]}
+                  columns={["organization", "method", "resolution", "ligands"]}
                   mandatory={["ligands"]}
                   data={gene.geneUnpublishedStructures}
                   add={addUnpublishedStructures}
