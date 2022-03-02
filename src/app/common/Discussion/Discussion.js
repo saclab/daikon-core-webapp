@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Sidebar } from "primereact/sidebar";
-import dateFormat from "dateformat";
 import { Fieldset } from "primereact/fieldset";
 import { Button } from "primereact/button";
 import { observer } from "mobx-react-lite";
@@ -83,7 +82,7 @@ const Discussion = ({ reference, section }) => {
           style={{ width: "1rem", height: "1rem" }}
         />{" "}
         {discussion.postedBy} on{" "}
-        {dateFormat(discussion.timestamp, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+        {new Date(discussion.timestamp + 'Z').toLocaleString()}
       </div>
     );
   };

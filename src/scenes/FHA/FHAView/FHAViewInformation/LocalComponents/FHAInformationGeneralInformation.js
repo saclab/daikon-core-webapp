@@ -18,7 +18,7 @@ const FHAInformationGeneralInformation = ({ project }) => {
           <h2><i>Formal Hit Assessment</i></h2>
         </div>
         <div style={{ width: "30rem", lineHeight: "100%" }}>
-          <p>{project.h2LDescription}</p>
+          <p>{project.fhaDescription}</p>
         </div>
 
         <p>Expanded Id : {project.id}</p>
