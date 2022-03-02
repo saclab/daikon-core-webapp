@@ -15,7 +15,7 @@ const FHABaseHits = ({ project }) => {
         id: baseHit.baseHit.compound.id,
         molArea: baseHit.baseHit.compound.molArea,
         molWeight: baseHit.baseHit.compound.molWeight,
-        saccID: baseHit.baseHit.compound.saccId,
+        externalCompundIds: baseHit.baseHit.compound.externalCompundIds,
         smile: baseHit.baseHit.compound.smile,
         ic50: baseHit.baseHit.ic50,
         mic: baseHit.baseHit.mic,
@@ -44,7 +44,7 @@ const FHABaseHits = ({ project }) => {
         showGridlines
         dataKey="id"
       >
-        <Column field="saccID" header="Id" />
+        <Column field="externalCompundIds" header="Id" />
         <Column field="mic" header="MIC" />
         <Column field="ic50," header="IC50" />
         <Column

@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
+import _ from "lodash";
 import { CSVReader } from "react-papaparse";
 import { observer } from "mobx-react-lite";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { ProgressBar } from "primereact/progressbar";
+import { Tag } from "primereact/tag";
 
 import { RootStoreContext } from "../../../../../../app/stores/rootStore";
 
@@ -33,23 +35,30 @@ const ValidatedHitsImporter = ({ screenId }) => {
     console.log(data);
 
     console.log("---------------------------");
-
+    var index = 1;
     data.forEach((hit) => {
+      console.log(hit);
+
+      
+
       hits.push({
+        Index: index,
         ScreenId: screenId,
         Source: hit.data?.Source,
         Library: hit.data?.Library,
-        SaccId: hit.data?.SaccId,
-        IC50: hit.data?.IC50,
+        ExternalCompundIds: hit.data?.externalCompundIds,
+        IC50: _.toNumber(hit.data?.IC50) ? _.round(hit.data?.IC50, 2) : 0,
         Method: hit.data?.Method,
-        MIC: hit.data?.MIC,
+        MIC: _.toNumber(hit.data?.MIC) ? _.round(hit.data?.MIC, 2) : 0,
         ClusterGroup: hit.data?.ClusterGroup,
         Smile: hit.data?.Smile,
         MolWeight: hit.data?.MolWeight,
         MolArea: hit.data?.MolArea,
       });
+      index = index + 1;
     });
     console.log("Hits found : " + hits.length);
+
     setDisplayPreview(true);
     console.log(hits);
   };
@@ -70,11 +79,11 @@ const ValidatedHitsImporter = ({ screenId }) => {
     for (let i = 0; i < hits.length; i++) {
       let res = await newHit(hits[i]);
       if (res !== null) {
-        setImportingLogs("Imported " + hits[i].SaccId);
-        successList.push(hits[i].SaccId);
+        setImportingLogs("Imported " + hits[i].ExternalCompundIds);
+        successList.push(hits[i].ExternalCompundIds);
       } else {
-        setImportingLogs("Failed  " + hits[i].SaccId);
-        failedList.push(hits[i].SaccId);
+        setImportingLogs("Failed  " + hits[i].ExternalCompundIds);
+        failedList.push(hits[i].ExternalCompundIds);
       }
     }
     setdisplaySummary(true);
@@ -84,7 +93,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
 
   let csvImporter = (
     <React.Fragment>
-      <h2>Step 1 CSV Import</h2>
+      <h2>Step 1 : CSV Import</h2>
       <CSVReader
         onDrop={handleOnDrop}
         onError={handleOnError}
@@ -94,9 +103,21 @@ const ValidatedHitsImporter = ({ screenId }) => {
         addRemoveButton
         onRemoveFile={handleOnRemoveFile}
       >
-        <span>Select CSV Data Source for Validated Hits</span>
+        <h1
+          className="size-400 icon icon-fileformats icon-spacer"
+          data-icon="c"
+        ></h1>
+        <h2>Select CSV Data source for Validated hits.</h2>
+        <div className="card">
+          The data should have the following headers:
+          <br />
+          <br />
+          <Tag value="Source"></Tag> <Tag value="Library"></Tag>{" "}
+          <Tag value="Method"></Tag> <Tag value="Id"></Tag>{" "}
+          <Tag value="MIC"></Tag> <Tag value="ClusterGroup"></Tag>{" "}
+          <Tag value="Smile"></Tag>{" "}
+        </div>
       </CSVReader>
-      <hr />
     </React.Fragment>
   );
 
@@ -106,11 +127,13 @@ const ValidatedHitsImporter = ({ screenId }) => {
       <h3>Total hits found in CSV : {hits.length}</h3>{" "}
       <div className="card">
         <DataTable value={hits}>
+          <Column field="Index" header="Index"></Column>
           <Column field="Source" header="Source"></Column>
           <Column field="Library" header="Library"></Column>
-          <Column field="SaccId" header="SaccId"></Column>
+          <Column field="ExternalCompundIds" header="ExternalCompundIds"></Column>
           <Column field="Method" header="Method"></Column>
           <Column field="MIC" header="MIC"></Column>
+          <Column field="IC50" header="IC50"></Column>
           <Column field="ClusterGroup" header="ClusterGroup"></Column>
           <Column field="Smile" header="Smile"></Column>
         </DataTable>
