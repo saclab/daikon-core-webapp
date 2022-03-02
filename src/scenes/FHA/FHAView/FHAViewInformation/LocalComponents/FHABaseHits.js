@@ -15,9 +15,9 @@ const FHABaseHits = ({ project }) => {
         id: baseHit.baseHit.compound.id,
         molArea: baseHit.baseHit.compound.molArea,
         molWeight: baseHit.baseHit.compound.molWeight,
-        externalCompundIds: baseHit.baseHit.compound.externalCompundIds,
+        externalCompoundIds: baseHit.baseHit.compound.externalCompoundIds,
         smile: baseHit.baseHit.compound.smile,
-        ic50: baseHit.baseHit.ic50,
+        iC50: baseHit.baseHit.iC50,
         mic: baseHit.baseHit.mic,
       });
     });
@@ -44,9 +44,9 @@ const FHABaseHits = ({ project }) => {
         showGridlines
         dataKey="id"
       >
-        <Column field="externalCompundIds" header="Id" />
+        <Column field="externalCompoundIds" header="Ids" />
         <Column field="mic" header="MIC" />
-        <Column field="ic50," header="IC50" />
+        <Column field="iC50" header="IC50" />
         <Column
           field="smile"
           header="Structure"
