@@ -2,6 +2,7 @@ import { Timeline } from "primereact/timeline";
 import dateFormat from "dateformat";
 import StageTag from "../../../../../app/common/StageTag/StageTag";
 import FailedLoading from "../../../../../app/common/FailedLoading/FailedLoading";
+import FDate from "../../../../../app/common/FDate/FDate";
 
 const PortfolioInformationDates = ({ project }) => {
   if (!project) return <FailedLoading />;
@@ -25,8 +26,8 @@ const PortfolioInformationDates = ({ project }) => {
         align="top"
         opposite={(item) => <StageTag stage={item.stage} />}
         content={(item) => (
-          <small className="p-text-secondary">
-            {dateFormat(item.date, "mmmm dS, yyyy")}
+          <small className="p-text-secondary" style={{ paddingRight: "50px" }}>
+            <FDate timestamp={item.date} hideTime={true} />
           </small>
         )}
         style={{ lineHeight: "100%" }}
