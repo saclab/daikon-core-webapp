@@ -11,6 +11,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { RootStoreContext } from "../../stores/rootStore";
 import Loading from "../../layout/Loading/Loading";
 import StartDiscussion from "./StartDiscussion";
+import FDate from "../FDate/FDate";
 
 const Discussion = ({ reference, section }) => {
   const rootStore = useContext(RootStoreContext);
@@ -82,7 +83,7 @@ const Discussion = ({ reference, section }) => {
           style={{ width: "1rem", height: "1rem" }}
         />{" "}
         {discussion.postedBy} on{" "}
-        {new Date(discussion.timestamp + 'Z').toLocaleString()}
+        <FDate timestamp={discussion.timestamp} />
       </div>
     );
   };
