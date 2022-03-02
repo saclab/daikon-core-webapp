@@ -5,11 +5,12 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { OverlayPanel } from "primereact/overlaypanel";
-import { Card } from 'primereact/card';
+import { Card } from "primereact/card";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
 import ScreenSequenceAddForm from "./ScreenSequenceAddForm/ScreenSequenceAddForm";
 import PleaseWait from "../../../../../app/common/PleaseWait/PleaseWait";
+import FDate from "../../../../../app/common/FDate/FDate";
 
 const ScreenSequence = ({ screenId }) => {
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
@@ -88,6 +89,20 @@ const ScreenSequence = ({ screenId }) => {
       );
     };
 
+    const StartDateTemplate = (rowData) => {
+      return <FDate timestamp={rowData.startDate} hideTime={true} />;
+    };
+    const EndDateTemplate = (rowData) => {
+      let OngoingTemplate = () => {
+        return <span>Ongoing</span>;
+      };
+      return rowData.endDate ? (
+        <FDate timestamp={rowData.endDate} hideTime={true} />
+      ) : (
+        OngoingTemplate()
+      );
+    };
+
     return (
       <div>
         <OverlayPanel
@@ -126,7 +141,6 @@ const ScreenSequence = ({ screenId }) => {
           />
         </Sidebar>
         <div className="card">
-
           <DataTable
             value={selectedScreen.screenSequences}
             header={tableHeader}
@@ -143,8 +157,16 @@ const ScreenSequence = ({ screenId }) => {
               header="No of compounds screened"
             ></Column>
             <Column field="scientist" header="Scientist"></Column>
-            <Column field="startDate" header="Start Date"></Column>
-            <Column field="endDate" header="End Date"></Column>
+            <Column
+              field="startDate"
+              header="Start Date"
+              body={StartDateTemplate}
+            ></Column>
+            <Column
+              field="endDate"
+              header="End Date"
+              body={EndDateTemplate}
+            ></Column>
             <Column field="unverifiedHitCount" header="Hit Count"></Column>
           </DataTable>
         </div>

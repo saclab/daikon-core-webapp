@@ -15,6 +15,7 @@ import CompoundEvolutionAddNew from "./CompoundEvolutionAddNew/CompoundEvolution
 import { RootStoreContext } from "../../stores/rootStore";
 import PleaseWait from "../PleaseWait/PleaseWait";
 import FailedLoading from "../FailedLoading/FailedLoading";
+import FDate from "../FDate/FDate";
 const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
   const [displayAddStructureForm, setdisplayAddStructureForm] = useState(false);
   const rootStore = useContext(RootStoreContext);
@@ -75,7 +76,7 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
     const customizedOppositeContent = (item) => {
       return (
         <Chip
-          label={dateFormat(item.addedOnDate, "mmmm dS, yyyy")}
+          label={<FDate timestamp={item.addedOnDate} hideTime={true}/>}
           style={{ fontSize: "small" }}
         />
       );
