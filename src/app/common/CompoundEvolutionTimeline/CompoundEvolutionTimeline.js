@@ -53,7 +53,7 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
           <div className="p-mr-2">
             <SmilesView smiles={item.compound.smile} width={300} height={300} />
           </div>
-          <div className="p-mr-4 p-col-2" style={{ lineHeight: "1.5rem" }}>
+          <div className="p-mr-4 p-col-2" style={{ lineHeight: "1.5rem", marginRight: "50px", minWidth: "150px" }}>
             Mol Weight : {item.compound.molWeight} <br />
             Mol Area : {item.compound.molArea} <br />
             IC50 : {item.iC50} <br />
