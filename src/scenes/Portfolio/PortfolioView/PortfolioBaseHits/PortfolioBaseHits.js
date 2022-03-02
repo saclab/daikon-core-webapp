@@ -15,9 +15,9 @@ const PortfolioBaseHits = ({ project }) => {
         id: baseHit.baseHit.compound.id,
         molArea: baseHit.baseHit.compound.molArea,
         molWeight: baseHit.baseHit.compound.molWeight,
-        externalCompundIds: baseHit.baseHit.compound.externalCompundIds,
+        externalCompoundIds: baseHit.baseHit.compound.externalCompoundIds,
         smile: baseHit.baseHit.compound.smile,
-        ic50: baseHit.baseHit.ic50,
+        iC50: baseHit.baseHit.iC50,
         mic: baseHit.baseHit.mic,
       });
     });
@@ -30,6 +30,12 @@ const PortfolioBaseHits = ({ project }) => {
           <SmilesView smiles={rowData?.smile} />
         </div>
       </React.Fragment>
+    );
+  };
+
+  const CompoundIdBodyTemplate = (rowData) => {
+    return (
+      <React.Fragment>{rowData?.externalCompoundIds}</React.Fragment>
     );
   };
 
@@ -47,9 +53,14 @@ const PortfolioBaseHits = ({ project }) => {
         showGridlines
         dataKey="id"
       >
-        <Column field="externalCompundIds" header="Id" />
-        <Column field="mic" header="mic" />
-        <Column field="ic50," header="ic50" />
+        <Column
+          field="CompoundId"
+          header="Compound Id"
+          body={CompoundIdBodyTemplate}
+          style={{ width: "200px" }}
+        />
+        <Column field="mic" header="MIC" />
+        <Column field="iC50" header="IC50" />
         <Column
           field="smile"
           header="Structure"

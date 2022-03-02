@@ -100,17 +100,24 @@ const ValidatedHitsList = ({ screenId }) => {
   };
 
   const LibraryBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.library}</React.Fragment>;
+    return (
+      <React.Fragment>
+        {rowData.library}<br />
+        {rowData.source}
+      </React.Fragment>
+    );
   };
 
   const CompoundIdBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData?.compound?.externalCompundIds}</React.Fragment>;
+    return (
+      <React.Fragment>{rowData?.compound?.externalCompoundIds}</React.Fragment>
+    );
   };
 
   const StructureBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <div style={{ minWidth: "350px", marginRight: "50px" }}>
+        <div style={{ minWidth: "350px" }}>
           <SmilesView smiles={rowData?.compound?.smile} />
         </div>
       </React.Fragment>
@@ -295,15 +302,15 @@ const ValidatedHitsList = ({ screenId }) => {
             /> */}
             <Column
               field="Library"
-              header="Library"
+              header="Library/Source"
               body={LibraryBodyTemplate}
-              style={{ width: "12%" }}
+              style={{ width: "200px" }}
             />
             <Column
               field="CompoundId"
               header="Compound Id"
               body={CompoundIdBodyTemplate}
-              style={{ width: "100px" }}
+              style={{ width: "200px" }}
             />
 
             <Column
@@ -335,7 +342,7 @@ const ValidatedHitsList = ({ screenId }) => {
               field="Structure"
               header="Structure"
               body={StructureBodyTemplate}
-              style={{ minWidth: "250px" }}
+              style={{ minWidth: "350px" }}
             />
             <Column
               field="Vote"

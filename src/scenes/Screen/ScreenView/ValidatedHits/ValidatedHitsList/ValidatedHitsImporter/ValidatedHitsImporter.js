@@ -46,7 +46,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
         ScreenId: screenId,
         Source: hit.data?.Source,
         Library: hit.data?.Library,
-        ExternalCompundIds: hit.data?.externalCompundIds,
+        ExternalCompoundIds: hit.data?.ExternalCompoundIds,
         IC50: _.toNumber(hit.data?.IC50) ? _.round(hit.data?.IC50, 2) : 0,
         Method: hit.data?.Method,
         MIC: _.toNumber(hit.data?.MIC) ? _.round(hit.data?.MIC, 2) : 0,
@@ -130,7 +130,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
           <Column field="Index" header="Index"></Column>
           <Column field="Source" header="Source"></Column>
           <Column field="Library" header="Library"></Column>
-          <Column field="ExternalCompundIds" header="ExternalCompundIds"></Column>
+          <Column field="ExternalCompoundIds" header="Ids"></Column>
           <Column field="Method" header="Method"></Column>
           <Column field="MIC" header="MIC"></Column>
           <Column field="IC50" header="IC50"></Column>

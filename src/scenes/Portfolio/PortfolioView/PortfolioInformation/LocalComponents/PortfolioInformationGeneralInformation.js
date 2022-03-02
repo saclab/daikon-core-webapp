@@ -23,7 +23,10 @@ const PortfolioInformationGeneralInformation = ({ project }) => {
           </div>
         </div>
         <div style={{ width: "30rem", lineHeight: "100%" }}>
-          <p>{project.h2LDescription}</p>
+          <p>{project.h2LDescription?'(H2L) '+ project.h2LDescription:''}</p>
+          <p>{project.loDescription?'(LO) '+ project.loDescription:''}</p>
+          <p>{project.spDescription?'(SP) '+ project.spDescription:''}</p>
+
         </div>
 
         <p>Expanded Id : {project.id}</p>
