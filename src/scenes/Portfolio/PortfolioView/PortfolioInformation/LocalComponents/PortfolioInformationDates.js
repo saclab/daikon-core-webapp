@@ -94,7 +94,7 @@ const PortfolioInformationDates = ({ project }) => {
     return (
       <span>
         <i
-          className="icon icon-common icon-circle"
+          className="icon icon-common icon-check-circle"
           style={{ color: "#1F618D" }}
         ></i>
       </span>
