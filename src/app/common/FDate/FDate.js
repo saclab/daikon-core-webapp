@@ -1,17 +1,13 @@
 import React from "react";
 
-const FDate = ({ timestamp, hideTime = false }) => {
+const FDate = ({ timestamp, hideTime = false, color = "#17202A" }) => {
   if (hideTime) {
     return (
-      <React.Fragment>
+      <span style={{ color: color }}>
         {new Date(timestamp + "Z").toLocaleDateString()}
-      </React.Fragment>
+      </span>
     );
   }
-  return (
-    <React.Fragment>
-      {new Date(timestamp + "Z").toLocaleString()}
-    </React.Fragment>
-  );
+  return <span>{new Date(timestamp + "Z").toLocaleString()}</span>;
 };
 export default FDate;

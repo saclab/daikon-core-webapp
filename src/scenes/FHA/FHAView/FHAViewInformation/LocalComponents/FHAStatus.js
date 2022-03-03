@@ -18,9 +18,9 @@ const FHAStatus = ({ project }) => {
         <p>
           {project.currentStage === "FHA" ? (
             <>
-              LO Predicted Start:{" "}
+              H2L Predicted Start:{" "}
               <b>
-                <FDate timestamp={project.loPredictedStart} hideTime={true} />
+                <FDate timestamp={project.h2LPredictedStart} hideTime={true} />
               </b>
             </>
           ) : (

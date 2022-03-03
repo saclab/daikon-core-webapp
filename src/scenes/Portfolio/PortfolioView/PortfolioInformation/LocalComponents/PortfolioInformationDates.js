@@ -8,14 +8,105 @@ const PortfolioInformationDates = ({ project }) => {
   if (!project) return <FailedLoading />;
   let timelineEvents = [];
 
-  if (project.fhaEnabled)
-    timelineEvents.push({ stage: "FHA", date: project.fhaStart });
-  if (project.h2LEnabled)
-    timelineEvents.push({ stage: "H2L", date: project.h2LStart });
-  if (project.loEnabled)
-    timelineEvents.push({ stage: "LO", date: project.loStart });
-  if (project.spEnabled)
-    timelineEvents.push({ stage: "SP", date: project.spStart });
+  if (project.fhaEnabled) {
+    timelineEvents.push({
+      stage: "FHA",
+      date: project.fhaStart,
+      predictedDateNextStage: project.h2LPredictedStart,
+    });
+  }
+
+  if (project.h2LEnabled) {
+    timelineEvents.push({
+      stage: "H2L",
+      date: project.h2LStart,
+      predictedDateNextStage: project.loPredictedStart,
+    });
+    if (!project.loEnabled) {
+      timelineEvents.push({
+        stage: "LO",
+        date: project.loPredictedStart,
+        isPredicted: true,
+      });
+    }
+  }
+
+  if (project.loEnabled) {
+    timelineEvents.push({
+      stage: "LO",
+      date: project.loStart,
+      predictedDateNextStage: project.spPredictedStart,
+    });
+    if (!project.spEnabled) {
+      timelineEvents.push({
+        stage: "SP",
+        date: project.spPredictedStart,
+        isPredicted: true,
+      });
+    }
+  }
+
+  if (project.spEnabled) {
+    timelineEvents.push({
+      stage: "SP",
+      date: project.spStart,
+      predictedDateNextStage: project.indPredictedStart,
+    });
+    if (!project.indEnabled) {
+      timelineEvents.push({
+        stage: "IND",
+        date: project.indPredictedStart,
+        isPredicted: true,
+      });
+    }
+  }
+
+  let generateDateItem = (item) => {
+    return (
+      <small className="p-text-secondary" style={{ paddingRight: "50px" }}>
+        <FDate timestamp={item.date} hideTime={true} />
+        {item.isPredicted ? "(*P)" : ""}
+      </small>
+    );
+  };
+
+  const customizedMarker = (item) => {
+    if (item.isPredicted) {
+      return (
+        <span>
+          <i
+            className="icon icon-common icon-dot-circle"
+            style={{ color: "#D4E6F1" }}
+          ></i>
+        </span>
+      );
+    }
+    if (item.stage === project.currentStage) {
+      return (
+        <span>
+          <i
+            className="icon icon-common icon-dot-circle"
+            style={{ color: "#1F618D" }}
+          ></i>
+        </span>
+      );
+    }
+    return (
+      <span>
+        <i
+          className="icon icon-common icon-circle"
+          style={{ color: "#1F618D" }}
+        ></i>
+      </span>
+    );
+  };
+
+  const tagGenerator = (item) => {
+    if (item.isPredicted) {
+      return <StageTag stage={"Dotted"} stageName={item.stage} />;
+    }
+    return <StageTag stage={item.stage} />;
+  };
 
   return (
     <div style={{ lineHeight: "50%" }}>
@@ -24,13 +115,10 @@ const PortfolioInformationDates = ({ project }) => {
         value={timelineEvents}
         layout="horizontal"
         align="top"
-        opposite={(item) => <StageTag stage={item.stage} />}
-        content={(item) => (
-          <small className="p-text-secondary" style={{ paddingRight: "50px" }}>
-            <FDate timestamp={item.date} hideTime={true} />
-          </small>
-        )}
+        opposite={(item) => tagGenerator(item)}
+        content={(item) => generateDateItem(item)}
         style={{ lineHeight: "100%" }}
+        marker={customizedMarker}
       />
     </div>
   );
