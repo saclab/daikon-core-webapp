@@ -26,8 +26,8 @@ const FHABaseHits = ({ project }) => {
   const StructureBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <div style={{ minWidth: "350px", marginRight: "50px" }}>
-          <SmilesView smiles={rowData?.smile} />
+        <div>
+          <SmilesView smiles={rowData?.smile} width={300} />
         </div>
       </React.Fragment>
     );
@@ -44,15 +44,14 @@ const FHABaseHits = ({ project }) => {
         showGridlines
         dataKey="id"
       >
+        <Column
+          header="Structure"
+          body={StructureBodyTemplate}
+          style={{ width: "330px" }}
+        />
         <Column field="externalCompoundIds" header="Ids" />
         <Column field="mic" header="MIC" />
         <Column field="iC50" header="IC50" />
-        <Column
-          field="smile"
-          header="Structure"
-          body={StructureBodyTemplate}
-          style={{ minWidth: "450px" }}
-        />
       </DataTable>
     </div>
   );

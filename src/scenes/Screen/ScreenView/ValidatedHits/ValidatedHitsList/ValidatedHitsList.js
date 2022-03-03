@@ -102,7 +102,8 @@ const ValidatedHitsList = ({ screenId }) => {
   const LibraryBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        {rowData.library}<br />
+        {rowData.library}
+        <br />
         {rowData.source}
       </React.Fragment>
     );
@@ -117,8 +118,8 @@ const ValidatedHitsList = ({ screenId }) => {
   const StructureBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <div style={{ minWidth: "350px" }}>
-          <SmilesView smiles={rowData?.compound?.smile} />
+        <div>
+          <SmilesView smiles={rowData?.compound?.smile} width={300}/>
         </div>
       </React.Fragment>
     );
@@ -301,16 +302,22 @@ const ValidatedHitsList = ({ screenId }) => {
               style={{ width: "12%" }}
             /> */}
             <Column
+              field="Structure"
+              header="Structure"
+              body={StructureBodyTemplate}
+              style={{ width: "330px" }}
+            />
+            <Column
               field="Library"
               header="Library/Source"
               body={LibraryBodyTemplate}
-              style={{ width: "200px" }}
+              style={{ width: "150px" }}
             />
             <Column
               field="CompoundId"
               header="Compound Id"
               body={CompoundIdBodyTemplate}
-              style={{ width: "200px" }}
+              style={{ width: "150px" }}
             />
 
             <Column
@@ -329,7 +336,7 @@ const ValidatedHitsList = ({ screenId }) => {
               field="MIC"
               header="MIC"
               body={MICBodyTemplate}
-              style={{ width: "100px" }}
+              style={{ width: "60px" }}
             />
             <Column
               field="clusterGroup"
@@ -337,12 +344,6 @@ const ValidatedHitsList = ({ screenId }) => {
               body={ClusterBodyTemplate}
               style={{ width: "90px" }}
               sortable
-            />
-            <Column
-              field="Structure"
-              header="Structure"
-              body={StructureBodyTemplate}
-              style={{ minWidth: "350px" }}
             />
             <Column
               field="Vote"

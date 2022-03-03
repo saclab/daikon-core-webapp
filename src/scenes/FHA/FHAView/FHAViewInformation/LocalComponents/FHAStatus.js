@@ -16,14 +16,16 @@ const FHAStatus = ({ project }) => {
           </b>
         </p>
         <p>
-          FHA Complete Date:{" "}
-          <b>
-            {project.currentStage === "FHA" ? (
-              "-"
-            ) : (
-              <FDate timestamp={project.h2LStart} hideTime={true} />
-            )}
-          </b>
+          {project.currentStage === "FHA" ? (
+            <>
+              LO Predicted Start:{" "}
+              <b>
+                <FDate timestamp={project.loPredictedStart} hideTime={true} />
+              </b>
+            </>
+          ) : (
+            "FHA Complete"
+          )}
         </p>
       </div>
     </div>
