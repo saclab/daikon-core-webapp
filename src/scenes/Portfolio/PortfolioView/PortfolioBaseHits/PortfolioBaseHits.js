@@ -26,17 +26,15 @@ const PortfolioBaseHits = ({ project }) => {
   const StructureBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <div style={{ minWidth: "350px", marginRight: "50px" }}>
-          <SmilesView smiles={rowData?.smile} />
+        <div>
+          <SmilesView smiles={rowData?.smile} width={300} />
         </div>
       </React.Fragment>
     );
   };
 
   const CompoundIdBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>{rowData?.externalCompoundIds}</React.Fragment>
-    );
+    return <React.Fragment>{rowData?.externalCompoundIds}</React.Fragment>;
   };
 
   console.log("PortfolioTableData :::");
@@ -54,6 +52,11 @@ const PortfolioBaseHits = ({ project }) => {
         dataKey="id"
       >
         <Column
+          header="Structure"
+          body={StructureBodyTemplate}
+          style={{ width: "330px" }}
+        />
+        <Column
           field="CompoundId"
           header="Compound Id"
           body={CompoundIdBodyTemplate}
@@ -61,12 +64,6 @@ const PortfolioBaseHits = ({ project }) => {
         />
         <Column field="mic" header="MIC" />
         <Column field="iC50" header="IC50" />
-        <Column
-          field="smile"
-          header="Structure"
-          body={StructureBodyTemplate}
-          style={{ minWidth: "450px" }}
-        />
       </DataTable>
     </div>
   );
