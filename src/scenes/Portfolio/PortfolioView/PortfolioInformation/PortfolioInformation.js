@@ -12,6 +12,7 @@ import { Timeline } from "primereact/timeline";
 import PortfolioInformationGeneralInformation from "./LocalComponents/PortfolioInformationGeneralInformation";
 import PortfolioInformationDates from "./LocalComponents/PortfolioInformationDates";
 import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
+import PortfolioInformationPriority from "./LocalComponents/PortfolioInformationPriority";
 
 const PortfolioInformation = ({ id, project }) => {
   
@@ -29,7 +30,12 @@ const PortfolioInformation = ({ id, project }) => {
           <Fieldset legend="Project Dates">
             <PortfolioInformationDates project={project} />
           </Fieldset>
+          <br />
+          <Fieldset>
+            <PortfolioInformationPriority />
+          </Fieldset>
         </div>
+        
       </div>
       {/* Second div for structure evolution */}
       <div className="p-d-flex p-flex-column p-flex-md-row"  >
