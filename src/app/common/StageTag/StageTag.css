@@ -13,3 +13,9 @@
   color: #ffffff;
   font-weight: normal;
 }
+.stage-tag .stage-Dotted {
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background: repeating-linear-gradient( -45deg, #444cf7, #444cf7 1px, #A9CCE3 1px, #A9CCE3 5px );
+}
+
