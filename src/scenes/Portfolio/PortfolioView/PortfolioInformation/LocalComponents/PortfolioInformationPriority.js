@@ -1,23 +1,40 @@
-import React from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { Sidebar } from "primereact/sidebar";
+import { Button } from "primereact/button";
+import { Dropdown } from 'primereact/dropdown';
 
-const PortfolioInformationPriority = () => {
+const PortfolioInformationPriority = ({ project }) => {
+  const [visible, setVisible] = useState(false);
+
   return (
-    <div className="p-d-flex" style={{ height: "45px" }}>
-      <div
-        className="p-mr-2"
-        style={{ textAlign: "center", lineHeight: "0.5", width: "50%"}}
-      >
-        Priority
-        <h3>High</h3>
+    <React.Fragment>
+      <div className="p-d-flex" style={{ height: "45px" }}>
+        <div
+          className="p-mr-2"
+          style={{ textAlign: "center", lineHeight: "0.5", width: "50%" }}
+        >
+          Priority
+          <h3>{project.priority}</h3>
+        </div>
+        <div
+          className="p-mr-2"
+          style={{ textAlign: "center", lineHeight: "0.5", width: "50%" }}
+        >
+          Probability
+          <h3>{project.probability}</h3>
+        </div>
+        <Button
+          icon="pi pi-arrow-left"
+          onClick={() => setVisible(true)}
+          className="p-mr-2"
+        />
       </div>
-      <div
-        className="p-mr-2"
-        style={{ textAlign: "center", lineHeight: "0.5", width: "50%" }}
-      >
-        Probability
-        <h3>Medium</h3>
-      </div>
-    </div>
+      
+      <Sidebar visible={visible} position="right" onHide={() => setVisible(false)}>
+        Modify Project
+        <hr />
+      </Sidebar>
+    </React.Fragment>
   );
 };
 

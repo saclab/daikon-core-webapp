@@ -3,6 +3,8 @@ import Loading from "../../layout/Loading/Loading";
 import JsonQuery from "json-query";
 import { Timeline } from "primereact/timeline";
 import { Button } from "primereact/button";
+import { runInAction } from "mobx";
+import { InputTextarea } from "primereact/inputtextarea";
 import _ from "lodash";
 
 export function _helper_renderHistoryTimeline(
@@ -63,9 +65,11 @@ export function _helper_renderHistoryTimeline(
 }
 
 export function _helper_renderHeaderofEditDialog() {
-  return <React.Fragment>
-    <i className="icon icon-common icon-database"></i> &nbsp; Editing Database
-  </React.Fragment>
+  return (
+    <React.Fragment>
+      <i className="icon icon-common icon-database"></i> &nbsp; Editing Database
+    </React.Fragment>
+  );
 }
 
 export function _helper_renderFooterOfEditDialog(
@@ -125,4 +129,22 @@ export function _helper_filterHilightChanged(data, history, filterRecent) {
   });
 
   return changed;
+}
+
+export function _helper_generateEditForm(data, selectedId) {
+  return (
+    <React.Fragment>
+      <InputTextarea
+        rows={15}
+        cols={60}
+        value={data ? data[selectedId] : null}
+        autoFocus
+        onChange={(e) => {
+          console.log(data[selectedId]);
+          console.log(e.target.value);
+          runInAction(() => (data[selectedId] = e.target.value));
+        }}
+      />
+    </React.Fragment>
+  );
 }

@@ -32,7 +32,7 @@ const PortfolioInformation = ({ id, project }) => {
           </Fieldset>
           <br />
           <Fieldset>
-            <PortfolioInformationPriority />
+            <PortfolioInformationPriority project={project}/>
           </Fieldset>
         </div>
         
