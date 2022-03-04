@@ -14,6 +14,7 @@ import {
   _helper_renderFooterOfEditDialog,
   _helper_filterHilightChanged,
   _helper_renderHeaderofEditDialog,
+  _helper_generateEditForm,
 } from "./KeyValList_Helper";
 import {
   _command_contextMenuCopyCommand,
@@ -34,6 +35,7 @@ const KeyValList = ({
   fetchHistory,
   historyDisplayLoading,
   history,
+  formData,
 }) => {
   const cm = useRef(null);
   const toast = useRef(null);
@@ -268,17 +270,7 @@ const KeyValList = ({
             <StartCase string={selectedId} />
           )}
         </h2>
-        <InputTextarea
-          rows={15}
-          cols={60}
-          value={data ? data[selectedId] : null}
-          autoFocus
-          onChange={(e) => {
-            console.log(data[selectedId]);
-            console.log(e.target.value);
-            runInAction(() => (data[selectedId] = e.target.value));
-          }}
-        />
+        {_helper_generateEditForm(data, selectedId, formData)}
       </Dialog>
 
       <ContextMenu model={contextMenuItems} ref={cm}></ContextMenu>

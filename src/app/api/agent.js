@@ -317,6 +317,7 @@ const Projects = {
       `/admin/project/${projectId}/compoundevolution`,
       newCompoundEvolution
     ),
+  setPriorityProbability: (Id, ppDTO) => requests.post(`/project/${Id}`, ppDTO),
 };
 
 const Vote = {
