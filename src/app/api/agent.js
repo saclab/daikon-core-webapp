@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { appConfig } from "../../config";
 import history from "../../history";
 import AuthService from "../../services/AuthService";
 import AppSettingsService from "../../services/AppSettingsService";
@@ -8,25 +9,25 @@ import AppSettingsService from "../../services/AppSettingsService";
 
 const AppPrecheck = () => {
   if (
-    process.env.REACT_APP_MSAL_CLIENT_ID === undefined ||
-    process.env.REACT_APP_WEB_API_BASE_URI === undefined ||
-    process.env.REACT_APP_MSAL_CLIENT_SCOPE === undefined ||
-    process.env.REACT_APP_MSAL_TENANT_AUTHORITY_URI === undefined ||
-    process.env.REACT_APP_MSAL_CACHE_LOCATION === undefined ||
-    process.env.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === undefined ||
-    process.env.REACT_APP_MSAL_LOGIN_REDIRECT_URI === undefined
+    appConfig.REACT_APP_MSAL_CLIENT_ID === undefined ||
+    appConfig.REACT_APP_WEB_API_BASE_URI === undefined ||
+    appConfig.REACT_APP_MSAL_CLIENT_SCOPE === undefined ||
+    appConfig.REACT_APP_MSAL_TENANT_AUTHORITY_URI === undefined ||
+    appConfig.REACT_APP_MSAL_CACHE_LOCATION === undefined ||
+    appConfig.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === undefined ||
+    appConfig.REACT_APP_MSAL_LOGIN_REDIRECT_URI === undefined
   ) {
     return false;
   }
 
   if (
-    process.env.REACT_APP_MSAL_CLIENT_ID === "" ||
-    process.env.REACT_APP_WEB_API_BASE_URI === "" ||
-    process.env.REACT_APP_MSAL_CLIENT_SCOPE === "" ||
-    process.env.REACT_APP_MSAL_TENANT_AUTHORITY_URI === "" ||
-    process.env.REACT_APP_MSAL_CACHE_LOCATION === "" ||
-    process.env.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === "" ||
-    process.env.REACT_APP_MSAL_LOGIN_REDIRECT_URI === ""
+    appConfig.REACT_APP_MSAL_CLIENT_ID === "" ||
+    appConfig.REACT_APP_WEB_API_BASE_URI === "" ||
+    appConfig.REACT_APP_MSAL_CLIENT_SCOPE === "" ||
+    appConfig.REACT_APP_MSAL_TENANT_AUTHORITY_URI === "" ||
+    appConfig.REACT_APP_MSAL_CACHE_LOCATION === "" ||
+    appConfig.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === "" ||
+    appConfig.REACT_APP_MSAL_LOGIN_REDIRECT_URI === ""
   ) {
     return false;
   }

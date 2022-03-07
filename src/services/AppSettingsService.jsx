@@ -1,21 +1,23 @@
+import {appConfig} from "../config"
+
 class AppSettingsService {
   GetWebApiBaseUri() {
-    return process.env.REACT_APP_WEB_API_BASE_URI;
+    return appConfig.REACT_APP_WEB_API_BASE_URI;
   }
   GetMsalClientId() {
-    return process.env.REACT_APP_MSAL_CLIENT_ID;
+    return appConfig.REACT_APP_MSAL_CLIENT_ID;
   }
   GetMsalClientScope() {
-    return process.env.REACT_APP_MSAL_CLIENT_SCOPE;
+    return appConfig.REACT_APP_MSAL_CLIENT_SCOPE;
   }
   GetMsalTenantAuthorityUri() {
-    return process.env.REACT_APP_MSAL_TENANT_AUTHORITY_URI;
+    return appConfig.REACT_APP_MSAL_TENANT_AUTHORITY_URI;
   }
   GetMsalCacheLocation() {
-    return process.env.REACT_APP_MSAL_CACHE_LOCATION;
+    return appConfig.REACT_APP_MSAL_CACHE_LOCATION;
   }
   GetMsalStoreAuthInCookie() {
-    let stringValue = process.env.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE;
+    let stringValue = appConfig.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE;
 
     if(typeof stringValue == 'undefined' || stringValue === null || stringValue === undefined)
     {
@@ -36,7 +38,7 @@ class AppSettingsService {
     }
   }
   GetLoginRedirectUri() {
-    return process.env.REACT_APP_MSAL_LOGIN_REDIRECT_URI;
+    return appConfig.REACT_APP_MSAL_LOGIN_REDIRECT_URI;
   }
 }
 

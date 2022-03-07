@@ -12,7 +12,7 @@ import { Timeline } from "primereact/timeline";
 import PortfolioInformationGeneralInformation from "./LocalComponents/PortfolioInformationGeneralInformation";
 import PortfolioInformationDates from "./LocalComponents/PortfolioInformationDates";
 import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
-import PortfolioInformationPriority from "./LocalComponents/PortfolioInformationPriority";
+import PortfolioInformationPriority from "./PortfolioInformationPriority/PortfolioInformationPriority";
 
 const PortfolioInformation = ({ id, project }) => {
   
