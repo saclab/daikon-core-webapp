@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from "primereact/dropdown";
+import PortfolioInformationProirityModify from "./PortfolioInformationProirityModify/PortfolioInformationProirityModify";
 
 const PortfolioInformationPriority = ({ project }) => {
   const [visible, setVisible] = useState(false);
@@ -29,9 +30,13 @@ const PortfolioInformationPriority = ({ project }) => {
           className="p-mr-2"
         />
       </div>
-      
-      <Sidebar visible={visible} position="right" onHide={() => setVisible(false)}>
-        Modify Project
+
+      <Sidebar
+        visible={visible}
+        position="right"
+        onHide={() => setVisible(false)}
+      >
+        <PortfolioInformationProirityModify closeSidebar={() => setVisible(false)}/>
         <hr />
       </Sidebar>
     </React.Fragment>

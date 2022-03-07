@@ -19,6 +19,8 @@ export default class ProjectStore {
   selectedCompoundEvolution = null;
   addingCompoundEvolution = false;
 
+  settingPriorityProbability = false;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -37,6 +39,9 @@ export default class ProjectStore {
       selectedCompoundEvolution: observable,
       addCompoundEvolution: action,
       addingCompoundEvolution: observable,
+
+      settingPriorityProbability: observable,
+      setPriorityProbability: action,
     });
   }
 
@@ -72,9 +77,13 @@ export default class ProjectStore {
     this.loadingProject = true;
 
     // first check cache
-    console.log("The cache is");
-    console.log(this.projectRegistryExpanded);
-    let fetchedProject = this.projectRegistryExpanded.get(id);
+    let fetchedProject = null;
+    if (
+      this.projectRegistryCacheValid &&
+      this.projectRegistryExpanded.size !== 0
+    ) {
+      fetchedProject = this.projectRegistryExpanded.get(id);
+    }
     if (fetchedProject) {
       console.log("projectStore: fetchProject found in cache");
       console.log(fetchedProject);
@@ -126,7 +135,10 @@ export default class ProjectStore {
         runInAction(() => {
           console.log("projectStore: getcompoundevolution fetched from api");
           this.selectedCompoundEvolution = fetchedCompoundEvolution;
-          this.compoundEvolutionRegistry.set(projectId, fetchedCompoundEvolution);
+          this.compoundEvolutionRegistry.set(
+            projectId,
+            fetchedCompoundEvolution
+          );
         });
       } catch (error) {
         console.log(error);
@@ -153,7 +165,6 @@ export default class ProjectStore {
       runInAction(() => {
         toast.success("Successfully added new structure");
         this.compoundEvolutionRegistryCacheValid = false;
-
       });
     } catch (error) {
       console.log("+++++++RES ERROR");
@@ -162,6 +173,34 @@ export default class ProjectStore {
       runInAction(() => {
         this.addingCompoundEvolution = false;
         console.log("ProjectStore: addCompoundEvolution Complete");
+      });
+    }
+    return res;
+  };
+
+  setPriorityProbability = async (ppDTO) => {
+    console.log("ProjectStore: setPriorityProbability Start");
+
+    this.settingPriorityProbability = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.setPriorityProbability(
+        this.selectedProject.id,
+        ppDTO
+      );
+      runInAction(() => {
+        toast.success("Project successfully modified");
+        this.projectRegistryCacheValid = false;
+        this.fetchProject(this.selectedProject.id);
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.settingPriorityProbability = false;
+        console.log("ProjectStore: setPriorityProbability Complete");
       });
     }
     return res;
