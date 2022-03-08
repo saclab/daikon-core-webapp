@@ -17,8 +17,9 @@ const ValidatedHitsImporter = ({ screenId }) => {
   const [displayImportContainer, setDisplayImportContainer] = useState(false);
   const [displaySummary, setdisplaySummary] = useState(false);
   const [importingLogs, setImportingLogs] = useState(null);
-  let successList = [];
-  let failedList = [];
+  const [successList, setSuccessList] = useState([]);
+  const [failedList, setFailedList] = useState([]);
+
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
@@ -39,7 +40,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
     data.forEach((hit) => {
       console.log(hit);
 
-      
+
 
       hits.push({
         Index: index,
@@ -72,6 +73,8 @@ const ValidatedHitsImporter = ({ screenId }) => {
   };
 
   let startImport = async () => {
+
+    console.log("Start Import")
     setDisplayCSVImporter(false);
     setDisplayPreview(false);
     setDisplayImportContainer(true);
@@ -79,11 +82,13 @@ const ValidatedHitsImporter = ({ screenId }) => {
     for (let i = 0; i < hits.length; i++) {
       let res = await newHit(hits[i]);
       if (res !== null) {
-        setImportingLogs("Imported " + hits[i].ExternalCompundIds);
-        successList.push(hits[i].ExternalCompundIds);
+        setImportingLogs("Imported " + hits[i].ExternalCompoundIds);
+        successList.push(hits[i].ExternalCompoundIds);
+        console.log(successList);
       } else {
-        setImportingLogs("Failed  " + hits[i].ExternalCompundIds);
-        failedList.push(hits[i].ExternalCompundIds);
+        setImportingLogs("Failed  " + hits[i].ExternalCompoundIds);
+        setFailedList([...failedList, hits[i].ExternalCompoundIds])
+        failedList.push(hits[i].ExternalCompoundIds);
       }
     }
     setdisplaySummary(true);
@@ -175,7 +180,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
       Total identified in CSV : {hits.length} <br />
       Successfully Imported : {successList.length} <br />
       Failed : {failedList.length} <br />
-      Failed for {failedList.toString()} <br />
+      {failedList.length != 0 ? <p>Failed for {failedList.toString()}</p> : <p></p>} <br />
     </React.Fragment>
   );
   return (
