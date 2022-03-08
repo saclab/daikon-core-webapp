@@ -92,7 +92,7 @@ const TargetDashTable = ({ targets }) => {
           ref={dt}
           value={targets}
           paginator
-          rows={10}
+          rows={15}
           // header={header}
           className="datatable-targets"
           //globalFilter={globalFilter}
