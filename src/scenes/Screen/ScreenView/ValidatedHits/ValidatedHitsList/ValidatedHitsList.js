@@ -278,12 +278,12 @@ const ValidatedHitsList = ({ screenId }) => {
             scrollable
             // rows={50}
             header={tableHeader}
-            className="p-datatable-screen-table"
+            //className="p-datatable-screen-table"
             //globalFilter={globalFilter}
             emptyMessage="No hits found."
             resizableColumns
             columnResizeMode="fit"
-            showGridlines
+            //showGridlines
             responsiveLayout="scroll"
             selection={selectedCompounds}
             onSelectionChange={(e) => setSelectedCompounds(e.value)}
@@ -305,13 +305,13 @@ const ValidatedHitsList = ({ screenId }) => {
               field="Structure"
               header="Structure"
               body={StructureBodyTemplate}
-              style={{ width: "330px" }}
+              style={{ width: "300px" }}
             />
             <Column
               field="Library"
-              header="Library/Source"
+              header="Library|Source"
               body={LibraryBodyTemplate}
-              style={{ width: "150px" }}
+              style={{ width: "200px" }}
             />
             <Column
               field="CompoundId"
@@ -322,9 +322,9 @@ const ValidatedHitsList = ({ screenId }) => {
 
             <Column
               field="EnzymeActivity"
-              header="Enzyme Activity (IC50)"
+              header="Enzyme Activity [IC50] (&micro;M) "
               body={EnzymeActivityBodyTemplate}
-              style={{ width: "100px" }}
+              style={{ width: "90px" }}
             />
             {/* <Column
               field="Method"
@@ -334,9 +334,9 @@ const ValidatedHitsList = ({ screenId }) => {
             /> */}
             <Column
               field="MIC"
-              header="MIC"
+              header="MIC (&micro;M)"
               body={MICBodyTemplate}
-              style={{ width: "60px" }}
+              style={{ width: "70px" }}
             />
             <Column
               field="clusterGroup"
@@ -349,7 +349,7 @@ const ValidatedHitsList = ({ screenId }) => {
               field="Vote"
               header="Vote"
               body={VoteBodyTemplate}
-              style={{ minWidth: "250px" }}
+              style={{ width: "250px" }}
             />
           </DataTable>
         </div>
@@ -370,7 +370,7 @@ const ValidatedHitsList = ({ screenId }) => {
       <Dialog
         header="Promote to FHA"
         visible={displayPromoteToFHAEntry}
-        style={{ width: "50vw" }}
+        //style={{ width: "50vw" }}
         //footer={renderFooter("displayBasic2")}
         onHide={() => setDisplayPromoteToFHAEntry(false)}
         style={{ width: "90%" }}

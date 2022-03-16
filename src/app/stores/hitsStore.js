@@ -24,7 +24,7 @@ export default class HitsStore {
     try {
       res = await agent.Hit.create(hit);
       runInAction(() => {
-        console.log(res);
+        //console.log(res);
       });
     } catch (error) {
       console.log("+++++++RES ERROR");
@@ -32,7 +32,7 @@ export default class HitsStore {
     } finally {
       runInAction(() => {
         this.postingHit = false;
-        console.log("commentStore: newDiscussion() End");
+        console.log("HitStore: newHit() End");
       });
     }
     console.log(res);
