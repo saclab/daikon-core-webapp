@@ -48,6 +48,8 @@ import Discussion from "../common/Discussion/Discussion";
 import UserManager from "../../scenes/Admin/UserManager/UserManager";
 import FHADash from '../../scenes/FHA/FHADash/FHADash';
 import FHAView from "../../scenes/FHA/FHAView/FHAView";
+import ProjectManagement from '../../scenes/ProjectManagement/ProjectManagement';
+import ProjectSettings from '../../scenes/ProjectManagement/ProjectSettings/ProjectSettings';
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -118,6 +120,9 @@ const App = () => {
               component={Admin_Authorize}
             />
             <Route exact path="/admin/user-manager/" component={UserManager} />
+
+            <Route exact path="/project/" component={ProjectManagement} />
+            <Route path="/project/:id/settings" component={ProjectSettings} />
 
             <Route exact path="/gene" component={GeneSearch} />
             <Route path="/gene/:id/promote" component={GenomePromote} />
