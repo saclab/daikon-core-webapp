@@ -309,6 +309,10 @@ const Projects = {
     requests.post(`/admin/project/${id}/createLO`, lOlInfo),
   createSP: (id, sPlInfo) =>
     requests.post(`/admin/project/${id}/createSP`, sPlInfo),
+  createIND: (id, iNDInfo) =>
+    requests.post(`/admin/project/${id}/createIND`, iNDInfo),
+  createP1: (id, p1Info) =>
+    requests.post(`/admin/project/${id}/createP1`, p1Info),
   list: () => requests.get(`/project`),
   details: (id) => requests.get(`/project/${id}`),
   getcompoundevolution: (projectId) =>
