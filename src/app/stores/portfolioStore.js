@@ -120,7 +120,9 @@ export default class PortfolioStore {
       return (
         project.currentStage === "H2L" ||
         project.currentStage === "LO" ||
-        project.currentStage === "SP"
+        project.currentStage === "SP" ||
+        project.currentStage === "IND" ||
+        project.currentStage === "P1"
       );
     });
   };

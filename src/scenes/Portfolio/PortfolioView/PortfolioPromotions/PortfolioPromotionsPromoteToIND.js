@@ -15,18 +15,18 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
   const { loadingProject, fetchProject, selectedProject } =
     rootStore.projectStore;
 
-  const { creatingLO, createLO } = rootStore.portfolioStore;
+  const { creatingIND, createIND } = rootStore.postPortfolioStore;
 
   const formik = useFormik({
     initialValues: {
-      loStart: "",
-      loDescription: "",
+      iNDStart: "",
+      iNDDescription: "",
     },
     validate: (data) => {
       let errors = {};
 
-      if (!data.loStart) {
-        errors.loStart = "Promotion date  is required.";
+      if (!data.iNDStart) {
+        errors.iNDStart = "Promotion date is required.";
       }
 
       return errors;
@@ -34,7 +34,7 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
     onSubmit: (data) => {
       data["id"] = selectedProject.id;
       console.log(data);
-      createLO(data).then((res) => {
+      createIND(data).then((res) => {
         if (res !== null) {
           closeSidebar();
           formik.resetForm();
@@ -55,7 +55,7 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
     );
   };
 
-  if (!creatingLO && !loadingProject) {
+  if (!creatingIND && !loadingProject) {
     return (
       <div className="form-demo">
         <div>
@@ -63,46 +63,46 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
             <form onSubmit={formik.handleSubmit} className="p-fluid">
               <div className="p-field p-col-12 p-md-12">
                 <label
-                  htmlFor="loStart"
+                  htmlFor="iNDStart"
                   className={classNames({
-                    "p-error": isFormFieldValid("loStart"),
+                    "p-error": isFormFieldValid("iNDStart"),
                   })}
                 >
-                  LO Start Date
+                  IND Start Date
                 </label>
 
                 <Calendar
-                  id="loStart"
-                  name="loStart"
-                  value={formik.values.loStart}
+                  id="iNDStart"
+                  name="iNDStart"
+                  value={formik.values.iNDStart}
                   onChange={formik.handleChange}
                   dateFormat="dd/mm/yy"
                   mask="99/99/9999"
                   showIcon
                   className={classNames({
-                    "p-invalid": isFormFieldValid("loStart"),
+                    "p-invalid": isFormFieldValid("iNDStart"),
                   })}
                 />
 
-                {getFormErrorMessage("loStart")}
+                {getFormErrorMessage("iNDStart")}
               </div>
 
               <div className="p-field p-col-12 p-md-12">
                 <label
-                  htmlFor="loDescription"
+                  htmlFor="iNDDescription"
                   className={classNames({
-                    "p-error": isFormFieldValid("loDescription"),
+                    "p-error": isFormFieldValid("iNDDescription"),
                   })}
                 >
-                  LO Description
+                  IND Description
                 </label>
                 <InputTextarea
-                  id="loDescription"
-                  answer="loDescription"
-                  value={formik.values.loDescription}
+                  id="iNDDescription"
+                  answer="iNDDescription"
+                  value={formik.values.iNDDescription}
                   onChange={formik.handleChange}
                   className={classNames({
-                    "p-invalid": isFormFieldValid("loDescription"),
+                    "p-invalid": isFormFieldValid("iNDDescription"),
                   })}
                 />
               </div>
@@ -110,7 +110,7 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
               <Button
                 icon="icon icon-common icon-database-submit"
                 type="submit"
-                label="Promote to LO"
+                label="Promote to IND (PostPorfolio)"
                 className="p-mt-2"
               />
             </form>
