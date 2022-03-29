@@ -12,6 +12,8 @@ import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Discussion from "../../../app/common/Discussion/Discussion";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
+import PostPortfolioBaseHits from './PostPortfolioBaseHits/PostPortfolioBaseHits';
+import PostPortfolioInformation from './PostPortfolioInformation/PostPortfolioInformation';
 
 
 const PostPortfolioView = ({ match, history }) => {
@@ -149,13 +151,13 @@ const PostPortfolioView = ({ match, history }) => {
                     onTabChange={(e) => setActiveIndex(e.index)}
                   >
                     <TabPanel header="Header I" headerClassName="hide">
-                      {/* <PostPortfolioInformation
+                      <PostPortfolioInformation
                       id={match.params.id}
                       project={selectedProject}
-                    /> */}
+                    />
                     </TabPanel>
                     <TabPanel header="Header II" headerClassName="hide">
-                      {/* <PortfolioBaseHits project={selectedProject} /> */}
+                      <PostPortfolioBaseHits project={selectedProject} />
                     </TabPanel>
                     <TabPanel header="Header III" headerClassName="hide">
                       <Discussion
