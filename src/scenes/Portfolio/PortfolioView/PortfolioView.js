@@ -16,6 +16,7 @@ import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import PortfolioPromotionsPromoteToLO from "./PortfolioPromotions/PortfolioPromotionsPromoteToLO";
 import PortfolioPromotionsPromoteToSP from "./PortfolioPromotions/PortfolioPromotionsPromoteToSP";
 import PortfolioBaseHits from "./PortfolioBaseHits/PortfolioBaseHits";
+import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioPromotionsPromoteToIND";
 
 const PortfolioView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -253,6 +254,8 @@ const PortfolioView = ({ match, history }) => {
           />
           <br />
           <br />
+          <PortfolioPromotionsPromoteToIND
+            closeSidebar={() => setDisplayINDPromotionDialog(false)} />
         </Sidebar>
       </React.Fragment>
     );

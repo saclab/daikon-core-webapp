@@ -4,112 +4,219 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
+import { Sidebar } from "primereact/sidebar";
+import { Message } from "primereact/message";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import PostPortfolioInformation from "./PostPortfolioInformation/PostPortfolioInformation";
+import Discussion from "../../../app/common/Discussion/Discussion";
+import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
+
 
 const PostPortfolioView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [displayP1PromotionDialog, setDisplayP1PromotionDialog] =
+    useState(false);
+  const [displayEOLDialog, setDisplayEOLDialog] =
+    useState(false);
   const toast = useRef(null);
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { postPortfolio, displayLoading, fetchPostPortfolio } =
-    rootStore.postPortfolioStore;
+  const { user } = rootStore.userStore;
+  const { loadingProject, fetchProject, selectedProject } =
+    rootStore.projectStore;
 
   useEffect(() => {
     console.log("EFFECT");
     console.log(match.params.id);
-    if (postPortfolio === null) {//|| gene.id !== match.params.id) {
-      fetchPostPortfolio(match.params.id);
+    if (selectedProject === null || selectedProject.id !== match.params.id) {
+      console.log("Will fetch from store" + match.params.id);
+      fetchProject(match.params.id);
     }
-  }, [match.params.id, postPortfolio, fetchPostPortfolio]);
-
-  const items = [
-    {
-      label: "Sections",
-      items: [
-        {
-          label: "Post Portfolio Information",
-          icon: "icon icon-common icon-classification",
-          command: () => {
-            setActiveIndex(0);
-          },
-        },
-        {
-          label: "Links",
-          icon: "icon icon-common icon-external-link-square-alt",
-          command: () => {
-            setActiveIndex(2);
-          },
-        },
-      ],
-    },
-  ];
+  }, [match.params.id, selectedProject, fetchProject]);
 
   /** Loading Overlay */
-  if (displayLoading) {
+  if (loadingProject) {
     console.log("Loading.....");
     return <Loading />;
   }
-  if (postPortfolio !== null) {
-    console.log("post Portfolio ID");
-    console.log(postPortfolio.id);
-    const breadCrumbItems = [
+
+  if (
+    !loadingProject &&
+    selectedProject !== null &&
+    selectedProject.id === match.params.id
+  ) {
+    const sideMenuItems = [
       {
-        label: "Post Portfolio",
-        command: () => {
-          history.push("/postportfolio/");
-        },
+        label: "Sections",
+        items: [
+          {
+            label: "Post Portfolio Information",
+            icon: "icon icon-common icon-analyse",
+            command: () => {
+              setActiveIndex(0);
+            },
+          },
+          {
+            label: "Base Hits",
+            icon: "icon icon-conceptual icon-structures-3d",
+            command: () => {
+              setActiveIndex(1);
+            },
+          },
+          {
+            label: "Discussion",
+            icon: "ri-discuss-line",
+            command: () => {
+              setActiveIndex(2);
+            },
+          },
+        ],
       },
-      { label: "Project X" },
     ];
 
-    return (
-      <React.Fragment>
-        <Toast ref={toast} />
-        <br />
-        <div className="p-d-flex">
-          <div className="p-mr-2">
-            <Menu model={items} />
-          </div>
-          <div className="p-mr-2" style={{width:"100vw"}}>
-            <div className="p-d-flex p-flex-column">
-              <div className="p-mb-2">
-                <BreadCrumb model={breadCrumbItems} />
-              </div>
-              <div className="p-mb-2">
-                <SectionHeading
-                  icon="icon icon-common icon-drug"
-                  heading={"Project X"}
-                />
-              </div>
-              <div className="p-mb-2">
-                <TabView
-                  activeIndex={activeIndex}
-                  onTabChange={(e) => setActiveIndex(e.index)}
-                >
-                  <TabPanel header="Header I" headerClassName="hide">
-                    <PostPortfolioInformation postPortfolioData={postPortfolio}/>
-                  </TabPanel>
-                  <TabPanel header="Header II" headerClassName="hide">
-                    tab 2
-                  </TabPanel>
-                  <TabPanel header="Header III" headerClassName="hide">
-                    tab 3
-                  </TabPanel>
-                </TabView>
+    var actions = {
+      label: "Actions",
+      items: [],
+    };
+
+    if (user.roles.includes("admin")) {
+      if (selectedProject.currentStage === "IND") {
+        actions.items.push({
+          label: "Promote to P1",
+          icon: "icon icon-common icon-database-submit",
+          command: (event) => {
+            setDisplayP1PromotionDialog(true);
+          },
+        });
+      }
+
+      if (selectedProject.currentStage === "P1") {
+        actions.items.push({
+          label: "Mark Project Complete",
+          icon: "icon icon-common icon-database-submit",
+          command: (event) => {
+            setDisplayEOLDialog(true);
+          },
+        });
+      }
+    }
+
+
+      sideMenuItems.push(actions);
+      console.log("selectedProject");
+      console.log(selectedProject);
+      const breadCrumbItems = [
+        {
+          label: "Portfolio",
+          command: () => {
+            history.push("/portfolio/");
+          },
+        },
+        { label: selectedProject.projectName },
+      ];
+
+      return (
+        <React.Fragment>
+          <Toast ref={toast} />
+          <br />
+          <div className="p-d-flex">
+            <div className="p-mr-2">
+              <Menu model={sideMenuItems} />
+            </div>
+            <div className="p-mr-2" style={{ width: "100vw" }}>
+              <div className="p-d-flex p-flex-column">
+                <div className="p-mb-2">
+                  <BreadCrumb model={breadCrumbItems} />
+                </div>
+                <div className="p-mb-2">
+                  <SectionHeading
+                    icon="icon icon-common icon-drug"
+                    heading={
+                      selectedProject.projectName +
+                      " | " +
+                      selectedProject?.currentStage
+                    }
+                    targetName={selectedProject.targetName}
+                    displayHorizon={true}
+                  />
+                </div>
+                <div className="p-mb-2">
+                  <TabView
+                    activeIndex={activeIndex}
+                    onTabChange={(e) => setActiveIndex(e.index)}
+                  >
+                    <TabPanel header="Header I" headerClassName="hide">
+                      {/* <PostPortfolioInformation
+                      id={match.params.id}
+                      project={selectedProject}
+                    /> */}
+                    </TabPanel>
+                    <TabPanel header="Header II" headerClassName="hide">
+                      {/* <PortfolioBaseHits project={selectedProject} /> */}
+                    </TabPanel>
+                    <TabPanel header="Header III" headerClassName="hide">
+                      <Discussion
+                        reference={selectedProject?.targetName}
+                        section={"Portfolio"}
+                      />
+                    </TabPanel>
+                  </TabView>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </React.Fragment>
-    );
-  }
+          <Sidebar
+            visible={displayP1PromotionDialog}
+            position="right"
+            style={{ width: "30em", overflowX: "auto" }}
+            blockScroll={true}
+            onHide={() => setDisplayP1PromotionDialog(false)}
+          >
+            <h3>{selectedProject.projectName}</h3>
+            <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
+            to <b>LO</b>
+            <hr />
+            <Message
+              severity="info"
+              text={"This would promote the project to LO."}
+            />
+            <br />
+            <br />
+            {/* <PortfolioPromotionsPromoteToLO
+            closeSidebar={() => setDisplayLOPromotionDialog(false)}
+          /> */}
+          </Sidebar>
 
-  return <NotFound />;
-};
+          <Sidebar
+            visible={displayEOLDialog}
+            position="right"
+            style={{ width: "30em", overflowX: "auto" }}
+            blockScroll={true}
+            onHide={() => setDisplayEOLDialog(false)}
+          >
+            <h3>{selectedProject.projectName}</h3>
+            <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
+            to <b>SP</b>
+            <hr />
+            <Message
+              severity="info"
+              text={"This would promote the project to SP."}
+            />
+            <br />
+            <br />
+            {/* <PortfolioPromotionsPromoteToSP
+            closeSidebar={() => setDisplaySPPromotionDialog(false)}
+          /> */}
+          </Sidebar>
 
-export default observer(PostPortfolioView);
+        </React.Fragment>
+      );
+    }
+
+    return <FailedLoading />;
+  };
+
+  export default observer(PostPortfolioView);

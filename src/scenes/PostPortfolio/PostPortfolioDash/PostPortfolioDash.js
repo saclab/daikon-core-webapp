@@ -13,19 +13,21 @@ import { useState } from "react";
 import { Tag } from "primereact/tag";
 import { SelectButton } from "primereact/selectbutton";
 import { MultiSelect } from "primereact/multiselect";
-import "./PostPortfolioDash.css";
 
 const PostPortfolioDash = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { fetchPostPortfolioList, displayLoading, postPortfolios } =
-    rootStore.postPortfolioStore;
+  const { loadingProjects, fetchProjects, projectRegistry } =
+    rootStore.projectStore;
+
+  const { filterPostPortfolioProjects } = rootStore.postPortfolioStore;
   /* Local State Management */
 
   useEffect(() => {
-    console.log("PostPortfolioSearch: fetchPostPortfolioList()");
-    fetchPostPortfolioList();
-  }, [fetchPostPortfolioList]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (projectRegistry.size === 0) {
+      fetchProjects();
+    }
+  }, [fetchProjects, projectRegistry]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */
 
@@ -33,11 +35,11 @@ const PostPortfolioDash = () => {
 
   /* STAGE FILTER */
   const [selectedStage, setSelectedStage] = useState(null);
-  const stages = ["IND Enabling", "Clinical"];
+  const stages = ["IND", "P1"];
 
   const onStageChange = (e) => {
     console.log(e.value);
-    dt.current.filter(e.value, "Stage", "in");
+    dt.current.filter(e.value, "currentStage", "in");
     setSelectedStage(e.value);
   };
 
@@ -83,7 +85,7 @@ const PostPortfolioDash = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Target</span>
-        <NavLink to={"/target/" + rowData.id}>{rowData.Target}</NavLink>
+        {rowData.geneName}
       </React.Fragment>
     );
   };
@@ -91,8 +93,11 @@ const PostPortfolioDash = () => {
   const ProjectNoBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Project No</span>
-        {rowData.ProjectNo}
+        <span className="p-column-title">Project Id</span>
+
+        <NavLink to={"/postportfolio/" + rowData.id}>
+          {rowData.id.substring(0, 8)}
+        </NavLink>
       </React.Fragment>
     );
   };
@@ -102,7 +107,9 @@ const PostPortfolioDash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
         <b>
-          <NavLink to={"/postportfolio/" + rowData.ProjectNo}>{rowData.ProjectName}</NavLink>
+          <NavLink to={"/postportfolio/" + rowData.id}>
+            {rowData.projectName}
+          </NavLink>
         </b>
       </React.Fragment>
     );
@@ -112,13 +119,13 @@ const PostPortfolioDash = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Primary Organization</span>
-        {rowData.PrimaryOrganization}
+        {rowData.primaryOrg.alias}
       </React.Fragment>
     );
   };
 
   const StatusBodyTemplate = (rowData) => {
-    if (rowData.Status === "Active") {
+    if (rowData.status === "Active") {
       return (
         <React.Fragment>
           <span className="p-column-title">Status</span>
@@ -135,21 +142,21 @@ const PostPortfolioDash = () => {
   };
 
   const DateBodyTemplate = (rowData) => {
-    let inputDate = new Date(rowData.Date).setHours(0, 0, 0, 0);
+    let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
     let todaysDate = new Date().setHours(0, 0, 0, 0);
 
     if (rowData.Status === "Active" && inputDate < todaysDate) {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <Tag className="table-date-due" value={rowData.Date} />
+          <Tag className="table-date-due" value={rowData.fhaStart} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <Tag className="table-date-ok" value={rowData.Date} />
+        <Tag className="table-date-ok" value={rowData.fhaStart} />
       </React.Fragment>
     );
   };
@@ -157,90 +164,93 @@ const PostPortfolioDash = () => {
   const StageBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Stage</span>
-        <Tag className={`table-stage-${rowData.Stage}`} value={rowData.Stage} />
+        <span className="p-column-title">Current Stage</span>
+        <Tag
+          className={`table-stage-${rowData.currentStage}`}
+          value={rowData.currentStage}
+        />
       </React.Fragment>
     );
   };
 
   /** Loading Overlay */
-  if (displayLoading) {
+  if (loadingProjects) {
     return <Loading />;
   }
 
-  console.log("PORTFOLIOS >>>");
-  console.log(postPortfolios);
+  if (!loadingProjects) {
+    return (
+      <div className="datatable-portfolio-dash">
+        <SectionHeading
+          icon="icon icon-common icon-drug"
+          heading="Post Portfolio"
+        />
+        <div className="card">
+          <DataTable
+            ref={dt}
+            value={filterPostPortfolioProjects()}
+            paginator
+            rows={10}
+            // header={header}
+            className="p-datatable-targets"
+            //globalFilter={globalFilter}
+            emptyMessage="No projects found."
+          >
+            <Column
+              field="id"
+              header="Project Id"
+              body={ProjectNoBodyTemplate}
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Search by ProjectNo"
+              className="narrow-column"
+            />
 
-  return (
-    <div className="datatable-postportfolio-dash">
-      <SectionHeading
-        icon="icon icon-common icon-drug"
-        heading="Post Portfolio"
-      />
-      <div className="card">
-        <DataTable
-          ref={dt}
-          value={[]}
-          paginator
-          rows={10}
-          // header={header}
-          className="p-datatable-targets"
-          //globalFilter={globalFilter}
-          emptyMessage="No projects found."
-        >
-          <Column
-            field="ProjectNo"
-            header="Project No"
-            body={ProjectNoBodyTemplate}
-            filter
-            filterMatchMode="contains"
-            filterPlaceholder="Search by ProjectNo"
-            className="narrow-column"
-          />
+            <Column
+              field="ProjectName"
+              header="Project Name"
+              body={ProjectNameBodyTemplate}
+            />
 
-          <Column
-            field="ProjectName"
-            header="Project Name"
-            body={ProjectNameBodyTemplate}
-          />
+            <Column
+              field="Target"
+              header="Target"
+              body={TargetBodyTemplate}
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Filter by Target"
+              className="narrow-column"
+            />
 
-          <Column
-            field="Target"
-            header="Target"
-            body={TargetBodyTemplate}
-            filter
-            filterMatchMode="contains"
-            filterPlaceholder="Filter by Target"
-            className="narrow-column"
-          />
+            <Column
+              field="PrimaryOrganization"
+              header="Primary Organization"
+              body={PrimaryOrganizationBodyTemplate}
+            />
 
-          <Column
-            field="PrimaryOrganization"
-            header="Primary Organization"
-            body={PrimaryOrganizationBodyTemplate}
-          />
+            <Column
+              field="Status"
+              header="Status"
+              body={StatusBodyTemplate}
+              filter
+              filterElement={statusFilter}
+            />
 
-          <Column
-            field="Status"
-            header="Status"
-            body={StatusBodyTemplate}
-            filter
-            filterElement={statusFilter}
-          />
+            <Column field="Date" header="Date" body={DateBodyTemplate} />
 
-          <Column field="Date" header="Date" body={DateBodyTemplate} />
-
-          <Column
-            field="Stage"
-            header="Stage"
-            body={StageBodyTemplate}
-            filter
-            filterElement={stageFilter}
-          />
-        </DataTable>
+            <Column
+              field="currentStage"
+              header="Current Stage"
+              body={StageBodyTemplate}
+              filter
+              filterElement={stageFilter}
+            />
+          </DataTable>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  return <Loading />;
 };
 
 export default observer(PostPortfolioDash);
