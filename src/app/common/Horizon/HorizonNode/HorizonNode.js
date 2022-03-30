@@ -268,13 +268,22 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
+              onClick={() => {
+                history.push(`/postportfolio/${dataObj.dataObj.attributes.id}`);
+              }}
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
               <p>
                 <b>Post Portfolio</b> <br />
-                Project-X
+                {dataObj.dataObj.attributes.projectName}
+                <br />-
+                {["IND", "P1"].includes(
+                  dataObj.dataObj.attributes.currentStage
+                )
+                  ? dataObj.dataObj.attributes.currentStage
+                  : "Complete"}
               </p>
             </div>
           </foreignObject>
