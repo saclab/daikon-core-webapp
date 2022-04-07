@@ -23,18 +23,18 @@ const PostPortfolioInformationProirityModify = ({ closeSidebar }) => {
 
   const formik = useFormik({
     initialValues: {
-      priority: selectedProject.priority,
-      probability: selectedProject.probability,
+      teamPriority: selectedProject.teamPriority,
+      teamProbability: selectedProject.teamProbability,
     },
     validate: (data) => {
       let errors = {};
 
-      if (!data.priority) {
-        errors.priority = "Priority is required.";
+      if (!data.teamPriority) {
+        errors.teamPriority = "Priority is required.";
       }
 
-      if (!data.probability) {
-        errors.probability = "Probability is required.";
+      if (!data.teamProbability) {
+        errors.teamProbability = "Probability is required.";
       }
 
       return errors;
@@ -42,8 +42,8 @@ const PostPortfolioInformationProirityModify = ({ closeSidebar }) => {
     onSubmit: (data) => {
       var submitData = {
         id: selectedProject.id,
-        priority: data.priority,
-        probability: data.probability,
+        teamPriority: data.teamPriority,
+        teamProbability: data.teamProbability,
       };
 
       console.log(data);
@@ -72,14 +72,15 @@ const PostPortfolioInformationProirityModify = ({ closeSidebar }) => {
   if (!settingPriorityProbability && !loadingProject) {
     return (
       <div className="form-demo">
+        <h2>Team Settings</h2>
         <div>
           <div className="card">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
               <div className="p-field p-col-12 p-md-12">
                 <label
-                  htmlFor="priority"
+                  htmlFor="teamPriority"
                   className={classNames({
-                    "p-error": isFormFieldValid("priority"),
+                    "p-error": isFormFieldValid("teamPriority"),
                   })}
                 >
                   Project Priority
@@ -89,34 +90,34 @@ const PostPortfolioInformationProirityModify = ({ closeSidebar }) => {
                   id="prority"
                   name="prority"
                   options={["High", "Medium", "Low"]}
-                  value={formik.values.priority}
-                  onChange={formik.handleChange("priority")}
+                  value={formik.values.teamPriority}
+                  onChange={formik.handleChange("teamPriority")}
                   placeholder="Select Priority"
                 />
 
-                {getFormErrorMessage("priority")}
+                {getFormErrorMessage("teamPriority")}
               </div>
 
               <div className="p-field p-col-12 p-md-12">
                 <label
-                  htmlFor="probability"
+                  htmlFor="teamProbability"
                   className={classNames({
-                    "p-error": isFormFieldValid("probability"),
+                    "p-error": isFormFieldValid("teamProbability"),
                   })}
                 >
                   Project Probability
                 </label>
 
                 <Dropdown
-                  id="probability"
-                  name="probability"
+                  id="teamProbability"
+                  name="teamProbability"
                   options={["High", "Medium", "Low"]}
-                  value={formik.values.probability}
-                  onChange={formik.handleChange("probability")}
+                  value={formik.values.teamProbability}
+                  onChange={formik.handleChange("teamProbability")}
                   placeholder="Select Probability"
                 />
 
-                {getFormErrorMessage("probability")}
+                {getFormErrorMessage("teamProbability")}
               </div>
 
               <Button

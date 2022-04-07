@@ -15,14 +15,14 @@ const PortfolioInformationPriority = ({ project }) => {
           style={{ textAlign: "center", lineHeight: "0.5", width: "50%" }}
         >
           Priority
-          <h3>{project.priority}</h3>
+          <h3>{project.teamPriority}</h3>
         </div>
         <div
           className="p-mr-2"
           style={{ textAlign: "center", lineHeight: "0.5", width: "50%" }}
         >
           Probability
-          <h3>{project.probability}</h3>
+          <h3>{project.teamProbability}</h3>
         </div>
         <Button
           icon="pi pi-arrow-left"
