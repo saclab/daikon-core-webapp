@@ -26,12 +26,6 @@ const ProjectSettingsDescriptions = ({ project }) => {
   } = rootStore.projectStore;
 
 
-  console.log("===PROJECT DATES ===");
-  console.log(project);
-
-  console.log(project.fhaStart);
-  console.log(new Date(project.fhaStart + "Z").toLocaleString())
-
 
   const formik = useFormik({
     initialValues: {
