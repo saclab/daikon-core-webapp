@@ -197,6 +197,10 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "FHA":
+      var objColor = "#000000";
+      if (dataObj.dataObj.attributes.status === "Terminated") {
+        objColor = "#AAAAAA";
+      }
       return (
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
@@ -204,7 +208,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               icon="icon icon-conceptual icon-chemical"
               style={{
                 background: "#ffffff",
-                color: "#000000",
+                color: objColor,
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
@@ -215,7 +219,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
-              <p>
+              <p style={{ color: objColor }}>
                 <b>FHA</b> <br />
                 {dataObj.dataObj.attributes.projectName}
               </p>
@@ -224,6 +228,10 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "Portfolio":
+      var objColor = "#000000";
+      if (dataObj.dataObj.attributes.status === "Terminated") {
+        objColor = "#AAAAAA";
+      }
       return (
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
@@ -231,7 +239,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               icon="icon icon-common icon-analyse"
               style={{
                 background: "#ffffff",
-                color: "#000000",
+                color: objColor,
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
@@ -242,7 +250,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
-              <p>
+              <p style={{ color: objColor }}>
                 <b>Portfolio</b> <br />
                 {dataObj.dataObj.attributes.projectName}
                 <br />-
@@ -257,6 +265,10 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "PostPortfolio":
+      var objColor = "#000000";
+      if (dataObj.dataObj.attributes.status === "Terminated") {
+        objColor = "#AAAAAA";
+      }
       return (
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
@@ -264,7 +276,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               icon="icon icon-common icon-drug"
               style={{
                 background: "#ffffff",
-                color: "#000000",
+                color: objColor,
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
@@ -275,7 +287,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
-              <p>
+              <p style={{ color: objColor }}>
                 <b>Post Portfolio</b> <br />
                 {dataObj.dataObj.attributes.projectName}
                 <br />-
