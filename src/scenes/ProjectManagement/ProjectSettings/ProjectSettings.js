@@ -17,6 +17,7 @@ import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import ProjectSettingsGeneralInformation from "./LocalComponents/ProjectSettingsGeneralInformation";
 import { Card } from 'primereact/card';
 import ProjectSettingsDates from './LocalComponents/ProjectSettingsDates';
+import ProjectSettingsDescriptions from './LocalComponents/ProjectSettingsDescriptions';
 
 const ProjectSettings = ({ match, history }) => {
 
@@ -105,6 +106,16 @@ const ProjectSettings = ({ match, history }) => {
                   </div>
                 </Divider>
                 <ProjectSettingsDates project={selectedProject} />
+
+              </div>
+
+              <div className="p-mb-2">
+                <Divider align="left" type="dashed">
+                  <div className="p-d-inline-flex p-ai-center">
+                    <h2 style={{ color: "#1B4F72" }}>Descriptions</h2>
+                  </div>
+                </Divider>
+                <ProjectSettingsDescriptions project={selectedProject} />
 
               </div>
 
