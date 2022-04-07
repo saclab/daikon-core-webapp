@@ -17,12 +17,13 @@ const ProjectSettingsPriority = ({ project }) => {
 
 
   const rootStore = useContext(RootStoreContext);
-
-  console.log("===PROJECT DATES ===");
-  console.log(project);
-
-  console.log(project.fhaStart);
-  console.log(new Date(project.fhaStart + "Z").toLocaleString())
+  const {
+    editProject,
+    editingProject,
+    selectedProject,
+    loadingProject,
+    fetchProject,
+  } = rootStore.projectStore;
 
 
   const formik = useFormik({
@@ -45,10 +46,11 @@ const ProjectSettingsPriority = ({ project }) => {
       return errors;
     },
     onSubmit: (data) => {
+      var editedProject = { ...project }
+      editedProject.priority = data.priority;
+      editedProject.probability = data.probability;
       console.log(data)
-      // data["screenId"] = screenId;
-      // console.log(data);
-      // onAdd(data);
+      editProject(editedProject)
       // formik.resetForm();
     },
   });
@@ -136,7 +138,7 @@ const ProjectSettingsPriority = ({ project }) => {
           label="Save Priority & Probability Changes"
           className="p-mt-2"
           style={{ width: "400px" }}
-        //loading={loading}
+          loading={editingProject}
         />
       </form>
     </div>

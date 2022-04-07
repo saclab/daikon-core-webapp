@@ -8,6 +8,8 @@ export default class ProjectStore {
 
   loadingProjects = false;
   loadingProject = false;
+  editingProject = false;
+  terminatingProject = false;
   projectRegistry = new Map();
   projectRegistryExpanded = new Map();
   projectRegistryCacheValid = false;
@@ -28,6 +30,8 @@ export default class ProjectStore {
       loadingProject: observable,
       fetchProjects: action,
       fetchProject: action,
+      editingProject: observable,
+      terminatingProject: observable,
       projectRegistry: observable,
       projectRegistryExpanded: observable,
       projectRegistryCacheValid: observable,
@@ -42,6 +46,9 @@ export default class ProjectStore {
 
       settingPriorityProbability: observable,
       setPriorityProbability: action,
+
+      editProject: action,
+      terminateProject: action,
     });
   }
 
@@ -201,6 +208,64 @@ export default class ProjectStore {
       runInAction(() => {
         this.settingPriorityProbability = false;
         console.log("ProjectStore: setPriorityProbability Complete");
+      });
+    }
+    return res;
+  };
+
+
+  editProject = async (project) => {
+    console.log("ProjectStore: editProject Start");
+
+    this.editingProject = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.edit(
+        this.selectedProject.id,
+        project
+      );
+      runInAction(() => {
+        toast.success("Project successfully modified");
+        this.projectRegistryCacheValid = false;
+        this.fetchProject(this.selectedProject.id);
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingProject = false;
+        console.log("ProjectStore: editProject Complete");
+      });
+    }
+    return res;
+  };
+
+
+  terminateProject = async (project) => {
+    console.log("ProjectStore: terminateProject Start");
+
+    this.editingProject = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.terminate(
+        this.selectedProject.id,
+        project
+      );
+      runInAction(() => {
+        toast.success("Project successfully Terminated");
+        this.projectRegistryCacheValid = false;
+        this.fetchProject(this.selectedProject.id);
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingProject = false;
+        console.log("ProjectStore: terminateProject Complete");
       });
     }
     return res;

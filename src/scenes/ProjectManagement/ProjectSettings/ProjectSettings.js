@@ -19,6 +19,7 @@ import { Card } from 'primereact/card';
 import ProjectSettingsDates from './LocalComponents/ProjectSettingsDates';
 import ProjectSettingsDescriptions from './LocalComponents/ProjectSettingsDescriptions';
 import ProjectSettingsPriority from './LocalComponents/ProjectSettingsPriority';
+import ProjectSettingsTerminate from "./LocalComponents/ProjectSettingsTerminate";
 
 const ProjectSettings = ({ match, history }) => {
 
@@ -137,19 +138,8 @@ const ProjectSettings = ({ match, history }) => {
                     <h2 style={{ color: "#B7950B" }}>Lifecycle</h2>
                   </div>
                 </Divider>
-                <div style={{
-                  borderRadius: '5px',
-                  borderColor: '#B7950B',
-                  borderStyle: 'solid',
-                  padding: '20px',
-                  borderWidth: '1px'
-                }}>
-                  <b>Terminate Project</b>
-                  <p>Terminating this project will end it's lifecycle
-                    and the project will be archived. <br />
-                    This is irreversible.</p>
-                  <Button label="Terminate" className="p-button-outlined p-button-danger" />
-                </div>
+                <ProjectSettingsTerminate project={selectedProject} />
+                
 
 
                 {/* <ProjectSettingsGeneralInformation project={selectedProject} /> */}
