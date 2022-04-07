@@ -16,6 +16,7 @@ import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import ProjectSettingsGeneralInformation from "./LocalComponents/ProjectSettingsGeneralInformation";
 import { Card } from 'primereact/card';
+import ProjectSettingsDates from './LocalComponents/ProjectSettingsDates';
 
 const ProjectSettings = ({ match, history }) => {
 
@@ -96,6 +97,18 @@ const ProjectSettings = ({ match, history }) => {
                 <ProjectSettingsGeneralInformation project={selectedProject} />
 
               </div>
+
+              <div className="p-mb-2">
+                <Divider align="left" type="dashed">
+                  <div className="p-d-inline-flex p-ai-center">
+                    <h2 style={{ color: "#1B4F72" }}>Dates</h2>
+                  </div>
+                </Divider>
+                <ProjectSettingsDates project={selectedProject} />
+
+              </div>
+
+
               <div className="p-mb-2">
                 <Divider align="left" type="dashed">
                   <div className="p-d-inline-flex p-ai-center">
@@ -110,7 +123,7 @@ const ProjectSettings = ({ match, history }) => {
                   borderWidth: '1px'
                 }}>
                   <b>Terminate Project</b>
-                  <p>Terminating this project will make the project reach it's end of lifecycle
+                  <p>Terminating this project will end it's lifecycle
                     and the project will be archived. <br />
                     This is irreversible.</p>
                     <Button label="Terminate" className="p-button-outlined p-button-danger" />
