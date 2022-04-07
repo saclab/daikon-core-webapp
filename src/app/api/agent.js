@@ -302,6 +302,8 @@ const General = {
 };
 
 const Projects = {
+  edit: (id, project) => requests.post(`/admin/project/${id}`, project),
+  terminate: (id, project) => requests.post(`/admin/project/${id}/terminate`, project),
   createFHA: (newFHA) => requests.post(`/admin/project/`, newFHA),
   createH2L: (id, h2lInfo) =>
     requests.post(`/admin/project/${id}/createH2L`, h2lInfo),

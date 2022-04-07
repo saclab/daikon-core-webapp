@@ -17,6 +17,14 @@ const ProjectSettingsDescriptions = ({ project }) => {
 
 
   const rootStore = useContext(RootStoreContext);
+  const {
+    editProject,
+    editingProject,
+    selectedProject,
+    loadingProject,
+    fetchProject,
+  } = rootStore.projectStore;
+
 
   console.log("===PROJECT DATES ===");
   console.log(project);
@@ -45,11 +53,15 @@ const ProjectSettingsDescriptions = ({ project }) => {
       return errors;
     },
     onSubmit: (data) => {
+      var editedProject = { ...project }
+      editedProject.fhaDescription = data.fhaDescription;
+      editedProject.h2LDescription = data.h2LDescription;
+      editedProject.loDescription = data.loDescription;
+      editedProject.spDescription = data.spDescription;
+      editedProject.indDescription = data.indDescription;
+      editedProject.clinicalDescriptiont = data.clinicalDescriptiont;
       console.log(data)
-      // data["screenId"] = screenId;
-      // console.log(data);
-      // onAdd(data);
-      // formik.resetForm();
+      editProject(editedProject)
     },
   });
 
@@ -290,7 +302,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
           label="Save Description Changes"
           className="p-mt-2"
           style={{ width: "300px" }}
-        //loading={loading}
+          loading={editingProject}
         />
       </form>
     </div>

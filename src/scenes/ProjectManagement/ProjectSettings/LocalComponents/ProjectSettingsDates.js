@@ -17,12 +17,13 @@ const ProjectSettingsDates = ({ project }) => {
 
 
   const rootStore = useContext(RootStoreContext);
-
-  console.log("===PROJECT DATES ===");
-  console.log(project);
-
-  console.log(project.fhaStart);
-  console.log(new Date(project.fhaStart + "Z").toLocaleString())
+  const {
+    editProject,
+    editingProject,
+    selectedProject,
+    loadingProject,
+    fetchProject,
+  } = rootStore.projectStore;
 
 
   const formik = useFormik({
@@ -102,11 +103,27 @@ const ProjectSettingsDates = ({ project }) => {
       return errors;
     },
     onSubmit: (data) => {
+      var editedProject = { ...project }
+      editedProject.fhaStart = data.fhaStart;
+      editedProject.fhaPredictedStart = data.fhaPredictedStart;
+
+      editedProject.h2LStart = data.h2LStart;
+      editedProject.h2LPredictedStart = data.h2LPredictedStart;
+
+      editedProject.loStart = data.loStart;
+      editedProject.loPredictedStart = data.loPredictedStart;
+
+      editedProject.spStart = data.spStart;
+      editedProject.spPredictedStart = data.spPredictedStart;
+
+      editedProject.indStart = data.indStart;
+      editedProject.indPredictedStart = data.indPredictedStart;
+
+      editedProject.clinicalP1Start = data.clinicalP1Start;
+      editedProject.clinicalP1PredictedStart = data.clinicalP1PredictedStart;
+
       console.log(data)
-      // data["screenId"] = screenId;
-      // console.log(data);
-      // onAdd(data);
-      // formik.resetForm();
+      editProject(editedProject)
     },
   });
 
@@ -504,8 +521,8 @@ const ProjectSettingsDates = ({ project }) => {
             type="submit"
             label="Save Date Changes"
             className="p-mt-2"
-            style={{width:"300px"}}
-          //loading={loading}
+            style={{ width: "300px" }}
+            loading={editingProject}
           />
         </form>
       </div>
