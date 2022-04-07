@@ -14,6 +14,7 @@ import Discussion from "../../../app/common/Discussion/Discussion";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import PostPortfolioBaseHits from './PostPortfolioBaseHits/PostPortfolioBaseHits';
 import PostPortfolioInformation from './PostPortfolioInformation/PostPortfolioInformation';
+import PostPortfolioPromotionsPromoteToP1 from "./PostPortfolioPromotions/PostPortfolioPromotionsPromoteToP1";
 
 
 const PostPortfolioView = ({ match, history }) => {
@@ -105,120 +106,129 @@ const PostPortfolioView = ({ match, history }) => {
         });
       }
     }
-
-
-      sideMenuItems.push(actions);
-      console.log("selectedProject");
-      console.log(selectedProject);
-      const breadCrumbItems = [
-        {
-          label: "Portfolio",
-          command: () => {
-            history.push("/portfolio/");
-          },
+    if (user.roles.includes("admin")) {
+      actions.items.push({
+        label: "Project Settings",
+        icon: "icon icon-common icon-asterisk",
+        command: () => {
+          history.push(`/project/${selectedProject.id}/settings/`);
         },
-        { label: selectedProject.projectName },
-      ];
+      });
+    }
 
-      return (
-        <React.Fragment>
-          <Toast ref={toast} />
-          <br />
-          <div className="p-d-flex">
-            <div className="p-mr-2">
-              <Menu model={sideMenuItems} />
-            </div>
-            <div className="p-mr-2" style={{ width: "100vw" }}>
-              <div className="p-d-flex p-flex-column">
-                <div className="p-mb-2">
-                  <BreadCrumb model={breadCrumbItems} />
-                </div>
-                <div className="p-mb-2">
-                  <SectionHeading
-                    icon="icon icon-common icon-drug"
-                    heading={
-                      selectedProject.projectName +
-                      " | " +
-                      selectedProject?.currentStage
-                    }
-                    targetName={selectedProject.targetName}
-                    displayHorizon={true}
-                  />
-                </div>
-                <div className="p-mb-2">
-                  <TabView
-                    activeIndex={activeIndex}
-                    onTabChange={(e) => setActiveIndex(e.index)}
-                  >
-                    <TabPanel header="Header I" headerClassName="hide">
-                      <PostPortfolioInformation
+
+    sideMenuItems.push(actions);
+    console.log("selectedProject");
+    console.log(selectedProject);
+    const breadCrumbItems = [
+      {
+        label: "Portfolio",
+        command: () => {
+          history.push("/portfolio/");
+        },
+      },
+      { label: selectedProject.projectName },
+    ];
+
+    return (
+      <React.Fragment>
+        <Toast ref={toast} />
+        <br />
+        <div className="p-d-flex">
+          <div className="p-mr-2">
+            <Menu model={sideMenuItems} />
+          </div>
+          <div className="p-mr-2" style={{ width: "100vw" }}>
+            <div className="p-d-flex p-flex-column">
+              <div className="p-mb-2">
+                <BreadCrumb model={breadCrumbItems} />
+              </div>
+              <div className="p-mb-2">
+                <SectionHeading
+                  icon="icon icon-common icon-drug"
+                  heading={
+                    selectedProject.projectName +
+                    " | " +
+                    selectedProject?.currentStage
+                  }
+                  targetName={selectedProject.targetName}
+                  displayHorizon={true}
+                />
+              </div>
+              <div className="p-mb-2">
+                <TabView
+                  activeIndex={activeIndex}
+                  onTabChange={(e) => setActiveIndex(e.index)}
+                >
+                  <TabPanel header="Header I" headerClassName="hide">
+                    <PostPortfolioInformation
                       id={match.params.id}
                       project={selectedProject}
                     />
-                    </TabPanel>
-                    <TabPanel header="Header II" headerClassName="hide">
-                      <PostPortfolioBaseHits project={selectedProject} />
-                    </TabPanel>
-                    <TabPanel header="Header III" headerClassName="hide">
-                      <Discussion
-                        reference={selectedProject?.targetName}
-                        section={"Portfolio"}
-                      />
-                    </TabPanel>
-                  </TabView>
-                </div>
+                  </TabPanel>
+                  <TabPanel header="Header II" headerClassName="hide">
+                    <PostPortfolioBaseHits project={selectedProject} />
+                  </TabPanel>
+                  <TabPanel header="Header III" headerClassName="hide">
+                    <Discussion
+                      reference={selectedProject?.targetName}
+                      section={"Portfolio"}
+                    />
+                  </TabPanel>
+                </TabView>
               </div>
             </div>
           </div>
-          <Sidebar
-            visible={displayP1PromotionDialog}
-            position="right"
-            style={{ width: "30em", overflowX: "auto" }}
-            blockScroll={true}
-            onHide={() => setDisplayP1PromotionDialog(false)}
-          >
-            <h3>{selectedProject.projectName}</h3>
-            <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
-            to <b>LO</b>
-            <hr />
-            <Message
-              severity="info"
-              text={"This would promote the project to LO."}
-            />
-            <br />
-            <br />
-            {/* <PortfolioPromotionsPromoteToLO
-            closeSidebar={() => setDisplayLOPromotionDialog(false)}
-          /> */}
-          </Sidebar>
+        </div>
+        <Sidebar
+          visible={displayP1PromotionDialog}
+          position="right"
+          style={{ width: "30em", overflowX: "auto" }}
+          blockScroll={true}
+          onHide={() => setDisplayP1PromotionDialog(false)}
+        >
+          <h3>{selectedProject.projectName}</h3>
+          <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
+          to <b>P1</b>
+          <hr />
+          <Message
+            severity="info"
+            text={"This would promote the project to P1."}
+          />
+          <br />
+          <br />
+          <PostPortfolioPromotionsPromoteToP1
+            closeSidebar={() => setDisplayP1PromotionDialog(false)}
+          />
+        </Sidebar>
 
-          <Sidebar
-            visible={displayEOLDialog}
-            position="right"
-            style={{ width: "30em", overflowX: "auto" }}
-            blockScroll={true}
-            onHide={() => setDisplayEOLDialog(false)}
-          >
-            <h3>{selectedProject.projectName}</h3>
-            <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
-            to <b>SP</b>
-            <hr />
-            <Message
-              severity="info"
-              text={"This would promote the project to SP."}
-            />
-            <br />
-            <br />
-            {/* <PortfolioPromotionsPromoteToSP
+        <Sidebar
+          visible={displayEOLDialog}
+          position="right"
+          style={{ width: "30em", overflowX: "auto" }}
+          blockScroll={true}
+          onHide={() => setDisplayEOLDialog(false)}
+        >
+          <h3>{selectedProject.projectName}</h3>
+          <i className="icon icon-common icon-plus-circle"></i> &nbsp; Promote
+          to <b>SP</b>
+          <hr />
+          <Message
+            severity="info"
+            text={"This would promote the project to SP."}
+          />
+          <br />
+          <br />
+          {/* <PortfolioPromotionsPromoteToSP
             closeSidebar={() => setDisplaySPPromotionDialog(false)}
           /> */}
-          </Sidebar>
+        </Sidebar>
 
-        </React.Fragment>
-      );
-    }
+      </React.Fragment>
+    );
+  }
 
-    return <FailedLoading />;
-  };
+  return <FailedLoading />;
+};
 
-  export default observer(PostPortfolioView);
+export default observer(PostPortfolioView);

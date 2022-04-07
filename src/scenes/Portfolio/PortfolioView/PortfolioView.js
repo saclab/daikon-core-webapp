@@ -130,6 +130,16 @@ const PortfolioView = ({ match, history }) => {
       });
     }
 
+    if (user.roles.includes("admin")) {
+      actions.items.push({
+        label: "Project Settings",
+        icon: "icon icon-common icon-asterisk",
+        command: () => {
+          history.push(`/project/${selectedProject.id}/settings/`);
+        },
+      });
+    }
+
     sideMenuItems.push(actions);
     console.log("selectedProject");
     console.log(selectedProject);
