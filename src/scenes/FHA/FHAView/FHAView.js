@@ -82,6 +82,7 @@ const FHAView = ({ match, history }) => {
           setDisplayPromotionDialog(true);
         },
       });
+
     }
 
     if (selectedProject?.h2LEnabled) {
@@ -90,6 +91,16 @@ const FHAView = ({ match, history }) => {
         icon: "icon icon-common icon-database-submit",
         command: (event) => {
           history.push(`/portfolio/${selectedProject.id}`);
+        },
+      });
+    }
+
+    if (user.roles.includes("admin")) {
+      actions.items.push({
+        label: "Project Settings",
+        icon: "icon icon-common icon-asterisk",
+        command: () => {
+          history.push(`/project/${selectedProject.id}/settings/`);
         },
       });
     }

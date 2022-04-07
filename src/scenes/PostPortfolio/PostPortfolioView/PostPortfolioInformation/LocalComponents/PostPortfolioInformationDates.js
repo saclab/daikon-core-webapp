@@ -21,7 +21,7 @@ const PostPortfolioInformationDates = ({ project }) => {
       date: project.indStart,
       predictedDateNextStage: project.clinicalP1PredictedStart,
     });
-    if (!project.p1Enabled) {
+    if (!project.clinicalP1Enabled) {
       timelineEvents.push({
         stage: "P1",
         date: project.clinicalP1PredictedStart,
