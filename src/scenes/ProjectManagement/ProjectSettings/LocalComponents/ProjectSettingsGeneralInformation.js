@@ -2,6 +2,7 @@ import React from "react";
 import { Card } from "primereact/card";
 import StageTag from '../../../../app/common/StageTag/StageTag';
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
+import { observer } from "mobx-react-lite";
 
 
 
@@ -15,7 +16,7 @@ const ProjectSettingsGeneralInformation = ({ project }) => {
 
   return (
     <div>
-      <KeyValList data={project} filter={
+      {/* <KeyValList data={project} filter={
         ["id",
           "projectName",
           "createdAt",
@@ -52,9 +53,18 @@ const ProjectSettingsGeneralInformation = ({ project }) => {
           "clinicalP1Start",
           "clinicalP1PredictedStart",
           "clinicalP1Description",
+        ]} /> */}
+        <KeyValList data={project} filter={
+        ["id",
+          "projectName",
+          "createdAt",
+          "createdBy",
+          "targetName",
+          "status",
+          "currentStage",
         ]} />
     </div>
   );
 };
 
-export default ProjectSettingsGeneralInformation;
+export default observer(ProjectSettingsGeneralInformation);
