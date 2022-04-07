@@ -18,6 +18,7 @@ import ProjectSettingsGeneralInformation from "./LocalComponents/ProjectSettings
 import { Card } from 'primereact/card';
 import ProjectSettingsDates from './LocalComponents/ProjectSettingsDates';
 import ProjectSettingsDescriptions from './LocalComponents/ProjectSettingsDescriptions';
+import ProjectSettingsPriority from './LocalComponents/ProjectSettingsPriority';
 
 const ProjectSettings = ({ match, history }) => {
 
@@ -119,6 +120,16 @@ const ProjectSettings = ({ match, history }) => {
 
               </div>
 
+              <div className="p-mb-2">
+                <Divider align="left" type="dashed">
+                  <div className="p-d-inline-flex p-ai-center">
+                    <h2 style={{ color: "#1B4F72" }}>Priority</h2>
+                  </div>
+                </Divider>
+                <ProjectSettingsPriority project={selectedProject} />
+
+              </div>
+
 
               <div className="p-mb-2">
                 <Divider align="left" type="dashed">
@@ -137,7 +148,7 @@ const ProjectSettings = ({ match, history }) => {
                   <p>Terminating this project will end it's lifecycle
                     and the project will be archived. <br />
                     This is irreversible.</p>
-                    <Button label="Terminate" className="p-button-outlined p-button-danger" />
+                  <Button label="Terminate" className="p-button-outlined p-button-danger" />
                 </div>
 
 
