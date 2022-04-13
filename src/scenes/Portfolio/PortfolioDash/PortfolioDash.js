@@ -14,6 +14,7 @@ import { Tag } from "primereact/tag";
 import { SelectButton } from "primereact/selectbutton";
 import { MultiSelect } from "primereact/multiselect";
 import "./PortfolioDashDataTable.css";
+import FDate from "../../../app/common/FDate/FDate";
 
 const PortfolioDash = () => {
   /* MobX Store */
@@ -63,11 +64,11 @@ const PortfolioDash = () => {
 
   /* STATUS FILTER */
   const [selectedStatus, setSelectedStatus] = useState(null);
-  const statuses = ["Active", "Inactive"];
+  const statuses = ["Active", "Terminated"];
 
   const onStatusChange = (e) => {
     console.log(e.value);
-    dt.current.filter(e.value, "Status", "equals");
+    dt.current.filter(e.value, "status", "equals");
     setSelectedStatus(e.value);
   };
 
@@ -86,7 +87,7 @@ const PortfolioDash = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Target</span>
-        {rowData.geneName}
+        {rowData.targetName}
       </React.Fragment>
     );
   };
@@ -137,7 +138,7 @@ const PortfolioDash = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Status</span>
-        <Tag className="table-status-inactive" value="Inactive" />
+        <Tag className="table-status-inactive" value="Terminated" />
       </React.Fragment>
     );
   };
@@ -150,14 +151,14 @@ const PortfolioDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <Tag className="table-date-due" value={rowData.fhaStart} />
+          <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#FFECB3"} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <Tag className="table-date-ok" value={rowData.fhaStart} />
+        <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#000000"} />
       </React.Fragment>
     );
   };
@@ -208,13 +209,17 @@ const PortfolioDash = () => {
             />
 
             <Column
-              field="ProjectName"
+              field="projectName"
               header="Project Name"
               body={ProjectNameBodyTemplate}
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Filter by Project"
+              className="narrow-column"
             />
 
             <Column
-              field="Target"
+              field="targetName"
               header="Target"
               body={TargetBodyTemplate}
               filter
@@ -230,14 +235,21 @@ const PortfolioDash = () => {
             />
 
             <Column
-              field="Status"
+              field="status"
               header="Status"
               body={StatusBodyTemplate}
               filter
               filterElement={statusFilter}
+              style={{width: "250px"}}
             />
 
-            <Column field="Date" header="Date" body={DateBodyTemplate} />
+            <Column 
+              field="Date" 
+              header="Date" 
+              body={DateBodyTemplate}
+              style={{width: "100px"}}
+              sortable
+               />
 
             <Column
               field="currentStage"

@@ -1,6 +1,6 @@
 import React from "react";
 
-const FDate = ({ timestamp, hideTime = false, color = "#17202A" }) => {
+const FDate = ({ timestamp, hideTime = true, color = "#17202A" }) => {
   if (hideTime) {
     return (
       <span style={{ color: color }}>
