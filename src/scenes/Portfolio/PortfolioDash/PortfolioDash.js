@@ -145,6 +145,11 @@ const PortfolioDash = () => {
 
   const DateBodyTemplate = (rowData) => {
     let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
+    if (rowData.h2LEnabled) inputDate = new Date(rowData.h2LStart).setHours(0, 0, 0, 0);
+    if (rowData.loEnabled) inputDate = new Date(rowData.loStart).setHours(0, 0, 0, 0);
+    if (rowData.spEnabled) inputDate = new Date(rowData.spStart).setHours(0, 0, 0, 0);
+    if (rowData.indEnabled) inputDate = new Date(rowData.indStart).setHours(0, 0, 0, 0);
+    if (rowData.clinicalP1Enabled) inputDate = new Date(rowData.clinicalP1Start).setHours(0, 0, 0, 0);
     let todaysDate = new Date().setHours(0, 0, 0, 0);
 
     if (rowData.Status === "Active" && inputDate < todaysDate) {
@@ -240,16 +245,16 @@ const PortfolioDash = () => {
               body={StatusBodyTemplate}
               filter
               filterElement={statusFilter}
-              style={{width: "250px"}}
+              style={{ width: "250px" }}
             />
 
-            <Column 
-              field="Date" 
-              header="Date" 
+            <Column
+              field="Date"
+              header="Date"
               body={DateBodyTemplate}
-              style={{width: "100px"}}
+              style={{ width: "100px" }}
               sortable
-               />
+            />
 
             <Column
               field="currentStage"

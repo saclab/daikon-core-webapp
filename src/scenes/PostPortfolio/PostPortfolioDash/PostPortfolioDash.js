@@ -13,6 +13,8 @@ import { useState } from "react";
 import { Tag } from "primereact/tag";
 import { SelectButton } from "primereact/selectbutton";
 import { MultiSelect } from "primereact/multiselect";
+import FDate from "../../../app/common/FDate/FDate";
+
 
 const PostPortfolioDash = () => {
   /* MobX Store */
@@ -57,16 +59,16 @@ const PostPortfolioDash = () => {
       className="p-column-filter"
       showClear
     />
-  );
+  )
   /* END STAGE FILTER */
 
   /* STATUS FILTER */
   const [selectedStatus, setSelectedStatus] = useState(null);
-  const statuses = ["Active", "Inactive"];
+  const statuses = ["Active", "Terminated"];
 
   const onStatusChange = (e) => {
     console.log(e.value);
-    dt.current.filter(e.value, "Status", "equals");
+    dt.current.filter(e.value, "status", "equals");
     setSelectedStatus(e.value);
   };
 
@@ -136,27 +138,34 @@ const PostPortfolioDash = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Status</span>
-        <Tag className="table-status-inactive" value="Inactive" />
+        <Tag className="table-status-inactive" value="Terminated" />
       </React.Fragment>
     );
   };
 
   const DateBodyTemplate = (rowData) => {
+
     let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
+    if (rowData.h2LEnabled) inputDate = new Date(rowData.h2LStart).setHours(0, 0, 0, 0);
+    if (rowData.loEnabled) inputDate = new Date(rowData.loStart).setHours(0, 0, 0, 0);
+    if (rowData.spEnabled) inputDate = new Date(rowData.spStart).setHours(0, 0, 0, 0);
+    if (rowData.indEnabled) inputDate = new Date(rowData.indStart).setHours(0, 0, 0, 0);
+    if (rowData.clinicalP1Enabled) inputDate = new Date(rowData.clinicalP1Start).setHours(0, 0, 0, 0);
+
     let todaysDate = new Date().setHours(0, 0, 0, 0);
 
     if (rowData.Status === "Active" && inputDate < todaysDate) {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <Tag className="table-date-due" value={rowData.fhaStart} />
+          <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#FFECB3"} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <Tag className="table-date-ok" value={rowData.fhaStart} />
+        <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#000000"} />
       </React.Fragment>
     );
   };
@@ -234,9 +243,15 @@ const PostPortfolioDash = () => {
               body={StatusBodyTemplate}
               filter
               filterElement={statusFilter}
+              style={{ width: "250px" }}
             />
 
-            <Column field="Date" header="Date" body={DateBodyTemplate} />
+            <Column field="Date"
+              header="Date"
+              body={DateBodyTemplate}
+              style={{ width: "100px" }}
+              sortable
+            />
 
             <Column
               field="currentStage"
