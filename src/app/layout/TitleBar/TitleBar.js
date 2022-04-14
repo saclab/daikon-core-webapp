@@ -45,7 +45,8 @@ const TitleBar = () => {
             " "
           )}
         >
-          Target and Project Tracker (TPT)
+          <b>DAIKON</b>
+          
         </Button>
 
         <Button

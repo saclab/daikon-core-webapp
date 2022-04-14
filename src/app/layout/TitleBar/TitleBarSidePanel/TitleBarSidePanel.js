@@ -32,8 +32,9 @@ const TitleBarSidePanel = ({ toggle, user }) => {
 
   return (
     <div className="p-d-flex p-flex-column">
-      <div>
-        <h2>Target & Project Tracker</h2>
+      <div style={{lineHeight: "0.1"}}>
+        <h2>DAIKON</h2>
+        <h5>Version 0.9.0</h5>
       </div>
       <div>
       <span className="p-input-icon-left">
