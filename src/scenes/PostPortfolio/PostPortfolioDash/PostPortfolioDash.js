@@ -238,7 +238,7 @@ const PostPortfolioDash = () => {
             />
 
             <Column
-              field="Status"
+              field="status"
               header="Status"
               body={StatusBodyTemplate}
               filter

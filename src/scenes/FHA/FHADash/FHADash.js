@@ -13,6 +13,8 @@ import { useState } from "react";
 import { Tag } from "primereact/tag";
 import { SelectButton } from "primereact/selectbutton";
 import { MultiSelect } from "primereact/multiselect";
+import FDate from "../../../app/common/FDate/FDate";
+
 
 // import "./PortfolioDashDataTable.css";
 
@@ -31,119 +33,121 @@ const FHADash = () => {
     }
   }, [fetchProjects, projectRegistry]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const [selectedStatus, setSelectedStatus] = useState(null);
-  const statuses = ["Active", "Inactive"];
 
   /* local variables */
 
   const dt = useRef(null);
 
+  const stageItemTemplate = (option) => {
+    return (
+      <span className={`customer-badge status-${option}`}>{option}</span>
+    );
+  };
+
+  /* STATUS FILTER */
+  const [selectedStatus, setSelectedStatus] = useState(null);
+  const statuses = ["Active", "Terminated"];
+
+  const onStatusChange = (e) => {
+    console.log(e.value);
+    dt.current.filter(e.value, "status", "equals");
+    setSelectedStatus(e.value);
+  };
+
+  const statusFilter = (
+    <SelectButton
+      value={selectedStatus}
+      options={statuses}
+      onChange={onStatusChange}
+      itemTemplate={stageItemTemplate}
+      className="p-column-filter"
+    />
+  );
+  /* END STATUS FILTER */
+
+  const TargetBodyTemplate = (rowData) => {
+    return (
+      <React.Fragment>
+        <span className="p-column-title">Target</span>
+        {rowData.targetName}
+      </React.Fragment>
+    );
+  };
+
+  const ProjectNoBodyTemplate = (rowData) => {
+    return (
+      <React.Fragment>
+        <span className="p-column-title">Project Id</span>
+        {rowData.id.substring(0, 8)}
+      </React.Fragment>
+    );
+  };
+
+  const ProjectNameBodyTemplate = (rowData) => {
+    return (
+      <React.Fragment>
+        <span className="p-column-title">Project Name</span>
+        <b>
+          <NavLink to={"/fha/" + rowData.id}>
+            {rowData.projectName}
+          </NavLink>
+        </b>
+      </React.Fragment>
+    );
+  };
+
+  const PrimaryOrganizationBodyTemplate = (rowData) => {
+    return (
+      <React.Fragment>
+        <span className="p-column-title">Primary Organization</span>
+        {rowData.primaryOrg.alias}
+      </React.Fragment>
+    );
+  };
+
+  const StatusBodyTemplate = (rowData) => {
+    if (rowData.status === "Active") {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Status</span>
+          <Tag className="table-status-active" value="Active" />
+        </React.Fragment>
+      );
+    }
+    return (
+      <React.Fragment>
+        <span className="p-column-title">Status</span>
+        <Tag className="table-status-inactive" value="Terminated" />
+      </React.Fragment>
+    );
+  };
+
+  const DateBodyTemplate = (rowData) => {
+    let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
+    let todaysDate = new Date().setHours(0, 0, 0, 0);
+
+    if (rowData.Status === "Active" && inputDate < todaysDate) {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Date</span>
+          <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#FFECB3"} />
+        </React.Fragment>
+      );
+    }
+    return (
+      <React.Fragment>
+        <span className="p-column-title">Date</span>
+        <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#000000"} />
+      </React.Fragment>
+    );
+  };
+
+  /** Loading Overlay */
   if (loadingProjects) {
     return <Loading />;
   }
 
   if (!loadingProjects) {
-    const stageItemTemplate = (option) => {
-      return (
-        <span className={`customer-badge status-${option}`}>{option}</span>
-      );
-    };
-
-    /* STATUS FILTER */
-
-    const onStatusChange = (e) => {
-      console.log(e.value);
-      dt.current.filter(e.value, "Status", "equals");
-      setSelectedStatus(e.value);
-    };
-
-    const statusFilter = (
-      <SelectButton
-        value={selectedStatus}
-        options={statuses}
-        onChange={onStatusChange}
-        itemTemplate={stageItemTemplate}
-        className="p-column-filter"
-      />
-    );
-    /* END STATUS FILTER */
-
-    const TargetBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Target</span>
-          {rowData.targetName}
-        </React.Fragment>
-      );
-    };
-
-    const ProjectNoBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Project Id</span>
-          {rowData.id.substring(0, 8)}
-        </React.Fragment>
-      );
-    };
-
-    const ProjectNameBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Project Name</span>
-          <b>
-            <NavLink to={"/fha/" + rowData.id}>
-              {rowData.projectName}
-            </NavLink>
-          </b>
-        </React.Fragment>
-      );
-    };
-
-    const PrimaryOrganizationBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Primary Organization</span>
-          {rowData.primaryOrg.alias}
-        </React.Fragment>
-      );
-    };
-
-    const StatusBodyTemplate = (rowData) => {
-      if (rowData.status === "Active") {
-        return (
-          <React.Fragment>
-            <span className="p-column-title">Status</span>
-            <Tag className="table-status-active" value="Active" />
-          </React.Fragment>
-        );
-      }
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Status</span>
-          <Tag className="table-status-inactive" value="Inactive" />
-        </React.Fragment>
-      );
-    };
-
-    const DateBodyTemplate = (rowData) => {
-      let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
-      let todaysDate = new Date().setHours(0, 0, 0, 0);
-
-      if (rowData.Status === "Active" && inputDate < todaysDate) {
-        return (
-          <React.Fragment>
-            <span className="p-column-title">Date</span>
-            <Tag className="table-date-due" value={rowData.fhaStart} />
-          </React.Fragment>
-        );
-      }
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Date</span>
-          <Tag className="table-date-ok" value={rowData.fhaStart} />
-        </React.Fragment>
-      );
-    };
 
     return (
       <div className="datatable-portfolio-dash">
@@ -195,14 +199,15 @@ const FHADash = () => {
             />
 
             <Column
-              field="Status"
+              field="status"
               header="Status"
               body={StatusBodyTemplate}
               filter
               filterElement={statusFilter}
+              style={{ width: "250px" }}
             />
 
-            <Column field="Date" header="Date" body={DateBodyTemplate} />
+            <Column field="Date" header="FHA Date" body={DateBodyTemplate} />
           </DataTable>
         </div>
       </div>
