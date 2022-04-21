@@ -17,6 +17,7 @@ export default class TargetStoreAdmin {
       selectedTarget: observable,
       editTargetAdmin: action,
       importTarget: action,
+      importTargetComplex: action,
     });
   }
   /* Fetch specific TargetAdmin with id from API */
@@ -90,6 +91,26 @@ export default class TargetStoreAdmin {
     this.displayLoading = true;
     try {
       var res = await agent.TargetAdmin.import(targetEntry);
+
+      runInAction(() => {
+        console.log(res);
+      });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      runInAction(() => {
+        this.displayLoading = false;
+      });
+    }
+    return res;
+  };
+
+  importTargetComplex = async (targetEntry) => {
+    console.log("targetStoreAdmin: importTarget() Start");
+    this.displayLoading = true;
+    try {
+      var res = await agent.TargetAdmin.importComplex(targetEntry);
 
       runInAction(() => {
         console.log(res);
