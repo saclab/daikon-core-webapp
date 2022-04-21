@@ -145,25 +145,42 @@ const PortfolioDash = () => {
 
   const DateBodyTemplate = (rowData) => {
     let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
-    if (rowData.h2LEnabled) inputDate = new Date(rowData.h2LStart).setHours(0, 0, 0, 0);
-    if (rowData.loEnabled) inputDate = new Date(rowData.loStart).setHours(0, 0, 0, 0);
-    if (rowData.spEnabled) inputDate = new Date(rowData.spStart).setHours(0, 0, 0, 0);
-    if (rowData.indEnabled) inputDate = new Date(rowData.indStart).setHours(0, 0, 0, 0);
-    if (rowData.clinicalP1Enabled) inputDate = new Date(rowData.clinicalP1Start).setHours(0, 0, 0, 0);
+    let stageDate = rowData.h2LStart;
+
+    if (rowData.h2LEnabled) {
+      inputDate = new Date(rowData.h2LStart).setHours(0, 0, 0, 0);
+      stageDate = rowData.h2LStart;
+    }
+    if (rowData.loEnabled) {
+      inputDate = new Date(rowData.loStart).setHours(0, 0, 0, 0);
+      stageDate = rowData.loStart;
+    }
+    if (rowData.spEnabled) {
+      inputDate = new Date(rowData.spStart).setHours(0, 0, 0, 0);
+      stageDate = rowData.spStart;
+    }
+    if (rowData.indEnabled) {
+      inputDate = new Date(rowData.indStart).setHours(0, 0, 0, 0);
+      stageDate = rowData.indStart;
+    }
+    if (rowData.clinicalP1Enabled) {
+      inputDate = new Date(rowData.clinicalP1Start).setHours(0, 0, 0, 0);
+      stageDate = rowData.clinicalP1Start;
+    }
     let todaysDate = new Date().setHours(0, 0, 0, 0);
 
     if (rowData.Status === "Active" && inputDate < todaysDate) {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#FFECB3"} />
+          <FDate className="p-column-title" timestamp={stageDate} color={"#FFECB3"} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#000000"} />
+        <FDate className="p-column-title" timestamp={stageDate} color={"#000000"} />
       </React.Fragment>
     );
   };
