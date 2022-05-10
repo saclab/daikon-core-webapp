@@ -3,6 +3,7 @@ import { TabView, TabPanel } from "primereact/tabview";
 
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
+import ProjectAdminNewProject from "./ProjectAdminNewProject/ProjectAdminNewProject";
 
 
 const ProjectAdmin = () => {
@@ -51,7 +52,7 @@ const ProjectAdmin = () => {
                   {/* <TargetAdminList /> */}
                 </TabPanel>
                 <TabPanel header="Header II" headerClassName="hide">
-                  {/* <TargetAdminImporter /> */}
+                  <ProjectAdminNewProject />
                 </TabPanel>
               </TabView>
             </div>

@@ -326,6 +326,7 @@ const Projects = {
       newCompoundEvolution
     ),
   setPriorityProbability: (Id, ppDTO) => requests.post(`/project/${Id}`, ppDTO),
+  createUnlinked: (newProject) => requests.post(`/admin/project/unlinked`, newProject),
 };
 
 const Vote = {

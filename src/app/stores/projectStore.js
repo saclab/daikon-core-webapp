@@ -10,6 +10,7 @@ export default class ProjectStore {
   loadingProject = false;
   editingProject = false;
   terminatingProject = false;
+  creatingUnlinkedProject = false;
   projectRegistry = new Map();
   projectRegistryExpanded = new Map();
   projectRegistryCacheValid = false;
@@ -49,6 +50,9 @@ export default class ProjectStore {
 
       editProject: action,
       terminateProject: action,
+
+      creatingUnlinkedProject: observable,
+      createUnlinkedProject: action
     });
   }
 
@@ -270,4 +274,30 @@ export default class ProjectStore {
     }
     return res;
   };
+
+  createUnlinkedProject = async (newProject) => {
+    console.log("ProjectStore: createUnlinkedProject Start");
+    
+    this.creatingUnlinkedProject = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.createUnlinked(newProject);
+      runInAction(() => {
+        toast.success("Successfully created new Project");
+        this.rootStore.projectStore.projectRegistryCacheValid = false;
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.creatingUnlinkedProject = false;
+        console.log("ProjectStore: createUnlinkedProject Complete");
+      });
+    }
+    return res;
+  };
+
+
 }
