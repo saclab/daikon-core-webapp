@@ -28,34 +28,31 @@ const MenuBarAdmin = () => {
     },
     {
       label: "Screen",
-      icon: "icon icon-conceptual icon-chemical",
+      icon: "icon icon-common icon-search",
       command: () => history.push("/screen/"),
     },
-    { label: "FHA", icon: "icon icon-conceptual icon-structures-3d" },
     {
-      label: "Portfolio",
+      label: "Project",
       icon: "icon icon-common icon-classification",
-      command: () => history.push("/portfolio/"),
+      command: () => history.push("/admin/project/"),
     },
 
-    { label: "IND", icon: "icon icon-conceptual icon-proteins" },
-    { label: "Clinical", icon: "icon icon-common icon-biotech" },
   ];
 
   const start = <><h2><i className="icon icon-common icon-asterisk"></i> Admin Panel | </h2></>
   const end = <Button
-  type="Button"
-  icon="icon icon-common icon-close"
-  label="Exit"
-  className={["p-mr-2", "p-button-danger"].join(" ")}
-  onClick={() => window.location.replace("/")}
-/>
+    type="Button"
+    icon="icon icon-common icon-close"
+    label="Exit"
+    className={["p-mr-2", "p-button-danger"].join(" ")}
+    onClick={() => window.location.replace("/")}
+  />
 
   return (
-      <div className={["card"].join(" ")}>
-        <Menubar model={items} start={start} end={end}/>
-      </div>
-      
+    <div className={["card"].join(" ")}>
+      <Menubar model={items} start={start} end={end} />
+    </div>
+
   );
 };
 

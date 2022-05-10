@@ -50,6 +50,7 @@ import FHADash from '../../scenes/FHA/FHADash/FHADash';
 import FHAView from "../../scenes/FHA/FHAView/FHAView";
 import ProjectManagement from '../../scenes/ProjectManagement/ProjectManagement';
 import ProjectSettings from '../../scenes/ProjectManagement/ProjectSettings/ProjectSettings';
+import ProjectAdmin from '../../scenes/Admin/ProjectAdmin/ProjectAdmin';
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -156,6 +157,8 @@ const App = () => {
               path="/admin/target/:id"
               component={TargetAdminEditDetails}
             />
+            <Route exact path="/admin/project" component={ProjectAdmin} />
+
             <Route path="/gene/:id/comment" component={Discussion} />
 
             <Route component={NotFound} />
