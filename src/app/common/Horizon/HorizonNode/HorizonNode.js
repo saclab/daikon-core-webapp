@@ -3,6 +3,15 @@ import { Button } from "primereact/button";
 import history from "../../../../history";
 
 const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
+
+  let nodeColors = {
+    gene: "#332288",
+    target: "#117733",
+    screen: "#0072B2",
+    fha: "#CC6677",
+    portfolio: "#D55E00",
+    postPortfolio: "#882255"
+  }
   switch (dataObj.dataObj.name) {
     case "Gene":
       if (dataObj.dataObj.attributes.accessionNumber === "Unknown") {
@@ -15,7 +24,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               icon="icon icon-conceptual icon-dna"
               style={{
                 background: "#ffffff",
-                color: "#000000",
+                color: nodeColors.gene,
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
@@ -25,8 +34,8 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="190" height="160">
-            <div>
-              <p>
+            <div style={{ color: nodeColors.gene }}>
+              <p >
                 <b>Gene</b>
                 <br />
                 {dataObj.dataObj.attributes.accessionNumber}
@@ -50,7 +59,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               icon="icon icon-conceptual icon-expression"
               style={{
                 background: "#ffffff",
-                color: "#000000",
+                color: nodeColors.gene,
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
@@ -60,7 +69,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="190" height="160">
-            <div>
+            <div style={{ color: nodeColors.gene }}>
               <p>
                 <b>Protein</b>
 
@@ -118,7 +127,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               icon="icon icon-conceptual icon-proteins"
               style={{
                 background: "#ffffff",
-                color: "#000000",
+                color: nodeColors.gene,
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
@@ -128,7 +137,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="190" height="160">
-            <div>
+            <div style={{ color: nodeColors.gene }}>
               <p>
                 <b>Protein Complex</b>
                 <br />
@@ -148,7 +157,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               icon="icon icon-common icon-question"
               style={{
                 background: "#ffffff",
-                color: "#000000",
+                color: nodeColors.target,
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
@@ -171,7 +180,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               icon="icon icon-common icon-target"
               style={{
                 background: "#ffffff",
-                color: "#000000",
+                color: nodeColors.target,
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
@@ -181,7 +190,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
-            <div>
+            <div style={{ color: nodeColors.target }}>
               <p>
                 <b>Target</b> <br />
                 {dataObj.dataObj.attributes.targetName}
@@ -202,7 +211,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             icon="icon icon-common icon-search"
             style={{
               background: "#ffffff",
-              color: "#000000",
+              color: nodeColors.screen,
               border: "0px solid #000000",
               fontSize: "2em",
             }}
@@ -211,7 +220,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
               <p>
-              <b>Screen</b> <br />
+                <b>Screen</b> <br />
                 <i>{dataObj.dataObj.attributes.screenMethod}</i>
               </p>
             </div>
@@ -224,7 +233,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
               icon="icon icon-common icon-search"
               style={{
                 background: "#ffffff",
-                color: "#000000",
+                color: nodeColors.screen,
                 border: "0px solid #000000",
                 fontSize: "2em",
               }}
@@ -236,7 +245,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
-            <div>
+            <div style={{ color: nodeColors.screen }}>
               <p>
                 <b>Screen</b> <br />
                 {dataObj.dataObj.attributes.screenName}
@@ -248,7 +257,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "FHA":
-      var objColor = "#000000";
+      var objColor = nodeColors.fha;
       if (dataObj.dataObj.attributes.status === "Terminated") {
         objColor = "#AAAAAA";
       }
@@ -279,7 +288,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "Portfolio":
-      var objColor = "#000000";
+      var objColor = nodeColors.portfolio;
       if (dataObj.dataObj.attributes.status === "Terminated") {
         objColor = "#AAAAAA";
       }
@@ -316,7 +325,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "PostPortfolio":
-      var objColor = "#000000";
+      var objColor = nodeColors.postPortfolio;
       if (dataObj.dataObj.attributes.status === "Terminated") {
         objColor = "#AAAAAA";
       }

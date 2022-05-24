@@ -45,7 +45,7 @@ const TitleBar = () => {
             " "
           )}
         >
-          <b>D.A.I.K.O.N</b>
+          <b>D A I K O N</b>
           
         </Button>
 

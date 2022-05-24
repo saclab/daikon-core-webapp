@@ -1,15 +1,25 @@
+.stage-tag .stage-FHA {
+  background-color: #648FFF;
+  color: #ffffff;
+  font-weight: normal;
+}
 .stage-tag .stage-H2L {
-  background-color: #A69283;
+  background-color: #785EF0;
   color: #ffffff;
   font-weight: normal;
 }
 .stage-tag .stage-LO {
-  background-color: #75A3F4;
+  background-color: #DC267F;
   color: #ffffff;
   font-weight: normal;
 }
 .stage-tag .stage-SP {
-  background-color: #B2AACB;
+  background-color: #FE6100;
+  color: #ffffff;
+  font-weight: normal;
+}
+.stage-tag .stage-IND {
+  background-color: #FFB000;
   color: #ffffff;
   font-weight: normal;
 }
