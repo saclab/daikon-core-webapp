@@ -11,6 +11,7 @@ const SectionHeading = ({
   textColor,
   accessionNumber,
   targetName,
+  projectName
 }) => {
   const headerTemplate = (options) => {
     const toggleIcon = options.collapsed
@@ -70,7 +71,7 @@ const SectionHeading = ({
   };
   return (
     <Panel headerTemplate={headerTemplate} collapsed={true} toggleable>
-      <Horizon accessionNumber={accessionNumber} targetName={targetName} />
+      <Horizon accessionNumber={accessionNumber} targetName={targetName || projectName} />
     </Panel>
   );
 };

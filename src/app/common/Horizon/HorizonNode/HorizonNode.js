@@ -5,6 +5,9 @@ import history from "../../../../history";
 const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
   switch (dataObj.dataObj.name) {
     case "Gene":
+      if (dataObj.dataObj.attributes.accessionNumber === "Unknown") {
+        return <g></g>
+      }
       return (
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
@@ -36,6 +39,10 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
       );
 
     case "SimpleProtein":
+      if (dataObj.dataObj.attributes.targetName === "Unknown") {
+        return <g></g>
+      }
+
       return (
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
@@ -134,6 +141,29 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "Target":
+      if (dataObj.dataObj.attributes.targetName === "Unknown") {
+        return <g>
+          <foreignObject x="-10" y="-30" width="40" height="50">
+            <Button
+              icon="icon icon-common icon-question"
+              style={{
+                background: "#ffffff",
+                color: "#000000",
+                border: "0px solid #000000",
+                fontSize: "2em",
+              }}
+            />
+          </foreignObject>
+          <foreignObject x="10" y="0" width="250" height="160">
+            <div>
+              <p>
+                <b>Target</b> <br />
+                {dataObj.dataObj.attributes.targetName}
+              </p>
+            </div>
+          </foreignObject>
+        </g>
+      }
       return (
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
@@ -166,6 +196,27 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "Screen":
+      if (dataObj.dataObj.attributes.targetName === "Unknown") {
+        return <g><foreignObject x="-10" y="-30" width="40" height="50">
+          <Button
+            icon="icon icon-common icon-search"
+            style={{
+              background: "#ffffff",
+              color: "#000000",
+              border: "0px solid #000000",
+              fontSize: "2em",
+            }}
+          />
+        </foreignObject>
+          <foreignObject x="10" y="0" width="250" height="160">
+            <div>
+              <p>
+              <b>Screen</b> <br />
+                <i>{dataObj.dataObj.attributes.screenMethod}</i>
+              </p>
+            </div>
+          </foreignObject></g>
+      }
       return (
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
