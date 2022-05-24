@@ -73,7 +73,7 @@ const ScreenDash = () => {
       <div className="datatable-screens">
         <SectionHeading
           icon="icon icon-common icon-search"
-          heading="Screened Targets"
+          heading="Screens"
           color={"#0072B2"}
         />
 
@@ -89,7 +89,7 @@ const ScreenDash = () => {
           >
             <Column
               field="targetName"
-              header="Target Name"
+              header="Name"
               body={TargetNameBodyTemplate}
               filter
               filterMatchMode="contains"
