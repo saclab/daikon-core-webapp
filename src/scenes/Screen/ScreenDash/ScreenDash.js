@@ -74,6 +74,7 @@ const ScreenDash = () => {
         <SectionHeading
           icon="icon icon-common icon-search"
           heading="Screened Targets"
+          color={"#0072B2"}
         />
 
         <div className="card">

@@ -1,7 +1,7 @@
 
 .Header {
   overflow: hidden;
-  background: linear-gradient(to right, #1099ae 0%, #330867 100%);
+  background: linear-gradient(to right, #44AA99 0%, #332288 100%);
   /* background: #0072C6; */
   padding: 3px 0px;
   font-family: 'IBM Plex Sans', sans-serif !important;
@@ -14,7 +14,7 @@
 }
 
 .BlackButton:hover {
-  background: #330867;
+  background: #332288;
   border: 0px solid #000000;
 }
 

@@ -176,6 +176,7 @@ const PortfolioView = ({ match, history }) => {
                   }
                   targetName={selectedProject.targetName}
                   displayHorizon={true}
+                  color={"#D55E00"}
                 />
               </div>
               <div className="p-mb-2">

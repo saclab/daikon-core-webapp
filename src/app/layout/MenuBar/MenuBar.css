@@ -14,8 +14,8 @@
 
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
   background: #ffffff;
-  border-color: #28477f;
-  color: #28477f;
+  border-color: #000000;
+  color: #000000;
 }
 
 @media screen and (max-width: 1300px) {

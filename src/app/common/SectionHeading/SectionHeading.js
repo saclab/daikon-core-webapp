@@ -17,7 +17,7 @@ const SectionHeading = ({
     const toggleIcon = options.collapsed
       ? "icon icon-common icon-ellipsis-h"
       : "pi pi-chevron-up";
-    let background = color ? color : "#28477f";
+    let background = color ? color : "#332288";
     let htextColor = textColor ? textColor : "#ffffff";
     let displayHorizonButton = (
       <div

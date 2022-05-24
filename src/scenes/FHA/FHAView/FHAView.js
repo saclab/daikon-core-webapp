@@ -139,6 +139,7 @@ const FHAView = ({ match, history }) => {
                   targetName={selectedProject.targetName}
                   projectName={selectedProject.projectName}
                   displayHorizon={true}
+                  color={"#CC6677"}
                 />
               </div>
               <div className="p-mb-2">

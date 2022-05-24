@@ -144,6 +144,7 @@ const TargetView = ({ match, history }) => {
                   heading={target.name}
                   targetName={target.name}
                   displayHorizon={true}
+                  color={"#117733"}
                 />
               </div>
               <div className="p-mb-2">

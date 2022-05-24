@@ -17,7 +17,7 @@
 }
 
 .datatable-targets .table-header .heading {
-  background: linear-gradient(to right, #1099ae 0%, #330867 100%);
+  background: linear-gradient(to right, #44AA99 0%, #332288 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

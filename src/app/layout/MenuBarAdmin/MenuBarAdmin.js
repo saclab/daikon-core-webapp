@@ -22,17 +22,17 @@ const MenuBarAdmin = () => {
       command: () => history.push("/admin/gene/"),
     },
     {
-      label: "Target",
+      label: "Targets",
       icon: "icon icon-common icon-target",
       command: () => history.push("/admin/target/"),
     },
     {
-      label: "Screen",
+      label: "Screens",
       icon: "icon icon-common icon-search",
       command: () => history.push("/screen/"),
     },
     {
-      label: "Project",
+      label: "Projects",
       icon: "icon icon-common icon-classification",
       command: () => history.push("/admin/project/"),
     },

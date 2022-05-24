@@ -73,6 +73,7 @@ const ScreenView = ({ match, history }) => {
                   heading={"Screens of " + match.params.id}
                   targetName={match.params.id}
                   displayHorizon={true}
+                  color={"#0072B2"}
                 />
               </div>
               <div className="p-mb-2">

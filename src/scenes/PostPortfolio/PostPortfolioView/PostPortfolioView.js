@@ -153,6 +153,7 @@ const PostPortfolioView = ({ match, history }) => {
                   }
                   targetName={selectedProject.targetName}
                   displayHorizon={true}
+                  color={"#882255"}
                 />
               </div>
               <div className="p-mb-2">

@@ -9,10 +9,10 @@ const Home = () => {
 
   return (
     <div className="Home">
-      <h1>Target and Project Tracker (TPT) </h1>
+      <h1>Data Acquisition, Integration and Knowledge capture application (DAIKON)</h1>
       <div className="subtext">
         <p>
-          The Target and Project Tracker (TPT) is a tool for visualizing and
+          Daikon is a tool for visualizing and
           managing targets, pre-projects and projects within the TBDA and its
           discovery portfolio.
         </p>

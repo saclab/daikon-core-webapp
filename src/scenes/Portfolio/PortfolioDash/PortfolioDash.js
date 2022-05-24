@@ -208,6 +208,7 @@ const PortfolioDash = () => {
         <SectionHeading
           icon="icon icon-common icon-analyse"
           heading="Portfolio"
+          color={"#D55E00"}
         />
         <div className="card">
           <DataTable

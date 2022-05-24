@@ -154,6 +154,7 @@ const FHADash = () => {
         <SectionHeading
           icon="icon icon-conceptual icon-chemical"
           heading="FHA"
+          color={"#CC6677"}
         />
         <div className="card">
           <DataTable
