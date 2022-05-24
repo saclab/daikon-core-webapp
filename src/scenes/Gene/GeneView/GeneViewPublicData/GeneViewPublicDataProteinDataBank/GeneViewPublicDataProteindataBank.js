@@ -4,6 +4,7 @@ import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import { Skeleton } from "primereact/skeleton";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
+import { SplitButton } from 'primereact/splitbutton';
 import LiteMolView from "../../../../../app/common/LiteMolView/LiteMolView";
 
 const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
@@ -36,8 +37,8 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
     setmolViewId(id);
     setmolViewUrl(
       "https://www.ebi.ac.uk/pdbe/entry-files/download/pdb" +
-        id.toLowerCase() +
-        ".ent"
+      id.toLowerCase() +
+      ".ent"
     );
     setmolViewFormat("pdb");
     setDisplayMolViewContainer(true);
@@ -91,11 +92,33 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
             </div>
           </td>
           <td>
-            <Button
-              label="Open"
-              icon="pi pi-check"
+            <SplitButton
+              label="View Structure"
+              icon="icon icon-common icon-cubes"
               onClick={() => openMolView(obj.id)}
               className="p-button-sm"
+              model={[
+                {
+                  label: 'Download PDB',
+                  icon: 'icon icon-common icon-download',
+                  command: () => {
+                    window.location.href = "https://www.ebi.ac.uk/pdbe/entry-files/download/pdb" +
+                      obj.id.toLowerCase() +
+                      ".ent"
+                  }
+                },
+                {
+                  label: 'PDB Report',
+                  icon: 'icon icon-fileformats icon-PDF',
+                  command: () => {
+                    window.location.href = "https://www.ebi.ac.uk/pdbe/entry-files/download/" +
+                      obj.id.toLowerCase() +
+                      "_validation.pdf"
+                  }
+                }
+              ]
+
+              }
             />
           </td>
         </tr>

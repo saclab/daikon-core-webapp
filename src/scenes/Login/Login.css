@@ -1,5 +1,6 @@
 .BackgroundLogin {
   /* background: linear-gradient(120deg, #eee, #fff 100%); */
+  background-image: url('../../assets/Ocean-2.4s-3000px.svg');
   width: 100%;
   min-height: 100vh;
   background-size: cover;
@@ -16,19 +17,19 @@
   background: linear-gradient(to right, #44AA99 0%, #332288 100%);
 
   /* background: #000000; */
-  width: 510px;
+  width: 810px;
   height: 610px;
 }
 
 .LoginLoginBox {
-  background: #ffffff;
+  /* background: #ffffff; */
   margin: 5px 5px 5px 5px;
   padding: 20px;
-  width: 500px;
+  width: 800px;
   height: 600px;
 }
 
-.LoginLoginBox h2 {
+.LoginLoginBox h1 {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 500;
   font-size: xx-large;
@@ -42,6 +43,7 @@
 
 .LoginLoginBox p {
   text-align: left;
+  font-size: small;
 }
 
 .LoginBox Button {
@@ -69,7 +71,7 @@
   background-color: #ffffff;
   background-size: cover;
   /* Background image for represenation only in proto type, to be replaced before production; copyrights not held */
-  /* background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/8b8c2994436609.5e83ca2f195bf.gif'); */
+  /* background-image: url('../../assets/Ocean-2.4s-3000px.svg'); */
 }
 
 .LoginRight {

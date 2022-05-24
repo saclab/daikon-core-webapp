@@ -121,7 +121,7 @@ const GeneViewPublicData = ({
               </Fieldset>
             </div>
             <div className="p-mb-2">
-              <Fieldset legend="Orthologues">
+              <Fieldset legend="Orthologs">
                 <KeyValList
                   data={gene.genePublicData}
                   filter={["m_Leprae", "m_Marinum", "m_Smegmatis"]}

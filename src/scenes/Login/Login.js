@@ -25,17 +25,17 @@ import Footer from "../../app/layout/Footer/Footer";
 
 const Login = ({ loginButtonClicked }) => {
   return (
-    <Fragment>
-      <div className="LoginSplit LoginLeft">
+    <div className="BackgroundLogin">
+      {/* <div className="LoginLeft">
         <div className="centered"></div>
-      </div>
+      </div> */}
 
-      <div className="LoginSplit LoginRight">
+      <div className="LoginRight">
         <div className="LoginCentered">
           <div className="LoginLanding">
-            <div className="LoginWrap">
+            <div >
               <div className="LoginLoginBox" id="loginButton">
-                <h2>D A I K O N</h2>
+                <h1>D A I K O N</h1>
 
                 <h5>[LOGIN]</h5>
                 <p>
@@ -56,13 +56,13 @@ const Login = ({ loginButtonClicked }) => {
                   label="Login with SSO"
                   onClick={() => loginButtonClicked()}
                 ></Button>
-                <Footer />
+                {/* <Footer /> */}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 
