@@ -193,6 +193,7 @@ const PostPortfolioDash = () => {
         <SectionHeading
           icon="icon icon-common icon-drug"
           heading="Post Portfolio"
+          color={"#882255"}
         />
         <div className="card">
           <DataTable

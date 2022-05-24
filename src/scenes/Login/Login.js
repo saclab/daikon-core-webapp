@@ -35,7 +35,7 @@ const Login = ({ loginButtonClicked }) => {
           <div className="LoginLanding">
             <div className="LoginWrap">
               <div className="LoginLoginBox" id="loginButton">
-                <h2>Target & Project Tracker</h2>
+                <h2>D A I K O N</h2>
 
                 <h5>[LOGIN]</h5>
                 <p>

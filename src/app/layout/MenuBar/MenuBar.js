@@ -29,12 +29,12 @@ const MenuBar = () => {
       command: () => history.push("/target/"),
     },
     {
-      label: "Screen",
+      label: "Screens",
       icon: "icon icon-common icon-search",
       command: () => history.push("/screen/"),
     },
     {
-      label: "FHA",
+      label: "FHAs",
       icon: "icon icon-conceptual icon-chemical",
       command: () => history.push("/fha/"),
     },

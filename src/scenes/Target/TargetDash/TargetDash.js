@@ -30,6 +30,7 @@ const TargetDash = () => {
       <SectionHeading
         icon="icon icon-common icon-target"
         heading="H37Rv Targets"
+        color={"#117733"}
       />
 
       <div className="p-d-flex">

@@ -9,7 +9,7 @@
 
 .Hr {
   height: 2px;
-  background: linear-gradient(to right, #1099ae 0%, #330867 100%);
+  background: linear-gradient(to right, #44AA99 0%, #332288 100%);
   border: 0px;
   margin-bottom: 40px;
 }
@@ -20,7 +20,7 @@
 
 .Footer a {
   
-  color: #330867;
+  color: #332288;
   text-decoration: underline;
 }
 .Footer a:hover{
