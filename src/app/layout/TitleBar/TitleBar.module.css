@@ -60,6 +60,15 @@
   font-weight: 300;
 }
 
+.Colorized {
+  padding: 10px;
+  text-align: center;
+  background: linear-gradient(to right, #30CFD0 0%, #332288 100%);
+  line-height: 10px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .Push {
   margin-left: auto;
 }

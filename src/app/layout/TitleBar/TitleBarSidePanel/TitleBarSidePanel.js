@@ -5,6 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { Divider } from "primereact/divider";
 import history from "../../../../history";
 import { RootStoreContext } from "../../../stores/rootStore";
+import cssClass from "../TitleBar.module.css";
 
 const TitleBarSidePanel = ({ toggle, user }) => {
   const rootStore = useContext(RootStoreContext);
@@ -12,7 +13,7 @@ const TitleBarSidePanel = ({ toggle, user }) => {
 
   const adminTools = (
     <div className="p-mb-2">
-      <h4>Admin Tools</h4>
+      <h4>+ Admin Tools</h4>
       <Divider type="dashed" />
       <div className="card">
         <Button
@@ -32,26 +33,26 @@ const TitleBarSidePanel = ({ toggle, user }) => {
 
   return (
     <div className="p-d-flex p-flex-column">
-      <div style={{lineHeight: "0.1"}}>
-        <h2>D.A.I.K.O.N</h2>
-        <h5>Version 0.9.0 Beta</h5>
+      <div style={{ lineHeight: "0.1", padding: "20px" }}>
+        <h2 className={cssClass.Colorized}>D A I K O N</h2>
+        <p style={{ textAlign: "center" }}>Version 0.9.0 Beta</p>
       </div>
-      <div>
-      <span className="p-input-icon-left">
+      <div className="card p-fluid">
+        <span className="p-input-icon-left">
           <i className="pi pi-search" />
           <InputText placeholder="Search" />
         </span>
       </div>
       {user.roles.includes("admin") ? adminTools : ""}
       <div className="p-mb-2">
-        <h4>Project Management Tools</h4>
+        <h4>+ Project Management Tools</h4>
 
-        
+
 
         <Divider type="dashed" />
       </div>
       <div>
-        <h4>Chemist Tools</h4>
+        <h4>+ Chemist Tools</h4>
         <Divider type="dashed" />
       </div>
     </div>
