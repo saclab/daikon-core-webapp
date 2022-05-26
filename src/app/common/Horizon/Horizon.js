@@ -81,24 +81,31 @@ const Horizon = ({ accessionNumber, targetName }) => {
 
     return (
       // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
-      <div id="treeWrapper" style={{ width: "100%", height: horizonLength }}>
-        <Tree
-          data={selectedHorizon}
-          nodeSize={nodeSize}
-          //nodeSvgShape={nodeSvgShape}
-          textLayout={textLayout}
-          translate={translate}
-          zoom="0.9"
-          collapsible={false}
-          allowForeignObjects
-          renderCustomNodeElement={(rd3tProps) => (
-            <HorizonNode
-              dataObj={rd3tProps.nodeDatum}
-              toggleNode={rd3tProps.toggleNode}
-              foreignObjectProps={foreignObjectProps}
-            />
-          )}
-        />
+      <div>
+        <div id="treeWrapper" style={{ width: "100%", height: horizonLength }}>
+          <Tree
+            data={selectedHorizon}
+            nodeSize={nodeSize}
+            //nodeSvgShape={nodeSvgShape}
+            textLayout={textLayout}
+            translate={translate}
+            zoom="0.9"
+            collapsible={false}
+            allowForeignObjects
+            renderCustomNodeElement={(rd3tProps) => (
+              <HorizonNode
+                dataObj={rd3tProps.nodeDatum}
+                toggleNode={rd3tProps.toggleNode}
+                foreignObjectProps={foreignObjectProps}
+              />
+            )}
+          />
+        </div>
+        <div style={{ float: "right", marginTop: "-50px", paddingRight: "50px" }}>
+          <h1 style={{ color: "#CCCCCC", fontStyle: "italic" }}>Horizon View</h1>
+        </div>
+
+
       </div>
     );
   }

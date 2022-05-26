@@ -291,7 +291,8 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             <div>
               <p style={{ color: objColor }}>
                 <b>FHA</b> <br />
-                {dataObj.dataObj.attributes.projectName}
+                {dataObj.dataObj.attributes.projectName}<br />
+                {dataObj.dataObj.attributes.status === "Terminated" ? "Terminated" : ""}
               </p>
             </div>
           </foreignObject>
@@ -329,6 +330,8 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 )
                   ? dataObj.dataObj.attributes.currentStage
                   : "Complete"}
+                <br />
+                {dataObj.dataObj.attributes.status === "Terminated" ? "Terminated" : ""}
               </p>
             </div>
           </foreignObject>
@@ -365,7 +368,8 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                   dataObj.dataObj.attributes.currentStage
                 )
                   ? dataObj.dataObj.attributes.currentStage
-                  : "Complete"}
+                  : "Complete"}<br />
+                {dataObj.dataObj.attributes.status === "Terminated" ? "Terminated" : ""}
               </p>
             </div>
           </foreignObject>

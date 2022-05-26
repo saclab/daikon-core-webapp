@@ -6,6 +6,7 @@ import { Divider } from "primereact/divider";
 import history from "../../../../history";
 import { RootStoreContext } from "../../../stores/rootStore";
 import cssClass from "../TitleBar.module.css";
+import { appVersion } from "../../../../config";
 
 const TitleBarSidePanel = ({ toggle, user }) => {
   const rootStore = useContext(RootStoreContext);
@@ -35,7 +36,7 @@ const TitleBarSidePanel = ({ toggle, user }) => {
     <div className="p-d-flex p-flex-column">
       <div style={{ lineHeight: "0.1", padding: "20px" }}>
         <h2 className={cssClass.Colorized}>D A I K O N</h2>
-        <p style={{ textAlign: "center" }}>Version 0.9.0 Beta</p>
+        <p style={{ textAlign: "center" }}>Version {appVersion.release} {appVersion.channel}</p>
       </div>
       <div className="card p-fluid">
         <span className="p-input-icon-left">

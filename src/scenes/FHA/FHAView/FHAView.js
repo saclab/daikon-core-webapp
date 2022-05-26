@@ -155,7 +155,7 @@ const FHAView = ({ match, history }) => {
                     />
                   </TabPanel>
                   <TabPanel header="Header II" headerClassName="hide">
-                    tab 2
+                    Links
                   </TabPanel>
                   <TabPanel header="Header III" headerClassName="hide">
                     <Discussion

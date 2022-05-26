@@ -41,7 +41,7 @@ export default class GeneralStore {
       console.log("GeneralStore: fetchHorizon found in cache");
       this.selectedHorizon = fetchedHorizon;
       this.horizonLength =
-            (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.75) + "rem";
+            (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.6) + "rem";
       this.generatingHorizon = false;
       console.log(this.selectedHorizon);
     }
@@ -54,7 +54,7 @@ export default class GeneralStore {
           this.horizonRegistry.set(targetName, fetchedHorizon);
           this.selectedHorizon = fetchedHorizon;
           this.horizonLength =
-          (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.75) + "rem";
+          (JSON.stringify(fetchedHorizon).match(/[^\\]":/g).length * 0.6) + "rem";
           console.log(this.selectedHorizon);
         });
       } catch (error) {
