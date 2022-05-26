@@ -88,7 +88,7 @@ const Horizon = ({ accessionNumber, targetName }) => {
           //nodeSvgShape={nodeSvgShape}
           textLayout={textLayout}
           translate={translate}
-          zoom="0.8"
+          zoom="0.9"
           collapsible={false}
           allowForeignObjects
           renderCustomNodeElement={(rd3tProps) => (

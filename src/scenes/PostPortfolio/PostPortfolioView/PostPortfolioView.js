@@ -15,6 +15,7 @@ import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import PostPortfolioBaseHits from './PostPortfolioBaseHits/PostPortfolioBaseHits';
 import PostPortfolioInformation from './PostPortfolioInformation/PostPortfolioInformation';
 import PostPortfolioPromotionsPromoteToP1 from "./PostPortfolioPromotions/PostPortfolioPromotionsPromoteToP1";
+import { appColors } from '../../../colors';
 
 
 const PostPortfolioView = ({ match, history }) => {
@@ -153,7 +154,7 @@ const PostPortfolioView = ({ match, history }) => {
                   }
                   targetName={selectedProject.targetName}
                   displayHorizon={true}
-                  color={"#882255"}
+                  color={appColors.sectionHeadingBg.postPortfolio}
                 />
               </div>
               <div className="p-mb-2">

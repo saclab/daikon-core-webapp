@@ -17,6 +17,7 @@ import FDate from "../../../app/common/FDate/FDate";
 
 
 // import "./PortfolioDashDataTable.css";
+import { appColors } from '../../../colors';
 
 const FHADash = () => {
   /* MobX Store */
@@ -154,7 +155,7 @@ const FHADash = () => {
         <SectionHeading
           icon="icon icon-conceptual icon-chemical"
           heading="FHA"
-          color={"#CC6677"}
+          color={appColors.sectionHeadingBg.fha}
         />
         <div className="card">
           <DataTable

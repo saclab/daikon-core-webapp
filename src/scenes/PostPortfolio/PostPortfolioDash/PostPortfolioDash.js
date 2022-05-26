@@ -14,6 +14,7 @@ import { Tag } from "primereact/tag";
 import { SelectButton } from "primereact/selectbutton";
 import { MultiSelect } from "primereact/multiselect";
 import FDate from "../../../app/common/FDate/FDate";
+import { appColors } from '../../../colors';
 
 
 const PostPortfolioDash = () => {
@@ -187,13 +188,15 @@ const PostPortfolioDash = () => {
     return <Loading />;
   }
 
+  
+
   if (!loadingProjects) {
     return (
       <div className="datatable-portfolio-dash">
         <SectionHeading
           icon="icon icon-common icon-drug"
           heading="Post Portfolio"
-          color={"#882255"}
+          color={appColors.sectionHeadingBg.postPortfolio}
         />
         <div className="card">
           <DataTable

@@ -15,6 +15,7 @@ import { SelectButton } from "primereact/selectbutton";
 import { MultiSelect } from "primereact/multiselect";
 import "./PortfolioDashDataTable.css";
 import FDate from "../../../app/common/FDate/FDate";
+import { appColors } from '../../../colors';
 
 const PortfolioDash = () => {
   /* MobX Store */
@@ -208,7 +209,7 @@ const PortfolioDash = () => {
         <SectionHeading
           icon="icon icon-common icon-analyse"
           heading="Portfolio"
-          color={"#D55E00"}
+          color={appColors.sectionHeadingBg.portfolio}
         />
         <div className="card">
           <DataTable

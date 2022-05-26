@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
+import { appColors } from "../../../colors";
 import { TabView, TabPanel } from "primereact/tabview";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Dialog } from "primereact/dialog";
@@ -127,6 +128,7 @@ const GeneView = ({ match, history }) => {
                     heading={gene.accessionNumber}
                     accessionNumber={gene.accessionNumber}
                     displayHorizon={true}
+                    color={appColors.sectionHeadingBg.gene}
                   />
                 </div>
                 <div className="p-mb-2">
