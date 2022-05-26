@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Card } from "primereact/card";
 import { NavLink } from "react-router-dom";
 import "./Home.css";
+import { RootStoreContext } from "../../app/stores/rootStore";
 
 const Home = () => {
   //const header = <img alt="Card" src="/images/usercard.png" />;
   const header = null;
+
+  const rootStore = useContext(RootStoreContext);
+  const { appVars } = rootStore.generalStore;
 
   return (
     <div className="Home">
@@ -29,7 +33,7 @@ const Home = () => {
               <NavLink to="/gene/" style={{ textDecoration: "None" }}>
                 <Card
                   title="Genes"
-                  subTitle="(4194)"
+                  subTitle={'(' + appVars.appCount.geneCount + ')'}
                   style={{ width: "18em" }}
                   header={header}
                 >
@@ -46,7 +50,7 @@ const Home = () => {
               <NavLink to="/target/" style={{ textDecoration: "None" }}>
                 <Card
                   title="Targets"
-                  subTitle="(65)"
+                  subTitle={'(' + appVars.appCount.targetCount + ')'}
                   style={{ width: "18em" }}
                   header={header}
                 >
@@ -61,7 +65,7 @@ const Home = () => {
               <NavLink to="/screen/" style={{ textDecoration: "None" }}>
                 <Card
                   title="Screens"
-                  subTitle="(30)"
+                  subTitle={'(' + appVars.appCount.screenCount + ')'}
                   style={{ width: "18em" }}
                   header={header}
                 >
@@ -80,7 +84,7 @@ const Home = () => {
               <NavLink to="/fha/" style={{ textDecoration: "None" }}>
                 <Card
                   title="FHAs"
-                  subTitle="(10)"
+                  subTitle={'(' + appVars.appCount.fhaCount + ')'}
                   style={{ width: "18em" }}
                   header={header}
                 >
@@ -95,7 +99,7 @@ const Home = () => {
               <NavLink to="/portfolio/" style={{ textDecoration: "None" }}>
                 <Card
                   title="Portfolio"
-                  subTitle="(10)"
+                  subTitle={'(' + appVars.appCount.portfolioCount + ')'}
                   style={{ width: "18em" }}
                   header={header}
                 >
@@ -110,7 +114,7 @@ const Home = () => {
               <NavLink to="/postportfolio/" style={{ textDecoration: "None" }}>
                 <Card
                   title="Post Portfolio"
-                  subTitle="(8)"
+                  subTitle={'(' + appVars.appCount.postPortfolioCount + ')'}
                   style={{ width: "18em" }}
                   header={header}
                 >
