@@ -26,102 +26,100 @@ const Home = () => {
         <div className="p-mb-2">
           <div className="p-d-flex p-jc-center">
             <div className="p-mr-2">
-              <Card
-                title="Genes"
-                subTitle="(4194)"
-                style={{ width: "14em" }}
-                header={header}
-              >
-                <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of candidate genes
-                  <NavLink to="/gene/">
+              <NavLink to="/gene/" style={{ textDecoration: "None" }}>
+                <Card
+                  title="Genes"
+                  subTitle="(4194)"
+                  style={{ width: "18em" }}
+                  header={header}
+                >
+                  <p className="p-m-0" style={{ lineHeight: "1.5" }}>
+                    Shows a list of candidate genes &nbsp;
+
                     <i className="pi pi-arrow-right"></i>
-                  </NavLink>
-                </p>
-              </Card>
+
+                  </p>
+                </Card>
+              </NavLink>
             </div>
             <div className="p-mr-2">
-              {" "}
-              <Card
-                title="Targets"
-                subTitle="(65)"
-                style={{ width: "14em" }}
-                header={header}
-              >
-                <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of targets
-                  <NavLink to="/target">
+              <NavLink to="/target/" style={{ textDecoration: "None" }}>
+                <Card
+                  title="Targets"
+                  subTitle="(65)"
+                  style={{ width: "18em" }}
+                  header={header}
+                >
+                  <p className="p-m-0" style={{ lineHeight: "1.5" }}>
+                    Shows a list of targets&nbsp;
                     <i className="pi pi-arrow-right"></i>
-                  </NavLink>
-                </p>
-              </Card>
+                  </p>
+                </Card>
+              </NavLink>
             </div>
             <div className="p-mr-2">
-              {" "}
-              <Card
-                title="Screen"
-                subTitle="(30)"
-                style={{ width: "14em" }}
-                header={header}
-              >
-                <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of screened targets
-                  <NavLink to="/screen">
+              <NavLink to="/screen/" style={{ textDecoration: "None" }}>
+                <Card
+                  title="Screens"
+                  subTitle="(30)"
+                  style={{ width: "18em" }}
+                  header={header}
+                >
+                  <p className="p-m-0" style={{ lineHeight: "1.5" }}>
+                    Shows a list of screens &nbsp;
                     <i className="pi pi-arrow-right"></i>
-                  </NavLink>
-                </p>
-              </Card>
+                  </p>
+                </Card>
+              </NavLink>
             </div>
           </div>
         </div>
         <div className="p-mb-2">
           <div className="p-d-flex p-jc-center">
             <div className="p-mr-2">
-              <Card
-                title="FHA"
-                subTitle="(10)"
-                style={{ width: "14em" }}
-                header={header}
-              >
-                <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of FHA screens
-                  <NavLink to="/fha">
+              <NavLink to="/fha/" style={{ textDecoration: "None" }}>
+                <Card
+                  title="FHAs"
+                  subTitle="(10)"
+                  style={{ width: "18em" }}
+                  header={header}
+                >
+                  <p className="p-m-0" style={{ lineHeight: "1.5" }}>
+                    Shows a list of FHAs &nbsp;
                     <i className="pi pi-arrow-right"></i>
-                  </NavLink>
-                </p>
-              </Card>
+                  </p>
+                </Card>
+              </NavLink>
             </div>
             <div className="p-mr-2">
-              {" "}
-              <Card
-                title="Portfolio"
-                subTitle="(10)"
-                style={{ width: "14em" }}
-                header={header}
-              >
-                <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Shows a list of all portfolios
-                  <NavLink to="/portfolio">
+              <NavLink to="/portfolio/" style={{ textDecoration: "None" }}>
+                <Card
+                  title="Portfolio"
+                  subTitle="(10)"
+                  style={{ width: "18em" }}
+                  header={header}
+                >
+                  <p className="p-m-0" style={{ lineHeight: "1.5" }}>
+                    Shows a list of all portfolios &nbsp;
                     <i className="pi pi-arrow-right"></i>
-                  </NavLink>
-                </p>
-              </Card>
+                  </p>
+                </Card>
+              </NavLink>
             </div>
             <div className="p-mr-2">
-              {" "}
-              <Card
-                title="Post Portfolio"
-                subTitle="(8)"
-                style={{ width: "14em" }}
-                header={header}
-              >
-                <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                  Displays Post portfolio details
-                  <NavLink to="/postportfolio">
+              <NavLink to="/postportfolio/" style={{ textDecoration: "None" }}>
+                <Card
+                  title="Post Portfolio"
+                  subTitle="(8)"
+                  style={{ width: "18em" }}
+                  header={header}
+                >
+                  <p className="p-m-0" style={{ lineHeight: "1.5" }}>
+                    Shows a list of all post portfolios &nbsp;
                     <i className="pi pi-arrow-right"></i>
-                  </NavLink>
-                </p>
-              </Card>
+                  </p>
+                </Card>
+              </NavLink>
             </div>
           </div>
         </div>
