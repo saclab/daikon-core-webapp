@@ -3,6 +3,7 @@ import cssClass from "./Footer.module.css";
 
 const Footer = () => {
   return (
+
     <div className={cssClass.Footer}>
       <hr className={cssClass.Hr} />
       <div className={["p-d-flex", "p-flex-column", cssClass.Text].join(" ")}>
@@ -16,6 +17,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

@@ -17,6 +17,7 @@ import PortfolioPromotionsPromoteToLO from "./PortfolioPromotions/PortfolioPromo
 import PortfolioPromotionsPromoteToSP from "./PortfolioPromotions/PortfolioPromotionsPromoteToSP";
 import PortfolioBaseHits from "./PortfolioBaseHits/PortfolioBaseHits";
 import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioPromotionsPromoteToIND";
+import { appColors } from '../../../colors';
 
 const PortfolioView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -176,7 +177,7 @@ const PortfolioView = ({ match, history }) => {
                   }
                   targetName={selectedProject.targetName}
                   displayHorizon={true}
-                  color={"#D55E00"}
+                  color={appColors.sectionHeadingBg.portfolio}
                 />
               </div>
               <div className="p-mb-2">

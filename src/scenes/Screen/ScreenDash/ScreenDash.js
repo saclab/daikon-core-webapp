@@ -7,6 +7,7 @@ import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import { appColors } from '../../../colors';
 
 const ScreenDash = () => {
   const rootStore = useContext(RootStoreContext);
@@ -74,7 +75,7 @@ const ScreenDash = () => {
         <SectionHeading
           icon="icon icon-common icon-search"
           heading="Screens"
-          color={"#0072B2"}
+          color={appColors.sectionHeadingBg.screen}
         />
 
         <div className="card">

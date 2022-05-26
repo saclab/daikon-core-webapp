@@ -1,4 +1,6 @@
-
+.loadingIcon {
+  background-image: url('../../../assets/loadingDNA.svg');
+}
 .backdrop {
   position: absolute;
   left: 0;
@@ -15,6 +17,13 @@
 .Text {
   font-family: 'IBM Plex Sans', sans-serif !important;
   font-weight: 100 !important;
+  
+}
+
+.p-progressbar .p-progressbar-value {
+  border: 0 none;
+  margin: 0;
+  background: #000000;
 }
 
 .Loading {

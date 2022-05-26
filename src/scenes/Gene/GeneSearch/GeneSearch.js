@@ -8,6 +8,7 @@ import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import { appColors } from "../../../colors";
 
 const GeneSearch = () => {
   /* MobX Store */
@@ -133,6 +134,7 @@ const GeneSearch = () => {
       <SectionHeading
         icon="icon icon-conceptual icon-dna"
         heading="H37Rv Genes"
+        color={appColors.sectionHeadingBg.gene}
       />
 
       <div className="card">

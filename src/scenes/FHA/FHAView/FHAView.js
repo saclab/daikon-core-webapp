@@ -14,6 +14,7 @@ import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
 import FHAPromotionQuestionaire from "./FHAPromotionQuestionaire/FHAPromotionQuestionaire";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
+import { appColors } from '../../../colors';
 
 const FHAView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -139,7 +140,7 @@ const FHAView = ({ match, history }) => {
                   targetName={selectedProject.targetName}
                   projectName={selectedProject.projectName}
                   displayHorizon={true}
-                  color={"#CC6677"}
+                  color={appColors.sectionHeadingBg.fha}
                 />
               </div>
               <div className="p-mb-2">

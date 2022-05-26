@@ -14,6 +14,7 @@ import { observer } from "mobx-react-lite";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
 import Discussion from "../../../app/common/Discussion/Discussion";
+import { appColors } from '../../../colors';
 
 const TargetView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -144,7 +145,7 @@ const TargetView = ({ match, history }) => {
                   heading={target.name}
                   targetName={target.name}
                   displayHorizon={true}
-                  color={"#117733"}
+                  color={appColors.sectionHeadingBg.target}
                 />
               </div>
               <div className="p-mb-2">

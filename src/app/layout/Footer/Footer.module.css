@@ -4,7 +4,16 @@
   bottom: 0;
   width: 100%;
   overflow: hidden;
+  margin-top: 50px;
   padding: 50px 50px;
+  
+}
+
+.BackgroundFooter {
+  /* background: linear-gradient(120deg, #eee, #fff 100%); */
+  width: 100%;
+  min-height: 10vh;
+  background-size: cover;
 }
 
 .Hr {
@@ -20,7 +29,7 @@
 
 .Footer a {
   
-  color: #332288;
+  color: #000;
   text-decoration: underline;
 }
 .Footer a:hover{

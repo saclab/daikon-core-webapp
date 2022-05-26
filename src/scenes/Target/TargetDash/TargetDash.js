@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
-
+import { appColors } from "../../../colors";
 import TargetDashChart from "./TargetDashChart/TargetDashChart";
 import TargetDashTable from "./TargetDashTable/TargetDashTable";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -30,7 +30,7 @@ const TargetDash = () => {
       <SectionHeading
         icon="icon icon-common icon-target"
         heading="H37Rv Targets"
-        color={"#117733"}
+        color={appColors.sectionHeadingBg.target}
       />
 
       <div className="p-d-flex">

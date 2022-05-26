@@ -1,17 +1,27 @@
 import React from "react";
 import { Button } from "primereact/button";
 import history from "../../../../history";
+import { appColors } from "../../../../colors";
 
 const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
 
   let nodeColors = {
-    gene: "#332288",
-    target: "#117733",
-    screen: "#0072B2",
-    fha: "#CC6677",
-    portfolio: "#D55E00",
-    postPortfolio: "#882255"
+    gene: appColors.horizonText.gene,
+    target: appColors.horizonText.target,
+    screen: appColors.horizonText.screen,
+    fha: appColors.horizonText.fha,
+    portfolio: appColors.horizonText.portfolio,
+    postPortfolio: appColors.horizonText.postPortfolio
   }
+
+  // let nodeColors = {
+  //   gene: "#000000",
+  //   target: "#000000",
+  //   screen: "#000000",
+  //   fha: "#000000",
+  //   portfolio: "#000000",
+  //   postPortfolio: "#000000"
+  // }
   switch (dataObj.dataObj.name) {
     case "Gene":
       if (dataObj.dataObj.attributes.accessionNumber === "Unknown") {

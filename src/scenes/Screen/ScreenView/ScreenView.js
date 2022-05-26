@@ -9,6 +9,7 @@ import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import ScreenSequences from "./ScreenSequences/ScreenSequences";
 import ValidatedHits from "./ValidatedHits/ValidatedHits";
 import Discussion from "../../../app/common/Discussion/Discussion";
+import { appColors } from '../../../colors';
 
 const ScreenView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -73,7 +74,7 @@ const ScreenView = ({ match, history }) => {
                   heading={"Screens of " + match.params.id}
                   targetName={match.params.id}
                   displayHorizon={true}
-                  color={"#0072B2"}
+                  color={appColors.sectionHeadingBg.screen}
                 />
               </div>
               <div className="p-mb-2">
