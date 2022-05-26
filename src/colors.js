@@ -16,5 +16,14 @@ export const appColors = {
     fha: "#B59674",
     portfolio: "#916B8B",
     postPortfolio: "#BB7B73",
+  },
+  tags: {
+    fha: "#207656",
+    h2l: "#DCB14E",
+    lo: "#52422D",
+    sp: "#D86D6F",
+    ind: "#53A9A8",
+    portfolio: "#DCB14E",
+
   }
 };
