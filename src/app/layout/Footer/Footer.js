@@ -1,4 +1,5 @@
 import React from "react";
+import { appVersion } from "../../../config";
 import cssClass from "./Footer.module.css";
 
 const Footer = () => {
@@ -9,7 +10,7 @@ const Footer = () => {
       <div className={["p-d-flex", "p-flex-column", cssClass.Text].join(" ")}>
         <div className="p-mb-2 p-ml-auto">
           {" "}
-          &copy; TB Drug Accelerator | DAIKON v0.9.0 Beta | 2022
+          &copy; | DAIKON {appVersion.stream} {appVersion.release} {appVersion.channel}
         </div>
         <div className="p-mb-2 p-ml-auto">
           {" "}
