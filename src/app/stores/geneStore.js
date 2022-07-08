@@ -312,6 +312,10 @@ export default class GeneStore {
           accessionNumber
         );
 
+        console.log("after api call +++++++++++++++++")
+
+        
+
         // from the bulk of data extract the Crossreference part
         let fetchedPdbCrossReferenceArray = _helper_extractPdbCrossReference(
           fetchedPdbCrossReference
@@ -344,7 +348,9 @@ export default class GeneStore {
           console.log(this.fetchedPdbCrossReferenceArrayWithLigand);
         });
       } catch (error) {
+        console.log("PDB Error Catch")
         console.log(error);
+        
       } finally {
         runInAction(() => {
           this.uniprotDisplayLoading = false;

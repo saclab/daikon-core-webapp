@@ -15,6 +15,7 @@ import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
 import Discussion from "../../../app/common/Discussion/Discussion";
 import { appColors } from '../../../colors';
+import TargetSummary from "./TargetSummary/TargetSummary";
 
 const TargetView = ({ match, history }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -42,24 +43,31 @@ const TargetView = ({ match, history }) => {
       label: "Sections",
       items: [
         {
-          label: "Target Scorecard",
+          label: "Scorecard",
           icon: "icon icon-common icon-flag-checkered",
           command: () => {
             setActiveIndex(0);
           },
         },
         {
-          label: "Target Promotion Form",
-          icon: "pi pi-table",
+          label: "Summary",
+          icon: "icon icon-common icon-compass",
           command: () => {
             setActiveIndex(1);
+          },
+        },
+        {
+          label: "Promotion Form",
+          icon: "pi pi-table",
+          command: () => {
+            setActiveIndex(2);
           },
         },
         {
           label: "Discussion",
           icon: "ri-discuss-line",
           command: () => {
-            setActiveIndex(2);
+            setActiveIndex(3);
           },
         },
       ],
@@ -157,6 +165,10 @@ const TargetView = ({ match, history }) => {
                     <TargetScorecard
                       data={target.targetScorecard.targetScoreCardValues}
                     />
+                  </TabPanel>
+
+                  <TabPanel header="Target Form" headerClassName="hide">
+                    <TargetSummary />
                   </TabPanel>
 
                   <TabPanel header="Target Form" headerClassName="hide">

@@ -34,7 +34,7 @@ axiosUniprotInstance.interceptors.response.use(undefined, (error) => {
   //console.log(error);
   if (!error.response) {
     toast.error(
-      "Network Error : Can't connect to server. Displaying locally cached data. New changes wont be saved."
+      "Uniprot API Error : Can't connect to server. Displaying locally cached data."
     );
     throw error;
   } else {
@@ -75,7 +75,8 @@ axiosUniprotInstance.interceptors.response.use(undefined, (error) => {
 
 /* APIS */
 const Pdb = {
-  crossReference: (accessionNumber) => requests.get(`?query=${accessionNumber}&format=xml`),
+  //crossReference: (accessionNumber) => requests.get(`?query=${accessionNumber}&format=xml`),
+  crossReference: (accessionNumber) => console.log("Dummy PdbCrossRef API Call : " + accessionNumber),
 };
 
 
