@@ -36,6 +36,7 @@ const KeyValList = ({
   historyDisplayLoading,
   history,
   formData,
+  hideKey
 }) => {
   const cm = useRef(null);
   const toast = useRef(null);
@@ -126,6 +127,8 @@ const KeyValList = ({
   /* * * * * * */
 
   const openContextMenu = (e) => {
+    console.log("ID")
+    console.log(e)
     setSelectedId(e.target.id);
     cm.current.show(e);
   };
@@ -197,7 +200,7 @@ const KeyValList = ({
                 {typeof labels !== "undefined" && labels[key] ? (
                   labels[key]
                 ) : (
-                  <StartCase string={key} />
+                  hideKey === true ? "" : <StartCase string={key} />
                 )}
               </b>
             </td>

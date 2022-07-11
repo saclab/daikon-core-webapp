@@ -256,6 +256,7 @@ const Accounts = {
 const Target = {
   list: () => requests.get(`/target/`),
   details: (id) => requests.get(`/target/${id}`),
+  history: (id) => requests.get(`/target/${id}/history`),
 };
 
 const TargetAdmin = {
@@ -265,6 +266,8 @@ const TargetAdmin = {
   details: (id) => requests.get(`/target/${id}`),
   edit: (updatedTarget) =>
     requests.post(`/admin/target/${updatedTarget.id}`, updatedTarget),
+  editSummary: (updatedTargetSummary) =>
+    requests.post(`/admin/target/${updatedTargetSummary.id}/summary`, updatedTargetSummary),
 };
 
 const Screen = {
