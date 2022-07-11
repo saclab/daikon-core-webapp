@@ -20,6 +20,10 @@ export default class TargetStore {
   cacheValid = false;
   promoteTargetToScreenDisplayLoading = false;
 
+  selectedTargetHistory = null;
+  historyDisplayLoading = false;
+  targetHistoryRegistry = new Map();
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -38,6 +42,15 @@ export default class TargetStore {
 
       promoteTargetToScreenDisplayLoading: observable,
       promoteTargetToScreen: action,
+
+      historyDisplayLoading: observable,
+      fetchTargetHistory: action,
+      selectedTargetHistory: observable,
+      targetHistory: computed,
+
+      editTargetSummary: action,
+      cancelEditTargetSummary: action
+
     });
   }
 
@@ -187,5 +200,76 @@ export default class TargetStore {
       });
     }
     return res;
+  };
+
+
+  fetchTargetHistory = async () => {
+    console.log("targetStore: fetchTargetHistory Start");
+    this.historyDisplayLoading = true;
+    let id = this.selectedTarget.id;
+
+    // first check cache
+    let fetchedTargetHistory = this.targetHistoryRegistry.get(id);
+    console.log("CACHE");
+    console.log(fetchedTargetHistory);
+    if (fetchedTargetHistory) {
+      console.log("targetStore: fetchedTargetHistory found in cache");
+      this.historyDisplayLoading = false;
+      this.selectedTargetHistory = fetchedTargetHistory;
+    }
+    // if not found fetch from api
+    else {
+      try {
+        fetchedTargetHistory = await agent.Target.history(id);
+        runInAction(() => {
+          console.log("targetStore: fetchTargetHistory fetched from api");
+          console.log(fetchedTargetHistory);
+
+          this.targetHistoryRegistry.set(id, fetchedTargetHistory);
+          this.selectedTargetHistory = fetchedTargetHistory;
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        runInAction(() => {
+          this.historyDisplayLoading = false;
+          console.log("targetStore: fetchTargetHistory Complete");
+        });
+      }
+    }
+  }
+
+  get targetHistory() {
+    return this.selectedTargetHistory;
+  }
+
+
+  editTargetSummary = async () => {
+    console.log("targetStore: editTargetSummary Start");
+    this.displayLoading = true;
+    let updatedTarget = null;
+    console.log(this.selectedTarget);
+    // send to server
+    try {
+      updatedTarget = await agent.TargetAdmin.editSummary(this.selectedTarget);
+      runInAction(() => {
+        console.log("targetStore: fetchTarget fetched from api");
+        this.targetRegistryExpanded.delete(updatedTarget.id)
+        this.fetchTarget(updatedTarget.id)
+
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.displayLoading = false;
+        console.log("targetStore: edit Complete");
+      });
+    }
+  };
+
+  cancelEditTargetSummary = () => {
+    console.log("targetStore: cancelEditTargetSummary");
+    this.selectedTarget = this.targetRegistryExpanded.get(this.selectedTarget.id);
   };
 }
