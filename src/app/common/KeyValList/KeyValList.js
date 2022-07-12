@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import _ from "lodash";
 import { ContextMenu } from "primereact/contextmenu";
 import { StartCase } from "react-lodash";
@@ -9,6 +9,7 @@ import { Sidebar } from "primereact/sidebar";
 import "./KeyValueList.css";
 import { observer } from "mobx-react-lite";
 import { runInAction } from "mobx";
+
 import {
   _helper_renderHistoryTimeline,
   _helper_renderFooterOfEditDialog,
@@ -45,10 +46,29 @@ const KeyValList = ({
   const [displayEditContainer, setDisplayEditContainer] = useState(false);
   const [displayHistorySideBar, setDisplayHistorySideBar] = useState(false);
 
-  const [hilightAllChanges, setHilightAllChanges] = useState(false);
-  const [hilightRecentChanges, setHilightRecentChanges] = useState(false);
+  const [hilightAllChanges, setHilightAllChanges] = useState(localStorage.getItem('_local_HilightAllChanges') || false);
+  const [hilightRecentChanges, setHilightRecentChanges] = useState(localStorage.getItem('_local_HilightRecentChanges') || false);
+
+  // const [hilightAllChanges, setHilightAllChanges] = useState(false);
+  // const [hilightRecentChanges, setHilightRecentChanges] = useState(false);
+
+  const [fetchHistoryCalled, setFetchHistoryCalled] = useState(false)
 
   let allChangedProperties = [];
+
+  useEffect(() => {
+    if (!fetchHistoryCalled &&
+      (JSON.parse(localStorage.getItem('_local_HilightAllChanges'))
+        || JSON.parse(localStorage.getItem('_local_HilightRecentChanges')))) {
+      _.isFunction(fetchHistory) && fetchHistory();
+      setFetchHistoryCalled(true)
+    }
+
+    return () => {
+
+    }
+  }, [fetchHistory, setFetchHistoryCalled])
+
 
   /* * * * * * *
   /* * * Begin construction context menu

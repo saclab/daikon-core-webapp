@@ -124,6 +124,8 @@ export function _helper_filterHilightChanged(data, history, filterRecent) {
   }
 
   var changed = [];
+
+  if (result === null) return changed;
   result.forEach((element) => {
     changed.push(_.camelCase(element.propertyName));
   });
