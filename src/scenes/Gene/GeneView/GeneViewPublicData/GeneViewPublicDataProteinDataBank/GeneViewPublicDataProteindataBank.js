@@ -155,7 +155,8 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
       <h3>No Entries</h3>
     );
   } else {
-    return <Skeleton width="10rem" height="4rem"></Skeleton>;
+    //return <Skeleton width="10rem" height="4rem"></Skeleton>;
+    return <h3>No Entries</h3>
   }
 };
 
