@@ -9,12 +9,12 @@ const convertXmlToJson = require("xml-js");
 var axiosUniprotInstance = new axios.create({
   headers: {
     'Content-Type': 'application/json;charset=UTF-8'
-}
+  }
 });
-axiosUniprotInstance.defaults.baseURL = "https://www.uniprot.org/uniprot/";
+axiosUniprotInstance.defaults.baseURL = "https://rest.uniprot.org/uniprotkb/";
 
 /* Format response body */
-const responseBody = (response) => convertXmlToJson.xml2js(response.data, {compact: true, spaces: 4});
+const responseBody = (response) => convertXmlToJson.xml2js(response.data, { compact: true, spaces: 4 });
 //const responseBody = (response) => response.data;
 
 
@@ -75,8 +75,7 @@ axiosUniprotInstance.interceptors.response.use(undefined, (error) => {
 
 /* APIS */
 const Pdb = {
-  //crossReference: (accessionNumber) => requests.get(`?query=${accessionNumber}&format=xml`),
-  crossReference: (accessionNumber) => console.log("Dummy PdbCrossRef API Call : " + accessionNumber),
+  crossReference: (uniprotId) => requests.get(`${uniprotId}.xml`),
 };
 
 

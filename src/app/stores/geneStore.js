@@ -293,71 +293,86 @@ export default class GeneStore {
   /* Fetch PDB cross reference with id from API */
 
   fetchPdbCrossReference = async (accessionNumber) => {
-    // console.log("geneStore: fetchPdbCrossReference Start");
-    // this.uniprotDisplayLoading = true;
+    console.log("geneStore: fetchPdbCrossReference Start");
+    this.uniprotDisplayLoading = true;
 
-    // let fetchedPdbCrossReference =
-    //   this.pdbCrossReferenceRegistry.get(accessionNumber);
-    // // check cache
-    // if (fetchedPdbCrossReference) {
-    //   console.log("geneStore: fetchPdbCrossReference Cache hit");
-    //   this.selectedPdbCrossReference = fetchedPdbCrossReference;
-    //   this.uniprotDisplayLoading = false;
-    // } else {
-    //   try {
-    //     console.log("geneStore: fetchPdbCrossReference Cache miss");
+    let uniProtIdObj = this.selectedGene.geneExternalIds.find(o => o.externalIdRef === 'UniProt');
+    if (uniProtIdObj === null) {
+      console.log("UniProt Id is not found returning...");
+      this.uniprotDisplayLoading = false;
+      this.selectedPdbCrossReference = null;
+      return;
+    }
+    let uniProtId = uniProtIdObj?.externalId
+    if (uniProtId === '') {
+      console.log("UniProt Id is not found returning...");
+      this.uniprotDisplayLoading = false;
+      this.selectedPdbCrossReference = null;
+      return;
+    }
 
-    //     // fetch from api
-    //     fetchedPdbCrossReference = await uniprot.Pdb.crossReference(
-    //       accessionNumber
-    //     );
+    let fetchedPdbCrossReference =
+      this.pdbCrossReferenceRegistry.get(accessionNumber);
 
-    //     console.log("after api call +++++++++++++++++")
+    // check cache
+    if (fetchedPdbCrossReference) {
+      console.log("geneStore: fetchPdbCrossReference Cache hit");
+      this.selectedPdbCrossReference = fetchedPdbCrossReference;
+      this.uniprotDisplayLoading = false;
+    } else {
+      try {
+        console.log("geneStore: fetchPdbCrossReference Cache miss");
+
+
+        // fetch from api
+        fetchedPdbCrossReference = await uniprot.Pdb.crossReference(
+          uniProtId
+        );
 
         
+        // from the bulk of data extract the Crossreference part
+        let fetchedPdbCrossReferenceArray = _helper_extractPdbCrossReference(
+          fetchedPdbCrossReference
+        );
 
-    //     // from the bulk of data extract the Crossreference part
-    //     let fetchedPdbCrossReferenceArray = _helper_extractPdbCrossReference(
-    //       fetchedPdbCrossReference
-    //     );
 
-    //     // Now add ligands to each protein
-    //     let fetchedPdbCrossReferenceArrayWithLigand = [];
-    //     /*TIP: async will not work with foreach loop, use Promise.all and map method instead */
-    //     await Promise.all(
-    //       fetchedPdbCrossReferenceArray.map(async (nobj) => {
-    //         // fetch from ebi
-    //         let ligands = await Ebi.Ebi.ligands(nobj.id);
+        // Now add ligands to each protein
+        let fetchedPdbCrossReferenceArrayWithLigand = [];
+        /*TIP: async will not work with foreach loop, use Promise.all and map method instead */
+        await Promise.all(
+          fetchedPdbCrossReferenceArray.map(async (nobj) => {
+            // fetch from ebi
+            let ligands = await Ebi.Ebi.ligands(nobj.id);
 
-    //         nobj.ligands = _helper_formatLigands(ligands);
+            nobj.ligands = _helper_formatLigands(ligands);
 
-    //         fetchedPdbCrossReferenceArrayWithLigand.push(nobj);
-    //         console.log(nobj);
-    //       })
-    //     );
+            fetchedPdbCrossReferenceArrayWithLigand.push(nobj);
+            console.log(nobj);
+          })
+        );
 
-    //     runInAction(() => {
-    //       this.pdbCrossReferenceRegistry.set(accessionNumber, {
-    //         accessionNumber: accessionNumber,
-    //         data: fetchedPdbCrossReferenceArrayWithLigand,
-    //       });
-    //       this.selectedPdbCrossReference = {
-    //         accessionNumber: accessionNumber,
-    //         data: fetchedPdbCrossReferenceArrayWithLigand,
-    //       };
-    //       console.log(this.fetchedPdbCrossReferenceArrayWithLigand);
-    //     });
-    //   } catch (error) {
-    //     console.log("PDB Error Catch")
-    //     console.log(error);
-        
-    //   } finally {
-    //     runInAction(() => {
-    //       this.uniprotDisplayLoading = false;
-    //       console.log("geneStore: fetchPdbCrossReference Complete");
-    //     });
-    //   }
-    // }
+        runInAction(() => {
+          this.pdbCrossReferenceRegistry.set(accessionNumber, {
+            accessionNumber: accessionNumber,
+            data: fetchedPdbCrossReferenceArrayWithLigand,
+          });
+          this.selectedPdbCrossReference = {
+            accessionNumber: accessionNumber,
+            data: fetchedPdbCrossReferenceArrayWithLigand,
+          };
+          console.log(this.fetchedPdbCrossReferenceArrayWithLigand);
+        });
+      } catch (error) {
+        console.log("PDB Error Catch")
+        console.log(error);
+
+      } finally {
+        runInAction(() => {
+          this.uniprotDisplayLoading = false;
+          console.log("geneStore: fetchPdbCrossReference Complete");
+        });
+      }
+    }
   };
 
   get pdbCrossReference() {
