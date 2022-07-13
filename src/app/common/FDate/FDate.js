@@ -5,10 +5,10 @@ const FDate = ({ timestamp, hideTime = true, color = "#17202A" }) => {
   if (hideTime) {
     return (
       <span style={{ color: color }}>
-        {new Date(timestamp + "Z").toLocaleDateString()}
+        {new Date(timestamp).toLocaleDateString()}
       </span>
     );
   }
-  return <span>{new Date(timestamp + "Z").toLocaleString()}</span>;
+  return <span>{new Date(timestamp).toLocaleString()}</span>;
 };
 export default FDate;
