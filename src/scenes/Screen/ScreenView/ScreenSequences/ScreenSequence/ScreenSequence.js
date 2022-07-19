@@ -16,6 +16,7 @@ const ScreenSequence = ({ screenId }) => {
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
   const [selectedProtocol, setSelectedProtocol] = useState("");
   const op = useRef(null);
+  const dt = useRef(null);
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
@@ -38,6 +39,10 @@ const ScreenSequence = ({ screenId }) => {
     return <PleaseWait />;
   }
 
+  const exportCSV = (selectionOnly) => {
+    dt.current.exportCSV({ selectionOnly });
+  }
+
   const tableHeader = (
     <div className="p-d-flex p-ai-center">
       <Button
@@ -54,6 +59,7 @@ const ScreenSequence = ({ screenId }) => {
         label="Export"
         className="p-button-text"
         style={{ height: "30px", marginRight: "5px" }}
+        onClick={() => exportCSV(false)}
       />
     </div>
   );
@@ -122,7 +128,7 @@ const ScreenSequence = ({ screenId }) => {
           // style={{ width: "50%", overflowX: "auto" }}
           blockScroll={true}
           onHide={() => setDisplayAddDialog(false)}
-          className="p-md-12"
+          className="p-sidebar-md"
         >
           <div className="card">
             <h3>{selectedScreen?.screenName}</h3>
@@ -142,32 +148,39 @@ const ScreenSequence = ({ screenId }) => {
         </Sidebar>
         <div className="card">
           <DataTable
+            ref={dt}
             value={selectedScreen.screenSequences}
             header={tableHeader}
+            exportFilename={`Screen-${selectedScreen.screenName}-${selectedScreen.method}.csv`}
           >
-            <Column field="library" header="Library"></Column>
+            <Column
+              field="library"
+              header="Library" />
 
-            <Column body={protocolBodyTemplate} header="Protocol"></Column>
+            <Column
+              field={"protocol"}
+              body={protocolBodyTemplate}
+              header="Protocol" />
             <Column
               field="concentration"
-              header="Inhibitor Concentration"
-            ></Column>
+              header="Inhibitor Concentration" />
             <Column
               field="noOfCompoundsScreened"
-              header="No of compounds screened"
-            ></Column>
-            <Column field="scientist" header="Scientist"></Column>
+              header="No of compounds screened" />
+            <Column
+              field="scientist"
+              header="Scientist" />
             <Column
               field="startDate"
               header="Start Date"
-              body={StartDateTemplate}
-            ></Column>
+              body={StartDateTemplate} />
             <Column
               field="endDate"
               header="End Date"
-              body={EndDateTemplate}
-            ></Column>
-            <Column field="unverifiedHitCount" header="Hit Count"></Column>
+              body={EndDateTemplate} />
+            <Column
+              field="unverifiedHitCount"
+              header="Hit Count" />
           </DataTable>
         </div>
       </div>
