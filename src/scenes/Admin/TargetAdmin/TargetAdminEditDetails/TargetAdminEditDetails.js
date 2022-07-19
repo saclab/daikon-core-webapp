@@ -4,7 +4,6 @@ import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Toast } from "primereact/toast";
-import { TabView, TabPanel } from "primereact/tabview";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import NotFound from "../../../../app/layout/NotFound/NotFound";
 import { observer } from "mobx-react-lite";

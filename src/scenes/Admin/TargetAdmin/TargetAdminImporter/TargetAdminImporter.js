@@ -1,7 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { CSVReader } from "react-papaparse";
-import Loading from "../../../../app/layout/Loading/Loading";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Dropdown } from 'primereact/dropdown';
 import SimpleTargetAdminImporter from "./SimpleTargetAdminImporter";
