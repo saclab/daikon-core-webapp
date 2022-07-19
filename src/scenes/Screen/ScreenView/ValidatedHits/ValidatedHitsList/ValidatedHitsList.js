@@ -51,6 +51,10 @@ const ValidatedHitsList = ({ screenId }) => {
 
   /* Local functions */
 
+  const exportCSV = (selectionOnly) => {
+    dt.current.exportCSV({ selectionOnly });
+  }
+
   let validatePromoteToFHA = () => {
     if (selectedCompounds === null) {
       toast.warning(
@@ -119,7 +123,7 @@ const ValidatedHitsList = ({ screenId }) => {
     return (
       <React.Fragment>
         <div>
-          <SmilesView smiles={rowData?.compound?.smile} width={300}/>
+          <SmilesView smiles={rowData?.compound?.smile} width={300} />
         </div>
       </React.Fragment>
     );
@@ -214,6 +218,7 @@ const ValidatedHitsList = ({ screenId }) => {
           {
             label: "Export Hits",
             icon: "icon icon-fileformats icon-CSV",
+            command: () => exportCSV(false)
           },
         ],
       };
@@ -288,6 +293,8 @@ const ValidatedHitsList = ({ screenId }) => {
             selection={selectedCompounds}
             onSelectionChange={(e) => setSelectedCompounds(e.value)}
             dataKey="id"
+            exportFilename={`Hits-${selectedScreen.screenName}-${selectedScreen.method}.csv`}
+
           >
             {displayEnableSelection && (
               <Column
@@ -302,26 +309,27 @@ const ValidatedHitsList = ({ screenId }) => {
               style={{ width: "12%" }}
             /> */}
             <Column
-              field="Structure"
+              field={(rowData) => rowData?.compound?.smile}
               header="Structure"
               body={StructureBodyTemplate}
+
               style={{ width: "300px" }}
             />
             <Column
-              field="Library"
+              field={(rowData) => rowData?.library + "|" + rowData.source}
               header="Library|Source"
               body={LibraryBodyTemplate}
               style={{ width: "200px" }}
             />
             <Column
-              field="CompoundId"
+              field={(rowData) => rowData?.compound?.externalCompoundIds}
               header="Compound Id"
               body={CompoundIdBodyTemplate}
               style={{ width: "150px" }}
             />
 
             <Column
-              field="EnzymeActivity"
+              field="iC50"
               header="Enzyme Activity [IC50] (&micro;M) "
               body={EnzymeActivityBodyTemplate}
               style={{ width: "90px" }}
@@ -333,7 +341,7 @@ const ValidatedHitsList = ({ screenId }) => {
               style={{ width: "120px" }}
             /> */}
             <Column
-              field="MIC"
+              field="mic"
               header="MIC (&micro;M)"
               body={MICBodyTemplate}
               style={{ width: "70px" }}
