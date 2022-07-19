@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "primereact/card";
 import "./LocalComponents.css";
 import StageTag from "../../../../../app/common/StageTag/StageTag";
 
@@ -7,8 +6,8 @@ const PortfolioInformationGeneralInformation = ({ project }) => {
   let displaySupportingOrgs =
     project.supportingOrgs.length !== 0
       ? project.supportingOrgs.map((org) => {
-          return <p>- {org.appOrg.name}</p>;
-        })
+        return <p>- {org.appOrg.name}</p>;
+      })
       : null;
 
   return (
@@ -23,9 +22,9 @@ const PortfolioInformationGeneralInformation = ({ project }) => {
           </div>
         </div>
         <div style={{ width: "30rem", lineHeight: "100%" }}>
-          <p>{project.h2LDescription?'(H2L) '+ project.h2LDescription:''}</p>
-          <p>{project.loDescription?'(LO) '+ project.loDescription:''}</p>
-          <p>{project.spDescription?'(SP) '+ project.spDescription:''}</p>
+          <p>{project.h2LDescription ? '(H2L) ' + project.h2LDescription : ''}</p>
+          <p>{project.loDescription ? '(LO) ' + project.loDescription : ''}</p>
+          <p>{project.spDescription ? '(SP) ' + project.spDescription : ''}</p>
 
         </div>
 

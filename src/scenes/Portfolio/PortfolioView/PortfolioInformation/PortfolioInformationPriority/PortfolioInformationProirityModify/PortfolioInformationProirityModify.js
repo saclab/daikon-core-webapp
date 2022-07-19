@@ -1,11 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
-import { InputTextarea } from "primereact/inputtextarea";
 import { ProgressBar } from "primereact/progressbar";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
-import { Calendar } from "primereact/calendar";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../../../../app/stores/rootStore";
 import { Dropdown } from "primereact/dropdown";
@@ -18,7 +15,6 @@ const PortfolioInformationProirityModify = ({ closeSidebar }) => {
     settingPriorityProbability,
     selectedProject,
     loadingProject,
-    fetchProject,
   } = rootStore.projectStore;
 
   const formik = useFormik({
