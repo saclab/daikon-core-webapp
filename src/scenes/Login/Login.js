@@ -1,7 +1,6 @@
 import "./Login.css";
 import { Button } from "primereact/button";
-import { Fragment } from "react";
-import Footer from "../../app/layout/Footer/Footer";
+
 
 // const Login = ({ loginButtonClicked }) => {
 //   return (
