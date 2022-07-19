@@ -1,12 +1,10 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Timeline } from "primereact/timeline";
-import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import "./CompoundEvolutionTimeline.css";
 import { Chip } from "primereact/chip";
 import { observer } from "mobx-react-lite";
 import StageTag from "../StageTag/StageTag";
-import dateFormat from "dateformat";
 import SmilesView from "../SmilesView/SmilesView";
 import { Divider } from "primereact/divider";
 import { Sidebar } from "primereact/sidebar";
@@ -76,7 +74,7 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
     const customizedOppositeContent = (item) => {
       return (
         <Chip
-          label={<FDate timestamp={item.addedOnDate} hideTime={true}/>}
+          label={<FDate timestamp={item.addedOnDate} hideTime={true} />}
           style={{ fontSize: "small" }}
         />
       );
