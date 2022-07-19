@@ -299,7 +299,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "Portfolio":
-      var objColor = nodeColors.portfolio;
+      objColor = nodeColors.portfolio;
       if (dataObj.dataObj.attributes.status === "Terminated") {
         objColor = "#AAAAAA";
       }
@@ -338,7 +338,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "PostPortfolio":
-      var objColor = nodeColors.postPortfolio;
+      objColor = nodeColors.postPortfolio;
       if (dataObj.dataObj.attributes.status === "Terminated") {
         objColor = "#AAAAAA";
       }
