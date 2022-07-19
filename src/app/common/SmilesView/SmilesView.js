@@ -22,7 +22,7 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
         console.log(err);
       }
     );
-  }, [height, smiles, width]);
+  }, [height, smiles, width, canId]);
 
   const contextMenuItems = [
     {
