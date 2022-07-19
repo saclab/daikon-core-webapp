@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import _ from "lodash";
+import React, { useEffect, useContext } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { observer } from "mobx-react-lite";
@@ -14,7 +13,7 @@ const GeneGroupList = () => {
   useEffect(() => {
     listGeneGroups();
 
-    return () => {};
+    return () => { };
   }, [listGeneGroups]);
 
   if (loadingGeneGroup) {

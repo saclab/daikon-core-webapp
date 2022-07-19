@@ -1,11 +1,8 @@
 import React from "react";
-import { observer } from "mobx-react-lite";
 import { BreadCrumb } from "primereact/breadcrumb";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import history from "../../../../history";
 import { Card } from "primereact/card";
-import { RadioButton } from "primereact/radiobutton";
-import { InputText } from "primereact/inputtext";
 import GeneGroupAdd from "./GeneGroupAdd";
 import { Message } from "primereact/message";
 import { Fieldset } from "primereact/fieldset";
