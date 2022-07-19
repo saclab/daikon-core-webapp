@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import { Skeleton } from "primereact/skeleton";
 import { Dialog } from "primereact/dialog";
-import { Button } from "primereact/button";
 import { SplitButton } from 'primereact/splitbutton';
 import LiteMolView from "../../../../../app/common/LiteMolView/LiteMolView";
 

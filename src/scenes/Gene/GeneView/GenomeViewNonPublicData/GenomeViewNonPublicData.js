@@ -1,10 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { Fieldset } from "primereact/fieldset";
-import axios from "axios";
-import { ProgressSpinner } from "primereact/progressspinner";
 import DisplayTable from "../../../../app/common/DisplayTable/DisplayTable";
-import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 const GenomeViewNonPublicData = ({
   gene,
@@ -14,7 +11,7 @@ const GenomeViewNonPublicData = ({
   historyDisplayLoading,
   geneHistory,
 }) => {
-  const [genomeNonPublicData, setGenomeNonPublicData] = useState(null);
+  // const [genomeNonPublicData, setGenomeNonPublicData] = useState(null);
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
