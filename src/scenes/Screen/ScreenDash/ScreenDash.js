@@ -38,14 +38,14 @@ const ScreenDash = () => {
       );
     };
 
-    const StatusBodyTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Status</span>
-          {rowData.status}
-        </React.Fragment>
-      );
-    };
+    // const StatusBodyTemplate = (rowData) => {
+    //   return (
+    //     <React.Fragment>
+    //       <span className="p-column-title">Status</span>
+    //       {rowData.status}
+    //     </React.Fragment>
+    //   );
+    // };
 
     const NotesBodyTemplate = (rowData) => {
       return (

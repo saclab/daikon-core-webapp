@@ -3,7 +3,6 @@ import _ from "lodash";
 import { observer } from "mobx-react-lite";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
-import { Sidebar } from "primereact/sidebar";
 import { Column } from "primereact/column";
 import { Dialog } from "primereact/dialog";
 import { TieredMenu } from "primereact/tieredmenu";
@@ -23,7 +22,7 @@ const ValidatedHitsList = ({ screenId }) => {
   const { loadingFetchScreen, fetchScreen, selectedScreen } =
     rootStore.screenStore;
   const { user } = rootStore.userStore;
-  const { enableVoting, enablingVoting, freezeVoting, freezingVoting } =
+  const { enableVoting, freezeVoting } =
     rootStore.votingStore;
 
   const [displayHitsImportSidebar, setDisplayHitsImportSidebar] =
@@ -99,9 +98,9 @@ const ValidatedHitsList = ({ screenId }) => {
 
   /* Table Body Templates */
 
-  const SourceBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.source}</React.Fragment>;
-  };
+  // const SourceBodyTemplate = (rowData) => {
+  //   return <React.Fragment>{rowData.source}</React.Fragment>;
+  // };
 
   const LibraryBodyTemplate = (rowData) => {
     return (
@@ -133,9 +132,9 @@ const ValidatedHitsList = ({ screenId }) => {
     return <React.Fragment>{_.round(rowData.iC50, 2)}</React.Fragment>;
   };
 
-  const MethodBodyTemplate = (rowData) => {
-    return <React.Fragment>{rowData.method}</React.Fragment>;
-  };
+  // const MethodBodyTemplate = (rowData) => {
+  //   return <React.Fragment>{rowData.method}</React.Fragment>;
+  // };
 
   const MICBodyTemplate = (rowData) => {
     return <React.Fragment>{_.round(rowData.mic, 2)}</React.Fragment>;
