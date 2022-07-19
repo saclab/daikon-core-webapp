@@ -3,12 +3,10 @@ import _ from "lodash";
 import { ContextMenu } from "primereact/contextmenu";
 import { StartCase } from "react-lodash";
 import { Dialog } from "primereact/dialog";
-import { InputTextarea } from "primereact/inputtextarea";
 import { Toast } from "primereact/toast";
 import { Sidebar } from "primereact/sidebar";
 import "./KeyValueList.css";
 import { observer } from "mobx-react-lite";
-import { runInAction } from "mobx";
 
 import {
   _helper_renderHistoryTimeline,
@@ -67,7 +65,7 @@ const KeyValList = ({
     return () => {
 
     }
-  }, [fetchHistory, setFetchHistoryCalled])
+  }, [fetchHistory, setFetchHistoryCalled, fetchHistoryCalled])
 
 
   /* * * * * * *
