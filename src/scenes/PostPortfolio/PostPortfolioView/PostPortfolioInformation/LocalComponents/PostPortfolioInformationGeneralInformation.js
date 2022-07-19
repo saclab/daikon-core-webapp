@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "primereact/card";
 import "./LocalComponents.css";
 import StageTag from "../../../../../app/common/StageTag/StageTag";
 
