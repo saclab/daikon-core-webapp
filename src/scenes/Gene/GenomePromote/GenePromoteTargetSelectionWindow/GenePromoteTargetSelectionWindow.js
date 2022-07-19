@@ -9,7 +9,6 @@ import { Inplace, InplaceDisplay, InplaceContent } from "primereact/inplace";
 import { InputText } from "primereact/inputtext";
 import _ from "lodash";
 import { toast } from "react-toastify";
-import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
 import { ProgressBar } from "primereact/progressbar";
 import history from "../../../../history";
@@ -41,7 +40,7 @@ const GenePromoteTargetSelectionWindow = ({
     validateTargetNameLoading,
     proposedTargetNameValidated,
     saveGenePromotionDataObj,
-    genePromotionDataObj,
+    // genePromotionDataObj,
     searchingGeneGroup,
     searchedGeneGroup,
     searchGeneGroup,
@@ -196,7 +195,7 @@ const GenePromoteTargetSelectionWindow = ({
           Please adhere to the{" "}
           <a
             href="https://www.ncbi.nlm.nih.gov/genome/doc/internatprot_nomenguide"
-            target="_blank"
+            target="_blank" rel="noreferrer"
           >
             International Protein Nomenclature Guidelines.
           </a>
