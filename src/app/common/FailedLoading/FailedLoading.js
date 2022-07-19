@@ -1,5 +1,4 @@
 import React from "react";
-import { Skeleton } from "primereact/skeleton";
 const FailedLoading = () => {
   return (
     <div
@@ -15,7 +14,7 @@ const FailedLoading = () => {
         Failed loading component.
       </p>
       <p style={{ padding: "0em", color: "#AAAAAA" }}>
-      Please try re-syncing the page or if the problem persists, please report to an administrator.
+        Please try re-syncing the page or if the problem persists, please report to an administrator.
       </p>
     </div>
   );
