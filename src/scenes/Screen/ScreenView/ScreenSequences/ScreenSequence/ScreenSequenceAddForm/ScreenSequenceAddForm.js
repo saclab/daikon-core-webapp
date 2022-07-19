@@ -73,7 +73,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
 
   return (
     <div>
-      <div className="p-fluid p-formgrid p-grid">
+      <div className="p-fluid">
         <form onSubmit={formik.handleSubmit} className="p-fluid">
           <div className="p-field p-col-12 p-md-12">
             <label
