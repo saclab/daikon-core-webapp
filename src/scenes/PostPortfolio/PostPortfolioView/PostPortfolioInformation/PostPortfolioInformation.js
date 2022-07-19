@@ -1,14 +1,6 @@
 import React from "react";
 import { Fieldset } from "primereact/fieldset";
-import dateFormat from "dateformat";
-import { Card } from "primereact/card";
-import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-
-import { ScrollPanel } from "primereact/scrollpanel";
-import { ScrollTop } from "primereact/scrolltop";
-import SmilesView from "../../../../app/common/SmilesView/SmilesView";
 import "./ScrollPanel.css";
-import { Timeline } from "primereact/timeline";
 import PortfolioInformationGeneralInformation from "./LocalComponents/PostPortfolioInformationGeneralInformation";
 import PortfolioInformationDates from "./LocalComponents/PostPortfolioInformationDates";
 import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
