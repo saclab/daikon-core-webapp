@@ -13,12 +13,12 @@ let Loading = ({ message }) => {
             <div className="LoadingBox">
               <div className="p-grid">
                 <div className="p-col-3">
-                  <img src={loadingGif} style={{ width: "100px" }} />
+                  <img src={loadingGif} style={{ width: "100px" }} alt={"Loading.."} />
                 </div>
-                <div className="p-col-6" style={{lineHeight: "1em"}}>
+                <div className="p-col-6" style={{ lineHeight: "1em" }}>
                   <h1 className="Text">Loading...</h1>
                   <h3 className="Text">Please Wait.</h3>
-                  </div>
+                </div>
               </div>
 
 
