@@ -1,18 +1,17 @@
 import React from "react";
-import { Card } from "primereact/card";
-import StageTag from '../../../../app/common/StageTag/StageTag';
+
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import { observer } from "mobx-react-lite";
 
 
 
 const ProjectSettingsGeneralInformation = ({ project }) => {
-  let displaySupportingOrgs =
-    project.supportingOrgs.length !== 0
-      ? project.supportingOrgs.map((org) => {
-        return <p>- {org.appOrg.name}</p>;
-      })
-      : null;
+  // let displaySupportingOrgs =
+  //   project.supportingOrgs.length !== 0
+  //     ? project.supportingOrgs.map((org) => {
+  //       return <p>- {org.appOrg.name}</p>;
+  //     })
+  //     : null;
 
   return (
     <div>
@@ -54,7 +53,7 @@ const ProjectSettingsGeneralInformation = ({ project }) => {
           "clinicalP1PredictedStart",
           "clinicalP1Description",
         ]} /> */}
-        <KeyValList data={project} filter={
+      <KeyValList data={project} filter={
         ["id",
           "projectName",
           "createdAt",
