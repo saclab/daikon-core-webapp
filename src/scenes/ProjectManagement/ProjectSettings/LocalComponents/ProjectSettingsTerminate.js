@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react"; 
+import React, { useState, useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
@@ -13,9 +13,6 @@ const ProjectSettingsTerminate = ({ project }) => {
   const {
     terminatingProject,
     terminateProject,
-    selectedProject,
-    loadingProject,
-    fetchProject,
   } = rootStore.projectStore;
 
   const [visibleTerminationDialog, setVisibleTerminationDialog] = useState(false);
@@ -24,7 +21,7 @@ const ProjectSettingsTerminate = ({ project }) => {
 
 
 
-  if (project.status == "Terminated") {
+  if (project.status === "Terminated") {
     return (
       <div style={{
         borderRadius: '5px',
@@ -38,7 +35,7 @@ const ProjectSettingsTerminate = ({ project }) => {
     )
   }
 
-  if (project.status == "Complete") {
+  if (project.status === "Complete") {
     return (
       <div style={{
         borderRadius: '5px',
@@ -88,10 +85,10 @@ const ProjectSettingsTerminate = ({ project }) => {
             <InputText value={termTextValue} onChange={(e) => checkTermText(e.target.value)} />
           </div>
           <div className="p-field">
-            <Button label="Terminate" 
-              className="p-button-outlined p-button-danger" 
+            <Button label="Terminate"
+              className="p-button-outlined p-button-danger"
               disabled={!activateTerminateButton}
-              loading={terminatingProject} 
+              loading={terminatingProject}
               onClick={() => terminateProject(project)} />
           </div>
         </div>

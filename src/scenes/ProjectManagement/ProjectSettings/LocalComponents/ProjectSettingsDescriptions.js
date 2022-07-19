@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 import { useFormik } from "formik";
-import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
-import { Calendar } from "primereact/calendar";
-import { Dropdown } from "primereact/dropdown";
+
 import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
 
 import { RootStoreContext } from "../../../../app/stores/rootStore";
@@ -20,9 +18,6 @@ const ProjectSettingsDescriptions = ({ project }) => {
   const {
     editProject,
     editingProject,
-    selectedProject,
-    loadingProject,
-    fetchProject,
   } = rootStore.projectStore;
 
 

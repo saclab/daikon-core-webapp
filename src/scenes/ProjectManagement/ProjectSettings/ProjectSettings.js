@@ -1,31 +1,23 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { TabView, TabPanel } from "primereact/tabview";
+import React, { useRef, useEffect, useContext } from "react";
 import { Divider } from 'primereact/divider';
-import { Button } from 'primereact/button';
-
 import { BreadCrumb } from "primereact/breadcrumb";
-import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
-import { Sidebar } from "primereact/sidebar";
-import { Message } from "primereact/message";
-import { Fieldset } from "primereact/fieldset";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from '../../../app/layout/Loading/Loading';
 import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import ProjectSettingsGeneralInformation from "./LocalComponents/ProjectSettingsGeneralInformation";
-import { Card } from 'primereact/card';
 import ProjectSettingsDates from './LocalComponents/ProjectSettingsDates';
 import ProjectSettingsDescriptions from './LocalComponents/ProjectSettingsDescriptions';
 import ProjectSettingsPriority from './LocalComponents/ProjectSettingsPriority';
 import ProjectSettingsTerminate from "./LocalComponents/ProjectSettingsTerminate";
 
-const ProjectSettings = ({ match, history }) => {
+const ProjectSettings = ({ match }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { user } = rootStore.userStore;
+  // const { user } = rootStore.userStore;
   const { loadingProject, fetchProject, selectedProject } =
     rootStore.projectStore;
 
@@ -139,7 +131,7 @@ const ProjectSettings = ({ match, history }) => {
                   </div>
                 </Divider>
                 <ProjectSettingsTerminate project={selectedProject} />
-                
+
 
 
                 {/* <ProjectSettingsGeneralInformation project={selectedProject} /> */}
