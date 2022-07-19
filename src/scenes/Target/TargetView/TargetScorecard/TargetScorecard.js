@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useContext } from "react";
-import _ from "lodash";
+//import _ from "lodash";
 import { Toast } from "primereact/toast";
 import { Fieldset } from "primereact/fieldset";
 import { observer } from "mobx-react-lite";
@@ -45,7 +45,7 @@ const TargetScorecard = () => {
                       <h4>
                         <i className="icon icon-conceptual icon-proteins"></i>{" "}
                         Associated Genes :{" "}
-                          {selectedTarget.targetGenesAccesionNumbers.join(', ')}
+                        {selectedTarget.targetGenesAccesionNumbers.join(', ')}
                       </h4>
                     </div>
                   </div>

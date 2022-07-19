@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Slider } from 'primereact/slider';
 
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
