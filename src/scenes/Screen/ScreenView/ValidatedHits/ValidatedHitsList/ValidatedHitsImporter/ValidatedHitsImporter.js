@@ -180,7 +180,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
       Total identified in CSV : {hits.length} <br />
       Successfully Imported : {successList.length} <br />
       Failed : {failedList.length} <br />
-      {failedList.length != 0 ? <p>Failed for {failedList.toString()}</p> : <p></p>} <br />
+      {failedList.length !== 0 ? <p>Failed for {failedList.toString()}</p> : <p></p>} <br />
     </React.Fragment>
   );
   return (

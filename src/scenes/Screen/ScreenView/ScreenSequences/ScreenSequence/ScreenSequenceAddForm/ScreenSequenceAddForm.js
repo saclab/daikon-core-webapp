@@ -5,12 +5,11 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
-import { Dropdown } from "primereact/dropdown";
 import { RootStoreContext } from "../../../../../../app/stores/rootStore";
 
 const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
   const rootStore = useContext(RootStoreContext);
-  const { appVars } = rootStore.generalStore;
+  // const { appVars } = rootStore.generalStore;
 
   const formik = useFormik({
     initialValues: {
