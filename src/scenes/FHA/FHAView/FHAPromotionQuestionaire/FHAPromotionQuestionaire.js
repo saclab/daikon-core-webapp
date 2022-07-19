@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ProgressBar } from "primereact/progressbar";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
 import { observer } from "mobx-react-lite";
@@ -13,7 +12,7 @@ import { RootStoreContext } from "../../../../app/stores/rootStore";
 const FHAPromotionQuestionaire = ({ closeSidebar }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingProject, fetchProject, selectedProject } =
+  const { loadingProject, selectedProject } =
     rootStore.projectStore;
 
   const { creatingH2L, createH2L } = rootStore.portfolioStore;
@@ -43,7 +42,7 @@ const FHAPromotionQuestionaire = ({ closeSidebar }) => {
       });
 
       // history.push()
-     
+
     },
   });
 

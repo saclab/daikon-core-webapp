@@ -1,14 +1,12 @@
 import React from "react";
-import { Card } from "primereact/card";
 import "./LocalComponents.css";
-import StageTag from "../../../../../app/common/StageTag/StageTag";
 
 const FHAInformationGeneralInformation = ({ project }) => {
   let displaySupportingOrgs =
     project.supportingOrgs.length !== 0
       ? project.supportingOrgs.map((org) => {
-          return <p>- {org.appOrg.name}</p>;
-        })
+        return <p>- {org.appOrg.name}</p>;
+      })
       : null;
 
   return (
