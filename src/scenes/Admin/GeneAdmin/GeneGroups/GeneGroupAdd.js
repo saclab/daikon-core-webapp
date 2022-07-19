@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import _ from "lodash";
 import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
@@ -92,7 +92,7 @@ const GeneGroupAdd = () => {
 
   var geneList = [];
 
-  if (!displayLoading && genes.length != 0) {
+  if (!displayLoading && genes.length !== 0) {
     genes.forEach((gene) => {
       geneList.push(_.pick(gene, ["accessionNumber", "id"]));
     });
