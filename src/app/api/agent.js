@@ -96,27 +96,42 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
         data.errors.hasOwnProperty("id")
       ) {
         history.push("/notfound");
-      } else if (status === 400 && data !== null) {
+      }
+      else if (status === 400 && data !== null) {
         console.log("----AGENT----");
         console.log(typeof data);
         if (typeof data === "string") {
+          console.log("AGENT: Intercepted 400 " + data)
           toast.error("400 The Request Failed : " + data);
         } else {
-          console.log(data?.title);
+          console.log("AGENT: Intercepted 400 " + data?.title)
           toast.error("400 The Request Failed : " + data?.title);
         }
-      } else if (status === 400 && data === null) {
+      }
+      else if (status === 400 && data === null) {
+        console.log("AGENT: Intercepted 400 Bad request")
         toast.error("400 Bad request");
       }
 
-      /* 500 Errors */
-      if (status === 500) {
-        toast.error("Server Error");
+      /* 403 Unauthorized error */
+      if (status === 403) {
+        console.log("AGENT: Intercepted 403")
+        toast.error("Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator");
       }
 
       if (status === 401) {
-        console.log("401 Unauthorized or insufficient privileges");
+        console.log("AGENT: Intercepted 403")
+        console.log("Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator");
       }
+
+
+      /* 500 Errors */
+      if (status === 500) {
+        console.log("AGENT: Intercepted 500")
+        toast.error("Server Error");
+      }
+
+
     } catch (e) {
     } finally {
       console.log("----AGENT---- THROWING error");
