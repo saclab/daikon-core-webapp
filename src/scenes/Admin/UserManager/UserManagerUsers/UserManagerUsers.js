@@ -127,7 +127,7 @@ const UserManagerUsers = () => {
         // style={{ width: "50%", overflowX: "auto" }}
         blockScroll={true}
         onHide={() => setDisplayAddDialog(false)}
-        className="p-sidebar-sm"
+        className="p-sidebar-md"
       >
         <div className="card">
           <h3>
@@ -156,7 +156,7 @@ const UserManagerUsers = () => {
         // style={{ width: "50%", overflowX: "auto" }}
         blockScroll={true}
         onHide={() => setDisplayEditDialog(false)}
-        className="p-sidebar-sm"
+        className="p-sidebar-md"
       >
         <div className="card">
           <h3>
