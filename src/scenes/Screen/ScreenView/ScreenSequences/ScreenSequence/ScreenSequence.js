@@ -168,7 +168,8 @@ const ScreenSequence = ({ screenId }) => {
               header="No of compounds screened" />
             <Column
               field="scientist"
-              header="Scientist" />
+              header="Scientist"
+              style={{ wordWrap: "break-word" }} />
             <Column
               field="startDate"
               header="Start Date"
