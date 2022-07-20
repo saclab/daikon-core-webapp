@@ -225,10 +225,10 @@ const Gene = {
 };
 
 const GeneAdmin = {
-  promotionRequests: () => requests.get("/admin/gene/promotionrequests"),
+  promotionRequests: () => requests.get("/elevated/gene/promotionrequests"),
   createGeneGroup: (geneGroup) =>
-    requests.post(`/admin/gene/groups`, geneGroup),
-  listGeneGroups: () => requests.get(`/admin/gene/groups`),
+    requests.post(`/elevated/gene/groups`, geneGroup),
+  listGeneGroups: () => requests.get(`/elevated/gene/groups`),
 };
 
 const User = {
@@ -237,20 +237,20 @@ const User = {
 };
 
 const Admin = {
-  userList: () => requests.get("/admin/accounts"),
-  modifyUser: (user) => requests.post(`/admin/accounts/${user.id}`, user),
-  addUser: (user) => requests.post(`/admin/accounts/`, user),
+  userList: () => requests.get("/elevated/accounts"),
+  modifyUser: (user) => requests.post(`/elevated/accounts/${user.id}`, user),
+  addUser: (user) => requests.post(`/elevated/accounts/`, user),
 };
 
 const Accounts = {
-  listRoles: () => requests.get("/admin/accounts/roles"),
-  listOrgs: () => requests.get("/admin/accounts/orgs"),
-  editOrg: (id, org) => requests.post(`/admin/accounts/orgs/${id}`, org),
-  createOrg: (newOrg) => requests.post(`/admin/accounts/orgs`, newOrg),
-  listAccounts: () => requests.get("/admin/accounts"),
-  details: (email) => requests.get(`/admin/accounts/${email}`),
-  createAccount: (user) => requests.post(`/admin/accounts/`, user),
-  editAccount: (user) => requests.post(`/admin/accounts/${user.id}`, user),
+  listRoles: () => requests.get("/elevated/accounts/roles"),
+  listOrgs: () => requests.get("/elevated/accounts/orgs"),
+  editOrg: (id, org) => requests.post(`/elevated/accounts/orgs/${id}`, org),
+  createOrg: (newOrg) => requests.post(`/elevated/accounts/orgs`, newOrg),
+  listAccounts: () => requests.get("/elevated/accounts"),
+  details: (email) => requests.get(`/elevated/accounts/${email}`),
+  createAccount: (user) => requests.post(`/elevated/accounts/`, user),
+  editAccount: (user) => requests.post(`/elevated/accounts/${user.id}`, user),
 };
 
 const Target = {
@@ -260,14 +260,14 @@ const Target = {
 };
 
 const TargetAdmin = {
-  create: (data) => requests.post(`/admin/target`, data),
-  import: (data) => requests.post(`/admin/target/import`, data),
-  importComplex: (data) => requests.post(`/admin/target/importComplex`, data),
+  create: (data) => requests.post(`/elevated/target`, data),
+  import: (data) => requests.post(`/elevated/target/import`, data),
+  importComplex: (data) => requests.post(`/elevated/target/importComplex`, data),
   details: (id) => requests.get(`/target/${id}`),
   edit: (updatedTarget) =>
-    requests.post(`/admin/target/${updatedTarget.id}`, updatedTarget),
+    requests.post(`/elevated/target/${updatedTarget.id}`, updatedTarget),
   editSummary: (updatedTargetSummary) =>
-    requests.post(`/admin/target/${updatedTargetSummary.id}/summary`, updatedTargetSummary),
+    requests.post(`/elevated/target/${updatedTargetSummary.id}/summary`, updatedTargetSummary),
 };
 
 const Screen = {
@@ -306,36 +306,36 @@ const General = {
 };
 
 const Projects = {
-  edit: (id, project) => requests.post(`/admin/project/${id}`, project),
-  terminate: (id, project) => requests.post(`/admin/project/${id}/terminate`, project),
-  createFHA: (newFHA) => requests.post(`/admin/project/`, newFHA),
+  edit: (id, project) => requests.post(`/elevated/project/${id}`, project),
+  terminate: (id, project) => requests.post(`/elevated/project/${id}/terminate`, project),
+  createFHA: (newFHA) => requests.post(`/elevated/project/`, newFHA),
   createH2L: (id, h2lInfo) =>
-    requests.post(`/admin/project/${id}/createH2L`, h2lInfo),
+    requests.post(`/elevated/project/${id}/createH2L`, h2lInfo),
   createLO: (id, lOlInfo) =>
-    requests.post(`/admin/project/${id}/createLO`, lOlInfo),
+    requests.post(`/elevated/project/${id}/createLO`, lOlInfo),
   createSP: (id, sPlInfo) =>
-    requests.post(`/admin/project/${id}/createSP`, sPlInfo),
+    requests.post(`/elevated/project/${id}/createSP`, sPlInfo),
   createIND: (id, iNDInfo) =>
-    requests.post(`/admin/project/${id}/createIND`, iNDInfo),
+    requests.post(`/elevated/project/${id}/createIND`, iNDInfo),
   createP1: (id, p1Info) =>
-    requests.post(`/admin/project/${id}/createP1`, p1Info),
+    requests.post(`/elevated/project/${id}/createP1`, p1Info),
   list: () => requests.get(`/project`),
   details: (id) => requests.get(`/project/${id}`),
   getcompoundevolution: (projectId) =>
     requests.get(`/project/${projectId}/compoundevolution`),
   addcompoundevolution: (projectId, newCompoundEvolution) =>
     requests.post(
-      `/admin/project/${projectId}/compoundevolution`,
+      `/elevated/project/${projectId}/compoundevolution`,
       newCompoundEvolution
     ),
   setPriorityProbability: (Id, ppDTO) => requests.post(`/project/${Id}`, ppDTO),
-  createUnlinked: (newProject) => requests.post(`/admin/project/unlinked`, newProject),
+  createUnlinked: (newProject) => requests.post(`/elevated/project/unlinked`, newProject),
 };
 
 const Vote = {
   castVote: (vote) => requests.post(`/vote/${vote.voteId}/`, vote),
-  enableVoting: (voteIds) => requests.post(`/admin/vote/enable/`, voteIds),
-  freezeVoting: (voteIds) => requests.post(`/admin/vote/freeze/`, voteIds),
+  enableVoting: (voteIds) => requests.post(`/elevated/vote/enable/`, voteIds),
+  freezeVoting: (voteIds) => requests.post(`/elevated/vote/freeze/`, voteIds),
 };
 
 const exports = {
