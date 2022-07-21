@@ -23,7 +23,7 @@ const TargetDash = () => {
     return <Loading />;
   }
 
-  console.log(targets);
+  //console.log(targets);
 
   return (
     <div>
