@@ -1,5 +1,5 @@
 import React from "react";
-import { appVersion } from "../../../config";
+import { appVersion } from "../../../appVersion";
 import cssClass from "./Footer.module.css";
 
 const Footer = () => {
