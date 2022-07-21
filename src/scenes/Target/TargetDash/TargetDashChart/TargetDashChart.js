@@ -11,7 +11,7 @@ const TargetDashChart = ({ targets }) => {
 
 
   console.log("START generating graphdata");
-  console.log(targets.length);
+
   targets.forEach((target) => {
 
     if ((target.likeScore >= likeScoreCutoff) && (target.impactScore >= impactScoreCutoff)) {
@@ -32,25 +32,17 @@ const TargetDashChart = ({ targets }) => {
 
   console.log("Rendering graph");
   console.log(graphData.length);
-  const CustomNode = ({
-    node,
-    x,
-    y,
-    size,
-    color,
-    blendMode,
-    onMouseEnter,
-    onMouseMove,
-    onMouseLeave,
-    onClick,
-  }) => {
+  const CustomNode = ({ node, onMouseEnter, onMouseMove, onMouseLeave, onClick }) => {
+
+    console.log("Test");
+    console.log(node)
     return (
       <React.Fragment>
-        <g transform={`translate(${x},${y}) rotate(45)`}>
+        <g transform={`translate(${node.x},${node.y}) rotate(45)`}>
           <circle
-            r={size / 2}
-            fill={color}
-            style={{ mixBlendMode: blendMode }}
+            r={node.size / 2}
+            fill={node.color}
+            style={{ mixBlendMode: node.blendMode }}
             onMouseEnter={onMouseEnter}
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
@@ -112,7 +104,7 @@ const TargetDashChart = ({ targets }) => {
             "legends",
             "annotations",
           ]}
-          renderNode={CustomNode}
+          nodeComponent={CustomNode}
         />
       </div>
       <div style={{ padding: "0px 60px 0px 60px", margin: "-40px 0px 0px 0px" }}>

@@ -21,8 +21,8 @@ const TargetDashTable = ({ targets }) => {
   };
 
   const AssociatedGenesBodyTemplate = (rowData) => {
-    console.log("AssociatedGenesBodyTemplate");
-    console.log(rowData.targetGenesAccesionNumbers);
+    //console.log("AssociatedGenesBodyTemplate");
+    //console.log(rowData.targetGenesAccesionNumbers);
     if (rowData.targetGenesAccesionNumbers.length > 2) {
       return (
         <React.Fragment>

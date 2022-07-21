@@ -75,8 +75,8 @@ export default class TargetStore {
             targetGenesAccesionNumbers:
               _helper_associatedGenesAccessionNumbersToArray(fetchedTarget),
           };
-          console.log("_helper_associatedGenesAccessionNumbersToArray(fetchedTarget)")
-          console.log(_helper_associatedGenesAccessionNumbersToArray(fetchedTarget));
+          // console.log("_helper_associatedGenesAccessionNumbersToArray(fetchedTarget)")
+          // console.log(_helper_associatedGenesAccessionNumbersToArray(fetchedTarget));
           this.targetRegistry.set(fetchedTarget.id, fetchedTarget);
         });
         console.log(this.targetRegistry);
