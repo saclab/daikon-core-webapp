@@ -50,8 +50,6 @@ const TitleBar = () => {
 
         </Button>
 
-
-
         {/* <Button
           type="Button"
           icon="pi pi-sliders-v"
