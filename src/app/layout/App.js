@@ -5,7 +5,7 @@ import "primereact/resources/themes/saga-blue/theme.css";
 //import "primereact/resources/themes/rhea/theme.css";
 
 import "primereact/resources/primereact.min.css";
-import "primeflex/primeflex.css";
+import "/node_modules/primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import "../../assets/_overrides.scss";
 import "remixicon/fonts/remixicon.css";

@@ -32,7 +32,7 @@ const TitleBar = () => {
       >
         <TitleBarSidePanel toggle={() => setVisibleLeft(false)} user={user} />
       </Sidebar>
-      <div className={["p-d-flex"].join(" ")}>
+      <div className={["inline-flex"].join(" ")}>
         <Button
           type="Button"
           icon="icon icon-common icon-th"
@@ -47,16 +47,10 @@ const TitleBar = () => {
           )}
         >
           D A I K O N
-          
+
         </Button>
 
-        <Button
-          type="Button"
-          icon="ri-refresh-fill"
-          label="Sync"
-          className={[cssClass.Push, "p-mr-2", cssClass.BlackButton].join(" ")}
-          onClick={() => window.location.reload()}
-        />
+
 
         {/* <Button
           type="Button"
@@ -65,24 +59,34 @@ const TitleBar = () => {
           className={["p-mr-2", cssClass.BlackButton].join(" ")}
         /> */}
 
-        <Dropdown
-          value={"Mycobacterium tuberculosis H37Rv"}
-          options={Strains}
-          // onChange={onCityChange}
-          optionLabel="name"
-          placeholder="H37Rv"
-          className={["p-mr-2", cssClass.BlackButton].join(" ")}
-        />
-        <Button
-          type="Button"
-          className={["p-mr-2", cssClass.BlackButton].join(" ")}
-          icon="pi pi-user"
-          label={user.email}
-          onClick={(e) => op.current.toggle(e)}
-        />
-        <OverlayPanel dismissable ref={op}>
-          <TitleBarAccountPanel />
-        </OverlayPanel>
+        <div class="absolute right-0">
+          <Button
+            type="Button"
+            icon="ri-refresh-fill"
+            label="Sync"
+            className={[cssClass.Push, cssClass.BlackButton].join(" ")}
+            onClick={() => window.location.reload()}
+          />
+          <Dropdown
+            value={"Mycobacterium tuberculosis H37Rv"}
+            options={Strains}
+            // onChange={onCityChange}
+            optionLabel="name"
+            placeholder="H37Rv"
+            className={[cssClass.BlackButton].join(" ")}
+          />
+          <Button
+            type="Button"
+            className={[cssClass.BlackButton].join(" ")}
+            icon="pi pi-user"
+            label={user.email}
+            onClick={(e) => op.current.toggle(e)}
+          />
+          <OverlayPanel dismissable ref={op}>
+            <TitleBarAccountPanel />
+          </OverlayPanel>
+        </div>
+
       </div>
     </div>
   );
