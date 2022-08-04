@@ -1,14 +1,8 @@
-import React, { useContext } from "react";
-import { Card } from "primereact/card";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import "./Home.css";
-import { RootStoreContext } from "../../app/stores/rootStore";
 import HomeCards from "./HomeCards/HomeCards";
 
 const Home = () => {
-
-  const rootStore = useContext(RootStoreContext);
-  const { appVars } = rootStore.generalStore;
 
   return (
     <div className="Home">
