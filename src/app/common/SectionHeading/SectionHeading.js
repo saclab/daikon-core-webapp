@@ -20,24 +20,24 @@ const SectionHeading = ({
     let background = color ? color : "#332288";
     let htextColor = textColor ? textColor : "#ffffff";
     let displayHorizonButton = (
-      <div
-        className="p-mr-2"
-        style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}
-      >
-        <button
-          className={options.togglerClassName}
-          onClick={options.onTogglerClick}
-        >
-          <h1
-            style={{
-              margin: "0px",
-              fontWeight: "lighter",
-              color: htextColor,
-            }}
+      <div class="absolute right-0">
+        <div className="flex pr-3">
+          <button
+            className={options.togglerClassName}
+            onClick={options.onTogglerClick}
           >
-            <i className={toggleIcon}></i>
-          </h1>
-        </button>
+            <h1
+              style={{
+                margin: "0px",
+                fontWeight: "lighter",
+                color: htextColor,
+              }}
+            >
+              <i className={toggleIcon}></i>
+            </h1>
+          </button>
+        </div>
+
       </div>
     );
 
@@ -51,8 +51,8 @@ const SectionHeading = ({
           marginBottom: "1em",
         }}
       >
-        <div className="p-d-flex">
-          <div className="p-mr-2">
+        <div className="flex">
+          <div className="flex">
             <h1
               style={{
                 margin: "0px",
@@ -63,7 +63,7 @@ const SectionHeading = ({
               <i className={icon}></i> {heading}
             </h1>
           </div>
-          <div className="p-mr-2">{sub}</div>
+          <div className="flex">{sub}</div>
           {displayHorizon ? displayHorizonButton : <p />}
         </div>
       </div>
