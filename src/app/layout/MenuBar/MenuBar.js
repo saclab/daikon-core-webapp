@@ -34,7 +34,7 @@ const MenuBar = () => {
       command: () => history.push("/screen/"),
     },
     {
-      label: "FHAs",
+      label: "Hit Assessment",
       icon: "icon icon-conceptual icon-chemical",
       command: () => history.push("/fha/"),
     },
@@ -53,13 +53,16 @@ const MenuBar = () => {
     // { label: "Clinical", icon: "icon icon-conceptual icon-proteins" },
   ];
   return (
-    <div className={["p-d-flex", "p-jc-center", "pipeline-menu"].join(" ")}>
-      <TabMenu
-        model={items}
-        activeIndex={activeIndex}
-        onTabChange={(e) => setActiveIndex(e.index)}
-      />
+    <div className="flex justify-content-center flex-wrap">
+      <div className="flex pipeline-menu">
+        <TabMenu
+          model={items}
+          activeIndex={activeIndex}
+          onTabChange={(e) => setActiveIndex(e.index)}
+        />
+      </div>
     </div>
+
   );
 };
 
