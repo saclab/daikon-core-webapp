@@ -91,6 +91,7 @@ const App = () => {
     fetchAppVars,
   ]);
 
+
   if (networkErr) {
     return <NetworkError />;
   }
