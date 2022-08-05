@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
+import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Menu } from "primereact/menu";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -12,6 +13,9 @@ import Discussion from "../../../app/common/Discussion/Discussion";
 import { appColors } from '../../../colors';
 
 const ScreenView = ({ match, history }) => {
+  const params = useParams();
+  const navigate = useNavigate();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
@@ -33,21 +37,21 @@ const ScreenView = ({ match, history }) => {
           label: "Screens",
           icon: "icon icon-common icon-circle-notch",
           command: () => {
-            setActiveIndex(0);
+            navigate("screen-sequence/");
           },
         },
         {
           label: "Validated Hits",
           icon: "icon icon-conceptual icon-structures-3d",
           command: () => {
-            setActiveIndex(1);
+            navigate("validates-hit/");
           },
         },
         {
           label: "Discussion",
           icon: "ri-discuss-line",
           command: () => {
-            setActiveIndex(2);
+            navigate("discussion/");
           },
         },
       ],
@@ -59,58 +63,21 @@ const ScreenView = ({ match, history }) => {
       <React.Fragment>
         <Toast ref={toast} />
         <br />
-        <div className="p-d-flex">
-          <div className="p-mr-2">
+        <div className="flex gap-2 w-full">
+          <div className="flex">
             <Menu model={SideMenuItems} />
           </div>
-          <div className="p-mr-2" style={{ width: "100vw" }}>
-            <div className="p-d-flex p-flex-column">
-              <div className="p-mb-2">
-                {/* <BreadCrumb model={breadCrumbItems} /> */}
-              </div>
-              <div className="p-mb-2">
-                <SectionHeading
-                  icon="icon icon-common icon-search"
-                  heading={"Screens of " + match.params.id}
-                  targetName={match.params.id}
-                  displayHorizon={true}
-                  color={appColors.sectionHeadingBg.screen}
-                />
-              </div>
-              <div className="p-mb-2">
-                <TabView
-                  activeIndex={activeIndex}
-                  onTabChange={(e) => setActiveIndex(e.index)}
-                >
-                  <TabPanel header="Screens" headerClassName="hide">
-                    <SectionHeading
-                      icon="icon icon-common icon-circle-notch"
-                      heading={" Screens"}
-                      color={"#f4f4f4"}
-                      textColor={"#000000"}
-                    />
-                    <ScreenSequences TargetName={match.params.id} />
-                  </TabPanel>
-                  <TabPanel header="Validated Hits" headerClassName="hide">
-                    <SectionHeading
-                      icon="icon icon-conceptual icon-structures-3d"
-                      heading={"Validated Hits"}
-                      color={"#f4f4f4"}
-                      textColor={"#000000"}
-                    />
-                    <ValidatedHits TargetName={match.params.id} />
-                  </TabPanel>
-                  <TabPanel header="Discussion" headerClassName="hide">
-                    <Discussion
-                      reference={selectedScreen?.targetName}
-                      section={"Screen"}
-                    />
-                  </TabPanel>
-                </TabView>
-              </div>
-            </div>
+
+          <div className="flex w-full">
+            <Routes>
+              <Route index element={<Navigate replace to="screen-sequence/" />} />
+              <Route path="screen-sequence/" element={<ScreenSequences TargetName={params.id} />} />
+              <Route path="validates-hit/" element={<ValidatedHits TargetName={params.id} />} />
+              <Route path="discussion/" element={<ValidatedHits TargetName={params.id} />} />
+            </Routes>
           </div>
         </div>
+
       </React.Fragment>
     );
   }
