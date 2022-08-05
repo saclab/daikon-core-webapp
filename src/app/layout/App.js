@@ -11,7 +11,7 @@ import "../../assets/_overrides.scss";
 import "remixicon/fonts/remixicon.css";
 import TitleBar from "./TitleBar/TitleBar";
 import MenuBar from "./MenuBar/MenuBar";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Footer from "./Footer/Footer";
 import GenomePromote from "../../scenes/Gene/GenomePromote/GenomePromote";
 import Home from "../../scenes/Home/Home";
@@ -51,17 +51,20 @@ import FHAView from "../../scenes/FHA/FHAView/FHAView";
 import ProjectManagement from '../../scenes/ProjectManagement/ProjectManagement';
 import ProjectSettings from '../../scenes/ProjectManagement/ProjectSettings/ProjectSettings';
 import ProjectAdmin from '../../scenes/Admin/ProjectAdmin/ProjectAdmin';
+import AppDefault from './AppDefault';
+import AppAdminDashBoard from './AppAdminDashBoard';
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
 
   const rootStore = useContext(RootStoreContext);
   const { user, getUser, fetching, userNotFound } = rootStore.userStore;
-  const { adminMode } = rootStore.appSettingsStore;
+  const { adminMode, appView } = rootStore.appSettingsStore;
   const { fetchingAppVars, appVars, fetchAppVars } = rootStore.generalStore;
   const [networkErr, setNetworkErr] = useState(false);
 
   const [menuBar, setMenuBar] = useState(<MenuBar />);
+
 
   useEffect(() => {
     if (authServiceInstance.account && !networkErr && !user && !userNotFound) {
@@ -76,10 +79,10 @@ const App = () => {
       }
     }
 
-    if (adminMode) {
-      //console.log("Admin mode is set");
-      setMenuBar(<MenuBarAdmin />);
-    }
+    // if (adminMode) {
+    //   //console.log("Admin mode is set");
+    //   setMenuBar(<MenuBarAdmin />);
+    // }
   }, [
     getUser,
     networkErr,
@@ -104,6 +107,9 @@ const App = () => {
     return <NoAccess />;
   }
 
+
+
+
   let signedInRender = (
 
     <Fragment>
@@ -113,13 +119,12 @@ const App = () => {
         <div className="block">
           <TitleBar />
         </div>
-        <div className="block mb-2">
-          {menuBar}
-        </div>
-        <div className="block ml-6 mr-6">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route
+        <div className="block">
+          <Routes>
+            <Route path="/d/*" element={<AppDefault />} />
+            <Route path="/admin" element={<AppAdminDashBoard />} />
+
+            {/* <Route
               exact
               path="/admin/user-management/new"
               component={Admin_Authorize}
@@ -163,10 +168,10 @@ const App = () => {
             />
             <Route exact path="/admin/project" component={ProjectAdmin} />
 
-            <Route path="/gene/:id/comment" component={Discussion} />
+            <Route path="/gene/:id/comment" component={Discussion} /> */}
 
             <Route component={NotFound} />
-          </Switch>
+          </Routes>
         </div>
 
         <div className="flex">
@@ -195,4 +200,5 @@ const App = () => {
   }
 };
 
-export default withRouter(observer(App));
+//export default withRouter(observer(App));
+export default observer(App);

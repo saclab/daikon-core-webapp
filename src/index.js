@@ -5,7 +5,7 @@ import "primeflex/primeflex.css";
 import App from "./app/layout/App";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import history from "./history";
 import reportWebVitals from "./reportWebVitals";
 import AuthFailure from "./app/layout/Errors/AuthFailure/AuthFailure";
@@ -26,9 +26,9 @@ if (!agent.AppPrecheck()) {
       // auth flow was successful.
       // start the application now.
       ReactDOM.render(
-        <Router history={history}>
+        <BrowserRouter history={history}>
           <App />
-        </Router>,
+        </BrowserRouter>,
         document.getElementById("root")
       );
     })

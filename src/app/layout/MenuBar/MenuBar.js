@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TabMenu } from "primereact/tabmenu";
 import "./MenuBar.css";
-import history from "../../../history";
+
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 const MenuBar = () => {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   let location = useLocation();
 
@@ -21,40 +23,40 @@ const MenuBar = () => {
     {
       label: "Genes",
       icon: "icon icon-conceptual icon-dna",
-      command: () => history.push("/gene/"),
+      command: () => navigate("gene/"),
     },
     {
       label: "Targets",
       icon: "icon icon-common icon-target",
-      command: () => history.push("/target/"),
+      command: () => navigate("target/"),
     },
     {
       label: "Screens",
       icon: "icon icon-common icon-search",
-      command: () => history.push("/screen/"),
+      command: () => navigate("screen/"),
     },
     {
       label: "Hit Assessment",
       icon: "icon icon-conceptual icon-chemical",
-      command: () => history.push("/fha/"),
+      command: () => navigate("fha/"),
     },
     {
       label: "Portfolio",
       icon: "icon icon-common icon-analyse",
-      command: () => history.push("/portfolio/"),
+      command: () => navigate("portfolio/"),
     },
 
     {
       label: "Post-Portfolio",
       icon: "icon icon-common icon-drug",
-      command: () => history.push("/postportfolio/"),
+      command: () => navigate("postportfolio/"),
     },
 
     // { label: "Clinical", icon: "icon icon-conceptual icon-proteins" },
   ];
   return (
     <div className="flex justify-content-center flex-wrap">
-      <div className="flex pipeline-menu">
+      <div className="flex pipeline-menu scalein animation-duration-500">
         <TabMenu
           model={items}
           activeIndex={activeIndex}
