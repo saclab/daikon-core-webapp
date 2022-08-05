@@ -308,16 +308,22 @@ const Discussion = ({ reference, section }) => {
         />
       </Sidebar>
 
-      <Fieldset legend="Discussion board">
-        <Button
-          className="p-button-rounded p-button-info"
-          icon="pi pi-plus"
-          label="New Topic"
-          onClick={displayAllDiscussions}
-          style={{ background: "#28477f", border: "0px solid #28477f" }}
-        />
-        {formatteddiscussions}
-      </Fieldset>
+      <div className="flex w-full">
+        <Fieldset legend="Discussion board" className="w-full">
+          <div className="flex w-full justify-content-end">
+            <Button
+              className="scalein animation-duration-500 p-button p-button-info"
+              icon="pi pi-plus"
+              label="Add a New Topic"
+              onClick={displayAllDiscussions}
+              style={{ background: "#28477f", border: "0px solid #28477f" }}
+            />
+          </div>
+
+          {formatteddiscussions}
+        </Fieldset>
+      </div>
+
 
       <br />
     </React.Fragment>

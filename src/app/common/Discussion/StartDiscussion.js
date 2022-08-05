@@ -33,7 +33,8 @@ const StartDiscussion = ({
   return (
     <div>
       <div className="card">
-        <h3>What is it about?</h3>
+        <h3>(Topic) What is it about?</h3>
+        <p>A one line summary of the question or the discussion.</p>
         <InputText
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
@@ -41,7 +42,8 @@ const StartDiscussion = ({
           readonly={postingDiscussion}
         />
 
-        <h3>Description.</h3>
+        <h3>Description</h3>
+        <p>Include detailed information that is relevant to the topic</p>
         <InputTextarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
