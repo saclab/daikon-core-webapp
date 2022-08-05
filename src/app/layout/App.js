@@ -53,6 +53,7 @@ import ProjectSettings from '../../scenes/ProjectManagement/ProjectSettings/Proj
 import ProjectAdmin from '../../scenes/Admin/ProjectAdmin/ProjectAdmin';
 import AppDefault from './AppDefault';
 import AppAdminDashBoard from './AppAdminDashBoard';
+import AppBeta from './AppBeta';
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -124,6 +125,7 @@ const App = () => {
             <Route index element={<Navigate replace to="/d/" />} />
             <Route path="/d/*" element={<AppDefault />} />
             <Route path="/admin" element={<AppAdminDashBoard />} />
+            <Route path="/beta" element={<AppBeta />} />
 
             {/* <Route
               exact

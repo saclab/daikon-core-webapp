@@ -13,6 +13,7 @@ import { observer } from "mobx-react-lite";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
 import TargetSummary from "./TargetSummary/TargetSummary";
 import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
+import EmbededHelp from '../../../app/common/EmbededHelp/EmbededHelp';
 
 const TargetView = () => {
   const params = useParams();
@@ -105,24 +106,23 @@ const TargetView = () => {
           blockScroll={true}
           onHide={() => setDisplayPromotionDialog(false)}
         >
-          <h3>{target.name}</h3>
-          <i className="icon icon-common icon-plus-circle"></i> &nbsp; Add a{" "}
-          <b>New</b> Screen
-          <hr />
-          <Message
-            severity="info"
-            text={
-              "This would create a new screening series. If you are intending to add screening information to an existing screening set please add it via the screening tab."
-            }
-          />
-          <br />
-          <br />
-          <TargetScreenPromotionQuestionaire
-            closeSidebar={() => setDisplayPromotionDialog(false)}
-          />
+          <div className="flex flex-column gap-3 pl-3  w-full">
+            <div className="flex">
+              <h2><i className="icon icon-common icon-plus-circle"></i> Add a new Screen | {target.name}</h2>
+            </div>
+            <div className="flex">
+              <EmbededHelp>
+                This would create a new screening series. If you are intending to add screening
+                information to an existing screening set please add it via the screening tab.
+              </EmbededHelp>
+            </div>
+            <div className="flex w-full">
+              <TargetScreenPromotionQuestionaire
+                closeSidebar={() => setDisplayPromotionDialog(false)}
+              />
+            </div>
+          </div>
         </Sidebar>
-        <br />
-
 
         <div className="flex gap-2 w-full">
           <div className="flex">
