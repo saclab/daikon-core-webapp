@@ -30,7 +30,7 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
         navigate(`/d/target/${selectedTarget.id}`);
       }
     },
-    { label: "Scorecard" },
+    { label: "Promotion Info" },
   ];
 
 
