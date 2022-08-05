@@ -31,7 +31,7 @@ const ScreenDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Target</span>
-          <NavLink to={"/screen/" + rowData.targetName}>
+          <NavLink to={"./" + rowData.targetName}>
             {rowData.targetName}
           </NavLink>
         </React.Fragment>
@@ -71,39 +71,43 @@ const ScreenDash = () => {
     //   </div>
     // );
     return (
-      <div className="datatable-screens">
-        <SectionHeading
-          icon="icon icon-common icon-search"
-          heading="Screens"
-          color={appColors.sectionHeadingBg.screen}
-        />
+      <div className="flex flex-column w-full fadein animation-duration-500">
+        <div className="flex w-full">
+          <SectionHeading
+            icon="icon icon-common icon-search"
+            heading="Screens"
+            color={appColors.sectionHeadingBg.screen}
+          />
+        </div>
+        <div className="flex w-full">
+          <div className="datatable-screen">
+            <DataTable
+              ref={dt}
+              value={uniqueScreens}
+              paginator
+              rows={10}
+              className="p-datatable-screens"
+              //globalFilter={globalFilter}
+              emptyMessage="No Screens found."
+            >
+              <Column
+                field="targetName"
+                header="Name"
+                body={TargetNameBodyTemplate}
+                filter
+                filterMatchMode="contains"
+                filterPlaceholder="Search by Target Name"
+                className="narrow-column"
+              />
 
-        <div className="card">
-          <DataTable
-            ref={dt}
-            value={uniqueScreens}
-            paginator
-            rows={10}
-            className="p-datatable-screens"
-            //globalFilter={globalFilter}
-            emptyMessage="No Screens found."
-          >
-            <Column
-              field="targetName"
-              header="Name"
-              body={TargetNameBodyTemplate}
-              filter
-              filterMatchMode="contains"
-              filterPlaceholder="Search by Target Name"
-              className="narrow-column"
-            />
+              {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
 
-            {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
-
-            <Column field="notes" header="Notes" body={NotesBodyTemplate} />
-          </DataTable>
+              <Column field="notes" header="Notes" body={NotesBodyTemplate} />
+            </DataTable>
+          </div>
         </div>
       </div>
+
     );
   }
 
