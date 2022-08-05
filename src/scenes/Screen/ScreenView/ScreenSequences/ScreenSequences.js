@@ -1,9 +1,13 @@
 import React, { useContext, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { observer } from "mobx-react-lite";
 import { TabView, TabPanel } from "primereact/tabview";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import ScreenSequence from "./ScreenSequence/ScreenSequence";
 import Loading from "../../../../app/layout/Loading/Loading";
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { BreadCrumb } from 'primereact/breadcrumb';
+import { appColors } from '../../../../colors';
 
 const ScreenSequences = ({ TargetName }) => {
   /* MobX Store */
@@ -16,7 +20,7 @@ const ScreenSequences = ({ TargetName }) => {
     setScreenSequenceIndex,
   } = rootStore.screenStore;
 
-  console.log("====SCREEN SEQUENCES");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (
@@ -30,6 +34,24 @@ const ScreenSequences = ({ TargetName }) => {
   if (displayLoading) {
     return <Loading />;
   }
+
+
+
+  const breadCrumbItems = [
+    {
+      label: "Screens",
+      command: () => {
+        navigate("/d/screen/");
+      },
+    },
+    {
+      label: TargetName,
+      command: () => {
+        // navigate(`/d/gene/${gene.id}`);
+      }
+    },
+    ,
+  ];
 
   let tabs = [];
 
@@ -48,14 +70,36 @@ const ScreenSequences = ({ TargetName }) => {
   }
 
   return (
-    <div>
-      <TabView
-        activeIndex={screenSequenceIndex}
-        onTabChange={(e) => setScreenSequenceIndex(e.index)}
-        scrollable
-      >
-        {tabs}
-      </TabView>
+
+    <div className="flex flex-column w-full">
+      <div className="flex w-full pb-2">
+        <BreadCrumb model={breadCrumbItems} />
+      </div>
+      <div className="flex w-full">
+        <SectionHeading
+          icon="icon icon-common icon-search"
+          heading={"Screens of " + TargetName}
+          targetName={TargetName}
+          displayHorizon={true}
+          color={appColors.sectionHeadingBg.screen} />
+      </div>
+      <div className="flex w-full">
+        <SectionHeading
+          icon="icon icon-common icon-circle-notch"
+          heading={" Screens"}
+          color={"#f4f4f4"}
+          textColor={"#000000"}
+        />
+      </div>
+      <div className='flex w-full'>
+        <TabView
+          activeIndex={screenSequenceIndex}
+          onTabChange={(e) => setScreenSequenceIndex(e.index)}
+          scrollable
+        >
+          {tabs}
+        </TabView>
+      </div>
     </div>
   );
 };
