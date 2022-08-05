@@ -13,7 +13,7 @@ import { observer } from "mobx-react-lite";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
 import TargetSummary from "./TargetSummary/TargetSummary";
 
-const TargetView = ({ match, history }) => {
+const TargetView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -93,18 +93,7 @@ const TargetView = ({ match, history }) => {
     return <Loading />;
   }
   if (target !== null) {
-    console.log("Target ID");
-    console.log(target.id);
-    const breadCrumbItems = [
-      {
-        label: "Target",
-        command: () => {
-          history.push("/target/");
-        },
-      },
-      { label: target.name },
-    ];
-
+   
     return (
       <React.Fragment>
         <Toast ref={toast} />
