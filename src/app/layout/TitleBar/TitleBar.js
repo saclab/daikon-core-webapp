@@ -1,10 +1,11 @@
 import React, { useRef, useContext, useState } from "react";
-
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Sidebar } from "primereact/sidebar";
 import { Dropdown } from "primereact/dropdown";
+
 
 import cssClass from "./TitleBar.module.css";
 import { Button } from "primereact/button";
@@ -13,7 +14,10 @@ import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import { RootStoreContext } from "../../stores/rootStore";
 import TitleBarSidePanel from "./TitleBarSidePanel/TitleBarSidePanel";
 
+
 const TitleBar = () => {
+  const navigate = useNavigate();
+  
   const op = useRef(null);
   const [visibleLeft, setVisibleLeft] = useState(false);
   const rootStore = useContext(RootStoreContext);
@@ -41,7 +45,7 @@ const TitleBar = () => {
         />
 
         <Button
-          onClick={() => history.push("/")}
+          onClick={() => navigate("/d/")}
           className={[cssClass.LogoText, cssClass.BlackButton, "p-mr-2"].join(
             " "
           )}
@@ -90,4 +94,6 @@ const TitleBar = () => {
   );
 };
 
-export default withRouter(observer(TitleBar));
+//export default withRouter(observer(TitleBar));
+export default observer(TitleBar);
+

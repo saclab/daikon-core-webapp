@@ -1,56 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Menubar } from 'primereact/menubar';
 
 // import "./MenuBarAdmin.css";
 import history from "../../../history";
+import { TabMenu } from 'primereact/tabmenu';
 const MenuBarAdmin = () => {
+  const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(1);
+
   const items = [
+    {
+      label: "Home",
+      icon: "icon icon-common icon-arrow-left",
+      command: () => navigate("/d/"),
+    },
     {
       label: "App Settings",
       icon: "icon icon-common icon-cogs",
-      command: () => history.push("/gene/"),
+      command: () => navigate("/gene/"),
     },
     {
       label: "User Manager",
       icon: "ri-user-settings-fill",
-      command: () => history.push("/admin/user-manager/"),
+      command: () => navigate("/admin/user-manager/"),
     },
     {
       label: "Genes",
       icon: "icon icon-conceptual icon-dna",
-      command: () => history.push("/admin/gene/"),
+      command: () => navigate("/admin/gene/"),
     },
     {
       label: "Targets",
       icon: "icon icon-common icon-target",
-      command: () => history.push("/admin/target/"),
+      command: () => navigate("/admin/target/"),
     },
     {
       label: "Screens",
       icon: "icon icon-common icon-search",
-      command: () => history.push("/screen/"),
+      command: () => navigate("/screen/"),
     },
     {
       label: "Projects",
       icon: "icon icon-common icon-classification",
-      command: () => history.push("/admin/project/"),
+      command: () => navigate("/admin/project/"),
     },
 
   ];
 
-  const start = <><h2><i className="icon icon-common icon-asterisk"></i> Admin Panel | </h2></>
-  const end = <Button
-    type="Button"
-    icon="icon icon-common icon-close"
-    label="Exit"
-    className={["p-mr-2", "p-button-danger"].join(" ")}
-    onClick={() => window.location.replace("/")}
-  />
 
   return (
-    <div className={["card"].join(" ")}>
-      <Menubar model={items} start={start} end={end} />
+    <div className="flex justify-content-center flex-wrap">
+      <div className="flex pipeline-menu scalein animation-duration-500">
+        <TabMenu
+          model={items}
+          activeIndex={activeIndex}
+          onTabChange={(e) => setActiveIndex(e.index)}
+        />
+      </div>
     </div>
 
   );

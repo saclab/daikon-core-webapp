@@ -3,15 +3,17 @@ import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { InputText } from 'primereact/inputtext';
 import { Divider } from "primereact/divider";
-import history from "../../../../history";
+import { useNavigate } from "react-router-dom";
 import { RootStoreContext } from "../../../stores/rootStore";
 import cssClass from "../TitleBar.module.css";
 import { appVersion } from "../../../../appVersion";
 
 
 const TitleBarSidePanel = ({ toggle, user }) => {
+  const navigate = useNavigate();
+
   const rootStore = useContext(RootStoreContext);
-  let { setAdminMode } = rootStore.appSettingsStore;
+  let { setAppView } = rootStore.appSettingsStore;
 
   const adminTools = (
     <div className="flex flex-column">
@@ -30,8 +32,8 @@ const TitleBarSidePanel = ({ toggle, user }) => {
             className="p-mr-2 p-mb-2 p-button-text p-button-plain p-button-sm"
             onClick={() => {
               toggle();
-              setAdminMode(true);
-              history.push("/admin");
+              setAppView("AdminDashboard");
+              navigate("/admin");
             }}
           />
         </div>

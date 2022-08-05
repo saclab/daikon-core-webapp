@@ -13,8 +13,12 @@ import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Discussion from "../../../app/common/Discussion/Discussion";
 import GenePromoteTargetSelectionWindow from "../GenomePromote/GenePromoteTargetSelectionWindow/GenePromoteTargetSelectionWindow";
+import { useParams } from "react-router-dom";
 
-const GeneView = ({ match, history }) => {
+const GeneView = ({ history }) => {
+  const params = useParams();
+  
+  
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
 
@@ -35,11 +39,11 @@ const GeneView = ({ match, history }) => {
 
   useEffect(() => {
     console.log("EFFECT");
-    console.log(match.params.id);
-    if (gene === null || gene.id !== match.params.id) {
-      fetchGene(match.params.id);
+    console.log(params.id);
+    if (gene === null || gene.id !== params.id) {
+      fetchGene(params.id);
     }
-  }, [match.params.id, gene, fetchGene]);
+  }, [params.id, gene, fetchGene]);
 
   const items = [
     {
@@ -126,40 +130,40 @@ const GeneView = ({ match, history }) => {
               </div>
               <div className="flex w-full">
                 <TabView
-                    activeIndex={activeIndex}
-                    onTabChange={(e) => setActiveIndex(e.index)}
-                  >
-                    <TabPanel header="Header I" headerClassName="hide">
-                      <GeneViewPublicData
-                        id={match.params.id}
-                        gene={gene}
-                        edit={() => editGene()}
-                        cancelEdit={() => cancelEditGene()}
-                        fetchGeneHistory={() => fetchGeneHistory()}
-                        historyDisplayLoading={historyDisplayLoading}
-                        geneHistory={geneHistory}
-                      />
-                    </TabPanel>
+                  activeIndex={activeIndex}
+                  onTabChange={(e) => setActiveIndex(e.index)}
+                >
+                  <TabPanel header="Header I" headerClassName="hide">
+                    <GeneViewPublicData
+                      id={params.id}
+                      gene={gene}
+                      edit={() => editGene()}
+                      cancelEdit={() => cancelEditGene()}
+                      fetchGeneHistory={() => fetchGeneHistory()}
+                      historyDisplayLoading={historyDisplayLoading}
+                      geneHistory={geneHistory}
+                    />
+                  </TabPanel>
 
-                    <TabPanel header="Header II" headerClassName="hide">
-                      <GenomeViewNonPublicData
-                        id={match.params.id}
-                        gene={gene}
-                        edit={() => editGene()}
-                        cancelEdit={() => cancelEditGene()}
-                        fetchGeneHistory={() => fetchGeneHistory()}
-                        historyDisplayLoading={historyDisplayLoading}
-                        geneHistory={geneHistory}
-                      />
-                    </TabPanel>
+                  <TabPanel header="Header II" headerClassName="hide">
+                    <GenomeViewNonPublicData
+                      id={params.id}
+                      gene={gene}
+                      edit={() => editGene()}
+                      cancelEdit={() => cancelEditGene()}
+                      fetchGeneHistory={() => fetchGeneHistory()}
+                      historyDisplayLoading={historyDisplayLoading}
+                      geneHistory={geneHistory}
+                    />
+                  </TabPanel>
 
-                    <TabPanel header="Discussion" headerClassName="hide">
-                      <Discussion
-                        reference={gene.accessionNumber}
-                        section={"Gene"}
-                      />
-                    </TabPanel>
-                  </TabView>
+                  <TabPanel header="Discussion" headerClassName="hide">
+                    <Discussion
+                      reference={gene.accessionNumber}
+                      section={"Gene"}
+                    />
+                  </TabPanel>
+                </TabView>
               </div>
             </div>
           </div>

@@ -45,7 +45,7 @@ const GeneSearch = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Accession Number</span>
-        <NavLink to={"/gene/" + rowData.id}>{rowData.accessionNumber}</NavLink>
+        <NavLink to={"/d/gene/" + rowData.id}>{rowData.accessionNumber}</NavLink>
       </React.Fragment>
     );
   };
