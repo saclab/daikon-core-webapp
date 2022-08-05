@@ -1,25 +1,21 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import { appColors } from "../../../colors";
-import { TabView, TabPanel } from "primereact/tabview";
-import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
-import GenomeViewNonPublicData from "./GenomeViewNonPublicData/GenomeViewNonPublicData";
+import GeneViewProtectedData from "./GeneViewProtectedData/GeneViewProtectedData";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import GeneViewPublicData from "./GeneViewPublicData/GeneViewPublicData";
 import NotFound from "../../../app/layout/NotFound/NotFound";
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Discussion from "../../../app/common/Discussion/Discussion";
 import GenePromoteTargetSelectionWindow from "../GenomePromote/GenePromoteTargetSelectionWindow/GenePromoteTargetSelectionWindow";
-import { Routes, Route, Navigate, useLocation, useParams } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import GeneDiscusion from './GeneDiscussion/GeneDiscusion';
 
-const GeneView = ({ history }) => {
+const GeneView = () => {
   const params = useParams();
+  const navigate = useNavigate();
 
-
-  const [activeIndex, setActiveIndex] = useState(0);
   const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
 
   const toast = useRef(null);
@@ -55,7 +51,7 @@ const GeneView = ({ history }) => {
           label: "Public Data",
           icon: "ri-book-open-line",
           command: () => {
-            setActiveIndex(0);
+            navigate(`public/`);
           },
         },
 
@@ -63,7 +59,7 @@ const GeneView = ({ history }) => {
           label: "TBDA Data",
           icon: "ri-git-repository-private-fill",
           command: () => {
-            setActiveIndex(1);
+            navigate(`protected/`);
           },
         },
 
@@ -71,7 +67,7 @@ const GeneView = ({ history }) => {
           label: "Discussion",
           icon: "ri-discuss-line",
           command: () => {
-            setActiveIndex(2);
+            navigate(`discussion/`);
           },
         },
       ],
@@ -106,7 +102,7 @@ const GeneView = ({ history }) => {
       <React.Fragment>
         <Toast ref={toast} />
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full">
           <div className="flex">
             <Menu model={items} />
           </div>
@@ -124,7 +120,7 @@ const GeneView = ({ history }) => {
                 geneHistory={geneHistory}
               />} />
 
-              <Route path="protected" element={<GenomeViewNonPublicData
+              <Route path="protected" element={<GeneViewProtectedData
                 id={params.id}
                 gene={gene}
                 edit={() => editGene()}
@@ -134,9 +130,8 @@ const GeneView = ({ history }) => {
                 geneHistory={geneHistory}
               />} />
 
-              <Route path="discussion" element={<Discussion
-                reference={gene.accessionNumber}
-                section={"Gene"}
+              <Route path="discussion" element={<GeneDiscusion
+                gene={gene}
               />} />
             </Routes>
           </div>

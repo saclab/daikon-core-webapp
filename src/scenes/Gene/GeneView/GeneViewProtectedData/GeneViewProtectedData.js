@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Fieldset } from "primereact/fieldset";
 import DisplayTable from "../../../../app/common/DisplayTable/DisplayTable";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
-const GenomeViewNonPublicData = ({
+const GeneViewProtectedData = ({
   gene,
   edit,
   cancelEdit,
@@ -248,4 +248,4 @@ const GenomeViewNonPublicData = ({
   );
 };
 
-export default observer(GenomeViewNonPublicData);
+export default observer(GeneViewProtectedData);
