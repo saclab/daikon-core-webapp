@@ -93,7 +93,7 @@ const TargetView = () => {
     return <Loading />;
   }
   if (target !== null) {
-   
+
     return (
       <React.Fragment>
         <Toast ref={toast} />
@@ -136,6 +136,7 @@ const TargetView = () => {
               <Route path="summary/" element={<TargetSummary />} />
               <Route path="promotion-info/" element={<TargetPromotionForm
                 data={target.targetScorecard.targetScoreCardValues}
+                selectedTarget={target}
               />} />
               <Route path="discussion/" element={<TargetScorecard
                 data={target.targetScorecard.targetScoreCardValues}
