@@ -45,28 +45,28 @@ const TargetView = ({ match, history }) => {
           label: "Scorecard",
           icon: "icon icon-common icon-flag-checkered",
           command: () => {
-            setActiveIndex(0);
+            navigate('scorecard/');
           },
         },
         {
           label: "Summary",
           icon: "icon icon-common icon-compass",
           command: () => {
-            setActiveIndex(1);
+            navigate('summary/');
           },
         },
         {
-          label: "Promotion Form",
+          label: "Promotion Info",
           icon: "pi pi-table",
           command: () => {
-            setActiveIndex(2);
+            navigate('promotion-info/');
           },
         },
         {
           label: "Discussion",
           icon: "ri-discuss-line",
           command: () => {
-            setActiveIndex(3);
+            navigate('discussion/');
           },
         },
       ],
@@ -85,7 +85,7 @@ const TargetView = ({ match, history }) => {
           label: "View Screens",
           icon: "pi pi-external-link",
           command: (event) => {
-            history.push("/screen/" + target.name);
+            navigate("/d/screen/" + target.name);
           },
         },
       ],
@@ -150,7 +150,7 @@ const TargetView = ({ match, history }) => {
                 data={target.targetScorecard.targetScoreCardValues}
               />} />
               <Route path="summary/" element={<TargetSummary />} />
-              <Route path="promotion-form/" element={<TargetPromotionForm
+              <Route path="promotion-info/" element={<TargetPromotionForm
                 data={target.targetScorecard.targetScoreCardValues}
               />} />
               <Route path="discussion/" element={<TargetScorecard
