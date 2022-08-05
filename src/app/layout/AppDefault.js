@@ -1,13 +1,18 @@
 import React from 'react'
 import { observer } from "mobx-react-lite";
 import { Route, Routes } from 'react-router-dom'
+import MenuBar from './MenuBar/MenuBar'
+import Home from '../../scenes/Home/Home';
+
 import GeneSearch from '../../scenes/Gene/GeneSearch/GeneSearch'
 import GeneView from '../../scenes/Gene/GeneView/GeneView';
 import GenomePromote from "../../scenes/Gene/GenomePromote/GenomePromote";
-import MenuBar from './MenuBar/MenuBar'
-import Home from '../../scenes/Home/Home';
+
 import TargetDash from '../../scenes/Target/TargetDash/TargetDash';
 import TargetView from '../../scenes/Target/TargetView/TargetView';
+
+import ScreenDash from "../../scenes/Screen/ScreenDash/ScreenDash";
+import ScreenView from "../../scenes/Screen/ScreenView/ScreenView";
 
 const AppDefault = () => {
 
@@ -28,6 +33,10 @@ const AppDefault = () => {
           {/*Target Routes*/}
           <Route path="target/" element={<TargetDash />} />
           <Route path="target/:id/*" element={<TargetView />} />
+
+          {/*Screen Routes */}
+          <Route path="screen/" element={<ScreenDash />} />
+          <Route path="screen/:id/*" element={<ScreenView />} />
         </Routes>
 
       </div>
