@@ -6,6 +6,8 @@ import GeneView from '../../scenes/Gene/GeneView/GeneView';
 import GenomePromote from "../../scenes/Gene/GenomePromote/GenomePromote";
 import MenuBar from './MenuBar/MenuBar'
 import Home from '../../scenes/Home/Home';
+import TargetDash from '../../scenes/Target/TargetDash/TargetDash';
+import TargetView from '../../scenes/Target/TargetView/TargetView';
 
 const AppDefault = () => {
 
@@ -17,11 +19,16 @@ const AppDefault = () => {
       </div>
       <div className='flex ml-6 mr-6'>
         <Routes>
-          <Route index element={<Home />} />
 
+          <Route index element={<Home />} />
+          {/* Gene Routes */}
           <Route path={"gene/"} element={<GeneSearch />} />
           {/* <Route path=":id/promote" component={GenomePromote} />*/}
-          <Route path={"gene/:id/*"} element={<GeneView />} /> 
+          <Route path={"gene/:id/*"} element={<GeneView />} />
+
+          {/*Target Routes*/}
+          <Route path="target/" element={<TargetDash />} />
+          <Route path="target/:id/*" element={<TargetView />} />
         </Routes>
 
       </div>
