@@ -12,6 +12,7 @@ import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
 import TargetSummary from "./TargetSummary/TargetSummary";
+import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
 
 const TargetView = () => {
   const params = useParams();
@@ -138,8 +139,8 @@ const TargetView = () => {
                 data={target.targetScorecard.targetScoreCardValues}
                 selectedTarget={target}
               />} />
-              <Route path="discussion/" element={<TargetScorecard
-                data={target.targetScorecard.targetScoreCardValues}
+              <Route path="discussion/" element={<TargetDiscussion
+                selectedTarget={target}
               />} />
 
 
