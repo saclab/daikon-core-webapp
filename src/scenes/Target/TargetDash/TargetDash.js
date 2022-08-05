@@ -26,7 +26,7 @@ const TargetDash = () => {
   //console.log(targets);
 
   return (
-    <div className="flex flex-column w-full">
+    <div className="flex flex-column w-full fadein animation-duration-500">
       <div className="flex w-full">
         <SectionHeading
           icon="icon icon-common icon-target"
