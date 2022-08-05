@@ -1,21 +1,16 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Menu } from "primereact/menu";
-import { TabView, TabPanel } from "primereact/tabview";
 import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, useParams } from "react-router-dom";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Toast } from "primereact/toast";
-import { BreadCrumb } from "primereact/breadcrumb";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
-import Discussion from "../../../app/common/Discussion/Discussion";
-import { appColors } from '../../../colors';
 import TargetSummary from "./TargetSummary/TargetSummary";
 
 const TargetView = ({ match, history }) => {
