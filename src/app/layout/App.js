@@ -11,7 +11,7 @@ import "../../assets/_overrides.scss";
 import "remixicon/fonts/remixicon.css";
 import TitleBar from "./TitleBar/TitleBar";
 import MenuBar from "./MenuBar/MenuBar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./Footer/Footer";
 import GenomePromote from "../../scenes/Gene/GenomePromote/GenomePromote";
 import Home from "../../scenes/Home/Home";
@@ -121,6 +121,7 @@ const App = () => {
         </div>
         <div className="block">
           <Routes>
+            <Route index element={<Navigate replace to="/d/" />} />
             <Route path="/d/*" element={<AppDefault />} />
             <Route path="/admin" element={<AppAdminDashBoard />} />
 
