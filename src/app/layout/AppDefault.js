@@ -21,7 +21,7 @@ const AppDefault = () => {
 
           <Route path={"gene/"} element={<GeneSearch />} />
           {/* <Route path=":id/promote" component={GenomePromote} />*/}
-          <Route path={"gene/:id"} element={<GeneView />} /> 
+          <Route path={"gene/:id/*"} element={<GeneView />} /> 
         </Routes>
 
       </div>

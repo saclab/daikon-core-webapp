@@ -13,12 +13,12 @@ import NotFound from "../../../app/layout/NotFound/NotFound";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Discussion from "../../../app/common/Discussion/Discussion";
 import GenePromoteTargetSelectionWindow from "../GenomePromote/GenePromoteTargetSelectionWindow/GenePromoteTargetSelectionWindow";
-import { useParams } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useParams } from "react-router-dom";
 
 const GeneView = ({ history }) => {
   const params = useParams();
-  
-  
+
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
 
@@ -44,6 +44,8 @@ const GeneView = ({ history }) => {
       fetchGene(params.id);
     }
   }, [params.id, gene, fetchGene]);
+
+  const location = useLocation();
 
   const items = [
     {
@@ -96,15 +98,9 @@ const GeneView = ({ history }) => {
   if (gene !== null) {
     console.log("Gene ID");
     console.log(gene.id);
-    const breadCrumbItems = [
-      {
-        label: "Genes",
-        command: () => {
-          history.push("/gene/");
-        },
-      },
-      { label: gene.accessionNumber },
-    ];
+
+
+    console.log(location.pathname)
 
     return (
       <React.Fragment>
@@ -114,59 +110,37 @@ const GeneView = ({ history }) => {
           <div className="flex">
             <Menu model={items} />
           </div>
+
           <div className="flex w-full">
-            <div className="flex flex-column gap-2 w-full">
-              <div className="flex">
-                <BreadCrumb model={breadCrumbItems} />
-              </div>
-              <div className="flex w-full">
-                <SectionHeading
-                  icon="icon icon-conceptual icon-dna"
-                  heading={gene.accessionNumber}
-                  accessionNumber={gene.accessionNumber}
-                  displayHorizon={true}
-                  color={appColors.sectionHeadingBg.gene}
-                />
-              </div>
-              <div className="flex w-full">
-                <TabView
-                  activeIndex={activeIndex}
-                  onTabChange={(e) => setActiveIndex(e.index)}
-                >
-                  <TabPanel header="Header I" headerClassName="hide">
-                    <GeneViewPublicData
-                      id={params.id}
-                      gene={gene}
-                      edit={() => editGene()}
-                      cancelEdit={() => cancelEditGene()}
-                      fetchGeneHistory={() => fetchGeneHistory()}
-                      historyDisplayLoading={historyDisplayLoading}
-                      geneHistory={geneHistory}
-                    />
-                  </TabPanel>
+            <Routes>
+              <Route index element={<Navigate replace to="public/" />} />
+              <Route path="public/" element={<GeneViewPublicData
+                id={params.id}
+                gene={gene}
+                edit={() => editGene()}
+                cancelEdit={() => cancelEditGene()}
+                fetchGeneHistory={() => fetchGeneHistory()}
+                historyDisplayLoading={historyDisplayLoading}
+                geneHistory={geneHistory}
+              />} />
 
-                  <TabPanel header="Header II" headerClassName="hide">
-                    <GenomeViewNonPublicData
-                      id={params.id}
-                      gene={gene}
-                      edit={() => editGene()}
-                      cancelEdit={() => cancelEditGene()}
-                      fetchGeneHistory={() => fetchGeneHistory()}
-                      historyDisplayLoading={historyDisplayLoading}
-                      geneHistory={geneHistory}
-                    />
-                  </TabPanel>
+              <Route path="protected" element={<GenomeViewNonPublicData
+                id={params.id}
+                gene={gene}
+                edit={() => editGene()}
+                cancelEdit={() => cancelEditGene()}
+                fetchGeneHistory={() => fetchGeneHistory()}
+                historyDisplayLoading={historyDisplayLoading}
+                geneHistory={geneHistory}
+              />} />
 
-                  <TabPanel header="Discussion" headerClassName="hide">
-                    <Discussion
-                      reference={gene.accessionNumber}
-                      section={"Gene"}
-                    />
-                  </TabPanel>
-                </TabView>
-              </div>
-            </div>
+              <Route path="discussion" element={<Discussion
+                reference={gene.accessionNumber}
+                section={"Gene"}
+              />} />
+            </Routes>
           </div>
+
         </div>
 
 
