@@ -15,7 +15,7 @@ const TargetDash = () => {
 
   useEffect(() => {
     console.log("TargetSearch: fetchTargetList()");
-    if(targets.length === 0) fetchTargetList();
+    if (targets.length === 0) fetchTargetList();
   }, [fetchTargetList, targets]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /** Loading Overlay */
@@ -26,23 +26,20 @@ const TargetDash = () => {
   //console.log(targets);
 
   return (
-    <div>
-      <SectionHeading
-        icon="icon icon-common icon-target"
-        heading="H37Rv Targets"
-        color={appColors.sectionHeadingBg.target}
-      />
-
-      <div className="p-d-flex">
-        <div className="p-mb-2">
-          <div className="p-d-flex">
-            <div className="p-mr-2">
-              <TargetDashChart targets={targets}/>
-            </div>
-            <div className="p-mr-2">
-              <TargetDashTable targets={targets}/>
-            </div>
-          </div>
+    <div className="flex flex-column w-full">
+      <div className="flex w-full">
+        <SectionHeading
+          icon="icon icon-common icon-target"
+          heading="Targets"
+          color={appColors.sectionHeadingBg.target}
+        />
+      </div>
+      <div className="flex w-full">
+        <div className="flex">
+          <TargetDashChart targets={targets} />
+        </div>
+        <div className="flex">
+          <TargetDashTable targets={targets} />
         </div>
       </div>
     </div>
