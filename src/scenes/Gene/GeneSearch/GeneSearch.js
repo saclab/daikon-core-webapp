@@ -17,7 +17,7 @@ const GeneSearch = () => {
 
   /* Local State Management */
   const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
-  
+
   // const [globalFilter, setGlobalFilter] = useState(null);
 
   useEffect(() => {
@@ -130,62 +130,65 @@ const GeneSearch = () => {
   }
 
   return (
-    <div className="datatable-genes">
-      <SectionHeading
-        icon="icon icon-conceptual icon-dna"
-        heading="H37Rv Genes"
-        color={appColors.sectionHeadingBg.gene}
-      />
-
-      <div className="card">
-        <DataTable
-          ref={dt}
-          value={genes}
-          paginator
-          rows={10}
-          // header={header}
-          className="p-datatable-genes"
-          //globalFilter={globalFilter}
-          emptyMessage="No genes found."
-        >
-          <Column
-            field="accessionNumber"
-            header="Accession Number"
-            body={AccessionNumberBodyTemplate}
-            filter
-            filterMatchMode="contains"
-            filterPlaceholder="Search by A.Number"
-            className="narrow-column"
+    <div className="flex flex-column w-full">
+      <div className="flex w-full">
+        <SectionHeading
+          icon="icon icon-conceptual icon-dna"
+          heading="H37Rv Genes"
+          color={appColors.sectionHeadingBg.gene}
+        />
+      </div>
+      <div className="flex">
+        <div className="card datatable-genes">
+          <DataTable
+            ref={dt}
+            value={genes}
+            paginator
+            rows={10}
+            // header={header}
+            className="p-datatable-genes"
+            //globalFilter={globalFilter}
+            emptyMessage="No genes found."
+          >
+            <Column
+              field="accessionNumber"
+              header="Accession Number"
+              body={AccessionNumberBodyTemplate}
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Search by A.Number"
+              className="narrow-column"
             //sortable
-          />
+            />
 
-          <Column
-            field="geneName"
-            header="Gene Name"
-            body={GeneNameBodyTemplate}
-            filter
-            filterMatchMode="contains"
-            filterPlaceholder="Search by Gene Name"
-            className="narrow-column"
+            <Column
+              field="geneName"
+              header="Gene Name"
+              body={GeneNameBodyTemplate}
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Search by Gene Name"
+              className="narrow-column"
             //sortable
-          />
+            />
 
-          <Column
-            field="function"
-            header="Function"
-            body={FunctionBodyTemplate}
-          />
+            <Column
+              field="function"
+              header="Function"
+              body={FunctionBodyTemplate}
+            />
 
-          <Column field="product" header="Product" body={ProductBodyTemplate} />
+            <Column field="product" header="Product" body={ProductBodyTemplate} />
 
-          <Column
-            field="functionalCategory"
-            header="Functional Category"
-            body={FunctionalCategoryBodyTemplate}
-            filter
-            filterElement={FunctionalCategoryFilter}
-          />
-        </DataTable>
+            <Column
+              field="functionalCategory"
+              header="Functional Category"
+              body={FunctionalCategoryBodyTemplate}
+              filter
+              filterElement={FunctionalCategoryFilter}
+            />
+          </DataTable>
+        </div>
       </div>
     </div>
   );

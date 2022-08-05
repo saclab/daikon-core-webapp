@@ -136,7 +136,7 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
           <LiteMolView id={molViewId} url={molViewUrl} format={molViewFormat} />
         </Dialog>
 
-        <table style={{ width: "100%", textAlign: "left" }}>
+        <table style={{ width: "100%", textAlign: "left", borderSpacing: "1em" }}>
           <thead>
             <tr key="head">
               <th>PDP ID</th>

@@ -105,17 +105,20 @@ const App = () => {
   }
 
   let signedInRender = (
+
     <Fragment>
       <ToastContainer pauseOnHover theme="light" />
-      <Fragment>
-        <TitleBar />
-        {menuBar}
 
-        <div className={cssClass.Scene}>
-          <br />
+      <div className="flex flex-column min-w-min">
+        <div className="block">
+          <TitleBar />
+        </div>
+        <div className="block mb-2">
+          {menuBar}
+        </div>
+        <div className="block ml-6 mr-6">
           <Switch>
             <Route exact path="/" component={Home} />
-
             <Route
               exact
               path="/admin/user-management/new"
@@ -165,8 +168,12 @@ const App = () => {
             <Route component={NotFound} />
           </Switch>
         </div>
-      </Fragment>
-      <Footer />
+
+        <div className="flex">
+          <Footer />
+        </div>
+
+      </div>
     </Fragment>
   );
 
