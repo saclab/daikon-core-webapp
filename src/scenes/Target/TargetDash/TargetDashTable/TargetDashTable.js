@@ -15,7 +15,7 @@ const TargetDashTable = ({ targets }) => {
     return (
       <React.Fragment>
         <span className="p-column-title">Target Name</span>
-        <NavLink to={"/target/" + rowData.id}>{rowData.name}</NavLink>
+        <NavLink to={"./" + rowData.id}>{rowData.name}</NavLink>
       </React.Fragment>
     );
   };

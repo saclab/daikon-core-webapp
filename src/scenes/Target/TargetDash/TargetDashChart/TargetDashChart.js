@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { Slider } from 'primereact/slider';
+import { useNavigate } from "react-router-dom";
 
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
 import history from "../../../../history";
 const TargetDashChart = ({ targets }) => {
+
+  const navigate = useNavigate();
+
   let graphData = [];
 
   const [likeScoreCutoff, setLikeScoreCutoff] = useState(0.02);
@@ -30,12 +34,7 @@ const TargetDashChart = ({ targets }) => {
   });
   console.log("END generating graphdata");
 
-  console.log("Rendering graph");
-  console.log(graphData.length);
   const CustomNode = ({ node, onMouseEnter, onMouseMove, onMouseLeave, onClick }) => {
-
-    console.log("Test");
-    console.log(node)
     return (
       <React.Fragment>
         <g transform={`translate(${node.x},${node.y}) rotate(45)`}>
@@ -58,9 +57,7 @@ const TargetDashChart = ({ targets }) => {
   };
 
   let nodeClicked = (node, event) => {
-    console.log(node);
-    console.log(event);
-    history.push("./" + node.data.guid);
+    navigate("./" + node.data.guid);
   };
 
   return (
