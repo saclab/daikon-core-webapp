@@ -104,29 +104,28 @@ const GeneView = ({ match, history }) => {
 
     return (
       <React.Fragment>
-        <div>
-          <Toast ref={toast} />
-          <br />
-          <div className="p-d-flex">
-            <div className="p-mr-2">
-              <Menu model={items} />
-            </div>
-            <div className="p-mr-2" style={{ width: "100vw" }}>
-              <div className="p-d-flex p-flex-column">
-                <div className="p-mb-2">
-                  <BreadCrumb model={breadCrumbItems} />
-                </div>
-                <div className="p-mb-2">
-                  <SectionHeading
-                    icon="icon icon-conceptual icon-dna"
-                    heading={gene.accessionNumber}
-                    accessionNumber={gene.accessionNumber}
-                    displayHorizon={true}
-                    color={appColors.sectionHeadingBg.gene}
-                  />
-                </div>
-                <div className="p-mb-2">
-                  <TabView
+        <Toast ref={toast} />
+
+        <div className="flex gap-2">
+          <div className="flex">
+            <Menu model={items} />
+          </div>
+          <div className="flex w-full">
+            <div className="flex flex-column gap-2 w-full">
+              <div className="flex">
+                <BreadCrumb model={breadCrumbItems} />
+              </div>
+              <div className="flex w-full">
+                <SectionHeading
+                  icon="icon icon-conceptual icon-dna"
+                  heading={gene.accessionNumber}
+                  accessionNumber={gene.accessionNumber}
+                  displayHorizon={true}
+                  color={appColors.sectionHeadingBg.gene}
+                />
+              </div>
+              <div className="flex w-full">
+                <TabView
                     activeIndex={activeIndex}
                     onTabChange={(e) => setActiveIndex(e.index)}
                   >
@@ -161,11 +160,11 @@ const GeneView = ({ match, history }) => {
                       />
                     </TabPanel>
                   </TabView>
-                </div>
               </div>
             </div>
           </div>
         </div>
+
 
         <GenePromoteTargetSelectionWindow
           setDisplayPromotionDialog={setDisplayPromotionDialog}
