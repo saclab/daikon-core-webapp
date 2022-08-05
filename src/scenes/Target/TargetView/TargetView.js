@@ -3,6 +3,7 @@ import { Menu } from "primereact/menu";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
+import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -18,6 +19,9 @@ import { appColors } from '../../../colors';
 import TargetSummary from "./TargetSummary/TargetSummary";
 
 const TargetView = ({ match, history }) => {
+  const params = useParams();
+  const navigate = useNavigate();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
@@ -26,15 +30,10 @@ const TargetView = ({ match, history }) => {
   const { fetchTarget, target, displayLoading } = rootStore.targetStore;
 
   useEffect(() => {
-    console.log("EFFECT");
-    console.log(match.params.id);
-    if (target === null || target.id !== match.params.id) {
-      fetchTarget(match.params.id);
+    if (target === null || target.id !== params.id) {
+      fetchTarget(params.id);
     }
-    // if (target === null) {
-    //   fetchTarget(match.params.id);
-    // }
-  }, [match.params.id, target, fetchTarget]);
+  }, [params.id, target, fetchTarget]);
 
   const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
 
@@ -138,54 +137,28 @@ const TargetView = ({ match, history }) => {
           />
         </Sidebar>
         <br />
-        <div className="p-d-flex">
-          <div className="p-mr-2">
+
+
+        <div className="flex gap-2 w-full">
+          <div className="flex">
             <Menu model={items} />
           </div>
-          <div className="p-mr-2" style={{ width: "100vw" }}>
-            <div className="p-d-flex p-flex-column">
-              <div className="p-mb-2">
-                <BreadCrumb model={breadCrumbItems} />
-              </div>
-              <div className="p-mb-2">
-                <SectionHeading
-                  icon="icon icon-common icon-target"
-                  heading={target.name}
-                  targetName={target.name}
-                  displayHorizon={true}
-                  color={appColors.sectionHeadingBg.target}
-                />
-              </div>
-              <div className="p-mb-2">
-                <TabView
-                  activeIndex={activeIndex}
-                  onTabChange={(e) => setActiveIndex(e.index)}
-                >
-                  <TabPanel header="Target Scorecard" headerClassName="hide">
-                    <TargetScorecard
-                      data={target.targetScorecard.targetScoreCardValues}
-                    />
-                  </TabPanel>
+          <div className="flex w-full">
+            <Routes>
+              <Route index element={<Navigate replace to="scorecard/" />} />
+              <Route path="scorecard/" element={<TargetScorecard
+                data={target.targetScorecard.targetScoreCardValues}
+              />} />
+              <Route path="summary/" element={<TargetSummary />} />
+              <Route path="promotion-form/" element={<TargetPromotionForm
+                data={target.targetScorecard.targetScoreCardValues}
+              />} />
+              <Route path="discussion/" element={<TargetScorecard
+                data={target.targetScorecard.targetScoreCardValues}
+              />} />
 
-                  <TabPanel header="Target Form" headerClassName="hide">
-                    <TargetSummary />
-                  </TabPanel>
 
-                  <TabPanel header="Target Form" headerClassName="hide">
-                    <TargetPromotionForm
-                      data={target.targetScorecard.targetScoreCardValues}
-                    />
-                  </TabPanel>
-
-                  <TabPanel header="Discussion" headerClassName="hide">
-                    <Discussion
-                      reference={target.name}
-                      section={"Target"}
-                    />
-                  </TabPanel>
-                </TabView>
-              </div>
-            </div>
+            </Routes>
           </div>
         </div>
       </React.Fragment>

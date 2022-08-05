@@ -7,7 +7,6 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import GeneViewPublicData from "./GeneViewPublicData/GeneViewPublicData";
 import NotFound from "../../../app/layout/NotFound/NotFound";
-import Discussion from "../../../app/common/Discussion/Discussion";
 import GenePromoteTargetSelectionWindow from "../GenomePromote/GenePromoteTargetSelectionWindow/GenePromoteTargetSelectionWindow";
 import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import GeneDiscusion from './GeneDiscussion/GeneDiscusion';
