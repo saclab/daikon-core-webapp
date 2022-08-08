@@ -71,10 +71,10 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
   };
 
   return (
-    <div>
-      <div className="p-fluid">
+    <div className="flex p-2">
+      <div className="card w-full">
         <form onSubmit={formik.handleSubmit} className="p-fluid">
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="library"
               className={classNames({
@@ -97,7 +97,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             {getFormErrorMessage("library")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="startDate"
               className={classNames({
@@ -132,7 +132,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             {getFormErrorMessage("startDate")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="endDate"
               className={classNames({
@@ -158,7 +158,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             {getFormErrorMessage("endDate")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="protocol"
               className={classNames({
@@ -183,7 +183,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             {getFormErrorMessage("protocol")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="unverifiedHitCount"
               className={classNames({
@@ -206,7 +206,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             {getFormErrorMessage("unverifiedHitCount")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="concentration"
               className={classNames({
@@ -229,7 +229,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             {getFormErrorMessage("concentration")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="noOfCompoundsScreened"
               className={classNames({
@@ -252,7 +252,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             {getFormErrorMessage("noOfCompoundsScreened")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="comment"
               className={classNames({
