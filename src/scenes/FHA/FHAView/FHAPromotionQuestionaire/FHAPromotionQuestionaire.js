@@ -58,11 +58,11 @@ const FHAPromotionQuestionaire = ({ closeSidebar }) => {
 
   if (!creatingH2L && !loadingProject) {
     return (
-      <div className="form-demo">
+      <div className="flex flex-column w-full">
         <div>
-          <div className="card">
+          <div className="card w-full">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="h2LStart"
                   className={classNames({
@@ -88,7 +88,7 @@ const FHAPromotionQuestionaire = ({ closeSidebar }) => {
                 {getFormErrorMessage("h2LStart")}
               </div>
 
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="h2LDescription"
                   className={classNames({
@@ -107,13 +107,15 @@ const FHAPromotionQuestionaire = ({ closeSidebar }) => {
                   })}
                 />
               </div>
+              <div className="field">
+                <Button
+                  icon="icon icon-common icon-database-submit"
+                  type="submit"
+                  label="Create portfolio and promote to H2L"
+                  className="p-mt-2"
+                />
+              </div>
 
-              <Button
-                icon="icon icon-common icon-database-submit"
-                type="submit"
-                label="Create portfolio and promote to H2L"
-                className="p-mt-2"
-              />
             </form>
           </div>
         </div>
