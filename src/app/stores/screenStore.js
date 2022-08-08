@@ -21,6 +21,7 @@ export default class ScreenStore {
   screenRegistryCacheValid = false;
   screenRegistryExpanded = new Map();
   selectedScreen = null;
+  selectedScreenTargetFilter = null;
   filteredScreens = [];
 
   validatedHitsIndex = 0;
@@ -53,6 +54,8 @@ export default class ScreenStore {
 
       screenSequenceIndex: observable,
       setScreenSequenceIndex: action,
+
+      selectedScreenTargetFilter: observable,
     });
   }
 
@@ -101,6 +104,7 @@ export default class ScreenStore {
 
   filterScreensByTarget = (targetName) => {
     this.loadingFilterScreensByTargetName = true;
+    this.selectedScreenTargetFilter = targetName
     this.filteredScreens = [];
     this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
       (screen) => {
@@ -112,11 +116,11 @@ export default class ScreenStore {
     return this.filteredScreens;
   };
 
-  
+
 
   /* Fetch specific Screen with id from API */
 
-  fetchScreen = async (id, invalidateCache=false) => {
+  fetchScreen = async (id, invalidateCache = false) => {
     console.log("screenStore: fetchScreen Start");
     this.loadingFetchScreen = true;
 
