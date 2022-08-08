@@ -45,14 +45,14 @@ const TitleBarSidePanel = ({ toggle, user }) => {
   return (
     <div className="flex flex-column">
 
-      <div class="flex align-items-center justify-content-center">
+      <div className="flex align-items-center justify-content-center">
         <div style={{ lineHeight: "0.1", padding: "20px" }}>
           <h2 className={cssClass.Colorized}>D A I K O N</h2>
           <p style={{ textAlign: "center" }}>{appVersion.stream} {appVersion.release} {appVersion.channel}</p>
         </div>
       </div>
 
-      <div class="flex align-items-center justify-content-center">
+      <div className="flex align-items-center justify-content-center">
         <div className="card p-fluid">
           <span className="p-input-icon-left">
             <i className="pi pi-search" />
@@ -61,7 +61,7 @@ const TitleBarSidePanel = ({ toggle, user }) => {
         </div>
       </div>
 
-      <div class="flex">
+      <div className="flex">
         {user.roles.includes("admin") ? adminTools : ""}
       </div>
 

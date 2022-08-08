@@ -61,7 +61,7 @@ const TitleBar = () => {
           className={["p-mr-2", cssClass.BlackButton].join(" ")}
         /> */}
 
-        <div class="absolute right-0">
+        <div className="absolute right-0">
           <Button
             type="Button"
             icon="ri-refresh-fill"

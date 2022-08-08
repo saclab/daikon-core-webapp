@@ -109,7 +109,7 @@ const GeneGroupAdd = () => {
                 "p-error": isFormFieldValid("name"),
               })}
             >
-              <i class="icon icon-common icon-object-group" /> Gene Group Name
+              <i className="icon icon-common icon-object-group" /> Gene Group Name
             </label>
             <InputText
               id="name"
