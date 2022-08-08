@@ -9,8 +9,14 @@ import FHAInformationGeneralInformation from "./LocalComponents/FHAInformationGe
 import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
 import FHAStatus from "./LocalComponents/FHAStatus";
 import FHABaseHits from "./LocalComponents/FHABaseHits";
+import { appColors } from "../../../../colors";
+import { useNavigate } from 'react-router-dom';
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { BreadCrumb } from 'primereact/breadcrumb';
 
 const FHAViewInformation = ({ id, project }) => {
+  const navigate = useNavigate();
+
   if (project?.baseHits === undefined) {
     return <PleaseWait />;
   }
@@ -27,41 +33,76 @@ const FHAViewInformation = ({ id, project }) => {
     let timelineEvents = [];
     timelineEvents.push({ stage: "FHA", date: project.fhaStart });
 
+
+    const breadCrumbItems = [
+      {
+        label: "Hit Assessment",
+        command: () => {
+          navigate("/d/ha/");
+        },
+      },
+      {
+        label: project.projectName,
+        command: () => {
+          navigate(`/d/ha/${project.id}`);
+        }
+      },
+      { label: "Information" },
+    ];
+
+
     return (
-      <div>
-        {/* First div for general information and dates */}
-        <div className="p-d-flex p-flex-column p-flex-md-row">
-          <div className="p-mb-2 p-mr-2">
-            <Fieldset legend="FHA Information">
-              <FHAInformationGeneralInformation project={project} />
-            </Fieldset>
+      <React.Fragment>
+
+        <div className="flex flex-column gap-2 w-full">
+
+          <div className="flex w-full pb-2">
+            <BreadCrumb model={breadCrumbItems} />
           </div>
-          <div className="p-mb-2 p-mr-2">
-            <Fieldset legend="FHA Status">
-              <FHAStatus project={project} />
-            </Fieldset>
+
+          <div className="flex w-full">
+            <SectionHeading
+              icon="icon icon-conceptual icon-chemical"
+              heading={project.projectName}
+              targetName={project.targetName}
+              projectName={project.projectName}
+              displayHorizon={true}
+              color={appColors.sectionHeadingBg.fha}
+            />
           </div>
-        </div>
-        {/* Second div for structure evolution */}
-        <div className="p-d-flex p-flex-column p-flex-md-row">
-          <div className="p-mb-2 p-mr-2">
+
+          <div className="flex w-full">
+            <div className="flex">
+              <Fieldset legend="HA Information">
+                <FHAInformationGeneralInformation project={project} />
+              </Fieldset>
+            </div>
+            <div className="flex">
+              <Fieldset legend="HA Status">
+                <FHAStatus project={project} />
+              </Fieldset>
+            </div>
+          </div>
+
+          <div className="flex w-full">
             <Fieldset legend="Compound Evolution">
               <CompoundEvolutionTimeline
                 project={project}
-                stageFilter="FHA"
+                stageFilter="HA"
                 disableAdd={project.currentStage !== "FHA" ? true : false}
               />
             </Fieldset>
           </div>
-        </div>
-        <div className="p-d-flex p-flex-column p-flex-md-row">
-          <div className="p-mb-2 p-mr-2">
-            <Fieldset legend="Base Hits">
+
+          <div className="flex w-full">
+            <Fieldset legend="Base Hits" className="w-full">
               <FHABaseHits project={project} />
             </Fieldset>
           </div>
+
         </div>
-      </div>
+
+      </React.Fragment>
     );
   }
 

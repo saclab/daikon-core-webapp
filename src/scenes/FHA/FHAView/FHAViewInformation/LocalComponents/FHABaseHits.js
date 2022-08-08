@@ -34,7 +34,7 @@ const FHABaseHits = ({ project }) => {
   };
 
   return (
-    <div>
+    <div className="flex w-full">
       <DataTable
         ref={dt}
         value={tableData}
@@ -43,6 +43,7 @@ const FHABaseHits = ({ project }) => {
         columnResizeMode="fit"
         showGridlines
         dataKey="id"
+        className="w-full"
       >
         <Column
           header="Structure"

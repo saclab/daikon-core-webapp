@@ -4,6 +4,7 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
+import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
@@ -16,6 +17,9 @@ import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import { appColors } from '../../../colors';
 
 const FHAView = ({ match, history }) => {
+  const params = useParams();
+  const navigate = useNavigate();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
   const toast = useRef(null);
@@ -28,11 +32,11 @@ const FHAView = ({ match, history }) => {
 
   useEffect(() => {
     console.log("EFFECT");
-    console.log(match.params.id);
-    if (selectedProject === null || selectedProject.id !== match.params.id) {
-      fetchProject(match.params.id);
+    console.log(params.id);
+    if (selectedProject === null || selectedProject.id !== params.id) {
+      fetchProject(params.id);
     }
-  }, [match.params.id, selectedProject, fetchProject]);
+  }, [params.id, selectedProject, fetchProject]);
 
   /** Loading Overlay */
   if (loadingProject) {
@@ -45,7 +49,7 @@ const FHAView = ({ match, history }) => {
         label: "Sections",
         items: [
           {
-            label: "FHA Information",
+            label: "HA Information",
             icon: "icon icon-conceptual icon-chemical",
             command: () => {
               setActiveIndex(0);
@@ -122,49 +126,25 @@ const FHAView = ({ match, history }) => {
     return (
       <React.Fragment>
         <Toast ref={toast} />
-        <br />
-        <div className="p-d-flex">
-          <div className="p-mr-2">
+
+        <div className="flex gap-2 w-full">
+          <div className="flex">
             <Menu model={sideMenuItems} />
           </div>
-          <div className="p-mr-2" style={{ width: "100vw" }}>
-            <div className="p-d-flex p-flex-column">
-              <div className="p-mb-2">
-                <BreadCrumb model={breadCrumbItems} />
-              </div>
-              <div className="p-mb-2">
-                <SectionHeading
-                  icon="icon icon-conceptual icon-chemical"
-                  heading={selectedProject.projectName}
-                  targetName={selectedProject.targetName}
-                  projectName={selectedProject.projectName}
-                  displayHorizon={true}
-                  color={appColors.sectionHeadingBg.fha}
-                />
-              </div>
-              <div className="p-mb-2">
-                <TabView
-                  activeIndex={activeIndex}
-                  onTabChange={(e) => setActiveIndex(e.index)}
-                >
-                  <TabPanel header="Header I" headerClassName="hide">
-                    <FHAViewInformation
-                      id={match.params.id}
-                      project={selectedProject}
-                    />
-                  </TabPanel>
-                  <TabPanel header="Header II" headerClassName="hide">
-                    Links
-                  </TabPanel>
-                  <TabPanel header="Header III" headerClassName="hide">
-                    <Discussion
-                      reference={selectedProject?.targetName}
-                      section={"FHA"}
-                    />
-                  </TabPanel>
-                </TabView>
-              </div>
-            </div>
+
+          <div className="flex w-full">
+            <Routes>
+              <Route index element={<Navigate replace to="information/" />} />
+              <Route path="information/" element={<FHAViewInformation
+                id={params.id}
+                project={selectedProject}
+              />} />
+
+              <Route path="discussion" element={<FHAViewInformation
+                id={params.id}
+                project={selectedProject}
+              />} />
+            </Routes>
           </div>
         </div>
         <Sidebar

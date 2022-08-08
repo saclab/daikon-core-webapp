@@ -10,15 +10,14 @@ const FHAInformationGeneralInformation = ({ project }) => {
       : null;
 
   return (
-    <div>
-      <div>
-        <div className="p-d-inline-flex">
-          <h2><i>Formal Hit Assessment</i></h2>
-        </div>
-        <div style={{ width: "30rem", lineHeight: "100%" }}>
-          <p>{project.fhaDescription}</p>
-        </div>
-
+    <div className="flex flex-column">
+      <div className="flex">
+        <h2><i>Hit Assessment</i></h2>
+      </div>
+      <div className="flex">
+        <p>{project.fhaDescription}</p>
+      </div>
+      <div className="flex flex-column">
         <p>Expanded Id : {project.id}</p>
         <p>Target: <b>{project.targetName}</b></p>
         <p>Project Status : <b>{project.status}</b></p>
