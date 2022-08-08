@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { observer } from "mobx-react-lite";
 import { TabView, TabPanel } from "primereact/tabview";
@@ -7,17 +7,35 @@ import ValidatedHitsList from "./ValidatedHitsList/ValidatedHitsList";
 import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { appColors } from '../../../../colors';
+import Loading from '../../../../app/layout/Loading/Loading';
 
 const ValidatedHits = ({ TargetName }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
+    displayLoading,
     filterScreensByTarget,
+    filteredScreens,
     validatedHitsIndex,
     setValidatedHitsIndex,
+    selectedScreenTargetFilter
   } = rootStore.screenStore;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (
+      filteredScreens === null ||
+      filteredScreens.length === 0 ||
+      selectedScreenTargetFilter !== TargetName
+    )
+      filterScreensByTarget(TargetName);
+  }, [filteredScreens, filterScreensByTarget, TargetName]);
+
+  if (displayLoading) {
+    return <Loading />;
+  }
+
 
   const breadCrumbItems = [
     {
@@ -41,17 +59,18 @@ const ValidatedHits = ({ TargetName }) => {
 
 
   console.log("==== VALIDATED HITS");
-  let filteredScreensByTarget = filterScreensByTarget(TargetName);
+  // let filteredScreensByTarget = filterScreensByTarget(TargetName);
   let tabs = [];
 
-  console.log(filteredScreensByTarget.length);
+  console.log(filteredScreens.length);
 
-  if (tabs.length === 0 && filteredScreensByTarget.length > 0) {
-    filteredScreensByTarget.forEach((screen) => {
+  if (tabs.length === 0 && filteredScreens.length > 0) {
+    filteredScreens.forEach((screen) => {
       console.log(screen);
       tabs.push(
         <TabPanel header={screen.screenName + " (" + screen.method + ")"} key={screen.id}>
           <ValidatedHitsList screenId={screen.id} />
+
         </TabPanel>
       );
     });
@@ -81,9 +100,9 @@ const ValidatedHits = ({ TargetName }) => {
       <div className='flex w-full'>
         <TabView
           activeIndex={validatedHitsIndex}
-          onTabChange={(e) => validatedHitsIndex(e.index)}
+          onTabChange={(e) => setValidatedHitsIndex(e.index)}
           scrollable
-          className="w-full"
+          className="max-w-screen"
         >
           {tabs}
         </TabView>

@@ -18,6 +18,7 @@ const ScreenSequences = ({ TargetName }) => {
     displayLoading,
     screenSequenceIndex,
     setScreenSequenceIndex,
+    selectedScreenTargetFilter
   } = rootStore.screenStore;
 
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const ScreenSequences = ({ TargetName }) => {
     if (
       filteredScreens === null ||
       filteredScreens.length === 0 ||
-      filteredScreens[0].targetName !== TargetName
+      selectedScreenTargetFilter !== TargetName
     )
       filterScreensByTarget(TargetName);
   }, [filteredScreens, filterScreensByTarget, TargetName]);
@@ -99,6 +100,7 @@ const ScreenSequences = ({ TargetName }) => {
             activeIndex={screenSequenceIndex}
             onTabChange={(e) => setScreenSequenceIndex(e.index)}
             scrollable
+            className="max-w-screen"
           >
             {tabs}
           </TabView>
