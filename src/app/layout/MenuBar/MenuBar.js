@@ -14,7 +14,7 @@ const MenuBar = () => {
     if (location.pathname.includes("/gene/")) setActiveIndex(0);
     else if (location.pathname.includes("/target/")) setActiveIndex(1);
     else if (location.pathname.includes("/screen/")) setActiveIndex(2);
-    else if (location.pathname.includes("/fha/")) setActiveIndex(3);
+    else if (location.pathname.includes("/ha/")) setActiveIndex(3);
     else if (location.pathname.includes("/portfolio/")) setActiveIndex(4);
     else if (location.pathname.includes("/postportfolio/")) setActiveIndex(5);
   }, [location, setActiveIndex]);
@@ -38,7 +38,7 @@ const MenuBar = () => {
     {
       label: "Hit Assessment",
       icon: "icon icon-conceptual icon-chemical",
-      command: () => navigate("fha/"),
+      command: () => navigate("ha/"),
     },
     {
       label: "Portfolio",
