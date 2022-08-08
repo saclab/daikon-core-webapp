@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
-import { TabView, TabPanel } from "primereact/tabview";
 import { Menu } from "primereact/menu";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Toast } from "primereact/toast";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import ScreenSequences from "./ScreenSequences/ScreenSequences";
 import ValidatedHits from "./ValidatedHits/ValidatedHits";
-import Discussion from "../../../app/common/Discussion/Discussion";
 import { appColors } from '../../../colors';
+import ScreenDiscussion from './ScreenDiscussion/ScreenDiscussion';
+import NotFound from '../../../app/layout/NotFound/NotFound';
+import EmbededHelp from '../../../app/common/EmbededHelp/EmbededHelp';
 
-const ScreenView = ({ match, history }) => {
+const ScreenView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -21,13 +21,38 @@ const ScreenView = ({ match, history }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingFetchScreens, screenRegistry, fetchScreens, selectedScreen } =
+  const { loadingFetchScreens, screenRegistry,
+    fetchScreens, selectedScreenTargetFilter, filterScreensByTarget, filteredScreens } =
     rootStore.screenStore;
+
   useEffect(() => {
-    if (screenRegistry.size === 0) fetchScreens();
+    if (screenRegistry.size === 0 || selectedScreenTargetFilter !== params.id) {
+      fetchScreens().then(() => {
+        console.log("should run after screens are fetched");
+        filterScreensByTarget(params.id);
+      });
+      ;
+    }
+
   }, [fetchScreens, screenRegistry]);
 
   console.log("====SCREEN VIEW");
+
+  if (!loadingFetchScreens && filteredScreens.length === 0) {
+    return (
+      <div className="flex justify-content-center w-full">
+        <div className="flex flex-column">
+          <div className="flex align-items-center">
+            <h2>No Screens found</h2>
+          </div>
+          <div className="flex align-items-center">
+            <EmbededHelp>To create a screen visit the targets page </EmbededHelp>
+          </div>
+        </div>
+      </div>
+
+    );
+  }
 
   const SideMenuItems = [
     {
@@ -73,7 +98,7 @@ const ScreenView = ({ match, history }) => {
               <Route index element={<Navigate replace to="screen-sequence/" />} />
               <Route path="screen-sequence/" element={<ScreenSequences TargetName={params.id} />} />
               <Route path="validates-hit/" element={<ValidatedHits TargetName={params.id} />} />
-              <Route path="discussion/" element={<ValidatedHits TargetName={params.id} />} />
+              <Route path="discussion/" element={<ScreenDiscussion TargetName={params.id} />} />
             </Routes>
           </div>
         </div>
