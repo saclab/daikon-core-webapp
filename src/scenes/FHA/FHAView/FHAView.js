@@ -15,6 +15,7 @@ import { Message } from "primereact/message";
 import FHAPromotionQuestionaire from "./FHAPromotionQuestionaire/FHAPromotionQuestionaire";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import { appColors } from '../../../colors';
+import FHADiscussion from './FHADiscussion/FHADiscussion';
 
 const FHAView = ({ match, history }) => {
   const params = useParams();
@@ -52,21 +53,21 @@ const FHAView = ({ match, history }) => {
             label: "HA Information",
             icon: "icon icon-conceptual icon-chemical",
             command: () => {
-              setActiveIndex(0);
+              navigate('information/');
             },
           },
           {
             label: "Links",
             icon: "icon icon-common icon-external-link-square-alt",
             command: () => {
-              setActiveIndex(1);
+              navigate('links/');
             },
           },
           {
             label: "Discussion",
             icon: "ri-discuss-line",
             command: () => {
-              setActiveIndex(2);
+              navigate('discussion/');
             },
           },
         ],
@@ -140,8 +141,7 @@ const FHAView = ({ match, history }) => {
                 project={selectedProject}
               />} />
 
-              <Route path="discussion" element={<FHAViewInformation
-                id={params.id}
+              <Route path="discussion" element={<FHADiscussion
                 project={selectedProject}
               />} />
             </Routes>
