@@ -100,7 +100,7 @@ const ScreenSequences = ({ TargetName }) => {
             activeIndex={screenSequenceIndex}
             onTabChange={(e) => setScreenSequenceIndex(e.index)}
             scrollable
-            className="max-w-screen"
+            className="w-full max-w-screen"
           >
             {tabs}
           </TabView>

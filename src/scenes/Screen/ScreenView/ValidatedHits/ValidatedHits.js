@@ -102,7 +102,7 @@ const ValidatedHits = ({ TargetName }) => {
           activeIndex={validatedHitsIndex}
           onTabChange={(e) => setValidatedHitsIndex(e.index)}
           scrollable
-          className="max-w-screen"
+          className="w-full max-w-screen"
         >
           {tabs}
         </TabView>
