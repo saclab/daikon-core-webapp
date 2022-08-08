@@ -69,11 +69,11 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
 
   if (!addingCompoundEvolution && !loadingProject) {
     return (
-      <div className="form-demo">
+      <div className="flex flex-column w-full">
         <div>
-          <div className="card">
+          <div className="card w-full">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="smile"
                   className={classNames({
@@ -93,7 +93,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                 />
                 {getFormErrorMessage("smile")}
               </div>
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="molWeight"
                   className={classNames({
@@ -112,7 +112,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                   })}
                 />
               </div>
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="molArea"
                   className={classNames({
@@ -132,7 +132,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                 />
               </div>
 
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="MIC"
                   className={classNames({
@@ -152,7 +152,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                 />
               </div>
 
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="IC50"
                   className={classNames({
@@ -172,7 +172,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                 />
               </div>
 
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="notes"
                   className={classNames({
@@ -195,12 +195,14 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                 {getFormErrorMessage("notes")}
               </div>
 
-              <Button
-                icon="icon icon-common icon-database-submit"
-                type="submit"
-                label="Add compound"
-                className="p-mt-2"
-              />
+              <div className="field">
+                <Button
+                  icon="icon icon-common icon-database-submit"
+                  type="submit"
+                  label="Add compound"
+                  className="p-mt-2"
+                />
+              </div>
             </form>
           </div>
         </div>
