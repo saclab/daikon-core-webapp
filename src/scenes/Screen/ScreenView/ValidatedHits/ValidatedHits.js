@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import { observer } from "mobx-react-lite";
 import { TabView, TabPanel } from "primereact/tabview";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import ValidatedHitsList from "./ValidatedHitsList/ValidatedHitsList";
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { BreadCrumb } from 'primereact/breadcrumb';
+import { appColors } from '../../../../colors';
 
 const ValidatedHits = ({ TargetName }) => {
   /* MobX Store */
@@ -12,6 +16,29 @@ const ValidatedHits = ({ TargetName }) => {
     validatedHitsIndex,
     setValidatedHitsIndex,
   } = rootStore.screenStore;
+
+  const navigate = useNavigate();
+
+  const breadCrumbItems = [
+    {
+      label: "Screens",
+      command: () => {
+        navigate("/d/screen/");
+      },
+    },
+    {
+      label: TargetName,
+      command: () => {
+        navigate(`/d/screen/${TargetName}`);
+      }
+    },
+    {
+      label: "Validated Hits"
+    }
+    ,
+  ];
+
+
 
   console.log("==== VALIDATED HITS");
   let filteredScreensByTarget = filterScreensByTarget(TargetName);
@@ -31,14 +58,36 @@ const ValidatedHits = ({ TargetName }) => {
   }
 
   return (
-    <div>
-      <TabView
-        activeIndex={validatedHitsIndex}
-        onTabChange={(e) => setValidatedHitsIndex(e.index)}
-        scrollable
-      >
-        {tabs}
-      </TabView>
+    <div className="flex flex-column w-full">
+      <div className="flex w-full pb-2">
+        <BreadCrumb model={breadCrumbItems} />
+      </div>
+      <div className="flex w-full">
+        <SectionHeading
+          icon="icon icon-common icon-search"
+          heading={"Screens of " + TargetName}
+          targetName={TargetName}
+          displayHorizon={true}
+          color={appColors.sectionHeadingBg.screen} />
+      </div>
+      <div className="flex w-full">
+        <SectionHeading
+          icon="icon icon-conceptual icon-structures-3d"
+          heading={"Validated Hits"}
+          color={"#f4f4f4"}
+          textColor={"#000000"}
+        />
+      </div>
+      <div className='flex w-full'>
+        <TabView
+          activeIndex={validatedHitsIndex}
+          onTabChange={(e) => validatedHitsIndex(e.index)}
+          scrollable
+          className="w-full"
+        >
+          {tabs}
+        </TabView>
+      </div>
     </div>
   );
 };

@@ -13,6 +13,7 @@ import SmilesView from "../../../../../app/common/SmilesView/SmilesView";
 import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter";
 import ValidatedHitsPromoteToFHAEntry from "./ValidatedHitsPromoteToFHAEntry/ValidatedHitsPromoteToFHAEntry";
 import { toast } from "react-toastify";
+import "./ValidatedHitsDataTable.css";
 
 const ValidatedHitsList = ({ screenId }) => {
   const dt = useRef(null);
@@ -122,7 +123,7 @@ const ValidatedHitsList = ({ screenId }) => {
     return (
       <React.Fragment>
         <div>
-          <SmilesView smiles={rowData?.compound?.smile} width={300} />
+          <SmilesView smiles={rowData?.compound?.smile} width={"300"} />
         </div>
       </React.Fragment>
     );
@@ -156,8 +157,8 @@ const ValidatedHitsList = ({ screenId }) => {
     );
   };
   const tableHeader = (
-    <div className="p-d-flex p-jc-end">
-      <div>
+    <div className="flex justify-content-end">
+      <div className="flex">
         {displayEnableSelection && (
           <Button
             type="button"
@@ -169,7 +170,7 @@ const ValidatedHitsList = ({ screenId }) => {
           />
         )}
       </div>
-      <div>
+      <div className="flex">
         <TieredMenu
           model={tableMenuItems}
           popup
@@ -272,8 +273,8 @@ const ValidatedHitsList = ({ screenId }) => {
   /* END Construct table menu items */
 
   return (
-    <div>
-      <div className="datatable-screen-table">
+    <div className="flex w-full">
+      <div className="datatable-validated-hits">
         <div className="card">
           <DataTable
             ref={dt}
@@ -311,8 +312,7 @@ const ValidatedHitsList = ({ screenId }) => {
               field={(rowData) => rowData?.compound?.smile}
               header="Structure"
               body={StructureBodyTemplate}
-
-              style={{ width: "300px" }}
+              style={{ minWidth: "350px" }}
             />
             <Column
               field={(rowData) => rowData?.library + "|" + rowData.source}

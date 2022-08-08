@@ -80,7 +80,7 @@ const ScreenDash = () => {
           />
         </div>
         <div className="flex w-full">
-          <div className="datatable-screen">
+          <div className="datatable-screens">
             <DataTable
               ref={dt}
               value={uniqueScreens}
