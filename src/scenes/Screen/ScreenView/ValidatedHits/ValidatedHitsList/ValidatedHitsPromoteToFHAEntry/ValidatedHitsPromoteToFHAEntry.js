@@ -33,7 +33,7 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
   console.log(compounds);
   const items = [
     {
-      label: "Selection",
+      label: "Primary Structure Selection",
     },
     {
       label: "Project Information",
@@ -53,59 +53,75 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
   };
 
   let selection = (
-    <div style={{ width: "100%" }}>
-      <Card title="Selection" style={{ marginTop: "2em" }}>
-        <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-          No of compounds selected : <b>{compounds.length}</b> <br />
-          From Cluster groups(s) :{" "}
-          <b>
-            {" "}
-            {[...new Set(compounds.map((item) => item.clusterGroup))].join(
-              ", "
-            )}
-          </b>
-          <br />
-          Accession No : <b>{screen.accessionNumber}</b> <br />
-          Screen Name : <b>{screen.screenName}</b> <br />
-          Target : <b>{screen.geneName}</b>
-        </p>
-      </Card>
-      <div className="card">
-        <h2> Choose the primary structure:</h2>
-        <DataTable
-          ref={dt}
-          value={compounds}
-          scrollable
-          emptyMessage="No hits selected."
-          resizableColumns
-          columnResizeMode="fit"
-          showGridlines
-          responsiveLayout="scroll"
-          selectionMode="single"
-          selection={selectedPrimaryHit}
-          onSelectionChange={(e) => setSelectedPrimaryHit(e.value)}
-          dataKey="id"
-        >
-          <Column field="compound.externalCompundIds" header="Compound Id" />
-          <Column field="clusterGroup" header="Cluster Group No" />
-          <Column
-            field="Structure"
-            header="Structure"
-            body={StructureBodyTemplate}
-            style={{ minWidth: "350px" }}
-          />
-        </DataTable>
-
-        <Button
-          icon="pi pi-arrow-right"
-          label="Next"
-          className="p-button-success"
-          style={{ float: "right", marginTop: "1em" }}
-          onClick={() => validateAndMoveToStep2()}
-        />
-        <br />
-        <br />
+    <div className="flex w-full gap-4 p-7">
+      <div className="flex min-w-max">
+        <div className="flex flex-column border-1 p-4 max-w-max">
+          <div className="flex">
+            <h2>Project Information</h2>
+          </div>
+          <div className="flex">
+            <p className="p-m-0" style={{ lineHeight: "1.5" }}>
+              No of compounds selected : <b>{compounds.length}</b> <br />
+              Cluster groups(s) :{" "}
+              <b>
+                {" "}
+                {[...new Set(compounds.map((item) => item.clusterGroup))].join(
+                  ", "
+                )}
+              </b>
+              <br />
+              Accession No : <b>{screen.accessionNumber}</b> <br />
+              Screen Name : <b>{screen.screenName}</b> <br />
+              Target : <b>{screen.geneName}</b>
+            </p>
+          </div>
+        </div>
       </div>
+      <div className="flex w-full">
+        <div className="flex flex-column w-full">
+          <div className="flex">
+            <h2> Choose the primary structure:</h2>
+          </div>
+          <div className="flex w-full">
+            <DataTable
+              className="w-full"
+              ref={dt}
+              value={compounds}
+              scrollable
+              emptyMessage="No hits selected."
+              resizableColumns
+              columnResizeMode="fit"
+              showGridlines
+              responsiveLayout="scroll"
+              selectionMode="single"
+              selection={selectedPrimaryHit}
+              onSelectionChange={(e) => setSelectedPrimaryHit(e.value)}
+              dataKey="id"
+            >
+              <Column field="compound.externalCompundIds" header="Compound Id" />
+              <Column field="clusterGroup" header="Cluster Group No" />
+              <Column
+                field="Structure"
+                header="Structure"
+                body={StructureBodyTemplate}
+                style={{ minWidth: "350px" }}
+              />
+            </DataTable>
+          </div>
+          <div className="flex justify-content-end">
+            <div className="flex max-w-max">
+              <Button
+                icon="pi pi-arrow-right"
+                label="Next"
+                className="p-button-success"
+                style={{ float: "right", marginTop: "1em" }}
+                onClick={() => validateAndMoveToStep2()}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 
@@ -136,7 +152,19 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
       let errors = {};
 
       if (!data.projectName) {
-        errors.name = "Name is required.";
+        errors.projectName = "Project name is required.";
+      }
+      if (!data.primaryOrg) {
+        errors.primaryOrg = "Primary org is required.";
+      }
+      if (!data.supportingOrgs) {
+        errors.supportingOrgs = "Supporting org is required.";
+      }
+      if (!data.fhaStart) {
+        errors.fhaStart = "Start date is required.";
+      }
+      if (!data.fhaDescription) {
+        errors.fhaDescription = "Hit Assessment Description is required.";
       }
 
       return errors;
@@ -152,12 +180,12 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
       createFHA(data).then((res) => {
         console.log("res");
         console.log(res);
-        
+
         if (res !== null) {
           formik.resetForm();
           close();
         }
-        
+
       });
     },
   });
@@ -174,11 +202,13 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
 
   // project details info card
   let projectInformation = selectedPrimaryHit && (
-    <div style={{ width: "100%" }}>
-      <Card title="Project Information" style={{ marginTop: "2em" }}>
-        <div className="p-grid">
-          <div className="p-col">
-            {" "}
+    <div className="flex w-full gap-4 p-7">
+      <div className="flex">
+        <div className="flex flex-column border-1 p-4">
+          <div className="flex">
+            <h2>Project Information</h2>
+          </div>
+          <div className="flex">
             <p className="p-m-0" style={{ lineHeight: "1.5" }}>
               No of compounds selected : <b>{compounds.length}</b> <br />
               From Cluster groups(s) :{" "}
@@ -194,157 +224,168 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
               Target : <b>{screen.geneName}</b>
             </p>
           </div>
-          <div className="p-col">
-            <div style={{ minWidth: "350px", marginTop: "-30px" }}>
+          <div className="flex">
+            <div style={{ minWidth: "300px", marginTop: "-30px" }}>
               <SmilesView smiles={selectedPrimaryHit.compound.smile} />
             </div>
           </div>
         </div>
-        <hr />
+      </div>
+      <div className="flex w-full">
+        <div className="flex flex-column w-full">
+          <div className="card w-full">
+            <form onSubmit={formik.handleSubmit} className="p-fluid">
+              <div className="field">
+                <label
+                  htmlFor="projectName"
+                  className={classNames({
+                    "p-error": isFormFieldValid("projectName"),
+                  })}
+                >
+                  Project Name
+                </label>
+                <InputText
+                  id="projectName"
+                  name="projectName"
+                  value={formik.values.projectName}
+                  onChange={formik.handleChange}
+                  autoFocus
+                  className={classNames({
+                    "p-error": isFormFieldValid("projectName"),
+                  })}
+                  style={{ minWidth: "500px" }}
+                />
+                {getFormErrorMessage("projectName")}
+              </div>
+              <div className="field">
+                <label
+                  htmlFor="primaryOrg"
+                  className={classNames({
+                    "p-error": isFormFieldValid("primaryOrg"),
+                  })}
+                >
+                  Primary Organization
+                </label>
 
-        <div className="p-d-flex">
-          <form onSubmit={formik.handleSubmit} className="p-fluid">
-            <div className="p-field">
-              <label
-                htmlFor="projectName"
-                className={classNames({
-                  "p-error": isFormFieldValid("projectName"),
-                })}
-              >
-                Project Name
-              </label>
-              <InputText
-                id="projectName"
-                name="projectName"
-                value={formik.values.projectName}
-                onChange={formik.handleChange}
-                autoFocus
-                className={classNames({
-                  "p-invalid": isFormFieldValid("projectName"),
-                })}
-                style={{ minWidth: "500px" }}
-              />
-              {getFormErrorMessage("projectName")}
-            </div>
-            <div className="p-field">
-              <label
-                htmlFor="primaryOrg"
-                className={classNames({
-                  "p-error": isFormFieldValid("primaryOrg"),
-                })}
-              >
-                Primary Organization
-              </label>
+                <Dropdown
+                  value={formik.values.primaryOrg}
+                  options={appVars.appOrgs}
+                  onChange={formik.handleChange("primaryOrg")}
+                  optionLabel="alias"
+                  placeholder="Select primary organization"
+                  filter
+                  showClear
+                  filterBy="alias"
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("primaryOrg"),
+                  })}
+                />
+                {getFormErrorMessage("primaryOrg")}
+              </div>
 
-              <Dropdown
-                value={formik.values.primaryOrg}
-                options={appVars.appOrgs}
-                onChange={formik.handleChange("primaryOrg")}
-                optionLabel="alias"
-                placeholder="Select primary organization"
-                filter
-                showClear
-                filterBy="alias"
-                className={classNames({
-                  "p-invalid": isFormFieldValid("primaryOrg"),
-                })}
-              />
-              {getFormErrorMessage("primaryOrg")}
-            </div>
+              <div className="field">
+                <label
+                  htmlFor="supportingOrgs"
+                  className={classNames({
+                    "p-error": isFormFieldValid("supportingOrgs"),
+                  })}
+                >
+                  Supporting Organizations
+                </label>
 
-            <div className="p-field">
-              <label
-                htmlFor="supportingOrgs"
-                className={classNames({
-                  "p-error": isFormFieldValid("supportingOrgs"),
-                })}
-              >
-                Supporting Organizations
-              </label>
+                <MultiSelect
+                  value={formik.values.supportingOrgs}
+                  options={appVars.appOrgs}
+                  onChange={formik.handleChange("supportingOrgs")}
+                  optionLabel="alias"
+                  placeholder="Select supporting organizations"
+                  filter
+                  showClear
+                  filterBy="alias"
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("supportingOrgs"),
+                  })}
+                />
+                {getFormErrorMessage("supportingOrgs")}
+              </div>
 
-              <MultiSelect
-                value={formik.values.supportingOrgs}
-                options={appVars.appOrgs}
-                onChange={formik.handleChange("supportingOrgs")}
-                optionLabel="alias"
-                placeholder="Select supporting organizations"
-                filter
-                showClear
-                filterBy="alias"
-                className={classNames({
-                  "p-invalid": isFormFieldValid("supportingOrgs"),
-                })}
-              />
-              {getFormErrorMessage("supportingOrgs")}
-            </div>
+              <div className="field">
+                <label
+                  htmlFor="fhaStart"
+                  className={classNames({
+                    "p-error": isFormFieldValid("fhaStart"),
+                  })}
+                >
+                  Hit Assessment Start Date
+                </label>
 
-            <div className="p-field">
-              <label
-                htmlFor="fhaStart"
-                className={classNames({
-                  "p-error": isFormFieldValid("fhaStart"),
-                })}
-              >
-                FHA Start Date
-              </label>
+                <Calendar
+                  value={formik.values.fhaStart}
+                  onChange={formik.handleChange("fhaStart")}
+                  numberOfMonths={2}
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("fhaStart"),
+                  })}
+                />
+                {getFormErrorMessage("fhaStart")}
+              </div>
 
-              <Calendar
-                value={formik.values.fhaStart}
-                onChange={formik.handleChange("fhaStart")}
-                numberOfMonths={2}
-                className={classNames({
-                  "p-invalid": isFormFieldValid("fhaStart"),
-                })}
-              />
-              {getFormErrorMessage("fhaStart")}
-            </div>
+              <div className="field">
+                <label
+                  htmlFor="fhaDescription"
+                  className={classNames({
+                    "p-error": isFormFieldValid("fhaDescription"),
+                  })}
+                >
+                  Description
+                </label>
 
-            <div className="p-field">
-              <label
-                htmlFor="fhaDescription"
-                className={classNames({
-                  "p-error": isFormFieldValid("fhaDescription"),
-                })}
-              >
-                Description
-              </label>
+                <InputTextarea
+                  id="fhaDescription"
+                  name="fhaDescription"
+                  value={formik.values.fhaDescription}
+                  onChange={formik.handleChange}
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("fhaDescription"),
+                  })}
+                  style={{ minWidth: "500px" }}
+                />
+                {getFormErrorMessage("fhaDescription")}
+              </div>
+              <div className="flex justify-content-end">
+                <div className="flex max-w-max">
+                  <Button
+                    type="submit"
+                    icon="pi pi-arrow-right"
+                    label="Create"
+                    className="p-button-success"
+                  />
+                </div>
 
-              <InputTextarea
-                id="fhaDescription"
-                name="fhaDescription"
-                value={formik.values.fhaDescription}
-                onChange={formik.handleChange}
-                className={classNames({
-                  "p-invalid": isFormFieldValid("fhaDescription"),
-                })}
-                style={{ minWidth: "500px" }}
-              />
-              {getFormErrorMessage("fhaDescription")}
-            </div>
+              </div>
 
-            <Button
-              type="submit"
-              icon="pi pi-arrow-right"
-              label="Create"
-              className="p-button-success"
-              style={{ float: "right", marginTop: "1em" }}
-            />
-          </form>
+            </form>
+          </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 
   return (
-    <div>
-      <Steps
-        model={items}
-        activeIndex={activeStep}
-        onSelect={(e) => setActiveStep(e.index)}
-        readOnly={false}
-      />
-      {activeStep === 0 && selection}
-      {activeStep === 1 && projectInformation}
+    <div className="flex flex-column w-full p-3">
+      <div className="flex w-full">
+        <Steps
+          model={items}
+          activeIndex={activeStep}
+          onSelect={(e) => setActiveStep(e.index)}
+          readOnly={false}
+          className="w-full"
+        />
+      </div>
+      <div className="flex w-full">
+        {activeStep === 0 && selection}
+        {activeStep === 1 && projectInformation}
+      </div>
     </div>
   );
 };

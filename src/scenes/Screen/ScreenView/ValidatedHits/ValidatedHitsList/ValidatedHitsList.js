@@ -256,14 +256,9 @@ const ValidatedHitsList = ({ screenId }) => {
         tableMenuItems.push(votingItem);
 
         let promotionItem = {
-          label: "Promotion",
-          items: [
-            {
-              label: "Promote To FHA",
-              icon: "pi pi-arrow-right",
-              command: () => validatePromoteToFHA(),
-            },
-          ],
+          label: "Promote To Hit Assessment",
+          icon: "pi pi-arrow-right",
+          command: () => validatePromoteToFHA(),
         };
 
         tableMenuItems.push(promotionItem);
@@ -375,7 +370,7 @@ const ValidatedHitsList = ({ screenId }) => {
         </div>
       </Dialog>
       <Dialog
-        header="Promote to FHA"
+        header="Promote to Hit Assessment"
         visible={displayPromoteToFHAEntry}
         //style={{ width: "50vw" }}
         //footer={renderFooter("displayBasic2")}
