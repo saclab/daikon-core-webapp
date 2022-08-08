@@ -88,7 +88,7 @@ const FHADash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
         <b>
-          <NavLink to={"/fha/" + rowData.id}>
+          <NavLink to={"d/ha/" + rowData.id}>
             {rowData.projectName}
           </NavLink>
         </b>
@@ -150,67 +150,72 @@ const FHADash = () => {
   if (!loadingProjects) {
 
     return (
-      <div className="datatable-portfolio-dash">
-        <SectionHeading
-          icon="icon icon-conceptual icon-chemical"
-          heading="FHA"
-          color={appColors.sectionHeadingBg.fha}
-        />
-        <div className="card">
-          <DataTable
-            ref={dt}
-            value={filterFhaProjects()}
-            paginator
-            rows={10}
-            // header={header}
-            className="p-datatable-targets"
-            //globalFilter={globalFilter}
-            emptyMessage="No FHAs found."
-          >
-            <Column
-              field="id"
-              header="Project Id"
-              body={ProjectNoBodyTemplate}
-              filter
-              filterMatchMode="contains"
-              filterPlaceholder="Search by ProjectNo"
-              className="narrow-column"
-            />
-
-            <Column
-              field="ProjectName"
-              header="Project Name"
-              body={ProjectNameBodyTemplate}
-            />
-
-            <Column
-              field="targetName"
-              header="Target"
-              body={TargetBodyTemplate}
-              filter
-              filterMatchMode="contains"
-              filterPlaceholder="Filter by Target"
-              className="narrow-column"
-            />
-
-            <Column
-              field="PrimaryOrganization"
-              header="Primary Organization"
-              body={PrimaryOrganizationBodyTemplate}
-            />
-
-            <Column
-              field="status"
-              header="Status"
-              body={StatusBodyTemplate}
-              filter
-              filterElement={statusFilter}
-              style={{ width: "250px" }}
-            />
-
-            <Column field="Date" header="FHA Date" body={DateBodyTemplate} />
-          </DataTable>
+      <div className="flex flex-column w-full fadein animation-duration-500">
+        <div className="flex w-full">
+          <SectionHeading
+            icon="icon icon-conceptual icon-chemical"
+            heading="FHA"
+            color={appColors.sectionHeadingBg.fha}
+          />
         </div>
+        <div className="flex w-full">
+          <div className="card w-full">
+            <DataTable
+              ref={dt}
+              value={filterFhaProjects()}
+              paginator
+              rows={10}
+              // header={header}
+              className="p-datatable-targets"
+              //globalFilter={globalFilter}
+              emptyMessage="No FHAs found."
+            >
+              <Column
+                field="id"
+                header="Project Id"
+                body={ProjectNoBodyTemplate}
+                filter
+                filterMatchMode="contains"
+                filterPlaceholder="Search by ProjectNo"
+                className="narrow-column"
+              />
+
+              <Column
+                field="ProjectName"
+                header="Project Name"
+                body={ProjectNameBodyTemplate}
+              />
+
+              <Column
+                field="targetName"
+                header="Target"
+                body={TargetBodyTemplate}
+                filter
+                filterMatchMode="contains"
+                filterPlaceholder="Filter by Target"
+                className="narrow-column"
+              />
+
+              <Column
+                field="PrimaryOrganization"
+                header="Primary Organization"
+                body={PrimaryOrganizationBodyTemplate}
+              />
+
+              <Column
+                field="status"
+                header="Status"
+                body={StatusBodyTemplate}
+                filter
+                filterElement={statusFilter}
+                style={{ width: "250px" }}
+              />
+
+              <Column field="Date" header="FHA Date" body={DateBodyTemplate} />
+            </DataTable>
+          </div>
+        </div>
+
       </div>
     );
   }

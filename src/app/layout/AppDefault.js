@@ -14,6 +14,9 @@ import TargetView from '../../scenes/Target/TargetView/TargetView';
 import ScreenDash from "../../scenes/Screen/ScreenDash/ScreenDash";
 import ScreenView from "../../scenes/Screen/ScreenView/ScreenView";
 
+import FHADash from '../../scenes/FHA/FHADash/FHADash';
+import FHAView from "../../scenes/FHA/FHAView/FHAView";
+
 const AppDefault = () => {
 
 
@@ -37,6 +40,10 @@ const AppDefault = () => {
           {/*Screen Routes */}
           <Route path="screen/" element={<ScreenDash />} />
           <Route path="screen/:id/*" element={<ScreenView />} />
+
+          {/* Hit Assessment Routes */}
+          <Route path="/ha" element={<FHADash />} />
+          <Route path="/ha/:id/*" element={<FHAView />} />
         </Routes>
 
       </div>

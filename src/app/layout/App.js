@@ -46,8 +46,7 @@ import PostPortfolioDash from "../../scenes/PostPortfolio/PostPortfolioDash/Post
 import PostPortfolioView from "../../scenes/PostPortfolio/PostPortfolioView/PostPortfolioView";
 import Discussion from "../common/Discussion/Discussion";
 import UserManager from "../../scenes/Admin/UserManager/UserManager";
-import FHADash from '../../scenes/FHA/FHADash/FHADash';
-import FHAView from "../../scenes/FHA/FHAView/FHAView";
+
 import ProjectManagement from '../../scenes/ProjectManagement/ProjectManagement';
 import ProjectSettings from '../../scenes/ProjectManagement/ProjectSettings/ProjectSettings';
 import ProjectAdmin from '../../scenes/Admin/ProjectAdmin/ProjectAdmin';
