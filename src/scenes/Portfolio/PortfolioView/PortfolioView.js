@@ -18,6 +18,7 @@ import PortfolioPromotionsPromoteToSP from "./PortfolioPromotions/PortfolioPromo
 import PortfolioBaseHits from "./PortfolioBaseHits/PortfolioBaseHits";
 import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioPromotionsPromoteToIND";
 import { appColors } from '../../../colors';
+import PortfolioDiscussion from './PortfolioDiscussion/PortfolioDIscussion';
 
 const PortfolioView = ({ match, history }) => {
   const params = useParams();
@@ -175,7 +176,7 @@ const PortfolioView = ({ match, history }) => {
               />} />
               <Route path="base-hits/" element={<PortfolioBaseHits project={selectedProject} />} />
 
-              <Route path="discussion" element={<PortfolioBaseHits
+              <Route path="discussion" element={<PortfolioDiscussion
                 project={selectedProject}
               />} />
             </Routes>
