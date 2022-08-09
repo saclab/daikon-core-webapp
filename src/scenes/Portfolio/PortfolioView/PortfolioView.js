@@ -161,7 +161,6 @@ const PortfolioView = ({ match, history }) => {
     return (
       <React.Fragment>
         <Toast ref={toast} />
-        <br />
         <div className="flex gap-2 w-full">
           <div className="flex">
             <Menu model={sideMenuItems} />
