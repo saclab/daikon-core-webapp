@@ -115,11 +115,11 @@ const App = () => {
     <Fragment>
       <ToastContainer pauseOnHover theme="light" />
 
-      <div className="flex flex-column min-w-min">
+      <div className="flex flex-column">
         <div className="block">
           <TitleBar />
         </div>
-        <div className="block">
+        <div className="block overflow-auto">
           <Routes>
             <Route index element={<Navigate replace to="/d/" />} />
             <Route path="/d/*" element={<AppDefault />} />
