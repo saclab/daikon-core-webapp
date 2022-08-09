@@ -1,10 +1,32 @@
 import React, { useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import SmilesView from "../../../../app/common/SmilesView/SmilesView";
+import { BreadCrumb } from 'primereact/breadcrumb';
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { appColors } from '../../../../colors';
 
 const PortfolioBaseHits = ({ project }) => {
   const dt = useRef(null);
+  const navigate = useNavigate();
+
+  const breadCrumbItems = [
+    {
+      label: "Portfolio",
+      command: () => {
+        navigate("/d/portfolio/");
+      },
+    },
+    {
+      label: project.projectName,
+      command: () => {
+        navigate(`/d/portfolio/${project.id}`);
+      }
+    },
+    { label: "Base Hits" },
+  ];
+
 
   let tableData = [];
 
@@ -41,31 +63,55 @@ const PortfolioBaseHits = ({ project }) => {
   console.log(tableData);
 
   return (
-    <div>
-      <DataTable
-        ref={dt}
-        value={tableData}
-        emptyMessage="No data."
-        resizableColumns
-        columnResizeMode="fit"
-        showGridlines
-        dataKey="id"
-      >
-        <Column
-          header="Structure"
-          body={StructureBodyTemplate}
-          style={{ width: "330px" }}
-        />
-        <Column
-          field="CompoundId"
-          header="Compound Id"
-          body={CompoundIdBodyTemplate}
-          style={{ width: "200px" }}
-        />
-        <Column field="mic" header="MIC" />
-        <Column field="iC50" header="IC50" />
-      </DataTable>
-    </div>
+    <React.Fragment>
+      {/* First div for general information and dates */}
+
+      <div className="flex flex-column gap-2 w-full">
+        <div className="flex w-full pb-2">
+          <BreadCrumb model={breadCrumbItems} />
+        </div>
+
+        <div className="flex w-full">
+          <SectionHeading
+            icon="icon icon-common icon-analyse"
+            heading={
+              project.projectName +
+              " | " +
+              project?.currentStage
+            }
+            targetName={project.targetName}
+            displayHorizon={true}
+            color={appColors.sectionHeadingBg.portfolio}
+          />
+        </div>
+        <div className="flex w-full">
+          <DataTable
+            ref={dt}
+            value={tableData}
+            emptyMessage="No data."
+            resizableColumns
+            columnResizeMode="fit"
+            showGridlines
+            dataKey="id"
+          >
+            <Column
+              header="Structure"
+              body={StructureBodyTemplate}
+              style={{ width: "330px" }}
+            />
+            <Column
+              field="CompoundId"
+              header="Compound Id"
+              body={CompoundIdBodyTemplate}
+              style={{ width: "200px" }}
+            />
+            <Column field="mic" header="MIC" />
+            <Column field="iC50" header="IC50" />
+          </DataTable>
+        </div>
+      </div>
+
+    </React.Fragment>
   );
 };
 
