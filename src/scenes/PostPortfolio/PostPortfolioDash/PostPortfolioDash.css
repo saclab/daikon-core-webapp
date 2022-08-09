@@ -1,141 +1,141 @@
 .datatable-postportfolio-dash .p-paginator .p-paginator-current {
-    margin-left: auto;
+  margin-left: auto;
+}
+
+.datatable-postportfolio-dash .p-progressbar {
+  height: 0.5rem;
+  background-color: #d8dadc;
+}
+
+.datatable-postportfolio-dash .p-progressbar .p-progressbar-value {
+  background-color: #607d8b;
+}
+
+.datatable-postportfolio-dash .table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.datatable-postportfolio-dash .table-header .heading {
+  background: linear-gradient(to right, #30cfd0 0%, #332288 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.datatable-postportfolio-dash .p-datepicker {
+  min-width: 25rem;
+}
+
+.datatable-postportfolio-dash .p-datepicker td {
+  font-weight: 400;
+}
+
+.datatable-postportfolio-dash .p-datatable.p-datatable-header {
+  padding: 1rem;
+  text-align: left;
+  font-size: 2rem;
+}
+
+.datatable-postportfolio-dash .p-datatable.p-paginator {
+  padding: 1rem;
+}
+
+.datatable-postportfolio-dash .p-datatable.p-datatable-thead > tr > th {
+  text-align: left;
+}
+
+.datatable-postportfolio-dash .p-datatable.p-datatable-tbody > tr > td {
+  cursor: auto;
+}
+
+.datatable-postportfolio-dash
+  .p-datatable.p-dropdown-label:not(.p-placeholder) {
+  text-transform: uppercase;
+}
+
+.datatable-postportfolio-dash .p-datatable-tbody > tr > td .p-column-title {
+  display: none;
+}
+
+.datatable-postportfolio-dash .narrow-column {
+  width: 200px !important;
+}
+.datatable-postportfolio-dash .p-inputtext {
+  font-size: 0.8rem;
+}
+
+.datatable-postportfolio-dash .p-multiselect {
+  font-size: smaller;
+}
+
+.datatable-postportfolio-dash .p-multiselect-item {
+  font-size: smaller;
+}
+
+.datatable-postportfolio-dash .p-button {
+  font-size: smaller;
+}
+
+.datatable-postportfolio-dash .table-status-active {
+  background-color: #a9dfbf;
+  color: #495057;
+  font-weight: normal;
+}
+
+.datatable-postportfolio-dash .table-status-inactive {
+  background-color: #f2f4f4;
+  color: #495057;
+  font-weight: normal;
+}
+
+.datatable-postportfolio-dash .table-date-due {
+  background-color: #ffecb3;
+  color: #495057;
+  font-weight: normal;
+}
+
+.datatable-postportfolio-dash .table-date-ok {
+  background-color: #ffffff;
+  color: #495057;
+  font-weight: normal;
+}
+
+@media screen and (max-width: 960px) {
+  .datatable-postportfolio-dash .p-datatable.p-datatable-thead > tr > th,
+  .datatable-postportfolio-dash .p-datatable.p-datatable-tfoot > tr > td {
+    display: none !important;
   }
-  
-  .datatable-postportfolio-dash .p-progressbar {
-    height: 0.5rem;
-    background-color: #d8dadc;
+
+  .datatable-postportfolio-dash .p-datatable.p-datatable-tbody > tr {
+    border-bottom: 1px solid var(--layer-2);
   }
-  
-  .datatable-postportfolio-dash .p-progressbar .p-progressbar-value {
-    background-color: #607d8b;
-  }
-  
-  .datatable-postportfolio-dash .table-header {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .datatable-postportfolio-dash .table-header .heading {
-    background: linear-gradient(to right, #30cfd0 0%, #332288 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .datatable-postportfolio-dash .p-datepicker {
-    min-width: 25rem;
-  }
-  
-  .datatable-postportfolio-dash .p-datepicker td {
-    font-weight: 400;
-  }
-  
-  .datatable-postportfolio-dash .p-datatable.p-datatable-header {
-    padding: 1rem;
-    text-align: left;
-    font-size: 2rem;
-  }
-  
-  .datatable-postportfolio-dash .p-datatable.p-paginator {
-    padding: 1rem;
-  }
-  
-  .datatable-postportfolio-dash .p-datatable.p-datatable-thead > tr > th {
-    text-align: left;
-  }
-  
+
   .datatable-postportfolio-dash .p-datatable.p-datatable-tbody > tr > td {
-    cursor: auto;
+    text-align: left;
+    display: block;
+    border: 0 none !important;
+    width: 100% !important;
+    float: left;
+    clear: left;
+    border: 0 none;
   }
-  
-  .datatable-postportfolio-dash .p-datatable.p-dropdown-label:not(.p-placeholder) {
-    text-transform: uppercase;
+
+  .datatable-postportfolio-dash
+    .p-datatable.p-datatable-tbody
+    > tr
+    > td
+    .p-column-title {
+    padding: 0.4rem;
+    min-width: 30%;
+    display: inline-block;
+    margin: -0.4rem 1rem -0.4rem -0.4rem;
+    font-weight: bold;
   }
-  
-  .datatable-postportfolio-dash .p-datatable-tbody > tr > td .p-column-title {
-    display: none;
+
+  .datatable-postportfolio-dash
+    .p-datatable.p-datatable-tbody
+    > tr
+    > td
+    .p-progressbar {
+    margin-top: 0.5rem;
   }
-  
-  .datatable-postportfolio-dash .narrow-column {
-    width: 200px !important;
-  }
-  .datatable-postportfolio-dash .p-inputtext {
-    font-size: 0.8rem;
-  }
-  
-  .datatable-postportfolio-dash .p-multiselect {
-    font-size: smaller;
-  }
-  
-  .datatable-postportfolio-dash .p-multiselect-item {
-    font-size: smaller;
-  }
-  
-  .datatable-postportfolio-dash .p-button {
-    font-size: smaller;
-  }
-  
-  .datatable-postportfolio-dash .table-status-active {
-    background-color: #A9DFBF;
-    color: #495057;
-    font-weight: normal;
-  }
-  
-  .datatable-postportfolio-dash .table-status-inactive {
-    background-color: #F2F4F4;
-    color: #495057;
-    font-weight: normal;
-  }
-  
-  .datatable-postportfolio-dash .table-date-due {
-    background-color: #FFECB3;
-    color: #495057;
-    font-weight: normal;
-  }
-  
-  .datatable-postportfolio-dash .table-date-ok {
-    background-color: #ffffff;
-    color: #495057;
-    font-weight: normal;
-  }
-  
-  @media screen and (max-width: 960px) {
-    .datatable-postportfolio-dash .p-datatable.p-datatable-thead > tr > th,
-    .datatable-postportfolio-dash .p-datatable.p-datatable-tfoot > tr > td {
-      display: none !important;
-    }
-  
-    .datatable-postportfolio-dash .p-datatable.p-datatable-tbody > tr {
-      border-bottom: 1px solid var(--layer-2);
-    }
-  
-    .datatable-postportfolio-dash .p-datatable.p-datatable-tbody > tr > td {
-      text-align: left;
-      display: block;
-      border: 0 none !important;
-      width: 100% !important;
-      float: left;
-      clear: left;
-      border: 0 none;
-    }
-  
-    .datatable-postportfolio-dash
-      .p-datatable.p-datatable-tbody
-      > tr
-      > td
-      .p-column-title {
-      padding: 0.4rem;
-      min-width: 30%;
-      display: inline-block;
-      margin: -0.4rem 1rem -0.4rem -0.4rem;
-      font-weight: bold;
-    }
-  
-    .datatable-postportfolio-dash
-      .p-datatable.p-datatable-tbody
-      > tr
-      > td
-      .p-progressbar {
-      margin-top: 0.5rem;
-    }
-  }
-  
+}

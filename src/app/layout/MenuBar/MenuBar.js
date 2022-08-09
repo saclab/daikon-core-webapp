@@ -16,7 +16,7 @@ const MenuBar = () => {
     else if (location.pathname.includes("/screen/")) setActiveIndex(2);
     else if (location.pathname.includes("/ha/")) setActiveIndex(3);
     else if (location.pathname.includes("/portfolio/")) setActiveIndex(4);
-    else if (location.pathname.includes("/postportfolio/")) setActiveIndex(5);
+    else if (location.pathname.includes("/post-portfolio/")) setActiveIndex(5);
   }, [location, setActiveIndex]);
 
   const items = [
@@ -49,7 +49,7 @@ const MenuBar = () => {
     {
       label: "Post-Portfolio",
       icon: "icon icon-common icon-drug",
-      command: () => navigate("postportfolio/"),
+      command: () => navigate("post-portfolio/"),
     },
 
     // { label: "Clinical", icon: "icon icon-conceptual icon-proteins" },
