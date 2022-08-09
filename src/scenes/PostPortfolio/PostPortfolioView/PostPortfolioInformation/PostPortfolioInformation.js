@@ -50,7 +50,7 @@ const PostPortfolioInformation = ({ id, project }) => {
             }
             targetName={project.targetName}
             displayHorizon={true}
-            color={appColors.sectionHeadingBg.portfolio}
+            color={appColors.sectionHeadingBg.postPortfolio}
           />
         </div>
         <div className="flex w-full">
