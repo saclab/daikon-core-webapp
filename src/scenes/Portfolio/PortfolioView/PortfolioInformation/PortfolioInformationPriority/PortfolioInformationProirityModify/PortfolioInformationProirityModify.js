@@ -67,12 +67,12 @@ const PortfolioInformationProirityModify = ({ closeSidebar }) => {
 
   if (!settingPriorityProbability && !loadingProject) {
     return (
-      <div className="form-demo">
+      <div className="flex flex-column w-full">
         <div>
           <h2>Team Settings</h2>
-          <div className="card">
+          <div className="card w-full">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="teamPriority"
                   className={classNames({
@@ -94,7 +94,7 @@ const PortfolioInformationProirityModify = ({ closeSidebar }) => {
                 {getFormErrorMessage("teamPriority")}
               </div>
 
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="teamProbability"
                   className={classNames({
