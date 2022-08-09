@@ -34,10 +34,20 @@
   font-weight: normal;
   min-width: 5rem;
 }
+
+.stage-tag .stage-Portfolio {
+  background-color: #64d777;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+
 .stage-tag .stage-Dotted {
   background-color: #e5e5f7;
   opacity: 0.8;
   background: repeating-linear-gradient( -45deg, #444cf7, #444cf7 1px, #A9CCE3 1px, #A9CCE3 5px );
   min-width: 5rem;
 }
+
 
