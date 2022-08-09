@@ -17,7 +17,7 @@ import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import { appColors } from '../../../colors';
 import FHADiscussion from './FHADiscussion/FHADiscussion';
 
-const FHAView = ({ match, history }) => {
+const FHAView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -95,7 +95,7 @@ const FHAView = ({ match, history }) => {
         label: "View Portfolio",
         icon: "icon icon-common icon-database-submit",
         command: (event) => {
-          history.push(`/portfolio/${selectedProject.id}`);
+          navigate(`/d/portfolio/${selectedProject.id}`);
         },
       });
     }
@@ -105,7 +105,7 @@ const FHAView = ({ match, history }) => {
         label: "Project Settings",
         icon: "icon icon-common icon-asterisk",
         command: () => {
-          history.push(`/project/${selectedProject.id}/settings/`);
+          navigate(`/project/${selectedProject.id}/settings/`);
         },
       });
     }
@@ -114,15 +114,7 @@ const FHAView = ({ match, history }) => {
 
     console.log("selectedProject");
     console.log(selectedProject);
-    const breadCrumbItems = [
-      {
-        label: "FHA",
-        command: () => {
-          history.push("/fha/");
-        },
-      },
-      { label: selectedProject.projectName },
-    ];
+    
 
     return (
       <React.Fragment>
