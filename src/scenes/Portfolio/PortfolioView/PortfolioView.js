@@ -181,47 +181,6 @@ const PortfolioView = ({ match, history }) => {
               />} />
             </Routes>
           </div>
-
-
-          {/* <div className="p-mr-2" style={{ width: "100vw" }}>
-            <div className="p-d-flex p-flex-column">
-              <div className="p-mb-2">
-                <BreadCrumb model={breadCrumbItems} />
-              </div>
-              <div className="p-mb-2">
-                <SectionHeading
-                  icon="icon icon-common icon-analyse"
-                  heading={
-                    selectedProject.projectName +
-                    " | " +
-                    selectedProject?.currentStage
-                  }
-                  targetName={selectedProject.targetName}
-                  displayHorizon={true}
-                  color={appColors.sectionHeadingBg.portfolio}
-                />
-              </div>
-              <div className="p-mb-2">
-                <TabView
-                  activeIndex={activeIndex}
-                  onTabChange={(e) => setActiveIndex(e.index)}
-                >
-                  <TabPanel header="Header I" headerClassName="hide">
-
-                  </TabPanel>
-                  <TabPanel header="Header II" headerClassName="hide">
-                    <PortfolioBaseHits project={selectedProject} />
-                  </TabPanel>
-                  <TabPanel header="Header III" headerClassName="hide">
-                    <Discussion
-                      reference={selectedProject?.targetName}
-                      section={"Portfolio"}
-                    />
-                  </TabPanel>
-                </TabView>
-              </div>
-            </div>
-          </div> */}
         </div>
         <Sidebar
           visible={displayLOPromotionDialog}
