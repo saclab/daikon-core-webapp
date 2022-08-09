@@ -59,17 +59,21 @@ const PortfolioInformation = ({ id, project }) => {
               <PortfolioInformationGeneralInformation project={project} />
             </Fieldset>
           </div>
-          <div className="flex">
-            <Fieldset legend="Project Dates">
-              <PortfolioInformationDates project={project} />
-            </Fieldset>
+          <div className="flex-column w-full">
+            <div className="flex w-full pb-2">
+              <Fieldset className="w-full" legend="Project Dates">
+                <PortfolioInformationDates project={project} />
+              </Fieldset>
+            </div>
+            <div className="flex w-full">
+              <Fieldset legend="Project Team P/P">
+                <PortfolioInformationPriority project={project} />
+              </Fieldset>
+            </div>
           </div>
+
         </div>
-        <div className="flex w-full">
-          <Fieldset legend="Project Team P/P">
-            <PortfolioInformationPriority project={project} />
-          </Fieldset>
-        </div>
+
         <div className="flex w-full">
           <Fieldset legend="Compound Evolution">
             <CompoundEvolutionTimeline project={project} />
