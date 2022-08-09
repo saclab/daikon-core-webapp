@@ -11,23 +11,20 @@ const PostPortfolioInformationGeneralInformation = ({ project }) => {
       : null;
 
   return (
-    <div>
-      <div style={{ width: "30rem", lineHeight: "50%" }}>
-        <div className="p-d-inline-flex">
-          <div className="p-mr-2" style={{ padding: "0.5rem" }}>
-            Current Stage :{" "}
-          </div>
-          <div className="p-mr-2">
-            <StageTag stage={project.currentStage} />
-          </div>
+    <div className="flex flex-column w-full">
+      <div className="flex align-content-center">
+        <div className="flex align-items-center justify-content-center mr-1">
+          Current Stage :{" "}
         </div>
-        <div style={{ width: "30rem", lineHeight: "100%" }}>
-          <p>{project.indDescription ? '(IND) ' + project.indDescription : ''}</p>
-          <p>{project.clinicalP1Description ? '(P1) ' + project.clinicalP1Description : ''}</p>
-
-
+        <div className="flex align-items-center justify-content-center">
+          <StageTag stage={project.currentStage} />
         </div>
-
+      </div>
+      <div className="flex flex-column" style={{ width: "30rem", lineHeight: "100%" }}>
+        <div className="flex">{project.indDescription ? '(IND) ' + project.indDescription : ''}</div>
+        <div className="flex">{project.clinicalP1Description ? '(P1) ' + project.clinicalP1Description : ''}</div>
+      </div>
+      <div className="flex flex-column">
         <p>Expanded Id : {project.id}</p>
         <p>Target: <b>{project.targetName}</b></p>
         <p>Status : <b>{project.status}</b></p>
@@ -35,7 +32,7 @@ const PostPortfolioInformationGeneralInformation = ({ project }) => {
         <p>Supporting Orgs :</p>
         <div style={{ marginLeft: "1rem" }}> <b>{displaySupportingOrgs}</b></div>
       </div>
-    </div>
+    </div >
   );
 };
 
