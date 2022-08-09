@@ -98,7 +98,7 @@ const PortfolioDash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Id</span>
 
-        <NavLink to={"/portfolio/" + rowData.id}>
+        <NavLink to={"./" + rowData.id}>
           {rowData.id.substring(0, 8)}
         </NavLink>
       </React.Fragment>
@@ -110,7 +110,7 @@ const PortfolioDash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
         <b>
-          <NavLink to={"/portfolio/" + rowData.id}>
+          <NavLink to={"./" + rowData.id}>
             {rowData.projectName}
           </NavLink>
         </b>
@@ -205,22 +205,25 @@ const PortfolioDash = () => {
 
   if (!loadingProjects) {
     return (
-      <div className="datatable-portfolio-dash">
-        <SectionHeading
-          icon="icon icon-common icon-analyse"
-          heading="Portfolio"
-          color={appColors.sectionHeadingBg.portfolio}
-        />
-        <div className="card">
+      <div className="flex flex-column w-full fadein animation-duration-500">
+        <div className="flex w-full">
+          <SectionHeading
+            icon="icon icon-common icon-analyse"
+            heading="Portfolio"
+            color={appColors.sectionHeadingBg.portfolio}
+          />
+        </div>
+        <div className="flex w-full">
           <DataTable
             ref={dt}
             value={filterPortfolioProjects()}
             paginator
             rows={10}
             // header={header}
-            className="p-datatable-targets"
+            className="w-full datatable-portfolio-dash"
             //globalFilter={globalFilter}
             emptyMessage="No projects found."
+            filterDisplay="row"
           >
             <Column
               field="id"
@@ -283,6 +286,9 @@ const PortfolioDash = () => {
               filterElement={stageFilter}
             />
           </DataTable>
+        </div>
+        <div className="card">
+
         </div>
       </div>
     );
