@@ -19,6 +19,8 @@ import FHAView from "../../scenes/FHA/FHAView/FHAView";
 
 import PortfolioDash from "../../scenes/Portfolio/PortfolioDash/PortfolioDash";
 import PortfolioView from "../../scenes/Portfolio/PortfolioView/PortfolioView";
+import PostPortfolioDash from '../../scenes/PostPortfolio/PostPortfolioDash/PostPortfolioDash';
+import PostPortfolioView from '../../scenes/PostPortfolio/PostPortfolioView/PostPortfolioView';
 
 const AppDefault = () => {
 
@@ -51,6 +53,10 @@ const AppDefault = () => {
           {/* Portfolio Routes */}
           <Route path="portfolio" element={<PortfolioDash />} />
           <Route path="portfolio/:id/*" element={<PortfolioView />} />
+
+          {/* Post Portfolio Routes */}
+          <Route path="post-portfolio" element={<PostPortfolioDash />} />
+          <Route path="post-portfolio/:id/*" element={<PostPortfolioView />} />
 
         </Routes>
 
