@@ -28,7 +28,7 @@ const AppDefault = () => {
       <div className="block mb-2">
         <MenuBar />
       </div>
-      <div className='flex ml-6 mr-6 fadein animation-duration-1000'>
+      <div className='flex ml-3 mr-3 fadein animation-duration-1000'>
         <Routes>
           <Route index element={<Home />} />
           {/* Gene Routes */}
