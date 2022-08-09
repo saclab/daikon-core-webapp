@@ -12,19 +12,19 @@ const PortfolioInformationGeneralInformation = ({ project }) => {
 
   return (
     <div className="flex flex-column w-full">
-      <div className="flex" style={{ width: "30rem", lineHeight: "50%" }}>
-        <div className="flex">
-          Current Stage :
+      <div className="flex align-content-center">
+        <div className="flex align-items-center justify-content-center mr-1">
+          Current Stage : 
         </div>
-        <div className="flex">
+        <div className="flex align-items-center justify-content-center">
           <StageTag stage={project.currentStage} />
         </div>
       </div>
 
       <div className="flex flex-column" style={{ width: "30rem", lineHeight: "100%" }}>
-        <p>{project.h2LDescription ? '(H2L) ' + project.h2LDescription : ''}</p>
-        <p>{project.loDescription ? '(LO) ' + project.loDescription : ''}</p>
-        <p>{project.spDescription ? '(SP) ' + project.spDescription : ''}</p>
+        <div className="flex">{project.h2LDescription ? '(H2L) ' + project.h2LDescription : ''}</div>
+        <div className="flex">{project.loDescription ? '(LO) ' + project.loDescription : ''}</div>
+        <div className="flex">{project.spDescription ? '(SP) ' + project.spDescription : ''}</div>
       </div>
 
       <div className="flex flex-column">
