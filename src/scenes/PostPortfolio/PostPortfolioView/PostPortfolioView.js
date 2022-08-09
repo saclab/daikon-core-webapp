@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
+import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { TabView, TabPanel } from "primereact/tabview";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
@@ -18,6 +19,9 @@ import { appColors } from '../../../colors';
 
 
 const PostPortfolioView = ({ match, history }) => {
+  const params = useParams();
+  const navigate = useNavigate();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayP1PromotionDialog, setDisplayP1PromotionDialog] =
     useState(false);
@@ -33,12 +37,12 @@ const PostPortfolioView = ({ match, history }) => {
 
   useEffect(() => {
     console.log("EFFECT");
-    console.log(match.params.id);
-    if (selectedProject === null || selectedProject.id !== match.params.id) {
-      console.log("Will fetch from store" + match.params.id);
-      fetchProject(match.params.id);
+    console.log(params.id);
+    if (selectedProject === null || selectedProject.id !== params.id) {
+      console.log("Will fetch from store" + params.id);
+      fetchProject(params.id);
     }
-  }, [match.params.id, selectedProject, fetchProject]);
+  }, [params.id, selectedProject, fetchProject]);
 
   /** Loading Overlay */
   if (loadingProject) {
@@ -49,7 +53,7 @@ const PostPortfolioView = ({ match, history }) => {
   if (
     !loadingProject &&
     selectedProject !== null &&
-    selectedProject.id === match.params.id
+    selectedProject.id === params.id
   ) {
     const sideMenuItems = [
       {
@@ -59,21 +63,21 @@ const PostPortfolioView = ({ match, history }) => {
             label: "Post Portfolio Information",
             icon: "icon icon-common icon-analyse",
             command: () => {
-              setActiveIndex(0);
+              navigate("information/");
             },
           },
           {
             label: "Base Hits",
             icon: "icon icon-conceptual icon-structures-3d",
             command: () => {
-              setActiveIndex(1);
+              navigate("base-hits/");
             },
           },
           {
             label: "Discussion",
             icon: "ri-discuss-line",
             command: () => {
-              setActiveIndex(2);
+              navigate("discussion/");
             },
           },
         ],
@@ -133,8 +137,29 @@ const PostPortfolioView = ({ match, history }) => {
     return (
       <React.Fragment>
         <Toast ref={toast} />
-        <br />
-        <div className="p-d-flex">
+        <div className="flex gap-2 w-full">
+          <div className="flex">
+            <Menu model={sideMenuItems} />
+          </div>
+          <div className="flex w-full">
+            <Routes>
+              <Route index element={<Navigate replace to="information/" />} />
+              <Route path="information/" element={<PostPortfolioInformation
+                      id={params.id}
+                      project={selectedProject}
+                    />} />
+              <Route path="base-hits/" element={<PostPortfolioBaseHits project={selectedProject} />} />
+
+              {/* <Route path="discussion" element={<PortfolioDiscussion
+                project={selectedProject}
+              />} /> */}
+            </Routes>
+          </div>
+        </div>
+
+
+
+        {/* <div className="p-d-flex">
           <div className="p-mr-2">
             <Menu model={sideMenuItems} />
           </div>
@@ -159,11 +184,11 @@ const PostPortfolioView = ({ match, history }) => {
               <div className="p-mb-2">
                 <TabView
                   activeIndex={activeIndex}
-                  onTabChange={(e) => setActiveIndex(e.index)}
+                  onTabChange={(e) => navigate(""e.index)}
                 >
                   <TabPanel header="Header I" headerClassName="hide">
                     <PostPortfolioInformation
-                      id={match.params.id}
+                      id={params.id}
                       project={selectedProject}
                     />
                   </TabPanel>
@@ -180,7 +205,7 @@ const PostPortfolioView = ({ match, history }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <Sidebar
           visible={displayP1PromotionDialog}
           position="right"
