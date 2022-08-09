@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
+import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
@@ -19,6 +20,9 @@ import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioProm
 import { appColors } from '../../../colors';
 
 const PortfolioView = ({ match, history }) => {
+  const params = useParams();
+  const navigate = useNavigate();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayLOPromotionDialog, setDisplayLOPromotionDialog] =
     useState(false);
@@ -36,12 +40,12 @@ const PortfolioView = ({ match, history }) => {
 
   useEffect(() => {
     console.log("EFFECT");
-    console.log(match.params.id);
-    if (selectedProject === null || selectedProject.id !== match.params.id) {
-      console.log("Will fetch from store" + match.params.id);
-      fetchProject(match.params.id);
+    console.log(params.id);
+    if (selectedProject === null || selectedProject.id !== params.id) {
+      console.log("Will fetch from store" + params.id);
+      fetchProject(params.id);
     }
-  }, [match.params.id, selectedProject, fetchProject]);
+  }, [params.id, selectedProject, fetchProject]);
 
   /** Loading Overlay */
   if (loadingProject) {
@@ -52,7 +56,7 @@ const PortfolioView = ({ match, history }) => {
   if (
     !loadingProject &&
     selectedProject !== null &&
-    selectedProject.id === match.params.id
+    selectedProject.id === params.id
   ) {
     const sideMenuItems = [
       {
@@ -62,21 +66,21 @@ const PortfolioView = ({ match, history }) => {
             label: "Portfolio Information",
             icon: "icon icon-common icon-analyse",
             command: () => {
-              setActiveIndex(0);
+              navigate('information/');
             },
           },
           {
             label: "Base Hits",
             icon: "icon icon-conceptual icon-structures-3d",
             command: () => {
-              setActiveIndex(1);
+              navigate('base-hits/');
             },
           },
           {
             label: "Discussion",
             icon: "ri-discuss-line",
             command: () => {
-              setActiveIndex(2);
+              navigate('discussion/');
             },
           },
         ],
@@ -125,7 +129,7 @@ const PortfolioView = ({ match, history }) => {
         label: "View Post Portfolio",
         icon: "icon icon-common icon-database-submit",
         command: (event) => {
-          history.push(`/postportfolio/${selectedProject.id}`);
+          navigate(`/d/post-portfolio/${selectedProject.id}`);
         },
       });
     }
@@ -135,7 +139,7 @@ const PortfolioView = ({ match, history }) => {
         label: "Project Settings",
         icon: "icon icon-common icon-asterisk",
         command: () => {
-          history.push(`/project/${selectedProject.id}/settings/`);
+          navigate(`/project/${selectedProject.id}/settings/`);
         },
       });
     }
@@ -147,7 +151,7 @@ const PortfolioView = ({ match, history }) => {
       {
         label: "Portfolio",
         command: () => {
-          history.push("/portfolio/");
+          navigate("/portfolio/");
         },
       },
       { label: selectedProject.projectName },
@@ -157,11 +161,28 @@ const PortfolioView = ({ match, history }) => {
       <React.Fragment>
         <Toast ref={toast} />
         <br />
-        <div className="p-d-flex">
-          <div className="p-mr-2">
+        <div className="flex gap-2 w-full">
+          <div className="flex">
             <Menu model={sideMenuItems} />
           </div>
-          <div className="p-mr-2" style={{ width: "100vw" }}>
+
+          <div className="flex w-full">
+            <Routes>
+              <Route index element={<Navigate replace to="information/" />} />
+              <Route path="information/" element={<PortfolioInformation
+                id={params.id}
+                project={selectedProject}
+              />} />
+              <Route path="base-hits/" element={<PortfolioBaseHits project={selectedProject} />} />
+
+              <Route path="discussion" element={<PortfolioBaseHits
+                project={selectedProject}
+              />} />
+            </Routes>
+          </div>
+
+
+          {/* <div className="p-mr-2" style={{ width: "100vw" }}>
             <div className="p-d-flex p-flex-column">
               <div className="p-mb-2">
                 <BreadCrumb model={breadCrumbItems} />
@@ -185,10 +206,7 @@ const PortfolioView = ({ match, history }) => {
                   onTabChange={(e) => setActiveIndex(e.index)}
                 >
                   <TabPanel header="Header I" headerClassName="hide">
-                    <PortfolioInformation
-                      id={match.params.id}
-                      project={selectedProject}
-                    />
+
                   </TabPanel>
                   <TabPanel header="Header II" headerClassName="hide">
                     <PortfolioBaseHits project={selectedProject} />
@@ -202,7 +220,7 @@ const PortfolioView = ({ match, history }) => {
                 </TabView>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <Sidebar
           visible={displayLOPromotionDialog}
