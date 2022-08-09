@@ -188,24 +188,27 @@ const PostPortfolioDash = () => {
     return <Loading />;
   }
 
-  
+
 
   if (!loadingProjects) {
     return (
-      <div className="datatable-portfolio-dash">
-        <SectionHeading
-          icon="icon icon-common icon-drug"
-          heading="Post Portfolio"
-          color={appColors.sectionHeadingBg.postPortfolio}
-        />
-        <div className="card">
+      <div className="flex flex-column w-full fadein animation-duration-500">
+        <div className="flex w-full">
+          <SectionHeading
+            icon="icon icon-common icon-drug"
+            heading="Post Portfolio"
+            color={appColors.sectionHeadingBg.postPortfolio}
+          />
+        </div>
+
+        <div className="flex w-full">
           <DataTable
             ref={dt}
             value={filterPostPortfolioProjects()}
             paginator
             rows={10}
             // header={header}
-            className="p-datatable-targets"
+            className="w-full datatable-postportfolio-dash"
             //globalFilter={globalFilter}
             emptyMessage="No projects found."
           >
