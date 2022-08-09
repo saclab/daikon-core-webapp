@@ -8,17 +8,17 @@ const PortfolioInformationPriority = ({ project }) => {
 
   return (
     <React.Fragment>
-      <div className="p-d-flex" style={{ height: "45px" }}>
+      <div className="flex">
         <div
-          className="p-mr-2"
-          style={{ textAlign: "center", lineHeight: "0.5", width: "50%" }}
+          className="flex flex-column m-3 p-3"
+          style={{ textAlign: "center", lineHeight: "0.5" }}
         >
           Priority
           <h3>{project.teamPriority}</h3>
         </div>
         <div
-          className="p-mr-2"
-          style={{ textAlign: "center", lineHeight: "0.5", width: "50%" }}
+          className="flex flex-column m-3 p-3"
+          style={{ textAlign: "center", lineHeight: "0.5"}}
         >
           Probability
           <h3>{project.teamProbability}</h3>
@@ -26,7 +26,7 @@ const PortfolioInformationPriority = ({ project }) => {
         <Button
           icon="pi pi-arrow-left"
           onClick={() => setVisible(true)}
-          className="p-mr-2"
+          className="flex m-2"
         />
       </div>
 
