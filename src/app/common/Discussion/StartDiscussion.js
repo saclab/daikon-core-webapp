@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { Editor } from 'primereact/editor';
 
 const StartDiscussion = ({
   section,
@@ -39,19 +40,24 @@ const StartDiscussion = ({
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           style={{ width: "100%" }}
-          readonly={postingDiscussion}
+          readOnly={postingDiscussion}
         />
 
         <h3>Description</h3>
         <p>Include detailed information that is relevant to the topic</p>
-        <InputTextarea
+        {/* <InputTextarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={10}
           style={{ width: "100%" }}
           autoResize
           readonly={postingDiscussion}
-        />
+        /> */}
+        <Editor
+          style={{ height: '320px' }}
+          value={description} 
+          onTextChange={(e) => {console.log(e.htmlValue); setDescription(e.htmlValue)}}
+          readOnly={postingDiscussion} />
 
         {/* <h3>Tag Users?</h3>
         <Mention
