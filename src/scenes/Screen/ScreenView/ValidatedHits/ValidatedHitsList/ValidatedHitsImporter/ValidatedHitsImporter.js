@@ -1,16 +1,21 @@
 import React, { useState, useContext } from "react";
 import _ from "lodash";
-import { CSVReader } from "react-papaparse";
+import { useCSVReader } from 'react-papaparse';
 import { observer } from "mobx-react-lite";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { ProgressBar } from "primereact/progressbar";
-import { Tag } from "primereact/tag";
+import { Chip } from 'primereact/chip';
+
 
 import { RootStoreContext } from "../../../../../../app/stores/rootStore";
 
 const ValidatedHitsImporter = ({ screenId }) => {
+
+  const { CSVReader } = useCSVReader();
+
+
   const [hits, setHits] = useState([]);
   const [displayCSVImporter, setDisplayCSVImporter] = useState(true);
   const [displayPreview, setDisplayPreview] = useState(false);
@@ -19,6 +24,31 @@ const ValidatedHitsImporter = ({ screenId }) => {
   const [importingLogs, setImportingLogs] = useState(null);
   const [successList, setSuccessList] = useState([]);
   const [failedList, setFailedList] = useState([]);
+
+  const styles = {
+    csvReader: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginBottom: 10,
+    },
+    browseFile: {
+      width: '20%',
+    },
+    acceptedFile: {
+      border: '1px solid #ccc',
+      height: 45,
+      lineHeight: 2.5,
+      paddingLeft: 10,
+      width: '80%',
+    },
+    remove: {
+      borderRadius: 0,
+      padding: '0 20px',
+    },
+    progressBarBackgroundColor: {
+      backgroundColor: 'red',
+    },
+  };
 
 
   /* MobX Store */
@@ -31,30 +61,30 @@ const ValidatedHitsImporter = ({ screenId }) => {
     console.log("---------------------------");
   };
 
-  let handleOnDrop = (data) => {
+  let handleOnDrop = (r) => {
     console.log("---------------------------");
-    console.log(data);
+    console.log(r.data);
 
     console.log("---------------------------");
     var index = 1;
-    data.forEach((hit) => {
+
+    r.data.forEach((hit) => {
       console.log(hit);
-
-
+      if (typeof (hit.Id) === 'undefined' || hit.Id === '') return;
 
       hits.push({
         Index: index,
         ScreenId: screenId,
-        Source: hit.data?.Source,
-        Library: hit.data?.Library,
-        ExternalCompoundIds: hit.data?.ExternalCompoundIds,
-        IC50: _.toNumber(hit.data?.IC50) ? _.round(hit.data?.IC50, 2) : 0,
-        Method: hit.data?.Method,
-        MIC: _.toNumber(hit.data?.MIC) ? _.round(hit.data?.MIC, 2) : 0,
-        ClusterGroup: hit.data?.ClusterGroup,
-        Smile: hit.data?.Smile,
-        MolWeight: hit.data?.MolWeight,
-        MolArea: hit.data?.MolArea,
+        Source: hit?.Source,
+        Library: hit?.Library,
+        ExternalCompoundIds: hit?.Id,
+        IC50: _.toNumber(hit?.IC50) ? _.round(hit?.IC50, 2) : 0,
+        Method: hit?.Method,
+        MIC: _.toNumber(hit?.MIC) ? _.round(hit?.MIC, 2) : 0,
+        ClusterGroup: hit?.ClusterGroup,
+        Smile: hit?.Smile,
+        MolWeight: hit?.MolWeight,
+        MolArea: hit?.MolArea,
       });
       index = index + 1;
     });
@@ -98,33 +128,61 @@ const ValidatedHitsImporter = ({ screenId }) => {
 
   let csvImporter = (
     <React.Fragment>
-      <h2>Step 1 : CSV Import</h2>
+      <h2>Step 1 : Import Validated Hits from CSV</h2>
       <CSVReader
-        onDrop={handleOnDrop}
-        onError={handleOnError}
+        onUploadAccepted={(r) => handleOnDrop(r)}
+        // onError={handleOnError}
         noDrag
-        style={{}}
         config={{ header: true }}
-        addRemoveButton
-        onRemoveFile={handleOnRemoveFile}
+      // addRemoveButton
+      // onRemoveFile={handleOnRemoveFile}
       >
-        <h1
-          className="size-400 icon icon-fileformats icon-spacer"
-          data-icon="c"
-        ></h1>
-        <h2>Select CSV Data source for Validated hits.</h2>
-        <div className="card">
-          The data should have the following headers:
-          <br />
-          <br />
-          <Tag value="Source"></Tag> <Tag value="Library"></Tag>{" "}
-          <Tag value="Method"></Tag> <Tag value="Id"></Tag>{" "}
-          <Tag value="MIC"></Tag> <Tag value="ClusterGroup"></Tag>{" "}
-          <Tag value="Smile"></Tag>{" "}
-        </div>
+        {({
+          getRootProps,
+          acceptedFile,
+          ProgressBar,
+          getRemoveFileProps,
+        }) => (
+          <div className="flex flex-column justify-content-center gap-2 border-400 border-dashed border-round-md  border-1 m-2 p-3">
+            <div className="flex align-items-center justify-content-center">
+              <h1
+                className="size-400 icon icon-fileformats icon-spacer"
+                data-icon="c"
+              ></h1>
+            </div>
+            <div className="flex align-items-center justify-content-center">
+              {!acceptedFile ? <Button  className="w-max p-button-secondary pl-5 pr-5" type='button' {...getRootProps()}>
+                Select CSV File to upload
+              </Button> : acceptedFile.name}
+
+            </div>
+            <div className="flex" style={styles.progressBar}>
+              <ProgressBar />
+            </div>
+            {!acceptedFile &&
+              <div className="flex flex-column align-items-center justify-content-center gap-2">
+                <div className="flex">
+                  The CSV should contain the following headers:
+                </div>
+                <div className="flex gap-1">
+                <Chip label="Source" />
+                <Chip label="Library" />
+                <Chip label="Method" />
+                <Chip label="Id" />
+                <Chip label="MIC" />
+                <Chip label="IC50" />
+                <Chip label="ClusterGroup" />
+                <Chip label="Smile" />
+                </div>
+              </div>}
+          </div>
+        )}
+
+
       </CSVReader>
-    </React.Fragment>
+    </React.Fragment >
   );
+
 
   let dataPreview = (
     <React.Fragment>
@@ -135,7 +193,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
           <Column field="Index" header="Index"></Column>
           <Column field="Source" header="Source"></Column>
           <Column field="Library" header="Library"></Column>
-          <Column field="ExternalCompoundIds" header="Ids"></Column>
+          <Column field="ExternalCompoundIds" header="Id"></Column>
           <Column field="Method" header="Method"></Column>
           <Column field="MIC" header="MIC"></Column>
           <Column field="IC50" header="IC50"></Column>
