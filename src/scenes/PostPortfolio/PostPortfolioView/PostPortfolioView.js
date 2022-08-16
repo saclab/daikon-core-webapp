@@ -16,6 +16,7 @@ import PostPortfolioBaseHits from './PostPortfolioBaseHits/PostPortfolioBaseHits
 import PostPortfolioInformation from './PostPortfolioInformation/PostPortfolioInformation';
 import PostPortfolioPromotionsPromoteToP1 from "./PostPortfolioPromotions/PostPortfolioPromotionsPromoteToP1";
 import { appColors } from '../../../colors';
+import PostPortfolioDiscussion from './PostPortfolioDiscussion/PostPortfolioDiscussion';
 
 
 const PostPortfolioView = ({ match, history }) => {
@@ -145,14 +146,14 @@ const PostPortfolioView = ({ match, history }) => {
             <Routes>
               <Route index element={<Navigate replace to="information/" />} />
               <Route path="information/" element={<PostPortfolioInformation
-                      id={params.id}
-                      project={selectedProject}
-                    />} />
+                id={params.id}
+                project={selectedProject}
+              />} />
               <Route path="base-hits/" element={<PostPortfolioBaseHits project={selectedProject} />} />
 
-              {/* <Route path="discussion" element={<PortfolioDiscussion
+              <Route path="discussion" element={<PostPortfolioDiscussion
                 project={selectedProject}
-              />} /> */}
+              />} />
             </Routes>
           </div>
         </div>
