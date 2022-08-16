@@ -2,25 +2,25 @@ import React from 'react'
 import { observer } from "mobx-react-lite";
 import { Route, Routes } from 'react-router-dom'
 import MenuBar from './MenuBar/MenuBar'
-import Home from '../../scenes/Home/Home';
+import Home from '../../scene-d/Home/Home';
 
-import GeneSearch from '../../scenes/Gene/GeneSearch/GeneSearch'
-import GeneView from '../../scenes/Gene/GeneView/GeneView';
-import GenomePromote from "../../scenes/Gene/GenomePromote/GenomePromote";
+import GeneSearch from '../../scene-d/Gene/GeneSearch/GeneSearch'
+import GeneView from '../../scene-d/Gene/GeneView/GeneView';
+import GenomePromote from "../../scene-d/Gene/GenomePromote/GenomePromote";
 
-import TargetDash from '../../scenes/Target/TargetDash/TargetDash';
-import TargetView from '../../scenes/Target/TargetView/TargetView';
+import TargetDash from '../../scene-d/Target/TargetDash/TargetDash';
+import TargetView from '../../scene-d/Target/TargetView/TargetView';
 
-import ScreenDash from "../../scenes/Screen/ScreenDash/ScreenDash";
-import ScreenView from "../../scenes/Screen/ScreenView/ScreenView";
+import ScreenDash from "../../scene-d/Screen/ScreenDash/ScreenDash";
+import ScreenView from "../../scene-d/Screen/ScreenView/ScreenView";
 
-import FHADash from '../../scenes/FHA/FHADash/FHADash';
-import FHAView from "../../scenes/FHA/FHAView/FHAView";
+import FHADash from '../../scene-d/FHA/FHADash/FHADash';
+import FHAView from "../../scene-d/FHA/FHAView/FHAView";
 
-import PortfolioDash from "../../scenes/Portfolio/PortfolioDash/PortfolioDash";
-import PortfolioView from "../../scenes/Portfolio/PortfolioView/PortfolioView";
-import PostPortfolioDash from '../../scenes/PostPortfolio/PostPortfolioDash/PostPortfolioDash';
-import PostPortfolioView from '../../scenes/PostPortfolio/PostPortfolioView/PostPortfolioView';
+import PortfolioDash from "../../scene-d/Portfolio/PortfolioDash/PortfolioDash";
+import PortfolioView from "../../scene-d/Portfolio/PortfolioView/PortfolioView";
+import PostPortfolioDash from '../../scene-d/PostPortfolio/PostPortfolioDash/PostPortfolioDash';
+import PostPortfolioView from '../../scene-d/PostPortfolio/PostPortfolioView/PostPortfolioView';
 
 const AppDefault = () => {
 
