@@ -13,7 +13,7 @@ const PortfolioDiscussion = ({ project }) => {
     {
       label: "Portfolio",
       command: () => {
-        navigate("/d/screen/");
+        navigate("/d/portfolio/");
       },
     },
     {
