@@ -140,7 +140,7 @@ const PortfolioView = ({ match, history }) => {
         label: "Project Settings",
         icon: "icon icon-common icon-asterisk",
         command: () => {
-          navigate(`/project/${selectedProject.id}/settings/`);
+          navigate(`/pm/project/${selectedProject.id}/settings/`);
         },
       });
     }
