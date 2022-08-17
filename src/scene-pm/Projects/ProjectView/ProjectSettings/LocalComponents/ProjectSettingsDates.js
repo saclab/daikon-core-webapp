@@ -132,7 +132,7 @@ const ProjectSettingsDates = ({ project }) => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <div className="card w-full">
         <form onSubmit={formik.handleSubmit} className="p-fluid">
           {/* FHA DATES */}
@@ -166,7 +166,7 @@ const ProjectSettingsDates = ({ project }) => {
               </Inplace>
               {getFormErrorMessage("fhaStart")}
             </div>
-            
+
               <div className="field grid">
                 <label
                   htmlFor="fhaPredictedStart"
@@ -508,15 +508,16 @@ const ProjectSettingsDates = ({ project }) => {
                 </Inplace>
                 {getFormErrorMessage("clinicalP1PredictedStart")}
               </div></>}
-
-          <Button
-            icon="icon icon-common icon-database-submit"
-            type="submit"
-            label="Save Date Changes"
-            className="p-mt-2"
-            style={{ width: "300px" }}
-            loading={editingProject}
-          />
+          <div className="field grid">
+            <Button
+              icon="icon icon-common icon-database-submit"
+              type="submit"
+              label="Save Date Changes"
+              className="p-button-secondary"
+              style={{ width: "20rem" }}
+              loading={editingProject}
+            />
+          </div>
         </form>
       </div>
 
@@ -559,7 +560,7 @@ const ProjectSettingsDates = ({ project }) => {
           "clinicalP1Description",
         ]} /> */}
 
-    </div>
+    </React.Fragment>
   );
 };
 

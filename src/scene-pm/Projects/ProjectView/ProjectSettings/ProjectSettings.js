@@ -78,13 +78,13 @@ const ProjectSettings = ({ id, project }) => {
               }
               targetName={project.targetName}
               displayHorizon={true}
-              color={appColors.sectionHeadingBg.portfolio}
+              color={appColors.sectionHeadingBg.project}
             />
           </div>
 
           <div className="flex w-full gap-2">
             <div className="flex">
-              <Fieldset legend="Project Information">
+              <Fieldset className="w-full" legend="Project Information">
                 <ProjectSettingsGeneralInformation project={selectedProject} />
               </Fieldset>
             </div>

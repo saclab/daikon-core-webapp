@@ -76,19 +76,20 @@ const ProjectSettingsTerminate = ({ project }) => {
       <Button label="Terminate" className="p-button-outlined p-button-danger" onClick={() => { setTermTextValue(''); setVisibleTerminationDialog(true) }} />
     </div>
       <Dialog visible={visibleTerminationDialog} style={{ width: '700px' }} onHide={() => setVisibleTerminationDialog(false)}
-        header="Terminate Project Confirmation" icon="pi pi-exclamation-triangle" >
-        Type '<b>{project.projectName}</b>' in the text box and click 'Terminate' to terminate the project.
+        header="Terminate Project Confirmation" icon="icon icon-common icon-minus-circle" >
+        Type <b>{project.projectName}</b>' in the text box and click 'Terminate' to terminate the project.
         <br />
         <br />
-        <div className="p-formgroup-inline">
-          <div className="p-field">
-            <InputText value={termTextValue} onChange={(e) => checkTermText(e.target.value)} />
+        <div className="formgroup">
+          <div className="field w-full">
+            <InputText className="w-full" value={termTextValue} onChange={(e) => checkTermText(e.target.value)} />
           </div>
-          <div className="p-field">
+          <div className="field">
             <Button label="Terminate"
               className="p-button-outlined p-button-danger"
               disabled={!activateTerminateButton}
               loading={terminatingProject}
+              icon="icon icon-common icon-minus-circle"
               onClick={() => terminateProject(project)} />
           </div>
         </div>
