@@ -5,7 +5,7 @@ import { classNames } from "primereact/utils";
 import { Dropdown } from "primereact/dropdown";
 import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
 
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 
 

@@ -42,6 +42,33 @@ const TitleBarSidePanel = ({ toggle, user }) => {
     </div>
   );
 
+  const pmTools = (
+    <div className="flex flex-column">
+
+      <div className="flex">
+        <div className="flex"> <h4>+ Project Management</h4></div>
+        <div className="flex"> <Divider type="dashed" /></div>
+      </div>
+
+      <div className="flex">
+        <div className="card">
+          <Button
+            type="button"
+            label="Project Management Dashboard"
+            icon="icon icon-common icon-asterisk"
+            className="p-mr-2 p-mb-2 p-button-text p-button-plain p-button-sm"
+            onClick={() => {
+              toggle();
+              setAppView("ProjectManagement");
+              navigate("/pm");
+            }}
+          />
+        </div>
+      </div>
+
+    </div>
+  );
+
   return (
     <div className="flex flex-column">
 
@@ -66,8 +93,7 @@ const TitleBarSidePanel = ({ toggle, user }) => {
       </div>
 
       <div className="flex">
-        <div className="flex"> <h4>+ Project Management Tools</h4></div>
-        <div className="flex"> <Divider type="dashed" /></div>
+        {pmTools}
       </div>
 
 

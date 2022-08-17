@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { RootStoreContext } from '../../../../app/stores/rootStore';
+import { RootStoreContext } from '../../../../../app/stores/rootStore';
 
 
 
