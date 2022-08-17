@@ -65,12 +65,12 @@ const ProjectSettingsDescriptions = ({ project }) => {
   };
 
   return (
-    <div className="p-fluid p-formgrid p-grid">
-      <form onSubmit={formik.handleSubmit} style={{ paddingLeft: "50px" }}>
+    <div className="card w-full">
+      <form onSubmit={formik.handleSubmit} className="p-fluid">
         {/* FHA Description */}
         {project.fhaEnabled &&
           <>
-            <div className="p-field p-grid">
+            <div className="field grid">
               <label
                 htmlFor="fhaDescription"
                 style={{ width: '250px' }}
@@ -90,7 +90,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="fhaDescription"
                     value={formik.values.fhaDescription}
                     onChange={formik.handleChange}
-                    style={{ width: '500px' }}
+                    style={{ width: "40rem" }}
                     rows={5} cols={30}
                     autoResize
                     className={classNames({
@@ -107,7 +107,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
         {/* H2L Description */}
         {project.h2LEnabled &&
           <>
-            <div className="p-field p-grid">
+            <div className="field grid">
               <label
                 htmlFor="h2LDescription"
                 style={{ width: '250px' }}
@@ -127,7 +127,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="h2LDescription"
                     value={formik.values.h2LDescription}
                     onChange={formik.handleChange}
-                    style={{ width: '500px' }}
+                    style={{ width: '40rem' }}
                     rows={5} cols={30}
                     autoResize
                     className={classNames({
@@ -143,7 +143,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
         {/* lo Description */}
         {project.loEnabled &&
           <>
-            <div className="p-field p-grid">
+            <div className="field grid">
               <label
                 htmlFor="loDescription"
                 style={{ width: '250px' }}
@@ -163,7 +163,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="loDescription"
                     value={formik.values.loDescription}
                     onChange={formik.handleChange}
-                    style={{ width: '500px' }}
+                    style={{ width: '40rem' }}
                     rows={5} cols={30}
                     autoResize
                     className={classNames({
@@ -179,7 +179,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
         {/* sp Description */}
         {project.spEnabled &&
           <>
-            <div className="p-field p-grid">
+            <div className="field grid">
               <label
                 htmlFor="spDescription"
                 style={{ width: '250px' }}
@@ -199,7 +199,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="spDescription"
                     value={formik.values.spDescription}
                     onChange={formik.handleChange}
-                    style={{ width: '500px' }}
+                    style={{ width: '40rem' }}
                     rows={5} cols={30}
                     autoResize
                     className={classNames({
@@ -215,7 +215,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
         {/* ind Description */}
         {project.indEnabled &&
           <>
-            <div className="p-field p-grid">
+            <div className="field grid">
               <label
                 htmlFor="indDescription"
                 style={{ width: '250px' }}
@@ -235,7 +235,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="indDescription"
                     value={formik.values.indDescription}
                     onChange={formik.handleChange}
-                    style={{ width: '500px' }}
+                    style={{ width: '40rem' }}
                     rows={5} cols={30}
                     autoResize
                     className={classNames({
@@ -251,7 +251,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
         {/* clinicalP1 Description */}
         {project.clinicalP1Enabled &&
           <>
-            <div className="p-field p-grid">
+            <div className="field grid">
               <label
                 htmlFor="clinicalP1Description"
                 style={{ width: '250px' }}
@@ -271,7 +271,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="clinicalP1Description"
                     value={formik.values.clinicalP1Description}
                     onChange={formik.handleChange}
-                    style={{ width: '500px' }}
+                    style={{ width: '40rem' }}
                     rows={5} cols={30}
                     autoResize
                     className={classNames({
@@ -284,15 +284,16 @@ const ProjectSettingsDescriptions = ({ project }) => {
           </>
         }
 
-
-        <Button
-          icon="icon icon-common icon-database-submit"
-          type="submit"
-          label="Save Description Changes"
-          className="p-mt-2"
-          style={{ width: "300px" }}
-          loading={editingProject}
-        />
+        <div className="field grid">
+          <Button
+            icon="icon icon-common icon-database-submit"
+            type="submit"
+            label="Save Description Changes"
+            className="p-button-secondary"
+            style={{ width: "20rem" }}
+            loading={editingProject}
+          />
+        </div>
       </form>
     </div>
 

@@ -14,7 +14,7 @@ const ProjectSettingsGeneralInformation = ({ project }) => {
   //     : null;
 
   return (
-    <div>
+    <div className="flex">
       {/* <KeyValList data={project} filter={
         ["id",
           "projectName",

@@ -60,10 +60,10 @@ const ProjectSettingsPriority = ({ project }) => {
   };
 
   return (
-    <div className="p-fluid p-formgrid p-grid">
-      <form onSubmit={formik.handleSubmit} style={{ paddingLeft: "50px" }}>
+    <div className="card w-full">
+      <form onSubmit={formik.handleSubmit} className="p-fluid">
 
-        <div className="p-field p-grid">
+        <div className="field grid">
           <label
             htmlFor="priority"
             style={{ width: '250px' }}
@@ -75,7 +75,7 @@ const ProjectSettingsPriority = ({ project }) => {
           </label>
           <Inplace closable>
             <InplaceDisplay>
-              {formik.values.priority}
+              {formik.values.priority || "Select Priority"}
             </InplaceDisplay>
             <InplaceContent>
               <Dropdown
@@ -87,13 +87,12 @@ const ProjectSettingsPriority = ({ project }) => {
                 placeholder="Select Priority"
 
               />
-              {getFormErrorMessage("priority")}
             </InplaceContent>
           </Inplace>
           {getFormErrorMessage("priority")}
         </div>
 
-        <div className="p-field p-grid">
+        <div className="field grid">
           <label
             htmlFor="probability"
             style={{ width: '250px' }}
@@ -105,35 +104,34 @@ const ProjectSettingsPriority = ({ project }) => {
           </label>
           <Inplace closable>
             <InplaceDisplay>
-              {formik.values.probability}
+              {formik.values.probability || "Select Probability"}
             </InplaceDisplay>
             <InplaceContent>
               <Dropdown
                 id="probability"
                 name="probability"
                 options={["High", "Medium", "Low"]}
-                value={formik.values.priority}
+                value={formik.values.probability}
                 onChange={formik.handleChange("probability")}
                 placeholder="Select probability"
 
               />
-              {getFormErrorMessage("probability")}
+              
             </InplaceContent>
           </Inplace>
           {getFormErrorMessage("probability")}
         </div>
 
-
-
-
-        <Button
-          icon="icon icon-common icon-database-submit"
-          type="submit"
-          label="Save Priority & Probability Changes"
-          className="p-mt-2"
-          style={{ width: "400px" }}
-          loading={editingProject}
-        />
+        <div className="field grid">
+          <Button
+            icon="icon icon-common icon-database-submit"
+            type="submit"
+            label="Save Priority & Probability Changes"
+            className="p-button-secondary"
+            style={{ width: "20rem" }}
+            loading={editingProject}
+          />
+        </div>
       </form>
     </div>
 

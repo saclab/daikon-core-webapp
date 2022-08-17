@@ -8,6 +8,7 @@ export const appColors = {
     fha: "#D5B089",
     portfolio: "#916B8B",
     postPortfolio: "#BB7B73",
+    project: "#16425B"
   },
   horizonText: {
     gene: "#3D4780",
@@ -24,6 +25,5 @@ export const appColors = {
     sp: "#D86D6F",
     ind: "#53A9A8",
     portfolio: "#DCB14E",
-
   }
 };
