@@ -6,7 +6,7 @@ import { Calendar } from "primereact/calendar";
 
 import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
 
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 
 
@@ -133,11 +133,11 @@ const ProjectSettingsDates = ({ project }) => {
 
   return (
     <div>
-      <div className="p-fluid p-formgrid p-grid">
-        <form onSubmit={formik.handleSubmit} style={{ paddingLeft: "50px" }}>
+      <div className="card w-full">
+        <form onSubmit={formik.handleSubmit} className="p-fluid">
           {/* FHA DATES */}
           {project.fhaEnabled &&
-            <><div className="p-field p-grid">
+            <><div className="field grid">
               <label
                 htmlFor="fhaStart"
                 style={{ width: '250px' }}
@@ -164,11 +164,10 @@ const ProjectSettingsDates = ({ project }) => {
                     })} />
                 </InplaceContent>
               </Inplace>
-
-
               {getFormErrorMessage("fhaStart")}
             </div>
-              <div className="p-field p-grid">
+            
+              <div className="field grid">
                 <label
                   htmlFor="fhaPredictedStart"
                   style={{ width: '250px' }}
@@ -202,7 +201,7 @@ const ProjectSettingsDates = ({ project }) => {
 
           {/* h2L DATES */}
           {project.h2LEnabled &&
-            <><div className="p-field p-grid">
+            <><div className="field grid">
               <label
                 htmlFor="h2LStart"
                 style={{ width: '250px' }}
@@ -232,7 +231,7 @@ const ProjectSettingsDates = ({ project }) => {
 
 
               {getFormErrorMessage("h2LStart")}
-            </div><div className="p-field p-grid">
+            </div><div className="field grid">
                 <label
                   htmlFor="h2LPredictedStart"
                   style={{ width: '250px' }}
@@ -264,7 +263,7 @@ const ProjectSettingsDates = ({ project }) => {
 
           {/* lo DATES */}
           {project.loEnabled &&
-            <><div className="p-field p-grid">
+            <><div className="field grid">
               <label
                 htmlFor="loStart"
                 style={{ width: '250px' }}
@@ -294,7 +293,7 @@ const ProjectSettingsDates = ({ project }) => {
 
 
               {getFormErrorMessage("loStart")}
-            </div><div className="p-field p-grid">
+            </div><div className="field grid">
                 <label
                   htmlFor="loPredictedStart"
                   style={{ width: '250px' }}
@@ -326,7 +325,7 @@ const ProjectSettingsDates = ({ project }) => {
 
           {/* sp DATES */}
           {project.spEnabled &&
-            <><div className="p-field p-grid">
+            <><div className="field grid">
               <label
                 htmlFor="spStart"
                 style={{ width: '250px' }}
@@ -356,7 +355,7 @@ const ProjectSettingsDates = ({ project }) => {
 
 
               {getFormErrorMessage("spStart")}
-            </div><div className="p-field p-grid">
+            </div><div className="field grid">
                 <label
                   htmlFor="spPredictedStart"
                   style={{ width: '250px' }}
@@ -388,7 +387,7 @@ const ProjectSettingsDates = ({ project }) => {
 
           {/* ind DATES */}
           {project.indEnabled &&
-            <><div className="p-field p-grid">
+            <><div className="field grid">
               <label
                 htmlFor="indStart"
                 style={{ width: '250px' }}
@@ -418,7 +417,7 @@ const ProjectSettingsDates = ({ project }) => {
 
 
               {getFormErrorMessage("indStart")}
-            </div><div className="p-field p-grid">
+            </div><div className="field grid">
                 <label
                   htmlFor="indPredictedStart"
                   style={{ width: '250px' }}
@@ -450,7 +449,7 @@ const ProjectSettingsDates = ({ project }) => {
 
           {/* clinicalP1 DATES */}
           {project.clinicalP1Enabled &&
-            <><div className="p-field p-grid">
+            <><div className="field grid">
               <label
                 htmlFor="clinicalP1Start"
                 style={{ width: '250px' }}
@@ -480,7 +479,7 @@ const ProjectSettingsDates = ({ project }) => {
 
 
               {getFormErrorMessage("clinicalP1Start")}
-            </div><div className="p-field p-grid">
+            </div><div className="field grid">
                 <label
                   htmlFor="clinicalP1PredictedStart"
                   style={{ width: '250px' }}

@@ -48,11 +48,12 @@ import Discussion from "../common/Discussion/Discussion";
 import UserManager from "../../scene-d/Admin/UserManager/UserManager";
 
 import ProjectManagement from '../../scene-d/ProjectManagement/ProjectManagement';
-import ProjectSettings from '../../scene-d/ProjectManagement/ProjectSettings/ProjectSettings';
+import ProjectSettings from '../../scene-pm/Projects/ProjectView/ProjectSettings/ProjectSettings';
 import ProjectAdmin from '../../scene-d/Admin/ProjectAdmin/ProjectAdmin';
 import AppDefault from './AppDefault';
 import AppAdminDashBoard from './AppAdminDashBoard';
 import AppBeta from './AppBeta';
+import AppProjectManagement from "./AppProjectManagement";
 
 const App = () => {
   const authServiceInstance = agent.AuthServiceInstance;
@@ -124,6 +125,7 @@ const App = () => {
             <Route index element={<Navigate replace to="/d/" />} />
             <Route path="/d/*" element={<AppDefault />} />
             <Route path="/admin" element={<AppAdminDashBoard />} />
+            <Route path="/pm/*" element={<AppProjectManagement />} />
             <Route path="/beta" element={<AppBeta />} />
 
             {/* <Route
