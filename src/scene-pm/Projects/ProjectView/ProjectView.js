@@ -49,7 +49,7 @@ const ProjectView = () => {
         items: [
           {
             label: "Project Settings",
-            icon: "icon icon-common icon-analyse",
+            icon: "icon icon-common icon-briefcase",
             command: () => {
               navigate('settings/');
             },
@@ -57,13 +57,6 @@ const ProjectView = () => {
         ],
       },
     ];
-
-
-    
-
-
-
-
 
     return <div className="flex gap-2 w-full">
       <div className="flex">

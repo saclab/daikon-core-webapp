@@ -53,7 +53,7 @@ const ProjectSettings = ({ id, project }) => {
       {
         label: "Projects",
         command: () => {
-          navigate("/pm/projects");
+          navigate("/pm/project");
         },
       },
       { label: selectedProject.projectName },
@@ -70,7 +70,7 @@ const ProjectSettings = ({ id, project }) => {
 
           <div className="flex w-full">
             <SectionHeading
-              icon="icon icon-common icon-cog"
+              icon="icon icon-common icon-briefcase"
               heading={
                 project.projectName +
                 " | " +
