@@ -47,9 +47,6 @@ import PostPortfolioView from "../../scene-d/PostPortfolio/PostPortfolioView/Pos
 import Discussion from "../common/Discussion/Discussion";
 import UserManager from "../../scene-d/Admin/UserManager/UserManager";
 
-import ProjectManagement from '../../scene-d/ProjectManagement/ProjectManagement';
-import ProjectSettings from '../../scene-pm/Projects/ProjectView/ProjectSettings/ProjectSettings';
-import ProjectAdmin from '../../scene-d/Admin/ProjectAdmin/ProjectAdmin';
 import AppDefault from './AppDefault';
 import AppAdminDashBoard from './AppAdminDashBoard';
 import AppBeta from './AppBeta';
