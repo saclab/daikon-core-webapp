@@ -1,0 +1,183 @@
+.datatable-project-list .p-paginator .p-paginator-current {
+  margin-left: auto;
+}
+
+.datatable-project-list .p-progressbar {
+  height: 0.5rem;
+  background-color: #d8dadc;
+}
+
+.datatable-project-list .p-progressbar .p-progressbar-value {
+  background-color: #607d8b;
+}
+
+.datatable-project-list .table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.datatable-project-list .table-header .heading {
+  background: linear-gradient(to right, #30cfd0 0%, #332288 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.datatable-project-list .p-datepicker {
+  min-width: 25rem;
+}
+
+.datatable-project-list .p-datepicker td {
+  font-weight: 400;
+}
+
+.datatable-project-list .p-datatable.p-datatable-header {
+  padding: 1rem;
+  text-align: left;
+  font-size: 2rem;
+}
+
+.datatable-project-list .p-datatable.p-paginator {
+  padding: 1rem;
+}
+
+.datatable-project-list .p-datatable.p-datatable-thead > tr > th {
+  text-align: left;
+}
+
+.datatable-project-list .p-datatable.p-datatable-tbody > tr > td {
+  cursor: auto;
+}
+
+.datatable-project-list .p-datatable.p-dropdown-label:not(.p-placeholder) {
+  text-transform: uppercase;
+}
+
+.datatable-project-list .p-datatable-tbody > tr > td .p-column-title {
+  display: none;
+}
+
+.datatable-project-list .narrow-column {
+  width: 200px !important;
+}
+.datatable-project-list .p-inputtext {
+  font-size: 0.8rem;
+}
+
+.datatable-project-list .p-multiselect {
+  font-size: smaller;
+}
+
+.datatable-project-list .p-multiselect-item {
+  font-size: smaller;
+}
+
+.datatable-project-list .p-button {
+  font-size: smaller;
+}
+
+.datatable-project-list .table-status-active {
+  background-color: #A9DFBF;
+  color: #495057;
+  font-weight: normal;
+}
+
+.datatable-project-list .table-status-inactive {
+  background-color: #F2F4F4;
+  color: #495057;
+  font-weight: normal;
+}
+
+.datatable-project-list .table-stage-FHA {
+  background-color: #207656;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+.datatable-project-list .table-stage-HA {
+  background-color: #207656;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+
+.datatable-project-list .table-stage-H2L {
+  background-color: #DCB14E;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+.datatable-project-list .table-stage-LO {
+  background-color: #52422D;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+.datatable-project-list .table-stage-SP {
+  background-color: #D86D6F;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+.datatable-project-list .table-stage-IND {
+  background-color: #53A9A8;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+.datatable-project-list .table-date-due {
+  background-color: #FFECB3;
+  color: #495057;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+.datatable-project-list .table-date-ok {
+  background-color: #ffffff;
+  color: #495057;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+@media screen and (max-width: 960px) {
+  .datatable-project-list .p-datatable.p-datatable-thead > tr > th,
+  .datatable-project-list .p-datatable.p-datatable-tfoot > tr > td {
+    display: none !important;
+  }
+
+  .datatable-project-list .p-datatable.p-datatable-tbody > tr {
+    border-bottom: 1px solid var(--layer-2);
+  }
+
+  .datatable-project-list .p-datatable.p-datatable-tbody > tr > td {
+    text-align: left;
+    display: block;
+    border: 0 none !important;
+    width: 100% !important;
+    float: left;
+    clear: left;
+    border: 0 none;
+  }
+
+  .datatable-project-list
+    .p-datatable.p-datatable-tbody
+    > tr
+    > td
+    .p-column-title {
+    padding: 0.4rem;
+    min-width: 30%;
+    display: inline-block;
+    margin: -0.4rem 1rem -0.4rem -0.4rem;
+    font-weight: bold;
+  }
+
+  .datatable-project-list
+    .p-datatable.p-datatable-tbody
+    > tr
+    > td
+    .p-progressbar {
+    margin-top: 0.5rem;
+  }
+}
