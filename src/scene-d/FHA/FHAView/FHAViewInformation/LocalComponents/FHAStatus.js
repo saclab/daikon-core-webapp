@@ -6,11 +6,11 @@ const FHAStatus = ({ project }) => {
     <div>
       <div>
         <p>
-          FHA Status :{" "}
+          HA Status :{" "}
           <b>{project.currentStage === "FHA" ? "Ongoing" : "Complete"}</b>
         </p>
         <p>
-          FHA Start Date:{" "}
+          HA Start Date:{" "}
           <b>
             <FDate timestamp={project.fhaStart} hideTime={true} />
           </b>

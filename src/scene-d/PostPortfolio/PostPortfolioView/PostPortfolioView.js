@@ -19,11 +19,11 @@ import { appColors } from '../../../colors';
 import PostPortfolioDiscussion from './PostPortfolioDiscussion/PostPortfolioDiscussion';
 
 
-const PostPortfolioView = ({ match, history }) => {
+const PostPortfolioView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [activeIndex, setActiveIndex] = useState(0);
+
   const [displayP1PromotionDialog, setDisplayP1PromotionDialog] =
     useState(false);
   const [displayEOLDialog, setDisplayEOLDialog] =
@@ -116,7 +116,7 @@ const PostPortfolioView = ({ match, history }) => {
         label: "Project Settings",
         icon: "icon icon-common icon-asterisk",
         command: () => {
-          history.push(`/project/${selectedProject.id}/settings/`);
+          navigate(`/pm/project/${selectedProject.id}/settings/`);
         },
       });
     }
@@ -125,15 +125,7 @@ const PostPortfolioView = ({ match, history }) => {
     sideMenuItems.push(actions);
     console.log("selectedProject");
     console.log(selectedProject);
-    const breadCrumbItems = [
-      {
-        label: "Portfolio",
-        command: () => {
-          history.push("/portfolio/");
-        },
-      },
-      { label: selectedProject.projectName },
-    ];
+    
 
     return (
       <React.Fragment>
