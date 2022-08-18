@@ -8,6 +8,7 @@ import ProjectView from '../../scene-pm/Projects/ProjectView/ProjectView';
 import Unauthorized from '../common/Unauthorized/Unauthorized';
 import { RootStoreContext } from '../stores/rootStore';
 import { useContext } from 'react';
+import ProjectCreate from '../../scene-pm/Projects/ProjectCreate/ProjectCreate';
 
 const AppDefault = () => {
 
@@ -25,7 +26,7 @@ const AppDefault = () => {
             <Route index element={<ProjectManagerDashboard />} />
             {/* Projects Route */}
             <Route path={"project/"} element={<Projects />} />
-            {/* <Route path=":id/promote" component={GenomePromote} />*/}
+            <Route path={"project/new/"} element={<ProjectCreate />} />
             <Route path={"project/:id/*"} element={<ProjectView />} />
           </Routes>
 
