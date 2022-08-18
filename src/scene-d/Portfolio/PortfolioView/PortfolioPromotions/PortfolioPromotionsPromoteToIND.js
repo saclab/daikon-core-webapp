@@ -56,11 +56,11 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
 
   if (!creatingIND && !loadingProject) {
     return (
-      <div className="form-demo">
+      <div className="flex flex-column w-full">
         <div>
-          <div className="card">
+          <div className="card w-full">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="iNDStart"
                   className={classNames({
@@ -86,7 +86,7 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
                 {getFormErrorMessage("iNDStart")}
               </div>
 
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="iNDDescription"
                   className={classNames({
@@ -105,13 +105,15 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
                   })}
                 />
               </div>
+              <div className="field">
+                <Button
+                  icon="icon icon-common icon-database-submit"
+                  type="submit"
+                  label="Promote to IND (PostPorfolio)"
+                  className="p-mt-2"
+                />
+              </div>
 
-              <Button
-                icon="icon icon-common icon-database-submit"
-                type="submit"
-                label="Promote to IND (PostPorfolio)"
-                className="p-mt-2"
-              />
             </form>
           </div>
         </div>
