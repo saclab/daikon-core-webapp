@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
+import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { Sidebar } from "primereact/sidebar";
 import { ProgressBar } from "primereact/progressbar";
 import { DataTable } from "primereact/datatable";
@@ -7,16 +8,18 @@ import { Button } from "primereact/button";
 import { InputSwitch } from "primereact/inputswitch";
 import { Column } from "primereact/column";
 import { Message } from "primereact/message";
-
-import Loading from "../../../../app/layout/Loading/Loading";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import history from "../../../../history";
 import UserManagerUserForm from "./UserManagerUserForm/UserManagerUserForm";
 import UserManagerUserEditForm from "./UserManagerUserEditForm/UserManagerUserEditForm";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import Loading from '../../../app/layout/Loading/Loading';
+import { BreadCrumb } from 'primereact/breadcrumb';
+import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
+import { appColors } from '../../../colors';
 
 const UserManagerUsers = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
+  const navigate = useNavigate();
 
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
   const [displayEditDialog, setDisplayEditDialog] = useState(false);
@@ -42,7 +45,7 @@ const UserManagerUsers = () => {
   const currentUser = rootStore.userStore.user;
   useEffect(() => {
     if (!currentUser.roles.includes("admin")) {
-      history.push("/notfound");
+      navigate("/notfound");
     }
 
     if (Users.length === 0) {
@@ -56,6 +59,22 @@ const UserManagerUsers = () => {
   if (displayLoading || loadingRoles || LoadingOrgs) {
     return <Loading />;
   }
+
+  const breadCrumbItems = [
+    {
+      label: "User Management",
+      command: () => {
+        navigate("/admin/user-manager/");
+      },
+    },
+    {
+      label: "Users",
+      command: () => {
+        navigate(`/admin/user-manager/users/`);
+      }
+    },
+  ];
+
 
   const actionBodyTemplate = (rowData) => {
     return (
@@ -81,51 +100,61 @@ const UserManagerUsers = () => {
   };
 
   return (
-    <div>
-      {/* <Message
-        severity="warn"
-        text="Editing an user will affect their ability to login."
-      ></Message> */}
-      <Button
-        type="button"
-        icon="icon icon-common icon-plus-circle"
-        label="Add a new user"
-        className="p-button-text"
-        style={{ height: "30px", marginRight: "5px" }}
-        onClick={() => setDisplayAddDialog(true)}
-      />
+    <React.Fragment>
+      {/* First div for general information and dates */}
 
-      <div className="card">
-        <br />
-        <DataTable
-          value={Users}
-          header="Authorized Users"
-          className="p-datatable-sm"
-          sortMode="single"
-          sortField="name"
-          sortOrder={1}
-        >
-          <Column field="displayName" header="Full Name" sortable />
-          <Column field="email" header="Email" />
-          <Column
-            field="org"
-            header="Organization"
-            body={orgBodyTemplate}
-            sortable
+      <div className="flex flex-column gap-2 w-full">
+        <div className="flex w-full pb-2">
+          <BreadCrumb model={breadCrumbItems} />
+        </div>
+
+        <div className="flex w-full">
+          <SectionHeading
+            icon="ri-user-settings-fill"
+            heading={"User Manager"}
           />
-          <Column
-            field="lock"
-            header="Account Locked?"
-            body={orgLockTemplate}
+        </div>
+        <div className="flex w-full">
+          <Button
+            type="button"
+            icon="icon icon-common icon-plus-circle"
+            label="Add a new user"
+            className="p-button-text"
+            style={{ height: "30px", marginRight: "5px" }}
+            onClick={() => setDisplayAddDialog(true)}
           />
-          <Column body={actionBodyTemplate}></Column>
-        </DataTable>
+        </div>
+        <div className="flex w-full">
+          <DataTable
+            value={Users}
+            header="Authorized Users"
+            className="p-datatable-sm"
+            sortMode="single"
+            sortField="name"
+            sortOrder={1}
+          >
+            <Column field="displayName" header="Full Name" sortable />
+            <Column field="email" header="Email" />
+            <Column
+              field="org"
+              header="Organization"
+              body={orgBodyTemplate}
+              sortable
+            />
+            <Column
+              field="lock"
+              header="Account Locked?"
+              body={orgLockTemplate}
+            />
+            <Column body={actionBodyTemplate}></Column>
+          </DataTable>
+        </div>
       </div>
+
       <Sidebar
         visible={displayAddDialog}
         position="right"
         // style={{ width: "50%", overflowX: "auto" }}
-        blockScroll={true}
         onHide={() => setDisplayAddDialog(false)}
         className="p-sidebar-md"
       >
@@ -154,7 +183,6 @@ const UserManagerUsers = () => {
         visible={displayEditDialog}
         position="right"
         // style={{ width: "50%", overflowX: "auto" }}
-        blockScroll={true}
         onHide={() => setDisplayEditDialog(false)}
         className="p-sidebar-md"
       >
@@ -182,7 +210,7 @@ const UserManagerUsers = () => {
           )}
         </div>
       </Sidebar>
-    </div>
+    </React.Fragment>
   );
 };
 

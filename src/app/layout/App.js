@@ -1,8 +1,9 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 //import "primereact/resources/themes/mdc-light-indigo/theme.css";
 import "primereact/resources/themes/saga-blue/theme.css";
+//import "primereact/resources/themes/lara-light-blue/theme.css"
 //import "primereact/resources/themes/fluent-light/theme.css";
-//import "primereact/resources/themes/rhea/theme.css";
+
 
 import "primereact/resources/primereact.min.css";
 import "/node_modules/primeflex/primeflex.css";
@@ -14,7 +15,6 @@ import MenuBar from "./MenuBar/MenuBar";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./Footer/Footer";
 import GenomePromote from "../../scene-d/Gene/GenomePromote/GenomePromote";
-import Home from "../../scene-d/Home/Home";
 import cssClass from "./App.module.css";
 import NotFound from "./NotFound/NotFound";
 import { ToastContainer } from "react-toastify";
@@ -28,27 +28,16 @@ import UserList from "../../scene-d/Admin/UserManagement/UserList/UserList";
 import Admin_Authorize from "../../scene-d/Admin/UserManagement/Authorize/Admin_Authorize";
 import agent from "../api/agent";
 import NoAccess from "../../scene-d/NoAccess/NoAccess";
-import GeneSearch from "../../scene-d/Gene/GeneSearch/GeneSearch";
-import GeneView from "../../scene-d/Gene/GeneView/GeneView";
-import TargetDash from "../../scene-d/Target/TargetDash/TargetDash";
-import TargetView from "../../scene-d/Target/TargetView/TargetView";
-import ScreenDash from "../../scene-d/Screen/ScreenDash/ScreenDash";
-import ScreenView from "../../scene-d/Screen/ScreenView/ScreenView";
-import TestMolView from "../test/TestMolView/TestMolView";
-import PortfolioDash from "../../scene-d/Portfolio/PortfolioDash/PortfolioDash";
-import PortfolioView from "../../scene-d/Portfolio/PortfolioView/PortfolioView";
-import MenuBarAdmin from "./MenuBarAdmin/MenuBarAdmin";
 import AdminDash from "../../scene-d/Admin/AdminDash/AdminDash";
 import GeneAdminDash from "../../scene-d/Admin/GeneAdmin/GeneAdminDash";
 import TargetAdminDash from "../../scene-d/Admin/TargetAdmin/TargetAdminDash";
 import TargetAdminEditDetails from "../../scene-d/Admin/TargetAdmin/TargetAdminEditDetails/TargetAdminEditDetails";
 import PostPortfolioDash from "../../scene-d/PostPortfolio/PostPortfolioDash/PostPortfolioDash";
 import PostPortfolioView from "../../scene-d/PostPortfolio/PostPortfolioView/PostPortfolioView";
-import Discussion from "../common/Discussion/Discussion";
-import UserManager from "../../scene-d/Admin/UserManager/UserManager";
+
 
 import AppDefault from './AppDefault';
-import AppAdminDashBoard from './AppAdminDashBoard';
+import AppAdmin from './AppAdmin';
 import AppBeta from './AppBeta';
 import AppProjectManagement from "./AppProjectManagement";
 
@@ -121,7 +110,7 @@ const App = () => {
           <Routes>
             <Route index element={<Navigate replace to="/d/" />} />
             <Route path="/d/*" element={<AppDefault />} />
-            <Route path="/admin" element={<AppAdminDashBoard />} />
+            <Route path="/admin/*" element={<AppAdmin />} />
             <Route path="/pm/*" element={<AppProjectManagement />} />
             <Route path="/beta" element={<AppBeta />} />
 

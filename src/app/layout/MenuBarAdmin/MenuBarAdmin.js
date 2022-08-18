@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Menubar } from 'primereact/menubar';
@@ -8,7 +8,14 @@ import history from "../../../history";
 import { TabMenu } from 'primereact/tabmenu';
 const MenuBarAdmin = () => {
   const navigate = useNavigate();
+  let location = useLocation();
+
   const [activeIndex, setActiveIndex] = useState(1);
+
+  useEffect(() => {
+    if (location.pathname.includes("/admin/user-manager/")) setActiveIndex(2);
+    else if (location.pathname.includes("/admin/")) setActiveIndex(1);
+  }, [location, setActiveIndex]);
 
   const items = [
     {
