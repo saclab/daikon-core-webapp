@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { TabView, TabPanel } from "primereact/tabview";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
@@ -12,22 +19,19 @@ import Loading from "../../../app/layout/Loading/Loading";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Discussion from "../../../app/common/Discussion/Discussion";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
-import PostPortfolioBaseHits from './PostPortfolioBaseHits/PostPortfolioBaseHits';
-import PostPortfolioInformation from './PostPortfolioInformation/PostPortfolioInformation';
+import PostPortfolioBaseHits from "./PostPortfolioBaseHits/PostPortfolioBaseHits";
+import PostPortfolioInformation from "./PostPortfolioInformation/PostPortfolioInformation";
 import PostPortfolioPromotionsPromoteToP1 from "./PostPortfolioPromotions/PostPortfolioPromotionsPromoteToP1";
-import { appColors } from '../../../colors';
-import PostPortfolioDiscussion from './PostPortfolioDiscussion/PostPortfolioDiscussion';
-
+import { appColors } from "../../../colors";
+import PostPortfolioDiscussion from "./PostPortfolioDiscussion/PostPortfolioDiscussion";
 
 const PostPortfolioView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-
   const [displayP1PromotionDialog, setDisplayP1PromotionDialog] =
     useState(false);
-  const [displayEOLDialog, setDisplayEOLDialog] =
-    useState(false);
+  const [displayEOLDialog, setDisplayEOLDialog] = useState(false);
   const toast = useRef(null);
 
   /* MobX Store */
@@ -121,11 +125,9 @@ const PostPortfolioView = () => {
       });
     }
 
-
     sideMenuItems.push(actions);
     console.log("selectedProject");
     console.log(selectedProject);
-    
 
     return (
       <React.Fragment>
@@ -137,20 +139,27 @@ const PostPortfolioView = () => {
           <div className="flex w-full">
             <Routes>
               <Route index element={<Navigate replace to="information/" />} />
-              <Route path="information/" element={<PostPortfolioInformation
-                id={params.id}
-                project={selectedProject}
-              />} />
-              <Route path="base-hits/" element={<PostPortfolioBaseHits project={selectedProject} />} />
+              <Route
+                path="information/"
+                element={
+                  <PostPortfolioInformation
+                    id={params.id}
+                    project={selectedProject}
+                  />
+                }
+              />
+              <Route
+                path="base-hits/"
+                element={<PostPortfolioBaseHits project={selectedProject} />}
+              />
 
-              <Route path="discussion" element={<PostPortfolioDiscussion
-                project={selectedProject}
-              />} />
+              <Route
+                path="discussion"
+                element={<PostPortfolioDiscussion project={selectedProject} />}
+              />
             </Routes>
           </div>
         </div>
-
-
 
         {/* <div className="p-d-flex">
           <div className="p-mr-2">
@@ -203,7 +212,6 @@ const PostPortfolioView = () => {
           visible={displayP1PromotionDialog}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-          blockScroll={true}
           onHide={() => setDisplayP1PromotionDialog(false)}
         >
           <h3>{selectedProject.projectName}</h3>
@@ -225,7 +233,6 @@ const PostPortfolioView = () => {
           visible={displayEOLDialog}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-          blockScroll={true}
           onHide={() => setDisplayEOLDialog(false)}
         >
           <h3>{selectedProject.projectName}</h3>
@@ -242,7 +249,6 @@ const PostPortfolioView = () => {
             closeSidebar={() => setDisplaySPPromotionDialog(false)}
           /> */}
         </Sidebar>
-
       </React.Fragment>
     );
   }
