@@ -100,9 +100,9 @@ const GeneGroupAdd = () => {
 
   return (
     <div>
-      <div className="card">
+      <div className="flex flex-column w-full">
         <form onSubmit={formik.handleSubmit} className="p-fluid">
-          <div className="p-field p-col-6 p-md-6">
+          <div className="field">
             <label
               htmlFor="name"
               className={classNames({
@@ -123,7 +123,7 @@ const GeneGroupAdd = () => {
             {getFormErrorMessage("name")}
           </div>
 
-          <div className="p-field p-col-6 p-md-6">
+          <div className="field">
             <label
               htmlFor="type"
               className={classNames({
@@ -145,7 +145,7 @@ const GeneGroupAdd = () => {
             {getFormErrorMessage("type")}
           </div>
 
-          <div className="p-field p-col-6 p-md-6">
+          <div className="field">
             <label
               htmlFor="genes"
               className={classNames({
@@ -169,7 +169,7 @@ const GeneGroupAdd = () => {
             {getFormErrorMessage("genes")}
           </div>
 
-          <div className="p-field p-col-6 p-md-6">
+          <div className="field">
             <Button
               icon="icon icon-common icon-database-submit"
               type="submit"

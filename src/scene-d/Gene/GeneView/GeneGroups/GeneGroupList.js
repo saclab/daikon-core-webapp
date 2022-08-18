@@ -26,9 +26,9 @@ const GeneGroupList = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-column w-full">
       <div className="card">
-        <DataTable value={geneGroups} responsiveLayout="scroll">
+        <DataTable value={geneGroups} responsiveLayout="scroll" search>
           <Column field="name" header="Name"></Column>
           <Column body={imageBodyTemplate} header="Genes"></Column>
         </DataTable>

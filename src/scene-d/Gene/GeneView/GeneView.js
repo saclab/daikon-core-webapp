@@ -10,6 +10,8 @@ import NotFound from "../../../app/layout/NotFound/NotFound";
 import GenePromoteTargetSelectionWindow from "../GenomePromote/GenePromoteTargetSelectionWindow/GenePromoteTargetSelectionWindow";
 import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import GeneDiscusion from './GeneDiscussion/GeneDiscusion';
+import GeneGroups from "./GeneGroups/GeneGroups";
+
 
 const GeneView = () => {
   const params = useParams();
@@ -31,6 +33,7 @@ const GeneView = () => {
     historyDisplayLoading,
     geneHistory,
   } = rootStore.geneStore;
+  const { user } = rootStore.userStore;
 
   useEffect(() => {
     console.log("EFFECT");
@@ -84,6 +87,32 @@ const GeneView = () => {
       ],
     },
   ];
+
+  if (user.roles.includes("admin")) {
+
+    const adminActions = {
+      label: "Admin Section",
+      items: [
+        {
+          label: "Gene Groups",
+          icon: "icon icon-common icon-object-group",
+          command: (event) => {
+            navigate(`/d/gene/gene-group`);
+          },
+        },
+        {
+          label: "Promotion Requests",
+          icon: "icon icon-common icon-angle-double-up",
+          command: (event) => {
+            setDisplayPromotionDialog(true);
+          },
+        },
+      ],
+    }
+    items.push(adminActions);
+  }
+
+
 
   /** Loading Overlay */
   if (displayLoading) {
