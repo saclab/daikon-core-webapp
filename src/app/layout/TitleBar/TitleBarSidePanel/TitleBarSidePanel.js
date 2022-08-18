@@ -93,14 +93,9 @@ const TitleBarSidePanel = ({ toggle, user }) => {
       </div>
 
       <div className="flex">
-        {pmTools}
+        {user.roles.includes("projectManager") ? pmTools : ""}
       </div>
 
-
-      <div className="flex">
-        <div className="flex"> <h4>+ Chemist Tools</h4></div>
-        <div className="flex"> <Divider type="dashed" /></div>
-      </div>
     </div>
   );
 };

@@ -20,6 +20,7 @@ import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionai
 import TargetSummary from "./TargetSummary/TargetSummary";
 import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
 import EmbededHelp from "../../../app/common/EmbededHelp/EmbededHelp";
+import TargetEdit from "./TargetEdit/TargetEdit";
 
 const TargetView = () => {
   const params = useParams();
@@ -31,6 +32,7 @@ const TargetView = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const { fetchTarget, target, displayLoading } = rootStore.targetStore;
+  const { user } = rootStore.userStore;
 
   useEffect(() => {
     if (target === null || target.id !== params.id) {
@@ -94,6 +96,23 @@ const TargetView = () => {
       ],
     },
   ];
+
+  if (user.roles.includes("admin")) {
+
+    const adminActions = {
+      label: "Admin Section",
+      items: [
+        {
+          label: "Impact Values",
+          icon: "icon icon-common icon-bolt",
+          command: () => {
+            navigate("edit/");
+          },
+        },
+      ],
+    }
+    items.push(adminActions);
+  }
 
   /** Loading Overlay */
   if (displayLoading) {
@@ -160,6 +179,10 @@ const TargetView = () => {
               <Route
                 path="discussion/"
                 element={<TargetDiscussion selectedTarget={target} />}
+              />
+              <Route
+                path="edit/"
+                element={<TargetEdit id={params.id} />}
               />
             </Routes>
           </div>
