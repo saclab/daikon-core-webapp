@@ -22,6 +22,7 @@ import PortfolioView from "../../scene-d/Portfolio/PortfolioView/PortfolioView";
 import PostPortfolioDash from '../../scene-d/PostPortfolio/PostPortfolioDash/PostPortfolioDash';
 import PostPortfolioView from '../../scene-d/PostPortfolio/PostPortfolioView/PostPortfolioView';
 import GeneGroups from '../../scene-d/Gene/GeneView/GeneGroups/GeneGroups';
+import GenePromotionRequests from '../../scene-d/Gene/GeneView/GenePromotionRequests/GenePromotionRequests';
 
 
 const AppDefault = () => {
@@ -38,6 +39,7 @@ const AppDefault = () => {
           {/* Gene Routes */}
           <Route path={"gene/"} element={<GeneSearch />} />
           <Route path={"gene/gene-group"} element={<GeneGroups />} />
+          <Route path={"gene/gene-promotion-requests"} element={<GenePromotionRequests />} />
           {/* <Route path=":id/promote" component={GenomePromote} />*/}
           <Route path={"gene/:id/*"} element={<GeneView />} />
 
