@@ -171,7 +171,7 @@ const App = () => {
 
             <Route path="/gene/:id/comment" component={Discussion} /> */}
 
-            <Route component={NotFound} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
 
