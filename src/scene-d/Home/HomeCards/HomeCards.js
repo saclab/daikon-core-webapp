@@ -66,13 +66,13 @@ const HomeCards = () => {
         <div className="flex">
           <NavLink to="/d/ha/" style={{ textDecoration: "None" }}>
             <Card
-              title="FHAs"
+              title="HAs"
               subTitle={'(' + appVars.appCount.fhaCount + ')'}
               style={{ width: "18em" }}
               header={header}
             >
               <p className="p-m-0" style={{ lineHeight: "1.5" }}>
-                Shows a list of FHAs &nbsp;
+                Shows a list of all hit assessments &nbsp;
                 <i className="pi pi-arrow-right"></i>
               </p>
             </Card>
