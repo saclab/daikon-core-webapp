@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BreadCrumb } from "primereact/breadcrumb";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import history from "../../../../history";
@@ -10,10 +10,17 @@ import GeneGroupList from './GeneGroupList';
 import { appColors } from "../../../../colors";
 import { useNavigate } from 'react-router-dom';
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import Unauthorized from '../../../../app/common/Unauthorized/Unauthorized';
 
 const GeneGroups = () => {
 
   const navigate = useNavigate();
+  const rootStore = useContext(RootStoreContext);
+  const { user } = rootStore.userStore;
+  if (!user.roles.includes("admin")) {
+    return <Unauthorized />
+  }
 
   const breadCrumbItems = [
     {
@@ -27,6 +34,7 @@ const GeneGroups = () => {
     },
     { label: "Gene Groups" },
   ];
+
 
   return (
     <React.Fragment>

@@ -8,6 +8,7 @@ import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
 import GeneAdminPromotionRequest from "./GenePromotionRequest/GenePromotionRequest";
 import { Card } from 'primereact/card';
+import Unauthorized from '../../../../app/common/Unauthorized/Unauthorized';
 const GenePromotionRequests = () => {
 
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const GenePromotionRequests = () => {
   const { fetchGenePromotionList, displayLoading, genePromotionRegistry } =
     rootStore.geneStoreAdmin;
   const geneStore = rootStore.geneStore;
+  const { user } = rootStore.userStore;
 
   useEffect(() => {
     if (geneStore.genes.length === 0) {
@@ -38,6 +40,13 @@ const GenePromotionRequests = () => {
     geneStore.promotionQuestionsRegistry,
   ]);
 
+  const [activeIndex, setActiveIndex] = useState(0);
+
+
+  if (!user.roles.includes("admin")) {
+    return <Unauthorized />
+  }
+
   const breadCrumbItems = [
     {
       label: "Genes",
@@ -51,7 +60,7 @@ const GenePromotionRequests = () => {
     { label: "Gene Promotion Requests" },
   ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
+
 
   if (geneStore.displayLoading || displayLoading) {
     return <Loading />;
