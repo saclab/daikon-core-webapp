@@ -10,34 +10,28 @@ import { Dropdown } from "primereact/dropdown";
 import { MultiSelect } from "primereact/multiselect";
 import { InputSwitch } from "primereact/inputswitch";
 
-const UserManagerUserEditForm = ({
+const UserManagerUserForm = ({
   org,
   roles,
-  editAccount,
+  addAccount,
   loadingAddAccount,
   closeSideBar,
-  user,
 }) => {
-  console.log("From unside Form: ->");
-  console.log(user);
-
-  let userRoles = user.roles.map((roleName) =>
-    roles.find((r) => r.name === roleName)
-  );
-  console.log("userRoles");
-  console.log(userRoles);
-
   const formik = useFormik({
     initialValues: {
-      email: user.email,
-      displayName: user.displayName,
-      org: org.find((o) => o.id === user.orgId),
-      roles: userRoles,
-      bio: user.bio,
-      lock: user.lock,
+      email: "",
+      displayName: "",
+      org: "",
+      roles: "",
+      bio: "",
+      lock: false,
     },
     validate: (data) => {
       let errors = {};
+
+      if (!data.email) {
+        errors.email = "Email is required.";
+      }
 
       if (!data.displayName) {
         errors.displayName = "Full Name is required.";
@@ -54,12 +48,12 @@ const UserManagerUserEditForm = ({
       return errors;
     },
     onSubmit: (data) => {
-      data["id"] = user.email;
       data["orgId"] = data.org.id;
       data["roles"] = data.roles.map((role) => role.name);
       console.log(data);
-      editAccount(data)
+      addAccount(data)
         .then((resp) => {
+
           closeSideBar();
         })
         .catch((err) => console.log(err));
@@ -78,10 +72,9 @@ const UserManagerUserEditForm = ({
   };
 
   return (
-    <div>
-      <div className="p-fluid p-formgrid p-grid">
+      <div className="card w-full">
         <form onSubmit={formik.handleSubmit} className="p-fluid">
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="email"
               className={classNames({
@@ -90,10 +83,21 @@ const UserManagerUserEditForm = ({
             >
               Email
             </label>
-            <p id="email"><b>{user.email}</b></p>
+            <InputText
+              id="email"
+              answer="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              autoFocus
+              className={classNames({
+                "p-invalid": isFormFieldValid("email"),
+              })}
+            />
+
+            {getFormErrorMessage("email")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="displayName"
               className={classNames({
@@ -116,7 +120,7 @@ const UserManagerUserEditForm = ({
             {getFormErrorMessage("displayName")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="org"
               className={classNames({
@@ -142,7 +146,7 @@ const UserManagerUserEditForm = ({
             {getFormErrorMessage("org")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="roles"
               className={classNames({
@@ -168,7 +172,7 @@ const UserManagerUserEditForm = ({
             {getFormErrorMessage("roles")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="bio"
               className={classNames({
@@ -193,7 +197,7 @@ const UserManagerUserEditForm = ({
             {getFormErrorMessage("bio")}
           </div>
 
-          <div className="p-field p-col-12 p-md-12">
+          <div className="field">
             <label
               htmlFor="lock"
               className={classNames({
@@ -215,14 +219,13 @@ const UserManagerUserEditForm = ({
           <Button
             icon="icon icon-common icon-database-submit"
             type="submit"
-            label="Update user"
+            label="Add user to app"
             className="p-mt-2"
             loading={loadingAddAccount}
           />
         </form>
       </div>
-    </div>
   );
 };
 
-export default observer(UserManagerUserEditForm);
+export default observer(UserManagerUserForm);
