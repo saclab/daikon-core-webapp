@@ -24,12 +24,12 @@ const MenuBarPM = () => {
     },
     {
       label: "Project Managemnt Dashboard",
-      icon: "icon icon-conceptual icon-dna",
+      icon: "icon icon-common icon-columns",
       command: () => navigate("/pm/"),
     },
     {
       label: "Projects",
-      icon: "icon icon-conceptual icon-dna",
+      icon: "icon icon-common icon-briefcase",
       command: () => navigate("project/"),
     },
   ];

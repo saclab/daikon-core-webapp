@@ -54,6 +54,20 @@ const ProjectView = () => {
               navigate('settings/');
             },
           },
+          {
+            label: "Create New",
+            icon: "icon icon-common icon-plus",
+            command: () => {
+              navigate('/pm/project/new');
+            },
+          },
+          {
+            label: "Create Clone",
+            icon: "icon icon-common icon-code-branch",
+            command: () => {
+              navigate('/pm/project/new');
+            },
+          },
         ],
       },
     ];
