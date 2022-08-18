@@ -28,8 +28,7 @@ import UserList from "../../scene-d/Admin/UserManagement/UserList/UserList";
 import Admin_Authorize from "../../scene-d/Admin/UserManagement/Authorize/Admin_Authorize";
 import agent from "../api/agent";
 import NoAccess from "../../scene-d/NoAccess/NoAccess";
-import AdminDash from "../../scene-d/Admin/AdminDash/AdminDash";
-import GeneAdminDash from "../../scene-d/Admin/GeneAdmin/GeneAdminDash";
+
 import TargetAdminDash from "../../scene-d/Admin/TargetAdmin/TargetAdminDash";
 import TargetAdminEditDetails from "../../scene-d/Admin/TargetAdmin/TargetAdminEditDetails/TargetAdminEditDetails";
 import PostPortfolioDash from "../../scene-d/PostPortfolio/PostPortfolioDash/PostPortfolioDash";

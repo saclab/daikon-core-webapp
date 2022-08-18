@@ -8,7 +8,7 @@ import Question from "../../../../../app/common/Question/Question";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
 
-const GeneAdminPromotionRequest = ({
+const GenePromotionRequest = ({
   GenePromotionRequest,
   TargetName,
   AnswerRegistry,
@@ -629,4 +629,4 @@ const GeneAdminPromotionRequest = ({
   );
 };
 
-export default GeneAdminPromotionRequest;
+export default GenePromotionRequest;

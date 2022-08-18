@@ -3,20 +3,18 @@ import { observer } from "mobx-react-lite";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { TabView, TabPanel } from "primereact/tabview";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
-import history from "../../../../history";
+import { useNavigate } from 'react-router-dom';
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
-import GeneAdminPromotionRequest from "./GeneAdminPromotionRequest/GeneAdminPromotionRequest";
-const GeneAdminPromotionRequests = () => {
-  const rootStore = useContext(RootStoreContext);
+import GeneAdminPromotionRequest from "./GenePromotionRequest/GenePromotionRequest";
+import { Card } from 'primereact/card';
+const GenePromotionRequests = () => {
 
+  const navigate = useNavigate();
+  const rootStore = useContext(RootStoreContext);
   const { fetchGenePromotionList, displayLoading, genePromotionRegistry } =
     rootStore.geneStoreAdmin;
-
   const geneStore = rootStore.geneStore;
-  //promotionQuestionsDisplayLoading,
-  //getPromotionQuestions,
-  //promotionQuestionsRegistry,
 
   useEffect(() => {
     if (geneStore.genes.length === 0) {
@@ -25,7 +23,6 @@ const GeneAdminPromotionRequests = () => {
     if (geneStore.promotionQuestionsRegistry.size === 0) {
       geneStore.getPromotionQuestions();
     }
-
     fetchGenePromotionList();
     return () => {
       //cleanup
@@ -43,13 +40,17 @@ const GeneAdminPromotionRequests = () => {
 
   const breadCrumbItems = [
     {
-      label: "Genes Admin",
+      label: "Genes",
       command: () => {
-        history.push("/admin/gene/");
+        navigate("/d/gene/");
       },
     },
-    { label: "Promotion Requests" },
+    {
+      label: "Admin Section",
+    },
+    { label: "Gene Promotion Requests" },
   ];
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (geneStore.displayLoading || displayLoading) {
@@ -57,13 +58,10 @@ const GeneAdminPromotionRequests = () => {
   }
 
   console.log(genePromotionRegistry.size);
-
-  if (genePromotionRegistry.size === 0) {
-    return <h2>No Requests</h2>;
-  }
+  let tabs = [];
 
   if (genePromotionRegistry.size > 0) {
-    let tabs = [];
+
     genePromotionRegistry.forEach((value) => {
       console.log(value);
       let heading = value.targetName;
@@ -81,28 +79,46 @@ const GeneAdminPromotionRequests = () => {
         </TabPanel>
       );
     });
+  }
 
-    return (
-      <div>
-        <div className="p-mb-2" style={{ minWidth: "1000px" }}>
+  return (
+    <React.Fragment>
+
+      <div className="flex flex-column w-full">
+        <div className="flex w-full pb-2">
           <BreadCrumb model={breadCrumbItems} />
         </div>
-        <div className="p-mb-2">
+        <div className="flex w-full">
           <SectionHeading
-            icon="icon icon-conceptual icon-dna"
+            icon="icon icon-common icon-angle-double-up"
             color="#1ABC9C"
-            heading={"Requests to promote genes to targets"}
+            heading={"Gene Promotion Requests"}
           />
         </div>
-        <TabView
-          activeIndex={activeIndex}
-          onTabChange={(e) => setActiveIndex(e.index)}
-        >
-          {tabs}
-        </TabView>
-      </div>
-    );
-  }
-};
+        <div className="flex w-full">
+          {genePromotionRegistry.size === 0 ?
+            <Card title="No Pending Requests">
+              All pending requests are taken care of.
+              To raise a new request promote a gene from the Genes section to a target by completing
+              the questionaire.
+            </Card>
+            :
+            <TabView
+              activeIndex={activeIndex}
+              onTabChange={(e) => setActiveIndex(e.index)}
+            >
+              {tabs}
+            </TabView>}
 
-export default observer(GeneAdminPromotionRequests);
+        </div>
+
+      </div>
+
+
+
+    </React.Fragment>
+  );
+}
+
+
+export default observer(GenePromotionRequests);

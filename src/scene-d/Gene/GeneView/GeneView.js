@@ -104,7 +104,7 @@ const GeneView = () => {
           label: "Promotion Requests",
           icon: "icon icon-common icon-angle-double-up",
           command: (event) => {
-            setDisplayPromotionDialog(true);
+            navigate(`/d/gene/gene-promotion-requests`);
           },
         },
       ],
