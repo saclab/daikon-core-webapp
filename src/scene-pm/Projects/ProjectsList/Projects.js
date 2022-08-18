@@ -2,9 +2,10 @@ import React from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Button } from 'primereact/button';
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
@@ -22,6 +23,7 @@ const Projects = () => {
   const rootStore = useContext(RootStoreContext);
   const { loadingProjects, fetchProjects, projectRegistry } =
     rootStore.projectStore;
+  const navigate = useNavigate();
 
   const { filterPortfolioProjects } = rootStore.portfolioStore;
   /* Local State Management */
@@ -211,6 +213,15 @@ const Projects = () => {
             icon="icon icon-common icon-briefcase"
             heading="Project"
             color={appColors.sectionHeadingBg.project}
+          />
+        </div>
+        <div className="flex w-full gap-2 mb-2 justify-content-end flex-wrap">
+          <Button
+            label="Create New"
+            icon="icon icon-common icon-plus"
+            className="p-button-secondary"
+            style={{ width: "20rem" }}
+            onClick={() => navigate('/pm/project/new')}
           />
         </div>
         <div className="flex w-full">

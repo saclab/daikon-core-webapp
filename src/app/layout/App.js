@@ -24,15 +24,10 @@ import Loading from "./Loading/Loading";
 import { observer } from "mobx-react-lite";
 import Login from "../../scene-d/Login/Login";
 import NetworkError from "./Errors/NetworkError/NetworkError";
-import UserList from "../../scene-d/Admin/UserManagement/UserList/UserList";
-import Admin_Authorize from "../../scene-d/Admin/UserManagement/Authorize/Admin_Authorize";
 import agent from "../api/agent";
 import NoAccess from "../../scene-d/NoAccess/NoAccess";
 
-import TargetAdminDash from "../../scene-d/Admin/TargetAdmin/TargetAdminDash";
-import TargetAdminEditDetails from "../../scene-d/Admin/TargetAdmin/TargetAdminEditDetails/TargetAdminEditDetails";
-import PostPortfolioDash from "../../scene-d/PostPortfolio/PostPortfolioDash/PostPortfolioDash";
-import PostPortfolioView from "../../scene-d/PostPortfolio/PostPortfolioView/PostPortfolioView";
+
 
 
 import AppDefault from './AppDefault';
@@ -65,10 +60,6 @@ const App = () => {
       }
     }
 
-    // if (adminMode) {
-    //   //console.log("Admin mode is set");
-    //   setMenuBar(<MenuBarAdmin />);
-    // }
   }, [
     getUser,
     networkErr,
