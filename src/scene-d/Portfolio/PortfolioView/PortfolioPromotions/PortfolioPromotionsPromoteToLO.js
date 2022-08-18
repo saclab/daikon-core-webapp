@@ -6,13 +6,13 @@ import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
 import { observer } from "mobx-react-lite";
+
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const PortfolioPromotionsPromoteToLO = ({ closeSidebar }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingProject, selectedProject } =
-    rootStore.projectStore;
+  const { loadingProject, selectedProject } = rootStore.projectStore;
 
   const { creatingLO, createLO } = rootStore.portfolioStore;
 
@@ -56,11 +56,11 @@ const PortfolioPromotionsPromoteToLO = ({ closeSidebar }) => {
 
   if (!creatingLO && !loadingProject) {
     return (
-      <div className="form-demo">
+      <div className="flex flex-column w-full">
         <div>
-          <div className="card">
+          <div className="card w-full">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="loStart"
                   className={classNames({
@@ -86,7 +86,7 @@ const PortfolioPromotionsPromoteToLO = ({ closeSidebar }) => {
                 {getFormErrorMessage("loStart")}
               </div>
 
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="loDescription"
                   className={classNames({
@@ -105,13 +105,14 @@ const PortfolioPromotionsPromoteToLO = ({ closeSidebar }) => {
                   })}
                 />
               </div>
-
-              <Button
-                icon="icon icon-common icon-database-submit"
-                type="submit"
-                label="Promote to LO"
-                className="p-mt-2"
-              />
+              <div className="field">
+                <Button
+                  icon="icon icon-common icon-database-submit"
+                  type="submit"
+                  label="Promote to LO"
+                  className="p-mt-2"
+                />
+              </div>
             </form>
           </div>
         </div>
