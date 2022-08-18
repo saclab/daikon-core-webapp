@@ -2,7 +2,13 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Menu } from "primereact/menu";
 import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
-import { Routes, Route, Navigate, useNavigate, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -13,7 +19,7 @@ import { observer } from "mobx-react-lite";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
 import TargetSummary from "./TargetSummary/TargetSummary";
 import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
-import EmbededHelp from '../../../app/common/EmbededHelp/EmbededHelp';
+import EmbededHelp from "../../../app/common/EmbededHelp/EmbededHelp";
 
 const TargetView = () => {
   const params = useParams();
@@ -42,28 +48,28 @@ const TargetView = () => {
           label: "Scorecard",
           icon: "icon icon-common icon-flag-checkered",
           command: () => {
-            navigate('scorecard/');
+            navigate("scorecard/");
           },
         },
         {
           label: "Summary",
           icon: "icon icon-common icon-compass",
           command: () => {
-            navigate('summary/');
+            navigate("summary/");
           },
         },
         {
           label: "Promotion Info",
           icon: "pi pi-table",
           command: () => {
-            navigate('promotion-info/');
+            navigate("promotion-info/");
           },
         },
         {
           label: "Discussion",
           icon: "ri-discuss-line",
           command: () => {
-            navigate('discussion/');
+            navigate("discussion/");
           },
         },
       ],
@@ -95,7 +101,6 @@ const TargetView = () => {
     return <Loading />;
   }
   if (target !== null) {
-
     return (
       <React.Fragment>
         <Toast ref={toast} />
@@ -103,17 +108,20 @@ const TargetView = () => {
           visible={displayPromotionDialog}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-          blockScroll={true}
           onHide={() => setDisplayPromotionDialog(false)}
         >
           <div className="flex flex-column gap-3 pl-3  w-full">
             <div className="flex">
-              <h2><i className="icon icon-common icon-plus-circle"></i> Add a new Screen | {target.name}</h2>
+              <h2>
+                <i className="icon icon-common icon-plus-circle"></i> Add a new
+                Screen | {target.name}
+              </h2>
             </div>
             <div className="flex">
               <EmbededHelp>
-                This would create a new screening series. If you are intending to add screening
-                information to an existing screening set please add it via the screening tab.
+                This would create a new screening series. If you are intending
+                to add screening information to an existing screening set please
+                add it via the screening tab.
               </EmbededHelp>
             </div>
             <div className="flex w-full">
@@ -131,19 +139,28 @@ const TargetView = () => {
           <div className="flex w-full">
             <Routes>
               <Route index element={<Navigate replace to="scorecard/" />} />
-              <Route path="scorecard/" element={<TargetScorecard
-                data={target.targetScorecard.targetScoreCardValues}
-              />} />
+              <Route
+                path="scorecard/"
+                element={
+                  <TargetScorecard
+                    data={target.targetScorecard.targetScoreCardValues}
+                  />
+                }
+              />
               <Route path="summary/" element={<TargetSummary />} />
-              <Route path="promotion-info/" element={<TargetPromotionForm
-                data={target.targetScorecard.targetScoreCardValues}
-                selectedTarget={target}
-              />} />
-              <Route path="discussion/" element={<TargetDiscussion
-                selectedTarget={target}
-              />} />
-
-
+              <Route
+                path="promotion-info/"
+                element={
+                  <TargetPromotionForm
+                    data={target.targetScorecard.targetScoreCardValues}
+                    selectedTarget={target}
+                  />
+                }
+              />
+              <Route
+                path="discussion/"
+                element={<TargetDiscussion selectedTarget={target} />}
+              />
             </Routes>
           </div>
         </div>
