@@ -11,8 +11,7 @@ import { RootStoreContext } from "../../../../app/stores/rootStore";
 const PostPortfolioPromotionsPromoteToP1 = ({ closeSidebar }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingProject, selectedProject } =
-    rootStore.projectStore;
+  const { loadingProject, selectedProject } = rootStore.projectStore;
 
   const { creatingP1, createP1 } = rootStore.postPortfolioStore;
 
@@ -56,11 +55,11 @@ const PostPortfolioPromotionsPromoteToP1 = ({ closeSidebar }) => {
 
   if (!creatingP1 && !loadingProject) {
     return (
-      <div className="form-demo">
+      <div className="flex flex-column w-full">
         <div>
-          <div className="card">
+          <div className="card w-full">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="p1Start"
                   className={classNames({
@@ -86,7 +85,7 @@ const PostPortfolioPromotionsPromoteToP1 = ({ closeSidebar }) => {
                 {getFormErrorMessage("p1Start")}
               </div>
 
-              <div className="p-field p-col-12 p-md-12">
+              <div className="field">
                 <label
                   htmlFor="p1Description"
                   className={classNames({
@@ -105,13 +104,14 @@ const PostPortfolioPromotionsPromoteToP1 = ({ closeSidebar }) => {
                   })}
                 />
               </div>
-
-              <Button
-                icon="icon icon-common icon-database-submit"
-                type="submit"
-                label="Promote to IND (PostPorfolio)"
-                className="p-mt-2"
-              />
+              <div className="field">
+                <Button
+                  icon="icon icon-common icon-database-submit"
+                  type="submit"
+                  label="Promote to IND (PostPorfolio)"
+                  className="p-mt-2"
+                />
+              </div>
             </form>
           </div>
         </div>
