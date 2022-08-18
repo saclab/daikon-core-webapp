@@ -16,7 +16,7 @@ const HomeCards = () => {
     <div className="flex flex-column">
       <div className="flex justify-content-center gap-3 mb-3">
         <div className="flex">
-          <NavLink to="/gene/" style={{ textDecoration: "None" }}>
+          <NavLink to="/d/gene/" style={{ textDecoration: "None" }}>
             <Card
               title="Genes"
               subTitle={'(' + appVars.appCount.geneCount + ')'}
@@ -31,7 +31,7 @@ const HomeCards = () => {
           </NavLink>
         </div>
         <div className="flex">
-          <NavLink to="/target/" style={{ textDecoration: "None" }}>
+          <NavLink to="/d/target/" style={{ textDecoration: "None" }}>
             <Card
               title="Targets"
               subTitle={'(' + appVars.appCount.targetCount + ')'}
@@ -46,7 +46,7 @@ const HomeCards = () => {
           </NavLink>
         </div>
         <div className="flex">
-          <NavLink to="/screen/" style={{ textDecoration: "None" }}>
+          <NavLink to="/d/screen/" style={{ textDecoration: "None" }}>
             <Card
               title="Screens"
               subTitle={'(' + appVars.appCount.screenCount + ')'}
@@ -64,7 +64,7 @@ const HomeCards = () => {
       <div className="flex justify-content-center gap-3">
 
         <div className="flex">
-          <NavLink to="/fha/" style={{ textDecoration: "None" }}>
+          <NavLink to="/d/ha/" style={{ textDecoration: "None" }}>
             <Card
               title="FHAs"
               subTitle={'(' + appVars.appCount.fhaCount + ')'}
@@ -79,7 +79,7 @@ const HomeCards = () => {
           </NavLink>
         </div>
         <div className="flex">
-          <NavLink to="/portfolio/" style={{ textDecoration: "None" }}>
+          <NavLink to="/d/portfolio/" style={{ textDecoration: "None" }}>
             <Card
               title="Portfolio"
               subTitle={'(' + appVars.appCount.portfolioCount + ')'}
@@ -94,7 +94,7 @@ const HomeCards = () => {
           </NavLink>
         </div>
         <div className="flex">
-          <NavLink to="/postportfolio/" style={{ textDecoration: "None" }}>
+          <NavLink to="/d/post-portfolio/" style={{ textDecoration: "None" }}>
             <Card
               title="Post Portfolio"
               subTitle={'(' + appVars.appCount.postPortfolioCount + ')'}
