@@ -4,24 +4,16 @@ import { InputText } from 'primereact/inputtext';
 
 const AppBeta = () => {
   return (
-    <div className='flex flex-column'>
-      <div className="block mb-2">
-        <MenuBar />
-      </div>
-      <div className='flex ml-6 mr-6 fadein animation-duration-1000'>
-        <div className="card">
-          <h5>Vertical</h5>
-          <div className="field">
-            <label for="firstname1" className="block">Firstname</label>
-            <InputText id="firstname1" type="text" className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          </div>
-          <div className="field">
-            <label for="lastname1">Lastname</label>
-            <input id="lastname1" type="text" className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          </div>
+    <React.Fragment>
+      <div className='flex justify-content-center gap-2'>
+        <div className='flex flex-column'>
+          <div className='flex'>item 1</div>
+          <div className='flex'>item 2</div>
+          <div className='flex'>item 3</div>
         </div>
+
       </div>
-    </div>
+    </React.Fragment>
 
   )
 }

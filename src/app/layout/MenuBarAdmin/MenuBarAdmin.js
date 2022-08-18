@@ -13,8 +13,8 @@ const MenuBarAdmin = () => {
   const [activeIndex, setActiveIndex] = useState(1);
 
   useEffect(() => {
-    if (location.pathname.includes("/admin/user-manager/")) setActiveIndex(2);
-    else if (location.pathname.includes("/admin/")) setActiveIndex(1);
+    if (location.pathname.includes("/admin/user-manager/")) setActiveIndex(1);
+    else if (location.pathname.includes("/admin")) setActiveIndex(0);
   }, [location, setActiveIndex]);
 
   const items = [
@@ -24,35 +24,17 @@ const MenuBarAdmin = () => {
       command: () => navigate("/d/"),
     },
     {
-      label: "App Settings",
-      icon: "icon icon-common icon-cogs",
-      command: () => navigate("/gene/"),
-    },
-    {
       label: "User Manager",
       icon: "ri-user-settings-fill",
       command: () => navigate("/admin/user-manager/"),
     },
     {
-      label: "Genes",
-      icon: "icon icon-conceptual icon-dna",
-      command: () => navigate("/admin/gene/"),
+      label: "App Settings",
+      icon: "icon icon-common icon-cogs",
+      command: () => navigate("/admin/settings"),
     },
-    {
-      label: "Targets",
-      icon: "icon icon-common icon-target",
-      command: () => navigate("/admin/target/"),
-    },
-    {
-      label: "Screens",
-      icon: "icon icon-common icon-search",
-      command: () => navigate("/screen/"),
-    },
-    {
-      label: "Projects",
-      icon: "icon icon-common icon-classification",
-      command: () => navigate("/admin/project/"),
-    },
+
+
 
   ];
 
