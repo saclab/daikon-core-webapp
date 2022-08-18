@@ -4,7 +4,7 @@ import { TabView, TabPanel } from "primereact/tabview";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
 import GeneAdminPromotionRequests from "./GeneAdminPromotionRequests/GeneAdminPromotionRequests";
-import GeneGroups from './GeneGroups/GeneGroups';
+
 
 const GeneAdminDash = () => {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -58,7 +58,7 @@ const GeneAdminDash = () => {
                   <GeneAdminPromotionRequests />
                 </TabPanel>
                 <TabPanel header="Header II" headerClassName="hide">
-                  <GeneGroups />
+                  
                 </TabPanel>
               </TabView>
             </div>

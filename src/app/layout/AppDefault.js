@@ -21,6 +21,8 @@ import PortfolioDash from "../../scene-d/Portfolio/PortfolioDash/PortfolioDash";
 import PortfolioView from "../../scene-d/Portfolio/PortfolioView/PortfolioView";
 import PostPortfolioDash from '../../scene-d/PostPortfolio/PostPortfolioDash/PostPortfolioDash';
 import PostPortfolioView from '../../scene-d/PostPortfolio/PostPortfolioView/PostPortfolioView';
+import GeneGroups from '../../scene-d/Gene/GeneView/GeneGroups/GeneGroups';
+
 
 const AppDefault = () => {
 
@@ -35,6 +37,7 @@ const AppDefault = () => {
           <Route index element={<Home />} />
           {/* Gene Routes */}
           <Route path={"gene/"} element={<GeneSearch />} />
+          <Route path={"gene/gene-group"} element={<GeneGroups />} />
           {/* <Route path=":id/promote" component={GenomePromote} />*/}
           <Route path={"gene/:id/*"} element={<GeneView />} />
 
