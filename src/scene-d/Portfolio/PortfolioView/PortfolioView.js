@@ -1,6 +1,13 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
@@ -17,8 +24,8 @@ import PortfolioPromotionsPromoteToLO from "./PortfolioPromotions/PortfolioPromo
 import PortfolioPromotionsPromoteToSP from "./PortfolioPromotions/PortfolioPromotionsPromoteToSP";
 import PortfolioBaseHits from "./PortfolioBaseHits/PortfolioBaseHits";
 import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioPromotionsPromoteToIND";
-import { appColors } from '../../../colors';
-import PortfolioDiscussion from './PortfolioDiscussion/PortfolioDIscussion';
+import { appColors } from "../../../colors";
+import PortfolioDiscussion from "./PortfolioDiscussion/PortfolioDIscussion";
 
 const PortfolioView = ({ match, history }) => {
   const params = useParams();
@@ -67,21 +74,21 @@ const PortfolioView = ({ match, history }) => {
             label: "Portfolio Information",
             icon: "icon icon-common icon-analyse",
             command: () => {
-              navigate('information/');
+              navigate("information/");
             },
           },
           {
             label: "Base Hits",
             icon: "icon icon-conceptual icon-structures-3d",
             command: () => {
-              navigate('base-hits/');
+              navigate("base-hits/");
             },
           },
           {
             label: "Discussion",
             icon: "ri-discuss-line",
             command: () => {
-              navigate('discussion/');
+              navigate("discussion/");
             },
           },
         ],
@@ -169,15 +176,24 @@ const PortfolioView = ({ match, history }) => {
           <div className="flex w-full">
             <Routes>
               <Route index element={<Navigate replace to="information/" />} />
-              <Route path="information/" element={<PortfolioInformation
-                id={params.id}
-                project={selectedProject}
-              />} />
-              <Route path="base-hits/" element={<PortfolioBaseHits project={selectedProject} />} />
+              <Route
+                path="information/"
+                element={
+                  <PortfolioInformation
+                    id={params.id}
+                    project={selectedProject}
+                  />
+                }
+              />
+              <Route
+                path="base-hits/"
+                element={<PortfolioBaseHits project={selectedProject} />}
+              />
 
-              <Route path="discussion" element={<PortfolioDiscussion
-                project={selectedProject}
-              />} />
+              <Route
+                path="discussion"
+                element={<PortfolioDiscussion project={selectedProject} />}
+              />
             </Routes>
           </div>
         </div>
@@ -185,7 +201,6 @@ const PortfolioView = ({ match, history }) => {
           visible={displayLOPromotionDialog}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-          blockScroll={true}
           onHide={() => setDisplayLOPromotionDialog(false)}
         >
           <h3>{selectedProject.projectName}</h3>
@@ -207,7 +222,6 @@ const PortfolioView = ({ match, history }) => {
           visible={displaySPPromotionDialog}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-          blockScroll={true}
           onHide={() => setDisplaySPPromotionDialog(false)}
         >
           <h3>{selectedProject.projectName}</h3>
@@ -229,7 +243,6 @@ const PortfolioView = ({ match, history }) => {
           visible={displayINDPromotionDialog}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-          blockScroll={true}
           onHide={() => setDisplayINDPromotionDialog(false)}
         >
           <h3>{selectedProject.projectName}</h3>
@@ -243,7 +256,8 @@ const PortfolioView = ({ match, history }) => {
           <br />
           <br />
           <PortfolioPromotionsPromoteToIND
-            closeSidebar={() => setDisplayINDPromotionDialog(false)} />
+            closeSidebar={() => setDisplayINDPromotionDialog(false)}
+          />
         </Sidebar>
       </React.Fragment>
     );
