@@ -4,7 +4,14 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
@@ -14,8 +21,8 @@ import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
 import FHAPromotionQuestionaire from "./FHAPromotionQuestionaire/FHAPromotionQuestionaire";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
-import { appColors } from '../../../colors';
-import FHADiscussion from './FHADiscussion/FHADiscussion';
+import { appColors } from "../../../colors";
+import FHADiscussion from "./FHADiscussion/FHADiscussion";
 
 const FHAView = () => {
   const params = useParams();
@@ -53,21 +60,21 @@ const FHAView = () => {
             label: "HA Information",
             icon: "icon icon-conceptual icon-chemical",
             command: () => {
-              navigate('information/');
+              navigate("information/");
             },
           },
           {
             label: "Links",
             icon: "icon icon-common icon-external-link-square-alt",
             command: () => {
-              navigate('links/');
+              navigate("links/");
             },
           },
           {
             label: "Discussion",
             icon: "ri-discuss-line",
             command: () => {
-              navigate('discussion/');
+              navigate("discussion/");
             },
           },
         ],
@@ -87,7 +94,6 @@ const FHAView = () => {
           setDisplayPromotionDialog(true);
         },
       });
-
     }
 
     if (selectedProject?.h2LEnabled) {
@@ -114,7 +120,6 @@ const FHAView = () => {
 
     console.log("selectedProject");
     console.log(selectedProject);
-    
 
     return (
       <React.Fragment>
@@ -128,14 +133,20 @@ const FHAView = () => {
           <div className="flex w-full">
             <Routes>
               <Route index element={<Navigate replace to="information/" />} />
-              <Route path="information/" element={<FHAViewInformation
-                id={params.id}
-                project={selectedProject}
-              />} />
+              <Route
+                path="information/"
+                element={
+                  <FHAViewInformation
+                    id={params.id}
+                    project={selectedProject}
+                  />
+                }
+              />
 
-              <Route path="discussion" element={<FHADiscussion
-                project={selectedProject}
-              />} />
+              <Route
+                path="discussion"
+                element={<FHADiscussion project={selectedProject} />}
+              />
             </Routes>
           </div>
         </div>
@@ -143,7 +154,6 @@ const FHAView = () => {
           visible={displayPromotionDialog}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-          blockScroll={true}
           onHide={() => setDisplayPromotionDialog(false)}
         >
           <h3>{selectedProject.projectName}</h3>
