@@ -17,6 +17,7 @@ import GeneralStore from "./generalStore";
 import FHAStore from "./fhaStore";
 import ProjectStore from "./projectStore";
 import VotingStore from "./VotingStore";
+import DataViewStore from './dataViewStore';
 
 configure({ enforceActions: "always" });
 
@@ -57,6 +58,7 @@ export class RootStore {
     this.fhaStore = new FHAStore(this);
     this.projectStore = new ProjectStore(this);
     this.votingStore = new VotingStore(this);
+    this.dataViewStore = new DataViewStore(this);
   }
 }
 export const RootStoreContext = createContext(new RootStore());
