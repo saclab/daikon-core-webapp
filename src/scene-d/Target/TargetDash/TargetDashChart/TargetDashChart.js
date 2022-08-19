@@ -19,19 +19,14 @@ const TargetDashChart = ({ targets }) => {
   targets.forEach((target) => {
 
     if ((target.likeScore >= likeScoreCutoff) && (target.impactScore >= impactScoreCutoff)) {
-      graphData.push({
-        id: target.name,
-        data: [
-          {
-            x: target.likeScore,
-            y: target.impactScore,
-            guid: target.id,
-          },
-        ],
-      });
+      graphData.push(
+        [target.likeScore, target.impactScore, target.name, target.id]
+      );
     }
 
   });
+
+  console.log(graphData);
   console.log("END generating graphdata");
 
   const CustomNode = ({ node, onMouseEnter, onMouseMove, onMouseLeave, onClick }) => {

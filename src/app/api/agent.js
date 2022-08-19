@@ -353,6 +353,11 @@ const Vote = {
   freezeVoting: (voteIds) => requests.post(`/elevated/vote/freeze/`, voteIds),
 };
 
+
+const DataView = {
+  targetDash: () => requests.get(`/data-view/VTarget/dash-view`),
+}
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -370,6 +375,7 @@ const exports = {
   General,
   Projects,
   Vote,
+  DataView
 };
 
 export default exports;

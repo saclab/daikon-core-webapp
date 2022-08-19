@@ -1,21 +1,47 @@
-import React from 'react'
-import MenuBar from './MenuBar/MenuBar';
-import { InputText } from 'primereact/inputtext';
+import React, { useEffect, useContext } from 'react'
+import ReactECharts from 'echarts-for-react';
+import { observer } from "mobx-react-lite";
+import { RootStoreContext } from '../stores/rootStore';
+import Loading from './Loading/Loading';
+
 
 const AppBeta = () => {
+
+  /* MobX Store */
+  const rootStore = useContext(RootStoreContext);
+  const { loadingTargetDash, targetDash, loadTargetDash } = rootStore.dataViewStore;
+
+  useEffect(() => {
+    console.log("AppBeta: fetchTargetList()");
+    if (targetDash === null) loadTargetDash();
+  }, [targetDash, loadTargetDash]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /** Loading Overlay */
+  if (loadingTargetDash) {
+    return <Loading />;
+  }
+
+  console.log(targetDash);
+
+
+
+
+
+  
+
+
+
   return (
     <React.Fragment>
-      <div className='flex justify-content-center gap-2'>
-        <div className='flex flex-column'>
-          <div className='flex'>item 1</div>
-          <div className='flex'>item 2</div>
-          <div className='flex'>item 3</div>
-        </div>
-
-      </div>
+      {/* <ReactECharts
+        option={option}
+        onEvents={onEvents}
+        style={{ height: '50rem', width: '50rem' }}
+      /> */}
+      Test
     </React.Fragment>
 
   )
 }
 
-export default AppBeta
+export default observer(AppBeta)
