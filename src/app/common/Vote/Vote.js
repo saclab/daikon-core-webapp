@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { ResponsiveBar } from "@nivo/bar";
+// import { ResponsiveBar } from "@nivo/bar";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { confirmDialog } from "primereact/confirmdialog"; // To use confirmDialog method
@@ -121,7 +121,7 @@ const Vote = ({ id, voteData, callBack }) => {
             borderRadius: "10px",
           }}
         >
-          <ResponsiveBar
+          {/* <ResponsiveBar
             data={votes}
             keys={["Positive", "Neutral", "Negative"]}
             layout="horizontal"
@@ -145,7 +145,7 @@ const Vote = ({ id, voteData, callBack }) => {
                 {id} : {value}
               </div>
             )}
-          />
+          /> */}
 
           {generateOptions()}
         </div>
