@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import {createRoot} from 'react-dom/client';
 import "./assets/_overrides.scss";
 import "primeflex/primeflex.css";
 import App from "./app/layout/App";
@@ -13,11 +13,12 @@ import agent from "./app/api/agent";
 import ConfigurationMissing from "./app/common/ConfigurationMissing/ConfigurationMissing";
 
 console.log("Starting app pre checks");
+const root = createRoot(document.getElementById("root"));
 
 
 if (!agent.AppPrecheck()) {
   console.log("prechecks failed.");
-  ReactDOM.render(<ConfigurationMissing />, document.getElementById("root"));
+  root.render(<ConfigurationMissing />);
   
 } else {
   console.log("Okay, starting app");
@@ -25,19 +26,17 @@ if (!agent.AppPrecheck()) {
     .then(() => {
       // auth flow was successful.
       // start the application now.
-      ReactDOM.render(
+      root.render(
         <BrowserRouter history={history}>
           <App />
-        </BrowserRouter>,
-        document.getElementById("root")
+        </BrowserRouter>
       );
     })
     .catch((error) => {
       // auth flow has failed.
       // display an error instead of starting the main application.
-      ReactDOM.render(
-        <AuthFailure errorMessage={error.stack} />,
-        document.getElementById("root")
+      root.render(
+        <AuthFailure errorMessage={error.stack} />
       );
     });
 }
