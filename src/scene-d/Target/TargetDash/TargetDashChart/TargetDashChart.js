@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Slider } from 'primereact/slider';
 import { useNavigate } from "react-router-dom";
 
-import { ResponsiveScatterPlot } from "@nivo/scatterplot";
+//import { ResponsiveScatterPlot } from "@nivo/scatterplot";
 import history from "../../../../history";
 const TargetDashChart = ({ targets }) => {
 
@@ -63,7 +63,7 @@ const TargetDashChart = ({ targets }) => {
   return (
     <div>
       <div style={{ height: "650px", width: "650px", marginTop: "10px" }}>
-        <ResponsiveScatterPlot
+        {/* <ResponsiveScatterPlot
           data={graphData}
           margin={{ top: 0, right: 10, bottom: 80, left: 80 }}
           xScale={{ type: "linear", min: 0, max: 1 }}
@@ -102,7 +102,7 @@ const TargetDashChart = ({ targets }) => {
             "annotations",
           ]}
           nodeComponent={CustomNode}
-        />
+        /> */}
       </div>
       <div style={{ padding: "0px 60px 0px 60px", margin: "-40px 0px 0px 0px" }}>
         <h4><i className="icon icon-common icon-filter" /> Filters</h4>
