@@ -14,6 +14,7 @@ import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter
 import ValidatedHitsPromoteToFHAEntry from "./ValidatedHitsPromoteToFHAEntry/ValidatedHitsPromoteToFHAEntry";
 import { toast } from "react-toastify";
 import "./ValidatedHitsDataTable.css";
+import { ConfirmDialog } from "primereact/confirmdialog";
 
 const ValidatedHitsList = ({ screenId }) => {
   const dt = useRef(null);
@@ -385,6 +386,7 @@ const ValidatedHitsList = ({ screenId }) => {
           close={() => setDisplayPromoteToFHAEntry(false)}
         />
       </Dialog>
+      <ConfirmDialog />
     </div>
   );
 };
