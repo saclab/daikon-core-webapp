@@ -38,6 +38,37 @@ const TargetDashChart = ({ targets }) => {
     postPortfolio: appColors.horizonText.postPortfolio,
   };
 
+  let ColorLuminance = (hex, lum) => {
+    // validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    lum = lum || 0;
+    // convert to decimal and change luminosity
+    var rgb = "#", c, i;
+    for (i = 0; i < 3; i++) {
+      c = parseInt(hex.substr(i * 2, 2), 16);
+      c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+      rgb += ("00" + c).substr(c.length);
+    }
+    return rgb;
+  }
+
+  let generateGradient = (color) => {
+    return new echarts.graphic.RadialGradient(0.4, 0.3, 1, [
+      {
+        offset: 0,
+        color: ColorLuminance(color, 0.2)
+      },
+      {
+        offset: 1,
+        color: color
+      }
+    ])
+
+  }
+
   var targetData = [];
   var screenData = [];
   var fhaData = [];
@@ -186,9 +217,9 @@ const TargetDashChart = ({ targets }) => {
           },
           itemStyle: {
             shadowBlur: 10,
-            shadowColor: "rgba(120, 36, 50, 0.5)",
+            shadowColor: nodeColors.target,
             shadowOffsetY: 5,
-            color: nodeColors.target,
+            color: generateGradient(nodeColors.target),
           },
         },
         {
@@ -216,9 +247,9 @@ const TargetDashChart = ({ targets }) => {
           },
           itemStyle: {
             shadowBlur: 10,
-            shadowColor: "rgba(25, 100, 150, 0.5)",
+            shadowColor: nodeColors.screen,
             shadowOffsetY: 5,
-            color: nodeColors.screen,
+            color: generateGradient(nodeColors.screen),
           },
         },
         {
@@ -245,9 +276,9 @@ const TargetDashChart = ({ targets }) => {
           },
           itemStyle: {
             shadowBlur: 10,
-            shadowColor: "rgba(120, 36, 50, 0.5)",
+            shadowColor: nodeColors.fha,
             shadowOffsetY: 5,
-            color: nodeColors.fha,
+            color: generateGradient(nodeColors.fha),
           },
         },
         {
@@ -274,9 +305,9 @@ const TargetDashChart = ({ targets }) => {
           },
           itemStyle: {
             shadowBlur: 10,
-            shadowColor: "rgba(120, 36, 50, 0.5)",
+            shadowColor: nodeColors.portfolio,
             shadowOffsetY: 5,
-            color: nodeColors.portfolio,
+            color: generateGradient(nodeColors.portfolio),
           },
         },
         {
@@ -303,9 +334,9 @@ const TargetDashChart = ({ targets }) => {
           },
           itemStyle: {
             shadowBlur: 10,
-            shadowColor: "rgba(120, 36, 50, 0.5)",
+            shadowColor: nodeColors.postPortfolio,
             shadowOffsetY: 5,
-            color: nodeColors.postPortfolio,
+            color: generateGradient(nodeColors.postPortfolio),
           },
         },
       ],
