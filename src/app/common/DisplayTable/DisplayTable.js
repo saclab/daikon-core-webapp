@@ -148,7 +148,7 @@ const DisplayTable = ({
 
   let generateAddFormFields = columns.map((element) => {
     return (
-      <div className="p-field p-col-12 p-md-12" key={element}>
+      <div className="field" key={element}>
         <label
           htmlFor={element}
           className={classNames({
