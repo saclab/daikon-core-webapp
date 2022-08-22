@@ -93,6 +93,6 @@
   }
 
   .datatable-targets .p-datatable.p-datatable-tbody > tr > td .p-progressbar {
-      margin-top: .5rem;
+      margin-top: 0rem;
   }
 }

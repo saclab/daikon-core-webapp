@@ -34,7 +34,7 @@ const TargetDash = () => {
           color={appColors.sectionHeadingBg.target}
         />
       </div>
-      <div className="flex w-full">
+      <div className="flex w-full column-gap-2">
         <div className="flex">
           <TargetDashChart targets={targets} />
         </div>
