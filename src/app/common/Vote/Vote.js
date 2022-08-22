@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 // import { ResponsiveBar } from "@nivo/bar";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { confirmDialog } from "primereact/confirmdialog"; // To use confirmDialog method
+import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog"; // To use confirmDialog method
 import { RootStoreContext } from "../../stores/rootStore";
 
 const Vote = ({ id, voteData, callBack }) => {
@@ -91,9 +91,11 @@ const Vote = ({ id, voteData, callBack }) => {
         voteButton: selectedVote,
       };
 
+      console.log(selectedVote)
+
       confirmDialog({
         message:
-          "Actu seu hic fal cera cui pati. Nec lapis via idque sic licet. Illa apti de duce ideo me meis. In naturas efficta invenio mo quinimo ex ac mutetur. Opinionum nia una imo praeclare perfacile." +
+          "" +
           " Click to continue voting " +
           selectedVote.toLowerCase() +
           "?",
@@ -113,6 +115,7 @@ const Vote = ({ id, voteData, callBack }) => {
     /* Final Render */
     return (
       <React.Fragment>
+        <ConfirmDialog />
         <div
           style={{
             height: "20px",
