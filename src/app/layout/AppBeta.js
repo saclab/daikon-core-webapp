@@ -36,6 +36,8 @@ const AppBeta = () => {
   var portfolioData = [];
   var postPortfolioData = [];
 
+  let showLabel = true;
+
   if (!loadingTargetDash && targetDash !== null) {
     targetDash.forEach((element) => {
       if (element.currentStage === "Target") {
@@ -145,7 +147,7 @@ const AppBeta = () => {
               return param.data[3];
             },
             position: "top",
-            show: true,
+            show: showLabel,
             fontSize: 8,
           },
           emphasis: {
@@ -174,7 +176,7 @@ const AppBeta = () => {
               return param.data[3];
             },
             position: "top",
-            show: true,
+            show: showLabel,
             fontSize: 8,
           },
 
@@ -204,7 +206,7 @@ const AppBeta = () => {
               return param.data[3];
             },
             position: "top",
-            show: true,
+            show: showLabel,
             fontSize: 8,
           },
           emphasis: {
@@ -233,7 +235,7 @@ const AppBeta = () => {
               return param.data[3];
             },
             position: "top",
-            show: true,
+            show: showLabel,
             fontSize: 8,
           },
           emphasis: {
@@ -262,7 +264,7 @@ const AppBeta = () => {
               return param.data[3];
             },
             position: "top",
-            show: true,
+            show: showLabel,
             fontSize: 8,
           },
           emphasis: {
