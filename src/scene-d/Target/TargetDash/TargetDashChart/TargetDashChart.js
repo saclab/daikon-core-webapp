@@ -120,7 +120,7 @@ const TargetDashChart = ({ targets }) => {
         },
       ]),
       title: {
-        text: "Target map",
+        text: "Target Map",
         left: "5%",
         top: "3%",
       },
@@ -130,7 +130,7 @@ const TargetDashChart = ({ targets }) => {
         data: ["Target", "Screen", "FHA", "Portfolio", "PostPortfolio"],
       },
       grid: {
-        left: "8%",
+        left: "9%",
         top: "10%",
       },
       xAxis: {
@@ -141,6 +141,11 @@ const TargetDashChart = ({ targets }) => {
             type: "dashed",
           },
         },
+        splitNumber: 10,
+        splitLine: { show: true },
+        name: "Likelihood",
+        nameLocation: "center",
+        nameGap: 30
       },
       yAxis: {
         min: 0,
@@ -150,6 +155,11 @@ const TargetDashChart = ({ targets }) => {
             type: "dashed",
           },
         },
+        splitNumber: 10,
+        splitLine: { show: true },
+        name: "Biological Impact",
+        nameLocation: "center",
+        nameGap: 30,
       },
       series: [
         {
@@ -301,83 +311,82 @@ const TargetDashChart = ({ targets }) => {
       ],
     };
 
-    console.log(targetDash);
+    let onChartClick = (params) => {
+      navigate(params.data[2])
+    }
+
+    let onEvents = {
+      'click': onChartClick
+    }
 
     return (
       <React.Fragment>
-        <div className="flex flex-column">
+        <div className="flex flex-column w-full">
           <div
             className="flex"
-            style={{ height: "650px", width: "650px", marginTop: "20px" }}
+            style={{ height: "650px", width: "650px", marginTop: "0px" }}
           >
             <ReactECharts
               option={option}
-              // onEvents={onEvents}
+              onEvents={onEvents}
               style={{ height: "650px", width: "650px" }}
             />
           </div>
-          <div className="flex">
-            <h4>
-              <i className="icon icon-common icon-filter" /> Filters
-            </h4>
-          </div>
-          <div className="flex">
-            <h5>Likelihood Score: {likeScoreCutoff}</h5>
-          </div>
-          <div className="flex">
-            <Slider
-              min={0}
-              max={1}
-              step={0.01}
-              value={likeScoreCutoff}
-              onChange={(e) => setLikeScoreCutoff(e.value)}
-            />
-          </div>
-          <div className="flex">
-            <h5>Biological Impact Score: {impactScoreCutoff}</h5>
-          </div>
+          <div className="flex flex-column pl-5 pr-5">
+            <div className="flex h-3rem">
+              <h4>
+                <i className="icon icon-common icon-filter" /> Filters
+              </h4>
+            </div>
+            <div className="flex w-full align-content-center h-2rem column-gap-5">
+              <div className="flex w-6 align-items-center ">
+                <h5>Likelihood Score: {likeScoreCutoff}</h5>
+              </div>
+              <div className="flex w-full align-items-center">
+                <Slider
+                  className="w-full"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={likeScoreCutoff}
+                  onChange={(e) => setLikeScoreCutoff(e.value)}
+                />
+              </div>
+            </div>
 
-          <div className="flex min-w-full">
-            <Slider
-              min={0}
-              max={1}
-              step={0.01}
-              value={impactScoreCutoff}
-              onChange={(e) => setImpactScoreCutoff(e.value)}
-            />
-          </div>
-          <div className="flex">
-            <h5>Display Label: </h5>
-          </div>
-          <div className="flex">
-            <InputSwitch
-              checked={showLabel}
-              onChange={() => setShowLabel(showLabel ? false : true)}
-            />
+            <div className="flex w-full align-content-center h-2rem column-gap-5">
+              <div className="flex w-6 align-items-center">
+                <h5>Biological Impact Score: {impactScoreCutoff}</h5>
+              </div>
+              <div className="flex w-full align-items-center">
+                <Slider
+                  className="w-full"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={impactScoreCutoff}
+                  onChange={(e) => setImpactScoreCutoff(e.value)}
+                />
+              </div>
+            </div>
+
+            <div className="flex w-full align-content-center h-2rem column-gap-5">
+              <div className="flex w-6 align-items-center">
+                <h5>Display Target Label: </h5>
+              </div>
+              <div className="flex w-full align-items-center">
+                <InputSwitch
+                  className="p-button-sm"
+                  checked={showLabel}
+                  onChange={() => setShowLabel(showLabel ? false : true)}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </React.Fragment>
     );
   }
-
-  console.log("START generating graphdata");
-
-  // targets.forEach((target) => {
-  //   if (
-  //     target.likeScore >= likeScoreCutoff &&
-  //     target.impactScore >= impactScoreCutoff
-  //   ) {
-  //     graphData.push([
-  //       target.likeScore,
-  //       target.impactScore,
-  //       target.name,
-  //       target.id,
-  //     ]);
-  //   }
-  // });
-
-  // console.log(graphData);
-  console.log("END generating graphdata");
 
   return <h2>Wait..</h2>;
 };

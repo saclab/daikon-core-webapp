@@ -85,8 +85,7 @@ const TargetDashTable = ({ targets }) => {
   // );
 
   return (
-    <div className="datatable-targets">
-      <br />
+    <div >
       <div className="card">
         <DataTable
           ref={dt}
