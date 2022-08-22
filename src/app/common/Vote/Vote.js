@@ -1,9 +1,17 @@
 import React, { useState, useContext } from "react";
-// import { ResponsiveBar } from "@nivo/bar";
+import ReactECharts from "echarts-for-react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog"; // To use confirmDialog method
+import { confirmDialog } from "primereact/confirmdialog";
 import { RootStoreContext } from "../../stores/rootStore";
+
+/*
+Usage: 
+The voting module requires the parent module to import ConfirmDialog.
+This is to prevent multipple binding of the ConfirmDialog if more than
+one voting element is present in the screen.
+*/
+
 
 const Vote = ({ id, voteData, callBack }) => {
   /* MobX Store */
@@ -20,50 +28,54 @@ const Vote = ({ id, voteData, callBack }) => {
     };
     const getColor = (bar) => colors[bar.id];
 
-    let votes = [
-      {
-        Positive: voteData.positive,
-        Neutral: voteData.neutral,
-        Negative: voteData.negative,
-      },
-    ];
-    // let votes = [
-    //   {
-    //     Positive: 3,
-    //     Neutral: 5,
-    //     Negative: 2,
-    //   },
-    // ];
+    let votes =
+    {
+      Positive: voteData.positive,
+      Neutral: voteData.neutral,
+      Negative: voteData.negative,
+    };
+    // let votes =
+    // {
+    //   Positive: 0,
+    //   Neutral: 0,
+    //   Negative: 0,
+    // }
 
     const votingButtonPanel = (
-      <div style={{ marginLeft: "auto", marginRight: "auto", width: "200px" }}>
-        <Button
-          icon="icon icon-common icon-thumbs-up"
-          className="p-button-rounded p-button-text p-button-lg"
-          tooltip="Vote Positive"
-          tooltipOptions={{ position: "bottom" }}
-          style={{ color: "#76D7C4" }}
-          loading={voting}
-          onClick={(e) => voteButtonCliked(e, "Positive")}
-        />
-        <Button
-          icon="icon icon-common icon-hand-rock"
-          className="p-button-rounded p-button-text p-button-lg"
-          tooltip="Vote Neutral"
-          tooltipOptions={{ position: "bottom" }}
-          style={{ color: "#F7DC6F" }}
-          onClick={(e) => voteButtonCliked(e, "Neutral")}
-          loading={voting}
-        />
-        <Button
-          icon="icon icon-common icon-thumbs-down"
-          className="p-button-rounded p-button-text p-button-lg"
-          tooltip="Vote Negative"
-          tooltipOptions={{ position: "bottom" }}
-          style={{ color: "#F1948A" }}
-          onClick={(e) => voteButtonCliked(e, "Negative")}
-          loading={voting}
-        />
+      <div className="flex justify-content-center" style={{ width: "10rem" }}>
+        <div className="flex">
+          <Button
+            icon="icon icon-common icon-thumbs-up"
+            className="p-button-rounded p-button-text p-button-lg"
+            tooltip="Vote Positive"
+            tooltipOptions={{ position: "bottom" }}
+            style={{ color: "#76D7C4" }}
+            loading={voting}
+            onClick={(e) => voteButtonCliked(e, "Positive")}
+          />
+        </div>
+        <div className="flex">
+          <Button
+            icon="icon icon-common icon-hand-rock"
+            className="p-button-rounded p-button-text p-button-lg"
+            tooltip="Vote Neutral"
+            tooltipOptions={{ position: "bottom" }}
+            style={{ color: "#F7DC6F" }}
+            onClick={(e) => voteButtonCliked(e, "Neutral")}
+            loading={voting}
+          />
+        </div>
+        <div className="flex">
+          <Button
+            icon="icon icon-common icon-thumbs-down"
+            className="p-button-rounded p-button-text p-button-lg"
+            tooltip="Vote Negative"
+            tooltipOptions={{ position: "bottom" }}
+            style={{ color: "#F1948A" }}
+            onClick={(e) => voteButtonCliked(e, "Negative")}
+            loading={voting}
+          />
+        </div>
       </div>
     );
 
@@ -91,7 +103,8 @@ const Vote = ({ id, voteData, callBack }) => {
         voteButton: selectedVote,
       };
 
-      console.log(selectedVote)
+      console.log(e);
+      console.log(selectedVote);
 
       confirmDialog({
         message:
@@ -112,46 +125,96 @@ const Vote = ({ id, voteData, callBack }) => {
       });
     };
 
+
+    let option = {
+      grid: {
+        left: '3%',
+        right: '3%',
+        bottom: '0%',
+        containLabel: false
+      },
+      xAxis: {
+        type: 'value',
+        show: false
+      },
+      yAxis: {
+        type: 'category',
+        data: ['Votes'],
+        show: false
+      },
+
+      series: [
+        {
+          name: 'Positive',
+          type: 'bar',
+          stack: 'total',
+          label: {
+            show: true
+          },
+          itemStyle: {
+            color: "#76D7C4",
+          },
+          data: [votes.Positive]
+        },
+        {
+          name: 'Neutral',
+          type: 'bar',
+          stack: 'total',
+          label: {
+            show: true
+          },
+          itemStyle: {
+            color: "#F7DC6F",
+          },
+          data: [votes.Neutral]
+        },
+        {
+          name: 'Negative',
+          type: 'bar',
+          stack: 'total',
+          label: {
+            show: true
+          },
+          itemStyle: {
+            color: "#F1948A",
+          },
+          data: [votes.Negative]
+        }
+      ]
+
+    }
+
+
+    let renderVotingChartOrNoVotes = () => {
+      if (votes.Positive === 0 && votes.Neutral === 0 && votes.Negative === 0) {
+        return (<p style={{ fontSize: "small" }}>No votes submitted</p>
+        )
+      }
+      else {
+        return <ReactECharts
+          option={option}
+          // onEvents={onEvents}
+          style={{ height: "6rem", width: "10rem" }}
+        />
+      }
+    }
+
+
     /* Final Render */
     return (
       <React.Fragment>
-        <ConfirmDialog />
-        <div
-          style={{
-            height: "20px",
-            width: "200px",
-            marginTop: "10px",
-            borderRadius: "10px",
-          }}
-        >
-          {/* <ResponsiveBar
-            data={votes}
-            keys={["Positive", "Neutral", "Negative"]}
-            layout="horizontal"
-            padding={0.0}
-            valueScale={{ type: "linear" }}
-            colors={getColor}
-            borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
-            axisTop={null}
-            axisRight={null}
-            axisLeft={null}
-            axisBottom={null}
-            // isInteractive={false}
-            tooltip={({ id, value, color }) => (
-              <div
-                style={{
-                  color,
-                  background: "#000000",
-                  padding: "6px",
-                }}
-              >
-                {id} : {value}
-              </div>
-            )}
-          /> */}
 
-          {generateOptions()}
+
+        <div className="flex flex-column min-w-10">
+
+          <div className="flex">
+            {renderVotingChartOrNoVotes()}
+          </div>
+          <div className="flex">
+            {generateOptions()}
+          </div>
         </div>
+
         <Dialog
           header="Confirm Vote"
           visible={displayVoteConfirmation}
