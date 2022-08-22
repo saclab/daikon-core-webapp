@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import ReactECharts from "echarts-for-react";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { confirmDialog } from "primereact/confirmdialog";
 import { RootStoreContext } from "../../stores/rootStore";
 
@@ -12,22 +11,12 @@ This is to prevent multipple binding of the ConfirmDialog if more than
 one voting element is present in the screen.
 */
 
-
 const Vote = ({ id, voteData, callBack }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const { voting, vote } = rootStore.votingStore;
 
-  const [displayVoteConfirmation, setDisplayVoteConfirmation] = useState(false);
-
   if (id && voteData) {
-    const colors = {
-      Positive: "#76D7C4",
-      Neutral: "#F7DC6F",
-      Negative: "#F1948A",
-    };
-    const getColor = (bar) => colors[bar.id];
-
     let votes =
     {
       Positive: voteData.positive,
@@ -203,8 +192,6 @@ const Vote = ({ id, voteData, callBack }) => {
     /* Final Render */
     return (
       <React.Fragment>
-
-
         <div className="flex flex-column min-w-10">
 
           <div className="flex">
@@ -214,16 +201,6 @@ const Vote = ({ id, voteData, callBack }) => {
             {generateOptions()}
           </div>
         </div>
-
-        <Dialog
-          header="Confirm Vote"
-          visible={displayVoteConfirmation}
-          style={{ width: "50vw" }}
-          //footer={renderFooter("displayBasic2")}
-          onHide={() => setDisplayVoteConfirmation(false)}
-          blockScroll={true}
-          maximizable={false}
-        ></Dialog>
       </React.Fragment>
     );
   }
