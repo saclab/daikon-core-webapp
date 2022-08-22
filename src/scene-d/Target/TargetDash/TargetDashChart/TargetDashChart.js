@@ -4,7 +4,7 @@ import * as echarts from "echarts";
 import { observer } from "mobx-react-lite";
 import { Slider } from "primereact/slider";
 import { useNavigate } from "react-router-dom";
-import history from "../../../../history";
+import { InputSwitch } from "primereact/inputswitch";
 import { appColors } from "../../../../colors";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
@@ -24,6 +24,7 @@ const TargetDashChart = ({ targets }) => {
 
   const [likeScoreCutoff, setLikeScoreCutoff] = useState(0.02);
   const [impactScoreCutoff, setImpactScoreCutoff] = useState(0.02);
+  const [showLabel, setShowLabel] = useState(true);
   /** Loading Overlay */
   if (loadingTargetDash) {
     return <Loading />;
@@ -42,8 +43,6 @@ const TargetDashChart = ({ targets }) => {
   var fhaData = [];
   var portfolioData = [];
   var postPortfolioData = [];
-
-  let showLabel = true;
 
   if (!loadingTargetDash && targetDash !== null) {
     targetDash.forEach((element) => {
@@ -135,6 +134,8 @@ const TargetDashChart = ({ targets }) => {
         top: "10%",
       },
       xAxis: {
+        min: 0,
+        max: 1,
         splitLine: {
           lineStyle: {
             type: "dashed",
@@ -142,12 +143,13 @@ const TargetDashChart = ({ targets }) => {
         },
       },
       yAxis: {
+        min: 0,
+        max: 1,
         splitLine: {
           lineStyle: {
             type: "dashed",
           },
         },
-        scale: true,
       },
       series: [
         {
@@ -303,24 +305,26 @@ const TargetDashChart = ({ targets }) => {
 
     return (
       <React.Fragment>
-        <div>
-          <div style={{ height: "650px", width: "650px", marginTop: "20px" }}>
+        <div className="flex flex-column">
+          <div
+            className="flex"
+            style={{ height: "650px", width: "650px", marginTop: "20px" }}
+          >
             <ReactECharts
               option={option}
               // onEvents={onEvents}
               style={{ height: "650px", width: "650px" }}
             />
           </div>
-          <div
-            style={{
-              padding: "0px 60px 0px 60px",
-              margin: "-40px 0px 0px 0px",
-            }}
-          >
+          <div className="flex">
             <h4>
               <i className="icon icon-common icon-filter" /> Filters
             </h4>
+          </div>
+          <div className="flex">
             <h5>Likelihood Score: {likeScoreCutoff}</h5>
+          </div>
+          <div className="flex">
             <Slider
               min={0}
               max={1}
@@ -328,13 +332,27 @@ const TargetDashChart = ({ targets }) => {
               value={likeScoreCutoff}
               onChange={(e) => setLikeScoreCutoff(e.value)}
             />
+          </div>
+          <div className="flex">
             <h5>Biological Impact Score: {impactScoreCutoff}</h5>
+          </div>
+
+          <div className="flex min-w-full">
             <Slider
               min={0}
               max={1}
               step={0.01}
               value={impactScoreCutoff}
               onChange={(e) => setImpactScoreCutoff(e.value)}
+            />
+          </div>
+          <div className="flex">
+            <h5>Display Label: </h5>
+          </div>
+          <div className="flex">
+            <InputSwitch
+              checked={showLabel}
+              onChange={() => setShowLabel(showLabel ? false : true)}
             />
           </div>
         </div>
