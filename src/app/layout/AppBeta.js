@@ -140,6 +140,14 @@ const AppBeta = () => {
           name: "Target",
           data: targetData,
           type: "scatter",
+          label: {
+            formatter: function (param) {
+              return param.data[3];
+            },
+            position: "top",
+            show: true,
+            fontSize: 8,
+          },
           emphasis: {
             focus: "series",
             label: {
@@ -161,6 +169,14 @@ const AppBeta = () => {
           name: "Screen",
           data: screenData,
           type: "scatter",
+          label: {
+            formatter: function (param) {
+              return param.data[3];
+            },
+            position: "top",
+            show: true,
+            fontSize: 8,
+          },
 
           emphasis: {
             focus: "series",
@@ -183,6 +199,14 @@ const AppBeta = () => {
           name: "FHA",
           data: fhaData,
           type: "scatter",
+          label: {
+            formatter: function (param) {
+              return param.data[3];
+            },
+            position: "top",
+            show: true,
+            fontSize: 8,
+          },
           emphasis: {
             focus: "series",
             label: {
@@ -204,6 +228,14 @@ const AppBeta = () => {
           name: "Portfolio",
           data: portfolioData,
           type: "scatter",
+          label: {
+            formatter: function (param) {
+              return param.data[3];
+            },
+            position: "top",
+            show: true,
+            fontSize: 8,
+          },
           emphasis: {
             focus: "series",
             label: {
@@ -225,6 +257,14 @@ const AppBeta = () => {
           name: "PostPortfolio",
           data: postPortfolioData,
           type: "scatter",
+          label: {
+            formatter: function (param) {
+              return param.data[3];
+            },
+            position: "top",
+            show: true,
+            fontSize: 8,
+          },
           emphasis: {
             focus: "series",
             label: {
