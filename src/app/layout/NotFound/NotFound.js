@@ -4,7 +4,7 @@ import "./NotFound.css";
 
 const NotFound = () => {
   return (
-    <div>
+    <div className='w-full'>
       <div className="NotFound">
         <div className="NotFoundWrap">
           <div className="NotFoundBox">
