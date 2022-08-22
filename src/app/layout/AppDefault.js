@@ -23,6 +23,7 @@ import PostPortfolioDash from '../../scene-d/PostPortfolio/PostPortfolioDash/Pos
 import PostPortfolioView from '../../scene-d/PostPortfolio/PostPortfolioView/PostPortfolioView';
 import GeneGroups from '../../scene-d/Gene/GeneView/GeneGroups/GeneGroups';
 import GenePromotionRequests from '../../scene-d/Gene/GeneView/GenePromotionRequests/GenePromotionRequests';
+import NotFound from './NotFound/NotFound';
 
 
 const AppDefault = () => {
@@ -33,7 +34,7 @@ const AppDefault = () => {
       <div className="block mb-2">
         <MenuBar />
       </div>
-      <div className='flex ml-3 mr-3 fadein animation-duration-1000'>
+      <div className='flex w-full pl-3 pr-3 fadein animation-duration-1000'>
         <Routes>
           <Route index element={<Home />} />
           {/* Gene Routes */}
@@ -62,6 +63,8 @@ const AppDefault = () => {
           {/* Post Portfolio Routes */}
           <Route path="post-portfolio" element={<PostPortfolioDash />} />
           <Route path="post-portfolio/:id/*" element={<PostPortfolioView />} />
+
+          <Route path="*" element={<NotFound />} />
 
         </Routes>
 
