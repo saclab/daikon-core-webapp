@@ -116,7 +116,7 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
           visible={displayAddStructureForm}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-          blockScroll={true}
+          
           onHide={() => setdisplayAddStructureForm(false)}
         >
           <h3>{project.projectName}| Add a compound</h3>
