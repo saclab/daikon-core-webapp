@@ -14,6 +14,7 @@ const MenuBarAdmin = () => {
 
   useEffect(() => {
     if (location.pathname.includes("/admin/user-manager/")) setActiveIndex(1);
+    else if (location.pathname.includes("/admin/app-imports")) setActiveIndex(3);
     else if (location.pathname.includes("/admin")) setActiveIndex(0);
   }, [location, setActiveIndex]);
 
@@ -32,6 +33,11 @@ const MenuBarAdmin = () => {
       label: "App Settings",
       icon: "icon icon-common icon-cogs",
       command: () => navigate("/admin/settings"),
+    },
+    {
+      label: "App Imports",
+      icon: "icon icon-common icon-gavel",
+      command: () => navigate("/admin/app-imports"),
     },
 
 
