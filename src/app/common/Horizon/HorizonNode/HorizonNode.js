@@ -283,14 +283,14 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                navigate(`/d/fha/${dataObj.dataObj.attributes.id}`);
+                navigate(`/d/ha/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
               <p style={{ color: objColor }}>
-                <b>FHA</b> <br />
+                <b>HA</b> <br />
                 {dataObj.dataObj.attributes.projectName}<br />
                 {dataObj.dataObj.attributes.status === "Terminated" ? "Terminated" : ""}
               </p>
