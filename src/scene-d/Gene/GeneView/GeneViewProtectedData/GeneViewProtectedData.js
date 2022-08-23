@@ -8,7 +8,7 @@ import DisplayTable from "../../../../app/common/DisplayTable/DisplayTable";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { BreadCrumb } from 'primereact/breadcrumb';
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
-import GeneViewProtectedDataEssentiality  from './Sections/GeneViewProtectedDataEssentiality';
+import GeneViewProtectedDataEssentiality from './Sections/GeneViewProtectedDataEssentiality';
 const GeneViewProtectedData = ({
   gene,
   edit,
@@ -119,6 +119,8 @@ const GeneViewProtectedData = ({
                 data={gene.geneEssentiality}
                 edit={editEssentiality}
                 editing={editingEssentiality}
+                add={addEssentiality}
+                adding={addingEssentiality}
               />
             </Fieldset>
           </div>
