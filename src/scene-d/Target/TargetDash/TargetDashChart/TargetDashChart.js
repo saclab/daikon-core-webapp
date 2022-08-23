@@ -59,7 +59,7 @@ const TargetDashChart = ({ targets }) => {
     return new echarts.graphic.RadialGradient(0.4, 0.3, 1, [
       {
         offset: 0,
-        color: ColorLuminance(color, 0.2)
+        color: ColorLuminance(color, 0.5)
       },
       {
         offset: 1,
