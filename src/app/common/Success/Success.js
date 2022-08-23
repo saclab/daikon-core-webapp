@@ -4,7 +4,7 @@ import "./Success.css";
 
 const Success = ({message}) => {
   return (
-    <div>
+    <div className='w-full'>
       <div className="Success">
         <div className="SuccessWrap">
           <div className="SuccessBox">
