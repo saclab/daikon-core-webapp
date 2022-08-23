@@ -60,19 +60,21 @@ export default class TargetStoreAdmin {
 
   /* Edit TargetAdmin */
 
-  editTargetAdmin = async () => {
+  editTargetAdmin = async (newTarget) => {
     console.log("targetStoreAdmin: editTargetAdmin Start");
     this.displayLoading = true;
     let updatedTarget = null;
 
     // send to servers
     try {
-      updatedTarget = await agent.TargetAdmin.edit(this.selectedTarget);
+      updatedTarget = await agent.TargetAdmin.edit(newTarget);
       runInAction(() => {
+        
+        this.targetRegistryAdmin.unset(updatedTarget.id);
+        this.fetchTargetAdmin(updatedTarget.id);
         console.log(updatedTarget);
         toast.success("Changes are saved");
-        this.selectedTarget = updatedTarget;
-        this.targetRegistryAdmin.set(updatedTarget.id, updatedTarget);
+        
       });
     } catch (error) {
       console.log(error);
