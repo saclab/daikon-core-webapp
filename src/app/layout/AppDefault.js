@@ -6,7 +6,7 @@ import Home from '../../scene-d/Home/Home';
 
 import GeneSearch from '../../scene-d/Gene/GeneSearch/GeneSearch'
 import GeneView from '../../scene-d/Gene/GeneView/GeneView';
-import GenomePromote from "../../scene-d/Gene/GenomePromote/GenomePromote";
+
 
 import TargetDash from '../../scene-d/Target/TargetDash/TargetDash';
 import TargetView from '../../scene-d/Target/TargetView/TargetView';
@@ -24,6 +24,7 @@ import PostPortfolioView from '../../scene-d/PostPortfolio/PostPortfolioView/Pos
 import GeneGroups from '../../scene-d/Gene/GeneView/GeneGroups/GeneGroups';
 import GenePromotionRequests from '../../scene-d/Gene/GeneView/GenePromotionRequests/GenePromotionRequests';
 import NotFound from './NotFound/NotFound';
+import GenePromote from '../../scene-d/Gene/GenePromote/GenePromote';
 
 
 const AppDefault = () => {
@@ -41,7 +42,7 @@ const AppDefault = () => {
           <Route path={"gene/"} element={<GeneSearch />} />
           <Route path={"gene/gene-group"} element={<GeneGroups />} />
           <Route path={"gene/gene-promotion-requests"} element={<GenePromotionRequests />} />
-          {/* <Route path=":id/promote" component={GenomePromote} />*/}
+          <Route path={"gene/promote/:ptarget"} element={<GenePromote />} />
           <Route path={"gene/:id/*"} element={<GeneView />} />
 
           {/*Target Routes*/}

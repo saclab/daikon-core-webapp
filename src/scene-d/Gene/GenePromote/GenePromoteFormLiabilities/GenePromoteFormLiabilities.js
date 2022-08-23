@@ -2,7 +2,7 @@ import React from "react";
 import Question from "../../../../app/common/Question/Question";
 import { SplitButton } from "primereact/splitbutton";
 
-const GenomePromoteFormLiabilities = (props) => {
+const GenePromoteFormLiabilities = (props) => {
   const nextButtonItems = [
     {
       label: "Back",
@@ -29,11 +29,11 @@ const GenomePromoteFormLiabilities = (props) => {
 
   return (
     <React.Fragment>
-      <div className="card">
+      <div className="flex flex-column">
         <h3>Metabolic liabilities</h3>
         <hr />
-        <div className="p-fluid">
-          <div className="p-field p-grid">
+        <div className="fluid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("5a1")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -41,7 +41,7 @@ const GenomePromoteFormLiabilities = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("5a2")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -49,7 +49,7 @@ const GenomePromoteFormLiabilities = (props) => {
             />
           </div>
 
-          
+
           <br />
         </div>
       </div>
@@ -57,15 +57,15 @@ const GenomePromoteFormLiabilities = (props) => {
       <div className="card">
         <h3>Genetic</h3>
         <hr />
-        <div className="p-fluid">
-          <div className="p-field p-grid">
+        <div className="fluid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("5a3")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          
+
           <br />
         </div>
       </div>
@@ -73,23 +73,23 @@ const GenomePromoteFormLiabilities = (props) => {
       <div className="card">
         <h3>Other</h3>
         <hr />
-        <div className="p-fluid">
-          <div className="p-field p-grid">
+        <div className="fluid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("5b1")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          
+
           <br />
-          <div className="p-field p-grid p-jc-end">
-            <div className="p-col-12 p-md-2">
+          <div className="flex justify-content-end">
+            <div className="flex">
               <SplitButton
                 label="Next"
                 icon="pi pi-arrow-right"
                 model={nextButtonItems}
-                className="p-button-success p-button-sm"
+                className="p-button-success"
                 onClick={() => {
                   props.onFormSet(4);
                 }}
@@ -102,4 +102,4 @@ const GenomePromoteFormLiabilities = (props) => {
   );
 };
 
-export default GenomePromoteFormLiabilities;
+export default GenePromoteFormLiabilities;

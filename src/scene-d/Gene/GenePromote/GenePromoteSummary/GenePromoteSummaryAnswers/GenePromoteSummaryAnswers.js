@@ -4,7 +4,7 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
 
   console.log(ansObj[oKey]);
 
-  let qClass = ansObj[oKey] === undefined ?
+  let qClass = (ansObj[oKey] === undefined || ansObj[oKey].answer === '') ?
     "flex align-items-center w-2 pl-2 border-1 border-round border-red-500 surface-overlay" :
     "flex align-items-center w-2 pl-2 border-1 border-round"
 
@@ -12,10 +12,11 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
     let allowedAns = ['Yes', 'No', 'Active', 'Inactive', 'High', 'Medium', 'Low'];
     let unallowedAns = ['Unknown']
 
-    if (ansObj[oKey] === undefined) {
+    if (ansObj[oKey] === undefined || ansObj[oKey].answer === '') {
       return "flex align-items-center w-6 pl-2 border-1 border-round border-red-500 surface-overlay"
     }
-    if (allowedAns.includes(ansObj[oKey]?.answer) && ansObj[oKey]?.description === undefined) {
+    if (allowedAns.includes(ansObj[oKey]?.answer)
+      && (ansObj[oKey]?.description === undefined || ansObj[oKey]?.description === '')) {
       return "flex align-items-center w-6 pl-2 border-1 border-round border-red-500 surface-overlay"
     }
     else {

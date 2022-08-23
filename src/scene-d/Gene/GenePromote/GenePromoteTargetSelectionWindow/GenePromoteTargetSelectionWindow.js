@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
 import { Card } from "primereact/card";
 import { RadioButton } from "primereact/radiobutton";
 import { Dialog } from "primereact/dialog";
@@ -11,12 +12,13 @@ import _ from "lodash";
 import { toast } from "react-toastify";
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
 import { ProgressBar } from "primereact/progressbar";
-import history from "../../../../history";
 
 const GenePromoteTargetSelectionWindow = ({
   displayPromotionDialog,
   setDisplayPromotionDialog,
 }) => {
+
+  const navigate = useNavigate();
   const [activeScreen, setActiveScreen] = useState(
     "screenProteinTypeSelection"
   );
@@ -70,7 +72,6 @@ const GenePromoteTargetSelectionWindow = ({
         <Button
           label="Continue"
           icon="pi pi-check"
-          //onClick={() => history.push(`/gene/${match.params.id}/promote`)}
           onClick={() => screenSelectionClicked()}
           autoFocus
           disabled={disableContinue}
@@ -302,7 +303,7 @@ const GenePromoteTargetSelectionWindow = ({
           genePromtionRequestGenes: [{ GeneId: gene.id }],
         });
 
-        history.push(`/gene/${proposedTargetName}/promote`);
+        navigate(`/d/gene/promote/${proposedTargetName}`);
       }
       if (proposedTargetNameValidated === "PromotionRequestExists") {
         if (disableContinue === false) setDisableContinue(true);
@@ -353,7 +354,7 @@ const GenePromoteTargetSelectionWindow = ({
           genePromtionRequestGenes: selectedProteinComplexIds,
         });
 
-        history.push(`/gene/${selectedProteinComplexName}/promote`);
+        navigate(`/d/gene/promote/${selectedProteinComplexName}`);
       }
       if (proposedTargetNameValidated === "PromotionRequestExists") {
         if (disableContinue === false) setDisableContinue(true);

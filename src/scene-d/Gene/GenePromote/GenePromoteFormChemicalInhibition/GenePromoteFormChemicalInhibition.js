@@ -2,7 +2,7 @@ import React from "react";
 import { SplitButton } from "primereact/splitbutton";
 import Question from "../../../../app/common/Question/Question";
 
-const GenomePromoteFormChemicalInhibition = (props) => {
+const GenePromoteFormChemicalInhibition = (props) => {
   const nextButtonItems = [
     {
       label: "Back",
@@ -29,32 +29,32 @@ const GenomePromoteFormChemicalInhibition = (props) => {
 
   return (
     <React.Fragment>
-      <div className="card">
+      <div className="flex flex-column">
         <h3>a) in live Mtb</h3>
         <hr />
-        <div className="p-fluid">
-          <div className="p-field p-grid">
+        <div className="fluid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("3a1")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("3a2")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("3a3")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("3a4")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -68,38 +68,38 @@ const GenomePromoteFormChemicalInhibition = (props) => {
       <div className="card">
         <h3>b) in vitro</h3>
         <hr />
-        <div className="p-fluid">
-          <div className="p-field p-grid">
+        <div className="fluid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("3b1")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("3b2")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid p-jc-end">
-            <div className="p-col-12 p-md-2">
+          <div className="flex justify-content-end">
+            <div className="flex">
               <SplitButton
                 label="Next"
                 icon="pi pi-arrow-right"
                 model={nextButtonItems}
-                className="p-button-success p-button-sm"
+                className="p-button-success"
                 onClick={() => {
                   props.onFormSet(2);
                 }}
               />
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </React.Fragment>
   );
 };
 
-export default GenomePromoteFormChemicalInhibition;
+export default GenePromoteFormChemicalInhibition;
