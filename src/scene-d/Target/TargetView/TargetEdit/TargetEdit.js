@@ -231,12 +231,6 @@ const TargetEdit = ({ id }) => {
                       <label htmlFor="screeningScore">Screening Score</label>
                       <InputText
                         id="screeningScore"
-                        showButtons
-                        buttonLayout="horizontal"
-                        incrementButtonIcon="pi pi-plus"
-                        decrementButtonIcon="pi pi-minus"
-                        decrementButtonClassName="p-button-secondary"
-                        incrementButtonClassName="p-button-secondary"
                         step={0.25}
                         value={values.screeningScore}
                         onChange={handleChange}
