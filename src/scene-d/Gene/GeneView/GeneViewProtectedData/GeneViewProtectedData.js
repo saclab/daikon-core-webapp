@@ -8,6 +8,7 @@ import DisplayTable from "../../../../app/common/DisplayTable/DisplayTable";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { BreadCrumb } from 'primereact/breadcrumb';
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
+import GeneViewProtectedDataEssentiality  from './Sections/GeneViewProtectedDataEssentiality';
 const GeneViewProtectedData = ({
   gene,
   edit,
@@ -97,7 +98,7 @@ const GeneViewProtectedData = ({
                 an organism. Gene essentiality is a core concept of genetics, with repercussions in evolutionary,
                 systems and synthetic biology and with applications in drug development.
               </EmbededHelp>
-              <DisplayTable
+              {/* <DisplayTable
                 heading={"Add Essentiality Data"}
                 columns={[
                   "classification",
@@ -112,6 +113,11 @@ const GeneViewProtectedData = ({
                 add={addEssentiality}
                 edit={editEssentiality}
                 adding={addingEssentiality}
+                editing={editingEssentiality}
+              /> */}
+              <GeneViewProtectedDataEssentiality
+                data={gene.geneEssentiality}
+                edit={editEssentiality}
                 editing={editingEssentiality}
               />
             </Fieldset>
