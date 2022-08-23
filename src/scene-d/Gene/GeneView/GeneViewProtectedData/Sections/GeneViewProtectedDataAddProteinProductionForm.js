@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { classNames } from "primereact/utils";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 
 const GeneViewProtectedDataAddProteinProductionForm = ({
   add,
@@ -121,10 +122,13 @@ const GeneViewProtectedDataAddProteinProductionForm = ({
           >
             Date
           </label>
-          <InputText
+          <Calendar
             id="date"
             value={formik.values.date}
             onChange={formik.handleChange}
+            dateFormat="dd/mm/yy"
+            mask="99/99/9999"
+            showIcon
             autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("date"),
