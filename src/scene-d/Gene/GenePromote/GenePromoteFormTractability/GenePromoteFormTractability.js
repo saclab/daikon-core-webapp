@@ -2,7 +2,7 @@ import React from "react";
 import Question from "../../../../app/common/Question/Question";
 import { SplitButton } from "primereact/splitbutton";
 
-const GenomePromoteFormTractability = (props) => {
+const GenePromoteFormTractability = (props) => {
   const nextButtonItems = [
     {
       label: "Back",
@@ -29,11 +29,11 @@ const GenomePromoteFormTractability = (props) => {
 
   return (
     <React.Fragment>
-      <div className="card">
+      <div className="flex flex-column">
         <h3>a) High throughput screening feasibility</h3>
         <hr />
-        <div className="p-fluid">
-          <div className="p-field p-grid">
+        <div className="fluid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6a1")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -41,7 +41,7 @@ const GenomePromoteFormTractability = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6a2")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -49,7 +49,7 @@ const GenomePromoteFormTractability = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6a3")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -57,7 +57,7 @@ const GenomePromoteFormTractability = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6a4")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -65,7 +65,7 @@ const GenomePromoteFormTractability = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6a5")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -73,7 +73,7 @@ const GenomePromoteFormTractability = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6a6")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -81,7 +81,7 @@ const GenomePromoteFormTractability = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6a7")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -95,22 +95,22 @@ const GenomePromoteFormTractability = (props) => {
       <div className="card">
         <h3>b) Structure based feasibility</h3>
         <hr />
-        <div className="p-fluid">
-          <div className="p-field p-grid">
+        <div className="fluid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6b1")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6b2")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6b3")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -118,7 +118,7 @@ const GenomePromoteFormTractability = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6b4")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -126,7 +126,7 @@ const GenomePromoteFormTractability = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6b5")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -140,36 +140,36 @@ const GenomePromoteFormTractability = (props) => {
       <div className="card">
         <h3>c) Progressibility considerations</h3>
         <hr />
-        <div className="p-fluid">
-          <div className="p-field p-grid">
+        <div className="fluid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6c1")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6c2")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6c3")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6c4")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6c5")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -177,7 +177,7 @@ const GenomePromoteFormTractability = (props) => {
             />
           </div>
 
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6c6")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -191,29 +191,29 @@ const GenomePromoteFormTractability = (props) => {
       <div className="card">
         <h3>d) Safety considerations</h3>
         <hr />
-        <div className="p-fluid">
-          <div className="p-field p-grid">
+        <div className="fluid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6d1")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6d2")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6d3")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
               readObject={props.targetPromotionFormValue}
             />
           </div>
-          <div className="p-field p-grid">
+          <div className="field">
             <Question
               question={props.promotionQuestionsRegistry.get("6d4")}
               updateObject={(e) => props.updateTargetPromotionFormValue(e)}
@@ -222,13 +222,13 @@ const GenomePromoteFormTractability = (props) => {
           </div>
 
           <br />
-          <div className="p-field p-grid p-jc-end">
-            <div className="p-col-12 p-md-2">
+          <div className="flex justify-content-end">
+            <div className="flex">
               <SplitButton
                 label="Next"
                 icon="pi pi-arrow-right"
                 model={nextButtonItems}
-                className="p-button-success p-button-sm"
+                className="p-button-success"
                 onClick={() => {
                   props.onFormSet(5);
                 }}
@@ -241,4 +241,4 @@ const GenomePromoteFormTractability = (props) => {
   );
 };
 
-export default GenomePromoteFormTractability;
+export default GenePromoteFormTractability;

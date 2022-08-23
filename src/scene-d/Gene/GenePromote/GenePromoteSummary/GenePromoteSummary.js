@@ -31,18 +31,19 @@ const GenePromoteSummary = (props) => {
   console.log(props.promotionQuestionsRegistry);
 
   return (
-    <div>
-      <h2>Submit For Review</h2>
-      <hr />
+    <React.Fragment>
+      <div className="flex flex-column w-full">
+        <div className="flex">
+          <h2>Submit For Review</h2>
+        </div>
 
-      <div>
-        <div className="card">
+        <div className="flex flex-column">
           <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
             Impact of chemical inhibition
           </h4>
-
+        </div>
+        <div className="flex flex-column">
           <h5>a) During infections</h5>
-
           <GenePromoteSummaryAnswers
             oKey="2a1"
             questionObj={props.promotionQuestionsRegistry}
@@ -84,7 +85,9 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
+        </div>
 
+        <div className="flex flex-column">
           <h5>b) on replication Mtb in vitro</h5>
           <GenePromoteSummaryAnswers
             oKey="2b1"
@@ -103,7 +106,9 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
+        </div>
 
+        <div className="flex flex-column">
           <h5>c) on nonreplicating Mtb in vitro</h5>
           <GenePromoteSummaryAnswers
             oKey="2c1"
@@ -135,13 +140,17 @@ const GenePromoteSummary = (props) => {
             ansObj={props.targetPromotionFormValue}
           />
 
+        </div>
+        <div className="flex">
           <Divider />
         </div>
 
-        <div className="card">
+        <div className="flex flex-column">
           <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
             Chemical inhibition
           </h4>
+        </div>
+        <div className="flex flex-column">
           <h5>a) in live Mtb</h5>
           <GenePromoteSummaryAnswers
             oKey="3a1"
@@ -166,7 +175,9 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
+        </div>
 
+        <div className="flex flex-column">
           <h5>b) in vitro</h5>
           <GenePromoteSummaryAnswers
             oKey="3b1"
@@ -179,13 +190,19 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
+        </div>
 
+        <div className="flex flex-column">
           <Divider />
         </div>
-        <div className="card">
+
+        <div className="flex flex-column">
           <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
             Impact of genetic inhibition
           </h4>
+        </div>
+
+        <div className="flex flex-column">
           <h5>a) During infections</h5>
 
           <GenePromoteSummaryAnswers
@@ -223,7 +240,9 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
+        </div>
 
+        <div className="flex flex-column">
           <h5>b) on replication Mtb in vitro</h5>
           <GenePromoteSummaryAnswers
             oKey="4b1"
@@ -242,7 +261,9 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
+        </div>
 
+        <div className="flex flex-column">
           <h5>c) on nonreplicating Mtb in vitro</h5>
           <GenePromoteSummaryAnswers
             oKey="4c1"
@@ -273,15 +294,19 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
+        </div>
 
+        <div className="flex flex-column">
           <Divider />
         </div>
 
-        <div className="card">
+        <div className="flex flex-column">
           <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
             Liabilities
           </h4>
+        </div>
 
+        <div className="flex flex-column">
           <h5>Metabolic liabilities</h5>
           <GenePromoteSummaryAnswers
             oKey="5a1"
@@ -302,20 +327,28 @@ const GenePromoteSummary = (props) => {
             ansObj={props.targetPromotionFormValue}
           />
 
+        </div>
+
+        <div className="flex flex-column">
           <h5>Other</h5>
           <GenePromoteSummaryAnswers
             oKey="5b1"
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
+        </div>
 
+        <div className="flex flex-column">
           <Divider />
         </div>
 
-        <div className="card">
+        <div className="flex flex-column">
           <h4 style={{ background: "#cccccc", height: "1.6rem" }}>
             Tractability
           </h4>
+        </div>
+
+        <div className="flex flex-column">
           <h5>a) High throughput screening feasibility</h5>
 
           <GenePromoteSummaryAnswers
@@ -360,6 +393,9 @@ const GenePromoteSummary = (props) => {
             ansObj={props.targetPromotionFormValue}
           />
 
+        </div>
+
+        <div className="flex flex-column">
           <h5>b) Structure based feasibility</h5>
           <GenePromoteSummaryAnswers
             oKey="6b1"
@@ -391,6 +427,9 @@ const GenePromoteSummary = (props) => {
             ansObj={props.targetPromotionFormValue}
           />
 
+        </div>
+
+        <div className="flex flex-column">
           <h5>c) Progressibility considerations</h5>
           <GenePromoteSummaryAnswers
             oKey="6c1"
@@ -427,7 +466,8 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
-
+        </div>
+        <div className="flex flex-column">
           <h5>d) Safety considerations</h5>
           <GenePromoteSummaryAnswers
             oKey="6d1"
@@ -452,22 +492,27 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
-
+        </div>
+        <div className="flex flex-column">
           <Divider />
         </div>
-      </div>
 
-      <SplitButton
-        label="Submit"
-        icon="pi pi-arrow-right"
-        model={nextButtonItems}
-        className="p-button-success p-button-sm"
-        style={{ float: "right" }}
-        onClick={() => {
-          props.onFormSubmit();
-        }}
-      />
-    </div>
+        <div className="flex justify-content-end">
+          <div className="flex">
+            <SplitButton
+              label="Submit"
+              icon="pi pi-arrow-right"
+              model={nextButtonItems}
+              className="p-button-success"
+              onClick={() => {
+                props.onFormSubmit();
+              }}
+            />
+          </div>
+
+        </div>
+      </div>
+    </React.Fragment >
   );
 };
 

@@ -1,24 +1,29 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
-
+import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
 
 import cssClass from "./GenomePromote.module.css";
-import GenomePromoteFormImpactOfChemInhibit from "./GenomePromoteFormImpactOfChemInhibit/GenomePromoteFormImpactOfChemInhibit";
-import GenomePromoteFormChemicalInhibition from "./GenomePromoteFormChemicalInhibition/GenomePromoteFormChemicalInhibition";
-import GenomePromoteFormImpactOfGeneticInhibit from "./GenomePromoteFormImpactOfGeneticInhibit/GenomePromoteFormImpactOfGeneticInhibit";
-import GenomePromoteFormLiabilities from "./GenomePromoteFormLiabilities/GenomePromoteFormLiabilities";
-import GenomePromoteFormTractability from "./GenomePromoteFormTractability/GenomePromoteFormTractability";
+import GenePromoteFormChemicalInhibition from "./GenePromoteFormChemicalInhibition/GenePromoteFormChemicalInhibition";
+import GenePromoteFormImpactOfGeneticInhibit from "./GenePromoteFormImpactOfGeneticInhibit/GenePromoteFormImpactOfGeneticInhibit";
+import GenePromoteFormLiabilities from "./GenePromoteFormLiabilities/GenePromoteFormLiabilities";
+import GenePromoteFormTractability from "./GenePromoteFormTractability/GenePromoteFormTractability";
 
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
 import Success from "../../../app/common/Success/Success";
+import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
+import { appColors } from '../../../colors';
+import GenePromoteFormImpactOfChemInhibit from "./GenePromoteFormImpactOfChemInhibit/GenePromoteFormImpactOfChemInhibit";
 
-const GenomePromote = ({ match }) => {
+const GenePromote = () => {
   const toast = useRef(null);
   const rootStore = useContext(RootStoreContext);
+
+  const params = useParams();
+  const navigate = useNavigate();
 
   const {
     promotionQuestionsDisplayLoading,
@@ -35,7 +40,7 @@ const GenomePromote = ({ match }) => {
   }, [
     promotionQuestionsRegistry,
     getPromotionQuestions,
-    match.params.id,
+    params.ptarget,
   ]);
 
   const [formSuccess, setFormSuccess] = useState(false);
@@ -104,165 +109,166 @@ const GenomePromote = ({ match }) => {
     "6d4": { answer: "", description: "" },
   });
 
-  //Test data:
-  // const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
-  //   "3a2": {
-  //     answer: "Yes",
-  //     description: "p",
-  //   },
-  //   "2b4": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "3a1": {
-  //     answer: "Yes",
-  //     description: "p",
-  //   },
-  //   "2c5": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2c4": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2c3": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2c2": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2c1": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2a4a": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2b1": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2a5": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2a3b": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2a3a": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2a2": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "2a1b": {
-  //     answer: "Yes",
-  //     description: "p",
-  //   },
-  //   "3a3": {
-  //     answer: "Yes",
-  //     description: "p",
-  //   },
-  //   "2b2": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "3a4": {
-  //     answer: "Yes",
-  //     description: "p",
-  //   },
-  //   "4c1": {
-  //     answer: "Active",
-  //     description: "cdcd",
-  //   },
-  //   "3b2": {
-  //     answer: "Yes",
-  //     description: "p",
-  //   },
-  //   "5b1": {
-  //     answer: "Active",
-  //     description: "cdc",
-  //   },
-  //   "5a3": {
-  //     answer: "Yes",
-  //     description: "cdcd",
-  //   },
-  //   "5a2": {
-  //     answer: "Active",
-  //     description: "cdcd",
-  //   },
-  //   "5a1": {
-  //     answer: "Inactive",
-  //     description: "dc",
-  //   },
-  //   "4c5": {
-  //     answer: "Inactive",
-  //     description: "cdc",
-  //   },
-  //   "4c4": {
-  //     answer: "Active",
-  //     description: "cdcd",
-  //   },
-  //   "4c3": {
-  //     answer: "Inactive",
-  //     description: "cdcdc",
-  //   },
-  //   "4c2": {
-  //     answer: "Active",
-  //     description: "cdcd",
-  //   },
-  //   "4b3": {
-  //     answer: "Inactive",
-  //     description: "cdcd",
-  //   },
-  //   "4b2": {
-  //     answer: "Active",
-  //     description: "cdcd",
-  //   },
-  //   "4b1": {
-  //     answer: "Inactive",
-  //     description: "sxcc",
-  //   },
-  //   "4a4": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "4a3b": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "4a3a": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "4a2b": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "4a2a": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "4a1": {
-  //     answer: "Active",
-  //     description: "p",
-  //   },
-  //   "3b1": {
-  //     answer: "Yes",
-  //     description: "p",
-  //   },
-  //   "2a1": {
-  //     answer: "Yes",
-  //     description: "qwe",
-  //   },
-  // });
+  /*//Test data:
+  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
+    "3a2": {
+      answer: "Yes",
+      description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia",
+    },
+    "2b4": {
+      answer: "Active",
+      description: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+    },
+    "3a1": {
+      answer: "Yes",
+      description: "p",
+    },
+    "2c5": {
+      answer: "Active",
+      description: "p",
+    },
+    "2c4": {
+      answer: "Active",
+      description: "p",
+    },
+    "2c3": {
+      answer: "Active",
+      description: "p",
+    },
+    "2c2": {
+      answer: "Active",
+      description: "p",
+    },
+    "2c1": {
+      answer: "Active",
+      description: "p",
+    },
+    "2a4a": {
+      answer: "Active",
+      description: "p",
+    },
+    "2b1": {
+      answer: "Active",
+      description: "p",
+    },
+    "2a5": {
+      answer: "Active",
+      description: "p",
+    },
+    "2a3b": {
+      answer: "Active",
+      description: "p",
+    },
+    "2a3a": {
+      answer: "Active",
+      description: "p",
+    },
+    "2a2": {
+      answer: "Active",
+      description: "p",
+    },
+    "2a1b": {
+      answer: "Yes",
+      description: "p",
+    },
+    "3a3": {
+      answer: "Yes",
+      description: "p",
+    },
+    "2b2": {
+      answer: "Active",
+      description: "p",
+    },
+    "3a4": {
+      answer: "Yes",
+      description: "p",
+    },
+    "4c1": {
+      answer: "Active",
+      description: "cdcd",
+    },
+    "3b2": {
+      answer: "Yes",
+      description: "p",
+    },
+    "5b1": {
+      answer: "Active",
+      description: "cdc",
+    },
+    "5a3": {
+      answer: "Yes",
+      description: "cdcd",
+    },
+    "5a2": {
+      answer: "Active",
+      description: "cdcd",
+    },
+    "5a1": {
+      answer: "Inactive",
+      description: "dc",
+    },
+    "4c5": {
+      answer: "Inactive",
+      description: "cdc",
+    },
+    "4c4": {
+      answer: "Active",
+      description: "cdcd",
+    },
+    "4c3": {
+      answer: "Inactive",
+      description: "cdcdc",
+    },
+    "4c2": {
+      answer: "Active",
+      description: "cdcd",
+    },
+    "4b3": {
+      answer: "Inactive",
+      description: "cdcd",
+    },
+    "4b2": {
+      answer: "Active",
+      description: "cdcd",
+    },
+    "4b1": {
+      answer: "Inactive",
+      description: "sxcc",
+    },
+    "4a4": {
+      answer: "Active",
+      description: "p",
+    },
+    "4a3b": {
+      answer: "Active",
+      description: "p",
+    },
+    "4a3a": {
+      answer: "Active",
+      description: "p",
+    },
+    "4a2b": {
+      answer: "Active",
+      description: "p",
+    },
+    "4a2a": {
+      answer: "Active",
+      description: "p",
+    },
+    "4a1": {
+      answer: "Active",
+      description: "p",
+    },
+    "3b1": {
+      answer: "Yes",
+      description: "p",
+    },
+    "2a1": {
+      answer: "Yes",
+      description: "qwe",
+    },
+  });
+  */
 
   const updateTargetPromotionFormValue = (e) => {
     var location = null;
@@ -330,11 +336,11 @@ const GenomePromote = ({ match }) => {
 
     console.log(data);
 
-    submitPromotionQuestionaire(match.params.id, data).then((res) => {
-      if (res !== null) {
-        setFormSuccess(true);
-      }
-    });
+    // submitPromotionQuestionaire(params.ptarget, data).then((res) => {
+    //   if (res !== null) {
+    //     setFormSuccess(true);
+    //   }
+    // });
   };
 
   const stepItems = [
@@ -370,7 +376,7 @@ const GenomePromote = ({ match }) => {
       switch (activeForm) {
         case 0:
           return (
-            <GenomePromoteFormImpactOfChemInhibit
+            <GenePromoteFormImpactOfChemInhibit
               promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
               updateTargetPromotionFormValue={(e) =>
@@ -382,7 +388,7 @@ const GenomePromote = ({ match }) => {
 
         case 1:
           return (
-            <GenomePromoteFormChemicalInhibition
+            <GenePromoteFormChemicalInhibition
               promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
               updateTargetPromotionFormValue={(e) =>
@@ -394,7 +400,7 @@ const GenomePromote = ({ match }) => {
 
         case 2:
           return (
-            <GenomePromoteFormImpactOfGeneticInhibit
+            <GenePromoteFormImpactOfGeneticInhibit
               promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
               updateTargetPromotionFormValue={(e) =>
@@ -406,7 +412,7 @@ const GenomePromote = ({ match }) => {
 
         case 3:
           return (
-            <GenomePromoteFormLiabilities
+            <GenePromoteFormLiabilities
               promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
               updateTargetPromotionFormValue={(e) =>
@@ -418,7 +424,7 @@ const GenomePromote = ({ match }) => {
 
         case 4:
           return (
-            <GenomePromoteFormTractability
+            <GenePromoteFormTractability
               promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
               updateTargetPromotionFormValue={(e) =>
@@ -462,14 +468,19 @@ const GenomePromote = ({ match }) => {
   return (
     <React.Fragment>
       <Toast ref={toast} />
-      <div className="p-d-flex p-flex-column">
-        <div className="p-mb-2">
-          <h2 className="heading">Target Promotion Questionaire for {match.params.id}</h2>
+      <div className="flex flex-column w-full">
+        <div className="flex w-full">
+          <SectionHeading
+            icon="icon icon-conceptual icon-dna"
+            heading={`Target Promotion Questionaire for ${params.ptarget}`}
+            color={appColors.sectionHeadingBg.gene}
+          />
+          {/* <h2 className="heading">Target Promotion Questionaire for {params.ptarget}</h2> */}
         </div>
-        <div className="p-mb-2">
-          <Steps model={stepItems} activeIndex={activeForm} />
+        <div className="flex w-full">
+          <Steps model={stepItems} activeIndex={activeForm} className="w-full" />
         </div>
-        <div className="p-mb-2">
+        <div className="flex w-full">
           <div className={[cssClass.GenomePromoteForm].join(" ")}>
             {formToDisplay()}
           </div>
@@ -479,4 +490,4 @@ const GenomePromote = ({ match }) => {
   );
 };
 
-export default observer(GenomePromote);
+export default observer(GenePromote);
