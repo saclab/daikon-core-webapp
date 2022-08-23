@@ -1,14 +1,16 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { Fieldset } from "primereact/fieldset";
-import { useNavigate } from 'react-router-dom';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
+import { useNavigate } from "react-router-dom";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import { appColors } from "../../../../colors";
 import DisplayTable from "../../../../app/common/DisplayTable/DisplayTable";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from "primereact/breadcrumb";
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
-import GeneViewProtectedDataEssentiality from './Sections/GeneViewProtectedDataEssentiality';
+import GeneViewProtectedDataEssentiality from "./Sections/GeneViewProtectedDataEssentiality";
+import GeneViewProtectedDataProteinProductionList from "./Sections/GeneViewProtectedDataProteinProductionList";
+
 const GeneViewProtectedData = ({
   gene,
   edit,
@@ -17,7 +19,6 @@ const GeneViewProtectedData = ({
   historyDisplayLoading,
   geneHistory,
 }) => {
-
   const navigate = useNavigate();
 
   const breadCrumbItems = [
@@ -31,7 +32,7 @@ const GeneViewProtectedData = ({
       label: gene.accessionNumber,
       command: () => {
         navigate(`/d/gene/${gene.id}`);
-      }
+      },
     },
     { label: "TBDA Data" },
   ];
@@ -89,14 +90,16 @@ const GeneViewProtectedData = ({
           color={appColors.sectionHeadingBg.gene}
         />
       </div>
-      <div className='flex w-full'>
+      <div className="flex w-full">
         <div className="flex flex-column gap-3 w-full">
           <div className="flex w-full">
-            <Fieldset className="w-full" legend="Essentiality" >
+            <Fieldset className="w-full" legend="Essentiality">
               <EmbededHelp>
-                A gene is considered essential if it is required for the reproductive success of a cell or
-                an organism. Gene essentiality is a core concept of genetics, with repercussions in evolutionary,
-                systems and synthetic biology and with applications in drug development.
+                A gene is considered essential if it is required for the
+                reproductive success of a cell or an organism. Gene essentiality
+                is a core concept of genetics, with repercussions in
+                evolutionary, systems and synthetic biology and with
+                applications in drug development.
               </EmbededHelp>
               {/* <DisplayTable
                 heading={"Add Essentiality Data"}
@@ -128,11 +131,12 @@ const GeneViewProtectedData = ({
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Protein Production List">
               <EmbededHelp>
-                Protein production is the biotechnological process of generating a specific protein.
-                It is typically achieved by the manipulation of gene expression in an organism such that
-                it expresses large amounts of a recombinant gene.
+                Protein production is the biotechnological process of generating
+                a specific protein. It is typically achieved by the manipulation
+                of gene expression in an organism such that it expresses large
+                amounts of a recombinant gene.
               </EmbededHelp>
-              <DisplayTable
+              {/* <DisplayTable
                 heading={"Add Protein Production"}
                 columns={["production", "method", "purity", "date"]}
                 mandatory={["production"]}
@@ -141,9 +145,15 @@ const GeneViewProtectedData = ({
                 edit={editProteinProduction}
                 adding={addingProteinProduction}
                 editing={editingProteinProduction}
+              /> */}
+              <GeneViewProtectedDataProteinProductionList
+                data={gene.geneProteinProduction}
+                edit={editProteinProduction}
+                editing={editingProteinProduction}
+                add={addProteinProduction}
+                adding={addingProteinProduction}
               />
             </Fieldset>
-
           </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Protein Activity Assay List">
@@ -186,7 +196,6 @@ const GeneViewProtectedData = ({
                 editing={editingCRISPRiStrain}
               />
             </Fieldset>
-
           </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Resistance Mutations">
@@ -215,7 +224,6 @@ const GeneViewProtectedData = ({
                 editing={editingResistanceMutation}
               />
             </Fieldset>
-
           </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Vulnerability">
@@ -258,10 +266,12 @@ const GeneViewProtectedData = ({
                 editing={editingVulnerability}
               />
             </Fieldset>
-
           </div>
           <div className="flex w-full">
-            <Fieldset className="w-full" legend="Unpublished Structural Information">
+            <Fieldset
+              className="w-full"
+              legend="Unpublished Structural Information"
+            >
               <DisplayTable
                 heading={"Add Unpublished Structural Information"}
                 columns={["organization", "method", "resolution", "ligands"]}
@@ -274,12 +284,9 @@ const GeneViewProtectedData = ({
               />
             </Fieldset>
           </div>
-
         </div>
       </div>
     </div>
-
-
   );
 };
 
