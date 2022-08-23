@@ -82,7 +82,7 @@ const GenePromotionRequest = ({
   const getGeneInformatin = () => {
     let genes = questionaire.genePromtionRequestGenes.map((gene) => {
       return (
-        <NavLink to={`/gene/${gene.geneId}`}>
+        <NavLink to={`/d/gene/${gene.geneId}`}>
           {GeneRegistry.get(gene.geneId).accessionNumber + " "}
         </NavLink>
       );
