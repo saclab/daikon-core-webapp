@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 export default class TargetStoreAdmin {
   rootStore;
   displayLoading = false;
+  editingTarget = false
   targetRegistryAdmin = new Map();
   selectedTarget = null;
 
@@ -12,6 +13,7 @@ export default class TargetStoreAdmin {
     this.rootStore = rootStore;
     makeObservable(this, {
       displayLoading: observable,
+      editingTarget: observable,
       targetRegistryAdmin: observable,
       fetchTargetAdmin: action,
       selectedTarget: observable,
@@ -62,26 +64,26 @@ export default class TargetStoreAdmin {
 
   editTargetAdmin = async (newTarget) => {
     console.log("targetStoreAdmin: editTargetAdmin Start");
-    this.displayLoading = true;
+    this.editingTarget = true;
     let updatedTarget = null;
 
     // send to servers
     try {
       updatedTarget = await agent.TargetAdmin.edit(newTarget);
+
       runInAction(() => {
-        
-        this.targetRegistryAdmin.unset(updatedTarget.id);
+        this.targetRegistryAdmin.delete(updatedTarget.id);
         this.fetchTargetAdmin(updatedTarget.id);
         console.log(updatedTarget);
         toast.success("Changes are saved");
-        
+
       });
     } catch (error) {
       console.log(error);
       toast.error(error.data.title);
     } finally {
       runInAction(() => {
-        this.displayLoading = false;
+        this.editingTarget = false;
         console.log("targetStoreAdmin: edit Complete");
       });
     }
