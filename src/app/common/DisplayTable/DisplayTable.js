@@ -202,7 +202,7 @@ const DisplayTable = ({
       <Sidebar
         visible={displayAddDialog}
         position="right"
-        blockScroll={true}
+        
         onHide={() => {
           formik.resetForm();
           setDisplayAddDialog(false);

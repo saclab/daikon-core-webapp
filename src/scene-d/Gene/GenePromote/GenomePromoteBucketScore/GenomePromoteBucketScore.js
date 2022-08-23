@@ -12,7 +12,7 @@ const GenomePromoteBucketScore = (props) => {
       baseZIndex={1000000}
       onHide={() => setVisibleRight(false)
       }
-      blockScroll={true}
+      
       showCloseIcon={false}
       modal={true}
     >

@@ -361,7 +361,7 @@ const ValidatedHitsList = ({ screenId }) => {
         visible={displayHitsImportSidebar}
         header="Import Validated Hits"
         style={{ width: "90%" }}
-        blockScroll={true}
+        
         onHide={() => setDisplayHitsImportSidebar(false)}
         className="p-sidebar-lg"
       >
@@ -377,7 +377,7 @@ const ValidatedHitsList = ({ screenId }) => {
         //footer={renderFooter("displayBasic2")}
         onHide={() => setDisplayPromoteToFHAEntry(false)}
         style={{ width: "90%" }}
-        blockScroll={true}
+        
         maximizable={true}
       >
         <ValidatedHitsPromoteToFHAEntry

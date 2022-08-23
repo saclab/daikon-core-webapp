@@ -125,7 +125,7 @@ const ScreenSequence = ({ screenId }) => {
           visible={displayAddDialog}
           position="right"
           // style={{ width: "50%", overflowX: "auto" }}
-          blockScroll={true}
+          
           onHide={() => setDisplayAddDialog(false)}
           className="p-sidebar-md"
         >

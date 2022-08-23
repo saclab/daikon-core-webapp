@@ -275,7 +275,7 @@ const Discussion = ({ reference, section }) => {
         visible={displayDiscussionDialog}
         position="right"
         style={{ width: "30em", overflowX: "auto" }}
-        blockScroll={true}
+        
         onHide={() => setDisplayDiscussionDialog(false)}
       >
         <h2>Start a new topic.</h2>
