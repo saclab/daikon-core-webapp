@@ -336,11 +336,11 @@ const GenePromote = () => {
 
     console.log(data);
 
-    // submitPromotionQuestionaire(params.ptarget, data).then((res) => {
-    //   if (res !== null) {
-    //     setFormSuccess(true);
-    //   }
-    // });
+    submitPromotionQuestionaire(params.ptarget, data).then((res) => {
+      if (res !== null) {
+        setFormSuccess(true);
+      }
+    });
   };
 
   const stepItems = [
