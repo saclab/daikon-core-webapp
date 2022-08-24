@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useCSVReader } from "react-papaparse";
-import Loading from "../../../../app/layout/Loading/Loading";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
+import Loading from "../../../app/layout/Loading/Loading";
 
-const SimpleTargetAdminImporter = () => {
+const ComplexTargetAdminImporter = () => {
   const rootStore = useContext(RootStoreContext);
   const { CSVReader } = useCSVReader();
 
@@ -22,13 +22,37 @@ const SimpleTargetAdminImporter = () => {
     failedImpotrs: [],
   });
 
+  const styles = {
+    csvReader: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginBottom: 10,
+    },
+    browseFile: {
+      width: '20%',
+    },
+    acceptedFile: {
+      border: '1px solid #ccc',
+      height: 45,
+      lineHeight: 2.5,
+      paddingLeft: 10,
+      width: '80%',
+    },
+    remove: {
+      borderRadius: 0,
+      padding: '0 20px',
+    },
+    progressBarBackgroundColor: {
+      backgroundColor: 'red',
+    },
+  };
+
   //fetchGeneByAccessionNo
   const {
-    fetchGeneByAccessionNo,
     getPromotionQuestions,
     promotionQuestionsRegistry,
   } = rootStore.geneStore;
-  const { importTarget } = rootStore.targetStoreAdmin;
+  const { importTargetComplex } = rootStore.targetStoreAdmin;
 
   useEffect(() => {
     if (promotionQuestionsRegistry.size === 0) {
@@ -59,14 +83,15 @@ const SimpleTargetAdminImporter = () => {
     setDataFormatingStatus(false);
   };
 
-  let dto = async (data) => {
+  let dto = async (csvData) => {
+    let data = csvData.data;
     let failedForDTOs = [];
     console.log("---------------------------");
     console.log("DTO START");
     setLoading(true);
 
     for (let i = 0; i < data.length; i++) {
-      let row = data[i].data;
+      let row = data[i];
       console.log(row);
       console.log("Fetching for " + row["Protein"]);
 
@@ -74,20 +99,6 @@ const SimpleTargetAdminImporter = () => {
       if (row["Protein"] === "") {
         continue;
       }
-
-      let gene = await fetchGeneByAccessionNo(row["AccessionNo"]).catch((e) => {
-        console.log("Cannot find gene", e);
-      });
-
-      console.log("gene");
-      console.log(gene);
-
-      if (typeof gene === "undefined") {
-        failedForDTOs.push(row["AccessionNo"] + " in row " + i);
-        continue;
-      }
-
-      let targetName = row["Protein"];
 
       let targetPromotionFormValue = {
         "2a1": { answer: row["2a1_r"], description: row["2a1_t"] },
@@ -163,7 +174,6 @@ const SimpleTargetAdminImporter = () => {
 
       var dataObject = {
         targetName: row["Protein"],
-        simpleProteinAccessionNumber: row["AccessionNo"],
         status: "imported",
         bucket: row["Bucket"] !== "" ? row["Bucket"] : "NA",
         impactScore: row["ImpactScore"] !== "" ? row["ImpactScore"] : "0.00",
@@ -224,11 +234,11 @@ const SimpleTargetAdminImporter = () => {
 
     for (let i = 0; i < consolidatedDTO.length; i++) {
       let targetToImport = consolidatedDTO[i];
-      setsSatusText("Importing " + targetToImport.geneName);
+      setsSatusText("Importing " + targetToImport.targetName);
       console.log(targetToImport);
-      await importTarget(targetToImport).catch((e) => {
+      await importTargetComplex(targetToImport).catch((e) => {
         console.log("Cannot import", e);
-        failedDTOImports.push(targetToImport.geneName);
+        failedDTOImports.push(targetToImport.targetName);
       });
     }
 
@@ -248,7 +258,7 @@ const SimpleTargetAdminImporter = () => {
   let dataFormattingResults = (
     <Card title="Console" style={{ width: "70em" }}>
       No of targets in CSV = {statusProps.csvLength - 1} <br />
-      No of targets that matched a gene in db = {statusProps.importTargetLength}
+
       <br />
       <div style={{ width: "60rem", overflowWrap: "anywhere" }}>
         Match not found for : {statusProps.failedDTOs.join()}
@@ -267,17 +277,40 @@ const SimpleTargetAdminImporter = () => {
 
   return (
     <div>
-      <h2>Importer : Simple Proteins</h2>
+      <h2>Importer : Protein Complexes</h2>
       <CSVReader
-        onDrop={handleOnDrop}
-        onError={handleOnError}
+        onUploadAccepted={(r) => handleOnDrop(r)}
+        //onError={handleOnError}
         noDrag
         style={{}}
         config={{ header: true }}
-        addRemoveButton
-        onRemoveFile={handleOnRemoveFile}
-      >
-        <span>Select CSV Data Source for Targets</span>
+      // addRemoveButton
+      // onRemoveFile={handleOnRemoveFile}
+      >{({
+        getRootProps,
+        acceptedFile,
+        ProgressBar,
+        getRemoveFileProps,
+      }) => (
+        <div className="flex flex-column justify-content-center gap-2 border-400 border-dashed border-round-md  border-1 m-2 p-3">
+          <div className="flex align-items-center justify-content-center">
+            <h1
+              className="size-400 icon icon-fileformats icon-spacer"
+              data-icon="c"
+            ></h1>
+          </div>
+          <div className="flex align-items-center justify-content-center">
+            {!acceptedFile ? <Button className="w-max p-button-secondary pl-5 pr-5" type='button' {...getRootProps()}>
+              Select CSV File to upload
+            </Button> : acceptedFile.name}
+
+          </div>
+          <div className="flex" style={styles.progressBar}>
+            <ProgressBar />
+          </div>
+
+        </div>
+      )}
       </CSVReader>
       <br />
       {statusText} <br />
@@ -287,4 +320,4 @@ const SimpleTargetAdminImporter = () => {
   );
 };
 
-export default observer(SimpleTargetAdminImporter);
+export default observer(ComplexTargetAdminImporter);
