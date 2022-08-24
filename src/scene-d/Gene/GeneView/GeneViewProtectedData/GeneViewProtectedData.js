@@ -10,6 +10,7 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
 import GeneViewProtectedDataEssentiality from "./Sections/GeneViewProtectedDataEssentiality";
 import GeneViewProtectedDataProteinProductionList from "./Sections/GeneViewProtectedDataProteinProductionList";
+import GeneViewProtectedDataProteinActivityAssayList from "./Sections/GeneViewProtectedDataProteinActivityAssayList";
 
 const GeneViewProtectedData = ({
   gene,
@@ -157,7 +158,7 @@ const GeneViewProtectedData = ({
           </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Protein Activity Assay List">
-              <DisplayTable
+              {/* <DisplayTable
                 heading={"Add Protein Activity Assay"}
                 columns={["activity", "type", "throughput"]}
                 mandatory={["activity", "type", "throughput"]}
@@ -166,6 +167,13 @@ const GeneViewProtectedData = ({
                 edit={editProteinActivityAssay}
                 adding={addingProteinActivityAssay}
                 editing={editingProteinActivityAssay}
+              /> */}
+              <GeneViewProtectedDataProteinActivityAssayList
+                data={gene.geneProteinActivityAssay}
+                edit={editProteinActivityAssay}
+                editing={editingProteinActivityAssay}
+                add={addProteinActivityAssay}
+                adding={addingProteinActivityAssay}
               />
             </Fieldset>
           </div>
