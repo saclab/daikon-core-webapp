@@ -25,11 +25,17 @@ const TargetAdminImporter = () => {
   }
 
   return (
-    <React.Fragment>
+    <div className="flex flex-column">
       <h2>Select Target Type:</h2>
-      <Dropdown value={selectedItem} options={targetTypes} onChange={onCityChange} optionLabel="name" placeholder="Select a Target Type" />
+      <Dropdown
+        value={selectedItem}
+        options={targetTypes}
+        onChange={onCityChange}
+        optionLabel="name"
+        placeholder="Select a Target Type" />
       {importer()}
-    </React.Fragment>
+     
+    </div>
   );
 
 };

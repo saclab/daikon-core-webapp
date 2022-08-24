@@ -7,6 +7,7 @@ import AppAdminSettings from '../../screen-admin/AppAdminSettings/AppAdminSettin
 import FailedLoading from '../common/FailedLoading/FailedLoading';
 import { RootStoreContext } from '../stores/rootStore';
 import Unauthorized from '../common/Unauthorized/Unauthorized';
+import AppImports from '../../screen-admin/AppImports/AppImports';
 
 const AppAdmin = () => {
 
@@ -23,6 +24,7 @@ const AppAdmin = () => {
           <Routes>
             <Route index element={<Navigate replace to="user-manager/" />} />
             <Route path={"user-manager/*"} element={<AppAdminUserManager />} />
+            <Route path={"app-imports/*"} element={<AppImports />} />
             <Route path={"settings/*"} element={<AppAdminSettings />} />
           </Routes>
         </div>
