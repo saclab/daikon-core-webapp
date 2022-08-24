@@ -100,12 +100,12 @@ const GeneViewProtectedDataProteinActivityAssayList = ({
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">
             <h3>
-              <i className="icon icon-common icon-plus-circle"></i>Add Protein
+              <i className="icon icon-common icon-plus-circle"></i> Add Protein
               Activity Assay List
             </h3>
           </div>
           <div className="flex w-full">
-            <GeneViewProtectedDataAddProteinActivityAssayForm.js
+            <GeneViewProtectedDataAddProteinActivityAssayForm
               add={add}
               adding={adding}
               closeSidebar={() => setDisplayAddSideBar(false)}
