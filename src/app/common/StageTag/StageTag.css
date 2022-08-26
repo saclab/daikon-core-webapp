@@ -34,6 +34,12 @@
   font-weight: normal;
   min-width: 5rem;
 }
+.stage-tag .stage-P1 {
+  background-color: #344e41;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
 
 .stage-tag .stage-Portfolio {
   background-color: #64d777;

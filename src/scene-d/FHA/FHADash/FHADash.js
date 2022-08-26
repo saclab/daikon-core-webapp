@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Tag } from "primereact/tag";
 import { SelectButton } from "primereact/selectbutton";
 import FDate from "../../../app/common/FDate/FDate";
+import './FHADashDataTable.css'
 
 
 // import "./PortfolioDashDataTable.css";
@@ -45,22 +46,18 @@ const FHADash = () => {
   };
 
   /* STATUS FILTER */
-  const [selectedStatus, setSelectedStatus] = useState(null);
   const statuses = ["Active", "Terminated"];
 
-  const onStatusChange = (e) => {
-    console.log(e.value);
-    dt.current.filter(e.value, "status", "equals");
-    setSelectedStatus(e.value);
-  };
 
-  const statusFilter = (
+
+  const statusFilter = (options) => (
     <SelectButton
-      value={selectedStatus}
+      value={options.value}
       options={statuses}
-      onChange={onStatusChange}
+      onChange={(e) => options.filterApplyCallback(e.value)}
       itemTemplate={stageItemTemplate}
-      className="p-column-filter"
+      className="p-column-filter p-button-sm"
+
     />
   );
   /* END STATUS FILTER */
@@ -166,9 +163,10 @@ const FHADash = () => {
               paginator
               rows={10}
               // header={header}
-              className="p-datatable-targets"
+              className="datatable-fha-dash"
               //globalFilter={globalFilter}
               emptyMessage="No FHAs found."
+              filterDisplay="row"
             >
               <Column
                 field="id"
@@ -178,11 +176,15 @@ const FHADash = () => {
                 filterMatchMode="contains"
                 filterPlaceholder="Search by ProjectNo"
                 className="narrow-column"
+
               />
 
               <Column
-                field="ProjectName"
+                field="projectName"
                 header="Project Name"
+                filter
+                filterMatchMode="contains"
+                filterPlaceholder="Search by ProjectName"
                 body={ProjectNameBodyTemplate}
               />
 
@@ -197,8 +199,10 @@ const FHADash = () => {
               />
 
               <Column
-                field="PrimaryOrganization"
+                field="primaryOrg.alias"
                 header="Primary Organization"
+                filter
+                filterMatchMode="contains"
                 body={PrimaryOrganizationBodyTemplate}
               />
 
@@ -209,6 +213,7 @@ const FHADash = () => {
                 filter
                 filterElement={statusFilter}
                 style={{ width: "250px" }}
+                showFilterMenu={false}
               />
 
               <Column field="Date" header="FHA Date" body={DateBodyTemplate} />

@@ -154,7 +154,6 @@ const GeneSearch = () => {
               filter
               filterMatchMode="contains"
               filterPlaceholder="Search"
-              
               className="narrow-column"
               sortable
             />

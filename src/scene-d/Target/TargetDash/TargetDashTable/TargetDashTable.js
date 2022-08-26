@@ -96,6 +96,7 @@ const TargetDashTable = ({ targets }) => {
           className="datatable-targets"
           //globalFilter={globalFilter}
           emptyMessage="No Targets found."
+          filterDisplay="row"
         >
           <Column
             field="name"

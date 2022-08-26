@@ -1,0 +1,183 @@
+.datatable-fha-dash .p-paginator .p-paginator-current {
+  margin-left: auto;
+}
+
+.datatable-fha-dash .p-progressbar {
+  height: 0.5rem;
+  background-color: #d8dadc;
+}
+
+.datatable-fha-dash .p-progressbar .p-progressbar-value {
+  background-color: #607d8b;
+}
+
+.datatable-fha-dash .table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.datatable-fha-dash .table-header .heading {
+  background: linear-gradient(to right, #30cfd0 0%, #332288 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.datatable-fha-dash .p-datepicker {
+  min-width: 25rem;
+}
+
+.datatable-fha-dash .p-datepicker td {
+  font-weight: 400;
+}
+
+.datatable-fha-dash .p-datatable.p-datatable-header {
+  padding: 1rem;
+  text-align: left;
+  font-size: 2rem;
+}
+
+.datatable-fha-dash .p-datatable.p-paginator {
+  padding: 1rem;
+}
+
+.datatable-fha-dash .p-datatable.p-datatable-thead > tr > th {
+  text-align: left;
+}
+
+.datatable-fha-dash .p-datatable.p-datatable-tbody > tr > td {
+  cursor: auto;
+}
+
+.datatable-fha-dash .p-datatable.p-dropdown-label:not(.p-placeholder) {
+  text-transform: uppercase;
+}
+
+.datatable-fha-dash .p-datatable-tbody > tr > td .p-column-title {
+  display: none;
+}
+
+.datatable-fha-dash .narrow-column {
+  width: 200px !important;
+}
+.datatable-fha-dash .p-inputtext {
+  font-size: 0.8rem;
+}
+
+.datatable-fha-dash .p-multiselect {
+  font-size: smaller;
+}
+
+.datatable-fha-dash .p-multiselect-item {
+  font-size: smaller;
+}
+
+.datatable-fha-dash .p-button {
+  font-size: smaller;
+}
+
+.datatable-fha-dash .table-status-active {
+  background-color: #A9DFBF;
+  color: #495057;
+  font-weight: normal;
+}
+
+.datatable-fha-dash .table-status-inactive {
+  background-color: #F2F4F4;
+  color: #495057;
+  font-weight: normal;
+}
+
+.datatable-fha-dash .table-stage-FHA {
+  background-color: #207656;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+.datatable-fha-dash .table-stage-HA {
+  background-color: #207656;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+
+.datatable-fha-dash .table-stage-H2L {
+  background-color: #DCB14E;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+.datatable-fha-dash .table-stage-LO {
+  background-color: #52422D;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+.datatable-fha-dash .table-stage-SP {
+  background-color: #D86D6F;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+.datatable-fha-dash .table-stage-IND {
+  background-color: #53A9A8;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+.datatable-fha-dash .table-date-due {
+  background-color: #FFECB3;
+  color: #495057;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+.datatable-fha-dash .table-date-ok {
+  background-color: #ffffff;
+  color: #495057;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
+@media screen and (max-width: 960px) {
+  .datatable-fha-dash .p-datatable.p-datatable-thead > tr > th,
+  .datatable-fha-dash .p-datatable.p-datatable-tfoot > tr > td {
+    display: none !important;
+  }
+
+  .datatable-fha-dash .p-datatable.p-datatable-tbody > tr {
+    border-bottom: 1px solid var(--layer-2);
+  }
+
+  .datatable-fha-dash .p-datatable.p-datatable-tbody > tr > td {
+    text-align: left;
+    display: block;
+    border: 0 none !important;
+    width: 100% !important;
+    float: left;
+    clear: left;
+    border: 0 none;
+  }
+
+  .datatable-fha-dash
+    .p-datatable.p-datatable-tbody
+    > tr
+    > td
+    .p-column-title {
+    padding: 0.4rem;
+    min-width: 30%;
+    display: inline-block;
+    margin: -0.4rem 1rem -0.4rem -0.4rem;
+    font-weight: bold;
+  }
+
+  .datatable-fha-dash
+    .p-datatable.p-datatable-tbody
+    > tr
+    > td
+    .p-progressbar {
+    margin-top: 0.5rem;
+  }
+}
