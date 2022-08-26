@@ -16,6 +16,8 @@ import { MultiSelect } from "primereact/multiselect";
 import "./PortfolioDashDataTable.css";
 import FDate from "../../../app/common/FDate/FDate";
 import { appColors } from '../../../colors';
+import StageTag from '../../../app/common/StageTag/StageTag';
+
 
 const PortfolioDash = () => {
   /* MobX Store */
@@ -37,49 +39,34 @@ const PortfolioDash = () => {
   const dt = useRef(null);
 
   /* STAGE FILTER */
-  const [selectedStage, setSelectedStage] = useState(null);
+
   const stages = ["H2L", "LO", "SP"];
 
-  const onStageChange = (e) => {
-    console.log(e.value);
-    dt.current.filter(e.value, "currentStage", "in");
-    setSelectedStage(e.value);
-  };
-
   const stageItemTemplate = (option) => {
-    return <span className={`customer-badge status-${option}`}>{option}</span>;
+    return <StageTag stage={option} />;
   };
 
-  const stageFilter = (
-    <MultiSelect
-      value={selectedStage}
-      options={stages}
-      onChange={onStageChange}
-      itemTemplate={stageItemTemplate}
-      placeholder="Select a Stage"
-      className="p-column-filter"
-      showClear
-    />
-  );
+  const stageFilter = (options) => <MultiSelect
+    value={options.value}
+    options={stages}
+    onChange={(e) => options.filterApplyCallback(e.value)}
+    itemTemplate={stageItemTemplate}
+    placeholder="Select a Stage"
+    className="p-column-filter"
+  />
+
+
   /* END STAGE FILTER */
 
   /* STATUS FILTER */
-  const [selectedStatus, setSelectedStatus] = useState(null);
   const statuses = ["Active", "Terminated"];
 
-  const onStatusChange = (e) => {
-    console.log(e.value);
-    dt.current.filter(e.value, "status", "equals");
-    setSelectedStatus(e.value);
-  };
-
-  const statusFilter = (
+  const statusFilter = (options) => (
     <SelectButton
-      value={selectedStatus}
+      value={options.value}
       options={statuses}
-      onChange={onStatusChange}
-      itemTemplate={stageItemTemplate}
-      className="p-column-filter"
+      onChange={(e) => options.filterApplyCallback(e.value)}
+      className="p-column-filter p-button-sm"
     />
   );
   /* END STATUS FILTER */
@@ -256,8 +243,10 @@ const PortfolioDash = () => {
             />
 
             <Column
-              field="PrimaryOrganization"
+              field="primaryOrg.alias"
               header="Primary Organization"
+              filter
+              filterMatchMode="contains"
               body={PrimaryOrganizationBodyTemplate}
             />
 
@@ -268,6 +257,7 @@ const PortfolioDash = () => {
               filter
               filterElement={statusFilter}
               style={{ width: "250px" }}
+              showFilterMenu={false}
             />
 
             <Column
@@ -283,7 +273,10 @@ const PortfolioDash = () => {
               header="Current Stage"
               body={StageBodyTemplate}
               filter
+              filterField="currentStage"
               filterElement={stageFilter}
+              showFilterMenu={false}
+              filterMatchMode="in"
             />
           </DataTable>
         </div>

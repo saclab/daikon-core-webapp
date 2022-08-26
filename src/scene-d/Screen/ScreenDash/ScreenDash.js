@@ -89,6 +89,7 @@ const ScreenDash = () => {
               className="p-datatable-screens"
               //globalFilter={globalFilter}
               emptyMessage="No Screens found."
+              filterDisplay="row"
             >
               <Column
                 field="targetName"
