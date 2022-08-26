@@ -16,7 +16,7 @@ const GeneSearch = () => {
   const { fetchGeneList, displayLoading, genes, geneFunctionalCategories } = rootStore.geneStore;
 
   /* Local State Management */
-  const [selectedFunctionalCategory, setFunctionalCategory] = useState(null);
+
 
   // const [globalFilter, setGlobalFilter] = useState(null);
 
@@ -90,16 +90,12 @@ const GeneSearch = () => {
     return <span>{option}</span>;
   };
 
-  const onFunctionalCategoryChange = (e) => {
-    dt.current.filter(e.value, "functionalCategory", "equals");
-    setFunctionalCategory(e.value);
-  };
-
-  const FunctionalCategoryFilter = (
+  const FunctionalCategoryFilter = (options) => (
     <Dropdown
-      value={selectedFunctionalCategory}
+      value={options.value}
       options={geneFunctionalCategories}
-      onChange={onFunctionalCategoryChange}
+      onChange={(e) => options.filterApplyCallback(e.value)}
+      //onChange={onFunctionalCategoryChange}
       itemTemplate={FunctionalCategoryItemTemplate}
       placeholder="Select a Category"
       className="p-column-filter"
@@ -130,7 +126,7 @@ const GeneSearch = () => {
   }
 
   return (
-    <div className="flex flex-column w-full fadein animation-duration-500">
+    <div className="flex flex-column min-w-full fadein animation-duration-500">
       <div className="flex w-full">
         <SectionHeading
           icon="icon icon-conceptual icon-dna"
@@ -138,17 +134,18 @@ const GeneSearch = () => {
           color={appColors.sectionHeadingBg.gene}
         />
       </div>
-      <div className="flex">
-        <div className="card datatable-genes">
+      <div className="flex w-full">
+        <div className="card datatable-genes w-full">
           <DataTable
             ref={dt}
             value={genes}
             paginator
             rows={10}
             // header={header}
-            className="p-datatable-genes"
+            className="min-w-fullp-datatable-genes"
             //globalFilter={globalFilter}
             emptyMessage="No genes found."
+            filterDisplay="row"
           >
             <Column
               field="accessionNumber"
@@ -156,9 +153,10 @@ const GeneSearch = () => {
               body={AccessionNumberBodyTemplate}
               filter
               filterMatchMode="contains"
-              filterPlaceholder="Search by A.Number"
+              filterPlaceholder="Search"
+              
               className="narrow-column"
-            //sortable
+              sortable
             />
 
             <Column
@@ -167,15 +165,18 @@ const GeneSearch = () => {
               body={GeneNameBodyTemplate}
               filter
               filterMatchMode="contains"
-              filterPlaceholder="Search by Gene Name"
+              filterPlaceholder="Search"
               className="narrow-column"
-            //sortable
+              sortable
             />
 
             <Column
               field="function"
               header="Function"
               body={FunctionBodyTemplate}
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Search"
             />
 
             <Column field="product" header="Product" body={ProductBodyTemplate} />
@@ -186,6 +187,7 @@ const GeneSearch = () => {
               body={FunctionalCategoryBodyTemplate}
               filter
               filterElement={FunctionalCategoryFilter}
+              showFilterMenu={false}
             />
           </DataTable>
         </div>
