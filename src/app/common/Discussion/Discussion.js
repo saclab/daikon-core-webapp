@@ -50,9 +50,10 @@ const Discussion = ({ reference, section }) => {
   if (loadingDiscussions) {
     return <Loading />;
   }
+  let sanitizeHtml = (text) => DOMPurify.sanitize(text, { ALLOWED_TAGS: ['strong', 'p', 'em', 'u', 's', 'a', 'ul', 'li'] });
 
   let cleanupAndParse = (text) => {
-    let cleaned = DOMPurify.sanitize(text, { ALLOWED_TAGS: ['strong', 'p', 'em', 'u', 's', 'a', 'ul', 'li'] });
+    let cleaned = sanitizeHtml(text)
     let parsed = <React.Fragment>{parse(cleaned)}</React.Fragment>
     return parsed
   }
@@ -115,7 +116,7 @@ const Discussion = ({ reference, section }) => {
 
     editDiscussion({
       ...discussion,
-      description: editBoxValue[discussion.id],
+      description: sanitizeHtml(editBoxValue[discussion.id]),
     }).then((res) => {
       if (res !== null) mapDisplayEditBox(discussion, false);
     });
@@ -131,7 +132,7 @@ const Discussion = ({ reference, section }) => {
     }
     newReply(discussion, {
       discussionId: discussion.id,
-      body: replyV,
+      body: sanitizeHtml(replyV),
     }).then((res) => {
       if (res !== null) {
         mapDisplayReplyBox(discussion.id, false);
