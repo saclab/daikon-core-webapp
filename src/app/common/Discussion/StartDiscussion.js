@@ -31,8 +31,17 @@ const StartDiscussion = ({
     });
   };
 
+  const headerOfTextEditor = <span className="ql-formats">
+    <button className="ql-bold" aria-label="Bold"></button>
+    <button className="ql-italic" aria-label="Italic"></button>
+    <button className="ql-underline" aria-label="Underline"></button>
+    <button className="ql-strike" aria-label="Strike"></button>
+    <button className="ql-link" aria-label="Link"></button>
+    <button className="ql-list" value="bullet" aria-label="Bullet"></button>
+  </span>
+
   return (
-    <div>
+    <div className="flex flex-column w-full">
       <div className="card">
         <h3>(Topic) What is it about?</h3>
         <p>A one line summary of the question or the discussion.</p>
@@ -55,8 +64,9 @@ const StartDiscussion = ({
         /> */}
         <Editor
           style={{ height: '320px' }}
-          value={description} 
-          onTextChange={(e) => {console.log(e.htmlValue); setDescription(e.htmlValue)}}
+          headerTemplate={headerOfTextEditor}
+          value={description}
+          onTextChange={(e) => { console.log(e.htmlValue); setDescription(e.htmlValue) }}
           readOnly={postingDiscussion} />
 
         {/* <h3>Tag Users?</h3>
