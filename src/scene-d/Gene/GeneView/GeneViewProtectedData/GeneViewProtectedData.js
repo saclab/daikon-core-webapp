@@ -11,6 +11,7 @@ import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
 import GeneViewProtectedDataEssentiality from "./Sections/GeneViewProtectedDataEssentiality";
 import GeneViewProtectedDataProteinProductionList from "./Sections/GeneViewProtectedDataProteinProductionList";
 import GeneViewProtectedDataProteinActivityAssayList from "./Sections/GeneViewProtectedDataProteinActivityAssayList";
+import GeneViewProtectedDataHypomorph from "./Sections/GeneViewProtectedDataHypomorph"
 
 const GeneViewProtectedData = ({
   gene,
@@ -179,7 +180,7 @@ const GeneViewProtectedData = ({
           </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Hypomorph">
-              <DisplayTable
+              {/* <DisplayTable
                 heading={"Add Hypomorph Strain"}
                 columns={["knockdownStrain", "phenotype"]}
                 mandatory={["knockdownStrain", "phenotype"]}
@@ -188,7 +189,14 @@ const GeneViewProtectedData = ({
                 edit={editHypomorph}
                 adding={addingHypomorph}
                 editing={editingHypomorph}
-              />
+              /> */}
+              <GeneViewProtectedDataHypomorph 
+                data={gene.geneHypomorphs}
+                edit={editHypomorph}
+                editing={editingHypomorph}
+                add={addHypomorph}
+                adding={addingHypomorph}
+                />
             </Fieldset>
           </div>
           <div className="flex w-full">
