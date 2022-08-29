@@ -11,7 +11,8 @@ import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
 import GeneViewProtectedDataEssentiality from "./Sections/GeneViewProtectedDataEssentiality";
 import GeneViewProtectedDataProteinProductionList from "./Sections/GeneViewProtectedDataProteinProductionList";
 import GeneViewProtectedDataProteinActivityAssayList from "./Sections/GeneViewProtectedDataProteinActivityAssayList";
-import GeneViewProtectedDataHypomorph from "./Sections/GeneViewProtectedDataHypomorph"
+import GeneViewProtectedDataHypomorph from "./Sections/GeneViewProtectedDataHypomorph";
+import GeneViewProtectedDataCrispRiStrainList from "./Sections/GeneViewProtectedDataCrispRiStrainList";
 
 const GeneViewProtectedData = ({
   gene,
@@ -190,18 +191,18 @@ const GeneViewProtectedData = ({
                 adding={addingHypomorph}
                 editing={editingHypomorph}
               /> */}
-              <GeneViewProtectedDataHypomorph 
+              <GeneViewProtectedDataHypomorph
                 data={gene.geneHypomorphs}
                 edit={editHypomorph}
                 editing={editingHypomorph}
                 add={addHypomorph}
                 adding={addingHypomorph}
-                />
+              />
             </Fieldset>
           </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="CRISPRi Strain List">
-              <DisplayTable
+              {/* <DisplayTable
                 heading={"Add CRISPRi Strain"}
                 columns={["crispRiStrain"]}
                 mandatory={["crispRiStrain"]}
@@ -210,6 +211,13 @@ const GeneViewProtectedData = ({
                 edit={editCRISPRiStrain}
                 adding={addingCRISPRiStrain}
                 editing={editingCRISPRiStrain}
+              /> */}
+              <GeneViewProtectedDataCrispRiStrainList
+                data={gene.geneCRISPRiStrain}
+                edit={editCRISPRiStrain}
+                editing={editingCRISPRiStrain}
+                add={addCRISPRiStrain}
+                adding={addingCRISPRiStrain}
               />
             </Fieldset>
           </div>
