@@ -18,7 +18,7 @@ const GeneViewProtectedDataAddCrispRiStrainForm = ({
       let errors = {};
 
       if (!data.crispRiStrain) {
-        errors.crispRiStrain = "";
+        errors.crispRiStrain = "CrispRi Strain is required";
       }
       return errors;
     },
