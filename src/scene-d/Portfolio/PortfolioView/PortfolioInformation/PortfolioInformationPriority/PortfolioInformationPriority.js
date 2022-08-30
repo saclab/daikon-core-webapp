@@ -18,16 +18,22 @@ const PortfolioInformationPriority = ({ project }) => {
         </div>
         <div
           className="flex flex-column m-3 p-3"
-          style={{ textAlign: "center", lineHeight: "0.5"}}
+          style={{ textAlign: "center", lineHeight: "0.5" }}
         >
           Probability
           <h3>{project.teamProbability}</h3>
         </div>
-        <Button
-          icon="pi pi-arrow-left"
-          onClick={() => setVisible(true)}
-          className="flex m-2"
-        />
+        <div
+          className="flex flex-column m-3 p-3"
+          style={{ textAlign: "center", lineHeight: "0.5" }}
+        >
+          <Button
+            icon="pi pi-arrow-left"
+            onClick={() => setVisible(true)}
+            className="flex m-2 p-button-secondary"
+          />
+        </div>
+
       </div>
 
       <Sidebar
