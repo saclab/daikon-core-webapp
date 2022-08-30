@@ -48,6 +48,14 @@
   min-width: 5rem;
 }
 
+.stage-tag .stage-Terminated {
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+  text-transform: capitalize;
+}
+
 
 .stage-tag .stage-Dotted {
   background-color: #e5e5f7;

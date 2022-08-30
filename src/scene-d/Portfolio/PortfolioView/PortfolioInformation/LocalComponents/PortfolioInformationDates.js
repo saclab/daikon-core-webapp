@@ -21,7 +21,7 @@ const PortfolioInformationDates = ({ project }) => {
       date: project.h2LStart,
       predictedDateNextStage: project.loPredictedStart,
     });
-    if (!project.loEnabled) {
+    if (project.status !== "Terminated" && !project.loEnabled) {
       timelineEvents.push({
         stage: "LO",
         date: project.loPredictedStart,
@@ -36,7 +36,7 @@ const PortfolioInformationDates = ({ project }) => {
       date: project.loStart,
       predictedDateNextStage: project.spPredictedStart,
     });
-    if (!project.spEnabled) {
+    if (project.status !== "Terminated" && !project.spEnabled) {
       timelineEvents.push({
         stage: "SP",
         date: project.spPredictedStart,
@@ -51,13 +51,20 @@ const PortfolioInformationDates = ({ project }) => {
       date: project.spStart,
       predictedDateNextStage: project.indPredictedStart,
     });
-    if (!project.indEnabled) {
+    if (project.status !== "Terminated" && !project.indEnabled) {
       timelineEvents.push({
         stage: "IND",
         date: project.indPredictedStart,
         isPredicted: true,
       });
     }
+  }
+
+  if (project.status === "Terminated") {
+    timelineEvents.push({
+      stage: "Terminated"
+    })
+
   }
 
   let generateDateItem = (item) => {
@@ -85,6 +92,16 @@ const PortfolioInformationDates = ({ project }) => {
         <span>
           <i
             className="icon icon-common icon-dot-circle"
+            style={{ color: "#1F618D" }}
+          ></i>
+        </span>
+      );
+    }
+    if (item.stage === "Terminated") {
+      return (
+        <span>
+          <i
+            className="pi pi-times-circle"
             style={{ color: "#1F618D" }}
           ></i>
         </span>
