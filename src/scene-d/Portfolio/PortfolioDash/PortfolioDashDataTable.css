@@ -127,6 +127,13 @@
   min-width: 5rem;
 }
 
+.datatable-portfolio-dash .table-stage-P1 {
+  background-color: #344e41;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+}
+
 .datatable-portfolio-dash .table-date-due {
   background-color: #FFECB3;
   color: #495057;
