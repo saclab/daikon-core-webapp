@@ -211,6 +211,10 @@ const PostPortfolioDash = () => {
               field="ProjectName"
               header="Project Name"
               body={ProjectNameBodyTemplate}
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Filter by Project"
+              className="narrow-column"
             />
 
             <Column
