@@ -13,6 +13,7 @@ import GeneViewProtectedDataProteinProductionList from "./Sections/GeneViewProte
 import GeneViewProtectedDataProteinActivityAssayList from "./Sections/GeneViewProtectedDataProteinActivityAssayList";
 import GeneViewProtectedDataHypomorph from "./Sections/GeneViewProtectedDataHypomorph";
 import GeneViewProtectedDataCrispRiStrainList from "./Sections/GeneViewProtectedDataCrispRiStrainList";
+import GeneViewProtectedDataResistanceMutation from "./Sections/GeneViewProtectedDataResistanceMutation";
 
 const GeneViewProtectedData = ({
   gene,
@@ -223,7 +224,7 @@ const GeneViewProtectedData = ({
           </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Resistance Mutations">
-              <DisplayTable
+              {/* <DisplayTable
                 heading={"Add Resistance Mutation"}
                 columns={[
                   "mutation",
@@ -240,7 +241,8 @@ const GeneViewProtectedData = ({
                   "compound",
                   "shiftInMIC",
                   "org",
-                ]}
+                ]} */}
+              <GeneViewProtectedDataResistanceMutation
                 data={gene.geneResistanceMutation}
                 add={addResistanceMutation}
                 edit={editResistanceMutation}
