@@ -205,7 +205,7 @@ const PortfolioDash = () => {
             ref={dt}
             value={filterPortfolioProjects()}
             paginator
-            rows={10}
+            rows={20}
             // header={header}
             className="w-full datatable-portfolio-dash"
             //globalFilter={globalFilter}
@@ -229,7 +229,7 @@ const PortfolioDash = () => {
               filter
               filterMatchMode="contains"
               filterPlaceholder="Filter by Project"
-              className="narrow-column"
+
             />
 
             <Column
@@ -239,7 +239,7 @@ const PortfolioDash = () => {
               filter
               filterMatchMode="contains"
               filterPlaceholder="Filter by Target"
-              className="narrow-column"
+
             />
 
             <Column

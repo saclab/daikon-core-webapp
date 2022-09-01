@@ -72,7 +72,7 @@ const PostPortfolioDash = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Target</span>
-        {rowData.geneName}
+        {rowData.targetName}
       </React.Fragment>
     );
   };
@@ -190,7 +190,7 @@ const PostPortfolioDash = () => {
             ref={dt}
             value={filterPostPortfolioProjects()}
             paginator
-            rows={10}
+            rows={20}
             // header={header}
             className="w-full datatable-postportfolio-dash"
             //globalFilter={globalFilter}
@@ -208,23 +208,23 @@ const PostPortfolioDash = () => {
             />
 
             <Column
-              field="ProjectName"
+              field="projectName"
               header="Project Name"
               body={ProjectNameBodyTemplate}
               filter
               filterMatchMode="contains"
               filterPlaceholder="Filter by Project"
-              className="narrow-column"
+              
             />
 
             <Column
-              field="Target"
+              field="targetName"
               header="Target"
               body={TargetBodyTemplate}
               filter
               filterMatchMode="contains"
               filterPlaceholder="Filter by Target"
-              className="narrow-column"
+              
             />
 
             <Column
@@ -245,7 +245,7 @@ const PostPortfolioDash = () => {
               showFilterMenu={false}
             />
 
-            <Column field="Date"
+            <Column field="date"
               header="Date"
               body={DateBodyTemplate}
               style={{ width: "100px" }}
