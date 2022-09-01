@@ -73,7 +73,7 @@ const GeneViewProtectedDataResistanceMutation = ({
             <Column field="isolate" header="Isolate" editor={(options) => textEditor(options)} />
             <Column field="parentStrain" header="Parent Strain" editor={(options) => textEditor(options)} />
             <Column field="compound" header="Compound" editor={(options) => textEditor(options)} />
-            <Column field="shiftInMic" header="ShiftInMic" editor={(options) => textEditor(options)} />
+            <Column field="shiftInMic" header="Shift In Mic" editor={(options) => textEditor(options)} />
             <Column field="org" header="Org" editor={(options) => textEditor(options)} />
             <Column rowEditor headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }} />
 
