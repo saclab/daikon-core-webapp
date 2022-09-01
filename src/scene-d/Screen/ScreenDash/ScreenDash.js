@@ -8,24 +8,37 @@ import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import { appColors } from '../../../colors';
+import { TabView } from 'primereact/tabview';
+import { TabPanel } from 'primereact/tabview';
 
 const ScreenDash = () => {
   const rootStore = useContext(RootStoreContext);
-  const { loadingFetchScreens, screenRegistry, fetchScreens, uniqueScreens } =
+  const {
+    loadingFetchScreens,
+    screenRegistry,
+    fetchScreens,
+    uniqueScreens,
+    loadingFetchScreensPhenotypic,
+    screenPhenotypicRegistry,
+    fetchScreensPhenotypic,
+    screensPhenotypic } =
     rootStore.screenStore;
 
   /* Local State Management */
 
   useEffect(() => {
     if (screenRegistry.size === 0) fetchScreens();
-  }, [screenRegistry, fetchScreens]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (screenPhenotypicRegistry.size === 0) fetchScreensPhenotypic();
+  }, [screenRegistry, fetchScreens, screenPhenotypicRegistry, fetchScreensPhenotypic]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */
 
   const dt = useRef(null);
 
-  if (!loadingFetchScreens) {
+  if (!loadingFetchScreens && !loadingFetchScreensPhenotypic) {
     /* Table Body Templates */
+
+    console.log(screenPhenotypicRegistry)
 
     const TargetNameBodyTemplate = (rowData) => {
       return (
@@ -33,6 +46,17 @@ const ScreenDash = () => {
           <span className="p-column-title">Target</span>
           <NavLink to={"./" + rowData.targetName}>
             {rowData.targetName}
+          </NavLink>
+        </React.Fragment>
+      );
+    };
+
+    const PhenotypicScreenNameBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Target</span>
+          <NavLink to={"./" + rowData.screenName}>
+            {rowData.screenName}
           </NavLink>
         </React.Fragment>
       );
@@ -56,20 +80,6 @@ const ScreenDash = () => {
       );
     };
 
-    /* Table Header  */
-    // const header = (
-    //   <div className="table-header">
-    //     <span className="heading">List of Targets being Screened</span>
-    //     {/* <span className="p-input-icon-left">
-    //       <i className="pi pi-search" />
-    //       <InputText
-    //         type="search"
-    //         onInput={(e) => setGlobalFilter(e.target.value)}
-    //         placeholder="Search"
-    //       />
-    //     </span> */}
-    //   </div>
-    // );
     return (
       <div className="flex flex-column w-full fadein animation-duration-500">
         <div className="flex w-full">
@@ -80,32 +90,71 @@ const ScreenDash = () => {
           />
         </div>
         <div className="flex w-full">
-          <div className="datatable-screens">
-            <DataTable
-              ref={dt}
-              value={uniqueScreens}
-              paginator
-              rows={10}
-              className="p-datatable-screens"
-              //globalFilter={globalFilter}
-              emptyMessage="No Screens found."
-              filterDisplay="row"
-            >
-              <Column
-                field="targetName"
-                header="Name"
-                body={TargetNameBodyTemplate}
-                filter
-                filterMatchMode="contains"
-                filterPlaceholder="Search by Target Name"
-                className="narrow-column"
-              />
+          <TabView className="w-full">
+            <TabPanel header="Target Based">
+              <div className="datatable-screens">
+                <DataTable
+                  ref={dt}
+                  value={uniqueScreens}
+                  paginator
+                  rows={20}
+                  className="p-datatable-screens"
+                  //globalFilter={globalFilter}
+                  emptyMessage="No Screens found."
+                  filterDisplay="row"
+                >
+                  <Column
+                    field="targetName"
+                    header="Name"
+                    body={TargetNameBodyTemplate}
+                    filter
+                    filterMatchMode="contains"
+                    filterPlaceholder="Search by Target Name"
+                    className="min-w-max"
+                  // style={{minWidth: "50rem"}}
 
-              {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
+                  />
 
-              <Column field="notes" header="Notes" body={NotesBodyTemplate} />
-            </DataTable>
-          </div>
+                  {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
+
+                  <Column field="notes" header="Notes" body={NotesBodyTemplate} />
+                </DataTable>
+              </div>
+            </TabPanel>
+            <TabPanel header="Phenotypic">
+
+              <div className="datatable-screens">
+                <DataTable
+                  ref={dt}
+                  value={screensPhenotypic}
+                  paginator
+                  rows={20}
+                  className="p-datatable-screens"
+                  //globalFilter={globalFilter}
+                  emptyMessage="No Phenotypic Screens found."
+                  filterDisplay="row"
+                >
+                  <Column
+                    field="screenName"
+                    header="Name"
+                    body={PhenotypicScreenNameBodyTemplate}
+                    filter
+                    filterMatchMode="contains"
+                    filterPlaceholder="Search by Screen Name"
+                    className="min-w-max"
+                  // style={{minWidth: "50rem"}}
+
+                  />
+
+                  {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
+
+                  <Column field="notes" header="Notes" body={NotesBodyTemplate} />
+                </DataTable>
+              </div>
+
+            </TabPanel>
+          </TabView>
+
         </div>
       </div>
 

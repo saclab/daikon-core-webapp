@@ -13,6 +13,8 @@ export default class ScreenStore {
   rootStore;
 
   loadingFetchScreens = false;
+  
+
   loadingFilterScreensByTargetName = false;
   loadingFetchScreen = false;
   loadingScreenSequence = false;
@@ -23,6 +25,11 @@ export default class ScreenStore {
   selectedScreen = null;
   selectedScreenTargetFilter = null;
   filteredScreens = [];
+
+  loadingFetchScreensPhenotypic = false;
+  screenPhenotypicRegistry = new Map();
+  screenPhenotypicRegistryCacheValid = false;
+  selectedPhenotypicScreen = null;
 
   validatedHitsIndex = 0;
   screenSequenceIndex = 0;
@@ -56,6 +63,16 @@ export default class ScreenStore {
       setScreenSequenceIndex: action,
 
       selectedScreenTargetFilter: observable,
+
+      loadingFetchScreensPhenotypic: observable,
+      screenPhenotypicRegistry: observable,
+      screenPhenotypicRegistryCacheValid: observable,
+      selectedPhenotypicScreen: observable,
+      fetchScreensPhenotypic: action,
+      screensPhenotypic: computed
+
+
+
     });
   }
 
@@ -87,8 +104,39 @@ export default class ScreenStore {
     }
   };
 
+  fetchScreensPhenotypic = async () => {
+    console.log("screenStore: fetchScreensPhenotypic() Start");
+    this.loadingFetchScreensPhenotypic = true;
+    if (this.screenPhenotypicRegistryCacheValid && this.screenPhenotypicRegistry.size !== 0) {
+      console.log("screenStore: fetchScreensPhenotypic() cache hit");
+      this.loadingFetchScreensPhenotypic = false;
+      return;
+    }
+    try {
+      console.log("screenStore: fetchScreensPhenotypic() cache miss");
+      var resp = await agent.Screen.listPhenotypic();
+      runInAction(() => {
+        console.log(resp);
+        resp.forEach((fetchedScreen) => {
+          this.screenPhenotypicRegistry.set(fetchedScreen.id, fetchedScreen);
+        });
+        this.screenPhenotypicRegistryCacheValid = true;
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.loadingFetchScreensPhenotypic = false;
+      });
+    }
+  };
+
   get screens() {
     return Array.from(this.screenRegistry.values());
+  }
+
+  get screensPhenotypic() {
+    return Array.from(this.screenPhenotypicRegistry.values());
   }
 
   get uniqueScreens() {
