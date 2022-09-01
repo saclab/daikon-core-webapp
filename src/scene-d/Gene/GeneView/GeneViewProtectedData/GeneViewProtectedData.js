@@ -14,6 +14,7 @@ import GeneViewProtectedDataProteinActivityAssayList from "./Sections/GeneViewPr
 import GeneViewProtectedDataHypomorph from "./Sections/GeneViewProtectedDataHypomorph";
 import GeneViewProtectedDataCrispRiStrainList from "./Sections/GeneViewProtectedDataCrispRiStrainList";
 import GeneViewProtectedDataResistanceMutation from "./Sections/GeneViewProtectedDataResistanceMutation";
+import GeneViewProtectedDataVulnerability from "./Sections/GeneViewProtectedDataVulnerability"
 
 const GeneViewProtectedData = ({
   gene,
@@ -272,7 +273,7 @@ const GeneViewProtectedData = ({
                   history={geneHistory}
                 /> */}
 
-              <DisplayTable
+              {/* <DisplayTable
                 heading={"Add Vulnerability"}
                 columns={[
                   "rank",
@@ -285,6 +286,13 @@ const GeneViewProtectedData = ({
                   "shell2015Operon",
                 ]}
                 mandatory={["rank"]}
+                data={gene.geneVulnerability}
+                add={addVulnerability}
+                edit={editVulnerability}
+                adding={addingVulnerability}
+                editing={editingVulnerability}
+              /> */}
+              <GeneViewProtectedDataVulnerability
                 data={gene.geneVulnerability}
                 add={addVulnerability}
                 edit={editVulnerability}
