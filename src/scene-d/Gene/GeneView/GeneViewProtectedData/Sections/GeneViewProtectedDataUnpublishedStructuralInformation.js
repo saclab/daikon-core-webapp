@@ -6,7 +6,7 @@ import { InputText } from "primereact/inputtext";
 import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
-import GeneViewProtectedDataAddUnpublishedStructuralInformationForm from "./GeneViewProtectedDataAddUnpublishedStructuralInformationForm"
+import GeneViewProtectedDataAddUnpublishedStructuralInformationForm from "./GeneViewProtectedDataAddUnpublishedStructuralInformationForm";
 
 const GeneViewProtectedDataUnpublishedStructuralInformation = ({
   data,
@@ -105,10 +105,8 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">
             <h3>
-              {" "}
-              <i className="icon icon-common icon-plus-circle">
-                Add Unpublished Structural Information
-              </i>
+              <i className="icon icon-common icon-plus-circle"></i> Add Unpublished Structural Information
+              
             </h3>
           </div>
           <div className="flex w-full">
