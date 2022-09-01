@@ -287,6 +287,7 @@ const TargetAdmin = {
 
 const Screen = {
   list: () => requests.get(`/screen/`),
+  listPhenotypic: () => requests.get(`/screen/phenotypic`),
   details: (id) => requests.get(`/screen/${id}`),
   create: (newScreen) => requests.post(`/screen`, newScreen),
   createSequence: (screenId, newSequence) =>
