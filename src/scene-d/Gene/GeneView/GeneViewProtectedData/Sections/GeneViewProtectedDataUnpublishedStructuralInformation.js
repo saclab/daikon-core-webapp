@@ -6,10 +6,9 @@ import { InputText } from "primereact/inputtext";
 import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
-import GeneViewProtectedDataAddResistanceMutationForm from "./GeneViewProtectedDataAddResistanceMutationForm";
+import GeneViewProtectedDataAddUnpublishedStructuralInformationForm from "./GeneViewProtectedDataAddUnpublishedStructuralInformationForm";
 
-
-const GeneViewProtectedDataResistanceMutation = ({
+const GeneViewProtectedDataUnpublishedStructuralInformation = ({
   data,
   edit,
   editing,
@@ -69,14 +68,31 @@ const GeneViewProtectedDataResistanceMutation = ({
             dataKey="id"
             onRowEditComplete={saveEdits}
           >
-            <Column field="mutation" header="Mutation" editor={(options) => textEditor(options)} />
-            <Column field="isolate" header="Isolate" editor={(options) => textEditor(options)} />
-            <Column field="parentStrain" header="Parent Strain" editor={(options) => textEditor(options)} />
-            <Column field="compound" header="Compound" editor={(options) => textEditor(options)} />
-            <Column field="shiftInMic" header="Shift In Mic" editor={(options) => textEditor(options)} />
-            <Column field="org" header="Org" editor={(options) => textEditor(options)} />
-            <Column rowEditor headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }} />
-
+            <Column
+              field="organization"
+              header="Organization"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="method"
+              header="Method"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="resolution"
+              header="Resolution"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="ligands"
+              header="Ligands"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              rowEditor
+              headerStyle={{ width: "10%", minWidth: "8rem" }}
+              bodyStyle={{ textAlign: "center" }}
+            />
           </DataTable>
         </BlockUI>
       </div>
@@ -85,19 +101,25 @@ const GeneViewProtectedDataResistanceMutation = ({
         onHide={() => setDisplayAddSideBar(false)}
         position="right"
         className="p-sidebar-sm"
-      ><div className="flex flex-column gap-3 pl-3  w-full">
-      <div className="flex">
-        <h3> <i className="icon icon-common icon-plus-circle"></i> Add Essentiality</h3>
-      </div>
-      <div className="flex w-full">
-        <GeneViewProtectedDataAddResistanceMutationForm
-          add={add}
-          adding={adding}
-          closeSidebar={() => setDisplayAddSideBar(false)} />
-      </div>
-    </div></Sidebar>
+      >
+        <div className="flex flex-column gap-3 pl-3  w-full">
+          <div className="flex">
+            <h3>
+              <i className="icon icon-common icon-plus-circle"></i> Add Unpublished Structural Information
+              
+            </h3>
+          </div>
+          <div className="flex w-full">
+            <GeneViewProtectedDataAddUnpublishedStructuralInformationForm
+              add={add}
+              adding={adding}
+              closeSidebar={() => setDisplayAddSideBar(false)}
+            />
+          </div>
+        </div>
+      </Sidebar>
     </React.Fragment>
   );
 };
 
-export default observer(GeneViewProtectedDataResistanceMutation);
+export default observer(GeneViewProtectedDataUnpublishedStructuralInformation);
