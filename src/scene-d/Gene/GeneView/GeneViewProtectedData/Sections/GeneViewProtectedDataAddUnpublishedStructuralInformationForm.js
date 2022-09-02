@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { classNames } from "primereact/utils";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
+import { observer } from "mobx-react-lite";
 
 const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
   add,
   adding,
   closeSidebar,
 }) => {
+  /* MobX Store */
+  const rootStore = useContext(RootStoreContext);
+
+  const { fetchOrgs, Orgs } = rootStore.adminStore;
+
+  useEffect(() => {
+    fetchOrgs();
+  }, [fetchOrgs]);
+
   const formik = useFormik({
     initialValues: {
       organization: "",
@@ -24,6 +36,7 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
       return errors;
     },
     onSubmit: (data) => {
+      data.organization = data.organization.alias
       console.log(data);
       add(data).then((res) => {
         if (res !== null) {
@@ -54,10 +67,15 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
           >
             Organization*
           </label>
-          <InputText
-            id="organization"
+          <Dropdown
             value={formik.values.organization}
-            onChange={formik.handleChange}
+            options={Orgs}
+            onChange={formik.handleChange("organization")}
+            placeholder="Select an org"
+            optionLabel="name"
+            filter
+            showClear
+            filterBy="name"
             autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("organization"),
@@ -141,4 +159,4 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
   );
 };
 
-export default GeneViewProtectedDataAddUnpublishedStructuralInformationForm;
+export default observer(GeneViewProtectedDataAddUnpublishedStructuralInformationForm);
