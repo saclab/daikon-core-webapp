@@ -76,7 +76,7 @@ const GeneViewProtectedDataAddHypomorph = ({ add, adding, closeSidebar }) => {
             id="phenotype"
             value={formik.values.phenotype}
             onChange={formik.handleChange}
-            autoFocus
+            
             className={classNames({
               "p-invalid": isFormFieldValid("phenotype"),
             })}

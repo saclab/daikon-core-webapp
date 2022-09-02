@@ -86,7 +86,6 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
             id="isolate"
             value={formik.values.isolate}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("isolate"),
             })}
@@ -107,7 +106,6 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
             id="parentStrain"
             value={formik.values.parentStrain}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("parentStrain"),
             })}
@@ -128,7 +126,6 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
             id="compound"
             value={formik.values.compound}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("compound"),
             })}
@@ -149,7 +146,6 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
             id="shiftInMic"
             value={formik.values.shiftInMic}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("shiftInMic"),
             })}
@@ -170,7 +166,6 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
             id="org"
             value={formik.values.org}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("org"),
             })}
