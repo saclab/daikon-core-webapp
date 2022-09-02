@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { observer } from "mobx-react-lite";
 import { TabView, TabPanel } from "primereact/tabview";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import ScreenSequence from "./ScreenSequence/ScreenSequence";
-import Loading from "../../../../app/layout/Loading/Loading";
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import Loading from "../../../../../app/layout/Loading/Loading";
+import SectionHeading from '../../../../../app/common/SectionHeading/SectionHeading';
 import { BreadCrumb } from 'primereact/breadcrumb';
-import { appColors } from '../../../../colors';
+import { appColors } from '../../../../../colors';
 
 const ScreenSequences = ({ TargetName }) => {
   /* MobX Store */

@@ -1,9 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
+import SectionHeading from '../../../../../app/common/SectionHeading/SectionHeading';
+import { appColors } from '../../../../../colors';
 import { BreadCrumb } from 'primereact/breadcrumb';
-import Discussion from '../../../../app/common/Discussion/Discussion';
+import Discussion from '../../../../../app/common/Discussion/Discussion';
 
 
 const ScreenDiscussion = ({ TargetName }) => {

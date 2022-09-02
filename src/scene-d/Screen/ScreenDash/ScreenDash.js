@@ -44,7 +44,7 @@ const ScreenDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Target</span>
-          <NavLink to={"./" + rowData.targetName}>
+          <NavLink to={"./target-based/" + rowData.targetName}>
             {rowData.targetName}
           </NavLink>
         </React.Fragment>
@@ -55,7 +55,7 @@ const ScreenDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Target</span>
-          <NavLink to={"./" + rowData.screenName}>
+          <NavLink to={"./phenotypic/" + rowData.screenName}>
             {rowData.screenName}
           </NavLink>
         </React.Fragment>

@@ -5,11 +5,11 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { OverlayPanel } from "primereact/overlaypanel";
-import { RootStoreContext } from "../../../../../app/stores/rootStore";
-import Loading from "../../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../../../app/stores/rootStore";
+import Loading from "../../../../../../app/layout/Loading/Loading";
 import ScreenSequenceAddForm from "./ScreenSequenceAddForm/ScreenSequenceAddForm";
-import PleaseWait from "../../../../../app/common/PleaseWait/PleaseWait";
-import FDate from "../../../../../app/common/FDate/FDate";
+import PleaseWait from "../../../../../../app/common/PleaseWait/PleaseWait";
+import FDate from "../../../../../../app/common/FDate/FDate";
 
 const ScreenSequence = ({ screenId }) => {
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
