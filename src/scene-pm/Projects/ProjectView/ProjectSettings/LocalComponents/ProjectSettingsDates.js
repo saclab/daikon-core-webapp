@@ -169,32 +169,32 @@ const ProjectSettingsDates = ({ project }) => {
 
               <div className="field grid">
                 <label
-                  htmlFor="fhaPredictedStart"
+                  htmlFor="h2LPredictedStart"
                   style={{ width: '250px' }}
                   className={classNames({
-                    "p-error": isFormFieldValid("fhaPredictedStart"),
+                    "p-error": isFormFieldValid("h2LPredictedStart"),
                   })}
                 >
-                  FHA Predicted Start Date :
+                  H2L Predicted Start Date :
                 </label>
                 <Inplace closable>
                   <InplaceDisplay>
-                    {formik.values.fhaPredictedStart != null ? (formik.values.fhaPredictedStart).toLocaleDateString() : 'Click to Edit'}
+                    {formik.values.h2LPredictedStart != null ? (formik.values.h2LPredictedStart).toLocaleDateString() : 'Click to Edit'}
                   </InplaceDisplay>
                   <InplaceContent>
                     <Calendar
-                      id="fhaPredictedStart"
-                      name="fhaPredictedStart"
-                      value={formik.values.fhaPredictedStart}
-                      viewDate={formik.values.fhaPredictedStart}
+                      id="h2LPredictedStart"
+                      name="h2LPredictedStart"
+                      value={formik.values.h2LPredictedStart}
+                      viewDate={formik.values.h2LPredictedStart}
                       onChange={formik.handleChange}
                       style={{ width: '400px' }}
                       className={classNames({
-                        "p-invalid": isFormFieldValid("fhaPredictedStart"),
+                        "p-invalid": isFormFieldValid("h2LPredictedStart"),
                       })} />
                   </InplaceContent>
                 </Inplace>
-                {getFormErrorMessage("fhaPredictedStart")}
+                {getFormErrorMessage("h2LPredictedStart")}
               </div></>
           }
 

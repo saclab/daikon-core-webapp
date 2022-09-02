@@ -38,6 +38,7 @@ const FHADash = () => {
   /* local variables */
 
   const dt = useRef(null);
+  let todaysDate = new Date().setHours(0, 0, 0, 0);
 
   const stageItemTemplate = (option) => {
     return (
@@ -120,21 +121,37 @@ const FHADash = () => {
   };
 
   const DateBodyTemplate = (rowData) => {
-    let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
-    let todaysDate = new Date().setHours(0, 0, 0, 0);
+    let inputDate = new Date(rowData.h2LPredictedStart).setHours(0, 0, 0, 0);
+    let stageDate = rowData.h2LPredictedStart;
 
-    if (rowData.Status === "Active" && inputDate < todaysDate) {
+    if (rowData.status === "Terminated") {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#FFECB3"} />
+          <FDate className="p-column-title" timestamp={stageDate} color={"#9EA29D"} />
+        </React.Fragment>
+      );
+    }
+    if (rowData.h2LEnabled) {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Date</span>
+          <FDate className="p-column-title" timestamp={stageDate} color={"#1D7E00"} />
+        </React.Fragment>
+      );
+    }
+    if (rowData.status === "Active" && inputDate < todaysDate) {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Date</span>
+          <FDate className="p-column-title" timestamp={stageDate} color={"#9B8800"} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <FDate className="p-column-title" timestamp={rowData.fhaStart} color={"#000000"} />
+        <FDate className="p-column-title" timestamp={stageDate} color={"#1D7E00"} />
       </React.Fragment>
     );
   };
@@ -216,7 +233,7 @@ const FHADash = () => {
                 showFilterMenu={false}
               />
 
-              <Column field="Date" header="FHA Date" body={DateBodyTemplate} />
+              <Column field="Date" header="H2L Predictated Start" body={DateBodyTemplate} />
             </DataTable>
           </div>
         </div>

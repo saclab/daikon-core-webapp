@@ -41,6 +41,7 @@ const PortfolioDash = () => {
   /* STAGE FILTER */
 
   const stages = ["H2L", "LO", "SP"];
+  let todaysDate = new Date().setHours(0, 0, 0, 0);
 
   const stageItemTemplate = (option) => {
     return <StageTag stage={option} />;
@@ -132,43 +133,61 @@ const PortfolioDash = () => {
   };
 
   const DateBodyTemplate = (rowData) => {
-    let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
-    let stageDate = rowData.h2LStart;
+    let inputDate = new Date(rowData.h2LPredictedStart).setHours(0, 0, 0, 0);
+    let stageDate = rowData.h2LPredictedStart;
 
     if (rowData.h2LEnabled) {
-      inputDate = new Date(rowData.h2LStart).setHours(0, 0, 0, 0);
-      stageDate = rowData.h2LStart;
+      inputDate = new Date(rowData.loPredictedStart).setHours(0, 0, 0, 0);
+      stageDate = rowData.loPredictedStart;
     }
     if (rowData.loEnabled) {
-      inputDate = new Date(rowData.loStart).setHours(0, 0, 0, 0);
-      stageDate = rowData.loStart;
+      inputDate = new Date(rowData.spPredictedStart).setHours(0, 0, 0, 0);
+      stageDate = rowData.spPredictedStart;
     }
     if (rowData.spEnabled) {
-      inputDate = new Date(rowData.spStart).setHours(0, 0, 0, 0);
-      stageDate = rowData.spStart;
+      inputDate = new Date(rowData.indPredictedStart).setHours(0, 0, 0, 0);
+      stageDate = rowData.indPredictedStart;
     }
-    if (rowData.indEnabled) {
-      inputDate = new Date(rowData.indStart).setHours(0, 0, 0, 0);
-      stageDate = rowData.indStart;
-    }
-    if (rowData.clinicalP1Enabled) {
-      inputDate = new Date(rowData.clinicalP1Start).setHours(0, 0, 0, 0);
-      stageDate = rowData.clinicalP1Start;
-    }
-    let todaysDate = new Date().setHours(0, 0, 0, 0);
+    // if (rowData.indEnabled) {
+    //   inputDate = new Date(rowData.indStart).setHours(0, 0, 0, 0);
+    //   stageDate = rowData.indStart;
+    // }
+    // if (rowData.clinicalP1Enabled) {
+    //   inputDate = new Date(rowData.clinicalP1Start).setHours(0, 0, 0, 0);
+    //   stageDate = rowData.clinicalP1Start;
+    // }
+    
 
-    if (rowData.Status === "Active" && inputDate < todaysDate) {
+    if(rowData.status === "Terminated") {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#FFECB3"} />
+          <FDate className="p-column-title" timestamp={stageDate} color={"#9EA29D"} />
+        </React.Fragment>
+      );
+    }
+
+    if (rowData.indEnabled || rowData.clinicalP1Enabled) {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Date</span>
+          <FDate className="p-column-title" timestamp={stageDate} color={"#1D7E00"} />
+        </React.Fragment>
+      );
+    }
+
+    if (rowData.status === "Active" && inputDate < todaysDate) {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">Date</span>
+          <FDate className="p-column-title" timestamp={stageDate} color={"#9B8800"} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <FDate className="p-column-title" timestamp={stageDate} color={"#000000"} />
+        <FDate className="p-column-title" timestamp={stageDate} color={"#1D7E00"} />
       </React.Fragment>
     );
   };
