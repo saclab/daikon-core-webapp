@@ -12,7 +12,7 @@ import TargetDash from '../../scene-d/Target/TargetDash/TargetDash';
 import TargetView from '../../scene-d/Target/TargetView/TargetView';
 
 import ScreenDash from "../../scene-d/Screen/ScreenDash/ScreenDash";
-import ScreenView from "../../scene-d/Screen/ScreenView/ScreenView";
+import ScreenView from "../../scene-d/Screen/ScreenView/ScreenTargetBased/ScreenView";
 
 import FHADash from '../../scene-d/FHA/FHADash/FHADash';
 import FHAView from "../../scene-d/FHA/FHAView/FHAView";
@@ -25,6 +25,7 @@ import GeneGroups from '../../scene-d/Gene/GeneView/GeneGroups/GeneGroups';
 import GenePromotionRequests from '../../scene-d/Gene/GeneView/GenePromotionRequests/GenePromotionRequests';
 import NotFound from './NotFound/NotFound';
 import GenePromote from '../../scene-d/Gene/GenePromote/GenePromote';
+import PhenotypicScreenView from '../../scene-d/Screen/ScreenView/ScreenPhenotypic/PhenotypicScreenView';
 
 
 const AppDefault = () => {
@@ -51,7 +52,8 @@ const AppDefault = () => {
 
           {/*Screen Routes */}
           <Route path="screen/" element={<ScreenDash />} />
-          <Route path="screen/:id/*" element={<ScreenView />} />
+          <Route path="screen/target-based/:id/*" element={<ScreenView />} />
+          <Route path="screen/phenotypic/:id/*" element={<PhenotypicScreenView />} />
 
           {/* Hit Assessment Routes */}
           <Route path="ha" element={<FHADash />} />
