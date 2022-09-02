@@ -14,7 +14,8 @@ import GeneViewProtectedDataProteinActivityAssayList from "./Sections/GeneViewPr
 import GeneViewProtectedDataHypomorph from "./Sections/GeneViewProtectedDataHypomorph";
 import GeneViewProtectedDataCrispRiStrainList from "./Sections/GeneViewProtectedDataCrispRiStrainList";
 import GeneViewProtectedDataResistanceMutation from "./Sections/GeneViewProtectedDataResistanceMutation";
-import GeneViewProtectedDataVulnerability from "./Sections/GeneViewProtectedDataVulnerability"
+import GeneViewProtectedDataVulnerability from "./Sections/GeneViewProtectedDataVulnerability";
+import GeneViewProtectedDataUnpublishedStructuralInformation from "./Sections/GeneViewProtectedDataUnpublishedStructuralInformation"
 
 const GeneViewProtectedData = ({
   gene,
@@ -306,10 +307,17 @@ const GeneViewProtectedData = ({
               className="w-full"
               legend="Unpublished Structural Information"
             >
-              <DisplayTable
+              {/* <DisplayTable
                 heading={"Add Unpublished Structural Information"}
                 columns={["organization", "method", "resolution", "ligands"]}
                 mandatory={["ligands"]}
+                data={gene.geneUnpublishedStructures}
+                add={addUnpublishedStructures}
+                edit={editUnpublishedStructures}
+                adding={addingUnpublishedStructures}
+                editing={editingUnpublishedStructures}
+              /> */}
+              <GeneViewProtectedDataUnpublishedStructuralInformation
                 data={gene.geneUnpublishedStructures}
                 add={addUnpublishedStructures}
                 edit={editUnpublishedStructures}
