@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -6,6 +6,8 @@ import { InputText } from "primereact/inputtext";
 import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
+import { Dropdown } from "primereact/dropdown";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import GeneViewProtectedDataAddUnpublishedStructuralInformationForm from "./GeneViewProtectedDataAddUnpublishedStructuralInformationForm";
 
 const GeneViewProtectedDataUnpublishedStructuralInformation = ({
@@ -15,6 +17,15 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
   add,
   adding,
 }) => {
+  /* MobX Store */
+  const rootStore = useContext(RootStoreContext);
+
+  const { fetchOrgs, Orgs } = rootStore.adminStore;
+
+  useEffect(() => {
+    fetchOrgs();
+  }, [fetchOrgs]);
+
   const [tableData, setTableData] = useState([...data]);
   const [displayAddSideBar, setDisplayAddSideBar] = useState(false);
 
@@ -50,8 +61,24 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
     );
   };
 
+  const dropDownUnpublishedEditor = (options) => {
+    console.log("dropDownUnpublishedEditor");
+    console.log(options);
+    return (
+      <Dropdown
+        id="organization"
+        value={options.value}
+        options={Orgs}
+        onChange={(e) => options.editorCallback(e.target.value)}
+        placeholder="Select an org"
+        optionLabel="alias"
+      />
+    );
+  };
+
   let saveEdits = (e) => {
     let { newData } = e;
+    newData.organization = newData.organization.alias;
     edit(newData);
   };
   /* ---*/
@@ -71,7 +98,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
             <Column
               field="organization"
               header="Organization"
-              editor={(options) => textEditor(options)}
+              editor={(options) => dropDownUnpublishedEditor(options)}
             />
             <Column
               field="method"
@@ -105,8 +132,8 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">
             <h3>
-              <i className="icon icon-common icon-plus-circle"></i> Add Unpublished Structural Information
-              
+              <i className="icon icon-common icon-plus-circle"></i> Add
+              Unpublished Structural Information
             </h3>
           </div>
           <div className="flex w-full">
