@@ -4,6 +4,7 @@ import { classNames } from "primereact/utils";
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
+import { Dropdown } from "primereact/dropdown";
 
 const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar }) => {
 
@@ -59,12 +60,15 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
               "p-error": isFormFieldValid("classification"),
             })}
           >
-            Classification*
+            Classification *
           </label>
-          <InputText
+          <Dropdown
             id="classification"
             value={formik.values.classification}
+            options={[{name: 'Essential', value: 'Essential'},{name: 'Non-essential', value: 'Non-essential'}]}
             onChange={formik.handleChange}
+            placeholder="Select a classification"
+            optionLabel="name"
             autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("classification"),
@@ -86,7 +90,7 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             id="condition"
             value={formik.values.condition}
             onChange={formik.handleChange}
-            autoFocus
+            
             className={classNames({
               "p-invalid": isFormFieldValid("condition"),
             })}
@@ -107,7 +111,7 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             id="strain"
             value={formik.values.strain}
             onChange={formik.handleChange}
-            autoFocus
+            
             className={classNames({
               "p-invalid": isFormFieldValid("strain"),
             })}
@@ -128,7 +132,7 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             id="method"
             value={formik.values.method}
             onChange={formik.handleChange}
-            autoFocus
+            
             className={classNames({
               "p-invalid": isFormFieldValid("method"),
             })}
@@ -150,7 +154,7 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             id="reference"
             value={formik.values.reference}
             onChange={formik.handleChange}
-            autoFocus
+            
             className={classNames({
               "p-invalid": isFormFieldValid("reference"),
             })}
@@ -171,7 +175,7 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             id="notes"
             value={formik.values.notes}
             onChange={formik.handleChange}
-            autoFocus
+            
             className={classNames({
               "p-invalid": isFormFieldValid("notes"),
             })}
