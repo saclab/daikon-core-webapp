@@ -1,22 +1,21 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { Menu } from "primereact/menu";
-import { RootStoreContext } from "../../../app/stores/rootStore";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { Toast } from "primereact/toast";
-import Loading from "../../../app/layout/Loading/Loading";
+import Loading from "../../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import ScreenSequences from "./ScreenSequences/ScreenSequences";
 import ValidatedHits from "./ValidatedHits/ValidatedHits";
-import { appColors } from '../../../colors';
+import { appColors } from '../../../../colors';
 import ScreenDiscussion from './ScreenDiscussion/ScreenDiscussion';
-import NotFound from '../../../app/layout/NotFound/NotFound';
-import EmbededHelp from '../../../app/common/EmbededHelp/EmbededHelp';
+import NotFound from '../../../../app/layout/NotFound/NotFound';
+import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
 
 const ScreenView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
   /* MobX Store */

@@ -9,7 +9,7 @@ import { ProgressBar } from "primereact/progressbar";
 import { Chip } from 'primereact/chip';
 
 
-import { RootStoreContext } from "../../../../../../app/stores/rootStore";
+import { RootStoreContext } from "../../../../../../../app/stores/rootStore";
 
 const ValidatedHitsImporter = ({ screenId }) => {
 

@@ -13,8 +13,8 @@ import { InputTextarea } from "primereact/inputtextarea";
 
 import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
-import SmilesView from "../../../../../../app/common/SmilesView/SmilesView";
-import { RootStoreContext } from "../../../../../../app/stores/rootStore";
+import SmilesView from "../../../../../../../app/common/SmilesView/SmilesView";
+import { RootStoreContext } from "../../../../../../../app/stores/rootStore";
 const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
   const [activeStep, setActiveStep] = useState(0);
   const dt = useRef(null);
