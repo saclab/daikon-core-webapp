@@ -82,7 +82,6 @@ const GeneViewProtectedDataAddProteinActivityAssayForm = ({
             id="type"
             value={formik.values.type}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("type"),
             })}
@@ -103,7 +102,6 @@ const GeneViewProtectedDataAddProteinActivityAssayForm = ({
             id="throughput"
             value={formik.values.throughput}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("throughput"),
             })}
