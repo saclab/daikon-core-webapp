@@ -84,7 +84,6 @@ const GeneViewProtectedDataAddProteinProductionForm = ({
             id="method"
             value={formik.values.method}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("method"),
             })}
@@ -105,7 +104,6 @@ const GeneViewProtectedDataAddProteinProductionForm = ({
             id="purity"
             value={formik.values.purity}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("purity"),
             })}
@@ -129,7 +127,6 @@ const GeneViewProtectedDataAddProteinProductionForm = ({
             dateFormat="dd/mm/yy"
             mask="99/99/9999"
             showIcon
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("date"),
             })}

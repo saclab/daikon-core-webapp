@@ -79,7 +79,6 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
             id="method"
             value={formik.values.method}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("method"),
             })}
@@ -100,7 +99,6 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
             id="resolution"
             value={formik.values.resolution}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("resolution"),
             })}
@@ -121,7 +119,6 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
             id="ligands"
             value={formik.values.ligands}
             onChange={formik.handleChange}
-            autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("ligands"),
             })}
