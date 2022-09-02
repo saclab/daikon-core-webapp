@@ -18,6 +18,7 @@ const ScreenDash = () => {
     screenRegistry,
     fetchScreens,
     uniqueScreens,
+    groupScreensPhenotypic,
     loadingFetchScreensPhenotypic,
     screenPhenotypicRegistry,
     fetchScreensPhenotypic,
@@ -126,7 +127,7 @@ const ScreenDash = () => {
               <div className="datatable-screens">
                 <DataTable
                   ref={dt}
-                  value={screensPhenotypic}
+                  value={groupScreensPhenotypic}
                   paginator
                   rows={20}
                   className="p-datatable-screens"
