@@ -53,7 +53,7 @@ const AppDefault = () => {
           {/*Screen Routes */}
           <Route path="screen/" element={<ScreenDash />} />
           <Route path="screen/target-based/:id/*" element={<ScreenView />} />
-          <Route path="screen/phenotypic/:id/*" element={<PhenotypicScreenView />} />
+          <Route path="screen/phenotypic/:baseScreenName/*" element={<PhenotypicScreenView />} />
 
           {/* Hit Assessment Routes */}
           <Route path="ha" element={<FHADash />} />

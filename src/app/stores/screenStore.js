@@ -13,7 +13,7 @@ export default class ScreenStore {
   rootStore;
 
   loadingFetchScreens = false;
-  
+
 
   loadingFilterScreensByTargetName = false;
   loadingFetchScreen = false;
@@ -30,6 +30,9 @@ export default class ScreenStore {
   screenPhenotypicRegistry = new Map();
   screenPhenotypicRegistryCacheValid = false;
   selectedPhenotypicScreen = null;
+  loadingFilterPhenotypicScreensByBaseScreenName = false
+  filteredPhenotypicScreens = []
+  selectedPhenotypicScreenFilter = null
 
   validatedHitsIndex = 0;
   screenSequenceIndex = 0;
@@ -69,9 +72,13 @@ export default class ScreenStore {
       screenPhenotypicRegistryCacheValid: observable,
       selectedPhenotypicScreen: observable,
       fetchScreensPhenotypic: action,
-      screensPhenotypic: computed
+      screensPhenotypic: computed,
+      groupScreensPhenotypic: computed,
 
-
+      loadingFilterPhenotypicScreensByBaseScreenName: observable,
+      selectedPhenotypicScreenFilter: observable,
+      filteredPhenotypicScreens: observable,
+      filterPhenotypicScreensByBaseScreenName: action
 
     });
   }
@@ -150,6 +157,20 @@ export default class ScreenStore {
     return Array.from(targetsScreened.values());
   }
 
+  get groupScreensPhenotypic() {
+    let pScreened = new Map();
+    console.log("screenStore: uniqueScreens()");
+
+    this.screenPhenotypicRegistry.forEach((value) => {
+      console.log(value);
+      let lastIndex = value.screenName.lastIndexOf('-');
+      let screenName = value.screenName.slice(0, lastIndex)
+      pScreened.set(screenName, { screenName: screenName, notes: value.notes });
+      console.log(screenName)
+    });
+    return Array.from(pScreened.values());
+  }
+
   filterScreensByTarget = (targetName) => {
     this.loadingFilterScreensByTargetName = true;
     this.selectedScreenTargetFilter = targetName
@@ -162,6 +183,22 @@ export default class ScreenStore {
     this.loadingFilterScreensByTargetName = false;
 
     return this.filteredScreens;
+  };
+
+  filterPhenotypicScreensByBaseScreenName = (baseScreenName) => {
+    this.loadingFilterPhenotypicScreensByBaseScreenName = true;
+    this.selectedPhenotypicScreenFilter = baseScreenName
+    this.filteredPhenotypicScreens = [];
+    this.filteredPhenotypicScreens = Array.from(this.screenPhenotypicRegistry.values()).filter(
+      (screen) => {
+        let lastIndex = screen.screenName.lastIndexOf('-');
+        let extractedscreenName = screen.screenName.slice(0, lastIndex)
+        return extractedscreenName === baseScreenName;
+      }
+    );
+    this.loadingFilterPhenotypicScreensByBaseScreenName = false;
+
+    return this.filteredPhenotypicScreens;
   };
 
 
