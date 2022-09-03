@@ -217,27 +217,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "Screen":
-      if (dataObj.dataObj.attributes.targetName === "Unknown") {
-        return <g><foreignObject x="-10" y="-30" width="40" height="50">
-          <Button
-            icon="icon icon-common icon-search"
-            style={{
-              background: "#ffffff",
-              color: nodeColors.screen,
-              border: "0px solid #000000",
-              fontSize: "2em",
-            }}
-          />
-        </foreignObject>
-          <foreignObject x="10" y="0" width="250" height="160">
-            <div>
-              <p>
-                <b>Screen</b> <br />
-                <i>{dataObj.dataObj.attributes.screenMethod}</i>
-              </p>
-            </div>
-          </foreignObject></g>
-      }
+      
       if (dataObj.dataObj.attributes.screenMethod === "Phenotypic") {
         return (
           <g>
@@ -267,6 +247,27 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             </foreignObject>
           </g>
         );
+      }
+      if (dataObj.dataObj.attributes.targetName === "Unknown") {
+        return <g><foreignObject x="-10" y="-30" width="40" height="50">
+          <Button
+            icon="icon icon-common icon-question"
+            style={{
+              background: "#ffffff",
+              color: nodeColors.screen,
+              border: "0px solid #000000",
+              fontSize: "2em",
+            }}
+          />
+        </foreignObject>
+          <foreignObject x="10" y="0" width="250" height="160">
+            <div>
+              <p>
+                <b>Screen</b> <br />
+                <i>{dataObj.dataObj.attributes.screenMethod}</i>
+              </p>
+            </div>
+          </foreignObject></g>
       }
       return (
         <g>
