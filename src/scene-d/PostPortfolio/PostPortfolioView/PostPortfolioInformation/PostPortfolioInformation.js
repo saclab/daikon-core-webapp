@@ -48,7 +48,7 @@ const PostPortfolioInformation = ({ id, project }) => {
               " | " +
               project?.currentStage
             }
-            targetName={project.targetName || project.projectName.replaceAll(' ', '-')}
+            targetName={project.targetName || project.screenName || project.projectName}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.postPortfolio}
           />
