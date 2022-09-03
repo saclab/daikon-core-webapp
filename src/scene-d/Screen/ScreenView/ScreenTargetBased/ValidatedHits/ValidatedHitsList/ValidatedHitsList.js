@@ -125,7 +125,7 @@ const ValidatedHitsList = ({ screenId }) => {
     return (
       <React.Fragment>
         <div>
-          <SmilesView smiles={rowData?.compound?.smile} width={"300"} />
+          <SmilesView smiles={rowData?.compound?.smile} width={"220"} height={"220"} />
         </div>
       </React.Fragment>
     );
