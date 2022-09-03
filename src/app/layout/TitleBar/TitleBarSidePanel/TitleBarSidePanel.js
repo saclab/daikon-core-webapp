@@ -80,12 +80,12 @@ const TitleBarSidePanel = ({ toggle, user }) => {
       </div>
 
       <div className="flex align-items-center justify-content-center">
-        <div className="card p-fluid">
+        {/* <div className="card p-fluid">
           <span className="p-input-icon-left">
             <i className="pi pi-search" />
             <InputText placeholder="Search" />
           </span>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex">
