@@ -1,6 +1,7 @@
 import React from "react";
 import "./LocalComponents.css";
 import StageTag from "../../../../../app/common/StageTag/StageTag";
+import ProjectStatus from "../../../../../app/common/ProjectStatus/ProjectStatus";
 
 const PostPortfolioInformationGeneralInformation = ({ project }) => {
   let displaySupportingOrgs =
@@ -12,25 +13,41 @@ const PostPortfolioInformationGeneralInformation = ({ project }) => {
 
   return (
     <div className="flex flex-column w-full">
-      <div className="flex align-content-center">
-        <div className="flex align-items-center justify-content-center mr-1">
-          Current Stage :{" "}
-        </div>
-        <div className="flex align-items-center justify-content-center">
-          <StageTag stage={project.currentStage} />
-        </div>
+      <div className="flex flex-column">
+        <ProjectStatus status={project.status} />
       </div>
-      <div className="flex flex-column" style={{ width: "30rem", lineHeight: "100%" }}>
+      <div className="flex align-content-center">
+        <p>Expanded Id : {project.id}</p>
+      </div>
+
+      <div className="flex flex-column mb-2" style={{ width: "30rem", lineHeight: "100%" }}>
         <div className="flex">{project.indDescription ? '(IND) ' + project.indDescription : ''}</div>
         <div className="flex">{project.clinicalP1Description ? '(P1) ' + project.clinicalP1Description : ''}</div>
       </div>
+
       <div className="flex flex-column">
-        <p>Expanded Id : {project.id}</p>
-        <p>Target: <b>{project.targetName}</b></p>
-        <p>Status : <b>{project.status}</b></p>
-        <p>Primary Org : <b>{project?.primaryOrg?.name}</b></p>
-        <p>Supporting Orgs :</p>
-        <div style={{ marginLeft: "1rem" }}> <b>{displaySupportingOrgs}</b></div>
+        <table>
+          <tr>
+            <td>Target:</td>
+            <td><b>{project.targetName}</b></td>
+          </tr>
+          <tr>
+            <td>Current Stage :</td>
+            <td><b> <StageTag stage={project.currentStage} /></b></td>
+          </tr>
+          <tr>
+            <td>Status:</td>
+            <td><b>{project.status}</b></td>
+          </tr>
+          <tr>
+            <td>Primary Org:</td>
+            <td><b>{project?.primaryOrg?.name}</b></td>
+          </tr>
+          <tr>
+            <td>Supporting Orgs:</td>
+            <td><b>{displaySupportingOrgs}</b></td>
+          </tr>
+        </table>
       </div>
     </div >
   );
