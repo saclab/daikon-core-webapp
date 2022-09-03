@@ -10,6 +10,7 @@ import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import { appColors } from '../../../colors';
 import { TabView } from 'primereact/tabview';
 import { TabPanel } from 'primereact/tabview';
+import ScreenDashAddPhenotypic from "./ScreenDashAddPhenotypic/ScreenDashAddPhenotypic";
 
 const ScreenDash = () => {
   const rootStore = useContext(RootStoreContext);
@@ -22,14 +23,17 @@ const ScreenDash = () => {
     loadingFetchScreensPhenotypic,
     screenPhenotypicRegistry,
     fetchScreensPhenotypic,
-    screensPhenotypic } =
+    screensPhenotypic,
+    screenPhenotypicRegistryCacheValid } =
     rootStore.screenStore;
+
+  const { user } = rootStore.userStore;
 
   /* Local State Management */
 
   useEffect(() => {
     if (screenRegistry.size === 0) fetchScreens();
-    if (screenPhenotypicRegistry.size === 0) fetchScreensPhenotypic();
+    if (screenPhenotypicRegistry.size === 0 || !screenPhenotypicRegistryCacheValid) fetchScreensPhenotypic();
   }, [screenRegistry, fetchScreens, screenPhenotypicRegistry, fetchScreensPhenotypic]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */
@@ -154,6 +158,10 @@ const ScreenDash = () => {
               </div>
 
             </TabPanel>
+            {user.roles.includes("admin") && <TabPanel header="+">
+              <ScreenDashAddPhenotypic />
+            </TabPanel>}
+
           </TabView>
 
         </div>
