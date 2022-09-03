@@ -20,7 +20,7 @@ const PostPortfolioInformationDates = ({ project }) => {
       date: project.indStart,
       predictedDateNextStage: project.clinicalP1PredictedStart,
     });
-    if (!project.clinicalP1Enabled) {
+    if (project.status !== "Terminated" && !project.clinicalP1Enabled) {
       timelineEvents.push({
         stage: "P1",
         date: project.clinicalP1PredictedStart,
@@ -35,6 +35,13 @@ const PostPortfolioInformationDates = ({ project }) => {
       date: project.clinicalP1Start,
     });
   }
+  if (project.status === "Terminated") {
+    timelineEvents.push({
+      stage: "Terminated"
+    })
+  }
+
+
 
 
   let generateDateItem = (item) => {
@@ -62,6 +69,16 @@ const PostPortfolioInformationDates = ({ project }) => {
         <span>
           <i
             className="icon icon-common icon-dot-circle"
+            style={{ color: "#1F618D" }}
+          ></i>
+        </span>
+      );
+    }
+    if (item.stage === "Terminated") {
+      return (
+        <span>
+          <i
+            className="pi pi-times-circle"
             style={{ color: "#1F618D" }}
           ></i>
         </span>
