@@ -34,14 +34,14 @@ const ScreenDiscussion = ({ project }) => {
         <SectionHeading
           icon="icon icon-conceptual icon-chemical"
           heading={project.projectName}
-          targetName={project.targetName}
+          targetName={project.targetName || project.screenName || project.projectName}
           projectName={project.projectName}
           displayHorizon={true}
           color={appColors.sectionHeadingBg.fha}
         />
       </div>
       <div className='flex w-full'>
-        <Discussion reference={project.targetName}
+        <Discussion reference={project.targetName || project.projectName}
           section={"HA"} />
       </div>
     </div>

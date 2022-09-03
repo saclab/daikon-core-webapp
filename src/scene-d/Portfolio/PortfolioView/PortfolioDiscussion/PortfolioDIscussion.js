@@ -38,13 +38,13 @@ const PortfolioDiscussion = ({ project }) => {
             " | " +
             project?.currentStage
           }
-          targetName={project.targetName}
+          targetName={project.targetName || project.screenName || project.projectName}
           displayHorizon={true}
           color={appColors.sectionHeadingBg.portfolio}
         />
       </div>
       <div className='flex w-full'>
-        <Discussion reference={project.targetName}
+        <Discussion reference={project.targetName || project.projectName}
           section={project?.currentStage || "Portfolio"} />
       </div>
     </div>
