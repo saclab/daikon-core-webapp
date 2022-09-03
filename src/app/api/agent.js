@@ -290,6 +290,7 @@ const Screen = {
   listPhenotypic: () => requests.get(`/screen/phenotypic`),
   details: (id) => requests.get(`/screen/${id}`),
   create: (newScreen) => requests.post(`/screen`, newScreen),
+  createPhenotypic: (newScreen) => requests.post(`/screen/phenotypic`, newScreen),
   createSequence: (screenId, newSequence) =>
     requests.post(`/screensequence/${screenId}`, newSequence),
 };

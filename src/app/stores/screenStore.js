@@ -36,6 +36,7 @@ export default class ScreenStore {
 
   validatedHitsIndex = 0;
   screenSequenceIndex = 0;
+  loadingPhenotypicAdd = false
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -78,7 +79,10 @@ export default class ScreenStore {
       loadingFilterPhenotypicScreensByBaseScreenName: observable,
       selectedPhenotypicScreenFilter: observable,
       filteredPhenotypicScreens: observable,
-      filterPhenotypicScreensByBaseScreenName: action
+      filterPhenotypicScreensByBaseScreenName: action,
+
+      addScreeenPhenotypic: action,
+      loadingPhenotypicAdd: observable
 
     });
   }
@@ -266,6 +270,34 @@ export default class ScreenStore {
     }
     return res;
   };
+
+  addScreeenPhenotypic = async (newScreen) => {
+    console.log("screenStore: addScreeenPhenotypic Start");
+    console.log(newScreen);
+    this.loadingPhenotypicAdd = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Screen.createPhenotypic(
+        newScreen
+      );
+      runInAction(() => {
+        toast.success("Successfully added screening information");
+        this.screenPhenotypicRegistryCacheValid = false;
+        this.selectedPhenotypicScreen = null;
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.loadingPhenotypicAdd = false;
+        console.log("screenStore: addScreeenPhenotypic Complete");
+      });
+    }
+    return res;
+  };
+
 
   setValidatedHitsIndex = (index) => (this.validatedHitsIndex = index);
   setScreenSequenceIndex = (index) => (this.screenSequenceIndex = index);
