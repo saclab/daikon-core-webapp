@@ -63,13 +63,13 @@ const FHAView = () => {
               navigate("information/");
             },
           },
-          {
-            label: "Links",
-            icon: "icon icon-common icon-external-link-square-alt",
-            command: () => {
-              navigate("links/");
-            },
-          },
+          // {
+          //   label: "Links",
+          //   icon: "icon icon-common icon-external-link-square-alt",
+          //   command: () => {
+          //     navigate("links/");
+          //   },
+          // },
           {
             label: "Discussion",
             icon: "ri-discuss-line",

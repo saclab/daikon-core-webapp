@@ -75,7 +75,7 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
       filteredPhenotypicScreens.forEach((screen) => {
         console.log(screen);
         tabs.push(
-          <TabPanel header={screen.screenName + " (" + screen.method + ")"} key={screen.id}>
+          <TabPanel header={screen.screenName} key={screen.id}>
             <ValidatedHitsList screenId={screen.id} />
 
           </TabPanel>
@@ -93,7 +93,7 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
             icon="icon icon-common icon-search"
             heading={"Screens of " + baseScreenName}
             baseScreenName={baseScreenName}
-            displayHorizon={false}
+            displayHorizon={true}
             color={appColors.sectionHeadingBg.screen} />
         </div>
         <div className="flex w-full">

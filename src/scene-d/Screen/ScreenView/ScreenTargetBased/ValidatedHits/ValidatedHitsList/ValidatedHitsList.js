@@ -15,6 +15,7 @@ import ValidatedHitsPromoteToFHAEntry from "./ValidatedHitsPromoteToFHAEntry/Val
 import { toast } from "react-toastify";
 import "./ValidatedHitsDataTable.css";
 import { ConfirmDialog } from "primereact/confirmdialog";
+import { Chip } from 'primereact/chip';
 
 const ValidatedHitsList = ({ screenId }) => {
   const dt = useRef(null);
@@ -171,7 +172,9 @@ const ValidatedHitsList = ({ screenId }) => {
           />
         )}
       </div>
-      <div className="flex">
+      <div className="flex gap-5">
+        <Chip label={selectedScreen?.org.name} icon="ri-organization-chart" />
+        <Chip label={selectedScreen?.method} icon="icon icon-common icon-circle-notch" />
         <TieredMenu
           model={tableMenuItems}
           popup
@@ -361,7 +364,7 @@ const ValidatedHitsList = ({ screenId }) => {
         visible={displayHitsImportSidebar}
         header="Import Validated Hits"
         style={{ width: "90%" }}
-        
+
         onHide={() => setDisplayHitsImportSidebar(false)}
         className="p-sidebar-lg"
       >
@@ -377,7 +380,7 @@ const ValidatedHitsList = ({ screenId }) => {
         //footer={renderFooter("displayBasic2")}
         onHide={() => setDisplayPromoteToFHAEntry(false)}
         style={{ width: "90%" }}
-        
+
         maximizable={true}
       >
         <ValidatedHitsPromoteToFHAEntry
