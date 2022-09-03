@@ -203,7 +203,7 @@ const TargetDashChart = ({ targets }) => {
             },
             position: "top",
             show: showLabel,
-            fontSize: 8,
+            fontSize: 12,
           },
           emphasis: {
             focus: "series",
@@ -232,7 +232,7 @@ const TargetDashChart = ({ targets }) => {
             },
             position: "top",
             show: showLabel,
-            fontSize: 8,
+            fontSize: 12,
           },
 
           emphasis: {
@@ -262,7 +262,7 @@ const TargetDashChart = ({ targets }) => {
             },
             position: "top",
             show: showLabel,
-            fontSize: 8,
+            fontSize: 12,
           },
           emphasis: {
             focus: "series",
@@ -291,7 +291,7 @@ const TargetDashChart = ({ targets }) => {
             },
             position: "top",
             show: showLabel,
-            fontSize: 8,
+            fontSize: 12,
           },
           emphasis: {
             focus: "series",
@@ -320,7 +320,7 @@ const TargetDashChart = ({ targets }) => {
             },
             position: "top",
             show: showLabel,
-            fontSize: 8,
+            fontSize: 12,
           },
           emphasis: {
             focus: "series",
