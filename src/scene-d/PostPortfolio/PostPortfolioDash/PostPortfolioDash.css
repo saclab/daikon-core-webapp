@@ -79,12 +79,14 @@
   background-color: #a9dfbf;
   color: #495057;
   font-weight: normal;
+  min-width: 5rem;
 }
 
 .datatable-postportfolio-dash .table-status-inactive {
   background-color: #f2f4f4;
   color: #495057;
   font-weight: normal;
+  min-width: 5rem;
 }
 
 .datatable-postportfolio-dash .table-date-due {
@@ -99,9 +101,8 @@
   font-weight: normal;
 }
 
-
 .datatable-postportfolio-dash .table-stage-IND {
-  background-color: #53A9A8;
+  background-color: #53a9a8;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
@@ -112,6 +113,20 @@
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
+}
+
+.datatable-postportfolio-dash
+  .p-datatable-wrapper
+  > table
+  > thead
+  > tr:nth-child(2)
+  > th:nth-child(5)
+  > div
+  > div
+  > div
+  > div:nth-child(2)
+  > span {
+  margin-right: 2.5rem;
 }
 
 @media screen and (max-width: 960px) {
