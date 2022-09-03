@@ -48,7 +48,7 @@ const PortfolioInformation = ({ id, project }) => {
               " | " +
               project?.currentStage
             }
-            targetName={project.targetName}
+            targetName={project.targetName || project.projectName.replaceAll(' ', '-')}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.portfolio}
           />

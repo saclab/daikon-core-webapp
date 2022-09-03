@@ -92,8 +92,8 @@ const PhenotypicScreenSequences = ({ baseScreenName }) => {
           <SectionHeading
             icon="icon icon-common icon-search"
             heading={"Screens of " + baseScreenName}
-            // targetName={TargetName}
-            displayHorizon={false}
+            targetName={baseScreenName}
+            displayHorizon={true}
             color={appColors.sectionHeadingBg.screen} />
         </div>
         <div className="flex w-full">

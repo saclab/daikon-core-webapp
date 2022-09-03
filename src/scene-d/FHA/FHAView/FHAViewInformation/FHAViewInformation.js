@@ -64,7 +64,7 @@ const FHAViewInformation = ({ id, project }) => {
             <SectionHeading
               icon="icon icon-conceptual icon-chemical"
               heading={project.projectName}
-              targetName={project.targetName}
+              targetName={project.targetName || project.projectName.replaceAll(' ', '-')}
               projectName={project.projectName}
               displayHorizon={true}
               color={appColors.sectionHeadingBg.fha}
