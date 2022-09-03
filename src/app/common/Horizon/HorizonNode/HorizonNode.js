@@ -384,7 +384,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                navigate(`/d/postportfolio/${dataObj.dataObj.attributes.id}`);
+                navigate(`/d/post-portfolio/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>

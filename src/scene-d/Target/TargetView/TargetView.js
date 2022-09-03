@@ -90,7 +90,7 @@ const TargetView = () => {
           label: "View Screens",
           icon: "pi pi-external-link",
           command: (event) => {
-            navigate("/d/screen/" + target.name);
+            navigate("/d/screen/target-based/" + target.name);
           },
         },
       ],
