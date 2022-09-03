@@ -31,11 +31,11 @@ const TitleBarAccountPanel = () => {
         </div>
       </div>
       <div className="flex">
-        <Button
+        {/* <Button
           label="Settings"
           icon="pi pi-cog"
           className="p-button-text p-button-plain"
-        />
+        /> */}
         <Button
           label="Logout"
           icon="pi pi-power-off"
