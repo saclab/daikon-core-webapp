@@ -238,6 +238,36 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
             </div>
           </foreignObject></g>
       }
+      if (dataObj.dataObj.attributes.screenMethod === "Phenotypic") {
+        return (
+          <g>
+            <foreignObject x="-10" y="-30" width="40" height="50">
+              <Button
+                icon="icon icon-common icon-search"
+                style={{
+                  background: "#ffffff",
+                  color: nodeColors.screen,
+                  border: "0px solid #000000",
+                  fontSize: "2em",
+                }}
+                onClick={() => {
+                  navigate(`/d/screen/phenotypic/${dataObj.dataObj.attributes.link}`);
+                }}
+              />
+            </foreignObject>
+            <foreignObject x="10" y="0" width="250" height="160">
+              <div style={{ color: nodeColors.screen }}>
+                <p>
+                  <b>Screen</b> <br />
+                  {dataObj.dataObj.attributes.screenName}
+                  <br />
+                  <i>{dataObj.dataObj.attributes.screenMethod}</i>
+                </p>
+              </div>
+            </foreignObject>
+          </g>
+        );
+      }
       return (
         <g>
           <foreignObject x="-10" y="-30" width="40" height="50">
@@ -250,7 +280,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                navigate(`/d/screen/${dataObj.dataObj.attributes.targetName}`);
+                navigate(`/d/screen/target-based/${dataObj.dataObj.attributes.targetName}`);
               }}
             />
           </foreignObject>
