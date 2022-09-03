@@ -4,6 +4,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
+import { Chip } from 'primereact/chip';
 import { OverlayPanel } from "primereact/overlaypanel";
 import { RootStoreContext } from "../../../../../../app/stores/rootStore";
 import Loading from "../../../../../../app/layout/Loading/Loading";
@@ -43,23 +44,34 @@ const ScreenSequence = ({ screenId }) => {
   }
 
   const tableHeader = (
-    <div className="p-d-flex p-ai-center">
-      <Button
-        type="button"
-        icon="icon icon-common icon-plus-circle"
-        label="New"
-        className="p-button-text"
-        style={{ height: "30px", marginRight: "5px" }}
-        onClick={() => setDisplayAddDialog(true)}
-      />
-      <Button
-        type="button"
-        icon="icon icon-fileformats icon-CSV"
-        label="Export"
-        className="p-button-text"
-        style={{ height: "30px", marginRight: "5px" }}
-        onClick={() => exportCSV(false)}
-      />
+    <div className="flex w-full">
+      <div className="flex w-6">
+        <div className="flex gap-5">
+          <Button
+            type="button"
+            icon="icon icon-common icon-plus-circle"
+            label="New"
+            className="p-button-text"
+            style={{ height: "30px" }}
+            onClick={() => setDisplayAddDialog(true)}
+          />
+          <Button
+            type="button"
+            icon="icon icon-fileformats icon-CSV"
+            label="Export"
+            className="p-button-text"
+            style={{ height: "30px" }}
+            onClick={() => exportCSV(false)}
+          />
+        </div>
+      </div>
+
+      <div className="flex w-6 justify-content-end gap-5">
+        <div className="flex mr-6 gap-5">
+          <Chip label={selectedScreen?.org.name} icon="ri-organization-chart" />
+          <Chip label={selectedScreen?.method} icon="icon icon-common icon-circle-notch" />
+        </div>
+      </div>
     </div>
   );
 
@@ -125,7 +137,7 @@ const ScreenSequence = ({ screenId }) => {
           visible={displayAddDialog}
           position="right"
           // style={{ width: "50%", overflowX: "auto" }}
-          
+
           onHide={() => setDisplayAddDialog(false)}
           className="p-sidebar-md"
         >
