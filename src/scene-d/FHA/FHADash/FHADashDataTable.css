@@ -75,15 +75,17 @@
 }
 
 .datatable-fha-dash .table-status-active {
-  background-color: #A9DFBF;
+  background-color: #a9dfbf;
   color: #495057;
   font-weight: normal;
+  min-width: 5rem;
 }
 
 .datatable-fha-dash .table-status-inactive {
-  background-color: #F2F4F4;
+  background-color: #f2f4f4;
   color: #495057;
   font-weight: normal;
+  min-width: 5rem;
 }
 
 .datatable-fha-dash .table-stage-FHA {
@@ -100,35 +102,34 @@
   min-width: 5rem;
 }
 
-
 .datatable-fha-dash .table-stage-H2L {
-  background-color: #DCB14E;
+  background-color: #dcb14e;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
 .datatable-fha-dash .table-stage-LO {
-  background-color: #52422D;
+  background-color: #52422d;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
 .datatable-fha-dash .table-stage-SP {
-  background-color: #D86D6F;
+  background-color: #d86d6f;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
 
 .datatable-fha-dash .table-stage-IND {
-  background-color: #53A9A8;
+  background-color: #53a9a8;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
 
 .datatable-fha-dash .table-date-due {
-  background-color: #FFECB3;
+  background-color: #ffecb3;
   color: #495057;
   font-weight: normal;
   min-width: 5rem;
@@ -139,6 +140,20 @@
   color: #495057;
   font-weight: normal;
   min-width: 5rem;
+}
+
+.datatable-fha-dash
+  .p-datatable-wrapper
+  > table
+  > thead
+  > tr:nth-child(2)
+  > th:nth-child(5)
+  > div
+  > div
+  > div
+  > div:nth-child(2)
+  > span {
+  margin-right: 2.0rem;
 }
 
 @media screen and (max-width: 960px) {
@@ -161,11 +176,7 @@
     border: 0 none;
   }
 
-  .datatable-fha-dash
-    .p-datatable.p-datatable-tbody
-    > tr
-    > td
-    .p-column-title {
+  .datatable-fha-dash .p-datatable.p-datatable-tbody > tr > td .p-column-title {
     padding: 0.4rem;
     min-width: 30%;
     display: inline-block;
@@ -173,11 +184,7 @@
     font-weight: bold;
   }
 
-  .datatable-fha-dash
-    .p-datatable.p-datatable-tbody
-    > tr
-    > td
-    .p-progressbar {
+  .datatable-fha-dash .p-datatable.p-datatable-tbody > tr > td .p-progressbar {
     margin-top: 0.5rem;
   }
 }

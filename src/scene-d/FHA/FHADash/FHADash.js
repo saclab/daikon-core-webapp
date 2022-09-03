@@ -168,7 +168,7 @@ const FHADash = () => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-conceptual icon-chemical"
-            heading="FHA"
+            heading="Hit Assessment"
             color={appColors.sectionHeadingBg.fha}
           />
         </div>
@@ -178,7 +178,7 @@ const FHADash = () => {
               ref={dt}
               value={filterFhaProjects()}
               paginator
-              rows={10}
+              rows={20}
               // header={header}
               className="datatable-fha-dash"
               //globalFilter={globalFilter}

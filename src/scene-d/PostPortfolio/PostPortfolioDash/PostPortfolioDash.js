@@ -10,6 +10,8 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
+import { InputSwitch } from 'primereact/inputswitch';
+
 import { Tag } from "primereact/tag";
 import { SelectButton } from "primereact/selectbutton";
 import { MultiSelect } from "primereact/multiselect";
@@ -248,7 +250,7 @@ const PostPortfolioDash = () => {
               filter
               filterMatchMode="contains"
               filterPlaceholder="Filter by Project"
-
+              
             />
 
             <Column
