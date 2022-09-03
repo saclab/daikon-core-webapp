@@ -9,7 +9,7 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
   let canId = smiles + Date.now() + Math.floor(Math.random() * 100);
 
   useEffect(() => {
-    let options = { width: width, height: height };
+    let options = { width: width, height: height, bondThickness: 1.0 };
 
     // Initialize the drawer to draw to canvas
     let smilesDrawer = new SmilesDrawer.Drawer(options);
@@ -36,10 +36,10 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
   ];
 
   return (
-    <React.Fragment>
+    <div style={{ width: width, height: height }}>
       <ContextMenu model={contextMenuItems} ref={cm} />
       <canvas id={canId} onContextMenu={(e) => cm.current.show(e)} />
-    </React.Fragment>
+    </div>
   );
 };
 
