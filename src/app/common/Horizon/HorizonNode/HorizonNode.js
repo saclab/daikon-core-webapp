@@ -1,9 +1,11 @@
 import React from "react";
 import { Button } from "primereact/button";
-import history from "../../../../history";
+import { useNavigate } from "react-router-dom";
 import { appColors } from "../../../../colors";
 
 const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
+
+  const navigate = useNavigate();
 
   let nodeColors = {
     gene: appColors.horizonText.gene,
@@ -39,7 +41,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                history.push(`/gene/${dataObj.dataObj.attributes.id}`);
+                navigate(`/d/gene/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -74,7 +76,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                history.push(`/gene/${dataObj.dataObj.attributes.id}`);
+                navigate(`/d/gene/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -142,7 +144,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                // history.push(`/gene/${dataObj.dataObj.attributes.id}`);
+                // navigate(`/d/gene/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -195,7 +197,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                history.push(`/target/${dataObj.dataObj.attributes.id}`);
+                navigate(`/d/target/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -215,10 +217,41 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "Screen":
+      
+      if (dataObj.dataObj.attributes.screenMethod === "Phenotypic") {
+        return (
+          <g>
+            <foreignObject x="-10" y="-30" width="40" height="50">
+              <Button
+                icon="icon icon-common icon-search"
+                style={{
+                  background: "#ffffff",
+                  color: nodeColors.screen,
+                  border: "0px solid #000000",
+                  fontSize: "2em",
+                }}
+                onClick={() => {
+                  navigate(`/d/screen/phenotypic/${dataObj.dataObj.attributes.link}`);
+                }}
+              />
+            </foreignObject>
+            <foreignObject x="10" y="0" width="250" height="160">
+              <div style={{ color: nodeColors.screen }}>
+                <p>
+                  <b>Screen</b> <br />
+                  {dataObj.dataObj.attributes.screenName}
+                  <br />
+                  <i>{dataObj.dataObj.attributes.screenMethod}</i>
+                </p>
+              </div>
+            </foreignObject>
+          </g>
+        );
+      }
       if (dataObj.dataObj.attributes.targetName === "Unknown") {
         return <g><foreignObject x="-10" y="-30" width="40" height="50">
           <Button
-            icon="icon icon-common icon-search"
+            icon="icon icon-common icon-question"
             style={{
               background: "#ffffff",
               color: nodeColors.screen,
@@ -248,9 +281,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                history.push(
-                  `/screen/${dataObj.dataObj.attributes.targetName}`
-                );
+                navigate(`/d/screen/target-based/${dataObj.dataObj.attributes.targetName}`);
               }}
             />
           </foreignObject>
@@ -283,14 +314,14 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                history.push(`/fha/${dataObj.dataObj.attributes.id}`);
+                navigate(`/d/ha/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
           <foreignObject x="10" y="0" width="250" height="160">
             <div>
               <p style={{ color: objColor }}>
-                <b>FHA</b> <br />
+                <b>HA</b> <br />
                 {dataObj.dataObj.attributes.projectName}<br />
                 {dataObj.dataObj.attributes.status === "Terminated" ? "Terminated" : ""}
               </p>
@@ -315,7 +346,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                history.push(`/portfolio/${dataObj.dataObj.attributes.id}`);
+                navigate(`/d/portfolio/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -354,7 +385,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
                 fontSize: "2em",
               }}
               onClick={() => {
-                history.push(`/postportfolio/${dataObj.dataObj.attributes.id}`);
+                navigate(`/d/post-portfolio/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>

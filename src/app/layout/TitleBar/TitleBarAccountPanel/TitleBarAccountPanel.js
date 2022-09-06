@@ -16,9 +16,9 @@ const TitleBarAccountPanel = () => {
 
 
   return (
-    <div>
-      <div className="p-d-flex p-jc-center">
-        <div className="p-mr-2">
+    <div className="flex flex-column pr-7">
+      <div className="flex">
+        <div className="flex">
           <Avatar
             label={initials}
             className="p-mr-2"
@@ -26,20 +26,22 @@ const TitleBarAccountPanel = () => {
             shape="circle"
           />
         </div>
-        <div className="p-mr-2">
+        <div className="flex-grow-1 pl-3 text-overflow-ellipsis">
           <h3>{user.displayName}</h3>
-          <Button
-            label="Settings"
-            icon="pi pi-cog"
-            className="p-button-text p-button-plain"
-          />
-          <Button
-            label="Logout"
-            icon="pi pi-power-off"
-            className="p-button-text p-button-plain"
-            onClick={logout}
-          />
         </div>
+      </div>
+      <div className="flex">
+        {/* <Button
+          label="Settings"
+          icon="pi pi-cog"
+          className="p-button-text p-button-plain"
+        /> */}
+        <Button
+          label="Logout"
+          icon="pi pi-power-off"
+          className="p-button-text p-button-plain"
+          onClick={logout}
+        />
       </div>
     </div>
   );

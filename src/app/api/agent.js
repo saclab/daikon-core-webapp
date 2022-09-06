@@ -287,8 +287,10 @@ const TargetAdmin = {
 
 const Screen = {
   list: () => requests.get(`/screen/`),
+  listPhenotypic: () => requests.get(`/screen/phenotypic`),
   details: (id) => requests.get(`/screen/${id}`),
   create: (newScreen) => requests.post(`/screen`, newScreen),
+  createPhenotypic: (newScreen) => requests.post(`/screen/phenotypic`, newScreen),
   createSequence: (screenId, newSequence) =>
     requests.post(`/screensequence/${screenId}`, newSequence),
 };
@@ -353,6 +355,11 @@ const Vote = {
   freezeVoting: (voteIds) => requests.post(`/elevated/vote/freeze/`, voteIds),
 };
 
+
+const DataView = {
+  targetDash: () => requests.get(`/data-view/VTarget/dash-view`),
+}
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -370,6 +377,7 @@ const exports = {
   General,
   Projects,
   Vote,
+  DataView
 };
 
 export default exports;

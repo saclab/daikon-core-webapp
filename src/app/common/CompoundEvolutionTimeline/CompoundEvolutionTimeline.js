@@ -47,21 +47,21 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
     }
     const customizedContent = (item) => {
       return (
-        <div className="p-d-flex">
-          <div className="p-mr-2">
+        <div className="flex flex-column">
+          <div className="flex">
             <SmilesView smiles={item.compound.smile} width={300} height={300} />
           </div>
-          <div className="p-mr-4 p-col-2" style={{ lineHeight: "1.5rem", marginRight: "50px", minWidth: "150px" }}>
+          <div className="flex" style={{ lineHeight: "1.5rem", marginRight: "50px", minWidth: "150px" }}>
             Mol Weight : {item.compound.molWeight} <br />
             Mol Area : {item.compound.molArea} <br />
             IC50 : {item.iC50} <br />
             MIC : {item.mic}
             <br />
           </div>
-          <div className="p-mr-2">
+          <div className="flex flex-column">
             <Divider align="left">
-              <div className="p-d-inline-flex p-ai-center">
-                <i className="pi pi-info-circle p-mr-2"></i>
+              <div className="flex">
+                <i className="pi pi-info-circle mr-2"></i>
                 <b>Notes</b>
               </div>
             </Divider>
@@ -85,30 +85,38 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
     };
 
     return (
-      <div className="compound-evolution-timeline">
-        <Divider align="right">
-          <Button
-            label="Add a compound"
-            icon="pi pi-plus"
-            className="p-button-outlined"
-            onClick={() => setdisplayAddStructureForm(true)}
-            disabled={disableAdd}
-          ></Button>
-        </Divider>
+      <React.Fragment>
+        <div className="flex flex-column w-full compound-evolution-timeline">
+          <div className="flex">
+            <Divider align="right">
+              <Button
+                label="Add a compound"
+                icon="pi pi-plus"
+                className="p-button-outlined"
+                onClick={() => setdisplayAddStructureForm(true)}
+                disabled={disableAdd}
+              ></Button>
+            </Divider>
+          </div>
+          <div className="flex">
+            <Timeline
+              value={evolutionData}
+              className="customized-timeline"
+              marker={customizedMarker}
+              content={customizedContent}
+              opposite={customizedOppositeContent}
+            />
+          </div>
 
-        <Timeline
-          value={evolutionData}
-          className="customized-timeline"
-          marker={customizedMarker}
-          content={customizedContent}
-          opposite={customizedOppositeContent}
-        />
+
+
+        </div>
 
         <Sidebar
           visible={displayAddStructureForm}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-          blockScroll={true}
+          
           onHide={() => setdisplayAddStructureForm(false)}
         >
           <h3>{project.projectName}| Add a compound</h3>
@@ -124,7 +132,9 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
             closeSidebar={() => setdisplayAddStructureForm(false)}
           />
         </Sidebar>
-      </div>
+
+      </React.Fragment>
+
     );
   }
 

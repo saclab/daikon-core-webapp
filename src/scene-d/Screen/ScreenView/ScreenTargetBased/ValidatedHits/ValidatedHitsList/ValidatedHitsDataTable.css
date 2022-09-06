@@ -1,0 +1,99 @@
+.datatable-validated-hits {
+  width: 100%;
+}
+.datatable-validated-hits .p-paginator .p-paginator-current {
+  margin-left: auto;
+}
+
+.datatable-validated-hits .p-progressbar {
+  height: 0.5rem;
+  background-color: #d8dadc;
+}
+
+.datatable-validated-hits .p-progressbar .p-progressbar-value {
+  background-color: #607d8b;
+}
+
+.datatable-validated-hits .table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.datatable-validated-hits .table-header .heading {
+  background: linear-gradient(to right, #30cfd0 0%, #332288 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.datatable-validated-hits .p-datepicker {
+  min-width: 25rem;
+}
+
+.datatable-validated-hits .p-datepicker td {
+  font-weight: 400;
+}
+
+.datatable-validated-hits .p-datatable.p-datatable-header {
+  padding: 1rem;
+  text-align: left;
+  font-size: 2rem;
+}
+
+.datatable-validated-hits .p-datatable.p-paginator {
+  padding: 1rem;
+}
+
+.datatable-validated-hits .p-datatable.p-datatable-thead > tr > th {
+  text-align: left;
+}
+
+.datatable-validated-hits .p-datatable.p-datatable-tbody > tr > td {
+  cursor: auto;
+}
+
+.datatable-validated-hits .p-datatable.p-dropdown-label:not(.p-placeholder) {
+  text-transform: uppercase;
+}
+
+.datatable-validated-hits .p-datatable-tbody > tr > td .p-column-title {
+  display: none;
+}
+
+.datatable-validated-hits .narrow-column {
+  width: 200px !important;
+}
+.datatable-validated-hits .p-inputtext {
+  font-size: 0.8rem;
+}
+
+@media screen and (max-width: 960px) {
+  .datatable-validated-hits .p-datatable.p-datatable-thead > tr > th,
+  .datatable-validated-hits .p-datatable.p-datatable-tfoot > tr > td {
+    display: none !important;
+  }
+
+  .datatable-validated-hits .p-datatable.p-datatable-tbody > tr {
+    border-bottom: 1px solid var(--layer-2);
+  }
+
+  .datatable-validated-hits .p-datatable.p-datatable-tbody > tr > td {
+    text-align: left;
+    display: block;
+    border: 0 none !important;
+    width: 100% !important;
+    float: left;
+    clear: left;
+    border: 0 none;
+  }
+
+  .datatable-validated-hits .p-datatable.p-datatable-tbody > tr > td .p-column-title {
+    padding: 0.4rem;
+    min-width: 30%;
+    display: inline-block;
+    margin: -0.4rem 1rem -0.4rem -0.4rem;
+    font-weight: bold;
+  }
+
+  .datatable-validated-hits .p-datatable.p-datatable-tbody > tr > td .p-progressbar {
+    margin-top: 0.5rem;
+  }
+}

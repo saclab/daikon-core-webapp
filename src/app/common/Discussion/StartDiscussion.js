@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { Editor } from 'primereact/editor';
 
 const StartDiscussion = ({
   section,
@@ -30,26 +31,43 @@ const StartDiscussion = ({
     });
   };
 
+  const headerOfTextEditor = <span className="ql-formats">
+    <button className="ql-bold" aria-label="Bold"></button>
+    <button className="ql-italic" aria-label="Italic"></button>
+    <button className="ql-underline" aria-label="Underline"></button>
+    <button className="ql-strike" aria-label="Strike"></button>
+    <button className="ql-link" aria-label="Link"></button>
+    <button className="ql-list" value="bullet" aria-label="Bullet"></button>
+  </span>
+
   return (
-    <div>
+    <div className="flex flex-column w-full">
       <div className="card">
-        <h3>What is it about?</h3>
+        <h3>(Topic) What is it about?</h3>
+        <p>A one line summary of the question or the discussion.</p>
         <InputText
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           style={{ width: "100%" }}
-          readonly={postingDiscussion}
+          readOnly={postingDiscussion}
         />
 
-        <h3>Description.</h3>
-        <InputTextarea
+        <h3>Description</h3>
+        <p>Include detailed information that is relevant to the topic</p>
+        {/* <InputTextarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={10}
           style={{ width: "100%" }}
           autoResize
           readonly={postingDiscussion}
-        />
+        /> */}
+        <Editor
+          style={{ height: '320px' }}
+          headerTemplate={headerOfTextEditor}
+          value={description}
+          onTextChange={(e) => { console.log(e.htmlValue); setDescription(e.htmlValue) }}
+          readOnly={postingDiscussion} />
 
         {/* <h3>Tag Users?</h3>
         <Mention

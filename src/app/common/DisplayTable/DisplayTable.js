@@ -26,6 +26,7 @@ const DisplayTable = ({
   add,
   mandatory,
 }) => {
+
   /* Check if data property is missing, if yes create a blank array to prevent nulls */
   data = (typeof data === 'undefined' || data === null) ? [] : data;
 
@@ -36,6 +37,7 @@ const DisplayTable = ({
 
   let onRowEditInit = (event) => {
     //console.log("onRowEditInit():");
+    //console.log(event)
     let t = {};
     t[event.index] = { ...tableData[event.index] };
     setoriginalRows(t);
@@ -45,7 +47,7 @@ const DisplayTable = ({
   let onRowEditCancel = (event) => {
     let products = [...tableData];
     products[event.index] = originalRows[event.index];
-    //console.log(products);
+    ////console.log(products);
     delete originalRows[event.index];
     setTableData(products);
   };
@@ -58,8 +60,8 @@ const DisplayTable = ({
   };
 
   let onRowEditSave = (e) => {
-    //console.log("onRowEditSave");
-    //console.log(e.data);
+    ////console.log("onRowEditSave");
+    ////console.log(e.data);
     confirmDialog({
       header: "Modifying Database",
       message: "Are you sure you want to proceed?",
@@ -73,12 +75,15 @@ const DisplayTable = ({
   };
 
   let rowEditorFunc = (props, element) => {
+    //console.log("rowEditorFunc")
+    //console.log(props)
+    
     return (
       <InputTextarea
         type="text"
         value={props.rowData[element]}
         onChange={(e) => {
-          //console.log("onChange");
+          ////console.log("onChange");
           onRowEdit(props.rowData.id, element, e.target.value);
         }}
       />
@@ -92,7 +97,7 @@ const DisplayTable = ({
         columnKey={element}
         field={element}
         header={<StartCase string={element} />}
-        editor={(props) => rowEditorFunc(props, props.columnKey)}
+        editor={(options) => rowEditorFunc(options, options.columnKey)}
       />
     );
   });
@@ -119,7 +124,7 @@ const DisplayTable = ({
     initialValues: { ...addForminitialValues },
     validate: (data) => {
       let errors = {};
-      console.log("Validation");
+      //console.log("Validation");
       for (var key of Object.keys(data)) {
         if (mandatory && mandatory.includes(key) && !data[key]) {
           errors[key] = _.startCase(key) + " is required.";
@@ -128,8 +133,8 @@ const DisplayTable = ({
       return errors;
     },
     onSubmit: (data) => {
-      console.log("Formik Submitting");
-      console.log(data);
+      //console.log("Formik Submitting");
+      //console.log(data);
       add(data);
 
       formik.resetForm();
@@ -148,7 +153,7 @@ const DisplayTable = ({
 
   let generateAddFormFields = columns.map((element) => {
     return (
-      <div className="p-field p-col-12 p-md-12" key={element}>
+      <div className="field" key={element}>
         <label
           htmlFor={element}
           className={classNames({
@@ -202,7 +207,7 @@ const DisplayTable = ({
       <Sidebar
         visible={displayAddDialog}
         position="right"
-        blockScroll={true}
+
         onHide={() => {
           formik.resetForm();
           setDisplayAddDialog(false);

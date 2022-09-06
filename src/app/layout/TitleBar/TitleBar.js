@@ -1,10 +1,11 @@
 import React, { useRef, useContext, useState } from "react";
-
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Sidebar } from "primereact/sidebar";
 import { Dropdown } from "primereact/dropdown";
+
 
 import cssClass from "./TitleBar.module.css";
 import { Button } from "primereact/button";
@@ -13,7 +14,10 @@ import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import { RootStoreContext } from "../../stores/rootStore";
 import TitleBarSidePanel from "./TitleBarSidePanel/TitleBarSidePanel";
 
+
 const TitleBar = () => {
+  const navigate = useNavigate();
+  
   const op = useRef(null);
   const [visibleLeft, setVisibleLeft] = useState(false);
   const rootStore = useContext(RootStoreContext);
@@ -32,7 +36,7 @@ const TitleBar = () => {
       >
         <TitleBarSidePanel toggle={() => setVisibleLeft(false)} user={user} />
       </Sidebar>
-      <div className={["p-d-flex"].join(" ")}>
+      <div className={["inline-flex"].join(" ")}>
         <Button
           type="Button"
           icon="icon icon-common icon-th"
@@ -41,22 +45,14 @@ const TitleBar = () => {
         />
 
         <Button
-          onClick={() => history.push("/")}
+          onClick={() => navigate("/d/")}
           className={[cssClass.LogoText, cssClass.BlackButton, "p-mr-2"].join(
             " "
           )}
         >
           D A I K O N
-          
-        </Button>
 
-        <Button
-          type="Button"
-          icon="ri-refresh-fill"
-          label="Sync"
-          className={[cssClass.Push, "p-mr-2", cssClass.BlackButton].join(" ")}
-          onClick={() => window.location.reload()}
-        />
+        </Button>
 
         {/* <Button
           type="Button"
@@ -65,27 +61,39 @@ const TitleBar = () => {
           className={["p-mr-2", cssClass.BlackButton].join(" ")}
         /> */}
 
-        <Dropdown
-          value={"Mycobacterium tuberculosis H37Rv"}
-          options={Strains}
-          // onChange={onCityChange}
-          optionLabel="name"
-          placeholder="H37Rv"
-          className={["p-mr-2", cssClass.BlackButton].join(" ")}
-        />
-        <Button
-          type="Button"
-          className={["p-mr-2", cssClass.BlackButton].join(" ")}
-          icon="pi pi-user"
-          label={user.email}
-          onClick={(e) => op.current.toggle(e)}
-        />
-        <OverlayPanel dismissable ref={op}>
-          <TitleBarAccountPanel />
-        </OverlayPanel>
+        <div className="absolute right-0">
+          <Button
+            type="Button"
+            icon="ri-refresh-fill"
+            label="Sync"
+            className={[cssClass.Push, cssClass.BlackButton].join(" ")}
+            onClick={() => window.location.reload()}
+          />
+          <Dropdown
+            value={"Mycobacterium tuberculosis H37Rv"}
+            options={Strains}
+            // onChange={onCityChange}
+            optionLabel="name"
+            placeholder="H37Rv"
+            className={[cssClass.BlackButton].join(" ")}
+          />
+          <Button
+            type="Button"
+            className={[cssClass.BlackButton].join(" ")}
+            icon="pi pi-user"
+            label={user.email}
+            onClick={(e) => op.current.toggle(e)}
+          />
+          <OverlayPanel dismissable ref={op}>
+            <TitleBarAccountPanel />
+          </OverlayPanel>
+        </div>
+
       </div>
     </div>
   );
 };
 
-export default withRouter(observer(TitleBar));
+//export default withRouter(observer(TitleBar));
+export default observer(TitleBar);
+

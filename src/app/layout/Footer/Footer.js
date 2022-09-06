@@ -7,15 +7,16 @@ const Footer = () => {
 
     <div className={cssClass.Footer}>
       <hr className={cssClass.Hr} />
-      <div className={["p-d-flex", "p-flex-column", cssClass.Text].join(" ")}>
-        <div className="p-mb-2 p-ml-auto">
-          {" "}
+      <div className={["flex flex-column", cssClass.Text].join(" ")}>
+
+        <div className="flex justify-content-end">
           &copy; | DAIKON {appVersion.stream} {appVersion.release} {appVersion.channel}
         </div>
-        <div className="p-mb-2 p-ml-auto">
-          {" "}
+        <div className="flex justify-content-end">
           <a href="/">Contact</a> | <a href="/">Disclaimer</a>
         </div>
+
+
       </div>
     </div>
 
