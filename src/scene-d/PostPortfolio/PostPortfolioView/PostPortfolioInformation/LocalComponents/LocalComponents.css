@@ -1,0 +1,11 @@
+.portfolio-status-active {
+  background-color: #a9dfbf;
+  color: #495057;
+  font-weight: normal;
+}
+
+.portfolio-status-inactive {
+  background-color: #f2f4f4;
+  color: #495057;
+  font-weight: normal;
+}

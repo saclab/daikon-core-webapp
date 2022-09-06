@@ -20,10 +20,8 @@ const SectionHeading = ({
     let background = color ? color : "#332288";
     let htextColor = textColor ? textColor : "#ffffff";
     let displayHorizonButton = (
-      <div
-        className="p-mr-2"
-        style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}
-      >
+      // <div class="absolute right-0 pr-3 bg-blue-200">
+      <div style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}>
         <button
           className={options.togglerClassName}
           onClick={options.onTogglerClick}
@@ -43,16 +41,17 @@ const SectionHeading = ({
 
     return (
       <div
+        className="flex w-full "
         style={{
           background: background,
           opacity: "1",
-          color: "#FFFFFF",
+          color: "#000000",
           padding: "0.5em",
           marginBottom: "1em",
         }}
       >
-        <div className="p-d-flex">
-          <div className="p-mr-2">
+        <div className="flex card-container w-full">
+          <div className="flex">
             <h1
               style={{
                 margin: "0px",
@@ -63,14 +62,14 @@ const SectionHeading = ({
               <i className={icon}></i> {heading}
             </h1>
           </div>
-          <div className="p-mr-2">{sub}</div>
+          <div className="flex">{sub}</div>
           {displayHorizon ? displayHorizonButton : <p />}
         </div>
       </div>
     );
   };
   return (
-    <Panel headerTemplate={headerTemplate} collapsed={true} toggleable>
+    <Panel className="w-full" headerTemplate={headerTemplate} collapsed={true} toggleable>
       <Horizon accessionNumber={accessionNumber} targetName={targetName || projectName} />
     </Panel>
   );

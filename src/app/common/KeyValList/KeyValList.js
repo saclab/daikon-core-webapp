@@ -252,7 +252,7 @@ const KeyValList = ({
         visible={displayHistorySideBar}
         position="right"
         style={{ width: "50%", overflowX: "auto" }}
-        blockScroll={true}
+        
         onHide={() => setDisplayHistorySideBar(false)}
       >
         <div style={{ margin: "15px" }}>

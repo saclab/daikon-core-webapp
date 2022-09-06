@@ -1,0 +1,98 @@
+.datatable-targets .p-paginator .p-paginator-current {
+  margin-left: auto;
+}
+
+.datatable-targets .p-progressbar {
+  height: .5rem;
+  background-color: #D8DADC;
+}
+
+.datatable-targets .p-progressbar .p-progressbar-value {
+  background-color: #607D8B;
+}
+
+.datatable-targets .table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.datatable-targets .table-header .heading {
+  background: linear-gradient(to right, #44AA99 0%, #332288 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.datatable-targets .p-datepicker {
+  min-width: 25rem;
+}
+
+.datatable-targets .p-datepicker td {
+  font-weight: 400;
+}
+
+.datatable-targets .p-datatable.p-datatable-header {
+  padding: 1rem;
+  text-align: left;
+  font-size: 2.0rem;
+}
+
+.datatable-targets .p-datatable.p-paginator {
+  padding: 1rem;
+}
+
+.datatable-targets .p-datatable.p-datatable-thead > tr > th {
+  text-align: left;
+}
+
+.datatable-targets .p-datatable.p-datatable-tbody > tr > td {
+  cursor: auto;
+}
+
+.datatable-targets .p-datatable.p-dropdown-label:not(.p-placeholder) {
+  text-transform: uppercase;
+}
+
+.datatable-targets .p-datatable-tbody > tr > td .p-column-title {
+  display: none;
+}
+
+
+
+.datatable-targets .narrow-column {
+  width: 200px !important;
+}
+.datatable-targets .p-inputtext {
+  font-size : 0.8rem;
+}
+
+@media screen and (max-width: 960px) {
+  .datatable-targets .p-datatable.p-datatable-thead > tr > th,
+  .datatable-targets .p-datatable.p-datatable-tfoot > tr > td {
+      display: none !important;
+  }
+
+  .datatable-targets .p-datatable.p-datatable-tbody > tr {
+      border-bottom: 1px solid var(--layer-2);
+  }
+
+  .datatable-targets .p-datatable.p-datatable-tbody > tr > td {
+      text-align: left;
+      display: block;
+      border: 0 none !important;
+      width: 100% !important;
+      float: left;
+      clear: left;
+      border: 0 none;
+  }
+
+  .datatable-targets .p-datatable.p-datatable-tbody > tr > td .p-column-title {
+      padding: .4rem;
+      min-width: 30%;
+      display: inline-block;
+      margin: -.4rem 1rem -.4rem -.4rem;
+      font-weight: bold;
+  }
+
+  .datatable-targets .p-datatable.p-datatable-tbody > tr > td .p-progressbar {
+      margin-top: 0rem;
+  }
+}

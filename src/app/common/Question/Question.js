@@ -8,8 +8,8 @@ const Question = ({ question, updateObject, readObject }) => {
     return <React.Fragment />;
 
   return (
-    <div className="p-d-flex" style={{ marginTop: "7px" }}>
-      <div className="p-mr-2 p-as-center">
+    <div className="flex align-content-center gap-2">
+      <div className="flex align-items-center">
         <Tooltip
           target={".questionBody" + question.identification}
           content={question.toolTip}
@@ -19,26 +19,26 @@ const Question = ({ question, updateObject, readObject }) => {
           className={"questionBody" + question.identification}
           style={{ width: "19rem" }}
         >
-          <b style={{ backgroundColor: "#5D6D7E", color: "#ffffff", padding: "2px" }}>
+          <b style={{ backgroundColor: "#5D6D7E", color: "#ffffff", padding: "2px", marginRight: "4px" }}>
             {question.identification}
-          </b>{" "}
-          {question.questionBody}{" "}
+          </b>
+          {question.questionBody}
         </div>
       </div>
-      <div className="p-mr-2">
+      <div className="flex align-items-center">
         <Dropdown
           id={question.identification}
-          style={{ width: "9rem" }}
+          style={{ width: "9rem", height: "2.5rem" }}
           options={question.possibleAnswers}
           value={readObject?.[question.identification]?.answer}
           onChange={(e) => updateObject(e)}
         />
       </div>
-      <div className="p-mr-2 p-as-stretch">
-        <span className="p-float-label">
+      <div className="flex align-items-center">
+        <span className="float-label">
           <InputTextarea
             rows={1}
-            style={{ minWidth: "40rem" }}
+            style={{ minWidth: "40rem", minHeight: "2.5rem" }}
             id={question.identification + "Description"}
             value={readObject?.[question.identification]?.description || ""}
             onChange={(e) => updateObject(e)}

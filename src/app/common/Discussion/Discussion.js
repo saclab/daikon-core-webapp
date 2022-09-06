@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
 import { Sidebar } from "primereact/sidebar";
 import { Fieldset } from "primereact/fieldset";
 import { Button } from "primereact/button";
@@ -12,6 +14,7 @@ import { RootStoreContext } from "../../stores/rootStore";
 import Loading from "../../layout/Loading/Loading";
 import StartDiscussion from "./StartDiscussion";
 import FDate from "../FDate/FDate";
+import { Editor } from 'primereact/editor';
 
 const Discussion = ({ reference, section }) => {
   const rootStore = useContext(RootStoreContext);
@@ -47,6 +50,22 @@ const Discussion = ({ reference, section }) => {
   if (loadingDiscussions) {
     return <Loading />;
   }
+  let sanitizeHtml = (text) => DOMPurify.sanitize(text, { ALLOWED_TAGS: ['strong', 'p', 'em', 'u', 's', 'a', 'ul', 'li'] });
+
+  let cleanupAndParse = (text) => {
+    let cleaned = sanitizeHtml(text)
+    let parsed = <React.Fragment>{parse(cleaned)}</React.Fragment>
+    return parsed
+  }
+
+  const headerOfTextEditor = <span className="ql-formats">
+    <button className="ql-bold" aria-label="Bold"></button>
+    <button className="ql-italic" aria-label="Italic"></button>
+    <button className="ql-underline" aria-label="Underline"></button>
+    <button className="ql-strike" aria-label="Strike"></button>
+    <button className="ql-link" aria-label="Link"></button>
+    <button className="ql-list" value="bullet" aria-label="Bullet"></button>
+  </span>
 
   let mapReplyValues = (id, value) => {
     let tempValue = { ...userReplyValue };
@@ -89,6 +108,7 @@ const Discussion = ({ reference, section }) => {
   };
 
   let submitEditDiscussion = (discussion) => {
+
     if (discussion.description === editBoxValue[discussion.id]) {
       mapDisplayEditBox(discussion, false);
       return;
@@ -96,7 +116,7 @@ const Discussion = ({ reference, section }) => {
 
     editDiscussion({
       ...discussion,
-      description: editBoxValue[discussion.id],
+      description: sanitizeHtml(editBoxValue[discussion.id]),
     }).then((res) => {
       if (res !== null) mapDisplayEditBox(discussion, false);
     });
@@ -112,7 +132,7 @@ const Discussion = ({ reference, section }) => {
     }
     newReply(discussion, {
       discussionId: discussion.id,
-      body: replyV,
+      body: sanitizeHtml(replyV),
     }).then((res) => {
       if (res !== null) {
         mapDisplayReplyBox(discussion.id, false);
@@ -148,7 +168,7 @@ const Discussion = ({ reference, section }) => {
                     {subtitleTemplate(reply)}
                   </div>
                 </Divider>
-                <p>{reply.body}</p>
+                <p>{cleanupAndParse(reply.body)}</p>
               </div>
             );
           });
@@ -164,10 +184,11 @@ const Discussion = ({ reference, section }) => {
             <p>
               {displayEditBox[discussion.id] ? (
                 <React.Fragment>
-                  <InputTextarea
+                  <Editor
+                    headerTemplate={headerOfTextEditor}
                     value={editBoxValue[discussion.id]}
-                    onChange={(e) =>
-                      mapEditBoxValues(discussion.id, e.target.value)
+                    onTextChange={(e) =>
+                      mapEditBoxValues(discussion.id, e.htmlValue)
                     }
                     rows={2}
                     style={{ width: "100%" }}
@@ -194,7 +215,7 @@ const Discussion = ({ reference, section }) => {
                 </React.Fragment>
               ) : (
                 <p style={{ marginBottom: "0.2rem", whiteSpace: "pre-line" }}>
-                  {discussion.description}
+                  {cleanupAndParse(discussion.description)}
                 </p>
               )}
               <br />
@@ -231,10 +252,11 @@ const Discussion = ({ reference, section }) => {
             <div style={{ marginLeft: "50px" }}>
               {displayReplyBox[discussion.id] && (
                 <React.Fragment>
-                  <InputTextarea
+                  <Editor
+                    headerTemplate={headerOfTextEditor}
                     value={userReplyValue[discussion.id]}
-                    onChange={(e) =>
-                      mapReplyValues(discussion.id, e.target.value)
+                    onTextChange={(e) =>
+                      mapReplyValues(discussion.id, e.htmlValue)
                     }
                     rows={2}
                     style={{ width: "100%" }}
@@ -257,7 +279,6 @@ const Discussion = ({ reference, section }) => {
                   />
                 </React.Fragment>
               )}
-
               {formattedReplies}
             </div>
 
@@ -275,7 +296,7 @@ const Discussion = ({ reference, section }) => {
         visible={displayDiscussionDialog}
         position="right"
         style={{ width: "30em", overflowX: "auto" }}
-        blockScroll={true}
+
         onHide={() => setDisplayDiscussionDialog(false)}
       >
         <h2>Start a new topic.</h2>
@@ -308,16 +329,22 @@ const Discussion = ({ reference, section }) => {
         />
       </Sidebar>
 
-      <Fieldset legend="Discussion board">
-        <Button
-          className="p-button-rounded p-button-info"
-          icon="pi pi-plus"
-          label="New Topic"
-          onClick={displayAllDiscussions}
-          style={{ background: "#28477f", border: "0px solid #28477f" }}
-        />
-        {formatteddiscussions}
-      </Fieldset>
+      <div className="flex w-full">
+        <Fieldset legend="Discussion board" className="w-full">
+          <div className="flex w-full justify-content-end">
+            <Button
+              className="scalein animation-duration-500 p-button p-button-info"
+              icon="pi pi-plus"
+              label="Add a New Topic"
+              onClick={displayAllDiscussions}
+              style={{ background: "#28477f", border: "0px solid #28477f" }}
+            />
+          </div>
+
+          {formatteddiscussions}
+        </Fieldset>
+      </div>
+
 
       <br />
     </React.Fragment>

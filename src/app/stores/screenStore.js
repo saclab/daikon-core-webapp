@@ -13,6 +13,8 @@ export default class ScreenStore {
   rootStore;
 
   loadingFetchScreens = false;
+
+
   loadingFilterScreensByTargetName = false;
   loadingFetchScreen = false;
   loadingScreenSequence = false;
@@ -21,10 +23,20 @@ export default class ScreenStore {
   screenRegistryCacheValid = false;
   screenRegistryExpanded = new Map();
   selectedScreen = null;
+  selectedScreenTargetFilter = null;
   filteredScreens = [];
+
+  loadingFetchScreensPhenotypic = false;
+  screenPhenotypicRegistry = new Map();
+  screenPhenotypicRegistryCacheValid = false;
+  selectedPhenotypicScreen = null;
+  loadingFilterPhenotypicScreensByBaseScreenName = false
+  filteredPhenotypicScreens = []
+  selectedPhenotypicScreenFilter = null
 
   validatedHitsIndex = 0;
   screenSequenceIndex = 0;
+  loadingPhenotypicAdd = false
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -53,6 +65,25 @@ export default class ScreenStore {
 
       screenSequenceIndex: observable,
       setScreenSequenceIndex: action,
+
+      selectedScreenTargetFilter: observable,
+
+      loadingFetchScreensPhenotypic: observable,
+      screenPhenotypicRegistry: observable,
+      screenPhenotypicRegistryCacheValid: observable,
+      selectedPhenotypicScreen: observable,
+      fetchScreensPhenotypic: action,
+      screensPhenotypic: computed,
+      groupScreensPhenotypic: computed,
+
+      loadingFilterPhenotypicScreensByBaseScreenName: observable,
+      selectedPhenotypicScreenFilter: observable,
+      filteredPhenotypicScreens: observable,
+      filterPhenotypicScreensByBaseScreenName: action,
+
+      addScreeenPhenotypic: action,
+      loadingPhenotypicAdd: observable
+
     });
   }
 
@@ -84,8 +115,39 @@ export default class ScreenStore {
     }
   };
 
+  fetchScreensPhenotypic = async () => {
+    console.log("screenStore: fetchScreensPhenotypic() Start");
+    this.loadingFetchScreensPhenotypic = true;
+    if (this.screenPhenotypicRegistryCacheValid && this.screenPhenotypicRegistry.size !== 0) {
+      console.log("screenStore: fetchScreensPhenotypic() cache hit");
+      this.loadingFetchScreensPhenotypic = false;
+      return;
+    }
+    try {
+      console.log("screenStore: fetchScreensPhenotypic() cache miss");
+      var resp = await agent.Screen.listPhenotypic();
+      runInAction(() => {
+        console.log(resp);
+        resp.forEach((fetchedScreen) => {
+          this.screenPhenotypicRegistry.set(fetchedScreen.id, fetchedScreen);
+        });
+        this.screenPhenotypicRegistryCacheValid = true;
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.loadingFetchScreensPhenotypic = false;
+      });
+    }
+  };
+
   get screens() {
     return Array.from(this.screenRegistry.values());
+  }
+
+  get screensPhenotypic() {
+    return Array.from(this.screenPhenotypicRegistry.values());
   }
 
   get uniqueScreens() {
@@ -99,8 +161,23 @@ export default class ScreenStore {
     return Array.from(targetsScreened.values());
   }
 
+  get groupScreensPhenotypic() {
+    let pScreened = new Map();
+    console.log("screenStore: uniqueScreens()");
+
+    this.screenPhenotypicRegistry.forEach((value) => {
+      console.log(value);
+      let lastIndex = value.screenName.lastIndexOf('-');
+      let screenName = value.screenName.slice(0, lastIndex)
+      pScreened.set(screenName, { screenName: screenName, notes: value.notes });
+      console.log(screenName)
+    });
+    return Array.from(pScreened.values());
+  }
+
   filterScreensByTarget = (targetName) => {
     this.loadingFilterScreensByTargetName = true;
+    this.selectedScreenTargetFilter = targetName
     this.filteredScreens = [];
     this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
       (screen) => {
@@ -112,11 +189,27 @@ export default class ScreenStore {
     return this.filteredScreens;
   };
 
-  
+  filterPhenotypicScreensByBaseScreenName = (baseScreenName) => {
+    this.loadingFilterPhenotypicScreensByBaseScreenName = true;
+    this.selectedPhenotypicScreenFilter = baseScreenName
+    this.filteredPhenotypicScreens = [];
+    this.filteredPhenotypicScreens = Array.from(this.screenPhenotypicRegistry.values()).filter(
+      (screen) => {
+        let lastIndex = screen.screenName.lastIndexOf('-');
+        let extractedscreenName = screen.screenName.slice(0, lastIndex)
+        return extractedscreenName === baseScreenName;
+      }
+    );
+    this.loadingFilterPhenotypicScreensByBaseScreenName = false;
+
+    return this.filteredPhenotypicScreens;
+  };
+
+
 
   /* Fetch specific Screen with id from API */
 
-  fetchScreen = async (id, invalidateCache=false) => {
+  fetchScreen = async (id, invalidateCache = false) => {
     console.log("screenStore: fetchScreen Start");
     this.loadingFetchScreen = true;
 
@@ -177,6 +270,34 @@ export default class ScreenStore {
     }
     return res;
   };
+
+  addScreeenPhenotypic = async (newScreen) => {
+    console.log("screenStore: addScreeenPhenotypic Start");
+    console.log(newScreen);
+    this.loadingPhenotypicAdd = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Screen.createPhenotypic(
+        newScreen
+      );
+      runInAction(() => {
+        toast.success("Successfully added screening information");
+        this.screenPhenotypicRegistryCacheValid = false;
+        this.selectedPhenotypicScreen = null;
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.loadingPhenotypicAdd = false;
+        console.log("screenStore: addScreeenPhenotypic Complete");
+      });
+    }
+    return res;
+  };
+
 
   setValidatedHitsIndex = (index) => (this.validatedHitsIndex = index);
   setScreenSequenceIndex = (index) => (this.screenSequenceIndex = index);

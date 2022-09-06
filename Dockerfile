@@ -1,7 +1,7 @@
 #######################################
 # builder image
 #######################################
-FROM node:16 as build-tpt-app
+FROM node:18 as build-tpt-app
 
 ARG MAX_OLD_SPACE_SIZE=4000
 ENV NODE_OPTIONS=--max-old-space-size=${MAX_OLD_SPACE_SIZE}

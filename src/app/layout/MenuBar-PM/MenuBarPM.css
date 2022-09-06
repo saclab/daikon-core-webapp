@@ -1,0 +1,34 @@
+.pipeline-menu .p-tabmenuitem {
+  margin-right: 25px !important;
+}
+
+.pipeline-menu .p-menuitem-icon {
+  font-size: 25px !important;
+  font-weight: 100 !important;
+}
+
+.pipeline-menu .p-menuitem-text {
+  font-size: 18px !important;
+  font-weight: 400 !important;
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+  background: #ffffff;
+  border-color: #000000;
+  color: #000000;
+}
+
+@media screen and (max-width: 1300px) {
+  .pipeline-menu .p-tabmenuitem {
+    margin-right: 0px !important;
+  }
+
+  .pipeline-menu .p-menuitem-icon {
+    font-size: 20px !important;
+  }
+
+  .pipeline-menu .p-menuitem-text {
+    font-size: 16px !important;
+    font-weight: 400 !important;
+  }
+}

@@ -1,0 +1,197 @@
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { Menu } from "primereact/menu";
+import { Sidebar } from "primereact/sidebar";
+import { Message } from "primereact/message";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
+import TargetScorecard from "./TargetScorecard/TargetScorecard";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import { Toast } from "primereact/toast";
+import NotFound from "../../../app/layout/NotFound/NotFound";
+import Loading from "../../../app/layout/Loading/Loading";
+import { observer } from "mobx-react-lite";
+import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
+import TargetSummary from "./TargetSummary/TargetSummary";
+import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
+import EmbededHelp from "../../../app/common/EmbededHelp/EmbededHelp";
+import TargetEdit from "./TargetEdit/TargetEdit";
+
+const TargetView = () => {
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const toast = useRef(null);
+
+  /* MobX Store */
+  const rootStore = useContext(RootStoreContext);
+  const { fetchTarget, target, displayLoading } = rootStore.targetStore;
+  const { user } = rootStore.userStore;
+
+  useEffect(() => {
+    if (target === null || target.id !== params.id) {
+      fetchTarget(params.id);
+    }
+  }, [params.id, target, fetchTarget]);
+
+  const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
+
+  const items = [
+    {
+      label: "Sections",
+      items: [
+        {
+          label: "Scorecard",
+          icon: "icon icon-common icon-flag-checkered",
+          command: () => {
+            navigate("scorecard/");
+          },
+        },
+        {
+          label: "Summary",
+          icon: "icon icon-common icon-compass",
+          command: () => {
+            navigate("summary/");
+          },
+        },
+        {
+          label: "Promotion Info",
+          icon: "pi pi-table",
+          command: () => {
+            navigate("promotion-info/");
+          },
+        },
+        {
+          label: "Discussion",
+          icon: "ri-discuss-line",
+          command: () => {
+            navigate("discussion/");
+          },
+        },
+      ],
+    },
+    {
+      label: "Actions",
+      items: [
+        {
+          label: "Add a Screen",
+          icon: "icon icon-common icon-database-submit",
+          command: (event) => {
+            setDisplayPromotionDialog(true);
+          },
+        },
+        {
+          label: "View Screens",
+          icon: "pi pi-external-link",
+          command: (event) => {
+            navigate("/d/screen/target-based/" + target.name);
+          },
+        },
+      ],
+    },
+  ];
+
+  if (user.roles.includes("admin")) {
+
+    const adminActions = {
+      label: "Admin Section",
+      items: [
+        {
+          label: "Impact Values",
+          icon: "icon icon-common icon-bolt",
+          command: () => {
+            navigate("edit/");
+          },
+        },
+      ],
+    }
+    items.push(adminActions);
+  }
+
+  /** Loading Overlay */
+  if (displayLoading) {
+    console.log("Loading.....");
+    return <Loading />;
+  }
+  if (target !== null) {
+    return (
+      <React.Fragment>
+        <Toast ref={toast} />
+        <Sidebar
+          visible={displayPromotionDialog}
+          position="right"
+          style={{ width: "30em", overflowX: "auto" }}
+          onHide={() => setDisplayPromotionDialog(false)}
+        >
+          <div className="flex flex-column gap-3 pl-3  w-full">
+            <div className="flex">
+              <h2>
+                <i className="icon icon-common icon-plus-circle"></i> Add a new
+                Screen | {target.name}
+              </h2>
+            </div>
+            <div className="flex">
+              <EmbededHelp>
+                This would create a new screening series. If you are intending
+                to add screening information to an existing screening set please
+                add it via the screening tab.
+              </EmbededHelp>
+            </div>
+            <div className="flex w-full">
+              <TargetScreenPromotionQuestionaire
+                closeSidebar={() => setDisplayPromotionDialog(false)}
+              />
+            </div>
+          </div>
+        </Sidebar>
+
+        <div className="flex gap-2 w-full">
+          <div className="flex">
+            <Menu model={items} />
+          </div>
+          <div className="flex w-full">
+            <Routes>
+              <Route index element={<Navigate replace to="scorecard/" />} />
+              <Route
+                path="scorecard/"
+                element={
+                  <TargetScorecard
+                    data={target.targetScorecard.targetScoreCardValues}
+                  />
+                }
+              />
+              <Route path="summary/" element={<TargetSummary />} />
+              <Route
+                path="promotion-info/"
+                element={
+                  <TargetPromotionForm
+                    data={target.targetScorecard.targetScoreCardValues}
+                    selectedTarget={target}
+                  />
+                }
+              />
+              <Route
+                path="discussion/"
+                element={<TargetDiscussion selectedTarget={target} />}
+              />
+              <Route
+                path="edit/"
+                element={<TargetEdit id={params.id} />}
+              />
+            </Routes>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+
+  return <NotFound />;
+};
+
+export default observer(TargetView);

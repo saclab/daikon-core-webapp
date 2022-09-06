@@ -1,0 +1,19 @@
+.QuadMain {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Create four equal columns that floats next to each other */
+.QuadColumn {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  min-height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.QuadRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}

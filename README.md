@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Daikon
+DAIKON is an open-source web application designed to manage and visualize targets, screens, pre-projects, and projects within the drug discovery pipeline. It is an interface developed to facilitate collaboration among scientists at member organizations, and enables project, program, and portfolio managers to enter gene targets into the discovery pipeline and track the progress of screening efforts, hit sets and projects directed at those targets as they progress towards clinical candidate selection. It includes public and private data sharing capabilities, ensuring security and accessibility required for international multiparty collaboration.  It is a one stop solution that enables “start to finish” tracking of the discovery pipeline. It standardizes many aspects of the drug discovery pipeline, one of them being target selection criteria using predefined questionnaires and assigning them a bucket score.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Configuration
 Configuration must be placed in
