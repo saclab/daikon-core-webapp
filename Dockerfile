@@ -19,6 +19,7 @@ RUN npm run build
 #######################################
 # nginx image
 #######################################
-FROM nginx:1.21
+FROM nginx:1.23
 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-tpt-app /app/build /usr/share/nginx/html
