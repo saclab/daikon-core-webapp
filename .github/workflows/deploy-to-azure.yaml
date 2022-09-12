@@ -21,6 +21,7 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
+          echo ${{ secrets.REACT_AZURE_AD_CONFIG }} >> ./src/config.js
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/tpt-frontend:${{ github.sha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/tpt-frontend:${{ github.sha }}
       - name: "Deploy to Azure Container Instances"
