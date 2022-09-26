@@ -8,6 +8,7 @@ import { InputSwitch } from "primereact/inputswitch";
 import { appColors } from "../../../../colors";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import Loading from "../../../../app/layout/Loading/Loading";
+import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
 
 const TargetDashChart = ({ targets }) => {
   const navigate = useNavigate();
@@ -22,8 +23,8 @@ const TargetDashChart = ({ targets }) => {
     if (targetDash === null) loadTargetDash();
   }, [targetDash, loadTargetDash]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const [likeScoreCutoff, setLikeScoreCutoff] = useState(0.02);
-  const [impactScoreCutoff, setImpactScoreCutoff] = useState(0.02);
+  const [score1Cutoff, setscore1Cutoff] = useState(0.02);
+  const [score2Cutoff, setscore2Cutoff] = useState(0.02);
   const [showLabel, setShowLabel] = useState(true);
   /** Loading Overlay */
   if (loadingTargetDash) {
@@ -78,61 +79,61 @@ const TargetDashChart = ({ targets }) => {
   if (!loadingTargetDash && targetDash !== null) {
     targetDash.forEach((element) => {
       if (
-        element.likeScore >= likeScoreCutoff &&
-        element.impactScore >= impactScoreCutoff
+        element.score1 >= score1Cutoff &&
+        element.score2 >= score2Cutoff
       ) {
         if (element.currentStage === "Target") {
           targetData.push([
-            element.likeScore,
-            element.impactScore,
+            element.score1,
+            element.score2,
             element.id,
             element.name,
             element.type,
-            element.bucket,
+            element.rank,
             element.currentStage,
           ]);
         }
         if (element.currentStage === "Screen") {
           screenData.push([
-            element.likeScore,
-            element.impactScore,
+            element.score1,
+            element.score2,
             element.id,
             element.name,
             element.type,
-            element.bucket,
+            element.rank,
             element.currentStage,
           ]);
         }
         if (element.currentStage === "FHA") {
           fhaData.push([
-            element.likeScore,
-            element.impactScore,
+            element.score1,
+            element.score2,
             element.id,
             element.name,
             element.type,
-            element.bucket,
+            element.rank,
             element.currentStage,
           ]);
         }
         if (element.currentStage === "Portfolio") {
           portfolioData.push([
-            element.likeScore,
-            element.impactScore,
+            element.score1,
+            element.score2,
             element.id,
             element.name,
             element.type,
-            element.bucket,
+            element.rank,
             element.currentStage,
           ]);
         }
         if (element.currentStage === "PostPortfolio") {
           postPortfolioData.push([
-            element.likeScore,
-            element.impactScore,
+            element.score1,
+            element.score2,
             element.id,
             element.name,
             element.type,
-            element.bucket,
+            element.rank,
             element.currentStage,
           ]);
         }
@@ -174,7 +175,7 @@ const TargetDashChart = ({ targets }) => {
         },
         splitNumber: 10,
         splitLine: { show: true },
-        name: "Likelihood",
+        name: "Druggable Score 2",
         nameLocation: "center",
         nameGap: 30
       },
@@ -188,7 +189,7 @@ const TargetDashChart = ({ targets }) => {
         },
         splitNumber: 10,
         splitLine: { show: true },
-        name: "Biological Impact",
+        name: "Essentiality Score 1",
         nameLocation: "center",
         nameGap: 30,
       },
@@ -364,6 +365,10 @@ const TargetDashChart = ({ targets }) => {
             />
           </div>
           <div className="flex flex-column pl-5 pr-5">
+            <EmbededHelp>
+              Example Only:
+              Target Prioritization Tool implementation is required by the Organization
+            </EmbededHelp>
             <div className="flex h-3rem">
               <h4>
                 <i className="icon icon-common icon-filter" /> Filters
@@ -371,7 +376,7 @@ const TargetDashChart = ({ targets }) => {
             </div>
             <div className="flex w-full align-content-center h-2rem column-gap-5">
               <div className="flex w-6 align-items-center ">
-                <h5>Likelihood Score: {likeScoreCutoff}</h5>
+                <h5>Druggable Score 2: {score1Cutoff}</h5>
               </div>
               <div className="flex w-full align-items-center">
                 <Slider
@@ -379,15 +384,15 @@ const TargetDashChart = ({ targets }) => {
                   min={0}
                   max={1}
                   step={0.01}
-                  value={likeScoreCutoff}
-                  onChange={(e) => setLikeScoreCutoff(e.value)}
+                  value={score1Cutoff}
+                  onChange={(e) => setscore1Cutoff(e.value)}
                 />
               </div>
             </div>
 
             <div className="flex w-full align-content-center h-2rem column-gap-5">
               <div className="flex w-6 align-items-center">
-                <h5>Biological Impact Score: {impactScoreCutoff}</h5>
+                <h5>Essentiality Score 1 Score: {score2Cutoff}</h5>
               </div>
               <div className="flex w-full align-items-center">
                 <Slider
@@ -395,8 +400,8 @@ const TargetDashChart = ({ targets }) => {
                   min={0}
                   max={1}
                   step={0.01}
-                  value={impactScoreCutoff}
-                  onChange={(e) => setImpactScoreCutoff(e.value)}
+                  value={score2Cutoff}
+                  onChange={(e) => setscore2Cutoff(e.value)}
                 />
               </div>
             </div>
@@ -412,9 +417,12 @@ const TargetDashChart = ({ targets }) => {
                   onChange={() => setShowLabel(showLabel ? false : true)}
                 />
               </div>
+
             </div>
           </div>
+
         </div>
+
       </React.Fragment>
     );
   }

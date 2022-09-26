@@ -58,7 +58,7 @@ const GeneView = () => {
         },
 
         {
-          label: "TBDA Data",
+          label: "Org Private Data",
           icon: "ri-git-repository-private-fill",
           command: () => {
             navigate(`protected/`);

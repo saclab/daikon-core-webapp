@@ -3,6 +3,7 @@ import { Tooltip } from "primereact/tooltip";
 
 import "./TargetGrid.css";
 import PleaseWait from "../../../../../app/common/PleaseWait/PleaseWait";
+import EmbededHelp from "../../../../../app/common/EmbededHelp/EmbededHelp";
 
 const TargetGrid = ({ questions, target }) => {
   let answers = {};
@@ -50,6 +51,15 @@ const TargetGrid = ({ questions, target }) => {
   });
 
   console.log(answers);
+
+  return (
+    <div>
+      <EmbededHelp>
+      !Missing Implementation :
+      To view this module, Target Prioritization Tool implementation is required by the Organization
+      </EmbededHelp>
+    </div>
+  )
 
   return (
     <div className="targetGrid">

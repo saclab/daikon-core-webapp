@@ -72,8 +72,8 @@ const TargetScorecard = () => {
           <div className="flex w-full">
             <Fieldset legend="Overview">
               <h3>
-                <i className="ri-blaze-line"></i> Bucket :{" "}
-                <b>{selectedTarget.bucket}</b>
+                <i className="ri-blaze-line"></i> Rank :{" "}
+                <b>{selectedTarget.rank}</b>
               </h3>
               <div style={{ inlineSize: "900px", overflowWrap: "break-word" }}>
                 <h4>

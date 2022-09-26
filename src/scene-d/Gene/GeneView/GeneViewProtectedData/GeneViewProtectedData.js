@@ -40,7 +40,7 @@ const GeneViewProtectedData = ({
         navigate(`/d/gene/${gene.id}`);
       },
     },
-    { label: "TBDA Data" },
+    { label: "Org Private Data" },
   ];
 
   // const [genomeNonPublicData, setGenomeNonPublicData] = useState(null);
@@ -98,6 +98,11 @@ const GeneViewProtectedData = ({
       </div>
       <div className="flex w-full">
         <div className="flex flex-column gap-3 w-full">
+          <div className="flex w-full">
+            <EmbededHelp>
+              CAUTION: Data in this page may contain unpublished information.
+            </EmbededHelp>
+          </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Essentiality">
               <EmbededHelp>
@@ -163,16 +168,11 @@ const GeneViewProtectedData = ({
           </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Protein Activity Assay List">
-              {/* <DisplayTable
-                heading={"Add Protein Activity Assay"}
-                columns={["activity", "type", "throughput"]}
-                mandatory={["activity", "type", "throughput"]}
-                data={gene.geneProteinActivityAssay}
-                add={addProteinActivityAssay}
-                edit={editProteinActivityAssay}
-                adding={addingProteinActivityAssay}
-                editing={editingProteinActivityAssay}
-              /> */}
+              <EmbededHelp>
+                Enzymatic activity assays are predominately performed by researchers to identify the
+                presence or quantity of a specific enzyme in an organism, tissue, or sample.
+              </EmbededHelp>
+
               <GeneViewProtectedDataProteinActivityAssayList
                 data={gene.geneProteinActivityAssay}
                 edit={editProteinActivityAssay}
@@ -184,16 +184,6 @@ const GeneViewProtectedData = ({
           </div>
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Hypomorph">
-              {/* <DisplayTable
-                heading={"Add Hypomorph Strain"}
-                columns={["knockdownStrain", "phenotype"]}
-                mandatory={["knockdownStrain", "phenotype"]}
-                data={gene.geneHypomorphs}
-                add={addHypomorph}
-                edit={editHypomorph}
-                adding={addingHypomorph}
-                editing={editingHypomorph}
-              /> */}
               <GeneViewProtectedDataHypomorph
                 data={gene.geneHypomorphs}
                 edit={editHypomorph}

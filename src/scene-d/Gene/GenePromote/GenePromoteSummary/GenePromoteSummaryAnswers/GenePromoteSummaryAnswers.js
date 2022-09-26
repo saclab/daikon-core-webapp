@@ -37,7 +37,7 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
         <p>{ansObj[oKey]?.answer}</p>
       </div>
       <div className={dClass()} style={{ overflowWrap: "break-word" }}>
-        <p style={{ overflowWrap: "break-word" }}>{ansObj[oKey]?.description}</p>
+        <p style={{ overflowWrap: "break-word", minWidth: "40rem", minHeight: "2.5rem" }}>{ansObj[oKey]?.description}</p>
       </div>
     </div>
   );
