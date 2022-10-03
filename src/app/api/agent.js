@@ -297,6 +297,7 @@ const Screen = {
 
 const Hit = {
   create: (newHit) => requests.post(`/hit/`, newHit),
+  update: (hitId, updatedHit) => requests.post(`/hit/${hitId}`, updatedHit),
 };
 
 const Discussion = {
