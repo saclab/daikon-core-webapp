@@ -139,7 +139,7 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
         <table style={{ width: "100%", textAlign: "left", borderSpacing: "1em" }}>
           <thead>
             <tr key="head">
-              <th>PDP ID</th>
+              <th>PDB ID</th>
               <th>Method</th>
               <th>Resolution</th>
               <th>Chains</th>

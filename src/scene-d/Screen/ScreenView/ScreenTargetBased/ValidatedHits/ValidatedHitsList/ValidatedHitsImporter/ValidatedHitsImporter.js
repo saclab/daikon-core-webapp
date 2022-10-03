@@ -11,12 +11,16 @@ import { Chip } from 'primereact/chip';
 
 import { RootStoreContext } from "../../../../../../../app/stores/rootStore";
 
-const ValidatedHitsImporter = ({ screenId }) => {
+const ValidatedHitsImporter = ({ screenId, existingHits }) => {
+
+  console.log("-------START HITS IMPORTER--------");
+  console.log("existingHits");
+  console.log(existingHits);
 
   const { CSVReader } = useCSVReader();
-
-
   const [hits, setHits] = useState([]);
+  const [hitsToUpdate, setHitsToUpdate] = useState([]);
+  const [hitsToAdd, setHitsToAdd] = useState([]);
   const [displayCSVImporter, setDisplayCSVImporter] = useState(true);
   const [displayPreview, setDisplayPreview] = useState(false);
   const [displayImportContainer, setDisplayImportContainer] = useState(false);
@@ -24,6 +28,9 @@ const ValidatedHitsImporter = ({ screenId }) => {
   const [importingLogs, setImportingLogs] = useState(null);
   const [successList, setSuccessList] = useState([]);
   const [failedList, setFailedList] = useState([]);
+
+  let existingHitCompoundIds = [...existingHits.map((hit) => hit.compound.externalCompoundIds)]
+
 
   const styles = {
     csvReader: {
@@ -53,7 +60,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { newHit, postingHit } = rootStore.hitsStore;
+  const { newHit, postingHit, updateHit, updatingHit } = rootStore.hitsStore;
 
   let handleOnError = (err, file, inputElem, reason) => {
     console.log("---------------------------");
@@ -62,6 +69,9 @@ const ValidatedHitsImporter = ({ screenId }) => {
   };
 
   let handleOnDrop = (r) => {
+
+
+
     console.log("---------------------------");
     console.log(r.data);
 
@@ -69,26 +79,72 @@ const ValidatedHitsImporter = ({ screenId }) => {
     var index = 1;
 
     r.data.forEach((hit) => {
-      console.log(hit);
       if (typeof (hit.Id) === 'undefined' || hit.Id === '') return;
+      hit.IC50 = _.toNumber(hit?.IC50) ? _.round(hit?.IC50, 2) : 0;
+      hit.MIC = _.toNumber(hit?.MIC) ? _.round(hit?.MIC, 2) : 0;
 
-      hits.push({
-        Index: index,
-        ScreenId: screenId,
-        Source: hit?.Source,
-        Library: hit?.Library,
-        ExternalCompoundIds: hit?.Id,
-        IC50: _.toNumber(hit?.IC50) ? _.round(hit?.IC50, 2) : 0,
-        Method: hit?.Method,
-        MIC: _.toNumber(hit?.MIC) ? _.round(hit?.MIC, 2) : 0,
-        ClusterGroup: hit?.ClusterGroup,
-        Smile: hit?.Smile,
-        MolWeight: hit?.MolWeight,
-        MolArea: hit?.MolArea,
-      });
-      index = index + 1;
+
+      // separate new hits and hits to update
+      if (existingHitCompoundIds.includes(hit.Id)) {
+        // check if any params have changed
+        let existingHit = existingHits.filter((eh) => eh.compound.externalCompoundIds === hit.Id)[0];
+        console.log("existingHit");
+        console.log(existingHit);
+        console.log(existingHit.mic);
+        console.log(hit.MIC);
+        // using != instead of !== as type comparasion is not required
+        if (
+          (existingHit.clusterGroup !== parseInt(hit.ClusterGroup))
+          || (existingHit.iC50 != parseInt(hit.IC50))
+          || (existingHit.mic != parseInt(hit.MIC))
+        ) {
+          console.log("Update -> " + hit.Id)
+          index = index + 1;
+          hitsToUpdate.push(
+            {
+              Id: existingHit.id,
+              Index: index,
+              ScreenId: screenId,
+              Source: hit?.Source,
+              Library: hit?.Library,
+              ExternalCompoundIds: hit?.Id,
+              IC50: hit.IC50,
+              Method: hit?.Method,
+              MIC: hit.MIC,
+              ClusterGroup: hit?.ClusterGroup,
+              Smile: hit?.Smile,
+              MolWeight: hit?.MolWeight,
+              MolArea: hit?.MolArea,
+              Status: "Update"
+            }
+          )
+        }
+      }
+      else {
+        // push to new hits list
+        index = index + 1;
+        hitsToAdd.push({
+          Index: index,
+          ScreenId: screenId,
+          Source: hit?.Source,
+          Library: hit?.Library,
+          ExternalCompoundIds: hit?.Id,
+          IC50: hit.IC50,
+          Method: hit?.Method,
+          MIC: hit.MIC,
+          ClusterGroup: hit?.ClusterGroup,
+          Smile: hit?.Smile,
+          MolWeight: hit?.MolWeight,
+          MolArea: hit?.MolArea,
+          Status: "New"
+        });
+      }
     });
-    console.log("Hits found : " + hits.length);
+
+    console.log("hitsToUpdate");
+    console.log(hitsToUpdate);
+    setHits([...hitsToAdd, ...hitsToUpdate]);
+    console.log("Hits to Add/Update : " + hits.length);
 
     setDisplayPreview(true);
     console.log(hits);
@@ -109,18 +165,34 @@ const ValidatedHitsImporter = ({ screenId }) => {
     setDisplayPreview(false);
     setDisplayImportContainer(true);
 
-    for (let i = 0; i < hits.length; i++) {
-      let res = await newHit(hits[i]);
+    // New Hits
+    for (let i = 0; i < hitsToAdd.length; i++) {
+      let res = await newHit(hitsToAdd[i]);
       if (res !== null) {
-        setImportingLogs("Imported " + hits[i].ExternalCompoundIds);
-        successList.push(hits[i].ExternalCompoundIds);
+        setImportingLogs("Imported " + hitsToAdd[i].ExternalCompoundIds);
+        successList.push(hitsToAdd[i].ExternalCompoundIds);
         console.log(successList);
       } else {
-        setImportingLogs("Failed  " + hits[i].ExternalCompoundIds);
-        setFailedList([...failedList, hits[i].ExternalCompoundIds])
-        failedList.push(hits[i].ExternalCompoundIds);
+        setImportingLogs("Failed  " + hitsToAdd[i].ExternalCompoundIds);
+        setFailedList([...failedList, hitsToAdd[i].ExternalCompoundIds])
+        failedList.push(hitsToAdd[i].ExternalCompoundIds);
       }
     }
+
+    // Update Hits
+    for (let i = 0; i < hitsToUpdate.length; i++) {
+      let res = await updateHit(hitsToUpdate[i]);
+      if (res !== null) {
+        setImportingLogs("Updated " + hitsToUpdate[i].ExternalCompoundIds);
+        successList.push(hitsToUpdate[i].ExternalCompoundIds);
+        console.log(successList);
+      } else {
+        setImportingLogs("Failed  " + hitsToUpdate[i].ExternalCompoundIds);
+        setFailedList([...failedList, hitsToUpdate[i].ExternalCompoundIds])
+        failedList.push(hitsToUpdate[i].ExternalCompoundIds);
+      }
+    }
+
     setdisplaySummary(true);
   };
 
@@ -151,7 +223,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
               ></h1>
             </div>
             <div className="flex align-items-center justify-content-center">
-              {!acceptedFile ? <Button  className="w-max p-button-secondary pl-5 pr-5" type='button' {...getRootProps()}>
+              {!acceptedFile ? <Button className="w-max p-button-secondary pl-5 pr-5" type='button' {...getRootProps()}>
                 Select CSV File to upload
               </Button> : acceptedFile.name}
 
@@ -165,14 +237,14 @@ const ValidatedHitsImporter = ({ screenId }) => {
                   The CSV should contain the following headers:
                 </div>
                 <div className="flex gap-1">
-                <Chip label="Source" />
-                <Chip label="Library" />
-                <Chip label="Method" />
-                <Chip label="Id" />
-                <Chip label="MIC" />
-                <Chip label="IC50" />
-                <Chip label="ClusterGroup" />
-                <Chip label="Smile" />
+                  <Chip label="Source" />
+                  <Chip label="Library" />
+                  <Chip label="Method" />
+                  <Chip label="Id" />
+                  <Chip label="MIC" />
+                  <Chip label="IC50" />
+                  <Chip label="ClusterGroup" />
+                  <Chip label="Smile" />
                 </div>
               </div>}
           </div>
@@ -191,6 +263,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
       <div className="card">
         <DataTable value={hits}>
           <Column field="Index" header="Index"></Column>
+          <Column field="Status" header="Status"></Column>
           <Column field="Source" header="Source"></Column>
           <Column field="Library" header="Library"></Column>
           <Column field="ExternalCompoundIds" header="Id"></Column>
@@ -222,7 +295,7 @@ const ValidatedHitsImporter = ({ screenId }) => {
   let importContainer = (
     <React.Fragment>
       <h2>Step 4 : Importing...</h2>
-      {postingHit && (
+      {(postingHit || updatingHit) && (
         <ProgressBar mode="indeterminate" style={{ height: "6px" }} />
       )}
       <p>{importingLogs}</p>
