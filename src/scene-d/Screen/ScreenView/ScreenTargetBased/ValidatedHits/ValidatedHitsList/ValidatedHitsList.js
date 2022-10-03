@@ -197,37 +197,23 @@ const ValidatedHitsList = ({ screenId }) => {
 
   /* Construct table menu items */
   if (!loadingFetchScreen && selectedScreen) {
-    if (selectedScreen.validatedHits.length === 0) {
-      let itm = {
-        label: "Hits Management",
-        items: [
-          {
-            label: "Import Hits",
-            icon: "icon icon-common icon-plus-circle",
-            command: () => setDisplayHitsImportSidebar(true),
-          },
-        ],
-      };
-      tableMenuItems.push(itm);
-    }
 
-    if (selectedScreen.validatedHits.length !== 0) {
-      let itm = {
-        label: "Hits Management",
-        items: [
-          // {
-          //   label: "Import Hits",
-          //   icon: "icon icon-common icon-plus-circle",
-          // },
-          {
-            label: "Export Hits",
-            icon: "icon icon-fileformats icon-CSV",
-            command: () => exportCSV(false)
-          },
-        ],
-      };
-      tableMenuItems.push(itm);
-    }
+    let itm = {
+      label: "Hits Management",
+      items: [
+        {
+          label: "Import Hits",
+          icon: "icon icon-common icon-plus-circle",
+          command: () => setDisplayHitsImportSidebar(true),
+        },
+        {
+          label: "Export Hits",
+          icon: "icon icon-fileformats icon-CSV",
+          command: () => exportCSV(false)
+        },
+      ],
+    };
+    tableMenuItems.push(itm);
 
     // Admin section
     if (user.roles.includes("admin")) {
@@ -370,7 +356,10 @@ const ValidatedHitsList = ({ screenId }) => {
       >
         <div className="card">
           <br />
-          <ValidatedHitsImporter screenId={selectedScreen.id} />
+          <ValidatedHitsImporter
+            screenId={selectedScreen.id}
+            existingHits={selectedScreen.validatedHits}
+          />
         </div>
       </Dialog>
       <Dialog
