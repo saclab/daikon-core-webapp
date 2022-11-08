@@ -270,7 +270,7 @@ const ProjectCreate = () => {
                       "p-error": isFormFieldValid("fhaStart"),
                     })}
                   >
-                    FHA Start Date
+                    HA Start Date
                   </label>
 
                   <Calendar
@@ -291,7 +291,7 @@ const ProjectCreate = () => {
                       "p-error": isFormFieldValid("fhaDescription"),
                     })}
                   >
-                    FHA Description
+                    HA Description
                   </label>
 
                   <InputTextarea
