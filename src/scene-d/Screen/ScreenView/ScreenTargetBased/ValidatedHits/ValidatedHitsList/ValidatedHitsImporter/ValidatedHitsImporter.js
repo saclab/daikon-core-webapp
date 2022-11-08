@@ -82,6 +82,7 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       if (typeof (hit.Id) === 'undefined' || hit.Id === '') return;
       hit.IC50 = _.toNumber(hit?.IC50) ? _.round(hit?.IC50, 2) : 0;
       hit.MIC = _.toNumber(hit?.MIC) ? _.round(hit?.MIC, 2) : 0;
+      
 
 
       // separate new hits and hits to update
@@ -111,6 +112,8 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
               IC50: hit.IC50,
               Method: hit?.Method,
               MIC: hit.MIC,
+              MolWeight: hit.MolWeight,
+              MolArea: hit.MolArea,
               ClusterGroup: hit?.ClusterGroup,
               Smile: hit?.Smile,
               MolWeight: hit?.MolWeight,

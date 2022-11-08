@@ -22,6 +22,8 @@ export default class ProjectStore {
   selectedCompoundEvolution = null;
   addingCompoundEvolution = false;
 
+  editingCompoundEvolution = false;
+
   settingPriorityProbability = false;
 
   constructor(rootStore) {
@@ -42,8 +44,12 @@ export default class ProjectStore {
       fetchCompoundEvolution: action,
       compoundEvolutionRegistryCacheValid: observable,
       selectedCompoundEvolution: observable,
+
       addCompoundEvolution: action,
       addingCompoundEvolution: observable,
+
+      editCompoundEvolution: action,
+      editingCompoundEvolution: observable,
 
       settingPriorityProbability: observable,
       setPriorityProbability: action,
@@ -189,6 +195,34 @@ export default class ProjectStore {
     return res;
   };
 
+  editCompoundEvolution = async (editedCompoundEvolution) => {
+    console.log("ProjectStore: editCompoundEvolution Start");
+    console.log(editedCompoundEvolution);
+    this.editingCompoundEvolution = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.editCompoundevolution(
+        this.selectedProject.id,
+        editedCompoundEvolution.id,
+        editedCompoundEvolution
+      );
+      runInAction(() => {
+        toast.success("Successfully edited compound evolution entry");
+        this.compoundEvolutionRegistryCacheValid = false;
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingCompoundEvolution = false;
+        console.log("ProjectStore: editCompoundEvolution Complete");
+      });
+    }
+    return res;
+  };
+
   setPriorityProbability = async (ppDTO) => {
     console.log("ProjectStore: setPriorityProbability Start");
 
@@ -277,7 +311,7 @@ export default class ProjectStore {
 
   createUnlinkedProject = async (newProject) => {
     console.log("ProjectStore: createUnlinkedProject Start");
-    
+
     this.creatingUnlinkedProject = true;
     let res = null;
     // send to server
