@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Fieldset } from "primereact/fieldset";
 import { useNavigate } from 'react-router-dom';
 import "./ScrollPanel.css";
@@ -9,8 +9,12 @@ import { appColors } from '../../../../colors';
 import PostPortfolioInformationGeneralInformation from './LocalComponents/PostPortfolioInformationGeneralInformation';
 import PostPortfolioInformationDates from './LocalComponents/PostPortfolioInformationDates';
 import PostPortfolioInformationPriority from './PostPortfolioInformationPriority/PostPortfolioInformationPriority';
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const PostPortfolioInformation = ({ id, project }) => {
+
+  const rootStore = useContext(RootStoreContext);
+  const { user } = rootStore.userStore;
 
   const navigate = useNavigate();
 
@@ -76,7 +80,11 @@ const PostPortfolioInformation = ({ id, project }) => {
 
         <div className="flex w-full">
           <Fieldset legend="Compound Evolution">
-            <CompoundEvolutionTimeline project={project} />
+            <CompoundEvolutionTimeline
+              project={project}
+              disableAdd={['IND', 'P1'].includes(project.currentStage) ? false : true}
+              enableEdit={user.roles.includes("admin")}
+            />
           </Fieldset>
         </div>
       </div>

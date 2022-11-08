@@ -26,7 +26,7 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
 
   const contextMenuItems = [
     {
-      label: "Copy Smile String",
+      label: "Copy Smiles String",
       icon: "icon icon-conceptual icon-structures",
       command: () => {
         navigator.clipboard.writeText(smiles);

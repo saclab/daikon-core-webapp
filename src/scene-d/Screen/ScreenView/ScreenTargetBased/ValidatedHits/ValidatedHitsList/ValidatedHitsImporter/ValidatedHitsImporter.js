@@ -247,7 +247,7 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
                   <Chip label="MIC" />
                   <Chip label="IC50" />
                   <Chip label="ClusterGroup" />
-                  <Chip label="Smile" />
+                  <Chip label="Smiles" />
                 </div>
               </div>}
           </div>
@@ -274,7 +274,7 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
           <Column field="MIC" header="MIC"></Column>
           <Column field="IC50" header="IC50"></Column>
           <Column field="ClusterGroup" header="ClusterGroup"></Column>
-          <Column field="Smile" header="Smile"></Column>
+          <Column field="Smile" header="Smiles"></Column>
         </DataTable>
       </div>
       <hr />

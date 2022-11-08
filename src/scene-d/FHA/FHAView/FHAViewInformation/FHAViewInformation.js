@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext } from "react";
 import { Fieldset } from "primereact/fieldset";
 import { observer } from "mobx-react-lite";
 // import SmilesView from "../../../../app/common/SmilesView/SmilesView";
@@ -13,9 +13,13 @@ import { appColors } from "../../../../colors";
 import { useNavigate } from 'react-router-dom';
 import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
 import { BreadCrumb } from 'primereact/breadcrumb';
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const FHAViewInformation = ({ id, project }) => {
   const navigate = useNavigate();
+
+  const rootStore = useContext(RootStoreContext);
+  const { user } = rootStore.userStore;
 
   if (project?.baseHits === undefined) {
     return <PleaseWait />;
@@ -89,7 +93,8 @@ const FHAViewInformation = ({ id, project }) => {
               <CompoundEvolutionTimeline
                 project={project}
                 stageFilter="HA"
-                disableAdd={project.currentStage !== "FHA" ? true : false}
+                disableAdd={project.currentStage !== "HA" ? true : false}
+                enableEdit={user.roles.includes("admin")}
               />
             </Fieldset>
           </div>
