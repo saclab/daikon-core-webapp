@@ -5,6 +5,7 @@ import { Dialog } from "primereact/dialog";
 import { ContextMenu } from "primereact/contextmenu";
 import "./CompoundEvolutionTimeline.css";
 import { Chip } from "primereact/chip";
+import { toast } from "react-toastify";
 import { observer } from "mobx-react-lite";
 import StageTag from "../StageTag/StageTag";
 import SmilesView from "../SmilesView/SmilesView";
@@ -17,7 +18,7 @@ import PleaseWait from "../PleaseWait/PleaseWait";
 import FailedLoading from "../FailedLoading/FailedLoading";
 import FDate from "../FDate/FDate";
 import CompoundEvolutionEdit from "./CompoundEvolutionEdit/CompoundEvolutionEdit";
-const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
+const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdit = false }) => {
   const [displayAddStructureForm, setdisplayAddStructureForm] = useState(false);
   const rootStore = useContext(RootStoreContext);
   const cmEvolution = useRef(null);
@@ -42,16 +43,29 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
   }
 
 
-  const cmEvolutionItems = [
-    {
+  const cmEvolutionItems = [];
+
+  cmEvolutionItems.push({
+    label: "Copy Compound GUID",
+    icon: "icon icon-common icon-orcid",
+    command: (e) => {
+        let cguid = getCompoundEvolutionEntry(selectedCEinCM).id;
+        navigator.clipboard.writeText(cguid);
+        toast.success("Copied " + cguid + " to clipboard");
+    }
+  })
+
+  if (enableEdit) {
+    cmEvolutionItems.push({
       label: "Edit",
-      icon: "icon icon-conceptual icon-structures",
+      icon: "pi pi-tablet",
       command: (e) => {
         console.log("edit")
         setDisplayEditContainer(true)
-      },
-    },
-  ];
+      }
+    })
+  }
+
 
   let onEvolutionContextMenuShow = (e, id) => {
     cmEvolution.current.show(e);
@@ -86,7 +100,6 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd }) => {
               Mol Area : {item.compound.molArea} <br />
               IC50 : {item.iC50} <br />
               MIC : {item.mic} <br />
-              {item.id}
             </div>
             <div className="flex flex-column">
               <Divider align="left">

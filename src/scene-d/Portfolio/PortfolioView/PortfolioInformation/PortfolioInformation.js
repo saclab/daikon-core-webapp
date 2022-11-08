@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Fieldset } from "primereact/fieldset";
 import { useNavigate } from 'react-router-dom';
 
@@ -10,9 +10,12 @@ import PortfolioInformationPriority from "./PortfolioInformationPriority/Portfol
 import { BreadCrumb } from 'primereact/breadcrumb';
 import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
 import { appColors } from '../../../../colors';
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const PortfolioInformation = ({ id, project }) => {
   const navigate = useNavigate();
+  const rootStore = useContext(RootStoreContext);
+  const { user } = rootStore.userStore;
 
   const breadCrumbItems = [
     {
@@ -76,7 +79,11 @@ const PortfolioInformation = ({ id, project }) => {
 
         <div className="flex w-full">
           <Fieldset legend="Compound Evolution">
-            <CompoundEvolutionTimeline project={project} />
+            <CompoundEvolutionTimeline
+              project={project}
+              disableAdd={['H2L', 'LO', 'SP'].includes(project.currentStage) ? false : true}
+              enableEdit={user.roles.includes("admin")}
+            />
           </Fieldset>
         </div>
 
