@@ -145,7 +145,7 @@ const ProjectSettingsDates = ({ project }) => {
                   "p-error": isFormFieldValid("fhaStart"),
                 })}
               >
-                FHA Start Date :
+                HA Start Date :
               </label>
               <Inplace closable>
                 <InplaceDisplay>

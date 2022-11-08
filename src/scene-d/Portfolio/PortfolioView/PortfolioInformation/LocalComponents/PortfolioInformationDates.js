@@ -9,7 +9,7 @@ const PortfolioInformationDates = ({ project }) => {
 
   if (project.fhaEnabled) {
     timelineEvents.push({
-      stage: "FHA",
+      stage: "HA",
       date: project.fhaStart,
       predictedDateNextStage: project.h2LPredictedStart,
     });

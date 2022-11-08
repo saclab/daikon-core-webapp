@@ -12,6 +12,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
     target: appColors.horizonText.target,
     screen: appColors.horizonText.screen,
     fha: appColors.horizonText.fha,
+    ha: appColors.horizonText.ha,
     portfolio: appColors.horizonText.portfolio,
     postPortfolio: appColors.horizonText.postPortfolio
   }
@@ -217,7 +218,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
         </g>
       );
     case "Screen":
-      
+
       if (dataObj.dataObj.attributes.screenMethod === "Phenotypic") {
         return (
           <g>
@@ -299,6 +300,38 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
       );
     case "FHA":
       var objColor = nodeColors.fha;
+      if (dataObj.dataObj.attributes.status === "Terminated") {
+        objColor = "#AAAAAA";
+      }
+      return (
+        <g>
+          <foreignObject x="-10" y="-30" width="40" height="50">
+            <Button
+              icon="icon icon-conceptual icon-chemical"
+              style={{
+                background: "#ffffff",
+                color: objColor,
+                border: "0px solid #000000",
+                fontSize: "2em",
+              }}
+              onClick={() => {
+                navigate(`/d/ha/${dataObj.dataObj.attributes.id}`);
+              }}
+            />
+          </foreignObject>
+          <foreignObject x="10" y="0" width="250" height="160">
+            <div>
+              <p style={{ color: objColor }}>
+                <b>HA</b> <br />
+                {dataObj.dataObj.attributes.projectName}<br />
+                {dataObj.dataObj.attributes.status === "Terminated" ? "Terminated" : ""}
+              </p>
+            </div>
+          </foreignObject>
+        </g>
+      );
+    case "HA":
+      var objColor = nodeColors.ha;
       if (dataObj.dataObj.attributes.status === "Terminated") {
         objColor = "#AAAAAA";
       }

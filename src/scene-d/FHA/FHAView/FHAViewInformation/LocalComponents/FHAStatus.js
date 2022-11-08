@@ -7,7 +7,7 @@ const FHAStatus = ({ project }) => {
       <div>
         <p>
           HA Status :{" "}
-          <b>{project.currentStage === "FHA" ? "Ongoing" : "Complete"}</b>
+          <b>{project.currentStage === "HA" ? "Ongoing" : "Complete"}</b>
         </p>
         <p>
           HA Start Date:{" "}
@@ -16,7 +16,7 @@ const FHAStatus = ({ project }) => {
           </b>
         </p>
         <p>
-          {project.currentStage === "FHA" ? (
+          {project.currentStage === "HA" ? (
             <>
               H2L Predicted Start:{" "}
               <b>
@@ -24,7 +24,7 @@ const FHAStatus = ({ project }) => {
               </b>
             </>
           ) : (
-            "FHA Complete"
+            "HA Complete"
           )}
         </p>
       </div>

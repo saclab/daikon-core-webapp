@@ -169,7 +169,7 @@ const FHADash = () => {
           <SectionHeading
             icon="icon icon-conceptual icon-chemical"
             heading="Hit Assessment"
-            color={appColors.sectionHeadingBg.fha}
+            color={appColors.sectionHeadingBg.ha}
           />
         </div>
         <div className="flex w-full">

@@ -78,7 +78,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
                   "p-error": isFormFieldValid("fhaDescription"),
                 })}
               >
-                FHA Description :
+                HA Description :
               </label>
               <Inplace closable>
                 <InplaceDisplay>

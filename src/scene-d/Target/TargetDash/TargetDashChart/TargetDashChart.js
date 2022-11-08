@@ -34,6 +34,7 @@ const TargetDashChart = ({ targets }) => {
     target: appColors.horizonText.target,
     screen: appColors.horizonText.screen,
     fha: appColors.horizonText.fha,
+    ha: appColors.horizonText.ha,
     portfolio: appColors.horizonText.portfolio,
     postPortfolio: appColors.horizonText.postPortfolio,
   };
@@ -103,7 +104,7 @@ const TargetDashChart = ({ targets }) => {
             element.currentStage,
           ]);
         }
-        if (element.currentStage === "FHA") {
+        if (element.currentStage === "HA") {
           fhaData.push([
             element.likeScore,
             element.impactScore,
