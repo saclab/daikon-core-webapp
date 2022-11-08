@@ -3,7 +3,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import SmilesView from "../../../../../app/common/SmilesView/SmilesView";
 
-const FHABaseHits = ({ project }) => {
+const HABaseHits = ({ project }) => {
   const dt = useRef(null);
 
   let tableData = [];
@@ -58,4 +58,4 @@ const FHABaseHits = ({ project }) => {
   );
 };
 
-export default FHABaseHits;
+export default HABaseHits;

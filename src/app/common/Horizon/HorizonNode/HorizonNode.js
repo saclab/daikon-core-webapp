@@ -11,7 +11,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
     gene: appColors.horizonText.gene,
     target: appColors.horizonText.target,
     screen: appColors.horizonText.screen,
-    fha: appColors.horizonText.fha,
+    ha: appColors.horizonText.ha,
     ha: appColors.horizonText.ha,
     portfolio: appColors.horizonText.portfolio,
     postPortfolio: appColors.horizonText.postPortfolio
@@ -21,7 +21,7 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
   //   gene: "#000000",
   //   target: "#000000",
   //   screen: "#000000",
-  //   fha: "#000000",
+  //   ha: "#000000",
   //   portfolio: "#000000",
   //   postPortfolio: "#000000"
   // }
@@ -298,8 +298,8 @@ const HorizonNode = (dataObj, toggleNode, foreignObjectProps) => {
           </foreignObject>
         </g>
       );
-    case "FHA":
-      var objColor = nodeColors.fha;
+    case "HA":
+      var objColor = nodeColors.ha;
       if (dataObj.dataObj.attributes.status === "Terminated") {
         objColor = "#AAAAAA";
       }

@@ -5,17 +5,17 @@ import { observer } from "mobx-react-lite";
 import "./ScrollPanel.css";
 import PleaseWait from "../../../../app/common/PleaseWait/PleaseWait";
 import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
-import FHAInformationGeneralInformation from "./LocalComponents/FHAInformationGeneralInformation";
+import HAInformationGeneralInformation from "./LocalComponents/HAInformationGeneralInformation";
 import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
-import FHAStatus from "./LocalComponents/FHAStatus";
-import FHABaseHits from "./LocalComponents/FHABaseHits";
+import HAStatus from "./LocalComponents/HAStatus";
+import HABaseHits from "./LocalComponents/HABaseHits";
 import { appColors } from "../../../../colors";
 import { useNavigate } from 'react-router-dom';
 import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 
-const FHAViewInformation = ({ id, project }) => {
+const HAViewInformation = ({ id, project }) => {
   const navigate = useNavigate();
 
   const rootStore = useContext(RootStoreContext);
@@ -35,7 +35,7 @@ const FHAViewInformation = ({ id, project }) => {
     // });
 
     let timelineEvents = [];
-    timelineEvents.push({ stage: "FHA", date: project.fhaStart });
+    timelineEvents.push({ stage: "HA", date: project.haStart });
 
 
     const breadCrumbItems = [
@@ -78,12 +78,12 @@ const FHAViewInformation = ({ id, project }) => {
           <div className="flex w-full">
             <div className="flex">
               <Fieldset legend="HA Information">
-                <FHAInformationGeneralInformation project={project} />
+                <HAInformationGeneralInformation project={project} />
               </Fieldset>
             </div>
             <div className="flex">
               <Fieldset legend="HA Status">
-                <FHAStatus project={project} />
+                <HAStatus project={project} />
               </Fieldset>
             </div>
           </div>
@@ -101,7 +101,7 @@ const FHAViewInformation = ({ id, project }) => {
 
           <div className="flex w-full">
             <Fieldset legend="Base Hits" className="w-full">
-              <FHABaseHits project={project} />
+              <HABaseHits project={project} />
             </Fieldset>
           </div>
 
@@ -114,4 +114,4 @@ const FHAViewInformation = ({ id, project }) => {
   return <FailedLoading />;
 };
 
-export default observer(FHAViewInformation);
+export default observer(HAViewInformation);

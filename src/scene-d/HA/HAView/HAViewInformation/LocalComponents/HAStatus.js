@@ -1,7 +1,7 @@
 import React from "react";
 import FDate from "../../../../../app/common/FDate/FDate";
 
-const FHAStatus = ({ project }) => {
+const HAStatus = ({ project }) => {
   return (
     <div>
       <div>
@@ -12,7 +12,7 @@ const FHAStatus = ({ project }) => {
         <p>
           HA Start Date:{" "}
           <b>
-            <FDate timestamp={project.fhaStart} hideTime={true} />
+            <FDate timestamp={project.haStart} hideTime={true} />
           </b>
         </p>
         <p>
@@ -32,4 +32,4 @@ const FHAStatus = ({ project }) => {
   );
 };
 
-export default FHAStatus;
+export default HAStatus;

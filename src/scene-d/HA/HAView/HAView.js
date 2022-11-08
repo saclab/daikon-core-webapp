@@ -15,16 +15,16 @@ import {
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import Loading from "../../../app/layout/Loading/Loading";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import FHAViewInformation from "./FHAViewInformation/FHAViewInformation";
+import HAViewInformation from "./HAViewInformation/HAViewInformation";
 import Discussion from "../../../app/common/Discussion/Discussion";
 import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
-import FHAPromotionQuestionaire from "./FHAPromotionQuestionaire/FHAPromotionQuestionaire";
+import HAPromotionQuestionaire from "./HAPromotionQuestionaire/HAPromotionQuestionaire";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import { appColors } from "../../../colors";
-import FHADiscussion from "./FHADiscussion/FHADiscussion";
+import HADiscussion from "./HADiscussion/HADiscussion";
 
-const FHAView = () => {
+const HAView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -136,7 +136,7 @@ const FHAView = () => {
               <Route
                 path="information/"
                 element={
-                  <FHAViewInformation
+                  <HAViewInformation
                     id={params.id}
                     project={selectedProject}
                   />
@@ -145,7 +145,7 @@ const FHAView = () => {
 
               <Route
                 path="discussion"
-                element={<FHADiscussion project={selectedProject} />}
+                element={<HADiscussion project={selectedProject} />}
               />
             </Routes>
           </div>
@@ -166,7 +166,7 @@ const FHAView = () => {
           />
           <br />
           <br />
-          <FHAPromotionQuestionaire
+          <HAPromotionQuestionaire
             closeSidebar={() => setDisplayPromotionDialog(false)}
           />
         </Sidebar>
@@ -177,4 +177,4 @@ const FHAView = () => {
   return <FailedLoading />;
 };
 
-export default observer(FHAView);
+export default observer(HAView);

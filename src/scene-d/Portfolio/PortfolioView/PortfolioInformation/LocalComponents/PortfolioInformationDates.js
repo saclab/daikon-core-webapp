@@ -7,10 +7,10 @@ const PortfolioInformationDates = ({ project }) => {
   if (!project) return <FailedLoading />;
   let timelineEvents = [];
 
-  if (project.fhaEnabled) {
+  if (project.haEnabled) {
     timelineEvents.push({
       stage: "HA",
-      date: project.fhaStart,
+      date: project.haStart,
       predictedDateNextStage: project.h2LPredictedStart,
     });
   }
