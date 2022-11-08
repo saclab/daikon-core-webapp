@@ -22,8 +22,8 @@ const ProjectSettingsDates = ({ project }) => {
 
   const formik = useFormik({
     initialValues: {
-      fhaStart: new Date(project.fhaStart),
-      fhaPredictedStart: new Date(project.fhaPredictedStart),
+      haStart: new Date(project.haStart),
+      haPredictedStart: new Date(project.haPredictedStart),
 
       h2LStart: new Date(project.h2LStart),
       h2LPredictedStart: new Date(project.h2LPredictedStart),
@@ -46,12 +46,12 @@ const ProjectSettingsDates = ({ project }) => {
     validate: (data) => {
       let errors = {};
 
-      if (project.fhaEnabled && !data.fhaStart) {
-        errors.fhaStart = "This field is required";
+      if (project.haEnabled && !data.haStart) {
+        errors.haStart = "This field is required";
       }
 
-      if (project.fhaEnabled && !data.fhaPredictedStart) {
-        errors.fhaPredictedStart = "This field is required";
+      if (project.haEnabled && !data.haPredictedStart) {
+        errors.haPredictedStart = "This field is required";
       }
 
       if (project.h2LEnabled && !data.h2LStart) {
@@ -98,8 +98,8 @@ const ProjectSettingsDates = ({ project }) => {
     },
     onSubmit: (data) => {
       var editedProject = { ...project }
-      editedProject.fhaStart = data.fhaStart;
-      editedProject.fhaPredictedStart = data.fhaPredictedStart;
+      editedProject.haStart = data.haStart;
+      editedProject.haPredictedStart = data.haPredictedStart;
 
       editedProject.h2LStart = data.h2LStart;
       editedProject.h2LPredictedStart = data.h2LPredictedStart;
@@ -135,36 +135,36 @@ const ProjectSettingsDates = ({ project }) => {
     <React.Fragment>
       <div className="card w-full">
         <form onSubmit={formik.handleSubmit} className="p-fluid">
-          {/* FHA DATES */}
-          {project.fhaEnabled &&
+          {/* HA DATES */}
+          {project.haEnabled &&
             <><div className="field grid">
               <label
-                htmlFor="fhaStart"
+                htmlFor="haStart"
                 style={{ width: '250px' }}
                 className={classNames({
-                  "p-error": isFormFieldValid("fhaStart"),
+                  "p-error": isFormFieldValid("haStart"),
                 })}
               >
                 HA Start Date :
               </label>
               <Inplace closable>
                 <InplaceDisplay>
-                  {formik.values.fhaStart != null ? (formik.values.fhaStart).toLocaleDateString() : 'Click to Edit'}
+                  {formik.values.haStart != null ? (formik.values.haStart).toLocaleDateString() : 'Click to Edit'}
                 </InplaceDisplay>
                 <InplaceContent>
                   <Calendar
-                    id="fhaStart"
-                    name="fhaStart"
-                    value={formik.values.fhaStart}
-                    viewDate={formik.values.fhaStart}
+                    id="haStart"
+                    name="haStart"
+                    value={formik.values.haStart}
+                    viewDate={formik.values.haStart}
                     onChange={formik.handleChange}
                     style={{ width: '400px' }}
                     className={classNames({
-                      "p-invalid": isFormFieldValid("fhaStart"),
+                      "p-invalid": isFormFieldValid("haStart"),
                     })} />
                 </InplaceContent>
               </Inplace>
-              {getFormErrorMessage("fhaStart")}
+              {getFormErrorMessage("haStart")}
             </div>
 
               <div className="field grid">
@@ -538,9 +538,9 @@ const ProjectSettingsDates = ({ project }) => {
           "probabilityDescription",
           "resource",
           "resourceDescription",
-          "fhaStart",
-          "fhaPredictedStart",
-          "fhaDescription",
+          "haStart",
+          "haPredictedStart",
+          "haDescription",
           "h2LStart",
           "h2LPredictedStart",
           "h2LDescription",

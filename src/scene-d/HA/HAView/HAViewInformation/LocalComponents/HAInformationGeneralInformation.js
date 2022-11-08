@@ -1,7 +1,7 @@
 import React from "react";
 import "./LocalComponents.css";
 
-const FHAInformationGeneralInformation = ({ project }) => {
+const HAInformationGeneralInformation = ({ project }) => {
   let displaySupportingOrgs =
     project.supportingOrgs.length !== 0
       ? project.supportingOrgs.map((org) => {
@@ -15,7 +15,7 @@ const FHAInformationGeneralInformation = ({ project }) => {
         <h2><i>Hit Assessment</i></h2>
       </div>
       <div className="flex">
-        <p>{project.fhaDescription}</p>
+        <p>{project.haDescription}</p>
       </div>
       <div className="flex flex-column">
         <p>Expanded Id : {project.id}</p>
@@ -29,4 +29,4 @@ const FHAInformationGeneralInformation = ({ project }) => {
   );
 };
 
-export default FHAInformationGeneralInformation;
+export default HAInformationGeneralInformation;

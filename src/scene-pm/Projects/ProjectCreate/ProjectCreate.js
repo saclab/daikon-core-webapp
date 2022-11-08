@@ -45,8 +45,8 @@ const ProjectCreate = () => {
       representationStructureExternalCompoundIds: "",
       primaryOrg: "",
       supportingOrgs: "",
-      fhaStart: "",
-      fhaDescription: "",
+      haStart: "",
+      haDescription: "",
       molWeight: "",
       molArea: "",
       mic: "",
@@ -71,8 +71,8 @@ const ProjectCreate = () => {
         errors.supportingOrgs = "Supporting Org is required.";
       }
 
-      if (!data.fhaStart) {
-        errors.fhaStart = "FHA Start Date is required.";
+      if (!data.haStart) {
+        errors.haStart = "HA Start Date is required.";
       }
 
       if (!data.representationStructureExternalCompoundIds) {
@@ -265,46 +265,46 @@ const ProjectCreate = () => {
                 <h2>Compund Details</h2>
                 <div className="field">
                   <label
-                    htmlFor="fhaStart"
+                    htmlFor="haStart"
                     className={classNames({
-                      "p-error": isFormFieldValid("fhaStart"),
+                      "p-error": isFormFieldValid("haStart"),
                     })}
                   >
                     HA Start Date
                   </label>
 
                   <Calendar
-                    value={formik.values.fhaStart}
-                    onChange={formik.handleChange("fhaStart")}
+                    value={formik.values.haStart}
+                    onChange={formik.handleChange("haStart")}
                     numberOfMonths={2}
                     className={classNames({
-                      "p-invalid": isFormFieldValid("fhaStart"),
+                      "p-invalid": isFormFieldValid("haStart"),
                     })}
                   />
-                  {getFormErrorMessage("fhaStart")}
+                  {getFormErrorMessage("haStart")}
                 </div>
 
                 <div className="field">
                   <label
-                    htmlFor="fhaDescription"
+                    htmlFor="haDescription"
                     className={classNames({
-                      "p-error": isFormFieldValid("fhaDescription"),
+                      "p-error": isFormFieldValid("haDescription"),
                     })}
                   >
                     HA Description
                   </label>
 
                   <InputTextarea
-                    id="fhaDescription"
-                    name="fhaDescription"
-                    value={formik.values.fhaDescription}
+                    id="haDescription"
+                    name="haDescription"
+                    value={formik.values.haDescription}
                     onChange={formik.handleChange}
                     className={classNames({
-                      "p-invalid": isFormFieldValid("fhaDescription"),
+                      "p-invalid": isFormFieldValid("haDescription"),
                     })}
                     style={{ minWidth: "500px" }}
                   />
-                  {getFormErrorMessage("fhaDescription")}
+                  {getFormErrorMessage("haDescription")}
                 </div>
 
                 <div className="field">

@@ -147,7 +147,7 @@ const Projects = () => {
   };
 
   const DateBodyTemplate = (rowData) => {
-    let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
+    let inputDate = new Date(rowData.haStart).setHours(0, 0, 0, 0);
     let stageDate = rowData.h2LStart;
 
     if (rowData.h2LEnabled) {

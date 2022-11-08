@@ -43,7 +43,7 @@ export default class PortfolioStore {
         newH2L
       );
       runInAction(() => {
-        toast.success("Successfully created new FHA");
+        toast.success("Successfully created new HA");
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {

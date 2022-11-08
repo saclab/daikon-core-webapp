@@ -24,7 +24,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
 
   const formik = useFormik({
     initialValues: {
-      fhaDescription: project.fhaDescription,
+      haDescription: project.haDescription,
 
       h2LDescription: project.h2LDescription,
 
@@ -43,7 +43,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
     },
     onSubmit: (data) => {
       var editedProject = { ...project }
-      editedProject.fhaDescription = data.fhaDescription;
+      editedProject.haDescription = data.haDescription;
       editedProject.h2LDescription = data.h2LDescription;
       editedProject.loDescription = data.loDescription;
       editedProject.spDescription = data.spDescription;
@@ -67,38 +67,38 @@ const ProjectSettingsDescriptions = ({ project }) => {
   return (
     <div className="card w-full">
       <form onSubmit={formik.handleSubmit} className="p-fluid">
-        {/* FHA Description */}
-        {project.fhaEnabled &&
+        {/* HA Description */}
+        {project.haEnabled &&
           <>
             <div className="field grid">
               <label
-                htmlFor="fhaDescription"
+                htmlFor="haDescription"
                 style={{ width: '250px' }}
                 className={classNames({
-                  "p-error": isFormFieldValid("fhaDescription"),
+                  "p-error": isFormFieldValid("haDescription"),
                 })}
               >
                 HA Description :
               </label>
               <Inplace closable>
                 <InplaceDisplay>
-                  <div style={{ width: "30rem", lineHeight: "100%" }}>{formik.values.fhaDescription || 'Click to Edit'}</div>
+                  <div style={{ width: "30rem", lineHeight: "100%" }}>{formik.values.haDescription || 'Click to Edit'}</div>
                 </InplaceDisplay>
                 <InplaceContent>
                   <InputTextarea
-                    id="fhaDescription"
-                    name="fhaDescription"
-                    value={formik.values.fhaDescription}
+                    id="haDescription"
+                    name="haDescription"
+                    value={formik.values.haDescription}
                     onChange={formik.handleChange}
                     style={{ width: "40rem" }}
                     rows={5} cols={30}
                     autoResize
                     className={classNames({
-                      "p-invalid": isFormFieldValid("fhaDescription"),
+                      "p-invalid": isFormFieldValid("haDescription"),
                     })} />
                 </InplaceContent>
               </Inplace>
-              {getFormErrorMessage("fhaDescription")}
+              {getFormErrorMessage("haDescription")}
             </div>
           </>
         }
