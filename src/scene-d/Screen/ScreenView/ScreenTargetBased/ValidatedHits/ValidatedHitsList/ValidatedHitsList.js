@@ -11,7 +11,7 @@ import Loading from "../../../../../../app/layout/Loading/Loading";
 import Vote from "../../../../../../app/common/Vote/Vote";
 import SmilesView from "../../../../../../app/common/SmilesView/SmilesView";
 import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter";
-import ValidatedHitsPromoteToFHAEntry from "./ValidatedHitsPromoteToFHAEntry/ValidatedHitsPromoteToFHAEntry";
+import ValidatedHitsPromoteToHAEntry from "./ValidatedHitsPromoteToHAEntry/ValidatedHitsPromoteToHAEntry";
 import { toast } from "react-toastify";
 import "./ValidatedHitsDataTable.css";
 import { ConfirmDialog } from "primereact/confirmdialog";
@@ -33,7 +33,7 @@ const ValidatedHitsList = ({ screenId }) => {
 
   const [displayEnableSelection, setDisplayEnableSelection] = useState(false);
   const [selectedCompounds, setSelectedCompounds] = useState(null);
-  const [displayPromoteToFHAEntry, setDisplayPromoteToFHAEntry] =
+  const [displayPromoteToHAEntry, setDisplayPromoteToHAEntry] =
     useState(false);
 
   let tableMenuItems = [];
@@ -57,14 +57,14 @@ const ValidatedHitsList = ({ screenId }) => {
     dt.current.exportCSV({ selectionOnly });
   }
 
-  let validatePromoteToFHA = () => {
+  let validatePromoteToHA = () => {
     if (selectedCompounds === null) {
       toast.warning(
         "No compounds selected. Please select some compouns to promote them."
       );
       return;
     }
-    setDisplayPromoteToFHAEntry(true);
+    setDisplayPromoteToHAEntry(true);
   };
 
   let enableVotingCalled = () => {
@@ -248,7 +248,7 @@ const ValidatedHitsList = ({ screenId }) => {
         let promotionItem = {
           label: "Promote To Hit Assessment",
           icon: "pi pi-arrow-right",
-          command: () => validatePromoteToFHA(),
+          command: () => validatePromoteToHA(),
         };
 
         tableMenuItems.push(promotionItem);
@@ -364,18 +364,18 @@ const ValidatedHitsList = ({ screenId }) => {
       </Dialog>
       <Dialog
         header="Promote to Hit Assessment"
-        visible={displayPromoteToFHAEntry}
+        visible={displayPromoteToHAEntry}
         //style={{ width: "50vw" }}
         //footer={renderFooter("displayBasic2")}
-        onHide={() => setDisplayPromoteToFHAEntry(false)}
+        onHide={() => setDisplayPromoteToHAEntry(false)}
         style={{ width: "90%" }}
 
         maximizable={true}
       >
-        <ValidatedHitsPromoteToFHAEntry
+        <ValidatedHitsPromoteToHAEntry
           compounds={selectedCompounds}
           screen={selectedScreen}
-          close={() => setDisplayPromoteToFHAEntry(false)}
+          close={() => setDisplayPromoteToHAEntry(false)}
         />
       </Dialog>
       <ConfirmDialog />

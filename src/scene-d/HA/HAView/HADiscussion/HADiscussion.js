@@ -37,7 +37,7 @@ const ScreenDiscussion = ({ project }) => {
           targetName={project.targetName || project.screenName || project.projectName}
           projectName={project.projectName}
           displayHorizon={true}
-          color={appColors.sectionHeadingBg.fha}
+          color={appColors.sectionHeadingBg.ha}
         />
       </div>
       <div className='flex w-full'>

@@ -1,22 +1,22 @@
 import React from "react";
 import FDate from "../../../../../app/common/FDate/FDate";
 
-const FHAStatus = ({ project }) => {
+const HAStatus = ({ project }) => {
   return (
     <div>
       <div>
         <p>
           HA Status :{" "}
-          <b>{project.currentStage === "FHA" ? "Ongoing" : "Complete"}</b>
+          <b>{project.currentStage === "HA" ? "Ongoing" : "Complete"}</b>
         </p>
         <p>
           HA Start Date:{" "}
           <b>
-            <FDate timestamp={project.fhaStart} hideTime={true} />
+            <FDate timestamp={project.haStart} hideTime={true} />
           </b>
         </p>
         <p>
-          {project.currentStage === "FHA" ? (
+          {project.currentStage === "HA" ? (
             <>
               H2L Predicted Start:{" "}
               <b>
@@ -24,7 +24,7 @@ const FHAStatus = ({ project }) => {
               </b>
             </>
           ) : (
-            "FHA Complete"
+            "HA Complete"
           )}
         </p>
       </div>
@@ -32,4 +32,4 @@ const FHAStatus = ({ project }) => {
   );
 };
 
-export default FHAStatus;
+export default HAStatus;

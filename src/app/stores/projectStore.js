@@ -22,6 +22,8 @@ export default class ProjectStore {
   selectedCompoundEvolution = null;
   addingCompoundEvolution = false;
 
+  editingCompoundEvolution = false;
+
   settingPriorityProbability = false;
 
   constructor(rootStore) {
@@ -37,13 +39,18 @@ export default class ProjectStore {
       projectRegistryExpanded: observable,
       projectRegistryCacheValid: observable,
       selectedProject: observable,
+      projects: action,
 
       loadingCompoundEvolution: observable,
       fetchCompoundEvolution: action,
       compoundEvolutionRegistryCacheValid: observable,
       selectedCompoundEvolution: observable,
+
       addCompoundEvolution: action,
       addingCompoundEvolution: observable,
+
+      editCompoundEvolution: action,
+      editingCompoundEvolution: observable,
 
       settingPriorityProbability: observable,
       setPriorityProbability: action,
@@ -123,6 +130,12 @@ export default class ProjectStore {
     }
   };
 
+  projects = () => {
+    return Array.from(
+      this.rootStore.projectStore.projectRegistry.values()
+    )
+  };
+
   fetchCompoundEvolution = async (projectId) => {
     console.log(
       "projectStore: fetchCompoundEvolution Start for id " + projectId
@@ -184,6 +197,34 @@ export default class ProjectStore {
       runInAction(() => {
         this.addingCompoundEvolution = false;
         console.log("ProjectStore: addCompoundEvolution Complete");
+      });
+    }
+    return res;
+  };
+
+  editCompoundEvolution = async (editedCompoundEvolution) => {
+    console.log("ProjectStore: editCompoundEvolution Start");
+    console.log(editedCompoundEvolution);
+    this.editingCompoundEvolution = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.editCompoundevolution(
+        this.selectedProject.id,
+        editedCompoundEvolution.id,
+        editedCompoundEvolution
+      );
+      runInAction(() => {
+        toast.success("Successfully edited compound evolution entry");
+        this.compoundEvolutionRegistryCacheValid = false;
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingCompoundEvolution = false;
+        console.log("ProjectStore: editCompoundEvolution Complete");
       });
     }
     return res;
@@ -277,7 +318,7 @@ export default class ProjectStore {
 
   createUnlinkedProject = async (newProject) => {
     console.log("ProjectStore: createUnlinkedProject Start");
-    
+
     this.creatingUnlinkedProject = true;
     let res = null;
     // send to server

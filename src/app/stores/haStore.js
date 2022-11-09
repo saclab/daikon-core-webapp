@@ -8,31 +8,31 @@ import { toast } from "react-toastify";
 
 import agent from "../api/agent";
 
-export default class FHAStore {
+export default class HAStore {
   rootStore;
 
-  creatingFHA = false;
-  loadingFHAProjects = false;
+  creatingHA = false;
+  loadingHAProjects = false;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
-      creatingFHA: observable,
-      createFHA: action,
-      filterFhaProjects: observable,
+      creatingHA: observable,
+      createHA: action,
+      filterHAProjects: observable,
     });
   }
 
-  createFHA = async (newFha) => {
-    console.log("FHAStore: createFHA Start");
-    console.log(newFha);
-    this.creatingFHA = true;
+  createHA = async (newHA) => {
+    console.log("HAStore: createHA Start");
+    console.log(newHA);
+    this.creatingHA = true;
     let res = null;
     // send to server
     try {
-      res = await agent.Projects.createFHA(newFha);
+      res = await agent.Projects.createHA(newHA);
       runInAction(() => {
-        toast.success("Successfully created new FHA");
+        toast.success("Successfully created new HA");
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {
@@ -40,17 +40,17 @@ export default class FHAStore {
       console.log(error);
     } finally {
       runInAction(() => {
-        this.creatingFHA = false;
-        console.log("FHAStore: createFHA Complete");
+        this.creatingHA = false;
+        console.log("HAStore: createHA Complete");
       });
     }
     return res;
   };
 
-  filterFhaProjects = () => {
+  filterHAProjects = () => {
     return Array.from(this.rootStore.projectStore.projectRegistry.values())
-    .filter((project) => {
-      return project.currentStage === "FHA";
-    });
+      .filter((project) => {
+        return (project.currentStage === "HA") || (project.currentStage === "HA");
+      });
   };
 }

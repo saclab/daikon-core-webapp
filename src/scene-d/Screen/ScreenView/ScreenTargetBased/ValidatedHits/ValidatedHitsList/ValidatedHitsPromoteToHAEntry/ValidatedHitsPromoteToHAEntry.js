@@ -15,7 +15,7 @@ import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
 import SmilesView from "../../../../../../../app/common/SmilesView/SmilesView";
 import { RootStoreContext } from "../../../../../../../app/stores/rootStore";
-const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
+const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {
   const [activeStep, setActiveStep] = useState(0);
   const dt = useRef(null);
 
@@ -27,9 +27,9 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
   const rootStore = useContext(RootStoreContext);
   const { appVars } = rootStore.generalStore;
 
-  const { creatingFHA, createFHA } = rootStore.fhaStore;
+  const { creatingHA, createHA } = rootStore.haStore;
 
-  console.log("From ValidatedHitsPromoteToFHAEntry");
+  console.log("From ValidatedHitsPromoteToHAEntry");
   console.log(compounds);
   const items = [
     {
@@ -145,8 +145,8 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
       projectName: "",
       primaryOrg: "",
       supportingOrgs: "",
-      fhaStart: "",
-      fhaDescription: "",
+      haStart: "",
+      haDescription: "",
     },
     validate: (data) => {
       let errors = {};
@@ -160,11 +160,11 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
       if (!data.supportingOrgs) {
         errors.supportingOrgs = "Supporting org is required.";
       }
-      if (!data.fhaStart) {
-        errors.fhaStart = "Start date is required.";
+      if (!data.haStart) {
+        errors.haStart = "Start date is required.";
       }
-      if (!data.fhaDescription) {
-        errors.fhaDescription = "Hit Assessment Description is required.";
+      if (!data.haDescription) {
+        errors.haDescription = "Hit Assessment Description is required.";
       }
 
       return errors;
@@ -177,7 +177,7 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
       data.baseHits = compounds;
       data.representationStructure = selectedPrimaryHit.compound;
       console.log(data);
-      createFHA(data).then((res) => {
+      createHA(data).then((res) => {
         console.log("res");
         console.log(res);
 
@@ -311,46 +311,46 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
 
               <div className="field">
                 <label
-                  htmlFor="fhaStart"
+                  htmlFor="haStart"
                   className={classNames({
-                    "p-error": isFormFieldValid("fhaStart"),
+                    "p-error": isFormFieldValid("haStart"),
                   })}
                 >
                   Hit Assessment Start Date
                 </label>
 
                 <Calendar
-                  value={formik.values.fhaStart}
-                  onChange={formik.handleChange("fhaStart")}
+                  value={formik.values.haStart}
+                  onChange={formik.handleChange("haStart")}
                   numberOfMonths={2}
                   className={classNames({
-                    "p-invalid": isFormFieldValid("fhaStart"),
+                    "p-invalid": isFormFieldValid("haStart"),
                   })}
                 />
-                {getFormErrorMessage("fhaStart")}
+                {getFormErrorMessage("haStart")}
               </div>
 
               <div className="field">
                 <label
-                  htmlFor="fhaDescription"
+                  htmlFor="haDescription"
                   className={classNames({
-                    "p-error": isFormFieldValid("fhaDescription"),
+                    "p-error": isFormFieldValid("haDescription"),
                   })}
                 >
                   Description
                 </label>
 
                 <InputTextarea
-                  id="fhaDescription"
-                  name="fhaDescription"
-                  value={formik.values.fhaDescription}
+                  id="haDescription"
+                  name="haDescription"
+                  value={formik.values.haDescription}
                   onChange={formik.handleChange}
                   className={classNames({
-                    "p-invalid": isFormFieldValid("fhaDescription"),
+                    "p-invalid": isFormFieldValid("haDescription"),
                   })}
                   style={{ minWidth: "500px" }}
                 />
-                {getFormErrorMessage("fhaDescription")}
+                {getFormErrorMessage("haDescription")}
               </div>
               <div className="flex justify-content-end">
                 <div className="flex max-w-max">
@@ -390,4 +390,4 @@ const ValidatedHitsPromoteToFHAEntry = ({ compounds, screen, close }) => {
   );
 };
 
-export default ValidatedHitsPromoteToFHAEntry;
+export default ValidatedHitsPromoteToHAEntry;

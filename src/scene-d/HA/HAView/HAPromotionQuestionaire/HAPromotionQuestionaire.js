@@ -9,7 +9,7 @@ import { observer } from "mobx-react-lite";
 
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 
-const FHAPromotionQuestionaire = ({ closeSidebar }) => {
+const HAPromotionQuestionaire = ({ closeSidebar }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const { loadingProject, selectedProject } =
@@ -126,4 +126,4 @@ const FHAPromotionQuestionaire = ({ closeSidebar }) => {
   return <ProgressBar mode="indeterminate" style={{ height: "6px" }} />;
 };
 
-export default observer(FHAPromotionQuestionaire);
+export default observer(HAPromotionQuestionaire);

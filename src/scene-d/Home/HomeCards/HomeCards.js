@@ -67,7 +67,7 @@ const HomeCards = () => {
           <NavLink to="/d/ha/" style={{ textDecoration: "None" }}>
             <Card
               title="HAs"
-              subTitle={'(' + appVars.appCount.fhaCount + ')'}
+              subTitle={'(' + appVars.appCount.haCount + ')'}
               style={{ width: "18em" }}
               header={header}
             >

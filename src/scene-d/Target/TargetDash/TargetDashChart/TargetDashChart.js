@@ -33,7 +33,8 @@ const TargetDashChart = ({ targets }) => {
   let nodeColors = {
     target: appColors.horizonText.target,
     screen: appColors.horizonText.screen,
-    fha: appColors.horizonText.fha,
+    ha: appColors.horizonText.ha,
+    ha: appColors.horizonText.ha,
     portfolio: appColors.horizonText.portfolio,
     postPortfolio: appColors.horizonText.postPortfolio,
   };
@@ -71,7 +72,7 @@ const TargetDashChart = ({ targets }) => {
 
   var targetData = [];
   var screenData = [];
-  var fhaData = [];
+  var haData = [];
   var portfolioData = [];
   var postPortfolioData = [];
 
@@ -103,8 +104,8 @@ const TargetDashChart = ({ targets }) => {
             element.currentStage,
           ]);
         }
-        if (element.currentStage === "FHA") {
-          fhaData.push([
+        if (element.currentStage === "HA") {
+          haData.push([
             element.likeScore,
             element.impactScore,
             element.id,
@@ -158,7 +159,7 @@ const TargetDashChart = ({ targets }) => {
       legend: {
         right: "10%",
         top: "3%",
-        data: ["Target", "Screen", "FHA", "Portfolio", "PostPortfolio"],
+        data: ["Target", "Screen", "HA", "Portfolio", "PostPortfolio"],
       },
       grid: {
         left: "9%",
@@ -253,8 +254,8 @@ const TargetDashChart = ({ targets }) => {
           },
         },
         {
-          name: "FHA",
-          data: fhaData,
+          name: "HA",
+          data: haData,
           type: "scatter",
           label: {
             formatter: function (param) {
@@ -276,9 +277,9 @@ const TargetDashChart = ({ targets }) => {
           },
           itemStyle: {
             shadowBlur: 10,
-            shadowColor: nodeColors.fha,
+            shadowColor: nodeColors.ha,
             shadowOffsetY: 5,
-            color: generateGradient(nodeColors.fha),
+            color: generateGradient(nodeColors.ha),
           },
         },
         {
