@@ -22,11 +22,10 @@ import StageTag from "../../../app/common/StageTag/StageTag";
 const Projects = () => {
 
   const rootStore = useContext(RootStoreContext);
-  const { loadingProjects, fetchProjects, projectRegistry } =
+  const { loadingProjects, fetchProjects, projectRegistry, projects } =
     rootStore.projectStore;
   const navigate = useNavigate();
 
-  const { filterPortfolioProjects } = rootStore.portfolioStore;
   /* Local State Management */
 
   useEffect(() => {
@@ -213,7 +212,7 @@ const Projects = () => {
         <div className="flex w-full">
           <DataTable
             ref={dt}
-            value={filterPortfolioProjects()}
+            value={projects()}
             paginator
             rows={10}
             // header={header}
