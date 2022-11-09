@@ -39,6 +39,7 @@ export default class ProjectStore {
       projectRegistryExpanded: observable,
       projectRegistryCacheValid: observable,
       selectedProject: observable,
+      projects: action,
 
       loadingCompoundEvolution: observable,
       fetchCompoundEvolution: action,
@@ -127,6 +128,12 @@ export default class ProjectStore {
         });
       }
     }
+  };
+
+  projects = () => {
+    return Array.from(
+      this.rootStore.projectStore.projectRegistry.values()
+    )
   };
 
   fetchCompoundEvolution = async (projectId) => {
