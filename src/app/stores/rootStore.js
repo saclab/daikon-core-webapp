@@ -14,7 +14,7 @@ import PostPortfolioStore from "./postPortfolioStore";
 import HitsStore from "./hitsStore";
 import DiscussionStore from "./discussionStore";
 import GeneralStore from "./generalStore";
-import FHAStore from "./fhaStore";
+import HAStore from "./haStore";
 import ProjectStore from "./projectStore";
 import VotingStore from "./VotingStore";
 import DataViewStore from './dataViewStore';
@@ -36,7 +36,7 @@ export class RootStore {
   hitsStore;
   discussionStore;
   generalStore;
-  fhaStore;
+  haStore;
   projectStore;
   votingStore;
 
@@ -55,7 +55,7 @@ export class RootStore {
     this.postPortfolioStore = new PostPortfolioStore(this);
     this.discussionStore = new DiscussionStore(this);
     this.generalStore = new GeneralStore(this);
-    this.fhaStore = new FHAStore(this);
+    this.haStore = new HAStore(this);
     this.projectStore = new ProjectStore(this);
     this.votingStore = new VotingStore(this);
     this.dataViewStore = new DataViewStore(this);

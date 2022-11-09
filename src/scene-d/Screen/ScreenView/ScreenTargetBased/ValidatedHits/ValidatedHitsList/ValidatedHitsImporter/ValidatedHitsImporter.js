@@ -82,6 +82,7 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       if (typeof (hit.Id) === 'undefined' || hit.Id === '') return;
       hit.IC50 = _.toNumber(hit?.IC50) ? _.round(hit?.IC50, 2) : 0;
       hit.MIC = _.toNumber(hit?.MIC) ? _.round(hit?.MIC, 2) : 0;
+      
 
 
       // separate new hits and hits to update
@@ -111,6 +112,8 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
               IC50: hit.IC50,
               Method: hit?.Method,
               MIC: hit.MIC,
+              MolWeight: hit.MolWeight,
+              MolArea: hit.MolArea,
               ClusterGroup: hit?.ClusterGroup,
               Smile: hit?.Smile,
               MolWeight: hit?.MolWeight,
@@ -244,7 +247,7 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
                   <Chip label="MIC" />
                   <Chip label="IC50" />
                   <Chip label="ClusterGroup" />
-                  <Chip label="Smile" />
+                  <Chip label="Smiles" />
                 </div>
               </div>}
           </div>
@@ -271,7 +274,7 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
           <Column field="MIC" header="MIC"></Column>
           <Column field="IC50" header="IC50"></Column>
           <Column field="ClusterGroup" header="ClusterGroup"></Column>
-          <Column field="Smile" header="Smile"></Column>
+          <Column field="Smile" header="Smiles"></Column>
         </DataTable>
       </div>
       <hr />

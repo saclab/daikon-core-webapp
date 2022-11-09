@@ -33,7 +33,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
       let errors = {};
 
       if (!data.smile) {
-        errors.smile = "Smile string is required.";
+        errors.smile = "Smiles string is required.";
       }
 
       if (!data.notes) {
@@ -80,7 +80,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                     "p-error": isFormFieldValid("smile"),
                   })}
                 >
-                  Smile String
+                  Smiles String
                 </label>
                 <InputTextarea
                   id="smile"

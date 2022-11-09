@@ -297,7 +297,7 @@ const Screen = {
 
 const Hit = {
   create: (newHit) => requests.post(`/hit/`, newHit),
-  update: (hitId, updatedHit ) => requests.post(`/hit/${hitId}`, updatedHit),
+  update: (hitId, updatedHit) => requests.post(`/hit/${hitId}`, updatedHit),
 };
 
 const Discussion = {
@@ -326,7 +326,7 @@ const General = {
 const Projects = {
   edit: (id, project) => requests.post(`/elevated/project/${id}`, project),
   terminate: (id, project) => requests.post(`/elevated/project/${id}/terminate`, project),
-  createFHA: (newFHA) => requests.post(`/elevated/project/`, newFHA),
+  createHA: (newHA) => requests.post(`/elevated/project/`, newHA),
   createH2L: (id, h2lInfo) =>
     requests.post(`/elevated/project/${id}/createH2L`, h2lInfo),
   createLO: (id, lOlInfo) =>
@@ -345,6 +345,11 @@ const Projects = {
     requests.post(
       `/elevated/project/${projectId}/compoundevolution`,
       newCompoundEvolution
+    ),
+  editCompoundevolution: (projectId, compoundEvoluitionId, editedCompoundEvolution) =>
+    requests.post(
+      `/elevated/project/${projectId}/compoundevolution/${compoundEvoluitionId}`,
+      editedCompoundEvolution
     ),
   setPriorityProbability: (Id, ppDTO) => requests.post(`/project/${Id}`, ppDTO),
   createUnlinked: (newProject) => requests.post(`/elevated/project/unlinked`, newProject),

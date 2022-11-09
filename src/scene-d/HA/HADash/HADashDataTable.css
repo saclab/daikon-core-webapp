@@ -1,148 +1,148 @@
-.datatable-fha-dash .p-paginator .p-paginator-current {
+.datatable-ha-dash .p-paginator .p-paginator-current {
   margin-left: auto;
 }
 
-.datatable-fha-dash .p-progressbar {
+.datatable-ha-dash .p-progressbar {
   height: 0.5rem;
   background-color: #d8dadc;
 }
 
-.datatable-fha-dash .p-progressbar .p-progressbar-value {
+.datatable-ha-dash .p-progressbar .p-progressbar-value {
   background-color: #607d8b;
 }
 
-.datatable-fha-dash .table-header {
+.datatable-ha-dash .table-header {
   display: flex;
   justify-content: space-between;
 }
 
-.datatable-fha-dash .table-header .heading {
+.datatable-ha-dash .table-header .heading {
   background: linear-gradient(to right, #30cfd0 0%, #332288 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.datatable-fha-dash .p-datepicker {
+.datatable-ha-dash .p-datepicker {
   min-width: 25rem;
 }
 
-.datatable-fha-dash .p-datepicker td {
+.datatable-ha-dash .p-datepicker td {
   font-weight: 400;
 }
 
-.datatable-fha-dash .p-datatable.p-datatable-header {
+.datatable-ha-dash .p-datatable.p-datatable-header {
   padding: 1rem;
   text-align: left;
   font-size: 2rem;
 }
 
-.datatable-fha-dash .p-datatable.p-paginator {
+.datatable-ha-dash .p-datatable.p-paginator {
   padding: 1rem;
 }
 
-.datatable-fha-dash .p-datatable.p-datatable-thead > tr > th {
+.datatable-ha-dash .p-datatable.p-datatable-thead > tr > th {
   text-align: left;
 }
 
-.datatable-fha-dash .p-datatable.p-datatable-tbody > tr > td {
+.datatable-ha-dash .p-datatable.p-datatable-tbody > tr > td {
   cursor: auto;
 }
 
-.datatable-fha-dash .p-datatable.p-dropdown-label:not(.p-placeholder) {
+.datatable-ha-dash .p-datatable.p-dropdown-label:not(.p-placeholder) {
   text-transform: uppercase;
 }
 
-.datatable-fha-dash .p-datatable-tbody > tr > td .p-column-title {
+.datatable-ha-dash .p-datatable-tbody > tr > td .p-column-title {
   display: none;
 }
 
-.datatable-fha-dash .narrow-column {
+.datatable-ha-dash .narrow-column {
   width: 200px !important;
 }
-.datatable-fha-dash .p-inputtext {
+.datatable-ha-dash .p-inputtext {
   font-size: 0.8rem;
 }
 
-.datatable-fha-dash .p-multiselect {
+.datatable-ha-dash .p-multiselect {
   font-size: smaller;
 }
 
-.datatable-fha-dash .p-multiselect-item {
+.datatable-ha-dash .p-multiselect-item {
   font-size: smaller;
 }
 
-.datatable-fha-dash .p-button {
+.datatable-ha-dash .p-button {
   font-size: smaller;
 }
 
-.datatable-fha-dash .table-status-active {
+.datatable-ha-dash .table-status-active {
   background-color: #a9dfbf;
   color: #495057;
   font-weight: normal;
   min-width: 5rem;
 }
 
-.datatable-fha-dash .table-status-inactive {
+.datatable-ha-dash .table-status-inactive {
   background-color: #f2f4f4;
   color: #495057;
   font-weight: normal;
   min-width: 5rem;
 }
 
-.datatable-fha-dash .table-stage-FHA {
+.datatable-ha-dash .table-stage-HA {
   background-color: #207656;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
 
-.datatable-fha-dash .table-stage-HA {
+.datatable-ha-dash .table-stage-HA {
   background-color: #207656;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
 
-.datatable-fha-dash .table-stage-H2L {
+.datatable-ha-dash .table-stage-H2L {
   background-color: #dcb14e;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
-.datatable-fha-dash .table-stage-LO {
+.datatable-ha-dash .table-stage-LO {
   background-color: #52422d;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
-.datatable-fha-dash .table-stage-SP {
+.datatable-ha-dash .table-stage-SP {
   background-color: #d86d6f;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
 
-.datatable-fha-dash .table-stage-IND {
+.datatable-ha-dash .table-stage-IND {
   background-color: #53a9a8;
   color: #ffffff;
   font-weight: normal;
   min-width: 5rem;
 }
 
-.datatable-fha-dash .table-date-due {
+.datatable-ha-dash .table-date-due {
   background-color: #ffecb3;
   color: #495057;
   font-weight: normal;
   min-width: 5rem;
 }
 
-.datatable-fha-dash .table-date-ok {
+.datatable-ha-dash .table-date-ok {
   background-color: #ffffff;
   color: #495057;
   font-weight: normal;
   min-width: 5rem;
 }
 
-.datatable-fha-dash
+.datatable-ha-dash
   .p-datatable-wrapper
   > table
   > thead
@@ -157,16 +157,16 @@
 }
 
 @media screen and (max-width: 960px) {
-  .datatable-fha-dash .p-datatable.p-datatable-thead > tr > th,
-  .datatable-fha-dash .p-datatable.p-datatable-tfoot > tr > td {
+  .datatable-ha-dash .p-datatable.p-datatable-thead > tr > th,
+  .datatable-ha-dash .p-datatable.p-datatable-tfoot > tr > td {
     display: none !important;
   }
 
-  .datatable-fha-dash .p-datatable.p-datatable-tbody > tr {
+  .datatable-ha-dash .p-datatable.p-datatable-tbody > tr {
     border-bottom: 1px solid var(--layer-2);
   }
 
-  .datatable-fha-dash .p-datatable.p-datatable-tbody > tr > td {
+  .datatable-ha-dash .p-datatable.p-datatable-tbody > tr > td {
     text-align: left;
     display: block;
     border: 0 none !important;
@@ -176,7 +176,7 @@
     border: 0 none;
   }
 
-  .datatable-fha-dash .p-datatable.p-datatable-tbody > tr > td .p-column-title {
+  .datatable-ha-dash .p-datatable.p-datatable-tbody > tr > td .p-column-title {
     padding: 0.4rem;
     min-width: 30%;
     display: inline-block;
@@ -184,7 +184,7 @@
     font-weight: bold;
   }
 
-  .datatable-fha-dash .p-datatable.p-datatable-tbody > tr > td .p-progressbar {
+  .datatable-ha-dash .p-datatable.p-datatable-tbody > tr > td .p-progressbar {
     margin-top: 0.5rem;
   }
 }

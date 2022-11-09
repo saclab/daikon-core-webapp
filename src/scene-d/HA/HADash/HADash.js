@@ -13,18 +13,18 @@ import { useState } from "react";
 import { Tag } from "primereact/tag";
 import { SelectButton } from "primereact/selectbutton";
 import FDate from "../../../app/common/FDate/FDate";
-import './FHADashDataTable.css'
+import './HADashDataTable.css'
 
 
 // import "./PortfolioDashDataTable.css";
 import { appColors } from '../../../colors';
 
-const FHADash = () => {
+const HADash = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const { loadingProjects, fetchProjects, projectRegistry } =
     rootStore.projectStore;
-  const { filterFhaProjects } = rootStore.fhaStore;
+  const { filterHAProjects } = rootStore.haStore;
 
   /* Local State Management */
 
@@ -169,20 +169,20 @@ const FHADash = () => {
           <SectionHeading
             icon="icon icon-conceptual icon-chemical"
             heading="Hit Assessment"
-            color={appColors.sectionHeadingBg.fha}
+            color={appColors.sectionHeadingBg.ha}
           />
         </div>
         <div className="flex w-full">
           <div className="card w-full">
             <DataTable
               ref={dt}
-              value={filterFhaProjects()}
+              value={filterHAProjects()}
               paginator
               rows={20}
               // header={header}
-              className="datatable-fha-dash"
+              className="datatable-ha-dash"
               //globalFilter={globalFilter}
-              emptyMessage="No FHAs found."
+              emptyMessage="No HAs found."
               filterDisplay="row"
             >
               <Column
@@ -245,4 +245,4 @@ const FHADash = () => {
   return <Loading />;
 };
 
-export default observer(FHADash);
+export default observer(HADash);

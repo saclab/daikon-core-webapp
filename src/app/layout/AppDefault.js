@@ -14,8 +14,8 @@ import TargetView from '../../scene-d/Target/TargetView/TargetView';
 import ScreenDash from "../../scene-d/Screen/ScreenDash/ScreenDash";
 import ScreenView from "../../scene-d/Screen/ScreenView/ScreenTargetBased/ScreenView";
 
-import FHADash from '../../scene-d/FHA/FHADash/FHADash';
-import FHAView from "../../scene-d/FHA/FHAView/FHAView";
+import HADash from '../../scene-d/HA/HADash/HADash';
+import HAView from "../../scene-d/HA/HAView/HAView";
 
 import PortfolioDash from "../../scene-d/Portfolio/PortfolioDash/PortfolioDash";
 import PortfolioView from "../../scene-d/Portfolio/PortfolioView/PortfolioView";
@@ -56,8 +56,8 @@ const AppDefault = () => {
           <Route path="screen/phenotypic/:baseScreenName/*" element={<PhenotypicScreenView />} />
 
           {/* Hit Assessment Routes */}
-          <Route path="ha" element={<FHADash />} />
-          <Route path="ha/:id/*" element={<FHAView />} />
+          <Route path="ha" element={<HADash />} />
+          <Route path="ha/:id/*" element={<HAView />} />
 
           {/* Portfolio Routes */}
           <Route path="portfolio" element={<PortfolioDash />} />
