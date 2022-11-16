@@ -35,3 +35,8 @@ jobs:
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           name: tpt-frontend
           location: "west us 2"
+      - name: "Publish Web App"
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'tbda-dev-frontend'
+          images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/tpt-frontend:${{ github.sha }}'
