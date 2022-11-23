@@ -355,7 +355,7 @@ const Projects = {
     ),
   setPriorityProbability: (Id, ppDTO) => requests.post(`/project/${Id}`, ppDTO),
   createUnlinked: (newProject) => requests.post(`/elevated/project/unlinked`, newProject),
-  stageOverride: (id, overrideDTO) => requests.post(`/elevated/project/override-stage`, overrideDTO),
+  stageOverride: (id, overrideDTO) => requests.post(`/elevated/project/${id}/override-stage`, overrideDTO),
 };
 
 const Vote = {
