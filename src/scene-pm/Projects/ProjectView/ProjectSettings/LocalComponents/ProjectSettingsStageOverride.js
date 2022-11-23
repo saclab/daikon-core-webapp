@@ -1,18 +1,36 @@
 import React from 'react'
 import EmbededHelp from '../../../../../app/common/EmbededHelp/EmbededHelp'
 import StageTag from '../../../../../app/common/StageTag/StageTag';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Dropdown } from 'primereact/dropdown';
+import { observer } from "mobx-react-lite";
 import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+import { RootStoreContext } from '../../../../../app/stores/rootStore';
 
 const ProjectSettingsStageOverride = ({ project }) => {
 
   const stages = ["HA", "H2L", "LO", "SP", "IND", "P1"];
   const [stageOverride, setStageOverride] = useState("")
+  const [confirm, setConfirm] = useState("");
+
+  const rootStore = useContext(RootStoreContext);
+  const { overrideStage, overridingStage } = rootStore.projectStore;
 
   const stageItemTemplate = (option) => {
     return <StageTag stage={option} />;
   };
+
+  let dataOnSubmitValidate = () => {
+    overrideStage({
+      projectId: project.id,
+      stageString: stageOverride
+    }).then((res) => {
+      if (res !== null) {
+
+      }
+    })
+  }
 
 
   return (
@@ -37,13 +55,17 @@ const ProjectSettingsStageOverride = ({ project }) => {
             placeholder="Select a Stage"
           />
         </div>
+        <div className="flex pt-2 align-content-center align-items-center">
+          Type 'OVERRIDE' to Confirm
+          <InputText value={confirm} onChange={(e) => setConfirm(e.target.value)} className='w-max' />
+        </div>
         <div className="flex pt-2 align-content-right align-items-right">
           <Button
             label="Override Stage"
             className="p-button-warning"
-            // disabled={confirm !== "MERGE"}
-            // loading={mergingScreen}
-            // onClick={() => dataOnSubmitValidate()}
+            disabled={confirm !== "OVERRIDE" || stageOverride === ""}
+            loading={overridingStage}
+            onClick={() => dataOnSubmitValidate()}
           />
         </div>
 
@@ -52,4 +74,4 @@ const ProjectSettingsStageOverride = ({ project }) => {
   )
 }
 
-export default ProjectSettingsStageOverride
+export default observer(ProjectSettingsStageOverride)
