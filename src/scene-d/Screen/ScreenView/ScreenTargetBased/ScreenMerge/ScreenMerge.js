@@ -2,15 +2,47 @@ import React from 'react'
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-
+import { toast } from "react-toastify";
+import { observer } from "mobx-react-lite";
 import EmbededHelp from '../../../../../app/common/EmbededHelp/EmbededHelp'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { RootStoreContext } from '../../../../../app/stores/rootStore';
+import { useNavigate } from 'react-router-dom';
 
-const ScreenMerge = ({ screens }) => {
+const ScreenMerge = ({ screens, close }) => {
 
-  const [screen1, setScreen1] = useState("");
-  const [screen2, setScreen2] = useState("");
+  const [screen1Id, setscreen1Id] = useState("");
+  const [screen2Id, setscreen2Id] = useState("");
   const [confirm, setConfirm] = useState("");
+  const navigate = useNavigate();
+
+  const rootStore = useContext(RootStoreContext);
+  const { mergingScreen, mergeScreen } = rootStore.screenStore;
+
+  let dataOnSubmitValidate = () => {
+    let screen1 = screens.find(({ id }) => id === screen1Id)
+    let screen2 = screens.find(({ id }) => id === screen2Id)
+
+    if (screen1.orgId !== screen2.orgId) {
+      toast.error("Cannot merge screens from different orgs.")
+      return;
+    }
+    if (screen1.method !== screen2.method) {
+      toast.error("Cannot merge screens with different screening methods.")
+      return;
+    }
+
+    mergeScreen({
+      firstScreenId: screen1Id,
+      mergeScreenId: screen2Id
+    }).then((res) => {
+      if (res !== null) {
+        close();
+        window.location.reload();
+      }
+    })
+
+  }
 
   return (
     <div className='card'>
@@ -34,9 +66,9 @@ const ScreenMerge = ({ screens }) => {
             <Dropdown
               optionLabel="screenName"
               optionValue="id"
-              value={screen1}
+              value={screen1Id}
               options={screens}
-              onChange={(e) => setScreen1(e.value)}
+              onChange={(e) => setscreen1Id(e.value)}
               placeholder="Select Primary Screen" />
           </div>
           <div className="flex gap-4 align-items-center">
@@ -44,9 +76,9 @@ const ScreenMerge = ({ screens }) => {
             <Dropdown
               optionLabel="screenName"
               optionValue="id"
-              value={screen2}
-              options={screens.filter(s => s.id !== screen1)}
-              onChange={(e) => setScreen2(e.value)}
+              value={screen2Id}
+              options={screens.filter(s => s.id !== screen1Id)}
+              onChange={(e) => setscreen2Id(e.value)}
               placeholder="Select Screen that will be merged" />
           </div>
         </div>
@@ -57,12 +89,13 @@ const ScreenMerge = ({ screens }) => {
             <InputText value={confirm} onChange={(e) => setConfirm(e.target.value)} className='w-max' />
           </div>
           <div className="flex gap-4 align-content-center align-items-center">
-            <Button 
-              label="Merge Screens" 
-              className="p-button-success" 
+            <Button
+              label="Merge Screens"
+              className="p-button-success"
               disabled={confirm !== "MERGE"}
-              loading={false}
-              />
+              loading={mergingScreen}
+              onClick={() => dataOnSubmitValidate()}
+            />
           </div>
 
 
@@ -79,4 +112,4 @@ const ScreenMerge = ({ screens }) => {
   )
 }
 
-export default ScreenMerge
+export default observer(ScreenMerge)
