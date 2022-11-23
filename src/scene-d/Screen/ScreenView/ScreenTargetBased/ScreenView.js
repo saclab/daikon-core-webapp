@@ -134,8 +134,10 @@ const ScreenView = () => {
           className="p-sidebar-lg"
         >
           <div className="card">
-            
-            <ScreenMerge screens={filteredScreens}/>
+
+            <ScreenMerge
+              screens={filteredScreens}
+              close={() => setDisplayMergeScreenDialog(false)} />
 
           </div>
         </Dialog>
