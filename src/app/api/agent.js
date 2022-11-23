@@ -293,6 +293,8 @@ const Screen = {
   createPhenotypic: (newScreen) => requests.post(`/screen/phenotypic`, newScreen),
   createSequence: (screenId, newSequence) =>
     requests.post(`/screensequence/${screenId}`, newSequence),
+  merge: (mergeIds) => requests.post(`/elevated/screen/merge`, mergeIds),
+
 };
 
 const Hit = {
