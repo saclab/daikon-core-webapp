@@ -11,6 +11,8 @@ import { appColors } from '../../../../colors';
 import ScreenDiscussion from './ScreenDiscussion/ScreenDiscussion';
 import NotFound from '../../../../app/layout/NotFound/NotFound';
 import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
+import { Dialog } from 'primereact/dialog';
+import ScreenMerge from "./ScreenMerge/ScreenMerge";
 
 const ScreenView = () => {
   const params = useParams();
@@ -23,6 +25,7 @@ const ScreenView = () => {
   const { loadingFetchScreens, screenRegistry,
     fetchScreens, selectedScreenTargetFilter, filterScreensByTarget, filteredScreens } =
     rootStore.screenStore;
+  const { user } = rootStore.userStore;
 
   useEffect(() => {
     if (screenRegistry.size === 0 || selectedScreenTargetFilter !== params.id) {
@@ -34,6 +37,9 @@ const ScreenView = () => {
     }
 
   }, [fetchScreens, screenRegistry]);
+
+  const [displayMergeScreenDialog, setDisplayMergeScreenDialog] =
+    useState(false);
 
   console.log("====SCREEN VIEW");
 
@@ -82,6 +88,23 @@ const ScreenView = () => {
     },
   ];
 
+  if (user.roles.includes("admin")) {
+
+    const adminActions = {
+      label: "Admin Section",
+      items: [
+        {
+          label: "Merge Screens",
+          icon: "icon icon-common icon-compress",
+          command: () => {
+            setDisplayMergeScreenDialog(true)
+          },
+        },
+      ],
+    }
+    SideMenuItems.push(adminActions);
+  }
+
   if (!loadingFetchScreens && screenRegistry.size >= 0) {
     return (
       <React.Fragment>
@@ -101,6 +124,21 @@ const ScreenView = () => {
             </Routes>
           </div>
         </div>
+
+        <Dialog
+          visible={displayMergeScreenDialog}
+          header="Admin : Merge Screens"
+          style={{ width: "90%" }}
+
+          onHide={() => setDisplayMergeScreenDialog(false)}
+          className="p-sidebar-lg"
+        >
+          <div className="card">
+            
+            <ScreenMerge screens={filteredScreens}/>
+
+          </div>
+        </Dialog>
 
       </React.Fragment>
     );
