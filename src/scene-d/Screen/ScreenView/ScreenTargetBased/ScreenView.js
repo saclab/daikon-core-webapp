@@ -13,6 +13,7 @@ import NotFound from '../../../../app/layout/NotFound/NotFound';
 import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
 import { Dialog } from 'primereact/dialog';
 import ScreenMerge from "./ScreenMerge/ScreenMerge";
+import ScreenEdit from "./ScreenEdit/ScreenEdit";
 
 const ScreenView = () => {
   const params = useParams();
@@ -39,6 +40,8 @@ const ScreenView = () => {
   }, [fetchScreens, screenRegistry]);
 
   const [displayMergeScreenDialog, setDisplayMergeScreenDialog] =
+    useState(false);
+  const [displayEditScreenDialog, setDisplayEditScreenDialog] =
     useState(false);
 
   console.log("====SCREEN VIEW");
@@ -94,6 +97,13 @@ const ScreenView = () => {
       label: "Admin Section",
       items: [
         {
+          label: "Edit Screen",
+          icon: "icon icon-common icon-edit",
+          command: () => {
+            setDisplayEditScreenDialog(true)
+          },
+        },
+        {
           label: "Merge Screens",
           icon: "icon icon-common icon-compress",
           command: () => {
@@ -126,6 +136,23 @@ const ScreenView = () => {
         </div>
 
         <Dialog
+          visible={displayEditScreenDialog}
+          header="Admin : Edit Screen"
+          style={{ width: "90%" }}
+
+          onHide={() => setDisplayEditScreenDialog(false)}
+          className="p-sidebar-lg"
+        >
+          <div className="card">
+            <ScreenEdit
+              selectedScreenTargetFilter={selectedScreenTargetFilter}
+              close={() => setDisplayEditScreenDialog(false)} />
+          </div>
+        </Dialog>
+
+
+
+        <Dialog
           visible={displayMergeScreenDialog}
           header="Admin : Merge Screens"
           style={{ width: "90%" }}
@@ -134,11 +161,9 @@ const ScreenView = () => {
           className="p-sidebar-lg"
         >
           <div className="card">
-
             <ScreenMerge
               screens={filteredScreens}
               close={() => setDisplayMergeScreenDialog(false)} />
-
           </div>
         </Dialog>
 
