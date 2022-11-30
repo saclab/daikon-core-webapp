@@ -294,6 +294,7 @@ const Screen = {
   createSequence: (screenId, newSequence) =>
     requests.post(`/screensequence/${screenId}`, newSequence),
   merge: (mergeIds) => requests.post(`/elevated/screen/merge`, mergeIds),
+  edit: (editedScreen) => requests.post(`/elevated/screen/${id}/edit`, editedScreen),
 
 };
 
