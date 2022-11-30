@@ -18,7 +18,8 @@ const ValidatedHits = ({ TargetName }) => {
     filteredScreens,
     validatedHitsIndex,
     setValidatedHitsIndex,
-    selectedScreenTargetFilter
+    selectedScreenTargetFilter,
+    screenRegistryCacheValid
   } = rootStore.screenStore;
 
   const navigate = useNavigate();
@@ -27,7 +28,8 @@ const ValidatedHits = ({ TargetName }) => {
     if (
       filteredScreens === null ||
       filteredScreens.length === 0 ||
-      selectedScreenTargetFilter !== TargetName
+      selectedScreenTargetFilter !== TargetName ||
+      !screenRegistryCacheValid
     )
       filterScreensByTarget(TargetName);
   }, [filteredScreens, filterScreensByTarget, TargetName]);

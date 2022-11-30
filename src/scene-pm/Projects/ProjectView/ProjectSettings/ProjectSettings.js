@@ -15,6 +15,7 @@ import ProjectSettingsDescriptions from './LocalComponents/ProjectSettingsDescri
 import ProjectSettingsPriority from './LocalComponents/ProjectSettingsPriority';
 import ProjectSettingsTerminate from "./LocalComponents/ProjectSettingsTerminate";
 import { appColors } from '../../../../colors';
+import ProjectSettingsStageOverride from './LocalComponents/ProjectSettingsStageOverride';
 
 const ProjectSettings = ({ id, project }) => {
 
@@ -83,33 +84,41 @@ const ProjectSettings = ({ id, project }) => {
           </div>
 
           <div className="flex w-full gap-2">
-            <div className="flex">
-              <Fieldset className="w-full" legend="Project Information">
-                <ProjectSettingsGeneralInformation project={selectedProject} />
-              </Fieldset>
+            <div className="flex flex-column gap-2">
+              <div className="flex">
+                <Fieldset className="w-full" legend="Project Information">
+                  <ProjectSettingsGeneralInformation project={selectedProject} />
+                </Fieldset>
+              </div>
+              <div className="flex">
+                <Fieldset className="w-full" legend="Project Stage Override">
+                  <ProjectSettingsStageOverride project={selectedProject} />
+                </Fieldset>
+              </div>
+              <div className="flex" >
+                <Fieldset className="w-full" legend="End of Lifecycle">
+                  <ProjectSettingsTerminate project={selectedProject} />
+                </Fieldset>
+              </div>
             </div>
             <div className="flex-column w-full">
-              <div className="flex mb-2" style={{width: "50rem"}}>
+              <div className="flex mb-2" style={{ width: "50rem" }}>
                 <Fieldset className="w-full" legend="Project Dates">
                   <ProjectSettingsDates project={selectedProject} />
                 </Fieldset>
               </div>
-              <div className="flex mb-2" style={{width: "50rem"}}>
+              <div className="flex mb-2" style={{ width: "50rem" }}>
                 <Fieldset className="w-full" legend="Project Descriptions">
                   <ProjectSettingsDescriptions project={selectedProject} />
                 </Fieldset>
               </div>
 
-              <div className="flex mb-2" style={{width: "50rem"}}>
+              <div className="flex mb-2" style={{ width: "50rem" }}>
                 <Fieldset className="w-full" legend="Project Team P/P">
                   <ProjectSettingsPriority project={selectedProject} />
                 </Fieldset>
               </div>
-              <div className="flex mb-2" style={{width: "50rem"}}>
-                <Fieldset className="w-full" legend="End of Lifecycle">
-                  <ProjectSettingsTerminate project={selectedProject} />
-                </Fieldset>
-              </div>
+
             </div>
           </div>
         </div>
