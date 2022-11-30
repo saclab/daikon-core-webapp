@@ -40,6 +40,8 @@ export default class ScreenStore {
 
   mergingScreen = false
 
+  editingScreen = false;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -87,7 +89,10 @@ export default class ScreenStore {
       loadingPhenotypicAdd: observable,
 
       mergeScreen: action,
-      mergingScreen: observable
+      mergingScreen: observable,
+
+      editScreen: action,
+      editingScreen: observable
 
     });
   }
@@ -332,6 +337,30 @@ export default class ScreenStore {
       runInAction(() => {
         this.mergingScreen = false;
         console.log("screenStore: mergeScreen Complete");
+      });
+    }
+    return res;
+  }
+
+  editScreen = async (edittedScreen) => {
+    console.log("screenStore: editScreen Start");
+    this.editingScreen = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Screen.edit(edittedScreen.id, edittedScreen
+      );
+      runInAction(() => {
+        toast.success("Saved");
+        this.fetchScreen(edittedScreen.id, true);
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingScreen = false;
+        console.log("screenStore: editScreen Complete");
       });
     }
     return res;
