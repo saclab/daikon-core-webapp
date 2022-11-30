@@ -13,10 +13,10 @@ import { Calendar } from "primereact/calendar";
 import { observer } from "mobx-react-lite";
 import { InputTextarea } from "primereact/inputtextarea";
 
-const ScreenEdit = ({selectedScreenTargetFilter}) => {
+const ScreenEdit = ({selectedScreenTargetFilter, close}) => {
 
   const rootStore = useContext(RootStoreContext);
-  const { selectedScreen, loadingFetchScreen } = rootStore.screenStore;
+  const { selectedScreen, loadingFetchScreen, editScreen, editingScreen } = rootStore.screenStore;
   const { fetchOrgs, Orgs, LoadingOrgs } = rootStore.adminStore;
   const { appVars } = rootStore.generalStore;
 
@@ -30,7 +30,7 @@ const ScreenEdit = ({selectedScreenTargetFilter}) => {
       org: selectedScreen.org,
       promotionDate: new Date(selectedScreen.promotionDate),
       notes: selectedScreen.notes,
-      method: selectedScreen.EmbededHelp
+      method: selectedScreen.method
     },
     validate: (data) => {
       let errors = {};
@@ -46,16 +46,15 @@ const ScreenEdit = ({selectedScreenTargetFilter}) => {
       return errors;
     },
     onSubmit: (data) => {
+      data["id"] = selectedScreen.id;
       data["orgId"] = data.org.id;
       console.log(data);
-      // promoteTargetToScreen(data).then((res) => {
-      //   if (res !== null) {
-      //     closeSidebar();
-      //   }
-      // });
-      //setShowMessage(true);
-      //history.push()
-      //formik.resetForm();
+      editScreen(data).then((res) => {
+        if (res !== null) {
+          formik.resetForm();
+          close();
+        }
+      });
     },
   });
 
