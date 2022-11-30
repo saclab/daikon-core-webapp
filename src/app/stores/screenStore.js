@@ -38,6 +38,10 @@ export default class ScreenStore {
   screenSequenceIndex = 0;
   loadingPhenotypicAdd = false
 
+  mergingScreen = false
+
+  editingScreen = false;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -82,7 +86,13 @@ export default class ScreenStore {
       filterPhenotypicScreensByBaseScreenName: action,
 
       addScreeenPhenotypic: action,
-      loadingPhenotypicAdd: observable
+      loadingPhenotypicAdd: observable,
+
+      mergeScreen: action,
+      mergingScreen: observable,
+
+      editScreen: action,
+      editingScreen: observable
 
     });
   }
@@ -301,4 +311,60 @@ export default class ScreenStore {
 
   setValidatedHitsIndex = (index) => (this.validatedHitsIndex = index);
   setScreenSequenceIndex = (index) => (this.screenSequenceIndex = index);
+
+  mergeScreen = async (mergeIDs) => {
+    console.log("screenStore: mergeScreen Start");
+    console.log(mergeIDs);
+    this.mergingScreen = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Screen.merge(
+        mergeIDs
+      );
+      runInAction(() => {
+        toast.success("Successfully merged screening information");
+        this.screenPhenotypicRegistryCacheValid = false;
+        this.screenRegistryExpanded.clear();
+        this.selectedPhenotypicScreen = null;
+        this.screenRegistryCacheValid = false;
+        this.selectedScreen = null;
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.mergingScreen = false;
+        console.log("screenStore: mergeScreen Complete");
+      });
+    }
+    return res;
+  }
+
+  editScreen = async (edittedScreen) => {
+    console.log("screenStore: editScreen Start");
+    this.editingScreen = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Screen.edit(edittedScreen.id, edittedScreen
+      );
+      runInAction(() => {
+        toast.success("Saved");
+        this.fetchScreen(edittedScreen.id, true);
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.editingScreen = false;
+        console.log("screenStore: editScreen Complete");
+      });
+    }
+    return res;
+
+
+  }
 }

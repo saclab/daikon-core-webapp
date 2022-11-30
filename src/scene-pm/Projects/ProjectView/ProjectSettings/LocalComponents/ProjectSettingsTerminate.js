@@ -71,13 +71,13 @@ const ProjectSettingsTerminate = ({ project }) => {
     }}>
       <b>Terminate Project</b>
       <p>Terminating this project will end it's lifecycle
-        and the project will be archived. <br />
-        This is irreversible.</p>
+        and the project will be archived. <br /><br />
+        CAUTION: This is an <b>irreversible</b> action.</p>
       <Button label="Terminate" className="p-button-outlined p-button-danger" onClick={() => { setTermTextValue(''); setVisibleTerminationDialog(true) }} />
     </div>
       <Dialog visible={visibleTerminationDialog} style={{ width: '700px' }} onHide={() => setVisibleTerminationDialog(false)}
-        header="Terminate Project Confirmation" icon="icon icon-common icon-minus-circle" >
-        Type <b>{project.projectName}</b>' in the text box and click 'Terminate' to terminate the project.
+        header="Project Termination" icon="icon icon-common icon-minus-circle" >
+        Type '<b>{project.projectName}</b>' in the text box and click 'Terminate' to terminate the project.
         <br />
         <br />
         <div className="formgroup">

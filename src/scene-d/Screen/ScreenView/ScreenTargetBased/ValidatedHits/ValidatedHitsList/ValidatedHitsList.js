@@ -40,6 +40,8 @@ const ValidatedHitsList = ({ screenId }) => {
 
   console.log("==== VALIDATED HIT LIST");
   useEffect(() => {
+    console.log("use effect");
+    console.log(screenId);
     fetchScreen(screenId);
   }, [fetchScreen, screenId]);
 

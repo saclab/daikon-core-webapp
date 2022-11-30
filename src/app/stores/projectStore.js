@@ -26,6 +26,8 @@ export default class ProjectStore {
 
   settingPriorityProbability = false;
 
+  overridingStage = false;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -59,7 +61,10 @@ export default class ProjectStore {
       terminateProject: action,
 
       creatingUnlinkedProject: observable,
-      createUnlinkedProject: action
+      createUnlinkedProject: action,
+
+      overrideStage: action,
+      overridingStage: observable
     });
   }
 
@@ -335,6 +340,35 @@ export default class ProjectStore {
       runInAction(() => {
         this.creatingUnlinkedProject = false;
         console.log("ProjectStore: createUnlinkedProject Complete");
+      });
+    }
+    return res;
+  };
+
+
+  overrideStage = async (overrideDTO) => {
+    console.log("ProjectStore: overrideStage Start");
+
+    this.overridingStage = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.stageOverride(
+        this.selectedProject.id,
+        overrideDTO
+      );
+      runInAction(() => {
+        toast.success("Project stage successfully overridden.");
+        this.projectRegistryCacheValid = false;
+        this.fetchProject(this.selectedProject.id);
+      });
+    } catch (error) {
+      console.log("+++++++RES ERROR");
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.overridingStage = false;
+        console.log("ProjectStore: overrideStage Complete");
       });
     }
     return res;

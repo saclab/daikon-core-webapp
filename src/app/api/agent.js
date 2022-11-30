@@ -293,6 +293,9 @@ const Screen = {
   createPhenotypic: (newScreen) => requests.post(`/screen/phenotypic`, newScreen),
   createSequence: (screenId, newSequence) =>
     requests.post(`/screensequence/${screenId}`, newSequence),
+  merge: (mergeIds) => requests.post(`/elevated/screen/merge`, mergeIds),
+  edit: (id, editedScreen) => requests.post(`/elevated/screen/${id}/edit`, editedScreen),
+
 };
 
 const Hit = {
@@ -353,6 +356,7 @@ const Projects = {
     ),
   setPriorityProbability: (Id, ppDTO) => requests.post(`/project/${Id}`, ppDTO),
   createUnlinked: (newProject) => requests.post(`/elevated/project/unlinked`, newProject),
+  stageOverride: (id, overrideDTO) => requests.post(`/elevated/project/${id}/override-stage`, overrideDTO),
 };
 
 const Vote = {
