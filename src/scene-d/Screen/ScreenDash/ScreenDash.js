@@ -41,6 +41,7 @@ const ScreenDash = () => {
     fetchScreens,
     screenPhenotypicRegistry,
     fetchScreensPhenotypic,
+    screenPhenotypicRegistryCacheValid,
   ]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */

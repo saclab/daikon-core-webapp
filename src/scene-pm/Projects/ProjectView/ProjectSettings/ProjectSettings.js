@@ -1,29 +1,27 @@
 import { observer } from "mobx-react-lite";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Fieldset } from "primereact/fieldset";
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import Loading from '../../../../app/layout/Loading/Loading';
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { appColors } from '../../../../colors';
-import ProjectSettingsDates from './LocalComponents/ProjectSettingsDates';
-import ProjectSettingsDescriptions from './LocalComponents/ProjectSettingsDescriptions';
+import { appColors } from "../../../../colors";
+import ProjectSettingsDates from "./LocalComponents/ProjectSettingsDates";
+import ProjectSettingsDescriptions from "./LocalComponents/ProjectSettingsDescriptions";
 import ProjectSettingsGeneralInformation from "./LocalComponents/ProjectSettingsGeneralInformation";
-import ProjectSettingsPriority from './LocalComponents/ProjectSettingsPriority';
-import ProjectSettingsStageOverride from './LocalComponents/ProjectSettingsStageOverride';
+import ProjectSettingsPriority from "./LocalComponents/ProjectSettingsPriority";
+import ProjectSettingsStageOverride from "./LocalComponents/ProjectSettingsStageOverride";
 import ProjectSettingsTerminate from "./LocalComponents/ProjectSettingsTerminate";
 
 const ProjectSettings = ({ id, project }) => {
-
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   // const { user } = rootStore.userStore;
   const { loadingProject, fetchProject, selectedProject } =
     rootStore.projectStore;
 
-  const toast = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,9 +58,7 @@ const ProjectSettings = ({ id, project }) => {
 
     return (
       <React.Fragment>
-
         <div className="flex flex-column w-full">
-
           <div className="flex w-full pb-2">
             <BreadCrumb model={breadCrumbItems} />
           </div>
@@ -70,11 +66,7 @@ const ProjectSettings = ({ id, project }) => {
           <div className="flex w-full">
             <SectionHeading
               icon="icon icon-common icon-briefcase"
-              heading={
-                project.projectName +
-                " | " +
-                project?.currentStage
-              }
+              heading={project.projectName + " | " + project?.currentStage}
               targetName={project.targetName}
               displayHorizon={true}
               color={appColors.sectionHeadingBg.project}
@@ -85,7 +77,9 @@ const ProjectSettings = ({ id, project }) => {
             <div className="flex flex-column gap-2">
               <div className="flex">
                 <Fieldset className="w-full" legend="Project Information">
-                  <ProjectSettingsGeneralInformation project={selectedProject} />
+                  <ProjectSettingsGeneralInformation
+                    project={selectedProject}
+                  />
                 </Fieldset>
               </div>
               <div className="flex">
@@ -93,7 +87,7 @@ const ProjectSettings = ({ id, project }) => {
                   <ProjectSettingsStageOverride project={selectedProject} />
                 </Fieldset>
               </div>
-              <div className="flex" >
+              <div className="flex">
                 <Fieldset className="w-full" legend="End of Lifecycle">
                   <ProjectSettingsTerminate project={selectedProject} />
                 </Fieldset>
@@ -116,23 +110,14 @@ const ProjectSettings = ({ id, project }) => {
                   <ProjectSettingsPriority project={selectedProject} />
                 </Fieldset>
               </div>
-
             </div>
           </div>
         </div>
-
       </React.Fragment>
-    )
+    );
   }
 
-
-  return <FailedLoading />
-
-
-
-
-
-
-}
+  return <FailedLoading />;
+};
 
 export default observer(ProjectSettings);
