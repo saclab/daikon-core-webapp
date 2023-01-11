@@ -21,7 +21,6 @@ const AppBeta = () => {
     target: appColors.horizonText.target,
     screen: appColors.horizonText.screen,
     ha: appColors.horizonText.ha,
-    ha: appColors.horizonText.ha,
     portfolio: appColors.horizonText.portfolio,
     postPortfolio: appColors.horizonText.postPortfolio,
   };

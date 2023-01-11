@@ -2,46 +2,40 @@ import { observer } from "mobx-react-lite";
 import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import GenePromoteFormChemicalInhibition from "./GenePromoteFormChemicalInhibition/GenePromoteFormChemicalInhibition";
-import GenePromoteFormImpactOfGeneticInhibit from "./GenePromoteFormImpactOfGeneticInhibit/GenePromoteFormImpactOfGeneticInhibit";
-import GenePromoteFormLiabilities from "./GenePromoteFormLiabilities/GenePromoteFormLiabilities";
-import GenePromoteFormTractability from "./GenePromoteFormTractability/GenePromoteFormTractability";
-import cssClass from "./GenomePromote.module.css";
-
-import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Success from "../../../app/common/Success/Success";
 import Loading from "../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import { appColors } from '../../../colors';
+import { appColors } from "../../../colors";
+import GenePromoteFormChemicalInhibition from "./GenePromoteFormChemicalInhibition/GenePromoteFormChemicalInhibition";
 import GenePromoteFormImpactOfChemInhibit from "./GenePromoteFormImpactOfChemInhibit/GenePromoteFormImpactOfChemInhibit";
+import GenePromoteFormImpactOfGeneticInhibit from "./GenePromoteFormImpactOfGeneticInhibit/GenePromoteFormImpactOfGeneticInhibit";
+import GenePromoteFormLiabilities from "./GenePromoteFormLiabilities/GenePromoteFormLiabilities";
+import GenePromoteFormTractability from "./GenePromoteFormTractability/GenePromoteFormTractability";
 import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
+import cssClass from "./GenomePromote.module.css";
 
 const GenePromote = () => {
   const toast = useRef(null);
   const rootStore = useContext(RootStoreContext);
 
   const params = useParams();
-  const navigate = useNavigate();
 
   const {
     promotionQuestionsDisplayLoading,
     getPromotionQuestions,
     promotionQuestionsRegistry,
     submitPromotionQuestionaire,
-    getGenePromotionDataObj
+    getGenePromotionDataObj,
   } = rootStore.geneStore;
 
   useEffect(() => {
     if (promotionQuestionsRegistry.size === 0) {
       getPromotionQuestions();
     }
-  }, [
-    promotionQuestionsRegistry,
-    getPromotionQuestions,
-    params.ptarget,
-  ]);
+  }, [promotionQuestionsRegistry, getPromotionQuestions, params.ptarget]);
 
   const [formSuccess, setFormSuccess] = useState(false);
 
@@ -310,7 +304,6 @@ const GenePromote = () => {
       }
     });
 
-
     if (validationFail) {
       toast.current.show({
         severity: "error",
@@ -478,7 +471,11 @@ const GenePromote = () => {
           {/* <h2 className="heading">Target Promotion Questionaire for {params.ptarget}</h2> */}
         </div>
         <div className="flex w-full">
-          <Steps model={stepItems} activeIndex={activeForm} className="w-full" />
+          <Steps
+            model={stepItems}
+            activeIndex={activeForm}
+            className="w-full"
+          />
         </div>
         <div className="flex w-full">
           <div className={[cssClass.GenomePromoteForm].join(" ")}>

@@ -2,7 +2,7 @@ import { configure } from "mobx";
 import { createContext } from "react";
 import AdminStore from "./adminStore";
 import AppSettingsStore from "./appSettingsStore";
-import DataViewStore from './dataViewStore';
+import DataViewStore from "./dataViewStore";
 import DiscussionStore from "./discussionStore";
 import GeneralStore from "./generalStore";
 import GeneStore from "./geneStore";
@@ -32,7 +32,6 @@ export class RootStore {
   appSettingsStore;
   geneStoreAdmin;
   targetStoreAdmin;
-  portfolioStore;
   hitsStore;
   discussionStore;
   generalStore;
