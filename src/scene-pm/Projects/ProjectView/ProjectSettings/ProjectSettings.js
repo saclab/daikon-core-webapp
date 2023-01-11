@@ -1,21 +1,19 @@
-import React, { useRef, useEffect, useContext } from "react";
-import { Divider } from 'primereact/divider';
-import { Fieldset } from "primereact/fieldset";
-import { BreadCrumb } from "primereact/breadcrumb";
-import { useNavigate, useParams } from "react-router-dom";
-import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import Loading from '../../../../app/layout/Loading/Loading';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { BreadCrumb } from "primereact/breadcrumb";
+import { Fieldset } from "primereact/fieldset";
+import React, { useContext, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
-import ProjectSettingsGeneralInformation from "./LocalComponents/ProjectSettingsGeneralInformation";
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import Loading from '../../../../app/layout/Loading/Loading';
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from '../../../../colors';
 import ProjectSettingsDates from './LocalComponents/ProjectSettingsDates';
 import ProjectSettingsDescriptions from './LocalComponents/ProjectSettingsDescriptions';
+import ProjectSettingsGeneralInformation from "./LocalComponents/ProjectSettingsGeneralInformation";
 import ProjectSettingsPriority from './LocalComponents/ProjectSettingsPriority';
-import ProjectSettingsTerminate from "./LocalComponents/ProjectSettingsTerminate";
-import { appColors } from '../../../../colors';
 import ProjectSettingsStageOverride from './LocalComponents/ProjectSettingsStageOverride';
+import ProjectSettingsTerminate from "./LocalComponents/ProjectSettingsTerminate";
 
 const ProjectSettings = ({ id, project }) => {
 

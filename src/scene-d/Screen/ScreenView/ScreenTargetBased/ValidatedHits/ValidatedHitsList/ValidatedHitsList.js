@@ -1,21 +1,21 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
 import _ from "lodash";
 import { observer } from "mobx-react-lite";
-import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
+import { Chip } from 'primereact/chip';
 import { Column } from "primereact/column";
+import { ConfirmDialog } from "primereact/confirmdialog";
+import { DataTable } from "primereact/datatable";
 import { Dialog } from "primereact/dialog";
 import { TieredMenu } from "primereact/tieredmenu";
-import { RootStoreContext } from "../../../../../../app/stores/rootStore";
-import Loading from "../../../../../../app/layout/Loading/Loading";
-import Vote from "../../../../../../app/common/Vote/Vote";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import SmilesView from "../../../../../../app/common/SmilesView/SmilesView";
+import Vote from "../../../../../../app/common/Vote/Vote";
+import Loading from "../../../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../../../app/stores/rootStore";
+import "./ValidatedHitsDataTable.css";
 import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter";
 import ValidatedHitsPromoteToHAEntry from "./ValidatedHitsPromoteToHAEntry/ValidatedHitsPromoteToHAEntry";
-import { toast } from "react-toastify";
-import "./ValidatedHitsDataTable.css";
-import { ConfirmDialog } from "primereact/confirmdialog";
-import { Chip } from 'primereact/chip';
 
 const ValidatedHitsList = ({ screenId }) => {
   const dt = useRef(null);

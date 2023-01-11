@@ -1,10 +1,10 @@
-import { Fieldset } from "primereact/fieldset";
-import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-import GeneViewPublicDataProteindataBank from "./GeneViewPublicDataProteinDataBank/GeneViewPublicDataProteindataBank";
 import { BreadCrumb } from 'primereact/breadcrumb';
+import { Fieldset } from "primereact/fieldset";
+import { useNavigate } from 'react-router-dom';
+import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
 import { appColors } from "../../../../colors";
-import { useNavigate } from 'react-router-dom';
+import GeneViewPublicDataProteindataBank from "./GeneViewPublicDataProteinDataBank/GeneViewPublicDataProteindataBank";
 
 const GeneViewPublicData = ({
   gene,

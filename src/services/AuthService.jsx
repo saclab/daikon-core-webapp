@@ -1,4 +1,4 @@
-import { PublicClientApplication } from "@azure/msal-browser"
+import { PublicClientApplication } from "@azure/msal-browser";
 
 class AuthService {
 

@@ -1,10 +1,10 @@
-import React, { useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
+import React, { useContext, useEffect } from "react";
 import Tree from "react-d3-tree";
 import { RootStoreContext } from "../../stores/rootStore";
-import HorizonNode from "./HorizonNode/HorizonNode";
-import PleaseWait from "../PleaseWait/PleaseWait";
 import FailedLoading from "../FailedLoading/FailedLoading";
+import PleaseWait from "../PleaseWait/PleaseWait";
+import HorizonNode from "./HorizonNode/HorizonNode";
 
 const Horizon = ({ accessionNumber, targetName }) => {
   const rootStore = useContext(RootStoreContext);
@@ -101,11 +101,13 @@ const Horizon = ({ accessionNumber, targetName }) => {
             )}
           />
         </div>
-        <div style={{ float: "right", marginTop: "-50px", paddingRight: "50px" }}>
-          <h1 style={{ color: "#CCCCCC", fontStyle: "italic" }}>Horizon View</h1>
+        <div
+          style={{ float: "right", marginTop: "-50px", paddingRight: "50px" }}
+        >
+          <h1 style={{ color: "#CCCCCC", fontStyle: "italic" }}>
+            Horizon View
+          </h1>
         </div>
-
-
       </div>
     );
   }

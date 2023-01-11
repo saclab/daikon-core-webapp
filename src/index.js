@@ -1,16 +1,16 @@
-import React from "react";
-import {createRoot} from 'react-dom/client';
-import "./assets/_overrides.scss";
 import "primeflex/primeflex.css";
-import App from "./app/layout/App";
-import "react-toastify/dist/ReactToastify.css";
-import "./index.css";
+import React from "react";
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
-import history from "./history";
-import reportWebVitals from "./reportWebVitals";
-import AuthFailure from "./app/layout/Errors/AuthFailure/AuthFailure";
+import "react-toastify/dist/ReactToastify.css";
 import agent from "./app/api/agent";
 import ConfigurationMissing from "./app/common/ConfigurationMissing/ConfigurationMissing";
+import App from "./app/layout/App";
+import AuthFailure from "./app/layout/Errors/AuthFailure/AuthFailure";
+import "./assets/_overrides.scss";
+import history from "./history";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 
 console.log("Starting app pre checks");
 const root = createRoot(document.getElementById("root"));

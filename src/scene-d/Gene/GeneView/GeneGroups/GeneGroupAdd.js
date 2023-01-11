@@ -1,14 +1,14 @@
-import React, { useEffect, useContext } from "react";
-import _ from "lodash";
 import { useFormik } from "formik";
-import { InputText } from "primereact/inputtext";
-import { classNames } from "primereact/utils";
+import _ from "lodash";
+import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
-import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import Loading from "../../../../app/layout/Loading/Loading";
+import { InputText } from "primereact/inputtext";
 import { MultiSelect } from "primereact/multiselect";
+import { classNames } from "primereact/utils";
+import React, { useContext, useEffect } from "react";
+import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const GeneGroupAdd = () => {
   const rootStore = useContext(RootStoreContext);

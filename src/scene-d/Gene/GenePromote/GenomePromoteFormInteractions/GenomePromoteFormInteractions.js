@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { SplitButton } from "primereact/splitbutton";
 import { Dropdown } from "primereact/dropdown";
+import { SplitButton } from "primereact/splitbutton";
+import React, { useState } from "react";
 
 const GenomePromoteFormInteractions = (props) => {
   const [formValue, setFormValue] = useState({

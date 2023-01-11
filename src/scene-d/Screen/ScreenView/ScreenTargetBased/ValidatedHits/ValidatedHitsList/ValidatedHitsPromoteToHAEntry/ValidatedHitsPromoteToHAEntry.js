@@ -1,18 +1,17 @@
-import React, { useState, useRef, useContext } from "react";
-import { Steps } from "primereact/steps";
-import { Card } from "primereact/card";
-import { DataTable } from "primereact/datatable";
+import { useFormik } from "formik";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
-import { toast } from "react-toastify";
-import { useFormik } from "formik";
-import { InputText } from "primereact/inputtext";
+import { DataTable } from "primereact/datatable";
 import { Dropdown } from "primereact/dropdown";
-import { MultiSelect } from "primereact/multiselect";
+import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
+import { MultiSelect } from "primereact/multiselect";
+import { Steps } from "primereact/steps";
+import React, { useContext, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
-import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
+import { classNames } from "primereact/utils";
 import SmilesView from "../../../../../../../app/common/SmilesView/SmilesView";
 import { RootStoreContext } from "../../../../../../../app/stores/rootStore";
 const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {

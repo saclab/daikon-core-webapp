@@ -1,5 +1,5 @@
-import React from "react";
 import { Panel } from "primereact/panel";
+import React from "react";
 import Horizon from "../Horizon/Horizon";
 
 const SectionHeading = ({
@@ -11,7 +11,7 @@ const SectionHeading = ({
   textColor,
   accessionNumber,
   targetName,
-  projectName
+  projectName,
 }) => {
   const headerTemplate = (options) => {
     const toggleIcon = options.collapsed
@@ -21,7 +21,9 @@ const SectionHeading = ({
     let htextColor = textColor ? textColor : "#ffffff";
     let displayHorizonButton = (
       // <div class="absolute right-0 pr-3 bg-blue-200">
-      <div style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}>
+      <div
+        style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}
+      >
         <button
           className={options.togglerClassName}
           onClick={options.onTogglerClick}
@@ -69,8 +71,16 @@ const SectionHeading = ({
     );
   };
   return (
-    <Panel className="w-full" headerTemplate={headerTemplate} collapsed={true} toggleable>
-      <Horizon accessionNumber={accessionNumber} targetName={targetName || projectName} />
+    <Panel
+      className="w-full"
+      headerTemplate={headerTemplate}
+      collapsed={true}
+      toggleable
+    >
+      <Horizon
+        accessionNumber={accessionNumber}
+        targetName={targetName || projectName}
+      />
     </Panel>
   );
 };

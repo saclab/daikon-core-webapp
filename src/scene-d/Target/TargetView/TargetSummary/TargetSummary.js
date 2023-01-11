@@ -1,14 +1,13 @@
-import React from "react";
-import cssClass from "./TargetSummary.module.css";
-import { useContext } from "react";
-import { ScrollPanel } from "primereact/scrollpanel";
 import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-import { useNavigate } from 'react-router-dom';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
 import { BreadCrumb } from 'primereact/breadcrumb';
+import { ScrollPanel } from "primereact/scrollpanel";
+import React, { useContext } from "react";
+import { useNavigate } from 'react-router-dom';
+import KeyValList from "../../../../app/common/KeyValList/KeyValList";
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { appColors } from '../../../../colors';
+import cssClass from "./TargetSummary.module.css";
 
 const TargetSummary = () => {
   /* MobX Store */

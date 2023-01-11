@@ -1,26 +1,22 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import { observer } from "mobx-react-lite";
 import { Menu } from "primereact/menu";
 import { Sidebar } from "primereact/sidebar";
-import { Message } from "primereact/message";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useParams,
+    Navigate, Route, Routes, useNavigate,
+    useParams
 } from "react-router-dom";
+import EmbededHelp from "../../../app/common/EmbededHelp/EmbededHelp";
+import Loading from "../../../app/layout/Loading/Loading";
+import NotFound from "../../../app/layout/NotFound/NotFound";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
+import TargetEdit from "./TargetEdit/TargetEdit";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import { Toast } from "primereact/toast";
-import NotFound from "../../../app/layout/NotFound/NotFound";
-import Loading from "../../../app/layout/Loading/Loading";
-import { observer } from "mobx-react-lite";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
 import TargetSummary from "./TargetSummary/TargetSummary";
-import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
-import EmbededHelp from "../../../app/common/EmbededHelp/EmbededHelp";
-import TargetEdit from "./TargetEdit/TargetEdit";
 
 const TargetView = () => {
   const params = useParams();

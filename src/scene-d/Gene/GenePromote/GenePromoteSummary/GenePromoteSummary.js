@@ -1,6 +1,6 @@
-import React from "react";
 import { Divider } from "primereact/divider";
 import { SplitButton } from "primereact/splitbutton";
+import React from "react";
 import GenePromoteSummaryAnswers from "./GenePromoteSummaryAnswers/GenePromoteSummaryAnswers";
 
 const GenePromoteSummary = (props) => {

@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import { BreadCrumb } from 'primereact/breadcrumb';
 import { Fieldset } from "primereact/fieldset";
+import React, { useContext } from "react";
 import { useNavigate } from 'react-router-dom';
-import "./ScrollPanel.css";
 import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
 import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { appColors } from '../../../../colors';
-import PostPortfolioInformationGeneralInformation from './LocalComponents/PostPortfolioInformationGeneralInformation';
-import PostPortfolioInformationDates from './LocalComponents/PostPortfolioInformationDates';
-import PostPortfolioInformationPriority from './PostPortfolioInformationPriority/PostPortfolioInformationPriority';
 import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from '../../../../colors';
+import PostPortfolioInformationDates from './LocalComponents/PostPortfolioInformationDates';
+import PostPortfolioInformationGeneralInformation from './LocalComponents/PostPortfolioInformationGeneralInformation';
+import PostPortfolioInformationPriority from './PostPortfolioInformationPriority/PostPortfolioInformationPriority';
+import "./ScrollPanel.css";
 
 const PostPortfolioInformation = ({ id, project }) => {
 

@@ -1,12 +1,12 @@
 import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
+    action,
+    computed,
+    makeObservable,
+    observable,
+    runInAction
 } from "mobx";
-import agent from "../api/agent";
 import { toast } from "react-toastify";
+import agent from "../api/agent";
 import { _helper_associatedGenesAccessionNumbersToArray } from "./targetStoreHelper";
 
 export default class TargetStore {

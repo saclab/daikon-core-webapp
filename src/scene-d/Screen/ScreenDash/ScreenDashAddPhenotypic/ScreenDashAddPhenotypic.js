@@ -1,16 +1,14 @@
-import React, { useEffect, useRef, useContext } from "react";
-import { RootStoreContext } from '../../../../app/stores/rootStore';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
 import { useFormik } from 'formik';
-import { InputTextarea } from "primereact/inputtextarea";
-import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
-import { MultiSelect } from "primereact/multiselect";
-import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
+import React, { useContext } from "react";
 import { useNavigate } from 'react-router-dom';
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { RootStoreContext } from '../../../../app/stores/rootStore';
 
 const ScreenDashAddPhenotypic = () => {
   const rootStore = useContext(RootStoreContext);

@@ -1,19 +1,15 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
-import { Menu } from "primereact/menu";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { Toast } from "primereact/toast";
-import Loading from "../../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-
-import { appColors } from '../../../../colors';
-
-import NotFound from '../../../../app/layout/NotFound/NotFound';
+import { Menu } from "primereact/menu";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef } from "react";
+import { Navigate, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
 import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
+import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import PhenotypicScreenDiscussion from './PhenotypicScreenDiscussion/PhenotypicScreenDiscussion';
 import PhenotypicScreenSequences from "./PhenotypicScreenSequences/PhenotypicScreenSequences";
 import PhenotypicValidatedHits from "./PhenotypicValidatedHits/PhenotypicValidatedHits";
-import PhenotypicScreenDiscussion from './PhenotypicScreenDiscussion/PhenotypicScreenDiscussion';
 
 const PhenotypicScreenView = () => {
   const params = useParams();

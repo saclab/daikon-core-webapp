@@ -1,17 +1,16 @@
 import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
+    action,
+    computed,
+    makeObservable,
+    observable,
+    runInAction
 } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
-import uniprot from "../api/uniprot";
 import Ebi from "../api/ebi";
+import uniprot from "../api/uniprot";
 import {
-  _helper_formatLigands,
-  _helper_extractPdbCrossReference,
+    _helper_extractPdbCrossReference, _helper_formatLigands
 } from "./geneStore_Helper";
 
 export default class GeneStore {

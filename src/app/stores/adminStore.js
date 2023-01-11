@@ -1,12 +1,12 @@
 import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
+    action,
+    computed,
+    makeObservable,
+    observable,
+    runInAction
 } from "mobx";
-import agent from "../api/agent";
 import { toast } from "react-toastify";
+import agent from "../api/agent";
 
 export default class AdminStore {
   rootStore;

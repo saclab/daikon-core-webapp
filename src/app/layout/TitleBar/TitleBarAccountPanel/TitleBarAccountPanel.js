@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
 import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
+import React, { useContext } from "react";
 import { RootStoreContext } from "../../../stores/rootStore";
 
 const TitleBarAccountPanel = () => {

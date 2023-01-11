@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
 import { Fieldset } from "primereact/fieldset";
+import React, { useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import "./ScrollPanel.css";
-import PortfolioInformationGeneralInformation from "./LocalComponents/PortfolioInformationGeneralInformation";
-import PortfolioInformationDates from "./LocalComponents/PortfolioInformationDates";
-import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
-import PortfolioInformationPriority from "./PortfolioInformationPriority/PortfolioInformationPriority";
 import { BreadCrumb } from 'primereact/breadcrumb';
+import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
 import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
 import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from '../../../../colors';
+import PortfolioInformationDates from "./LocalComponents/PortfolioInformationDates";
+import PortfolioInformationGeneralInformation from "./LocalComponents/PortfolioInformationGeneralInformation";
+import PortfolioInformationPriority from "./PortfolioInformationPriority/PortfolioInformationPriority";
+import "./ScrollPanel.css";
 
 const PortfolioInformation = ({ id, project }) => {
   const navigate = useNavigate();

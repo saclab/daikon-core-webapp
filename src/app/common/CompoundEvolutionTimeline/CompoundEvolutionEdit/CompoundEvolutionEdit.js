@@ -1,16 +1,13 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
-import { InputTextarea } from "primereact/inputtextarea";
-import { ProgressBar } from "primereact/progressbar";
 import { Button } from "primereact/button";
-import { classNames } from "primereact/utils";
-import { observer } from "mobx-react-lite";
-
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { Calendar } from 'primereact/calendar';
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
+import { classNames } from "primereact/utils";
+import React, { useContext } from "react";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 import SmilesView from '../../SmilesView/SmilesView';
 import StageSelectDropdown from "../../StageSelectDropdown/StageSelectDropdown";
-import { Calendar } from 'primereact/calendar';
 
 const CompoundEvolutionEdit = ({ evolution, onHide }) => {
   let ce = evolution();
@@ -20,10 +17,8 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
-    editingCompoundEvolution,
     editCompoundEvolution,
     selectedProject,
-    loadingProject,
     fetchCompoundEvolution,
   } = rootStore.projectStore;
 

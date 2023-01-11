@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
-import { InputText } from 'primereact/inputtext';
 import { Divider } from "primereact/divider";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { appVersion } from "../../../../appVersion";
 import { RootStoreContext } from "../../../stores/rootStore";
 import cssClass from "../TitleBar.module.css";
-import { appVersion } from "../../../../appVersion";
 
 
 const TitleBarSidePanel = ({ toggle, user }) => {

@@ -1,6 +1,6 @@
+import { SplitButton } from "primereact/splitbutton";
 import React from "react";
 import Question from "../../../../app/common/Question/Question";
-import { SplitButton } from "primereact/splitbutton";
 
 const GenePromoteFormTractability = (props) => {
   const nextButtonItems = [

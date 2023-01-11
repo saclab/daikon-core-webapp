@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
-import { Sidebar } from "primereact/sidebar";
-import { Fieldset } from "primereact/fieldset";
-import { Button } from "primereact/button";
 import { observer } from "mobx-react-lite";
-import { Tag } from "primereact/tag";
-import { Divider } from "primereact/divider";
-import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
-import { InputTextarea } from "primereact/inputtextarea";
-import { RootStoreContext } from "../../stores/rootStore";
-import Loading from "../../layout/Loading/Loading";
-import StartDiscussion from "./StartDiscussion";
-import FDate from "../FDate/FDate";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+import { Divider } from "primereact/divider";
 import { Editor } from 'primereact/editor';
+import { Fieldset } from "primereact/fieldset";
+import { Sidebar } from "primereact/sidebar";
+import { Tag } from "primereact/tag";
+import React, { useContext, useEffect, useState } from "react";
+import Loading from "../../layout/Loading/Loading";
+import { RootStoreContext } from "../../stores/rootStore";
+import FDate from "../FDate/FDate";
+import StartDiscussion from "./StartDiscussion";
 
 const Discussion = ({ reference, section }) => {
   const rootStore = useContext(RootStoreContext);

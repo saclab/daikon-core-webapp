@@ -1,5 +1,5 @@
-import React from "react";
 import { SplitButton } from "primereact/splitbutton";
+import React from "react";
 import Question from "../../../../app/common/Question/Question";
 
 const GenePromoteFormImpactOfChemInhibit = (props) => {

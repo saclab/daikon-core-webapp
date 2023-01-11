@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
+import React, { useContext, useEffect } from "react";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 import { appColors } from "../../../colors";
 import TargetDashChart from "./TargetDashChart/TargetDashChart";
 import TargetDashTable from "./TargetDashTable/TargetDashTable";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 const TargetDash = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);

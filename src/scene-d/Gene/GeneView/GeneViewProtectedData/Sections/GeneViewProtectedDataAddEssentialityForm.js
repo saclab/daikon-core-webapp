@@ -1,10 +1,10 @@
-import React from 'react'
 import { useFormik } from 'formik';
-import { classNames } from "primereact/utils";
-import { InputText } from 'primereact/inputtext';
-import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
 import { Dropdown } from "primereact/dropdown";
+import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from 'primereact/inputtextarea';
+import { classNames } from "primereact/utils";
+import React from 'react';
 
 const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar }) => {
 

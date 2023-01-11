@@ -1,22 +1,22 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import cssClass from "./GenomePromote.module.css";
 import GenePromoteFormChemicalInhibition from "./GenePromoteFormChemicalInhibition/GenePromoteFormChemicalInhibition";
 import GenePromoteFormImpactOfGeneticInhibit from "./GenePromoteFormImpactOfGeneticInhibit/GenePromoteFormImpactOfGeneticInhibit";
 import GenePromoteFormLiabilities from "./GenePromoteFormLiabilities/GenePromoteFormLiabilities";
 import GenePromoteFormTractability from "./GenePromoteFormTractability/GenePromoteFormTractability";
+import cssClass from "./GenomePromote.module.css";
 
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
-import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
-import Success from "../../../app/common/Success/Success";
 import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
+import Success from "../../../app/common/Success/Success";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 import { appColors } from '../../../colors';
 import GenePromoteFormImpactOfChemInhibit from "./GenePromoteFormImpactOfChemInhibit/GenePromoteFormImpactOfChemInhibit";
+import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
 
 const GenePromote = () => {
   const toast = useRef(null);

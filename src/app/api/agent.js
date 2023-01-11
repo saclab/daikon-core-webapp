@@ -2,8 +2,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { appConfig } from "../../config";
 import history from "../../history";
-import AuthService from "../../services/AuthService";
 import AppSettingsService from "../../services/AppSettingsService";
+import AuthService from "../../services/AuthService";
 
 /* Check Pre Configuration */
 

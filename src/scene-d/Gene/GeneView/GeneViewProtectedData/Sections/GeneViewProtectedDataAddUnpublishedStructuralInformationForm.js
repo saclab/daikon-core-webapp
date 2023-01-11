@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { classNames } from "primereact/utils";
-import { InputText } from "primereact/inputtext";
+import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
+import { classNames } from "primereact/utils";
+import React, { useContext, useEffect } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
-import { observer } from "mobx-react-lite";
 
 const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
   add,

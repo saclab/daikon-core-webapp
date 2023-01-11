@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
-import { observer } from "mobx-react-lite";
-import { useNavigate } from "react-router-dom";
-import { Card } from "primereact/card";
-import { RadioButton } from "primereact/radiobutton";
-import { Dialog } from "primereact/dialog";
-import { Button } from "primereact/button";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { Inplace, InplaceDisplay, InplaceContent } from "primereact/inplace";
-import { InputText } from "primereact/inputtext";
 import _ from "lodash";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+import { Dialog } from "primereact/dialog";
+import { Inplace, InplaceContent, InplaceDisplay } from "primereact/inplace";
+import { InputText } from "primereact/inputtext";
+import { ProgressBar } from "primereact/progressbar";
+import { RadioButton } from "primereact/radiobutton";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
-import { ProgressBar } from "primereact/progressbar";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const GenePromoteTargetSelectionWindow = ({
   displayPromotionDialog,
