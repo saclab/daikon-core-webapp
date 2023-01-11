@@ -5,7 +5,7 @@ import agent from "../api/agent";
 export default class TargetStoreAdmin {
   rootStore;
   displayLoading = false;
-  editingTarget = false
+  editingTarget = false;
   targetRegistryAdmin = new Map();
   selectedTarget = null;
 
@@ -50,7 +50,7 @@ export default class TargetStoreAdmin {
           this.targetRegistryAdmin.set(id, fetchedTargetAdmin);
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.displayLoading = false;
@@ -76,10 +76,9 @@ export default class TargetStoreAdmin {
         this.fetchTargetAdmin(updatedTarget.id);
         console.log(updatedTarget);
         toast.success("Changes are saved");
-
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error(error.data.title);
     } finally {
       runInAction(() => {
@@ -100,7 +99,7 @@ export default class TargetStoreAdmin {
         console.log(res);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw error;
     } finally {
       runInAction(() => {
@@ -120,7 +119,7 @@ export default class TargetStoreAdmin {
         console.log(res);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw error;
     } finally {
       runInAction(() => {

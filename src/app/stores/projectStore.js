@@ -64,30 +64,26 @@ export default class ProjectStore {
       createUnlinkedProject: action,
 
       overrideStage: action,
-      overridingStage: observable
+      overridingStage: observable,
     });
   }
 
   fetchProjects = async () => {
-    console.log("projectStore: fetchProjects() Start");
     this.loadingProjects = true;
     if (this.projectRegistryCacheValid && this.projectRegistry.size !== 0) {
-      console.log("projectStore: fetchProjects() cache hit");
       this.loadingProjects = false;
       return;
     }
     try {
-      console.log("projectStore: fetchProjects() cache miss");
       var resp = await agent.Projects.list();
       runInAction(() => {
-        console.log(resp);
         resp.forEach((project) => {
           this.projectRegistry.set(project.id, project);
         });
         this.projectRegistryCacheValid = true;
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.loadingProjects = false;
@@ -96,7 +92,6 @@ export default class ProjectStore {
   };
 
   fetchProject = async (id) => {
-    console.log("projectStore: fetchProject Start for id " + id);
     this.loadingProject = true;
 
     // first check cache
@@ -108,50 +103,38 @@ export default class ProjectStore {
       fetchedProject = this.projectRegistryExpanded.get(id);
     }
     if (fetchedProject) {
-      console.log("projectStore: fetchProject found in cache");
-      console.log(fetchedProject);
       this.selectedProject = fetchedProject;
       this.loadingProject = false;
-      console.log(this.selectedProject);
     }
     // if not found fetch from api
     else {
       try {
         fetchedProject = await agent.Projects.details(id);
         runInAction(() => {
-          console.log("projectStore: fetchProject fetched from api");
-          console.log(fetchedProject);
           this.selectedProject = fetchedProject;
           this.projectRegistryExpanded.set(id, fetchedProject);
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.loadingProject = false;
-          console.log("projectStore: fetchProject Complete");
         });
       }
     }
   };
 
   projects = () => {
-    return Array.from(
-      this.rootStore.projectStore.projectRegistry.values()
-    )
+    return Array.from(this.rootStore.projectStore.projectRegistry.values());
   };
 
   fetchCompoundEvolution = async (projectId) => {
-    console.log(
-      "projectStore: fetchCompoundEvolution Start for id " + projectId
-    );
     this.loadingCompoundEvolution = true;
 
     // first check cache
     let fetchedCompoundEvolution =
       this.compoundEvolutionRegistry.get(projectId);
     if (this.compoundEvolutionRegistryCacheValid && fetchedCompoundEvolution) {
-      console.log("projectStore: fetchProject found in cache");
       this.selectedCompoundEvolution = fetchedCompoundEvolution;
       this.loadingCompoundEvolution = false;
     }
@@ -162,7 +145,6 @@ export default class ProjectStore {
           projectId
         );
         runInAction(() => {
-          console.log("projectStore: getcompoundevolution fetched from api");
           this.selectedCompoundEvolution = fetchedCompoundEvolution;
           this.compoundEvolutionRegistry.set(
             projectId,
@@ -170,19 +152,16 @@ export default class ProjectStore {
           );
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.loadingCompoundEvolution = false;
-          console.log("projectStore: getcompoundevolution Complete");
         });
       }
     }
   };
 
   addCompoundEvolution = async (newCompoundEvolution) => {
-    console.log("ProjectStore: addCompoundEvolution Start");
-    console.log(newCompoundEvolution);
     this.addingCompoundEvolution = true;
     let res = null;
     // send to server
@@ -196,20 +175,16 @@ export default class ProjectStore {
         this.compoundEvolutionRegistryCacheValid = false;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.addingCompoundEvolution = false;
-        console.log("ProjectStore: addCompoundEvolution Complete");
       });
     }
     return res;
   };
 
   editCompoundEvolution = async (editedCompoundEvolution) => {
-    console.log("ProjectStore: editCompoundEvolution Start");
-    console.log(editedCompoundEvolution);
     this.editingCompoundEvolution = true;
     let res = null;
     // send to server
@@ -224,20 +199,16 @@ export default class ProjectStore {
         this.compoundEvolutionRegistryCacheValid = false;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingCompoundEvolution = false;
-        console.log("ProjectStore: editCompoundEvolution Complete");
       });
     }
     return res;
   };
 
   setPriorityProbability = async (ppDTO) => {
-    console.log("ProjectStore: setPriorityProbability Start");
-
     this.settingPriorityProbability = true;
     let res = null;
     // send to server
@@ -252,78 +223,58 @@ export default class ProjectStore {
         this.fetchProject(this.selectedProject.id);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.settingPriorityProbability = false;
-        console.log("ProjectStore: setPriorityProbability Complete");
       });
     }
     return res;
   };
 
-
   editProject = async (project) => {
-    console.log("ProjectStore: editProject Start");
-
     this.editingProject = true;
     let res = null;
     // send to server
     try {
-      res = await agent.Projects.edit(
-        this.selectedProject.id,
-        project
-      );
+      res = await agent.Projects.edit(this.selectedProject.id, project);
       runInAction(() => {
         toast.success("Project successfully modified");
         this.projectRegistryCacheValid = false;
         this.fetchProject(this.selectedProject.id);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingProject = false;
-        console.log("ProjectStore: editProject Complete");
       });
     }
     return res;
   };
 
-
   terminateProject = async (project) => {
-    console.log("ProjectStore: terminateProject Start");
-
     this.editingProject = true;
     let res = null;
     // send to server
     try {
-      res = await agent.Projects.terminate(
-        this.selectedProject.id,
-        project
-      );
+      res = await agent.Projects.terminate(this.selectedProject.id, project);
       runInAction(() => {
         toast.success("Project successfully Terminated");
         this.projectRegistryCacheValid = false;
         this.fetchProject(this.selectedProject.id);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingProject = false;
-        console.log("ProjectStore: terminateProject Complete");
       });
     }
     return res;
   };
 
   createUnlinkedProject = async (newProject) => {
-    console.log("ProjectStore: createUnlinkedProject Start");
-
     this.creatingUnlinkedProject = true;
     let res = null;
     // send to server
@@ -334,21 +285,16 @@ export default class ProjectStore {
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.creatingUnlinkedProject = false;
-        console.log("ProjectStore: createUnlinkedProject Complete");
       });
     }
     return res;
   };
 
-
   overrideStage = async (overrideDTO) => {
-    console.log("ProjectStore: overrideStage Start");
-
     this.overridingStage = true;
     let res = null;
     // send to server
@@ -363,16 +309,12 @@ export default class ProjectStore {
         this.fetchProject(this.selectedProject.id);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.overridingStage = false;
-        console.log("ProjectStore: overrideStage Complete");
       });
     }
     return res;
   };
-
-
 }

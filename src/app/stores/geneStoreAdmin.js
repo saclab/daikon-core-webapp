@@ -29,13 +29,10 @@ export default class GeneStoreAdmin {
 
   /* Fetch Gene Promotions list from API */
   fetchGenePromotionList = async () => {
-    console.log("geneStoreAdmin: fetchGenePromotionList() Start");
     this.displayLoading = true;
     try {
       var resp = await agent.GeneAdmin.promotionRequests();
       runInAction(() => {
-        console.log("++++++++++++++++++++++++++++");
-        console.log(resp);
         resp.forEach((fetchedPromotionRequest) => {
           let formattedPromotionRequest = {
             targetName: fetchedPromotionRequest.targetName,
@@ -62,7 +59,7 @@ export default class GeneStoreAdmin {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.displayLoading = false;
@@ -71,16 +68,14 @@ export default class GeneStoreAdmin {
   };
 
   promoteGene = async (promotionReq) => {
-    console.log("geneStoreAdmin: promoteGene() Start");
     this.displayLoading = true;
     try {
       var res = await agent.TargetAdmin.create(promotionReq);
-
       runInAction(() => {
         console.log(res);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.displayLoading = false;
@@ -90,7 +85,6 @@ export default class GeneStoreAdmin {
   };
 
   createGeneGroup = async (geneGroup) => {
-    console.log("geneStoreAdmin: createGeneGroup() Start");
     this.creatingGeneGroup = true;
     try {
       var res = await agent.GeneAdmin.createGeneGroup(geneGroup);
@@ -100,7 +94,7 @@ export default class GeneStoreAdmin {
         this.creatingGeneGroup = false;
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.creatingGeneGroup = false;
@@ -110,12 +104,11 @@ export default class GeneStoreAdmin {
   };
 
   listGeneGroups = async () => {
-    console.log("geneStoreAdmin: createGeneGroup() Start");
     this.loadingGeneGroup = true;
     try {
       this.geneGroups = await agent.GeneAdmin.listGeneGroups();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.loadingGeneGroup = false;

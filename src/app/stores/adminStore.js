@@ -3,7 +3,7 @@ import {
   computed,
   makeObservable,
   observable,
-  runInAction
+  runInAction,
 } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
@@ -63,7 +63,7 @@ export default class AdminStore {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         //console.log("AdminStore -> displayLoading = false");
@@ -86,7 +86,7 @@ export default class AdminStore {
         this.fetchUsersList();
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.displayLoading = false;
@@ -103,7 +103,7 @@ export default class AdminStore {
         toast.success("New user added : " + user.displayName);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw error;
     } finally {
       runInAction(() => {
@@ -121,7 +121,7 @@ export default class AdminStore {
         this.selectedAccount = resp;
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.loadingAccount = false;
@@ -141,7 +141,7 @@ export default class AdminStore {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.LoadingOrgs = false;
@@ -166,7 +166,7 @@ export default class AdminStore {
         toast.success("New organization added : " + newOrg.name);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw error;
     } finally {
       runInAction(() => {
@@ -185,7 +185,7 @@ export default class AdminStore {
         toast.success("The org has been modified");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.LoadingOrgs = false;
@@ -204,7 +204,7 @@ export default class AdminStore {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.loadingRoles = false;
