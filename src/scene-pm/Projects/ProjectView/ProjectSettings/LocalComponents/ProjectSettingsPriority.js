@@ -43,7 +43,6 @@ const ProjectSettingsPriority = ({ project }) => {
       var editedProject = { ...project }
       editedProject.priority = data.priority;
       editedProject.probability = data.probability;
-      console.log(data)
       editProject(editedProject)
       // formik.resetForm();
     },

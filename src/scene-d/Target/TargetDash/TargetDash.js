@@ -14,7 +14,6 @@ const TargetDash = () => {
   /* Local State Management */
 
   useEffect(() => {
-    console.log("TargetSearch: fetchTargetList()");
     if (targets.length === 0) fetchTargetList();
   }, [fetchTargetList, targets]); // eslint-disable-line react-hooks/exhaustive-deps
 

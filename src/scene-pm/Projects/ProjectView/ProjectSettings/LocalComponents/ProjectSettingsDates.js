@@ -115,8 +115,6 @@ const ProjectSettingsDates = ({ project }) => {
 
       editedProject.clinicalP1Start = data.clinicalP1Start;
       editedProject.clinicalP1PredictedStart = data.clinicalP1PredictedStart;
-
-      console.log(data)
       editProject(editedProject)
     },
   });

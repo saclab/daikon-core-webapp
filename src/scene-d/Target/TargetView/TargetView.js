@@ -113,7 +113,6 @@ const TargetView = () => {
 
   /** Loading Overlay */
   if (displayLoading) {
-    console.log("Loading.....");
     return <Loading />;
   }
   if (target !== null) {

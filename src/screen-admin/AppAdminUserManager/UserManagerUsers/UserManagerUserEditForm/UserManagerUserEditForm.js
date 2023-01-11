@@ -18,14 +18,9 @@ const UserManagerUserEditForm = ({
   closeSideBar,
   user,
 }) => {
-  console.log("From unside Form: ->");
-  console.log(user);
-
   let userRoles = user.roles.map((roleName) =>
     roles.find((r) => r.name === roleName)
   );
-  console.log("userRoles");
-  console.log(userRoles);
 
   const formik = useFormik({
     initialValues: {
@@ -57,7 +52,6 @@ const UserManagerUserEditForm = ({
       data["id"] = user.email;
       data["orgId"] = data.org.id;
       data["roles"] = data.roles.map((role) => role.name);
-      console.log(data);
       editAccount(data)
         .then((resp) => {
           closeSideBar();
@@ -89,7 +83,9 @@ const UserManagerUserEditForm = ({
           >
             Email
           </label>
-          <p id="email"><b>{user.email}</b></p>
+          <p id="email">
+            <b>{user.email}</b>
+          </p>
         </div>
 
         <div className="field">
@@ -220,7 +216,6 @@ const UserManagerUserEditForm = ({
         />
       </form>
     </div>
-
   );
 };
 

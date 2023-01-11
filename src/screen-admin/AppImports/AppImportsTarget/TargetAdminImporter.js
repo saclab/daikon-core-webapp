@@ -16,7 +16,6 @@ const TargetAdminImporter = () => {
 
   const onCityChange = (e) => {
     setSelectedItem(e.value);
-    console.log(e.value)
   }
 
   var importer = () => {

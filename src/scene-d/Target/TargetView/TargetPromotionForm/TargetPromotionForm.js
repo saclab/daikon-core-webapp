@@ -2,12 +2,12 @@ import { observer } from "mobx-react-lite";
 import { Divider } from "primereact/divider";
 import React, { useContext, useEffect } from "react";
 
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { useNavigate } from 'react-router-dom';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { BreadCrumb } from "primereact/breadcrumb";
+import { useNavigate } from "react-router-dom";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { appColors } from '../../../../colors';
+import { appColors } from "../../../../colors";
 import GenePromoteSummaryAnswers from "../../../Gene/GenePromote/GenePromoteSummary/GenePromoteSummaryAnswers/GenePromoteSummaryAnswers";
 
 const TargetPromotionForm = ({ data, selectedTarget }) => {
@@ -28,24 +28,20 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
       label: selectedTarget.name,
       command: () => {
         navigate(`/d/target/${selectedTarget.id}`);
-      }
+      },
     },
     { label: "Promotion Info" },
   ];
-
 
   useEffect(() => {
     if (geneStore.promotionQuestionsRegistry.size === 0) {
       geneStore.getPromotionQuestions();
     }
-
-    console.log(geneStore.promotionQuestionsDisplayLoading);
   }, [
     geneStore.getPromotionQuestions,
     geneStore.promotionQuestionsDisplayLoading,
     geneStore,
   ]);
-
 
   if (geneStore.promotionQuestionsDisplayLoading || data === null) {
     return <Loading />;
@@ -65,7 +61,6 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
 
     return (
       <div className="flex flex-column w-full">
-
         <div className="flex w-full pb-2">
           <BreadCrumb model={breadCrumbItems} />
         </div>
@@ -568,9 +563,6 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
           </div>
         </div>
       </div>
-
-
-
     );
   }
 

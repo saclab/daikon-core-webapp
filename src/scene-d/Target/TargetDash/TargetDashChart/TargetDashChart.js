@@ -18,7 +18,6 @@ const TargetDashChart = () => {
     rootStore.dataViewStore;
 
   useEffect(() => {
-    console.log("AppBeta: fetchTargetList()");
     if (targetDash === null) loadTargetDash();
   }, [targetDash, loadTargetDash]); // eslint-disable-line react-hooks/exhaustive-deps
 

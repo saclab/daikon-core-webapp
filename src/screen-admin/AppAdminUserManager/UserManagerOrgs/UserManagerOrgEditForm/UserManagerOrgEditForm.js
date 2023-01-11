@@ -34,7 +34,6 @@ const UserManagerOrgEditForm = ({
     },
     onSubmit: (data) => {
       data["id"] = org.id;
-      console.log(data);
       editOrg(data)
         .then((resp) => {
 
