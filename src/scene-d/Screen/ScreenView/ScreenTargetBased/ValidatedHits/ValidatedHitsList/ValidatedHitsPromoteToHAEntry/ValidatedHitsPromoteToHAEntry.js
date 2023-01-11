@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Dropdown } from "primereact/dropdown";
@@ -7,11 +8,9 @@ import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { MultiSelect } from "primereact/multiselect";
 import { Steps } from "primereact/steps";
+import { classNames } from "primereact/utils";
 import React, { useContext, useRef, useState } from "react";
 import { toast } from "react-toastify";
-
-import { Calendar } from "primereact/calendar";
-import { classNames } from "primereact/utils";
 import SmilesView from "../../../../../../../app/common/SmilesView/SmilesView";
 import { RootStoreContext } from "../../../../../../../app/stores/rootStore";
 const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {
@@ -28,8 +27,6 @@ const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {
 
   const { creatingHA, createHA } = rootStore.haStore;
 
-  console.log("From ValidatedHitsPromoteToHAEntry");
-  console.log(compounds);
   const items = [
     {
       label: "Primary Structure Selection",
@@ -97,7 +94,10 @@ const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {
               onSelectionChange={(e) => setSelectedPrimaryHit(e.value)}
               dataKey="id"
             >
-              <Column field="compound.externalCompundIds" header="Compound Id" />
+              <Column
+                field="compound.externalCompundIds"
+                header="Compound Id"
+              />
               <Column field="clusterGroup" header="Cluster Group No" />
               <Column
                 field="Structure"
@@ -120,12 +120,10 @@ const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {
           </div>
         </div>
       </div>
-
     </div>
   );
 
   let validateAndMoveToStep2 = () => {
-    console.log(selectedPrimaryHit);
     if (selectedPrimaryHit === null) {
       toast.error("A primary compound needs to be selected");
       return;
@@ -171,20 +169,15 @@ const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {
     onSubmit: (data) => {
       setProjectInformationFormData(data);
 
-      console.log("S U B M I T =====");
       data.ScreenId = screen.id;
       data.baseHits = compounds;
       data.representationStructure = selectedPrimaryHit.compound;
       console.log(data);
       createHA(data).then((res) => {
-        console.log("res");
-        console.log(res);
-
         if (res !== null) {
           formik.resetForm();
           close();
         }
-
       });
     },
   });
@@ -360,9 +353,7 @@ const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {
                     className="p-button-success"
                   />
                 </div>
-
               </div>
-
             </form>
           </div>
         </div>
