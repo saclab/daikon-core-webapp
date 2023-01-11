@@ -39,9 +39,8 @@ const App = () => {
 
   useEffect(() => {
     if (authServiceInstance.account && !networkErr && !user && !userNotFound) {
-      //console.log("UseEffect getUser()");
       getUser().catch((e) => {
-        console.log("++++++++CAUGHT NETWORK ERROR");
+        console.log("CAUGHT NETWORK ERROR");
         setNetworkErr(true);
       });
 
@@ -110,12 +109,8 @@ const App = () => {
   }
 
   if (user) {
-    // console.log("Will render signedinUser");
-    // console.log(user);
-
     return signedInRender;
   }
 };
 
-//export default withRouter(observer(App));
 export default observer(App);

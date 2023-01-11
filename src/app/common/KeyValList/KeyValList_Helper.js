@@ -20,13 +20,9 @@ export function _helper_renderHistoryTimeline(
     );
   } else {
     if (history !== null) {
-      //console.log("Selected iD :" + selectedId);
       let historyId = _.upperFirst(_.camelCase(selectedId));
-      //console.log("historyID :" + historyId);
       let historyQuery = "[*propertyName=" + historyId + "]";
       let historyResult = JsonQuery(historyQuery, { data: history }).value;
-
-      //console.log(historyResult);
 
       if (_.isEmpty(historyResult)) {
         return (
@@ -142,8 +138,6 @@ export function _helper_generateEditForm(data, selectedId) {
         value={data ? data[selectedId] : null}
         autoFocus
         onChange={(e) => {
-          console.log(data[selectedId]);
-          console.log(e.target.value);
           runInAction(() => (data[selectedId] = e.target.value));
         }}
       />

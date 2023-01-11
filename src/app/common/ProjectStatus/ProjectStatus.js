@@ -1,7 +1,6 @@
 import React from "react";
 
 const ProjectStatus = ({ status }) => {
-  console.log(status);
   if (status === "Terminated") {
     return (
       <div>

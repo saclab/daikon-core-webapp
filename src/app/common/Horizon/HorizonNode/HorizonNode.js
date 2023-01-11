@@ -94,9 +94,6 @@ const HorizonNode = (dataObj) => {
 
     case "ProteinComplex":
       let accessionDisplay = [];
-
-      console.log(dataObj.dataObj.attributes.accessionNumbers.length);
-
       if (dataObj.dataObj.attributes.accessionNumbers.length > 5) {
         accessionDisplay = (
           <React.Fragment>

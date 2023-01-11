@@ -18,7 +18,6 @@ const Horizon = ({ accessionNumber, targetName }) => {
 
   useEffect(() => {
     if (targetName) {
-      console.log(targetName);
       if (
         selectedHorizon === null ||
         selectedHorizon.attributes.targetName !== targetName
@@ -28,7 +27,6 @@ const Horizon = ({ accessionNumber, targetName }) => {
     }
 
     if (accessionNumber) {
-      console.log(accessionNumber);
       if (
         selectedHorizon === null ||
         selectedHorizon.attributes.accessionNumber !== accessionNumber
@@ -53,9 +51,6 @@ const Horizon = ({ accessionNumber, targetName }) => {
   }
 
   if (!generatingHorizon && selectedHorizon !== null) {
-    console.log(
-      "No of keys : " + JSON.stringify(selectedHorizon).match(/[^\\]":/g).length
-    );
     const nodeSize = {
       x: 230,
       y: 200,

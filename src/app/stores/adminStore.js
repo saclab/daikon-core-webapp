@@ -1,9 +1,9 @@
 import {
-    action,
-    computed,
-    makeObservable,
-    observable,
-    runInAction
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction
 } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
@@ -47,7 +47,7 @@ export default class AdminStore {
       Orgs: computed,
       OrgNames: computed,
       LoadingOrgs: observable,
-      updateOrg: action
+      updateOrg: action,
     });
   }
 
@@ -59,7 +59,6 @@ export default class AdminStore {
       runInAction(() => {
         this.userRegistry.clear();
         resp.forEach((user) => {
-          
           this.userRegistry.set(user.id, user);
         });
       });
@@ -82,11 +81,9 @@ export default class AdminStore {
     try {
       var resp = await agent.Accounts.editAccount(user);
       runInAction(() => {
-        
         toast.success("The user has been modified");
-        console.log("FROM ADMIN STORE:updateUser");
+
         this.fetchUsersList();
-        console.log(resp);
       });
     } catch (error) {
       console.log(error);
@@ -98,9 +95,6 @@ export default class AdminStore {
   };
 
   addUser = async (user) => {
-    console.log("Admin Store : adding account for :");
-    console.log(user);
-
     this.loadingAccount = true;
     try {
       var resp = await agent.Accounts.createAccount(user);
@@ -120,20 +114,16 @@ export default class AdminStore {
   };
 
   fetchAccount = async (email) => {
-    console.log("Admin Store : fetching account for :");
-    console.log(email);
     this.loadingAccount = true;
     try {
       var resp = await agent.Accounts.details(email);
       runInAction(() => {
-        console.log(resp);
         this.selectedAccount = resp;
       });
     } catch (error) {
       console.log(error);
     } finally {
       runInAction(() => {
-        //console.log("AdminStore -> displayLoading = false");
         this.loadingAccount = false;
       });
     }
@@ -154,7 +144,6 @@ export default class AdminStore {
       console.log(error);
     } finally {
       runInAction(() => {
-        //console.log("AdminStore -> displayLoading = false");
         this.LoadingOrgs = false;
       });
     }
@@ -169,9 +158,6 @@ export default class AdminStore {
   }
 
   addOrg = async (newOrg) => {
-    console.log("Admin Store : adding addOrg :");
-    console.log(newOrg);
-
     this.LoadingOrgs = true;
     try {
       var resp = await agent.Accounts.createOrg(newOrg);
@@ -191,16 +177,12 @@ export default class AdminStore {
   };
 
   updateOrg = async (org) => {
-    console.log("Admin Store : updating addOrg :");
-    console.log(org);
     this.LoadingOrgs = true;
     try {
       var resp = await agent.Accounts.editOrg(org.id, org);
       runInAction(() => {
         this.fetchOrgs();
         toast.success("The org has been modified");
-        console.log("FROM ADMIN STORE:updateOrg");
-        console.log(resp);
       });
     } catch (error) {
       console.log(error);
@@ -225,7 +207,6 @@ export default class AdminStore {
       console.log(error);
     } finally {
       runInAction(() => {
-        //console.log("AdminStore -> displayLoading = false");
         this.loadingRoles = false;
       });
     }

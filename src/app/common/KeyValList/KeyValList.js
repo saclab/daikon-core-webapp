@@ -9,12 +9,19 @@ import { StartCase } from "react-lodash";
 import "./KeyValueList.css";
 
 import {
-    _command_contextMenuClearHilightsCommand, _command_contextMenuCopyCommand, _command_contextMenuEditCommand, _command_contextMenuFetchHistoryCommand,
-    _command_contextMenuHilightAllChangesCommand,
-    _command_contextMenuHilightRecentChangesCommand
+  _command_contextMenuClearHilightsCommand,
+  _command_contextMenuCopyCommand,
+  _command_contextMenuEditCommand,
+  _command_contextMenuFetchHistoryCommand,
+  _command_contextMenuHilightAllChangesCommand,
+  _command_contextMenuHilightRecentChangesCommand
 } from "./KeyValList_Command";
 import {
-    _helper_filterHilightChanged, _helper_generateEditForm, _helper_renderFooterOfEditDialog, _helper_renderHeaderofEditDialog, _helper_renderHistoryTimeline
+  _helper_filterHilightChanged,
+  _helper_generateEditForm,
+  _helper_renderFooterOfEditDialog,
+  _helper_renderHeaderofEditDialog,
+  _helper_renderHistoryTimeline
 } from "./KeyValList_Helper";
 
 const KeyValList = ({
@@ -141,8 +148,6 @@ const KeyValList = ({
   /* * * * * * */
 
   const openContextMenu = (e) => {
-    console.log("ID");
-    console.log(e);
     setSelectedId(e.target.id);
     cm.current.show(e);
   };
