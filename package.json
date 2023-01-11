@@ -41,6 +41,9 @@
     "xml-js": "~1.6.11",
     "xml2json": "~0.12.0"
   },
+  "browser": {
+    "stream": false
+  },
   "resolutions": {
     "//": "See https://github.com/facebook/create-react-app/issues/11773",
     "react-error-overlay": "6.0.9"
