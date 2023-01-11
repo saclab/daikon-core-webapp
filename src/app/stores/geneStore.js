@@ -159,7 +159,7 @@ export default class GeneStore {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.geneFunctionalCategories = [
@@ -194,7 +194,7 @@ export default class GeneStore {
           this.geneRegistryExpanded.set(id, fetchedGene);
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.displayLoading = false;
@@ -214,7 +214,7 @@ export default class GeneStore {
         this.geneRegistryExpanded.set(id, fetchedGene);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.displayLoading = false;
@@ -251,7 +251,7 @@ export default class GeneStore {
           this.selectedGeneHistory = fetchedGeneHistory;
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.historyDisplayLoading = false;
@@ -331,7 +331,7 @@ export default class GeneStore {
         });
       } catch (error) {
         console.log("PDB Error Catch");
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.uniprotDisplayLoading = false;
@@ -356,7 +356,7 @@ export default class GeneStore {
         this.geneHistoryRegistry.delete(updatedGene.id);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.displayLoading = false;
@@ -389,7 +389,7 @@ export default class GeneStore {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.promotionQuestionsDisplayLoading = false;
@@ -407,7 +407,7 @@ export default class GeneStore {
     try {
       res = await agent.Gene.submitPromotionQuestionaire(targetName, data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.promotionQuestionsDisplayLoading = false;
@@ -430,7 +430,7 @@ export default class GeneStore {
         toast.success("Ok, edited essentiality data.");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingEssentiality = false;
@@ -448,7 +448,7 @@ export default class GeneStore {
         toast.success("Ok, added new essentiality");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.addingEssentiality = false;
@@ -470,7 +470,7 @@ export default class GeneStore {
         toast.success("Ok, edited ProteinProduction data.");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingProteinProduction = false;
@@ -491,7 +491,7 @@ export default class GeneStore {
         toast.success("Ok, added new ProteinProduction");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.addingProteinProduction = false;
@@ -513,7 +513,7 @@ export default class GeneStore {
         toast.success("Ok, edited ProteinActivityAssay data.");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingProteinActivityAssay = false;
@@ -534,7 +534,7 @@ export default class GeneStore {
         toast.success("Ok, added new ProteinActivityAssay");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.addingProteinActivityAssay = false;
@@ -556,7 +556,7 @@ export default class GeneStore {
         toast.success("Ok, edited CRISPRiStrain data.");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingCRISPRiStrain = false;
@@ -574,7 +574,7 @@ export default class GeneStore {
         toast.success("Ok, added new CRISPRiStrain");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.addingCRISPRiStrain = false;
@@ -596,7 +596,7 @@ export default class GeneStore {
         toast.success("Ok, edited ResistanceMutation data.");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingResistanceMutation = false;
@@ -617,7 +617,7 @@ export default class GeneStore {
         toast.success("Ok, added new ResistanceMutation");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.addingResistanceMutation = false;
@@ -639,7 +639,7 @@ export default class GeneStore {
         toast.success("Ok, edited UnpublishedStructures data.");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingUnpublishedStructures = false;
@@ -660,7 +660,7 @@ export default class GeneStore {
         toast.success("Ok, added new UnpublishedStructures");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.addingUnpublishedStructures = false;
@@ -682,7 +682,7 @@ export default class GeneStore {
         toast.success("Ok, edited vulnerability data.");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingVulnerabiliity = false;
@@ -700,7 +700,7 @@ export default class GeneStore {
         toast.success("Ok, added new vulnerability");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.addingVulnerabiliity = false;
@@ -722,7 +722,7 @@ export default class GeneStore {
         toast.success("Ok, edited hypomorph data.");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingHypomorph = false;
@@ -740,7 +740,7 @@ export default class GeneStore {
         toast.success("Ok, added new Hypomorph");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.addingHypomorph = false;
@@ -749,8 +749,6 @@ export default class GeneStore {
   };
 
   validateTargetName = async (proposedTargetName) => {
-    console.log("geneStore: validatedTargetName() Start");
-
     this.validateTargetNameLoading = true;
     this.proposedTargetNameValidated = "";
     try {
@@ -758,7 +756,7 @@ export default class GeneStore {
         proposedTargetName
       );
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.validateTargetNameLoading = false;
@@ -775,12 +773,11 @@ export default class GeneStore {
   };
 
   searchGeneGroup = async (geneId) => {
-    console.log("geneStore: searchGeneGroup() Start");
     this.searchingGeneGroup = true;
     try {
       this.searchedGeneGroup = await agent.Gene.searchByIdGeneGroup(geneId);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.searchingGeneGroup = false;

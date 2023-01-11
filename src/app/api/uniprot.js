@@ -3,27 +3,23 @@ import { toast } from "react-toastify";
 import history from "../../history";
 const convertXmlToJson = require("xml-js");
 
-
-
 /* Uniport API Service Settings */
 var axiosUniprotInstance = new axios.create({
   headers: {
-    'Content-Type': 'application/json;charset=UTF-8'
-  }
+    "Content-Type": "application/json;charset=UTF-8",
+  },
 });
 axiosUniprotInstance.defaults.baseURL = "https://rest.uniprot.org/uniprotkb/";
 
 /* Format response body */
-const responseBody = (response) => convertXmlToJson.xml2js(response.data, { compact: true, spaces: 4 });
+const responseBody = (response) =>
+  convertXmlToJson.xml2js(response.data, { compact: true, spaces: 4 });
 //const responseBody = (response) => response.data;
-
-
 
 /* TYPES OF REQUESTES SUPPORTED */
 const requests = {
   get: (url) => axiosUniprotInstance.get(url).then(responseBody),
-  post: (url, body) =>
-    axiosUniprotInstance.post(url, body).then(responseBody),
+  post: (url, body) => axiosUniprotInstance.post(url, body).then(responseBody),
   put: (url, body) => axiosUniprotInstance.put(url, body).then(responseBody),
   del: (url) => axiosUniprotInstance.delete(url).then(responseBody),
 };
@@ -31,7 +27,7 @@ const requests = {
 
 /* API ERROR HANDLING */
 axiosUniprotInstance.interceptors.response.use(undefined, (error) => {
-  //console.log(error);
+  //console.error(error);
   if (!error.response) {
     toast.error(
       "Uniprot API Error : Can't connect to server. Displaying locally cached data."
@@ -78,9 +74,8 @@ const Pdb = {
   crossReference: (uniprotId) => requests.get(`${uniprotId}.xml`),
 };
 
-
 const exports = {
-  Pdb
+  Pdb,
 };
 
 export default exports;

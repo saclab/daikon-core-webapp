@@ -39,7 +39,7 @@ export default class DiscussionStore {
       this.discussions = [];
       this.discussions = await agent.Discussion.list(reference);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.loadingDiscussions = false;
@@ -61,7 +61,7 @@ export default class DiscussionStore {
         this.fetchDiscussions(discussion.reference);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.postingDiscussion = false;
@@ -83,7 +83,7 @@ export default class DiscussionStore {
         this.fetchDiscussions(discussion.reference);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingDiscussion = false;
@@ -105,7 +105,7 @@ export default class DiscussionStore {
         this.fetchDiscussions(discussion.reference);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.postingReply = false;

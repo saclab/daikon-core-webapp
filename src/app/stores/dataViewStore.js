@@ -25,7 +25,7 @@ export default class DataViewStore {
         this.targetDash = await agent.DataView.targetDash();
       } catch (error) {
         this.targetDash = null;
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.loadingTargetDash = false;

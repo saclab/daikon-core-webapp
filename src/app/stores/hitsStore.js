@@ -19,7 +19,6 @@ export default class HitsStore {
   }
 
   newHit = async (hit) => {
-    console.log("HitStore: newHit() Start");
     this.postingHit = true;
 
     let res = null;
@@ -31,20 +30,16 @@ export default class HitsStore {
         //console.log(res);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.postingHit = false;
-        console.log("HitStore: newHit() End");
       });
     }
-    console.log(res);
     return res;
   };
 
   updateHit = async (hit) => {
-    console.log("HitStore: updateHit() Start");
     this.updatingHit = true;
 
     let res = null;
@@ -56,15 +51,12 @@ export default class HitsStore {
         //console.log(res);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.updatingHit = false;
-        console.log("HitStore: updateHit() End");
       });
     }
-    console.log(res);
     return res;
   };
 }

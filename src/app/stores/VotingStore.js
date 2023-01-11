@@ -38,7 +38,7 @@ export default class VotingStore {
       });
     } catch (error) {
       console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.enablingVoting = false;
@@ -63,7 +63,7 @@ export default class VotingStore {
       });
     } catch (error) {
       console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.freezingVoting = false;
@@ -88,7 +88,7 @@ export default class VotingStore {
       });
     } catch (error) {
       console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.voting = false;

@@ -1,9 +1,9 @@
 import {
-    action,
-    computed,
-    makeObservable,
-    observable,
-    runInAction
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
 } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
@@ -49,8 +49,7 @@ export default class TargetStore {
       targetHistory: computed,
 
       editTargetSummary: action,
-      cancelEditTargetSummary: action
-
+      cancelEditTargetSummary: action,
     });
   }
 
@@ -82,7 +81,7 @@ export default class TargetStore {
         console.log(this.targetRegistry);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.displayLoading = false;
@@ -126,7 +125,7 @@ export default class TargetStore {
           this.targetRegistryExpanded.set(id, fetchedTarget);
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.displayLoading = false;
@@ -167,7 +166,7 @@ export default class TargetStore {
         console.log(this.questionsRegistry);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.questionsLoading = false;
@@ -191,7 +190,7 @@ export default class TargetStore {
         );
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.rootStore.screenStore.screenRegistryCacheValid = false;
@@ -201,7 +200,6 @@ export default class TargetStore {
     }
     return res;
   };
-
 
   fetchTargetHistory = async () => {
     console.log("targetStore: fetchTargetHistory Start");
@@ -229,7 +227,7 @@ export default class TargetStore {
           this.selectedTargetHistory = fetchedTargetHistory;
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.historyDisplayLoading = false;
@@ -237,12 +235,11 @@ export default class TargetStore {
         });
       }
     }
-  }
+  };
 
   get targetHistory() {
     return this.selectedTargetHistory;
   }
-
 
   editTargetSummary = async () => {
     console.log("targetStore: editTargetSummary Start");
@@ -254,12 +251,11 @@ export default class TargetStore {
       updatedTarget = await agent.TargetAdmin.editSummary(this.selectedTarget);
       runInAction(() => {
         console.log("targetStore: fetchTarget fetched from api");
-        this.targetRegistryExpanded.delete(updatedTarget.id)
-        this.fetchTarget(updatedTarget.id)
-
+        this.targetRegistryExpanded.delete(updatedTarget.id);
+        this.fetchTarget(updatedTarget.id);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.displayLoading = false;
@@ -270,6 +266,8 @@ export default class TargetStore {
 
   cancelEditTargetSummary = () => {
     console.log("targetStore: cancelEditTargetSummary");
-    this.selectedTarget = this.targetRegistryExpanded.get(this.selectedTarget.id);
+    this.selectedTarget = this.targetRegistryExpanded.get(
+      this.selectedTarget.id
+    );
   };
 }

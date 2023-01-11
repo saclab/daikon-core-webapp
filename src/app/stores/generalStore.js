@@ -52,7 +52,7 @@ export default class GeneralStore {
             "rem";
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.generatingHorizon = false;
@@ -86,7 +86,7 @@ export default class GeneralStore {
             "rem";
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.generatingHorizon = false;
@@ -103,7 +103,7 @@ export default class GeneralStore {
         this.appVars = fetchedAppVars;
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.fetchingAppVars = false;

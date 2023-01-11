@@ -1,9 +1,4 @@
-import {
-    action,
-    makeObservable,
-    observable,
-    runInAction
-} from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 
 import { toast } from "react-toastify";
 import agent from "../api/agent";
@@ -13,7 +8,6 @@ export default class PostPortfolioStore {
 
   creatingIND = false;
   creatingP1 = false;
-
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -29,8 +23,6 @@ export default class PostPortfolioStore {
   }
 
   createIND = async (newIND) => {
-    console.log("PostPortfolioStore: createIND Start");
-    console.log(newIND);
     this.creatingIND = true;
     let res = null;
     // send to server
@@ -44,20 +36,16 @@ export default class PostPortfolioStore {
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.creatingIND = false;
-        console.log("PortfolioStore: createIND Complete");
       });
     }
     return res;
   };
 
   createP1 = async (newP1) => {
-    console.log("PortfolioStore: createP1 Start");
-    console.log(newP1);
     this.creatingP1 = true;
     let res = null;
     // send to server
@@ -71,26 +59,20 @@ export default class PostPortfolioStore {
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.creatingP1 = false;
-        console.log("PortfolioStore: createP1 Complete");
       });
     }
     return res;
   };
 
-
   filterPostPortfolioProjects = () => {
     return Array.from(
       this.rootStore.projectStore.projectRegistry.values()
     ).filter((project) => {
-      return (
-        project.currentStage === "IND" ||
-        project.currentStage === "P1"
-      );
+      return project.currentStage === "IND" || project.currentStage === "P1";
     });
   };
 }
