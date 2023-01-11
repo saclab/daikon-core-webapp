@@ -40,7 +40,7 @@ const App = () => {
   useEffect(() => {
     if (authServiceInstance.account && !networkErr && !user && !userNotFound) {
       getUser().catch((e) => {
-        console.log("CAUGHT NETWORK ERROR");
+        console.error("CAUGHT NETWORK ERROR");
         setNetworkErr(true);
       });
 

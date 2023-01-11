@@ -19,12 +19,15 @@ class AppSettingsService {
   GetMsalStoreAuthInCookie() {
     let stringValue = appConfig.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE;
 
-    if(typeof stringValue == 'undefined' || stringValue === null || stringValue === undefined)
-    {
-      console.log("GetMsalStoreAuthInCookie INVALID CONF")
+    if (
+      typeof stringValue == "undefined" ||
+      stringValue === null ||
+      stringValue === undefined
+    ) {
+      console.error("GetMsalStoreAuthInCookie INVALID CONF");
       return false;
     }
-    
+
     if (stringValue.toLowerCase() === "true") {
       return true;
     } else if (stringValue.toLowerCase() === "false") {
@@ -33,7 +36,7 @@ class AppSettingsService {
       // throw new Error(
       //   "MSAL_AUTH_STATE_IN_COOKIE setting is not a valid boolean."
       // );
-      console.log("GetMsalStoreAuthInCookie INVALID CONF")
+      console.error("GetMsalStoreAuthInCookie INVALID CONF");
       return false;
     }
   }
