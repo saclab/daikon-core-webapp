@@ -1,16 +1,17 @@
 import {
-    action,
-    computed,
-    makeObservable,
-    observable,
-    runInAction
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
 } from "mobx";
 import { toast } from "react-toastify";
 import agent from "../api/agent";
 import Ebi from "../api/ebi";
 import uniprot from "../api/uniprot";
 import {
-    _helper_extractPdbCrossReference, _helper_formatLigands
+  _helper_extractPdbCrossReference,
+  _helper_formatLigands,
 } from "./geneStore_Helper";
 
 export default class GeneStore {
@@ -145,9 +146,7 @@ export default class GeneStore {
 
   /* Fetch Gene list from API */
   fetchGeneList = async () => {
-    console.log("geneStore: fetchGeneList() Start");
     if (this.geneRegistry.size !== 0) {
-      console.log("geneStore: fetchGeneList() cache hit");
       this.displayLoading = false;
       return;
     }
@@ -155,11 +154,9 @@ export default class GeneStore {
     try {
       var resp = await agent.Gene.list();
       runInAction(() => {
-        console.log(resp);
         resp.forEach((fetchedGene) => {
           this.geneRegistry.set(fetchedGene.id, fetchedGene);
         });
-        console.log(this.geneRegistry);
       });
     } catch (error) {
       console.log(error);
@@ -174,22 +171,17 @@ export default class GeneStore {
   };
 
   get genes() {
-    console.log("geneStore: genes() Start");
     return Array.from(this.geneRegistry.values());
   }
 
   /* Fetch specific Gene with id from API */
 
   fetchGene = async (id) => {
-    console.log("geneStore: fetchGene Start");
     this.displayLoading = true;
 
     // first check cache
     let fetchedGene = this.geneRegistryExpanded.get(id);
-    console.log("CACHE");
-    console.log(fetchedGene);
     if (fetchedGene && fetchedGene.hasOwnProperty("genePublicData")) {
-      console.log("geneStore: fetchGene found in cache");
       this.selectedGene = fetchedGene;
       this.displayLoading = false;
     }
@@ -198,8 +190,6 @@ export default class GeneStore {
       try {
         fetchedGene = await agent.Gene.view(id);
         runInAction(() => {
-          console.log("geneStore: fetchGene fetched from api");
-          console.log(this.selectedGene);
           this.selectedGene = fetchedGene;
           this.geneRegistryExpanded.set(id, fetchedGene);
         });
@@ -208,7 +198,6 @@ export default class GeneStore {
       } finally {
         runInAction(() => {
           this.displayLoading = false;
-          console.log("geneStore: fetchGene Complete");
         });
       }
     }
@@ -217,13 +206,10 @@ export default class GeneStore {
   reloadGene = async (id) => {
     id = id === null ? this.selectedGene.id : id;
 
-    console.log("geneStore: reloadGene Start");
     this.displayLoading = true;
     try {
       let fetchedGene = await agent.Gene.view(id);
       runInAction(() => {
-        console.log("geneStore: reloadGene fetched from api");
-        console.log(this.selectedGene);
         this.selectedGene = fetchedGene;
         this.geneRegistryExpanded.set(id, fetchedGene);
       });
@@ -232,7 +218,6 @@ export default class GeneStore {
     } finally {
       runInAction(() => {
         this.displayLoading = false;
-        console.log("geneStore: reloadGene Complete");
       });
     }
   };
@@ -248,16 +233,12 @@ export default class GeneStore {
   /* Gene History */
 
   fetchGeneHistory = async () => {
-    console.log("geneStore: fetchGeneHistory Start");
     this.historyDisplayLoading = true;
     let id = this.selectedGene.id;
 
     // first check cache
     let fetchedGeneHistory = this.geneHistoryRegistry.get(id);
-    console.log("CACHE");
-    console.log(fetchedGeneHistory);
     if (fetchedGeneHistory) {
-      console.log("geneStore: fetchedGeneHistory found in cache");
       this.historyDisplayLoading = false;
       this.selectedGeneHistory = fetchedGeneHistory;
     }
@@ -266,9 +247,6 @@ export default class GeneStore {
       try {
         fetchedGeneHistory = await agent.Gene.history(id);
         runInAction(() => {
-          console.log("geneStore: fetchGeneHistory fetched from api");
-          console.log(fetchedGeneHistory);
-
           this.geneHistoryRegistry.set(id, fetchedGeneHistory);
           this.selectedGeneHistory = fetchedGeneHistory;
         });
@@ -277,7 +255,6 @@ export default class GeneStore {
       } finally {
         runInAction(() => {
           this.historyDisplayLoading = false;
-          console.log("geneStore: fetchGeneHistory Complete");
         });
       }
     }
@@ -292,18 +269,19 @@ export default class GeneStore {
   /* Fetch PDB cross reference with id from API */
 
   fetchPdbCrossReference = async (accessionNumber) => {
-    console.log("geneStore: fetchPdbCrossReference Start");
     this.uniprotDisplayLoading = true;
 
-    let uniProtIdObj = this.selectedGene.geneExternalIds.find(o => o.externalIdRef === 'UniProt');
+    let uniProtIdObj = this.selectedGene.geneExternalIds.find(
+      (o) => o.externalIdRef === "UniProt"
+    );
     if (uniProtIdObj === null) {
       console.log("UniProt Id is not found returning...");
       this.uniprotDisplayLoading = false;
       this.selectedPdbCrossReference = null;
       return;
     }
-    let uniProtId = uniProtIdObj?.externalId
-    if (uniProtId === '') {
+    let uniProtId = uniProtIdObj?.externalId;
+    if (uniProtId === "") {
       console.log("UniProt Id is not found returning...");
       this.uniprotDisplayLoading = false;
       this.selectedPdbCrossReference = null;
@@ -315,25 +293,17 @@ export default class GeneStore {
 
     // check cache
     if (fetchedPdbCrossReference) {
-      console.log("geneStore: fetchPdbCrossReference Cache hit");
       this.selectedPdbCrossReference = fetchedPdbCrossReference;
       this.uniprotDisplayLoading = false;
     } else {
       try {
-        console.log("geneStore: fetchPdbCrossReference Cache miss");
-
-
         // fetch from api
-        fetchedPdbCrossReference = await uniprot.Pdb.crossReference(
-          uniProtId
-        );
+        fetchedPdbCrossReference = await uniprot.Pdb.crossReference(uniProtId);
 
-        
         // from the bulk of data extract the Crossreference part
         let fetchedPdbCrossReferenceArray = _helper_extractPdbCrossReference(
           fetchedPdbCrossReference
         );
-
 
         // Now add ligands to each protein
         let fetchedPdbCrossReferenceArrayWithLigand = [];
@@ -346,7 +316,6 @@ export default class GeneStore {
             nobj.ligands = _helper_formatLigands(ligands);
 
             fetchedPdbCrossReferenceArrayWithLigand.push(nobj);
-            console.log(nobj);
           })
         );
 
@@ -359,16 +328,13 @@ export default class GeneStore {
             accessionNumber: accessionNumber,
             data: fetchedPdbCrossReferenceArrayWithLigand,
           };
-          console.log(this.fetchedPdbCrossReferenceArrayWithLigand);
         });
       } catch (error) {
-        console.log("PDB Error Catch")
+        console.log("PDB Error Catch");
         console.log(error);
-
       } finally {
         runInAction(() => {
           this.uniprotDisplayLoading = false;
-          console.log("geneStore: fetchPdbCrossReference Complete");
         });
       }
     }
@@ -379,16 +345,12 @@ export default class GeneStore {
   }
 
   editGene = async () => {
-    console.log("geneStore: editGene Start");
     this.displayLoading = true;
     let updatedGene = null;
-    console.log(this.selectedGene);
     // send to server
     try {
       updatedGene = await agent.Gene.edit(this.selectedGene);
       runInAction(() => {
-        console.log("geneStore: fetchGene fetched from api");
-        console.log(this.selectedGene);
         this.selectedGene = updatedGene;
         this.geneRegistryExpanded.set(updatedGene.id, updatedGene);
         this.geneHistoryRegistry.delete(updatedGene.id);
@@ -398,19 +360,16 @@ export default class GeneStore {
     } finally {
       runInAction(() => {
         this.displayLoading = false;
-        console.log("geneStore: edit Complete");
       });
     }
   };
 
   cancelEditGene = () => {
-    console.log("geneStore: cancelEditGene");
     this.selectedGene = this.geneRegistryExpanded.get(this.selectedGene.id);
   };
 
   /* get Promotion Questions from API */
   getPromotionQuestions = async () => {
-    console.log("geneStore: fetchPromotionQuestions() Start");
     this.promotionQuestionsDisplayLoading = true;
     // check cache
     if (!this.promotionQuestionsRegistry.size === 0) {
@@ -422,14 +381,12 @@ export default class GeneStore {
     try {
       var resp = await agent.Gene.promotionQuestions();
       runInAction(() => {
-        console.log(resp);
         resp.forEach((fetchedPromotionQuestion) => {
           this.promotionQuestionsRegistry.set(
             fetchedPromotionQuestion.identification,
             fetchedPromotionQuestion
           );
         });
-        console.log(this.promotionQuestionsRegistry);
       });
     } catch (error) {
       console.log(error);
@@ -443,7 +400,6 @@ export default class GeneStore {
 
   /* submit Promotion Questionaire from API */
   submitPromotionQuestionaire = async (targetName, data) => {
-    console.log("geneStore: submitPromotionQuestionaire Start");
     this.promotionQuestionsDisplayLoading = true;
     let res = null;
 
@@ -455,15 +411,12 @@ export default class GeneStore {
     } finally {
       runInAction(() => {
         this.promotionQuestionsDisplayLoading = false;
-        console.log("geneStore: submitPromotionQuestionaire Complete");
       });
     }
     return res;
   };
 
   editEssentiality = async (editedEssentiality) => {
-    console.log("geneStore: editEssentiality Start");
-
     this.editingEssentiality = true;
     // send to server
     try {
@@ -486,8 +439,6 @@ export default class GeneStore {
   };
 
   addEssentiality = async (newEssentiality) => {
-    console.log("geneStore: addEssentiality Start");
-
     this.addingEssentiality = true;
     // send to server
     try {
@@ -506,8 +457,6 @@ export default class GeneStore {
   };
 
   editProteinProduction = async (editedProteinProduction) => {
-    console.log("geneStore: editProteinProduction Start");
-
     this.editingProteinProduction = true;
     // send to server
     try {
@@ -530,8 +479,6 @@ export default class GeneStore {
   };
 
   addProteinProduction = async (newProteinProduction) => {
-    console.log("geneStore: addProteinProduction Start");
-
     this.addingProteinProduction = true;
     // send to server
     try {
@@ -553,8 +500,6 @@ export default class GeneStore {
   };
 
   editProteinActivityAssay = async (editedProteinActivityAssay) => {
-    console.log("geneStore: editProteinActivityAssay Start");
-
     this.editingProteinActivityAssay = true;
     // send to server
     try {
@@ -577,8 +522,6 @@ export default class GeneStore {
   };
 
   addProteinActivityAssay = async (newProteinActivityAssay) => {
-    console.log("geneStore: addProteinActivityAssay Start");
-
     this.addingProteinActivityAssay = true;
     // send to server
     try {
@@ -600,8 +543,6 @@ export default class GeneStore {
   };
 
   editCRISPRiStrain = async (editedCRISPRiStrain) => {
-    console.log("geneStore: editCRISPRiStrain Start");
-
     this.editingCRISPRiStrain = true;
     // send to server
     try {
@@ -624,8 +565,6 @@ export default class GeneStore {
   };
 
   addCRISPRiStrain = async (newCRISPRiStrain) => {
-    console.log("geneStore: addCRISPRiStrain Start");
-
     this.addingCRISPRiStrain = true;
     // send to server
     try {
@@ -644,8 +583,6 @@ export default class GeneStore {
   };
 
   editResistanceMutation = async (editedResistanceMutation) => {
-    console.log("geneStore: editResistanceMutation Start");
-
     this.editingResistanceMutation = true;
     // send to server
     try {
@@ -668,8 +605,6 @@ export default class GeneStore {
   };
 
   addResistanceMutation = async (newResistanceMutation) => {
-    console.log("geneStore: addResistanceMutation Start");
-
     this.addingResistanceMutation = true;
     // send to server
     try {
@@ -691,8 +626,6 @@ export default class GeneStore {
   };
 
   editUnpublishedStructures = async (editedUnpublishedStructures) => {
-    console.log("geneStore: editUnpublishedStructures Start");
-
     this.editingUnpublishedStructures = true;
     // send to server
     try {
@@ -715,8 +648,6 @@ export default class GeneStore {
   };
 
   addUnpublishedStructures = async (newUnpublishedStructures) => {
-    console.log("geneStore: addUnpublishedStructures Start");
-
     this.addingUnpublishedStructures = true;
     // send to server
     try {
@@ -738,9 +669,6 @@ export default class GeneStore {
   };
 
   editVulnerability = async (editedVulnerability) => {
-    console.log("geneStore: editVulnerabiliity Start");
-    console.log(editedVulnerability);
-
     this.editingVulnerabiliity = true;
     // send to server
     try {
@@ -763,8 +691,6 @@ export default class GeneStore {
   };
 
   addVulnerability = async (newVulnerability) => {
-    console.log("geneStore: addVulnerabiliity Start");
-
     this.addingVulnerabiliity = true;
     // send to server
     try {
@@ -783,8 +709,6 @@ export default class GeneStore {
   };
 
   editHypomorph = async (editedHypomorph) => {
-    console.log("geneStore: editHypomorph Start");
-
     this.editingHypomorph = true;
     // send to server
     try {
