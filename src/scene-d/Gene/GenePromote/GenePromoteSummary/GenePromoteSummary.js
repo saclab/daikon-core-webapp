@@ -15,20 +15,14 @@ const GenePromoteSummary = (props) => {
     {
       label: "Save form data in browser",
       icon: "pi pi-cloud-download",
-      command: () => {
-        console.log("Save form data local");
-      },
+      command: () => {},
     },
     {
       label: "Reset",
       icon: "pi pi-refresh",
-      command: () => {
-        console.log("Reset Section");
-      },
+      command: () => {},
     },
   ];
-
-  console.log(props.promotionQuestionsRegistry);
 
   return (
     <React.Fragment>
@@ -139,7 +133,6 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
-
         </div>
         <div className="flex">
           <Divider />
@@ -326,7 +319,6 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
-
         </div>
 
         <div className="flex flex-column">
@@ -392,7 +384,6 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
-
         </div>
 
         <div className="flex flex-column">
@@ -426,7 +417,6 @@ const GenePromoteSummary = (props) => {
             questionObj={props.promotionQuestionsRegistry}
             ansObj={props.targetPromotionFormValue}
           />
-
         </div>
 
         <div className="flex flex-column">
@@ -509,10 +499,9 @@ const GenePromoteSummary = (props) => {
               }}
             />
           </div>
-
         </div>
       </div>
-    </React.Fragment >
+    </React.Fragment>
   );
 };
 

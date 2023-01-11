@@ -51,8 +51,6 @@ const ScreenDash = () => {
   if (!loadingFetchScreens && !loadingFetchScreensPhenotypic) {
     /* Table Body Templates */
 
-    console.log(screenPhenotypicRegistry);
-
     const TargetNameBodyTemplate = (rowData) => {
       return (
         <React.Fragment>

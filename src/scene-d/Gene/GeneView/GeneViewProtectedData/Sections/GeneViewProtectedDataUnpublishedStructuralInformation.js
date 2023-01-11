@@ -62,8 +62,6 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
   };
 
   const dropDownUnpublishedEditor = (options) => {
-    console.log("dropDownUnpublishedEditor");
-    console.log(options);
     return (
       <Dropdown
         id="organization"

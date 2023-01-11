@@ -36,8 +36,8 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
       return errors;
     },
     onSubmit: (data) => {
-      data.organization = data.organization.alias
-      console.log(data);
+      data.organization = data.organization.alias;
+
       add(data).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -159,4 +159,6 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
   );
 };
 
-export default observer(GeneViewProtectedDataAddUnpublishedStructuralInformationForm);
+export default observer(
+  GeneViewProtectedDataAddUnpublishedStructuralInformationForm
+);

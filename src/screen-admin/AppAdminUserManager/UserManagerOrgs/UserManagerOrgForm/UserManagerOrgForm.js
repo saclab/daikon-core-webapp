@@ -27,7 +27,6 @@ const UserManagerOrgForm = ({ addOrg, loadingOrg, closeSideBar }) => {
       return errors;
     },
     onSubmit: (data) => {
-      console.log(data);
       addOrg(data)
         .then((resp) => {
           closeSideBar();

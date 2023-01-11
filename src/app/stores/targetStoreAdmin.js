@@ -25,27 +25,20 @@ export default class TargetStoreAdmin {
   /* Fetch specific TargetAdmin with id from API */
 
   fetchTargetAdmin = async (id) => {
-    console.log("targetStoreAdmin: fetchTargetAdmin Start");
     this.displayLoading = true;
 
     // first check cache
     let fetchedTargetAdmin = this.targetRegistryAdmin.get(id);
-    console.log("CACHE");
-    console.log(fetchedTargetAdmin);
 
     if (fetchedTargetAdmin) {
-      console.log("targetStoreAdmin: fetchedTargetAdmin found in cache");
       this.selectedTarget = fetchedTargetAdmin;
       this.displayLoading = false;
-
-      console.log(this.selectedTarget);
     }
     // if not found fetch from api
     else {
       try {
         fetchedTargetAdmin = await agent.TargetAdmin.details(id);
         runInAction(() => {
-          console.log("targetStoreAdmin: fetchTargetAdmin fetched from api");
           this.selectedTarget = fetchedTargetAdmin;
           this.targetRegistryAdmin.set(id, fetchedTargetAdmin);
         });
@@ -54,7 +47,6 @@ export default class TargetStoreAdmin {
       } finally {
         runInAction(() => {
           this.displayLoading = false;
-          console.log("targetStoreAdmin: fetchTargetAdmin Complete");
         });
       }
     }
@@ -63,7 +55,6 @@ export default class TargetStoreAdmin {
   /* Edit TargetAdmin */
 
   editTargetAdmin = async (newTarget) => {
-    console.log("targetStoreAdmin: editTargetAdmin Start");
     this.editingTarget = true;
     let updatedTarget = null;
 
@@ -74,7 +65,7 @@ export default class TargetStoreAdmin {
       runInAction(() => {
         this.targetRegistryAdmin.delete(updatedTarget.id);
         this.fetchTargetAdmin(updatedTarget.id);
-        console.log(updatedTarget);
+
         toast.success("Changes are saved");
       });
     } catch (error) {
@@ -83,21 +74,17 @@ export default class TargetStoreAdmin {
     } finally {
       runInAction(() => {
         this.editingTarget = false;
-        console.log("targetStoreAdmin: edit Complete");
       });
     }
     return updatedTarget;
   };
 
   importTarget = async (targetEntry) => {
-    console.log("targetStoreAdmin: importTarget() Start");
     this.displayLoading = true;
     try {
       var res = await agent.TargetAdmin.import(targetEntry);
 
-      runInAction(() => {
-        console.log(res);
-      });
+      runInAction(() => {});
     } catch (error) {
       console.error(error);
       throw error;
@@ -110,14 +97,11 @@ export default class TargetStoreAdmin {
   };
 
   importTargetComplex = async (targetEntry) => {
-    console.log("targetStoreAdmin: importTarget() Start");
     this.displayLoading = true;
     try {
       var res = await agent.TargetAdmin.importComplex(targetEntry);
 
-      runInAction(() => {
-        console.log(res);
-      });
+      runInAction(() => {});
     } catch (error) {
       console.error(error);
       throw error;

@@ -32,7 +32,7 @@ const PortfolioPromotionsPromoteToLO = ({ closeSidebar }) => {
     },
     onSubmit: (data) => {
       data["id"] = selectedProject.id;
-      console.log(data);
+
       createLO(data).then((res) => {
         if (res !== null) {
           closeSidebar();

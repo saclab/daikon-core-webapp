@@ -22,15 +22,6 @@ const PhenotypicScreenSequences = ({ baseScreenName }) => {
 
   const navigate = useNavigate();
 
-  console.log("++++++++++++ RENDER Phenotypic Screen Sequence");
-  console.log("baseScreenName=" + baseScreenName);
-  console.log(
-    "filteredPhenotypicScreens.length=" + filteredPhenotypicScreens.length
-  );
-  console.log(
-    "selectedPhenotypicScreenFilter=" + selectedPhenotypicScreenFilter
-  );
-
   useEffect(() => {
     if (
       filteredPhenotypicScreens === null ||

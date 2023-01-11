@@ -18,7 +18,6 @@ const GenomePromoteFormInteractions = (props) => {
     var newFormValue = { ...formValue };
     newFormValue[e.target.name] = e.target.value;
     setFormValue(newFormValue);
-    console.log(e);
   };
 
   const nextButtonItems = [
@@ -32,16 +31,12 @@ const GenomePromoteFormInteractions = (props) => {
     {
       label: "Save form data in browser",
       icon: "pi pi-cloud-download",
-      command: () => {
-        console.log("Save form data local");
-      },
+      command: () => {},
     },
     {
       label: "Reset",
       icon: "pi pi-refresh",
-      command: () => {
-        console.log("Reset Section");
-      },
+      command: () => {},
     },
   ];
 
@@ -57,7 +52,10 @@ const GenomePromoteFormInteractions = (props) => {
         <h5>a) Chemical inhibition during growth in vitro</h5>
         <div className="p-fluid">
           <div className="p-field p-grid">
-            <label htmlFor="cIGrowthActivationOfTheTargetSynergize" className="p-col-12 p-md-6">
+            <label
+              htmlFor="cIGrowthActivationOfTheTargetSynergize"
+              className="p-col-12 p-md-6"
+            >
               Does inhibition/activation of the target synergize with current TB
               drugs or other drugs under development?
             </label>
@@ -74,7 +72,10 @@ const GenomePromoteFormInteractions = (props) => {
           </div>
 
           <div className="p-field p-grid">
-            <label htmlFor="cIGrowthActivationOfTheTargetAntagonize" className="p-col-12 p-md-6">
+            <label
+              htmlFor="cIGrowthActivationOfTheTargetAntagonize"
+              className="p-col-12 p-md-6"
+            >
               Does inhibition/activation of the target antagonize with current
               TB drugs or other drugs under development?
             </label>
@@ -98,7 +99,10 @@ const GenomePromoteFormInteractions = (props) => {
         <h5>b) Chemical inhibition during infection</h5>
         <div className="p-fluid">
           <div className="p-field p-grid">
-            <label htmlFor="cIInfectionActivationOfTheTargetSynergize" className="p-col-12 p-md-6">
+            <label
+              htmlFor="cIInfectionActivationOfTheTargetSynergize"
+              className="p-col-12 p-md-6"
+            >
               Does inhibition/activation of the targt synergize wtih current TB
               drugs or other drugs under development?
             </label>
@@ -115,7 +119,10 @@ const GenomePromoteFormInteractions = (props) => {
           </div>
 
           <div className="p-field p-grid">
-            <label htmlFor="cIInfectionActivationOfTheTargetAntagonize" className="p-col-12 p-md-6">
+            <label
+              htmlFor="cIInfectionActivationOfTheTargetAntagonize"
+              className="p-col-12 p-md-6"
+            >
               Does inhibition/activation of the target antagonize with current
               TB drugs or other drugs under development?
             </label>
@@ -139,7 +146,10 @@ const GenomePromoteFormInteractions = (props) => {
         <h5>c) Genetic inhibition during infection</h5>
         <div className="p-fluid">
           <div className="p-field p-grid">
-            <label htmlFor="gIInfectionActivationOfTheTargetSynergize" className="p-col-12 p-md-6">
+            <label
+              htmlFor="gIInfectionActivationOfTheTargetSynergize"
+              className="p-col-12 p-md-6"
+            >
               Does inhibition/activation of the targt synergize wtih current TB
               drugs or other drugs under development?
             </label>
@@ -156,7 +166,10 @@ const GenomePromoteFormInteractions = (props) => {
           </div>
 
           <div className="p-field p-grid">
-            <label htmlFor="gIInfectionActivationOfTheTargetAntagonize" className="p-col-12 p-md-6">
+            <label
+              htmlFor="gIInfectionActivationOfTheTargetAntagonize"
+              className="p-col-12 p-md-6"
+            >
               Does inhibition/activation of the target antagonize with current
               TB drugs or other drugs under development?
             </label>
@@ -180,7 +193,10 @@ const GenomePromoteFormInteractions = (props) => {
         <h5>d) Genetic inhibition during growth in vitro</h5>
         <div className="p-fluid">
           <div className="p-field p-grid">
-            <label htmlFor="gIGrowthActivationOfTheTargetSynergize" className="p-col-12 p-md-6">
+            <label
+              htmlFor="gIGrowthActivationOfTheTargetSynergize"
+              className="p-col-12 p-md-6"
+            >
               Does inhibition/activation of the targt synergize wtih current TB
               drugs or other drugs under development?
             </label>
@@ -223,7 +239,9 @@ const GenomePromoteFormInteractions = (props) => {
                 icon="pi pi-arrow-right"
                 model={nextButtonItems}
                 className="p-button-success p-button-sm "
-                onClick={() => {props.onFormSet(formValue)}}
+                onClick={() => {
+                  props.onFormSet(formValue);
+                }}
               ></SplitButton>
             </div>
           </div>

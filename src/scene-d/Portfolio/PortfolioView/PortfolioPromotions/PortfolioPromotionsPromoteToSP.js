@@ -31,7 +31,7 @@ const PortfolioPromotionsPromoteToSP = ({ closeSidebar }) => {
     },
     onSubmit: (data) => {
       data["id"] = selectedProject.id;
-      console.log(data);
+
       createSP(data).then((res) => {
         if (res !== null) {
           closeSidebar();

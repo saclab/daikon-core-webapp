@@ -71,9 +71,7 @@ export default class GeneStoreAdmin {
     this.displayLoading = true;
     try {
       var res = await agent.TargetAdmin.create(promotionReq);
-      runInAction(() => {
-        console.log(res);
-      });
+      runInAction(() => {});
     } catch (error) {
       console.error(error);
     } finally {

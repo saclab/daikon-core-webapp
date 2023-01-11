@@ -12,8 +12,7 @@ import { RootStoreContext } from "../../../../app/stores/rootStore";
 const HAPromotionQuestionaire = ({ closeSidebar }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingProject, selectedProject } =
-    rootStore.projectStore;
+  const { loadingProject, selectedProject } = rootStore.projectStore;
 
   const { creatingH2L, createH2L } = rootStore.portfolioStore;
 
@@ -33,7 +32,7 @@ const HAPromotionQuestionaire = ({ closeSidebar }) => {
     },
     onSubmit: (data) => {
       data["id"] = selectedProject.id;
-      console.log(data);
+
       createH2L(data).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -42,7 +41,6 @@ const HAPromotionQuestionaire = ({ closeSidebar }) => {
       });
 
       // history.push()
-
     },
   });
 
@@ -115,7 +113,6 @@ const HAPromotionQuestionaire = ({ closeSidebar }) => {
                   className="p-mt-2"
                 />
               </div>
-
             </form>
           </div>
         </div>

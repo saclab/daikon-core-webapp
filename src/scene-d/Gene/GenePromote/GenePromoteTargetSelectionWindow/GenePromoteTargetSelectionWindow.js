@@ -17,7 +17,6 @@ const GenePromoteTargetSelectionWindow = ({
   displayPromotionDialog,
   setDisplayPromotionDialog,
 }) => {
-
   const navigate = useNavigate();
   const [activeScreen, setActiveScreen] = useState(
     "screenProteinTypeSelection"
@@ -82,7 +81,6 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenSelectionClicked = () => {
-    console.log("Active Screen is " + activeScreen);
     if (activeScreen === "screenProteinTypeSelection") {
       if (proteinType === "simple-protein") {
         setProposedTargetName(_.upperFirst(gene.geneName));
@@ -196,7 +194,8 @@ const GenePromoteTargetSelectionWindow = ({
           Please adhere to the{" "}
           <a
             href="https://www.ncbi.nlm.nih.gov/genome/doc/internatprot_nomenguide"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             International Protein Nomenclature Guidelines.
           </a>
@@ -236,8 +235,6 @@ const GenePromoteTargetSelectionWindow = ({
     }
 
     if (!searchingGeneGroup && calledSearchGeneGroup) {
-      console.log(searchedGeneGroup);
-
       if (searchedGeneGroup?.length === 0) {
         return (
           <p>
@@ -285,8 +282,6 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenValidateSimpleProteinTargetName = () => {
-    console.log("Rendering screenValidateSimpleProteinTargetName");
-
     if (!validateTargetNameLoading && callValidateTargetName) {
       setCallValidateTargetName(false);
       validateTargetName(proposedTargetName);
@@ -336,8 +331,6 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenValidateProteinComplex = () => {
-    console.log("Rendering screenValidateProteinComplex");
-
     if (!validateTargetNameLoading && callValidateTargetName) {
       setCallValidateTargetName(false);
       validateTargetName(selectedProteinComplexName);

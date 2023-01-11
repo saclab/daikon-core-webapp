@@ -25,7 +25,6 @@ export default class VotingStore {
   }
 
   enableVoting = async (voteIds) => {
-    console.log("votingStore: enableVoting() Start");
     this.enablingVoting = true;
 
     let res = null;
@@ -37,20 +36,17 @@ export default class VotingStore {
         toast.success("Success, Voting is allowed.");
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
       console.error(error);
     } finally {
       runInAction(() => {
         this.enablingVoting = false;
-        console.log("votingStore: enableVoting() End");
       });
     }
-    console.log(res);
+
     return res;
   };
 
   freezeVoting = async (voteIds) => {
-    console.log("votingStore: freezeVoting() Start");
     this.freezingVoting = true;
 
     let res = null;
@@ -62,20 +58,17 @@ export default class VotingStore {
         toast.success("Success, Voting has been frozen");
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
       console.error(error);
     } finally {
       runInAction(() => {
         this.freezingVoting = false;
-        console.log("votingStore: enableVoting() End");
       });
     }
-    console.log(res);
+
     return res;
   };
 
   vote = async (voteObj) => {
-    console.log("votingStore: vote() Start");
     this.voting = true;
 
     let res = null;
@@ -87,15 +80,13 @@ export default class VotingStore {
         toast.success("Voting Successfull");
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
       console.error(error);
     } finally {
       runInAction(() => {
         this.voting = false;
-        console.log("votingStore: vote() End");
       });
     }
-    console.log(res);
+
     return res;
   };
 }

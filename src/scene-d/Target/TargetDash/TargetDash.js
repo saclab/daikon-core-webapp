@@ -22,7 +22,7 @@ const TargetDash = () => {
     return <Loading />;
   }
 
-  //console.log(targets);
+  //
 
   return (
     <div className="flex flex-column w-full fadein animation-duration-500">

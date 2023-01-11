@@ -74,13 +74,11 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
       },
     ];
 
-    console.log("==== VALIDATED HITS");
     // let filteredScreensByTarget = filterScreensByTarget(baseScreenName);
     let tabs = [];
 
     if (tabs.length === 0 && filteredPhenotypicScreens.length > 0) {
       filteredPhenotypicScreens.forEach((screen) => {
-        console.log(screen);
         tabs.push(
           <TabPanel header={screen.screenName} key={screen.id}>
             <ValidatedHitsList screenId={screen.id} />

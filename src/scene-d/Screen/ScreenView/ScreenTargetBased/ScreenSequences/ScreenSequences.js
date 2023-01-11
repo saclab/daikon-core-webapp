@@ -45,7 +45,6 @@ const ScreenSequences = ({ TargetName }) => {
   }
 
   if (!displayLoading && filteredScreens.length === 0) {
-    console.log();
     return <h2>No screens found</h2>;
   }
   if (!displayLoading && filteredScreens.length >= 0) {
@@ -66,12 +65,8 @@ const ScreenSequences = ({ TargetName }) => {
 
     let tabs = [];
 
-    console.log(filteredScreens.length);
-
     if (tabs.length === 0 && filteredScreens.length > 0) {
-      console.log("====SCREEN SEQUENCES--TABS");
       filteredScreens.forEach((screen) => {
-        console.log(screen);
         tabs.push(
           <TabPanel header={screen.screenName} key={screen.id}>
             <ScreenSequence screenId={screen.id} />

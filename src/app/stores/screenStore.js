@@ -120,21 +120,17 @@ export default class ScreenStore {
   };
 
   fetchScreensPhenotypic = async () => {
-    console.log("screenStore: fetchScreensPhenotypic() Start");
     this.loadingFetchScreensPhenotypic = true;
     if (
       this.screenPhenotypicRegistryCacheValid &&
       this.screenPhenotypicRegistry.size !== 0
     ) {
-      console.log("screenStore: fetchScreensPhenotypic() cache hit");
       this.loadingFetchScreensPhenotypic = false;
       return;
     }
     try {
-      console.log("screenStore: fetchScreensPhenotypic() cache miss");
       var resp = await agent.Screen.listPhenotypic();
       runInAction(() => {
-        console.log(resp);
         resp.forEach((fetchedScreen) => {
           this.screenPhenotypicRegistry.set(fetchedScreen.id, fetchedScreen);
         });
@@ -159,10 +155,8 @@ export default class ScreenStore {
 
   get uniqueScreens() {
     let targetsScreened = new Map();
-    console.log("screenStore: uniqueScreens()");
 
     this.screenRegistry.forEach((value) => {
-      console.log(value);
       targetsScreened.set(value.targetName, value);
     });
     return Array.from(targetsScreened.values());
@@ -170,14 +164,11 @@ export default class ScreenStore {
 
   get groupScreensPhenotypic() {
     let pScreened = new Map();
-    console.log("screenStore: uniqueScreens()");
 
     this.screenPhenotypicRegistry.forEach((value) => {
-      console.log(value);
       let lastIndex = value.screenName.lastIndexOf("-");
       let screenName = value.screenName.slice(0, lastIndex);
       pScreened.set(screenName, { screenName: screenName, notes: value.notes });
-      console.log(screenName);
     });
     return Array.from(pScreened.values());
   }
@@ -215,13 +206,11 @@ export default class ScreenStore {
   /* Fetch specific Screen with id from API */
 
   fetchScreen = async (id, invalidateCache = false) => {
-    console.log("screenStore: fetchScreen Start");
     this.loadingFetchScreen = true;
 
     // first check cache
     let fetchedScreen = this.screenRegistryExpanded.get(id);
     if (!invalidateCache && fetchedScreen) {
-      console.log("screenStore: fetchScreen found in cache");
       this.selectedScreen = fetchedScreen;
       this.loadingFetchScreen = false;
     }
@@ -230,8 +219,6 @@ export default class ScreenStore {
       try {
         fetchedScreen = await agent.Screen.details(id);
         runInAction(() => {
-          console.log("screenStore: fetchScreen fetched from api");
-          console.log(this.selectedScreen);
           this.selectedScreen = fetchedScreen;
           this.screenRegistryExpanded.set(id, fetchedScreen);
         });
@@ -240,15 +227,12 @@ export default class ScreenStore {
       } finally {
         runInAction(() => {
           this.loadingFetchScreen = false;
-          console.log("screenStore: fetchScreen Complete");
         });
       }
     }
   };
 
   addScreeenSequence = async (newSequence) => {
-    console.log("screenStore: addScreeenSequence Start");
-    console.log(newSequence);
     this.loadingScreenSequence = true;
     let res = null;
 
@@ -265,20 +249,16 @@ export default class ScreenStore {
         this.selectedScreen = null;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
       console.error(error);
     } finally {
       runInAction(() => {
         this.loadingScreenSequence = false;
-        console.log("screenStore: addScreeenSequence Complete");
       });
     }
     return res;
   };
 
   addScreeenPhenotypic = async (newScreen) => {
-    console.log("screenStore: addScreeenPhenotypic Start");
-    console.log(newScreen);
     this.loadingPhenotypicAdd = true;
     let res = null;
     // send to server
@@ -290,12 +270,10 @@ export default class ScreenStore {
         this.selectedPhenotypicScreen = null;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
       console.error(error);
     } finally {
       runInAction(() => {
         this.loadingPhenotypicAdd = false;
-        console.log("screenStore: addScreeenPhenotypic Complete");
       });
     }
     return res;
@@ -305,8 +283,6 @@ export default class ScreenStore {
   setScreenSequenceIndex = (index) => (this.screenSequenceIndex = index);
 
   mergeScreen = async (mergeIDs) => {
-    console.log("screenStore: mergeScreen Start");
-    console.log(mergeIDs);
     this.mergingScreen = true;
     let res = null;
     // send to server
@@ -321,19 +297,16 @@ export default class ScreenStore {
         this.selectedScreen = null;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
       console.error(error);
     } finally {
       runInAction(() => {
         this.mergingScreen = false;
-        console.log("screenStore: mergeScreen Complete");
       });
     }
     return res;
   };
 
   editScreen = async (edittedScreen) => {
-    console.log("screenStore: editScreen Start");
     this.editingScreen = true;
     let res = null;
     // send to server
@@ -344,12 +317,10 @@ export default class ScreenStore {
         this.fetchScreen(edittedScreen.id, true);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
       console.error(error);
     } finally {
       runInAction(() => {
         this.editingScreen = false;
-        console.log("screenStore: editScreen Complete");
       });
     }
     return res;

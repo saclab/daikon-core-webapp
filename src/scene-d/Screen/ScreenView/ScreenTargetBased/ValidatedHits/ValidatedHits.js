@@ -62,15 +62,11 @@ const ValidatedHits = ({ TargetName }) => {
     },
   ];
 
-  console.log("==== VALIDATED HITS");
   // let filteredScreensByTarget = filterScreensByTarget(TargetName);
   let tabs = [];
 
-  console.log(filteredScreens.length);
-
   if (tabs.length === 0 && filteredScreens.length > 0) {
     filteredScreens.forEach((screen) => {
-      console.log(screen);
       tabs.push(
         <TabPanel header={screen.screenName} key={screen.id}>
           <ValidatedHitsList screenId={screen.id} />

@@ -172,7 +172,7 @@ const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {
       data.ScreenId = screen.id;
       data.baseHits = compounds;
       data.representationStructure = selectedPrimaryHit.compound;
-      console.log(data);
+
       createHA(data).then((res) => {
         if (res !== null) {
           formik.resetForm();

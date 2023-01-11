@@ -66,7 +66,7 @@ export default class AdminStore {
       console.error(error);
     } finally {
       runInAction(() => {
-        //console.log("AdminStore -> displayLoading = false");
+        //
         this.displayLoading = false;
       });
     }

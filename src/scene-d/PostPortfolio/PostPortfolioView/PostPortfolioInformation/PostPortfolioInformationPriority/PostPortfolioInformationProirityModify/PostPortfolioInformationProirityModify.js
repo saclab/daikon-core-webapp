@@ -42,7 +42,6 @@ const PostPortfolioInformationProirityModify = ({ closeSidebar }) => {
         teamProbability: data.teamProbability,
       };
 
-      console.log(data);
       setPriorityProbability(submitData).then((res) => {
         if (res !== null) {
           closeSidebar();

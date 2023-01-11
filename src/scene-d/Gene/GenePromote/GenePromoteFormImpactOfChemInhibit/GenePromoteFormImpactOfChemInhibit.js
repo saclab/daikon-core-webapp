@@ -7,16 +7,12 @@ const GenePromoteFormImpactOfChemInhibit = (props) => {
     {
       label: "Save form data in browser",
       icon: "pi pi-cloud-download",
-      command: () => {
-        console.log("Save form data local");
-      },
+      command: () => {},
     },
     {
       label: "Reset",
       icon: "pi pi-refresh",
-      command: () => {
-        console.log("Reset Section");
-      },
+      command: () => {},
     },
   ];
 
