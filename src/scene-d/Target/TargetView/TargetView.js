@@ -4,8 +4,11 @@ import { Sidebar } from "primereact/sidebar";
 import { Toast } from "primereact/toast";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
-    Navigate, Route, Routes, useNavigate,
-    useParams
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useParams
 } from "react-router-dom";
 import EmbededHelp from "../../../app/common/EmbededHelp/EmbededHelp";
 import Loading from "../../../app/layout/Loading/Loading";
@@ -22,7 +25,6 @@ const TargetView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
   /* MobX Store */
@@ -94,7 +96,6 @@ const TargetView = () => {
   ];
 
   if (user.roles.includes("admin")) {
-
     const adminActions = {
       label: "Admin Section",
       items: [
@@ -106,7 +107,7 @@ const TargetView = () => {
           },
         },
       ],
-    }
+    };
     items.push(adminActions);
   }
 
@@ -176,10 +177,7 @@ const TargetView = () => {
                 path="discussion/"
                 element={<TargetDiscussion selectedTarget={target} />}
               />
-              <Route
-                path="edit/"
-                element={<TargetEdit id={params.id} />}
-              />
+              <Route path="edit/" element={<TargetEdit id={params.id} />} />
             </Routes>
           </div>
         </div>

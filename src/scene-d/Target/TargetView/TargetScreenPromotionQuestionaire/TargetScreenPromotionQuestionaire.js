@@ -72,17 +72,6 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
     );
   };
 
-  const dialogFooter = (
-    <div className="p-d-flex p-jc-center">
-      <Button
-        label="OK"
-        className="p-button-text"
-        autoFocus
-        onClick={() => setShowMessage(false)}
-      />
-    </div>
-  );
-
   if (!promoteTargetToScreenDisplayLoading && !LoadingOrgs) {
     return (
       <React.Fragment>
@@ -105,7 +94,6 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
         </Dialog> */}
         <div className="card w-full">
           <form onSubmit={formik.handleSubmit} className="p-fluid">
-
             <div className="field">
               <label
                 htmlFor="promotionDate"
@@ -129,7 +117,6 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
                 })}
               />
               {getFormErrorMessage("promotionDate")}
-
             </div>
             <div className="field">
               <label
@@ -209,10 +196,8 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
               label="Add Screen"
               className="p-mt-2"
             />
-
           </form>
         </div>
-
       </React.Fragment>
     );
   }

@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
@@ -9,8 +9,8 @@ import { ProgressBar } from "primereact/progressbar";
 import { Sidebar } from "primereact/sidebar";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
-import Loading from '../../../app/layout/Loading/Loading';
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import Loading from "../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import UserManagerUserEditForm from "./UserManagerUserEditForm/UserManagerUserEditForm";
 import UserManagerUserForm from "./UserManagerUserForm/UserManagerUserForm";
@@ -52,7 +52,7 @@ const UserManagerUsers = () => {
       fetchOrgs();
       fetchRoles();
     }
-  }, [currentUser, Users, fetchUsersList, fetchOrgs, fetchRoles]);
+  }, [currentUser, Users, fetchUsersList, fetchOrgs, fetchRoles, navigate]);
 
   /** Loading Overlay */
   if (displayLoading || loadingRoles || LoadingOrgs) {
@@ -70,10 +70,9 @@ const UserManagerUsers = () => {
       label: "Users",
       command: () => {
         navigate(`/admin/user-manager/users/`);
-      }
+      },
     },
   ];
-
 
   const actionBodyTemplate = (rowData) => {
     return (

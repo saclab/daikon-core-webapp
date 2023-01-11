@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { Button } from 'primereact/button';
+import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { MultiSelect } from "primereact/multiselect";
@@ -12,11 +12,10 @@ import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import StageTag from "../../../app/common/StageTag/StageTag";
 import Loading from "../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import { appColors } from '../../../colors';
+import { appColors } from "../../../colors";
 import "./ProjectListDataTable.css";
 
 const Projects = () => {
-
   const rootStore = useContext(RootStoreContext);
   const { loadingProjects, fetchProjects, projectRegistry, projects } =
     rootStore.projectStore;
@@ -34,24 +33,23 @@ const Projects = () => {
 
   const dt = useRef(null);
 
-
-
   /* STAGE FILTER */
   const stages = ["H2L", "LO", "SP", "IND", "P1"];
-  let todaysDate = new Date().setHours(0, 0, 0, 0);
 
   const stageItemTemplate = (option) => {
     return <StageTag stage={option} />;
   };
 
-  const stageFilter = (options) => <MultiSelect
-    value={options.value}
-    options={stages}
-    onChange={(e) => options.filterApplyCallback(e.value)}
-    itemTemplate={stageItemTemplate}
-    placeholder="Select a Stage"
-    className="p-column-filter"
-  />
+  const stageFilter = (options) => (
+    <MultiSelect
+      value={options.value}
+      options={stages}
+      onChange={(e) => options.filterApplyCallback(e.value)}
+      itemTemplate={stageItemTemplate}
+      placeholder="Select a Stage"
+      className="p-column-filter"
+    />
+  );
   /* END STAGE FILTER */
 
   /* STATUS FILTER */
@@ -81,9 +79,7 @@ const Projects = () => {
       <React.Fragment>
         <span className="p-column-title">Project Id</span>
 
-        <NavLink to={"./" + rowData.id}>
-          {rowData.id.substring(0, 8)}
-        </NavLink>
+        <NavLink to={"./" + rowData.id}>{rowData.id.substring(0, 8)}</NavLink>
       </React.Fragment>
     );
   };
@@ -93,9 +89,7 @@ const Projects = () => {
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
         <b>
-          <NavLink to={"./" + rowData.id}>
-            {rowData.projectName}
-          </NavLink>
+          <NavLink to={"./" + rowData.id}>{rowData.projectName}</NavLink>
         </b>
       </React.Fragment>
     );
@@ -157,14 +151,22 @@ const Projects = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#FFECB3"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#FFECB3"}
+          />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <FDate className="p-column-title" timestamp={stageDate} color={"#000000"} />
+        <FDate
+          className="p-column-title"
+          timestamp={stageDate}
+          color={"#000000"}
+        />
       </React.Fragment>
     );
   };
@@ -202,7 +204,7 @@ const Projects = () => {
             icon="icon icon-common icon-plus"
             className="p-button-secondary"
             style={{ width: "20rem" }}
-            onClick={() => navigate('/pm/project/new')}
+            onClick={() => navigate("/pm/project/new")}
           />
         </div>
         <div className="flex w-full">
@@ -285,13 +287,11 @@ const Projects = () => {
             />
           </DataTable>
         </div>
-        <div className="card">
-
-        </div>
+        <div className="card"></div>
       </div>
     );
   }
   return <Loading />;
 };
 
-export default observer(Projects)
+export default observer(Projects);
