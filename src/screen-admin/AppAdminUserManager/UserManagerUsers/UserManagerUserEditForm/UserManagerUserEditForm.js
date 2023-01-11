@@ -56,7 +56,7 @@ const UserManagerUserEditForm = ({
         .then((resp) => {
           closeSideBar();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
       //formik.resetForm();
     },
   });

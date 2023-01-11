@@ -58,7 +58,7 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
 
   let handleOnError = (err, file, inputElem, reason) => {
     console.log("---------------------------");
-    console.log(err);
+    console.error(err);
     console.log("---------------------------");
   };
 

@@ -275,14 +275,14 @@ export default class GeneStore {
       (o) => o.externalIdRef === "UniProt"
     );
     if (uniProtIdObj === null) {
-      console.log("UniProt Id is not found returning...");
+      console.error("UniProt Id is not found returning...");
       this.uniprotDisplayLoading = false;
       this.selectedPdbCrossReference = null;
       return;
     }
     let uniProtId = uniProtIdObj?.externalId;
     if (uniProtId === "") {
-      console.log("UniProt Id is not found returning...");
+      console.error("UniProt Id is not found returning...");
       this.uniprotDisplayLoading = false;
       this.selectedPdbCrossReference = null;
       return;
@@ -330,7 +330,7 @@ export default class GeneStore {
           };
         });
       } catch (error) {
-        console.log("PDB Error Catch");
+        console.error("PDB Error Catch");
         console.error(error);
       } finally {
         runInAction(() => {

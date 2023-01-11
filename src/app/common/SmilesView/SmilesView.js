@@ -19,7 +19,7 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
         smilesDrawer.draw(tree, canId, "light", false);
       },
       function (err) {
-        console.log(err);
+        console.error(err);
       }
     );
   }, [height, smiles, width, canId]);

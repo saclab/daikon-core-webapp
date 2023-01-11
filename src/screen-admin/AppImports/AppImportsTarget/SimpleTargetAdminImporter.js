@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import React, { useContext, useEffect, useState } from "react";
-import { useCSVReader } from 'react-papaparse';
+import { useCSVReader } from "react-papaparse";
 import Loading from "../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 
@@ -24,26 +24,26 @@ const SimpleTargetAdminImporter = () => {
 
   const styles = {
     csvReader: {
-      display: 'flex',
-      flexDirection: 'row',
+      display: "flex",
+      flexDirection: "row",
       marginBottom: 10,
     },
     browseFile: {
-      width: '20%',
+      width: "20%",
     },
     acceptedFile: {
-      border: '1px solid #ccc',
+      border: "1px solid #ccc",
       height: 45,
       lineHeight: 2.5,
       paddingLeft: 10,
-      width: '80%',
+      width: "80%",
     },
     remove: {
       borderRadius: 0,
-      padding: '0 20px',
+      padding: "0 20px",
     },
     progressBarBackgroundColor: {
-      backgroundColor: 'red',
+      backgroundColor: "red",
     },
   };
 
@@ -63,7 +63,7 @@ const SimpleTargetAdminImporter = () => {
 
   let handleOnError = (err, file, inputElem, reason) => {
     console.log("---------------------------");
-    console.log(err);
+    console.error(err);
     console.log("---------------------------");
   };
 
@@ -85,8 +85,6 @@ const SimpleTargetAdminImporter = () => {
   };
 
   let dto = async (csvData) => {
-
-    
     let data = csvData.data;
     let failedForDTOs = [];
     console.log("---------------------------");
@@ -302,33 +300,35 @@ const SimpleTargetAdminImporter = () => {
         noDrag
         style={{}}
         config={{ header: true }}
-      // addRemoveButton
-      // onRemoveFile={handleOnRemoveFile}
-      >{({
-        getRootProps,
-        acceptedFile,
-        ProgressBar,
-        getRemoveFileProps,
-      }) => (
-        <div className="flex flex-column justify-content-center gap-2 border-400 border-dashed border-round-md  border-1 m-2 p-3">
-          <div className="flex align-items-center justify-content-center">
-            <h1
-              className="size-400 icon icon-fileformats icon-spacer"
-              data-icon="c"
-            ></h1>
+        // addRemoveButton
+        // onRemoveFile={handleOnRemoveFile}
+      >
+        {({ getRootProps, acceptedFile, ProgressBar, getRemoveFileProps }) => (
+          <div className="flex flex-column justify-content-center gap-2 border-400 border-dashed border-round-md  border-1 m-2 p-3">
+            <div className="flex align-items-center justify-content-center">
+              <h1
+                className="size-400 icon icon-fileformats icon-spacer"
+                data-icon="c"
+              ></h1>
+            </div>
+            <div className="flex align-items-center justify-content-center">
+              {!acceptedFile ? (
+                <Button
+                  className="w-max p-button-secondary pl-5 pr-5"
+                  type="button"
+                  {...getRootProps()}
+                >
+                  Select CSV File to upload
+                </Button>
+              ) : (
+                acceptedFile.name
+              )}
+            </div>
+            <div className="flex" style={styles.progressBar}>
+              <ProgressBar />
+            </div>
           </div>
-          <div className="flex align-items-center justify-content-center">
-            {!acceptedFile ? <Button className="w-max p-button-secondary pl-5 pr-5" type='button' {...getRootProps()}>
-              Select CSV File to upload
-            </Button> : acceptedFile.name}
-
-          </div>
-          <div className="flex" style={styles.progressBar}>
-            <ProgressBar />
-          </div>
-
-        </div>
-      )}
+        )}
       </CSVReader>
       <br />
       {statusText} <br />

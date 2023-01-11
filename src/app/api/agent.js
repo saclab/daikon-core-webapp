@@ -85,7 +85,7 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
       const { status, data, config } = error.response;
       /* ALL 404 Errors are redirected to not found component */
       if (status === 404) {
-        console.log("404---");
+        console.error("404 RESOURCE NOT FOUND");
         //history.push("/notfound");
       }
 
@@ -97,44 +97,44 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
       ) {
         history.push("/notfound");
       } else if (status === 400 && data !== null) {
-        console.log("----AGENT----");
-        console.log(typeof data);
+        console.error("----AGENT----");
+        console.error(typeof data);
         if (typeof data === "string") {
-          console.log("AGENT: Intercepted 400 " + data);
+          console.error("AGENT: Intercepted 400 " + data);
           toast.error("400 The Request Failed : " + data);
         } else {
-          console.log("AGENT: Intercepted 400 " + data?.title);
+          console.error("AGENT: Intercepted 400 " + data?.title);
           toast.error("400 The Request Failed : " + data?.title);
         }
       } else if (status === 400 && data === null) {
-        console.log("AGENT: Intercepted 400 Bad request");
+        console.error("AGENT: Intercepted 400 Bad request");
         toast.error("400 Bad request");
       }
 
       /* 403 Unauthorized error */
       if (status === 403) {
-        console.log("AGENT: Intercepted 403");
+        console.error("AGENT: Intercepted 403");
         toast.error(
           "Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator"
         );
       }
 
       if (status === 401) {
-        console.log("AGENT: Intercepted 403");
-        console.log(
+        console.error("AGENT: Intercepted 403");
+        console.error(
           "Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator"
         );
       }
 
       /* 500 Errors */
       if (status === 500) {
-        console.log("AGENT: Intercepted 500");
+        console.error("AGENT: Intercepted 500");
         toast.error("Server Error");
       }
     } catch (e) {
     } finally {
-      console.log("----AGENT---- THROWING error");
-      console.log(error.response);
+      console.error("----AGENT---- THROWING error");
+      console.error(error.response);
       throw error.response;
     }
   }

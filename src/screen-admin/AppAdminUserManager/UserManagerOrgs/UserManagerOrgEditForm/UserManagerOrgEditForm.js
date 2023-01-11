@@ -6,13 +6,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
 import React from "react";
 
-
-const UserManagerOrgEditForm = ({
-  org,
-  editOrg,
-  loadingOrg,
-  closeSideBar,
-}) => {
+const UserManagerOrgEditForm = ({ org, editOrg, loadingOrg, closeSideBar }) => {
   const formik = useFormik({
     initialValues: {
       alias: org.alias,
@@ -36,10 +30,9 @@ const UserManagerOrgEditForm = ({
       data["id"] = org.id;
       editOrg(data)
         .then((resp) => {
-
           closeSideBar();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
       formik.resetForm();
     },
   });
@@ -102,8 +95,6 @@ const UserManagerOrgEditForm = ({
           {getFormErrorMessage("alias")}
         </div>
 
-
-
         <div className="field">
           <label
             htmlFor="address"
@@ -137,7 +128,6 @@ const UserManagerOrgEditForm = ({
         />
       </form>
     </div>
-
   );
 };
 
