@@ -5,7 +5,11 @@ import { Sidebar } from "primereact/sidebar";
 import { Toast } from "primereact/toast";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
-    Navigate, Route, Routes, useNavigate, useParams
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useParams
 } from "react-router-dom";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import Loading from "../../../app/layout/Loading/Loading";
@@ -18,7 +22,6 @@ const HAView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [activeIndex, setActiveIndex] = useState(0);
   const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
   const toast = useRef(null);
 
@@ -126,10 +129,7 @@ const HAView = () => {
               <Route
                 path="information/"
                 element={
-                  <HAViewInformation
-                    id={params.id}
-                    project={selectedProject}
-                  />
+                  <HAViewInformation id={params.id} project={selectedProject} />
                 }
               />
 

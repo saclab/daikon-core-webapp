@@ -1,12 +1,12 @@
 import { observer } from "mobx-react-lite";
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from "primereact/breadcrumb";
 import { TabPanel, TabView } from "primereact/tabview";
 import React, { useContext, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import SectionHeading from '../../../../../app/common/SectionHeading/SectionHeading';
-import Loading from '../../../../../app/layout/Loading/Loading';
+import { useNavigate } from "react-router-dom";
+import SectionHeading from "../../../../../app/common/SectionHeading/SectionHeading";
+import Loading from "../../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
-import { appColors } from '../../../../../colors';
+import { appColors } from "../../../../../colors";
 import ValidatedHitsList from "../../ScreenTargetBased/ValidatedHits/ValidatedHitsList/ValidatedHitsList";
 
 const PhenotypicValidatedHits = ({ baseScreenName }) => {
@@ -16,10 +16,8 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
     filterPhenotypicScreensByBaseScreenName,
     filteredPhenotypicScreens,
     loadingFetchScreensPhenotypic,
-    screenSequenceIndex,
-    setScreenSequenceIndex,
     selectedPhenotypicScreenFilter,
-    loadingFilterPhenotypicScreensByBaseScreenName
+    loadingFilterPhenotypicScreensByBaseScreenName,
   } = rootStore.screenStore;
 
   const navigate = useNavigate();
@@ -31,20 +29,33 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
       selectedPhenotypicScreenFilter !== baseScreenName
     )
       filterPhenotypicScreensByBaseScreenName(baseScreenName);
-  }, [filteredPhenotypicScreens, filterPhenotypicScreensByBaseScreenName, baseScreenName, selectedPhenotypicScreenFilter]);
+  }, [
+    filteredPhenotypicScreens,
+    filterPhenotypicScreensByBaseScreenName,
+    baseScreenName,
+    selectedPhenotypicScreenFilter,
+  ]);
 
-  if (loadingFetchScreensPhenotypic || loadingFilterPhenotypicScreensByBaseScreenName) {
+  if (
+    loadingFetchScreensPhenotypic ||
+    loadingFilterPhenotypicScreensByBaseScreenName
+  ) {
     return <Loading />;
   }
 
-  if (!loadingFetchScreensPhenotypic && !loadingFilterPhenotypicScreensByBaseScreenName && filteredPhenotypicScreens.length === 0) {
-
-    return <h2>No screens found</h2>
+  if (
+    !loadingFetchScreensPhenotypic &&
+    !loadingFilterPhenotypicScreensByBaseScreenName &&
+    filteredPhenotypicScreens.length === 0
+  ) {
+    return <h2>No screens found</h2>;
   }
 
-  if (!loadingFetchScreensPhenotypic && !loadingFilterPhenotypicScreensByBaseScreenName && filteredPhenotypicScreens.length >= 0) {
-
-
+  if (
+    !loadingFetchScreensPhenotypic &&
+    !loadingFilterPhenotypicScreensByBaseScreenName &&
+    filteredPhenotypicScreens.length >= 0
+  ) {
     const breadCrumbItems = [
       {
         label: "Screens",
@@ -56,20 +67,16 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
         label: baseScreenName,
         command: () => {
           navigate(`/d/screen/${baseScreenName}`);
-        }
+        },
       },
       {
-        label: "Validated Hits"
-      }
-      ,
+        label: "Validated Hits",
+      },
     ];
-
-
 
     console.log("==== VALIDATED HITS");
     // let filteredScreensByTarget = filterScreensByTarget(baseScreenName);
     let tabs = [];
-
 
     if (tabs.length === 0 && filteredPhenotypicScreens.length > 0) {
       filteredPhenotypicScreens.forEach((screen) => {
@@ -77,7 +84,6 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
         tabs.push(
           <TabPanel header={screen.screenName} key={screen.id}>
             <ValidatedHitsList screenId={screen.id} />
-
           </TabPanel>
         );
       });
@@ -94,7 +100,8 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
             heading={"Screens of " + baseScreenName}
             baseScreenName={baseScreenName}
             displayHorizon={true}
-            color={appColors.sectionHeadingBg.screen} />
+            color={appColors.sectionHeadingBg.screen}
+          />
         </div>
         <div className="flex w-full">
           <SectionHeading
@@ -104,7 +111,7 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
             textColor={"#000000"}
           />
         </div>
-        <div className='flex w-full'>
+        <div className="flex w-full">
           <TabView
             // activeIndex={validatedHitsIndex}
             // onTabChange={(e) => setValidatedHitsIndex(e.index)}
@@ -117,6 +124,6 @@ const PhenotypicValidatedHits = ({ baseScreenName }) => {
       </div>
     );
   }
-}
+};
 
 export default observer(PhenotypicValidatedHits);

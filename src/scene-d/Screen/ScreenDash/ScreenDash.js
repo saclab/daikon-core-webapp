@@ -1,13 +1,13 @@
 import { observer } from "mobx-react-lite";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import { TabPanel, TabView } from 'primereact/tabview';
+import { TabPanel, TabView } from "primereact/tabview";
 import React, { useContext, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Loading from "../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import { appColors } from '../../../colors';
+import { appColors } from "../../../colors";
 import ScreenDashAddPhenotypic from "./ScreenDashAddPhenotypic/ScreenDashAddPhenotypic";
 import "./ScreenDashDataTable.css";
 
@@ -22,9 +22,8 @@ const ScreenDash = () => {
     loadingFetchScreensPhenotypic,
     screenPhenotypicRegistry,
     fetchScreensPhenotypic,
-    screensPhenotypic,
-    screenPhenotypicRegistryCacheValid } =
-    rootStore.screenStore;
+    screenPhenotypicRegistryCacheValid,
+  } = rootStore.screenStore;
 
   const { user } = rootStore.userStore;
 
@@ -32,8 +31,17 @@ const ScreenDash = () => {
 
   useEffect(() => {
     if (screenRegistry.size === 0) fetchScreens();
-    if (screenPhenotypicRegistry.size === 0 || !screenPhenotypicRegistryCacheValid) fetchScreensPhenotypic();
-  }, [screenRegistry, fetchScreens, screenPhenotypicRegistry, fetchScreensPhenotypic]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (
+      screenPhenotypicRegistry.size === 0 ||
+      !screenPhenotypicRegistryCacheValid
+    )
+      fetchScreensPhenotypic();
+  }, [
+    screenRegistry,
+    fetchScreens,
+    screenPhenotypicRegistry,
+    fetchScreensPhenotypic,
+  ]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* local variables */
 
@@ -42,7 +50,7 @@ const ScreenDash = () => {
   if (!loadingFetchScreens && !loadingFetchScreensPhenotypic) {
     /* Table Body Templates */
 
-    console.log(screenPhenotypicRegistry)
+    console.log(screenPhenotypicRegistry);
 
     const TargetNameBodyTemplate = (rowData) => {
       return (
@@ -115,18 +123,20 @@ const ScreenDash = () => {
                     filterMatchMode="contains"
                     filterPlaceholder="Search by Target Name"
                     className="min-w-max"
-                  // style={{minWidth: "50rem"}}
-
+                    // style={{minWidth: "50rem"}}
                   />
 
                   {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
 
-                  <Column field="notes" header="Notes" body={NotesBodyTemplate} />
+                  <Column
+                    field="notes"
+                    header="Notes"
+                    body={NotesBodyTemplate}
+                  />
                 </DataTable>
               </div>
             </TabPanel>
             <TabPanel header="Phenotypic">
-
               <div className="datatable-screens">
                 <DataTable
                   ref={dt}
@@ -146,26 +156,27 @@ const ScreenDash = () => {
                     filterMatchMode="contains"
                     filterPlaceholder="Search by Screen Name"
                     className="min-w-max"
-                  // style={{minWidth: "50rem"}}
-
+                    // style={{minWidth: "50rem"}}
                   />
 
                   {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
 
-                  <Column field="notes" header="Notes" body={NotesBodyTemplate} />
+                  <Column
+                    field="notes"
+                    header="Notes"
+                    body={NotesBodyTemplate}
+                  />
                 </DataTable>
               </div>
-
             </TabPanel>
-            {user.roles.includes("admin") && <TabPanel header="+">
-              <ScreenDashAddPhenotypic />
-            </TabPanel>}
-
+            {user.roles.includes("admin") && (
+              <TabPanel header="+">
+                <ScreenDashAddPhenotypic />
+              </TabPanel>
+            )}
           </TabView>
-
         </div>
       </div>
-
     );
   }
 

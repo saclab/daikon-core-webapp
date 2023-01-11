@@ -5,7 +5,11 @@ import { Sidebar } from "primereact/sidebar";
 import { Toast } from "primereact/toast";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
-    Navigate, Route, Routes, useNavigate, useParams
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useParams
 } from "react-router-dom";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import Loading from "../../../app/layout/Loading/Loading";
@@ -17,11 +21,10 @@ import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioProm
 import PortfolioPromotionsPromoteToLO from "./PortfolioPromotions/PortfolioPromotionsPromoteToLO";
 import PortfolioPromotionsPromoteToSP from "./PortfolioPromotions/PortfolioPromotionsPromoteToSP";
 
-const PortfolioView = ({ match, history }) => {
+const PortfolioView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [activeIndex, setActiveIndex] = useState(0);
   const [displayLOPromotionDialog, setDisplayLOPromotionDialog] =
     useState(false);
   const [displaySPPromotionDialog, setDisplaySPPromotionDialog] =
@@ -145,15 +148,6 @@ const PortfolioView = ({ match, history }) => {
     sideMenuItems.push(actions);
     console.log("selectedProject");
     console.log(selectedProject);
-    const breadCrumbItems = [
-      {
-        label: "Portfolio",
-        command: () => {
-          navigate("/portfolio/");
-        },
-      },
-      { label: selectedProject.projectName },
-    ];
 
     return (
       <React.Fragment>

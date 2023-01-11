@@ -1,14 +1,10 @@
-import React, { useContext } from "react";
+import { BreadCrumb } from "primereact/breadcrumb";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
-import { BreadCrumb } from 'primereact/breadcrumb';
-import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
-import { RootStoreContext } from "../../../app/stores/rootStore";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import TargetAdminImporter from "./TargetAdminImporter";
 
 const AppImportsTarget = () => {
-
-  const rootStore = useContext(RootStoreContext);
   const navigate = useNavigate();
 
   const breadCrumbItems = [
@@ -22,11 +18,9 @@ const AppImportsTarget = () => {
       label: "Target",
       command: () => {
         navigate(`/admin/app-imports/target`);
-      }
+      },
     },
   ];
-
-
 
   return (
     <React.Fragment>
@@ -49,7 +43,7 @@ const AppImportsTarget = () => {
         </div>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default AppImportsTarget
+export default AppImportsTarget;
