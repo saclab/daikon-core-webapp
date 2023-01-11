@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
-import { Chip } from 'primereact/chip';
+import { Chip } from "primereact/chip";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { OverlayPanel } from "primereact/overlaypanel";
@@ -29,11 +29,8 @@ const ScreenSequence = ({ screenId }) => {
   } = rootStore.screenStore;
   useEffect(() => {
     if (selectedScreen === null || selectedScreen.id !== screenId)
-      console.log("fetching screen : " + screenId);
-    fetchScreen(screenId);
+      fetchScreen(screenId);
   }, [selectedScreen, fetchScreen, screenId]);
-
-  console.log("====SCREEN SEQUENCE");
 
   if (loadingFetchScreen || selectedScreen === null) {
     return <PleaseWait />;
@@ -41,7 +38,7 @@ const ScreenSequence = ({ screenId }) => {
 
   const exportCSV = (selectionOnly) => {
     dt.current.exportCSV({ selectionOnly });
-  }
+  };
 
   const tableHeader = (
     <div className="flex w-full">
@@ -69,15 +66,16 @@ const ScreenSequence = ({ screenId }) => {
       <div className="flex w-6 justify-content-end gap-5">
         <div className="flex mr-6 gap-5">
           <Chip label={selectedScreen?.org.name} icon="ri-organization-chart" />
-          <Chip label={selectedScreen?.method} icon="icon icon-common icon-circle-notch" />
+          <Chip
+            label={selectedScreen?.method}
+            icon="icon icon-common icon-circle-notch"
+          />
         </div>
       </div>
     </div>
   );
 
   if (!loadingFetchScreen && selectedScreen) {
-    console.log("====SCREEN SEQUENCE + SELECTED SCREEN");
-
     let protocolBodyTemplate = (rowData) => {
       if (rowData?.protocol === null) {
         return <>Not Available</>;
@@ -164,35 +162,30 @@ const ScreenSequence = ({ screenId }) => {
             header={tableHeader}
             exportFilename={`Screen-${selectedScreen.screenName}-${selectedScreen.method}.csv`}
           >
-            <Column
-              field="library"
-              header="Library" />
+            <Column field="library" header="Library" />
 
             <Column
               field={"protocol"}
               body={protocolBodyTemplate}
-              header="Protocol" />
-            <Column
-              field="concentration"
-              header="Inhibitor Concentration" />
+              header="Protocol"
+            />
+            <Column field="concentration" header="Inhibitor Concentration" />
             <Column
               field="noOfCompoundsScreened"
-              header="No of compounds screened" />
+              header="No of compounds screened"
+            />
             <Column
               field="scientist"
               header="Scientist"
-              style={{ wordWrap: "break-word" }} />
+              style={{ wordWrap: "break-word" }}
+            />
             <Column
               field="startDate"
               header="Start Date"
-              body={StartDateTemplate} />
-            <Column
-              field="endDate"
-              header="End Date"
-              body={EndDateTemplate} />
-            <Column
-              field="unverifiedHitCount"
-              header="Hit Count" />
+              body={StartDateTemplate}
+            />
+            <Column field="endDate" header="End Date" body={EndDateTemplate} />
+            <Column field="unverifiedHitCount" header="Hit Count" />
           </DataTable>
         </div>
       </div>

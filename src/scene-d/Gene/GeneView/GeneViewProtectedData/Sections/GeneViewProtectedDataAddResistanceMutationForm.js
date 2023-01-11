@@ -28,7 +28,6 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
       return errors;
     },
     onSubmit: (data) => {
-      console.log(data);
       add(data).then((res) => {
         if (res !== null) {
           closeSidebar();

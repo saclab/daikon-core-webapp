@@ -11,8 +11,7 @@ import { RootStoreContext } from "../../../../app/stores/rootStore";
 const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingProject, selectedProject } =
-    rootStore.projectStore;
+  const { loadingProject, selectedProject } = rootStore.projectStore;
 
   const { creatingIND, createIND } = rootStore.postPortfolioStore;
 
@@ -32,7 +31,7 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
     },
     onSubmit: (data) => {
       data["id"] = selectedProject.id;
-      console.log(data);
+
       createIND(data).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -113,7 +112,6 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
                   className="p-mt-2"
                 />
               </div>
-
             </form>
           </div>
         </div>

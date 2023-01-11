@@ -41,7 +41,7 @@ const ScreenEdit = ({ selectedScreenTargetFilter, close }) => {
     onSubmit: (data) => {
       data["id"] = selectedScreen.id;
       data["orgId"] = data.org.id;
-      console.log(data);
+
       editScreen(data).then((res) => {
         if (res !== null) {
           formik.resetForm();

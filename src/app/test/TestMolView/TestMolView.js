@@ -42,10 +42,8 @@ const TestMolView = () => {
       return errors;
     },
     onSubmit: (data) => {
-      console.log(data);
       setShowMessage(true);
       formik.resetForm();
-      
     },
   });
 
@@ -147,13 +145,14 @@ const TestMolView = () => {
 
             <div className="p-field">
               <span className="p-float-label">
-              <label
+                <label
                   htmlFor="city"
                   className={classNames({
                     "p-error": isFormFieldValid("city"),
                   })}
                 >
-                  Select a city </label>
+                  Select a city{" "}
+                </label>
                 <Dropdown
                   id="city"
                   value={formik.values.city}

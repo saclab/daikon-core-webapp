@@ -9,7 +9,7 @@ import {
   Route,
   Routes,
   useNavigate,
-  useParams
+  useParams,
 } from "react-router-dom";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import Loading from "../../../app/layout/Loading/Loading";
@@ -32,8 +32,6 @@ const HAView = () => {
     rootStore.projectStore;
 
   useEffect(() => {
-    console.log("EFFECT");
-    console.log(params.id);
     if (selectedProject === null || selectedProject.id !== params.id) {
       fetchProject(params.id);
     }
@@ -41,7 +39,6 @@ const HAView = () => {
 
   /** Loading Overlay */
   if (loadingProject) {
-    console.log("Loading.....");
     return <Loading />;
   }
   if (!loadingProject && selectedProject !== null) {
@@ -110,9 +107,6 @@ const HAView = () => {
     }
 
     sideMenuItems.push(actions);
-
-    console.log("selectedProject");
-    console.log(selectedProject);
 
     return (
       <React.Fragment>

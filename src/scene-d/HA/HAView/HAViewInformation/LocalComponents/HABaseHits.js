@@ -10,7 +10,6 @@ const HABaseHits = ({ project }) => {
 
   if (project?.baseHits.length !== 0) {
     project.baseHits.forEach((baseHit) => {
-      console.log(baseHit.baseHit);
       tableData.push({
         id: baseHit.baseHit.compound.id,
         molArea: baseHit.baseHit.compound.molArea,

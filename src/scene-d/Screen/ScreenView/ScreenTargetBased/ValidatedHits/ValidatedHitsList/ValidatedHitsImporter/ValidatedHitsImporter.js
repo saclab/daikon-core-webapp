@@ -57,16 +57,10 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
   const { newHit, postingHit, updateHit, updatingHit } = rootStore.hitsStore;
 
   let handleOnError = (err, file, inputElem, reason) => {
-    console.log("---------------------------");
     console.error(err);
-    console.log("---------------------------");
   };
 
   let handleOnDrop = (r) => {
-    console.log("---------------------------");
-    console.log(r.data);
-
-    console.log("---------------------------");
     var index = 1;
 
     r.data.forEach((hit) => {
@@ -90,7 +84,6 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
           existingHit.iC50 != parseInt(hit.IC50) ||
           existingHit.mic != parseInt(hit.MIC)
         ) {
-          console.log("Update -> " + hit.Id);
           index = index + 1;
           hitsToUpdate.push({
             Id: existingHit.id,
@@ -130,25 +123,17 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       }
     });
 
-    console.log("hitsToUpdate");
-    console.log(hitsToUpdate);
     setHits([...hitsToAdd, ...hitsToUpdate]);
-    console.log("Hits to Add/Update : " + hits.length);
 
     setDisplayPreview(true);
-    console.log(hits);
   };
 
   let handleOnRemoveFile = (data) => {
     setHits([]);
     setDisplayPreview(false);
-    console.log("---------------------------");
-    console.log(data);
-    console.log("---------------------------");
   };
 
   let startImport = async () => {
-    console.log("Start Import");
     setDisplayCSVImporter(false);
     setDisplayPreview(false);
     setDisplayImportContainer(true);
@@ -159,7 +144,6 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       if (res !== null) {
         setImportingLogs("Imported " + hitsToAdd[i].ExternalCompoundIds);
         successList.push(hitsToAdd[i].ExternalCompoundIds);
-        console.log(successList);
       } else {
         setImportingLogs("Failed  " + hitsToAdd[i].ExternalCompoundIds);
         setFailedList([...failedList, hitsToAdd[i].ExternalCompoundIds]);
@@ -173,7 +157,6 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       if (res !== null) {
         setImportingLogs("Updated " + hitsToUpdate[i].ExternalCompoundIds);
         successList.push(hitsToUpdate[i].ExternalCompoundIds);
-        console.log(successList);
       } else {
         setImportingLogs("Failed  " + hitsToUpdate[i].ExternalCompoundIds);
         setFailedList([...failedList, hitsToUpdate[i].ExternalCompoundIds]);

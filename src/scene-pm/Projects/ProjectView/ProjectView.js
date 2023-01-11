@@ -6,7 +6,7 @@ import {
   Route,
   Routes,
   useNavigate,
-  useParams
+  useParams,
 } from "react-router-dom";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
 import Loading from "../../../app/layout/Loading/Loading";
@@ -23,7 +23,6 @@ const ProjectView = () => {
 
   useEffect(() => {
     if (selectedProject === null || selectedProject.id !== params.id) {
-      console.log("Will fetch from store" + params.id);
       fetchProject(params.id);
     }
   }, [params.id, selectedProject, fetchProject]);

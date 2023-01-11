@@ -62,51 +62,36 @@ const SimpleTargetAdminImporter = () => {
   }, [promotionQuestionsRegistry, getPromotionQuestions]);
 
   let handleOnError = (err, file, inputElem, reason) => {
-    console.log("---------------------------");
     console.error(err);
-    console.log("---------------------------");
   };
 
   let handleOnDrop = (data) => {
     setLoading(true);
 
-    console.log("---------------------------");
-    console.log(data);
     dto(data);
-
-    console.log("---------------------------");
   };
 
   let handleOnRemoveFile = (data) => {
-    console.log("---------------------------");
-    console.log(data);
-    console.log("---------------------------");
     setDataFormatingStatus(false);
   };
 
   let dto = async (csvData) => {
     let data = csvData.data;
     let failedForDTOs = [];
-    console.log("---------------------------");
-    console.log("DTO START");
+
     setLoading(true);
 
     for (let i = 0; i < data.length; i++) {
       let row = data[i];
-      console.log(row);
-      console.log("Fetching for " + row["Protein"]);
 
       setsSatusText("Preparing " + row["Protein"]);
       if (row["Protein"] === "") {
         continue;
       }
 
-      let gene = await fetchGeneByAccessionNo(row["AccessionNo"]).catch((e) => {
-        console.log("Cannot find gene", e);
-      });
-
-      console.log("gene");
-      console.log(gene);
+      let gene = await fetchGeneByAccessionNo(row["AccessionNo"]).catch(
+        (e) => {}
+      );
 
       if (typeof gene === "undefined") {
         failedForDTOs.push(row["AccessionNo"] + " in row " + i);
@@ -236,24 +221,16 @@ const SimpleTargetAdminImporter = () => {
     setLoading(false);
     setDataFormatingStatus(true);
     setsSatusText(consolidatedDTO.length + " targets found");
-    console.log("---------------------------");
-    console.log("Failed DTOs");
-    console.log(failedForDTOs);
-    console.log("DTO END");
-
-    console.log(statusProps.importTargetLength);
   };
 
   let importToServer = async () => {
     let failedDTOImports = [];
-    console.log("Starting import");
 
     for (let i = 0; i < consolidatedDTO.length; i++) {
       let targetToImport = consolidatedDTO[i];
       setsSatusText("Importing " + targetToImport.geneName);
-      console.log(targetToImport);
+
       await importTarget(targetToImport).catch((e) => {
-        console.log("Cannot import", e);
         failedDTOImports.push(targetToImport.geneName);
       });
     }

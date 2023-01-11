@@ -50,7 +50,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
     onSubmit: (data) => {
       data["targetID"] = selectedTarget.id;
       data["orgId"] = data.org.id;
-      console.log(data);
+
       promoteTargetToScreen(data).then((res) => {
         if (res !== null) {
           closeSidebar();

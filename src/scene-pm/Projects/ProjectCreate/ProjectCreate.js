@@ -100,7 +100,7 @@ const ProjectCreate = () => {
       // data["projectId"] = selectedProject.id;
       createUnlinkedProject(data).then((res) => {
         if (res !== null) {
-          // console.log(res)
+          //
         }
       });
       // history.push()

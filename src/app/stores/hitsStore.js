@@ -27,7 +27,7 @@ export default class HitsStore {
     try {
       res = await agent.Hit.create(hit);
       runInAction(() => {
-        //console.log(res);
+        //
       });
     } catch (error) {
       console.error(error);
@@ -48,7 +48,7 @@ export default class HitsStore {
     try {
       res = await agent.Hit.update(hit.Id, hit);
       runInAction(() => {
-        //console.log(res);
+        //
       });
     } catch (error) {
       console.error(error);

@@ -1,8 +1,6 @@
 import React from "react";
 
 const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
-  console.log(ansObj[oKey]);
-
   let qClass =
     ansObj[oKey] === undefined || ansObj[oKey].answer === ""
       ? "flex align-items-center w-2 pl-2 border-1 border-round border-red-500 surface-overlay"

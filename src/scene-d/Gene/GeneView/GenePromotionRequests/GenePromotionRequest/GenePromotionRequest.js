@@ -32,7 +32,6 @@ const GenePromotionRequest = ({
     var newField = null;
 
     if (e.target.id.endsWith("Description")) {
-      console.log("Description Field");
       location = e.target.id.slice(0, -11);
       newFormValue = { ...targetPromotionFormValue };
       newField = { ...newFormValue[location] };
@@ -57,8 +56,8 @@ const GenePromotionRequest = ({
     var promotionReqData = {
       targetName: GenePromotionRequest.targetName,
       targetType: GenePromotionRequest.targetType,
-      genePromtionRequestGenes : GenePromotionRequest.genePromtionRequestGenes,
-      
+      genePromtionRequestGenes: GenePromotionRequest.genePromtionRequestGenes,
+
       genePromotionRequestValues: [],
     };
 
@@ -71,7 +70,6 @@ const GenePromotionRequest = ({
     });
 
     promoteGene(promotionReqData).then((res) => {
-      console.log(res);
       if (res?.id) {
         toast.success("Success. The gene has been promoted.");
         genePromotionRegistry.delete(TargetName);

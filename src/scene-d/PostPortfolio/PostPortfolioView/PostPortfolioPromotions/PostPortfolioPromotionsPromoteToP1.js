@@ -31,7 +31,7 @@ const PostPortfolioPromotionsPromoteToP1 = ({ closeSidebar }) => {
     },
     onSubmit: (data) => {
       data["id"] = selectedProject.id;
-      console.log(data);
+
       createP1(data).then((res) => {
         if (res !== null) {
           closeSidebar();

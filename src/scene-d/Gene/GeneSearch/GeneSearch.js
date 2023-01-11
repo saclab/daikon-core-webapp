@@ -13,15 +13,14 @@ import "./GeneDataTable.css";
 const GeneSearch = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { fetchGeneList, displayLoading, genes, geneFunctionalCategories } = rootStore.geneStore;
+  const { fetchGeneList, displayLoading, genes, geneFunctionalCategories } =
+    rootStore.geneStore;
 
   /* Local State Management */
-
 
   // const [globalFilter, setGlobalFilter] = useState(null);
 
   useEffect(() => {
-    console.log("GeneSearch: fetchGeneList()");
     fetchGeneList();
   }, [fetchGeneList]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -45,7 +44,9 @@ const GeneSearch = () => {
     return (
       <React.Fragment>
         <span className="p-column-title">Accession Number</span>
-        <NavLink to={"/d/gene/" + rowData.id}>{rowData.accessionNumber}</NavLink>
+        <NavLink to={"/d/gene/" + rowData.id}>
+          {rowData.accessionNumber}
+        </NavLink>
       </React.Fragment>
     );
   };
@@ -178,7 +179,11 @@ const GeneSearch = () => {
               filterPlaceholder="Search"
             />
 
-            <Column field="product" header="Product" body={ProductBodyTemplate} />
+            <Column
+              field="product"
+              header="Product"
+              body={ProductBodyTemplate}
+            />
 
             <Column
               field="functionalCategory"

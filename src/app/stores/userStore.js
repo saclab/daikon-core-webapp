@@ -26,24 +26,22 @@ export default class UserStore {
   // @action
   getUser = async () => {
     this.fetching = true;
-    // console.log("Attempting to get user from bmgf token...");
+    //
     try {
       const user = await agent.User.current();
       runInAction(() => {
         if (!user) {
           this.userNotFound = true;
-          console.log("Failed getUser() at store");
         } else {
           this.user = user;
-          // console.log("Succeed getUser() at store");
-          // console.log(this.user);
+          //
+          //
         }
         this.fetching = false;
       });
     } catch (error) {
-      console.log("!!!!!!!!!ERROR AT USER STORE");
       console.error(error);
-      console.log("!!!!!!!!!END ERROR AT USER STORE");
+
       this.fetching = false;
       throw error;
     }

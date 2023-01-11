@@ -270,7 +270,6 @@ const GenePromote = () => {
     var newField = null;
 
     if (e.target.id.endsWith("Description")) {
-      console.log("Description Field");
       location = e.target.id.slice(0, -11);
       newFormValue = { ...targetPromotionFormValue };
       newField = { ...newFormValue[location] };
@@ -327,8 +326,6 @@ const GenePromote = () => {
       });
     });
 
-    console.log(data);
-
     submitPromotionQuestionaire(params.ptarget, data).then((res) => {
       if (res !== null) {
         setFormSuccess(true);
@@ -365,7 +362,6 @@ const GenePromote = () => {
 
   let formToDisplay = () => {
     if (!promotionQuestionsDisplayLoading) {
-      console.log(activeForm);
       switch (activeForm) {
         case 0:
           return (

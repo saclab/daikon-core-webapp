@@ -8,7 +8,7 @@ import {
   Route,
   Routes,
   useNavigate,
-  useParams
+  useParams,
 } from "react-router-dom";
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
 import Loading from "../../../../app/layout/Loading/Loading";
@@ -40,7 +40,6 @@ const ScreenView = () => {
   useEffect(() => {
     if (screenRegistry.size === 0 || selectedScreenTargetFilter !== params.id) {
       fetchScreens().then(() => {
-        console.log("should run after screens are fetched");
         filterScreensByTarget(params.id);
       });
     }
@@ -55,8 +54,6 @@ const ScreenView = () => {
   const [displayMergeScreenDialog, setDisplayMergeScreenDialog] =
     useState(false);
   const [displayEditScreenDialog, setDisplayEditScreenDialog] = useState(false);
-
-  console.log("====SCREEN VIEW");
 
   if (!loadingFetchScreens && filteredScreens.length === 0) {
     return (

@@ -7,7 +7,7 @@ import {
   Route,
   Routes,
   useNavigate,
-  useParams
+  useParams,
 } from "react-router-dom";
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
 import Loading from "../../../../app/layout/Loading/Loading";
@@ -39,7 +39,6 @@ const PhenotypicScreenView = () => {
       selectedPhenotypicScreenFilter !== params.baseScreenName
     ) {
       fetchScreensPhenotypic().then(() => {
-        console.log("should run after screens are fetched");
         filterPhenotypicScreensByBaseScreenName(params.baseScreenName);
       });
     }
@@ -50,8 +49,6 @@ const PhenotypicScreenView = () => {
     selectedPhenotypicScreenFilter,
     params.baseScreenName,
   ]);
-
-  console.log("====SCREEN VIEW");
 
   if (
     loadingFetchScreensPhenotypic ||

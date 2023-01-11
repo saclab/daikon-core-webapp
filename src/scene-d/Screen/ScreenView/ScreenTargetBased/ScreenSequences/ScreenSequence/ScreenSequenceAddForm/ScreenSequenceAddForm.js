@@ -50,7 +50,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
     },
     onSubmit: (data) => {
       data["screenId"] = screenId;
-      console.log(data);
+
       onAdd(data);
       formik.resetForm();
     },
