@@ -712,6 +712,11 @@ export default class GeneStore {
     this.editingHypomorph = true;
     // send to server
     try {
+      await agent.Gene.editHypomorph(
+        editedHypomorph.geneId,
+        editedHypomorph.id,
+        editedHypomorph
+      );
       runInAction(() => {
         this.reloadGene(editedHypomorph.geneId);
         toast.success("Ok, edited hypomorph data.");
@@ -726,11 +731,10 @@ export default class GeneStore {
   };
 
   addHypomorph = async (newHypomorph) => {
-    console.log("geneStore: addHypomorph Start");
-
     this.addingHypomorph = true;
     // send to server
     try {
+      await agent.Gene.addHypomorph(this.selectedGene.id, newHypomorph);
       runInAction(() => {
         this.reloadGene(this.selectedGene.id);
         toast.success("Ok, added new Hypomorph");
