@@ -65,7 +65,6 @@ const Horizon = ({ accessionNumber, targetName }) => {
       textAnchor: "start",
       x: 30,
       y: -10,
-      transform: undefined,
     };
 
     let translate = {
