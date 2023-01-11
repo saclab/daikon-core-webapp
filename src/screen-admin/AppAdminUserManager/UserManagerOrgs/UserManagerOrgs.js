@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
@@ -8,8 +8,8 @@ import { ProgressBar } from "primereact/progressbar";
 import { Sidebar } from "primereact/sidebar";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
-import Loading from '../../../app/layout/Loading/Loading';
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import Loading from "../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import UserManagerOrgEditForm from "./UserManagerOrgEditForm/UserManagerOrgEditForm";
 import UserManagerOrgForm from "./UserManagerOrgForm/UserManagerOrgForm";
@@ -37,7 +37,7 @@ const UserManagerOrgs = () => {
     if (Orgs.length === 0) {
       fetchOrgs();
     }
-  }, [fetchOrgs, Orgs, currentUser.roles]);
+  }, [fetchOrgs, Orgs, currentUser.roles, navigate]);
 
   /** Loading Overlay */
   if (!displayEditDialog && LoadingOrgs) {
@@ -55,7 +55,7 @@ const UserManagerOrgs = () => {
       label: "Orgs",
       command: () => {
         navigate(`/admin/user-manager/orgs`);
-      }
+      },
     },
   ];
 
@@ -76,7 +76,6 @@ const UserManagerOrgs = () => {
 
   return (
     <React.Fragment>
-
       <div className="flex flex-column gap-2 w-full">
         <div className="flex w-full pb-2">
           <BreadCrumb model={breadCrumbItems} />
@@ -111,8 +110,6 @@ const UserManagerOrgs = () => {
           </DataTable>
         </div>
       </div>
-
-
 
       <div>
         {/* <Message
