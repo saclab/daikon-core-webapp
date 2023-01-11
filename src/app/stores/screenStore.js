@@ -1,9 +1,9 @@
 import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
+    action,
+    computed,
+    makeObservable,
+    observable,
+    runInAction
 } from "mobx";
 import { toast } from "react-toastify";
 

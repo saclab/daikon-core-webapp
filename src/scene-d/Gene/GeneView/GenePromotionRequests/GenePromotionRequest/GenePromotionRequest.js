@@ -1,12 +1,12 @@
-import React, { useState, useContext } from "react";
-import { Divider } from "primereact/divider";
 import { Button } from "primereact/button";
-import { toast } from "react-toastify";
+import { Divider } from "primereact/divider";
 import { Panel } from "primereact/panel";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 import Question from "../../../../../app/common/Question/Question";
-import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const GenePromotionRequest = ({
   GenePromotionRequest,

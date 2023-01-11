@@ -1,6 +1,6 @@
+import { TabMenu } from "primereact/tabmenu";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TabMenu } from "primereact/tabmenu";
 import "./MenuBarPM.css";
 
 import { useEffect } from "react";

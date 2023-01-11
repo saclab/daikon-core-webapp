@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import React, { useRef } from "react";
 import SmilesView from "../../../../../app/common/SmilesView/SmilesView";
 
 const HABaseHits = ({ project }) => {

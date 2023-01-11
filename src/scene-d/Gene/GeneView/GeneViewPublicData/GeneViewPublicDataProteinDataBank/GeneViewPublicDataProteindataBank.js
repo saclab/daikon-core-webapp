@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
-import { RootStoreContext } from "../../../../../app/stores/rootStore";
-import { Skeleton } from "primereact/skeleton";
 import { Dialog } from "primereact/dialog";
+import { Skeleton } from "primereact/skeleton";
 import { SplitButton } from 'primereact/splitbutton';
+import React, { useContext, useEffect, useState } from "react";
 import LiteMolView from "../../../../../app/common/LiteMolView/LiteMolView";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
   /* MobX Store */

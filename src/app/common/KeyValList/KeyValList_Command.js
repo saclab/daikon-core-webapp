@@ -69,7 +69,6 @@ export function _command_contextMenuHilightRecentChangesCommand(
   setHilightRecentChanges(true);
   // localStorage.setItem("_local_HilightRecentChanges", true)
   // localStorage.setItem("_local_HilightAllChanges", false)
-
 }
 
 export function _command_contextMenuClearHilightsCommand(
@@ -78,8 +77,8 @@ export function _command_contextMenuClearHilightsCommand(
 ) {
   setHilightAllChanges(false);
   setHilightRecentChanges(false);
-  localStorage.removeItem("_local_HilightRecentChanges")
-  localStorage.removeItem("_local_HilightAllChanges")
+  localStorage.removeItem("_local_HilightRecentChanges");
+  localStorage.removeItem("_local_HilightAllChanges");
 }
 
 export function _command_contextMenuEditCommand(setDisplayEditContainer) {

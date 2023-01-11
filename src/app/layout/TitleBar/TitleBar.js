@@ -1,17 +1,16 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 // import { withRouter } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
+import { Dropdown } from "primereact/dropdown";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Sidebar } from "primereact/sidebar";
-import { Dropdown } from "primereact/dropdown";
+import { useNavigate } from "react-router-dom";
 
 
-import cssClass from "./TitleBar.module.css";
 import { Button } from "primereact/button";
-import history from "../../../history";
-import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import { RootStoreContext } from "../../stores/rootStore";
+import cssClass from "./TitleBar.module.css";
+import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import TitleBarSidePanel from "./TitleBarSidePanel/TitleBarSidePanel";
 
 

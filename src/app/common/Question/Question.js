@@ -1,7 +1,7 @@
-import React from "react";
 import { Dropdown } from "primereact/dropdown";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Tooltip } from "primereact/tooltip";
+import React from "react";
 
 const Question = ({ question, updateObject, readObject }) => {
   if (typeof question?.identification === "undefined")
@@ -19,7 +19,14 @@ const Question = ({ question, updateObject, readObject }) => {
           className={"questionBody" + question.identification}
           style={{ width: "19rem" }}
         >
-          <b style={{ backgroundColor: "#5D6D7E", color: "#ffffff", padding: "2px", marginRight: "4px" }}>
+          <b
+            style={{
+              backgroundColor: "#5D6D7E",
+              color: "#ffffff",
+              padding: "2px",
+              marginRight: "4px",
+            }}
+          >
             {question.identification}
           </b>
           {question.questionBody}

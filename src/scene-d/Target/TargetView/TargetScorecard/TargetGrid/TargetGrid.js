@@ -1,8 +1,8 @@
-import React from "react";
 import { Tooltip } from "primereact/tooltip";
+import React from "react";
 
-import "./TargetGrid.css";
 import PleaseWait from "../../../../../app/common/PleaseWait/PleaseWait";
+import "./TargetGrid.css";
 
 const TargetGrid = ({ questions, target }) => {
   let answers = {};

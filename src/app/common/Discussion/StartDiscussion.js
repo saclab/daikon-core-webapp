@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { InputTextarea } from "primereact/inputtextarea";
-import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Editor } from 'primereact/editor';
+import { InputText } from "primereact/inputtext";
+import React, { useState } from "react";
 
 const StartDiscussion = ({
   section,

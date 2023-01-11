@@ -1,10 +1,8 @@
-import React, { useState, useRef } from "react";
 import { observer } from "mobx-react-lite";
-import { TabView, TabPanel } from "primereact/tabview";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
-import SectionHeading from '../../app/common/SectionHeading/SectionHeading';
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { Navigate, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import AppImportsTarget from "./AppImportsTarget/AppImportsTarget";
 
 const AppImports = () => {

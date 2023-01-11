@@ -1,19 +1,17 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
-import { Menu } from "primereact/menu";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { Toast } from "primereact/toast";
-import Loading from "../../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
+import { Dialog } from 'primereact/dialog';
+import { Menu } from "primereact/menu";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Navigate, Route, Routes, useNavigate, useParams } from "react-router-dom";
+import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
+import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import ScreenDiscussion from './ScreenDiscussion/ScreenDiscussion';
+import ScreenEdit from "./ScreenEdit/ScreenEdit";
+import ScreenMerge from "./ScreenMerge/ScreenMerge";
 import ScreenSequences from "./ScreenSequences/ScreenSequences";
 import ValidatedHits from "./ValidatedHits/ValidatedHits";
-import { appColors } from '../../../../colors';
-import ScreenDiscussion from './ScreenDiscussion/ScreenDiscussion';
-import NotFound from '../../../../app/layout/NotFound/NotFound';
-import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
-import { Dialog } from 'primereact/dialog';
-import ScreenMerge from "./ScreenMerge/ScreenMerge";
-import ScreenEdit from "./ScreenEdit/ScreenEdit";
 
 const ScreenView = () => {
   const params = useParams();

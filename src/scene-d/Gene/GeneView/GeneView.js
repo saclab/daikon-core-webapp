@@ -1,16 +1,15 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import { observer } from "mobx-react-lite";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
-import { observer } from "mobx-react-lite";
-import GeneViewProtectedData from "./GeneViewProtectedData/GeneViewProtectedData";
-import { RootStoreContext } from "../../../app/stores/rootStore";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../app/layout/Loading/Loading";
-import GeneViewPublicData from "./GeneViewPublicData/GeneViewPublicData";
 import NotFound from "../../../app/layout/NotFound/NotFound";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 import GenePromoteTargetSelectionWindow from "../GenePromote/GenePromoteTargetSelectionWindow/GenePromoteTargetSelectionWindow";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import GeneDiscusion from './GeneDiscussion/GeneDiscusion';
-import GeneGroups from "./GeneGroups/GeneGroups";
+import GeneViewProtectedData from "./GeneViewProtectedData/GeneViewProtectedData";
+import GeneViewPublicData from "./GeneViewPublicData/GeneViewPublicData";
 
 
 const GeneView = () => {

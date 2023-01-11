@@ -1,10 +1,10 @@
-import React, { useEffect, useContext } from "react";
-import ReactECharts from "echarts-for-react";
 import * as echarts from "echarts";
+import ReactECharts from "echarts-for-react";
 import { observer } from "mobx-react-lite";
+import React, { useContext, useEffect } from "react";
+import { appColors } from "../../colors";
 import { RootStoreContext } from "../stores/rootStore";
 import Loading from "./Loading/Loading";
-import { appColors } from "../../colors";
 
 const AppBeta = () => {
   /* MobX Store */

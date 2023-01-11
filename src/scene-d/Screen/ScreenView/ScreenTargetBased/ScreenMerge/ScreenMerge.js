@@ -1,13 +1,12 @@
-import React from 'react'
+import { observer } from "mobx-react-lite";
+import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-import { toast } from "react-toastify";
-import { observer } from "mobx-react-lite";
-import EmbededHelp from '../../../../../app/common/EmbededHelp/EmbededHelp'
-import { useState, useContext } from 'react';
-import { RootStoreContext } from '../../../../../app/stores/rootStore';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+import EmbededHelp from '../../../../../app/common/EmbededHelp/EmbededHelp';
+import { RootStoreContext } from '../../../../../app/stores/rootStore';
 
 const ScreenMerge = ({ screens, close }) => {
 

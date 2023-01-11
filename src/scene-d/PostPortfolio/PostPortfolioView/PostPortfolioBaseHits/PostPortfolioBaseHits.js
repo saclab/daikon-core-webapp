@@ -1,10 +1,10 @@
+import { BreadCrumb } from 'primereact/breadcrumb';
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import React, { useRef } from "react";
 import { useNavigate } from 'react-router-dom';
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import SmilesView from "../../../../app/common/SmilesView/SmilesView";
-import { BreadCrumb } from 'primereact/breadcrumb';
 import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import SmilesView from "../../../../app/common/SmilesView/SmilesView";
 import { appColors } from '../../../../colors';
 
 const PostPortfolioBaseHits = ({ project }) => {

@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { Button } from "primereact/button";
-import { Sidebar } from "primereact/sidebar";
 import { Chip } from 'primereact/chip';
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import { OverlayPanel } from "primereact/overlaypanel";
-import { RootStoreContext } from "../../../../../../app/stores/rootStore";
-import Loading from "../../../../../../app/layout/Loading/Loading";
-import ScreenSequenceAddForm from "./ScreenSequenceAddForm/ScreenSequenceAddForm";
-import PleaseWait from "../../../../../../app/common/PleaseWait/PleaseWait";
+import { Sidebar } from "primereact/sidebar";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import FDate from "../../../../../../app/common/FDate/FDate";
+import PleaseWait from "../../../../../../app/common/PleaseWait/PleaseWait";
+import Loading from "../../../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../../../app/stores/rootStore";
+import ScreenSequenceAddForm from "./ScreenSequenceAddForm/ScreenSequenceAddForm";
 
 const ScreenSequence = ({ screenId }) => {
   const [displayAddDialog, setDisplayAddDialog] = useState(false);

@@ -1,28 +1,18 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { TabView, TabPanel } from "primereact/tabview";
-import { BreadCrumb } from "primereact/breadcrumb";
-import { Menu } from "primereact/menu";
-import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-  useParams,
-} from "react-router-dom";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import HAViewInformation from "./HAViewInformation/HAViewInformation";
-import Discussion from "../../../app/common/Discussion/Discussion";
-import { Sidebar } from "primereact/sidebar";
+import { Menu } from "primereact/menu";
 import { Message } from "primereact/message";
-import HAPromotionQuestionaire from "./HAPromotionQuestionaire/HAPromotionQuestionaire";
+import { Sidebar } from "primereact/sidebar";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import {
+    Navigate, Route, Routes, useNavigate, useParams
+} from "react-router-dom";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
-import { appColors } from "../../../colors";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 import HADiscussion from "./HADiscussion/HADiscussion";
+import HAPromotionQuestionaire from "./HAPromotionQuestionaire/HAPromotionQuestionaire";
+import HAViewInformation from "./HAViewInformation/HAViewInformation";
 
 const HAView = () => {
   const params = useParams();

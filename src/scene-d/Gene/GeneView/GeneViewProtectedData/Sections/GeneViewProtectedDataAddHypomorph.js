@@ -1,8 +1,8 @@
-import React from "react";
 import { useFormik } from "formik";
-import { classNames } from "primereact/utils";
-import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { classNames } from "primereact/utils";
+import React from "react";
 
 const GeneViewProtectedDataAddHypomorph = ({ add, adding, closeSidebar }) => {
   const formik = useFormik({

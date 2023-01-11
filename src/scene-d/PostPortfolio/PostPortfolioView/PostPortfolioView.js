@@ -1,29 +1,19 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-  useParams,
-} from "react-router-dom";
-import { TabView, TabPanel } from "primereact/tabview";
-import { BreadCrumb } from "primereact/breadcrumb";
-import { Menu } from "primereact/menu";
-import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
-import { Sidebar } from "primereact/sidebar";
+import { Menu } from "primereact/menu";
 import { Message } from "primereact/message";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import Discussion from "../../../app/common/Discussion/Discussion";
+import { Sidebar } from "primereact/sidebar";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import {
+    Navigate, Route, Routes, useNavigate, useParams
+} from "react-router-dom";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 import PostPortfolioBaseHits from "./PostPortfolioBaseHits/PostPortfolioBaseHits";
+import PostPortfolioDiscussion from "./PostPortfolioDiscussion/PostPortfolioDiscussion";
 import PostPortfolioInformation from "./PostPortfolioInformation/PostPortfolioInformation";
 import PostPortfolioPromotionsPromoteToP1 from "./PostPortfolioPromotions/PostPortfolioPromotionsPromoteToP1";
-import { appColors } from "../../../colors";
-import PostPortfolioDiscussion from "./PostPortfolioDiscussion/PostPortfolioDiscussion";
 
 const PostPortfolioView = () => {
   const params = useParams();

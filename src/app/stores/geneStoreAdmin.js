@@ -1,6 +1,6 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
-import agent from "../api/agent";
 import { toast } from "react-toastify";
+import agent from "../api/agent";
 
 export default class GeneStoreAdmin {
   rootStore;

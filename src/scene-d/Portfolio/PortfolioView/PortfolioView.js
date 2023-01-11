@@ -1,31 +1,21 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { TabView, TabPanel } from "primereact/tabview";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-  useParams,
-} from "react-router-dom";
-import { BreadCrumb } from "primereact/breadcrumb";
-import { Menu } from "primereact/menu";
-import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
-import { Sidebar } from "primereact/sidebar";
+import { Menu } from "primereact/menu";
 import { Message } from "primereact/message";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import Discussion from "../../../app/common/Discussion/Discussion";
-import PortfolioInformation from "./PortfolioInformation/PortfolioInformation";
+import { Sidebar } from "primereact/sidebar";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import {
+    Navigate, Route, Routes, useNavigate, useParams
+} from "react-router-dom";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import PortfolioBaseHits from "./PortfolioBaseHits/PortfolioBaseHits";
+import PortfolioDiscussion from "./PortfolioDiscussion/PortfolioDIscussion";
+import PortfolioInformation from "./PortfolioInformation/PortfolioInformation";
+import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioPromotionsPromoteToIND";
 import PortfolioPromotionsPromoteToLO from "./PortfolioPromotions/PortfolioPromotionsPromoteToLO";
 import PortfolioPromotionsPromoteToSP from "./PortfolioPromotions/PortfolioPromotionsPromoteToSP";
-import PortfolioBaseHits from "./PortfolioBaseHits/PortfolioBaseHits";
-import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioPromotionsPromoteToIND";
-import { appColors } from "../../../colors";
-import PortfolioDiscussion from "./PortfolioDiscussion/PortfolioDIscussion";
 
 const PortfolioView = ({ match, history }) => {
   const params = useParams();

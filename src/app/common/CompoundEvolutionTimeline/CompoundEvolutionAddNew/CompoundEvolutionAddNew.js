@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ProgressBar } from "primereact/progressbar";
-import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
-import { observer } from "mobx-react-lite";
+import React, { useContext } from "react";
 
-import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { InputText } from "primereact/inputtext";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const CompoundEvolutionAddNew = ({ closeSidebar }) => {
   /* MobX Store */

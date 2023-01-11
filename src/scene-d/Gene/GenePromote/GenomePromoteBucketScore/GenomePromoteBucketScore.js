@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
+import { Sidebar } from "primereact/sidebar";
+import React, { useState } from "react";
 
 const GenomePromoteBucketScore = (props) => {
   const [visibleRight, setVisibleRight] = useState(true);

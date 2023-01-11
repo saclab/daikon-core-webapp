@@ -1,23 +1,23 @@
 import { configure } from "mobx";
 import { createContext } from "react";
 import AdminStore from "./adminStore";
-import GeneStore from "./geneStore";
-import MsStore from "./msStore";
-import UserStore from "./userStore";
-import TargetStore from "./targetStore";
-import ScreenStore from "./screenStore";
-import PortfolioStore from "./portfolioStore";
 import AppSettingsStore from "./appSettingsStore";
-import GeneStoreAdmin from "./geneStoreAdmin";
-import TargetStoreAdmin from "./targetStoreAdmin";
-import PostPortfolioStore from "./postPortfolioStore";
-import HitsStore from "./hitsStore";
+import DataViewStore from './dataViewStore';
 import DiscussionStore from "./discussionStore";
 import GeneralStore from "./generalStore";
+import GeneStore from "./geneStore";
+import GeneStoreAdmin from "./geneStoreAdmin";
 import HAStore from "./haStore";
+import HitsStore from "./hitsStore";
+import MsStore from "./msStore";
+import PortfolioStore from "./portfolioStore";
+import PostPortfolioStore from "./postPortfolioStore";
 import ProjectStore from "./projectStore";
+import ScreenStore from "./screenStore";
+import TargetStore from "./targetStore";
+import TargetStoreAdmin from "./targetStoreAdmin";
+import UserStore from "./userStore";
 import VotingStore from "./VotingStore";
-import DataViewStore from './dataViewStore';
 
 configure({ enforceActions: "always" });
 

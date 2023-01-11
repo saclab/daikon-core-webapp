@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import ReactECharts from "echarts-for-react";
 import * as echarts from "echarts";
+import ReactECharts from "echarts-for-react";
 import { observer } from "mobx-react-lite";
-import { Slider } from "primereact/slider";
-import { useNavigate } from "react-router-dom";
 import { InputSwitch } from "primereact/inputswitch";
-import { appColors } from "../../../../colors";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { Slider } from "primereact/slider";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from "../../../../colors";
 
 const TargetDashChart = ({ targets }) => {
   const navigate = useNavigate();

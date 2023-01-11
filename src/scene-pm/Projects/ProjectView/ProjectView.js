@@ -1,13 +1,10 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
-import { RootStoreContext } from '../../../app/stores/rootStore';
-import { Menu } from "primereact/menu";
-import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
-import { Sidebar } from "primereact/sidebar";
-import { Message } from "primereact/message";
-import Loading from '../../../app/layout/Loading/Loading';
+import { Menu } from "primereact/menu";
+import React, { useContext, useEffect } from "react";
+import { Navigate, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import FailedLoading from '../../../app/common/FailedLoading/FailedLoading';
+import Loading from '../../../app/layout/Loading/Loading';
+import { RootStoreContext } from '../../../app/stores/rootStore';
 import ProjectSettings from "./ProjectSettings/ProjectSettings";
 
 const ProjectView = () => {

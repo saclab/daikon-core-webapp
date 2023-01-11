@@ -1,13 +1,13 @@
-import React, { useEffect, useContext } from "react";
-import { Divider } from "primereact/divider";
 import { observer } from "mobx-react-lite";
+import { Divider } from "primereact/divider";
+import React, { useContext, useEffect } from "react";
 
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import Loading from "../../../../app/layout/Loading/Loading";
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
 import { BreadCrumb } from 'primereact/breadcrumb';
-import { appColors } from '../../../../colors';
 import { useNavigate } from 'react-router-dom';
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from '../../../../colors';
 import GenePromoteSummaryAnswers from "../../../Gene/GenePromote/GenePromoteSummary/GenePromoteSummaryAnswers/GenePromoteSummaryAnswers";
 
 const TargetPromotionForm = ({ data, selectedTarget }) => {

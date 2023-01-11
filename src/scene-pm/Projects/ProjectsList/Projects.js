@@ -1,23 +1,19 @@
-import React from "react";
-import { useEffect } from "react";
-import { useRef } from "react";
-import { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Button } from 'primereact/button';
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import { useState } from "react";
-import { Tag } from "primereact/tag";
-import { SelectButton } from "primereact/selectbutton";
+import { Button } from 'primereact/button';
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import { MultiSelect } from "primereact/multiselect";
-import "./ProjectListDataTable.css";
+import { SelectButton } from "primereact/selectbutton";
+import { Tag } from "primereact/tag";
+import React, { useContext, useEffect, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import FDate from "../../../app/common/FDate/FDate";
-import { appColors } from '../../../colors';
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import StageTag from "../../../app/common/StageTag/StageTag";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import { appColors } from '../../../colors';
+import "./ProjectListDataTable.css";
 
 const Projects = () => {
 

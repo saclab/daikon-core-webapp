@@ -5,31 +5,30 @@ import "primereact/resources/themes/saga-blue/theme.css";
 //import "primereact/resources/themes/fluent-light/theme.css";
 
 
-import "primereact/resources/primereact.min.css";
-import "/node_modules/primeflex/primeflex.css";
 import "primeicons/primeicons.css";
-import "../../assets/_overrides.scss";
+import "primereact/resources/primereact.min.css";
 import "remixicon/fonts/remixicon.css";
+import "../../assets/_overrides.scss";
+import "/node_modules/primeflex/primeflex.css";
 
-import TitleBar from "./TitleBar/TitleBar";
-import MenuBar from "./MenuBar/MenuBar";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Footer from "./Footer/Footer";
-import cssClass from "./App.module.css";
-import NotFound from "./NotFound/NotFound";
+import { observer } from "mobx-react-lite";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import { RootStoreContext } from "../stores/rootStore";
-import Loading from "./Loading/Loading";
-import { observer } from "mobx-react-lite";
 import Login from "../../scene-d/Login/Login";
-import NetworkError from "./Errors/NetworkError/NetworkError";
-import agent from "../api/agent";
 import NoAccess from "../../scene-d/NoAccess/NoAccess";
+import agent from "../api/agent";
+import { RootStoreContext } from "../stores/rootStore";
+import NetworkError from "./Errors/NetworkError/NetworkError";
+import Footer from "./Footer/Footer";
+import Loading from "./Loading/Loading";
+import MenuBar from "./MenuBar/MenuBar";
+import NotFound from "./NotFound/NotFound";
+import TitleBar from "./TitleBar/TitleBar";
 
-import AppDefault from './AppDefault';
 import AppAdmin from './AppAdmin';
 import AppBeta from './AppBeta';
+import AppDefault from './AppDefault';
 import AppProjectManagement from "./AppProjectManagement";
 
 const App = () => {

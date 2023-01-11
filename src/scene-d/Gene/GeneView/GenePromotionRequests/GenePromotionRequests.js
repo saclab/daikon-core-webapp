@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { BreadCrumb } from "primereact/breadcrumb";
-import { TabView, TabPanel } from "primereact/tabview";
-import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
-import { useNavigate } from 'react-router-dom';
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import Loading from "../../../../app/layout/Loading/Loading";
-import GeneAdminPromotionRequest from "./GenePromotionRequest/GenePromotionRequest";
 import { Card } from 'primereact/card';
+import { TabPanel, TabView } from "primereact/tabview";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import Unauthorized from '../../../../app/common/Unauthorized/Unauthorized';
+import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import GeneAdminPromotionRequest from "./GenePromotionRequest/GenePromotionRequest";
 const GenePromotionRequests = () => {
 
   const navigate = useNavigate();

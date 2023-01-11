@@ -1,11 +1,11 @@
+import { observer } from "mobx-react-lite";
+import { BreadCrumb } from 'primereact/breadcrumb';
+import { TabPanel, TabView } from "primereact/tabview";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { observer } from "mobx-react-lite";
-import { TabView, TabPanel } from "primereact/tabview";
-import { RootStoreContext } from "../../../../../app/stores/rootStore";
-import Loading from "../../../../../app/layout/Loading/Loading";
 import SectionHeading from '../../../../../app/common/SectionHeading/SectionHeading';
-import { BreadCrumb } from 'primereact/breadcrumb';
+import Loading from "../../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import { appColors } from '../../../../../colors';
 import ScreenSequence from "../../ScreenTargetBased/ScreenSequences/ScreenSequence/ScreenSequence";
 
