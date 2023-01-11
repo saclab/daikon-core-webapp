@@ -35,12 +35,9 @@ const DisplayTable = ({
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
 
   let onRowEditInit = (event) => {
-    //console.log("onRowEditInit():");
-    //console.log(event)
     let t = {};
     t[event.index] = { ...tableData[event.index] };
     setoriginalRows(t);
-    //console.log(originalRows);
   };
 
   let onRowEditCancel = (event) => {

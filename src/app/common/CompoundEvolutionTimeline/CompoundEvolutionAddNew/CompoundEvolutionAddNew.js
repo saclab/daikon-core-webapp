@@ -44,7 +44,6 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
     },
     onSubmit: (data) => {
       data["projectId"] = selectedProject.id;
-      console.log(data);
       addCompoundEvolution(data).then((res) => {
         if (res !== null) {
           closeSidebar();

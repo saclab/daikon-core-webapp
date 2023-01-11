@@ -17,8 +17,7 @@ const Vote = ({ id, voteData, callBack }) => {
   const { voting, vote } = rootStore.votingStore;
 
   if (id && voteData) {
-    let votes =
-    {
+    let votes = {
       Positive: voteData.positive,
       Neutral: voteData.neutral,
       Negative: voteData.negative,
@@ -92,15 +91,9 @@ const Vote = ({ id, voteData, callBack }) => {
         voteButton: selectedVote,
       };
 
-      console.log(e);
-      console.log(selectedVote);
-
       confirmDialog({
         message:
-          "" +
-          " Click to continue voting " +
-          selectedVote.toLowerCase() +
-          "?",
+          "" + " Click to continue voting " + selectedVote.toLowerCase() + "?",
         header: "Voting confirmation",
 
         acceptLabel: "Vote " + selectedVote,
@@ -114,92 +107,83 @@ const Vote = ({ id, voteData, callBack }) => {
       });
     };
 
-
     let option = {
       grid: {
-        left: '3%',
-        right: '3%',
-        bottom: '0%',
-        containLabel: false
+        left: "3%",
+        right: "3%",
+        bottom: "0%",
+        containLabel: false,
       },
       xAxis: {
-        type: 'value',
-        show: false
+        type: "value",
+        show: false,
       },
       yAxis: {
-        type: 'category',
-        data: ['Votes'],
-        show: false
+        type: "category",
+        data: ["Votes"],
+        show: false,
       },
 
       series: [
         {
-          name: 'Positive',
-          type: 'bar',
-          stack: 'total',
+          name: "Positive",
+          type: "bar",
+          stack: "total",
           label: {
-            show: true
+            show: true,
           },
           itemStyle: {
             color: "#76D7C4",
           },
-          data: [votes.Positive]
+          data: [votes.Positive],
         },
         {
-          name: 'Neutral',
-          type: 'bar',
-          stack: 'total',
+          name: "Neutral",
+          type: "bar",
+          stack: "total",
           label: {
-            show: true
+            show: true,
           },
           itemStyle: {
             color: "#F7DC6F",
           },
-          data: [votes.Neutral]
+          data: [votes.Neutral],
         },
         {
-          name: 'Negative',
-          type: 'bar',
-          stack: 'total',
+          name: "Negative",
+          type: "bar",
+          stack: "total",
           label: {
-            show: true
+            show: true,
           },
           itemStyle: {
             color: "#F1948A",
           },
-          data: [votes.Negative]
-        }
-      ]
-
-    }
-
+          data: [votes.Negative],
+        },
+      ],
+    };
 
     let renderVotingChartOrNoVotes = () => {
       if (votes.Positive === 0 && votes.Neutral === 0 && votes.Negative === 0) {
-        return (<p style={{ fontSize: "small" }}>No votes submitted</p>
-        )
+        return <p style={{ fontSize: "small" }}>No votes submitted</p>;
+      } else {
+        return (
+          <ReactECharts
+            option={option}
+            // onEvents={onEvents}
+            style={{ height: "6rem", width: "10rem" }}
+          />
+        );
       }
-      else {
-        return <ReactECharts
-          option={option}
-          // onEvents={onEvents}
-          style={{ height: "6rem", width: "10rem" }}
-        />
-      }
-    }
-
+    };
 
     /* Final Render */
     return (
       <React.Fragment>
         <div className="flex flex-column min-w-10">
-
-          <div className="flex">
-            {renderVotingChartOrNoVotes()}
-          </div>
-          <div className="flex">
-            {generateOptions()}
-          </div>
+          <div className="flex">{renderVotingChartOrNoVotes()}</div>
+          <div className="flex">{generateOptions()}</div>
         </div>
       </React.Fragment>
     );

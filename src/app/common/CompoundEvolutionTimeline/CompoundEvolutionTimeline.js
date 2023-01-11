@@ -60,7 +60,6 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
       label: "Edit",
       icon: "pi pi-tablet",
       command: (e) => {
-        console.log("edit")
         setDisplayEditContainer(true)
       }
     })
@@ -70,7 +69,6 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
   let onEvolutionContextMenuShow = (e, id) => {
     cmEvolution.current.show(e);
     setSelectedCEinCM(id)
-    console.log(selectedCompoundEvolution);
   }
 
   let getCompoundEvolutionEntry = (id) => selectedCompoundEvolution.filter(e => e.id === id)[0]
@@ -78,14 +76,11 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
   if (!loadingProject && !loadingCompoundEvolution) {
     let evolutionData = selectedCompoundEvolution;
     if (stageFilter && selectedCompoundEvolution) {
-      console.log("Stage Filter " + stageFilter);
-      console.log(selectedCompoundEvolution);
       evolutionData = [
         ...selectedCompoundEvolution.filter(
           (e) => e.addedOnStage === stageFilter
         ),
       ];
-      console.log(evolutionData);
     }
     const customizedContent = (item) => {
       return (

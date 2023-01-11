@@ -22,7 +22,6 @@ export function _command_contextMenuCopyCommand(selectedId, toast) {
         life: 3000,
       });
     } catch {
-      //console.log("cannot copy object");
       toast.current.show({
         severity: "error",
         summary: "Cannot copy objects without underlying text.",
