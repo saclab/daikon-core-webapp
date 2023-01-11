@@ -50,7 +50,6 @@ const UserManagerUserForm = ({
     onSubmit: (data) => {
       data["orgId"] = data.org.id;
       data["roles"] = data.roles.map((role) => role.name);
-      console.log(data);
       addAccount(data)
         .then((resp) => {
 

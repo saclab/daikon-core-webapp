@@ -12,7 +12,6 @@ const TargetGrid = ({ questions, target }) => {
   }
 
   target.targetScorecard.targetScoreCardValues.forEach((ans) => {
-    console.log(ans);
     if (ans.answer === "Active" || ans.answer === "Yes") {
       answers[ans.questionIdentification] = "greenCell";
     }
@@ -48,8 +47,6 @@ const TargetGrid = ({ questions, target }) => {
       }
     }
   });
-
-  console.log(answers);
 
   return (
     <div className="targetGrid">

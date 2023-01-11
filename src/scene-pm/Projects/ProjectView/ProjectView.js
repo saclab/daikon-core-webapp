@@ -22,8 +22,6 @@ const ProjectView = () => {
     rootStore.projectStore;
 
   useEffect(() => {
-    console.log("EFFECT");
-    console.log(params.id);
     if (selectedProject === null || selectedProject.id !== params.id) {
       console.log("Will fetch from store" + params.id);
       fetchProject(params.id);
@@ -32,7 +30,6 @@ const ProjectView = () => {
 
   /** Loading Overlay */
   if (loadingProject) {
-    console.log("Loading.....");
     return <Loading />;
   }
 
