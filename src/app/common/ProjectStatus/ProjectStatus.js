@@ -9,7 +9,7 @@ const ProjectStatus = ({ status }) => {
           style={{ minWidth: "200px", minHeight: "30px" }}
         >
           <h3>
-            <i class="icon icon-common icon-close"></i>
+            <i className="icon icon-common icon-close"></i>
           </h3>
           <h3> Project Terminated</h3>
         </div>
