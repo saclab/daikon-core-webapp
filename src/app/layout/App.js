@@ -21,6 +21,7 @@ import { RootStoreContext } from "../stores/rootStore";
 import AppAdmin from "./AppAdmin";
 import AppBeta from "./AppBeta";
 import AppDefault from "./AppDefault";
+import AppDeveloper from "./AppDeveloper";
 import AppProjectManagement from "./AppProjectManagement";
 import NetworkError from "./Errors/NetworkError/NetworkError";
 import Footer from "./Footer/Footer";
@@ -86,6 +87,7 @@ const App = () => {
             <Route path="/admin/*" element={<AppAdmin />} />
             <Route path="/pm/*" element={<AppProjectManagement />} />
             <Route path="/beta" element={<AppBeta />} />
+            <Route path="/developer/*" element={<AppDeveloper />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

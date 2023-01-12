@@ -51,7 +51,13 @@ export default class UserStore {
   logout = () => {
     this.fetching = true;
     this.user = null;
-    this.authServiceInstance.SignOut();
+    try {
+      this.authServiceInstance.SignOut();
+    } catch (error) {
+      console.error(error);
+      sessionStorage.clear();
+    }
+
     this.fetching = false;
     history.push("/");
   };
