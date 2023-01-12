@@ -20,7 +20,6 @@ const SectionHeading = ({
     let background = color ? color : "#332288";
     let htextColor = textColor ? textColor : "#ffffff";
     let displayHorizonButton = (
-      // <div class="absolute right-0 pr-3 bg-blue-200">
       <div
         style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}
       >

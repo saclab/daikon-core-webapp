@@ -22,29 +22,33 @@ const TitleBar = () => {
 
   const Strains = [{ name: "Mycobacterium tuberculosis H37Rv", code: "H37Rv" }];
   const FeedbackOptions = [
-    { label: "Bug Report", value: "Bug" },
-    { label: "Feature Request", value: "Fea" },
-    { label: "Data Discrepancy ", value: "Dat" },
+    { label: "Bug Report", value: "bug-report" },
+    { label: "Feature Request", value: "feature-request" },
+    { label: "Data Discrepancy ", value: "data-discrepancy" },
   ];
 
   const feedbackOptionTemplate = (option) => {
     const iconClass = (option) => {
       switch (option.value) {
-        case "Bug":
+        case "bug-report":
           return "icon icon-common icon-bug";
-        case "Fea":
+        case "feature-request":
           return "icon icon-common icon-new";
-        case "Dat":
+        case "data-discrepancy":
           return "icon icon-common icon-database";
       }
     };
 
     return (
       <div className="flex gap-3">
-        <i class={iconClass(option)} />
+        <i className={iconClass(option)} />
         <div>{option.label}</div>
       </div>
     );
+  };
+
+  let onFeedback = (e) => {
+    navigate("/developer/" + e.value);
   };
 
   return (
@@ -82,9 +86,8 @@ const TitleBar = () => {
 
         <div className="absolute right-0">
           <Dropdown
-            value={"Mycobacterium tuberculosis H37Rv"}
             options={FeedbackOptions}
-            // onChange={onCityChange}
+            onChange={(e) => onFeedback(e)}
             optionLabel="label"
             placeholder="Feedback"
             className={[cssClass.BlackButton].join(" ")}
