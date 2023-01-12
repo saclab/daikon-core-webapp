@@ -44,6 +44,9 @@ const BugReport = () => {
     <div className="flex w-full flex-column pl-6">
       <h2>Bug Report Template</h2>
       <EmbededHelp>
+        Thank you for your time! Feedbacks helps us improve.
+      </EmbededHelp>
+      <EmbededHelp>
         Bugs are maintained in github and are <b>&nbsp; public</b>. Make sure
         you <b>&nbsp; do not have any sensitive data &nbsp;</b> in the bug
         report.
