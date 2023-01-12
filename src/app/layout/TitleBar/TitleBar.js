@@ -6,25 +6,46 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { Sidebar } from "primereact/sidebar";
 import { useNavigate } from "react-router-dom";
 
-
 import { Button } from "primereact/button";
 import { RootStoreContext } from "../../stores/rootStore";
 import cssClass from "./TitleBar.module.css";
 import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import TitleBarSidePanel from "./TitleBarSidePanel/TitleBarSidePanel";
 
-
 const TitleBar = () => {
   const navigate = useNavigate();
-  
+
   const op = useRef(null);
   const [visibleLeft, setVisibleLeft] = useState(false);
   const rootStore = useContext(RootStoreContext);
   const { user } = rootStore.userStore;
 
-  const Strains = [
-    { name: "Mycobacterium tuberculosis H37Rv", code: "H37Rv" }
+  const Strains = [{ name: "Mycobacterium tuberculosis H37Rv", code: "H37Rv" }];
+  const FeedbackOptions = [
+    { label: "Bug Report", value: "Bug" },
+    { label: "Feature Request", value: "Fea" },
+    { label: "Data Discrepancy ", value: "Dat" },
   ];
+
+  const feedbackOptionTemplate = (option) => {
+    const iconClass = (option) => {
+      switch (option.value) {
+        case "Bug":
+          return "icon icon-common icon-bug";
+        case "Fea":
+          return "icon icon-common icon-new";
+        case "Dat":
+          return "icon icon-common icon-database";
+      }
+    };
+
+    return (
+      <div className="flex gap-3">
+        <i class={iconClass(option)} />
+        <div>{option.label}</div>
+      </div>
+    );
+  };
 
   return (
     <div className={cssClass.Header}>
@@ -50,7 +71,6 @@ const TitleBar = () => {
           )}
         >
           D A I K O N
-
         </Button>
 
         {/* <Button
@@ -61,6 +81,15 @@ const TitleBar = () => {
         /> */}
 
         <div className="absolute right-0">
+          <Dropdown
+            value={"Mycobacterium tuberculosis H37Rv"}
+            options={FeedbackOptions}
+            // onChange={onCityChange}
+            optionLabel="label"
+            placeholder="Feedback"
+            className={[cssClass.BlackButton].join(" ")}
+            itemTemplate={feedbackOptionTemplate}
+          />
           <Button
             type="Button"
             icon="ri-refresh-fill"
@@ -87,7 +116,6 @@ const TitleBar = () => {
             <TitleBarAccountPanel />
           </OverlayPanel>
         </div>
-
       </div>
     </div>
   );
@@ -95,4 +123,3 @@ const TitleBar = () => {
 
 //export default withRouter(observer(TitleBar));
 export default observer(TitleBar);
-
