@@ -1,12 +1,12 @@
 import { observer } from "mobx-react-lite";
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from "primereact/breadcrumb";
 import { ScrollPanel } from "primereact/scrollpanel";
 import React, { useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { appColors } from '../../../../colors';
+import { appColors } from "../../../../colors";
 import cssClass from "./TargetSummary.module.css";
 
 const TargetSummary = () => {
@@ -36,15 +36,13 @@ const TargetSummary = () => {
       label: selectedTarget.name,
       command: () => {
         navigate(`/d/target/${selectedTarget.id}`);
-      }
+      },
     },
     { label: "Summary" },
   ];
 
   return (
-
     <div className="flex flex-column w-full">
-
       <div className="flex w-full pb-2">
         <BreadCrumb model={breadCrumbItems} />
       </div>
@@ -63,7 +61,10 @@ const TargetSummary = () => {
           <div className={[cssClass.QuadRow].join(" ")}>
             <div
               className={[cssClass.QuadColumn].join(" ")}
-              style={{ backgroundColor: "#D4F1F4", borderRight: "3px solid #FFF" }}
+              style={{
+                backgroundColor: "#D4F1F4",
+                borderRight: "3px solid #FFF",
+              }}
             >
               <center>
                 <h2>Background</h2>
@@ -77,12 +78,12 @@ const TargetSummary = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -91,7 +92,10 @@ const TargetSummary = () => {
             </div>
             <div
               className={[cssClass.QuadColumn].join(" ")}
-              style={{ backgroundColor: "#DDFFE7", borderLeft: "3px solid #FFF" }}
+              style={{
+                backgroundColor: "#DDFFE7",
+                borderLeft: "3px solid #FFF",
+              }}
             >
               <center>
                 <h2>Enablement</h2>
@@ -186,10 +190,7 @@ const TargetSummary = () => {
           </div>
         </div>
       </div>
-
     </div>
-
-
   );
 };
 
