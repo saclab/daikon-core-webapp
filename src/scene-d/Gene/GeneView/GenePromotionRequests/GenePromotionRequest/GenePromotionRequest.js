@@ -102,7 +102,7 @@ const GenePromotionRequest = ({
           <br />
         </div>
         <div className="p-mr-2" style={{ minWidth: "1000px" }}>
-          <Panel header="Submitted Promotion Questionaire" toggleable>
+          <Panel header="Submitted Promotion Questionnaire" toggleable>
             <h2>Impact of chemical inhibition</h2>
 
             <h5>a) During infections</h5>

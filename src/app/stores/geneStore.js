@@ -398,7 +398,7 @@ export default class GeneStore {
     }
   };
 
-  /* submit Promotion Questionaire from API */
+  /* submit Promotion Questionnaire from API */
   submitPromotionQuestionaire = async (targetName, data) => {
     this.promotionQuestionsDisplayLoading = true;
     let res = null;

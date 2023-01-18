@@ -290,15 +290,19 @@ const GenePromote = () => {
     var validationFail = false;
     Object.keys(targetPromotionFormValue).map((key) => {
       if (targetPromotionFormValue[key].answer === "") {
+        console.log("Validation fail, blank answer");
+        console.log(targetPromotionFormValue[key]);
         validationFail = true;
       }
       if (
         !(
           targetPromotionFormValue[key].answer === "Unknown" ||
-          targetPromotionFormValue[key].answer === "n/a"
+          targetPromotionFormValue[key].answer === "NA"
         ) &&
         targetPromotionFormValue[key].description === ""
       ) {
+        console.log("Validation fail, blank decription");
+        console.log(targetPromotionFormValue[key]);
         validationFail = true;
       }
     });
@@ -461,10 +465,10 @@ const GenePromote = () => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-conceptual icon-dna"
-            heading={`Target Promotion Questionaire for ${params.ptarget}`}
+            heading={`Target Promotion Questionnaire for ${params.ptarget}`}
             color={appColors.sectionHeadingBg.gene}
           />
-          {/* <h2 className="heading">Target Promotion Questionaire for {params.ptarget}</h2> */}
+          {/* <h2 className="heading">Target Promotion Questionnaire for {params.ptarget}</h2> */}
         </div>
         <div className="flex w-full">
           <Steps
