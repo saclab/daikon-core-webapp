@@ -1,9 +1,9 @@
-import React from "react";
 import { useFormik } from "formik";
-import { classNames } from "primereact/utils";
-import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
+import { InputText } from "primereact/inputtext";
+import { classNames } from "primereact/utils";
+import React from "react";
 
 const GeneViewProtectedDataAddProteinProductionForm = ({
   add,
@@ -27,7 +27,6 @@ const GeneViewProtectedDataAddProteinProductionForm = ({
       return errors;
     },
     onSubmit: (data) => {
-      console.log(data);
       add(data).then((res) => {
         if (res !== null) {
           closeSidebar();

@@ -1,7 +1,7 @@
 import { Timeline } from "primereact/timeline";
-import StageTag from "../../../../../app/common/StageTag/StageTag";
 import FailedLoading from "../../../../../app/common/FailedLoading/FailedLoading";
 import FDate from "../../../../../app/common/FDate/FDate";
+import StageTag from "../../../../../app/common/StageTag/StageTag";
 
 const PortfolioInformationDates = ({ project }) => {
   if (!project) return <FailedLoading />;

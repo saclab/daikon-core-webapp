@@ -1,23 +1,23 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { Timeline } from "primereact/timeline";
-import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
-import { ContextMenu } from "primereact/contextmenu";
-import "./CompoundEvolutionTimeline.css";
-import { Chip } from "primereact/chip";
-import { toast } from "react-toastify";
 import { observer } from "mobx-react-lite";
-import StageTag from "../StageTag/StageTag";
-import SmilesView from "../SmilesView/SmilesView";
+import { Button } from "primereact/button";
+import { Chip } from "primereact/chip";
+import { ContextMenu } from "primereact/contextmenu";
+import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
-import { Sidebar } from "primereact/sidebar";
 import { Message } from "primereact/message";
-import CompoundEvolutionAddNew from "./CompoundEvolutionAddNew/CompoundEvolutionAddNew";
+import { Sidebar } from "primereact/sidebar";
+import { Timeline } from "primereact/timeline";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { RootStoreContext } from "../../stores/rootStore";
-import PleaseWait from "../PleaseWait/PleaseWait";
 import FailedLoading from "../FailedLoading/FailedLoading";
 import FDate from "../FDate/FDate";
+import PleaseWait from "../PleaseWait/PleaseWait";
+import SmilesView from "../SmilesView/SmilesView";
+import StageTag from "../StageTag/StageTag";
+import CompoundEvolutionAddNew from "./CompoundEvolutionAddNew/CompoundEvolutionAddNew";
 import CompoundEvolutionEdit from "./CompoundEvolutionEdit/CompoundEvolutionEdit";
+import "./CompoundEvolutionTimeline.css";
 const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdit = false }) => {
   const [displayAddStructureForm, setdisplayAddStructureForm] = useState(false);
   const rootStore = useContext(RootStoreContext);
@@ -60,7 +60,6 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
       label: "Edit",
       icon: "pi pi-tablet",
       command: (e) => {
-        console.log("edit")
         setDisplayEditContainer(true)
       }
     })
@@ -70,7 +69,6 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
   let onEvolutionContextMenuShow = (e, id) => {
     cmEvolution.current.show(e);
     setSelectedCEinCM(id)
-    console.log(selectedCompoundEvolution);
   }
 
   let getCompoundEvolutionEntry = (id) => selectedCompoundEvolution.filter(e => e.id === id)[0]
@@ -78,14 +76,11 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
   if (!loadingProject && !loadingCompoundEvolution) {
     let evolutionData = selectedCompoundEvolution;
     if (stageFilter && selectedCompoundEvolution) {
-      console.log("Stage Filter " + stageFilter);
-      console.log(selectedCompoundEvolution);
       evolutionData = [
         ...selectedCompoundEvolution.filter(
           (e) => e.addedOnStage === stageFilter
         ),
       ];
-      console.log(evolutionData);
     }
     const customizedContent = (item) => {
       return (

@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
-import ReactECharts from "echarts-for-react";
 import * as echarts from "echarts";
+import ReactECharts from "echarts-for-react";
 import { observer } from "mobx-react-lite";
-import { Slider } from "primereact/slider";
-import { useNavigate } from "react-router-dom";
 import { InputSwitch } from "primereact/inputswitch";
-import { appColors } from "../../../../colors";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { Slider } from "primereact/slider";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from "../../../../colors";
 
-const TargetDashChart = ({ targets }) => {
+const TargetDashChart = () => {
   const navigate = useNavigate();
 
   /* MobX Store */
@@ -18,7 +18,6 @@ const TargetDashChart = ({ targets }) => {
     rootStore.dataViewStore;
 
   useEffect(() => {
-    console.log("AppBeta: fetchTargetList()");
     if (targetDash === null) loadTargetDash();
   }, [targetDash, loadTargetDash]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -34,41 +33,41 @@ const TargetDashChart = ({ targets }) => {
     target: appColors.horizonText.target,
     screen: appColors.horizonText.screen,
     ha: appColors.horizonText.ha,
-    ha: appColors.horizonText.ha,
     portfolio: appColors.horizonText.portfolio,
     postPortfolio: appColors.horizonText.postPortfolio,
   };
 
   let ColorLuminance = (hex, lum) => {
     // validate hex string
-    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    hex = String(hex).replace(/[^0-9a-f]/gi, "");
     if (hex.length < 6) {
       hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
     }
     lum = lum || 0;
     // convert to decimal and change luminosity
-    var rgb = "#", c, i;
+    var rgb = "#",
+      c,
+      i;
     for (i = 0; i < 3; i++) {
       c = parseInt(hex.substr(i * 2, 2), 16);
-      c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+      c = Math.round(Math.min(Math.max(0, c + c * lum), 255)).toString(16);
       rgb += ("00" + c).substr(c.length);
     }
     return rgb;
-  }
+  };
 
   let generateGradient = (color) => {
     return new echarts.graphic.RadialGradient(0.4, 0.3, 1, [
       {
         offset: 0,
-        color: ColorLuminance(color, 0.5)
+        color: ColorLuminance(color, 0.5),
       },
       {
         offset: 1,
-        color: color
-      }
-    ])
-
-  }
+        color: color,
+      },
+    ]);
+  };
 
   var targetData = [];
   var screenData = [];
@@ -169,26 +168,26 @@ const TargetDashChart = ({ targets }) => {
         min: 0,
         max: 1,
         splitLine: {
+          show: true,
           lineStyle: {
             type: "dashed",
           },
         },
         splitNumber: 10,
-        splitLine: { show: true },
         name: "Likelihood",
         nameLocation: "center",
-        nameGap: 30
+        nameGap: 30,
       },
       yAxis: {
         min: 0,
         max: 1,
         splitLine: {
+          show: true,
           lineStyle: {
             type: "dashed",
           },
         },
         splitNumber: 10,
-        splitLine: { show: true },
         name: "Biological Impact",
         nameLocation: "center",
         nameGap: 30,
@@ -344,12 +343,12 @@ const TargetDashChart = ({ targets }) => {
     };
 
     let onChartClick = (params) => {
-      navigate(params.data[2])
-    }
+      navigate(params.data[2]);
+    };
 
     let onEvents = {
-      'click': onChartClick
-    }
+      click: onChartClick,
+    };
 
     return (
       <React.Fragment>

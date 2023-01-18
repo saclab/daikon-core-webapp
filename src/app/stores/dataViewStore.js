@@ -1,10 +1,4 @@
-import {
-  action,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
-import { toast } from "react-toastify";
+import { action, makeObservable, observable, runInAction } from "mobx";
 
 import agent from "../api/agent";
 
@@ -24,27 +18,21 @@ export default class DataViewStore {
   }
 
   loadTargetDash = async () => {
-    console.log("DataViewStore: loadTargetDash");
     this.loadingTargetDash = true;
 
     if (this.targetDash === null) {
       try {
-        console.log("DataViewStore: loadTargetDash Fetch");
         this.targetDash = await agent.DataView.targetDash();
       } catch (error) {
         this.targetDash = null;
-        console.log(error);
+        console.error(error);
       } finally {
         runInAction(() => {
           this.loadingTargetDash = false;
-          console.log("DataViewStore: loadTargetDash Complete");
         });
       }
-    }
-    else {
+    } else {
       this.loadingTargetDash = false;
     }
-
   };
-
 }

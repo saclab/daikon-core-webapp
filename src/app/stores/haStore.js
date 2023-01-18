@@ -1,9 +1,4 @@
-import {
-  action,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 
 import agent from "../api/agent";
@@ -24,8 +19,6 @@ export default class HAStore {
   }
 
   createHA = async (newHA) => {
-    console.log("HAStore: createHA Start");
-    console.log(newHA);
     this.creatingHA = true;
     let res = null;
     // send to server
@@ -36,21 +29,20 @@ export default class HAStore {
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.creatingHA = false;
-        console.log("HAStore: createHA Complete");
       });
     }
     return res;
   };
 
   filterHAProjects = () => {
-    return Array.from(this.rootStore.projectStore.projectRegistry.values())
-      .filter((project) => {
-        return (project.currentStage === "HA") || (project.currentStage === "HA");
-      });
+    return Array.from(
+      this.rootStore.projectStore.projectRegistry.values()
+    ).filter((project) => {
+      return project.currentStage === "HA" || project.currentStage === "HA";
+    });
   };
 }

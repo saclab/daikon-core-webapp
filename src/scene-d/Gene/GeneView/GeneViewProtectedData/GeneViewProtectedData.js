@@ -1,21 +1,20 @@
-import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { Fieldset } from "primereact/fieldset";
-import { useNavigate } from "react-router-dom";
-import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
-import { appColors } from "../../../../colors";
-import DisplayTable from "../../../../app/common/DisplayTable/DisplayTable";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { BreadCrumb } from "primereact/breadcrumb";
+import { Fieldset } from "primereact/fieldset";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
-import GeneViewProtectedDataEssentiality from "./Sections/GeneViewProtectedDataEssentiality";
-import GeneViewProtectedDataProteinProductionList from "./Sections/GeneViewProtectedDataProteinProductionList";
-import GeneViewProtectedDataProteinActivityAssayList from "./Sections/GeneViewProtectedDataProteinActivityAssayList";
-import GeneViewProtectedDataHypomorph from "./Sections/GeneViewProtectedDataHypomorph";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from "../../../../colors";
 import GeneViewProtectedDataCrispRiStrainList from "./Sections/GeneViewProtectedDataCrispRiStrainList";
+import GeneViewProtectedDataEssentiality from "./Sections/GeneViewProtectedDataEssentiality";
+import GeneViewProtectedDataHypomorph from "./Sections/GeneViewProtectedDataHypomorph";
+import GeneViewProtectedDataProteinActivityAssayList from "./Sections/GeneViewProtectedDataProteinActivityAssayList";
+import GeneViewProtectedDataProteinProductionList from "./Sections/GeneViewProtectedDataProteinProductionList";
 import GeneViewProtectedDataResistanceMutation from "./Sections/GeneViewProtectedDataResistanceMutation";
+import GeneViewProtectedDataUnpublishedStructuralInformation from "./Sections/GeneViewProtectedDataUnpublishedStructuralInformation";
 import GeneViewProtectedDataVulnerability from "./Sections/GeneViewProtectedDataVulnerability";
-import GeneViewProtectedDataUnpublishedStructuralInformation from "./Sections/GeneViewProtectedDataUnpublishedStructuralInformation"
 
 const GeneViewProtectedData = ({
   gene,

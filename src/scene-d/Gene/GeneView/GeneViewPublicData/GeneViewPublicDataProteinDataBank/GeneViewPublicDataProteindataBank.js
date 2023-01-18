@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
-import { RootStoreContext } from "../../../../../app/stores/rootStore";
-import { Skeleton } from "primereact/skeleton";
 import { Dialog } from "primereact/dialog";
-import { SplitButton } from 'primereact/splitbutton';
+import { Skeleton } from "primereact/skeleton";
+import { SplitButton } from "primereact/splitbutton";
+import React, { useContext, useEffect, useState } from "react";
 import LiteMolView from "../../../../../app/common/LiteMolView/LiteMolView";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
   /* MobX Store */
@@ -32,12 +32,11 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
   ]);
 
   let openMolView = (id) => {
-    console.log(id);
     setmolViewId(id);
     setmolViewUrl(
       "https://www.ebi.ac.uk/pdbe/entry-files/download/pdb" +
-      id.toLowerCase() +
-      ".ent"
+        id.toLowerCase() +
+        ".ent"
     );
     setmolViewFormat("pdb");
     setDisplayMolViewContainer(true);
@@ -98,26 +97,26 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
               className="p-button-sm"
               model={[
                 {
-                  label: 'Download PDB',
-                  icon: 'icon icon-common icon-download',
+                  label: "Download PDB",
+                  icon: "icon icon-common icon-download",
                   command: () => {
-                    window.location.href = "https://www.ebi.ac.uk/pdbe/entry-files/download/pdb" +
+                    window.location.href =
+                      "https://www.ebi.ac.uk/pdbe/entry-files/download/pdb" +
                       obj.id.toLowerCase() +
-                      ".ent"
-                  }
+                      ".ent";
+                  },
                 },
                 {
-                  label: 'PDB Report',
-                  icon: 'icon icon-fileformats icon-PDF',
+                  label: "PDB Report",
+                  icon: "icon icon-fileformats icon-PDF",
                   command: () => {
-                    window.location.href = "https://www.ebi.ac.uk/pdbe/entry-files/download/" +
+                    window.location.href =
+                      "https://www.ebi.ac.uk/pdbe/entry-files/download/" +
                       obj.id.toLowerCase() +
-                      "_validation.pdf"
-                  }
-                }
-              ]
-
-              }
+                      "_validation.pdf";
+                  },
+                },
+              ]}
             />
           </td>
         </tr>
@@ -136,7 +135,9 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
           <LiteMolView id={molViewId} url={molViewUrl} format={molViewFormat} />
         </Dialog>
 
-        <table style={{ width: "100%", textAlign: "left", borderSpacing: "1em" }}>
+        <table
+          style={{ width: "100%", textAlign: "left", borderSpacing: "1em" }}
+        >
           <thead>
             <tr key="head">
               <th>PDB ID</th>
@@ -155,7 +156,7 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
     );
   } else {
     //return <Skeleton width="10rem" height="4rem"></Skeleton>;
-    return <h3>No Entries</h3>
+    return <h3>No Entries</h3>;
   }
 };
 

@@ -1,6 +1,6 @@
+import { SplitButton } from "primereact/splitbutton";
 import React from "react";
 import Question from "../../../../app/common/Question/Question";
-import { SplitButton } from "primereact/splitbutton";
 
 const GenePromoteFormTractability = (props) => {
   const nextButtonItems = [
@@ -14,16 +14,12 @@ const GenePromoteFormTractability = (props) => {
     {
       label: "Save form data in browser",
       icon: "pi pi-cloud-download",
-      command: () => {
-        console.log("Save form data local");
-      },
+      command: () => {},
     },
     {
       label: "Reset",
       icon: "pi pi-refresh",
-      command: () => {
-        console.log("Reset Section");
-      },
+      command: () => {},
     },
   ];
 

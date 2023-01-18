@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import SectionHeading from '../../app/common/SectionHeading/SectionHeading';
 import { appColors } from '../../colors';
 

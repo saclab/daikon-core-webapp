@@ -1,20 +1,19 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
-import { Sidebar } from "primereact/sidebar";
-import { ProgressBar } from "primereact/progressbar";
-import { DataTable } from "primereact/datatable";
+import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
-import { InputSwitch } from "primereact/inputswitch";
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import { InputSwitch } from "primereact/inputswitch";
 import { Message } from "primereact/message";
-import UserManagerUserForm from "./UserManagerUserForm/UserManagerUserForm";
-import UserManagerUserEditForm from "./UserManagerUserEditForm/UserManagerUserEditForm";
+import { ProgressBar } from "primereact/progressbar";
+import { Sidebar } from "primereact/sidebar";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import Loading from "../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from '../../../app/layout/Loading/Loading';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../colors';
+import UserManagerUserEditForm from "./UserManagerUserEditForm/UserManagerUserEditForm";
+import UserManagerUserForm from "./UserManagerUserForm/UserManagerUserForm";
 
 const UserManagerUsers = () => {
   /* MobX Store */
@@ -53,7 +52,7 @@ const UserManagerUsers = () => {
       fetchOrgs();
       fetchRoles();
     }
-  }, [currentUser, Users, fetchUsersList, fetchOrgs, fetchRoles]);
+  }, [currentUser, Users, fetchUsersList, fetchOrgs, fetchRoles, navigate]);
 
   /** Loading Overlay */
   if (displayLoading || loadingRoles || LoadingOrgs) {
@@ -71,10 +70,9 @@ const UserManagerUsers = () => {
       label: "Users",
       command: () => {
         navigate(`/admin/user-manager/users/`);
-      }
+      },
     },
   ];
-
 
   const actionBodyTemplate = (rowData) => {
     return (

@@ -1,14 +1,14 @@
-import React from "react";
-import { observer } from "mobx-react-lite";
 import { useFormik } from "formik";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
-import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
+import React from "react";
 
 import { Dropdown } from "primereact/dropdown";
-import { MultiSelect } from "primereact/multiselect";
 import { InputSwitch } from "primereact/inputswitch";
+import { MultiSelect } from "primereact/multiselect";
 
 const UserManagerUserEditForm = ({
   org,
@@ -18,14 +18,9 @@ const UserManagerUserEditForm = ({
   closeSideBar,
   user,
 }) => {
-  console.log("From unside Form: ->");
-  console.log(user);
-
   let userRoles = user.roles.map((roleName) =>
     roles.find((r) => r.name === roleName)
   );
-  console.log("userRoles");
-  console.log(userRoles);
 
   const formik = useFormik({
     initialValues: {
@@ -57,12 +52,11 @@ const UserManagerUserEditForm = ({
       data["id"] = user.email;
       data["orgId"] = data.org.id;
       data["roles"] = data.roles.map((role) => role.name);
-      console.log(data);
       editAccount(data)
         .then((resp) => {
           closeSideBar();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
       //formik.resetForm();
     },
   });
@@ -89,7 +83,9 @@ const UserManagerUserEditForm = ({
           >
             Email
           </label>
-          <p id="email"><b>{user.email}</b></p>
+          <p id="email">
+            <b>{user.email}</b>
+          </p>
         </div>
 
         <div className="field">
@@ -220,7 +216,6 @@ const UserManagerUserEditForm = ({
         />
       </form>
     </div>
-
   );
 };
 

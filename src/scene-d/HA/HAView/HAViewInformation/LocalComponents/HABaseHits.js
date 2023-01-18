@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import React, { useRef } from "react";
 import SmilesView from "../../../../../app/common/SmilesView/SmilesView";
 
 const HABaseHits = ({ project }) => {
@@ -10,7 +10,6 @@ const HABaseHits = ({ project }) => {
 
   if (project?.baseHits.length !== 0) {
     project.baseHits.forEach((baseHit) => {
-      console.log(baseHit.baseHit);
       tableData.push({
         id: baseHit.baseHit.compound.id,
         molArea: baseHit.baseHit.compound.molArea,

@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
-import DOMPurify from 'dompurify';
-import parse from 'html-react-parser';
-import { Sidebar } from "primereact/sidebar";
-import { Fieldset } from "primereact/fieldset";
-import { Button } from "primereact/button";
+import DOMPurify from "dompurify";
+import parse from "html-react-parser";
 import { observer } from "mobx-react-lite";
-import { Tag } from "primereact/tag";
-import { Divider } from "primereact/divider";
-import { Card } from "primereact/card";
 import { Avatar } from "primereact/avatar";
-import { InputTextarea } from "primereact/inputtextarea";
-import { RootStoreContext } from "../../stores/rootStore";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+import { Divider } from "primereact/divider";
+import { Editor } from "primereact/editor";
+import { Fieldset } from "primereact/fieldset";
+import { Sidebar } from "primereact/sidebar";
+import { Tag } from "primereact/tag";
+import React, { useContext, useEffect, useState } from "react";
 import Loading from "../../layout/Loading/Loading";
-import StartDiscussion from "./StartDiscussion";
+import { RootStoreContext } from "../../stores/rootStore";
 import FDate from "../FDate/FDate";
-import { Editor } from 'primereact/editor';
+import StartDiscussion from "./StartDiscussion";
 
 const Discussion = ({ reference, section }) => {
   const rootStore = useContext(RootStoreContext);
@@ -50,22 +49,27 @@ const Discussion = ({ reference, section }) => {
   if (loadingDiscussions) {
     return <Loading />;
   }
-  let sanitizeHtml = (text) => DOMPurify.sanitize(text, { ALLOWED_TAGS: ['strong', 'p', 'em', 'u', 's', 'a', 'ul', 'li'] });
+  let sanitizeHtml = (text) =>
+    DOMPurify.sanitize(text, {
+      ALLOWED_TAGS: ["strong", "p", "em", "u", "s", "a", "ul", "li"],
+    });
 
   let cleanupAndParse = (text) => {
-    let cleaned = sanitizeHtml(text)
-    let parsed = <React.Fragment>{parse(cleaned)}</React.Fragment>
-    return parsed
-  }
+    let cleaned = sanitizeHtml(text);
+    let parsed = <React.Fragment>{parse(cleaned)}</React.Fragment>;
+    return parsed;
+  };
 
-  const headerOfTextEditor = <span className="ql-formats">
-    <button className="ql-bold" aria-label="Bold"></button>
-    <button className="ql-italic" aria-label="Italic"></button>
-    <button className="ql-underline" aria-label="Underline"></button>
-    <button className="ql-strike" aria-label="Strike"></button>
-    <button className="ql-link" aria-label="Link"></button>
-    <button className="ql-list" value="bullet" aria-label="Bullet"></button>
-  </span>
+  const headerOfTextEditor = (
+    <span className="ql-formats">
+      <button className="ql-bold" aria-label="Bold"></button>
+      <button className="ql-italic" aria-label="Italic"></button>
+      <button className="ql-underline" aria-label="Underline"></button>
+      <button className="ql-strike" aria-label="Strike"></button>
+      <button className="ql-link" aria-label="Link"></button>
+      <button className="ql-list" value="bullet" aria-label="Bullet"></button>
+    </span>
+  );
 
   let mapReplyValues = (id, value) => {
     let tempValue = { ...userReplyValue };
@@ -101,14 +105,12 @@ const Discussion = ({ reference, section }) => {
           size="small"
           style={{ width: "1rem", height: "1rem" }}
         />{" "}
-        {discussion.postedBy} on{" "}
-        <FDate timestamp={discussion.timestamp} />
+        {discussion.postedBy} on <FDate timestamp={discussion.timestamp} />
       </div>
     );
   };
 
   let submitEditDiscussion = (discussion) => {
-
     if (discussion.description === editBoxValue[discussion.id]) {
       mapDisplayEditBox(discussion, false);
       return;
@@ -124,7 +126,6 @@ const Discussion = ({ reference, section }) => {
 
   let submitReply = (discussion) => {
     let replyV = userReplyValue[discussion.id]?.trim();
-    console.log("replyV = " + replyV);
 
     if (replyV === "" || replyV === undefined || replyV === null) {
       mapDisplayReplyBox(discussion.id, false);
@@ -296,7 +297,6 @@ const Discussion = ({ reference, section }) => {
         visible={displayDiscussionDialog}
         position="right"
         style={{ width: "30em", overflowX: "auto" }}
-
         onHide={() => setDisplayDiscussionDialog(false)}
       >
         <h2>Start a new topic.</h2>
@@ -344,7 +344,6 @@ const Discussion = ({ reference, section }) => {
           {formatteddiscussions}
         </Fieldset>
       </div>
-
 
       <br />
     </React.Fragment>

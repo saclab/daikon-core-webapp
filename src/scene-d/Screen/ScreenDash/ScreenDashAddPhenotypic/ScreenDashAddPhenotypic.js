@@ -1,16 +1,14 @@
-import React, { useEffect, useRef, useContext } from "react";
-import { RootStoreContext } from '../../../../app/stores/rootStore';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
-import { useFormik } from 'formik';
-import { InputTextarea } from "primereact/inputtextarea";
-import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
-import { MultiSelect } from "primereact/multiselect";
-import { Calendar } from "primereact/calendar";
+import { useFormik } from "formik";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const ScreenDashAddPhenotypic = () => {
   const rootStore = useContext(RootStoreContext);
@@ -22,8 +20,7 @@ const ScreenDashAddPhenotypic = () => {
       screenName: "",
       org: "",
       promotionDate: "",
-      notes: ""
-
+      notes: "",
     },
     validate: (data) => {
       let errors = {};
@@ -42,18 +39,17 @@ const ScreenDashAddPhenotypic = () => {
     },
     onSubmit: (data) => {
       // data["projectId"] = selectedProject.id;
-      console.log(data);
+
       data["orgId"] = data.org.id;
-      data["Method"] = "Phenotypic"
+      data["Method"] = "Phenotypic";
       addScreeenPhenotypic(data).then((res) => {
         if (res !== null) {
           formik.resetForm();
-          navigate("phenotypic/" + data.screenName)
+          navigate("phenotypic/" + data.screenName);
         }
       });
     },
-  }
-  );
+  });
   const isFormFieldValid = (field) =>
     !!(formik.touched[field] && formik.errors[field]);
   const getFormErrorMessage = (field) => {
@@ -64,8 +60,6 @@ const ScreenDashAddPhenotypic = () => {
     );
   };
 
-
-
   return (
     <div className="flex flex-column w-full">
       <div className="flex w-full">
@@ -73,24 +67,24 @@ const ScreenDashAddPhenotypic = () => {
           icon="icon icon-common icon-circle-notch"
           heading={"Create Phenotypic Screen"}
           color={"#f4f4f4"}
-          textColor={"#000000"} />
+          textColor={"#000000"}
+        />
       </div>
 
       <div className="flex w-full gap-5">
-        <div className="flex w-3"
-          style={
-            {
-              "--b": "4px",
-              borderColor: "#fff",
-              width: "100%",
-              aspectRatio: "1",
-              border: "10px solid #fff",
-              background:
-                "conic-gradient(from 90deg at var(--b) var(--b),#fff 90deg,#f4f4f4 0) calc(100% + var(--b)/2) calc(100% + var(--b)/2)/calc(50%  + var(--b))   calc(50%  + var(--b))",
-              display: "inline-block"
-            }
-          }>
-        </div>
+        <div
+          className="flex w-3"
+          style={{
+            "--b": "4px",
+            borderColor: "#fff",
+            width: "100%",
+            aspectRatio: "1",
+            border: "10px solid #fff",
+            background:
+              "conic-gradient(from 90deg at var(--b) var(--b),#fff 90deg,#f4f4f4 0) calc(100% + var(--b)/2) calc(100% + var(--b)/2)/calc(50%  + var(--b))   calc(50%  + var(--b))",
+            display: "inline-block",
+          }}
+        ></div>
         <div className="flex">
           <div className="card">
             <form onSubmit={formik.handleSubmit} className="p-fluid">
@@ -164,7 +158,6 @@ const ScreenDashAddPhenotypic = () => {
                   })}
                 />
                 {getFormErrorMessage("promotionDate")}
-
               </div>
               <div className="field">
                 <label
@@ -180,7 +173,6 @@ const ScreenDashAddPhenotypic = () => {
                   answer="notes"
                   value={formik.values.notes}
                   onChange={formik.handleChange}
-
                   className={classNames({
                     "p-invalid": isFormFieldValid("notes"),
                   })}
@@ -198,13 +190,9 @@ const ScreenDashAddPhenotypic = () => {
             </form>
           </div>
         </div>
-
-
       </div>
-
     </div>
+  );
+};
 
-  )
-}
-
-export default ScreenDashAddPhenotypic
+export default ScreenDashAddPhenotypic;

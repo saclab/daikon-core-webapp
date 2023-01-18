@@ -1,16 +1,12 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
+import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
-import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
-import { Calendar } from "primereact/calendar";
-import { RootStoreContext } from "../../../../../../../app/stores/rootStore";
+import React from "react";
 
 const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
-  const rootStore = useContext(RootStoreContext);
-  // const { appVars } = rootStore.generalStore;
-
   const formik = useFormik({
     initialValues: {
       library: "",
@@ -54,7 +50,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
     },
     onSubmit: (data) => {
       data["screenId"] = screenId;
-      console.log(data);
+
       onAdd(data);
       formik.resetForm();
     },
@@ -106,16 +102,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             >
               Start Date
             </label>
-            {/* <InputText
-                    id="startDate"
-                    answer="startDate"
-                    value={formik.values.startDate}
-                    onChange={formik.handleChange}
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("startDate"),
-                    })}
-                  /> */}
             <Calendar
               id="startDate"
               name="startDate"

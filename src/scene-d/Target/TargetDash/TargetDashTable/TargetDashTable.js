@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 // import _ from "lodash";
-import { NavLink } from "react-router-dom";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import "./TargetDashDataTable.css";
 import { observer } from "mobx-react-lite";
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import { NavLink } from "react-router-dom";
+import "./TargetDashDataTable.css";
 
 const TargetDashTable = ({ targets }) => {
   const dt = useRef(null);
@@ -21,8 +21,7 @@ const TargetDashTable = ({ targets }) => {
   };
 
   const AssociatedGenesBodyTemplate = (rowData) => {
-    //console.log("AssociatedGenesBodyTemplate");
-    //console.log(rowData.targetGenesAccesionNumbers);
+
     if (rowData.targetGenesAccesionNumbers.length > 2) {
       return (
         <React.Fragment>

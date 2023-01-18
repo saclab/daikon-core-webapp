@@ -1,6 +1,6 @@
 import { makeObservable, observable } from "mobx";
-import AuthService from "../../services/AuthService";
 import AppSettingsService from "../../services/AppSettingsService";
+import AuthService from "../../services/AuthService";
 
 export default class MsStore {
   rootStore;
@@ -17,8 +17,4 @@ export default class MsStore {
       authServiceInstance: observable,
     });
   }
-
-  // @observable
-  appSettings = this.appSettings;
-  authServiceInstance = this.authServiceInstance;
 }

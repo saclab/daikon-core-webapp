@@ -1,24 +1,10 @@
-import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
-import { Sidebar } from "primereact/sidebar";
-import { ProgressBar } from "primereact/progressbar";
-import { DataTable } from "primereact/datatable";
-import { Button } from "primereact/button";
-import { InputSwitch } from "primereact/inputswitch";
-import { Column } from "primereact/column";
-import { Message } from "primereact/message";
-
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from '../../../app/layout/Loading/Loading';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../colors';
+import { BreadCrumb } from "primereact/breadcrumb";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import TargetAdminImporter from "./TargetAdminImporter";
 
 const AppImportsTarget = () => {
-
-  const rootStore = useContext(RootStoreContext);
   const navigate = useNavigate();
 
   const breadCrumbItems = [
@@ -32,11 +18,9 @@ const AppImportsTarget = () => {
       label: "Target",
       command: () => {
         navigate(`/admin/app-imports/target`);
-      }
+      },
     },
   ];
-
-
 
   return (
     <React.Fragment>
@@ -59,7 +43,7 @@ const AppImportsTarget = () => {
         </div>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default AppImportsTarget
+export default AppImportsTarget;

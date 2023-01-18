@@ -1,19 +1,19 @@
-import React, {useContext } from "react";
-import { Fieldset } from "primereact/fieldset";
 import { observer } from "mobx-react-lite";
+import { Fieldset } from "primereact/fieldset";
+import React, { useContext } from "react";
 // import SmilesView from "../../../../app/common/SmilesView/SmilesView";
-import "./ScrollPanel.css";
-import PleaseWait from "../../../../app/common/PleaseWait/PleaseWait";
-import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
-import HAInformationGeneralInformation from "./LocalComponents/HAInformationGeneralInformation";
-import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
-import HAStatus from "./LocalComponents/HAStatus";
-import HABaseHits from "./LocalComponents/HABaseHits";
-import { appColors } from "../../../../colors";
-import { useNavigate } from 'react-router-dom';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
 import { BreadCrumb } from 'primereact/breadcrumb';
+import { useNavigate } from 'react-router-dom';
+import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
+import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
+import PleaseWait from "../../../../app/common/PleaseWait/PleaseWait";
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
 import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from "../../../../colors";
+import HABaseHits from "./LocalComponents/HABaseHits";
+import HAInformationGeneralInformation from "./LocalComponents/HAInformationGeneralInformation";
+import HAStatus from "./LocalComponents/HAStatus";
+import "./ScrollPanel.css";
 
 const HAViewInformation = ({ id, project }) => {
   const navigate = useNavigate();

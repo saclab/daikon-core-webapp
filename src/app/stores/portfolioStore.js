@@ -1,9 +1,4 @@
-import {
-  action,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 
 import { toast } from "react-toastify";
 import agent from "../api/agent";
@@ -32,8 +27,6 @@ export default class PortfolioStore {
   }
 
   createH2L = async (newH2L) => {
-    console.log("PortfolioStore: createH2L Start");
-    console.log(newH2L);
     this.creatingH2L = true;
     let res = null;
     // send to server
@@ -47,20 +40,16 @@ export default class PortfolioStore {
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.creatingH2L = false;
-        console.log("PortfolioStore: createH2L Complete");
       });
     }
     return res;
   };
 
   createLO = async (newLO) => {
-    console.log("PortfolioStore: createLO Start");
-    console.log(newLO);
     this.creatingLO = true;
     let res = null;
     // send to server
@@ -74,20 +63,16 @@ export default class PortfolioStore {
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.creatingLO = false;
-        console.log("PortfolioStore: createLO Complete");
       });
     }
     return res;
   };
 
   createSP = async (newSP) => {
-    console.log("PortfolioStore: createSP Start");
-    console.log(newSP);
     this.creatingSP = true;
     let res = null;
     // send to server
@@ -101,12 +86,10 @@ export default class PortfolioStore {
         this.rootStore.projectStore.projectRegistryCacheValid = false;
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.creatingSP = false;
-        console.log("PortfolioStore: createSP Complete");
       });
     }
     return res;

@@ -2,8 +2,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { appConfig } from "../../config";
 import history from "../../history";
-import AuthService from "../../services/AuthService";
 import AppSettingsService from "../../services/AppSettingsService";
+import AuthService from "../../services/AuthService";
 
 /* Check Pre Configuration */
 
@@ -74,7 +74,7 @@ const requests = {
 
 /* API ERROR HANDLING */
 axiosServerInstance.interceptors.response.use(undefined, (error) => {
-  //console.log(error);
+  //console.error(error);
   if (!error.response) {
     toast.error(
       "Network Error : Can't connect to server. Displaying locally cached data. New changes wont be saved."
@@ -85,7 +85,7 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
       const { status, data, config } = error.response;
       /* ALL 404 Errors are redirected to not found component */
       if (status === 404) {
-        console.log("404---");
+        console.error("404 RESOURCE NOT FOUND");
         //history.push("/notfound");
       }
 
@@ -96,46 +96,45 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
         data.errors.hasOwnProperty("id")
       ) {
         history.push("/notfound");
-      }
-      else if (status === 400 && data !== null) {
-        console.log("----AGENT----");
-        console.log(typeof data);
+      } else if (status === 400 && data !== null) {
+        console.error("----AGENT----");
+        console.error(typeof data);
         if (typeof data === "string") {
-          console.log("AGENT: Intercepted 400 " + data)
+          console.error("AGENT: Intercepted 400 " + data);
           toast.error("400 The Request Failed : " + data);
         } else {
-          console.log("AGENT: Intercepted 400 " + data?.title)
+          console.error("AGENT: Intercepted 400 " + data?.title);
           toast.error("400 The Request Failed : " + data?.title);
         }
-      }
-      else if (status === 400 && data === null) {
-        console.log("AGENT: Intercepted 400 Bad request")
+      } else if (status === 400 && data === null) {
+        console.error("AGENT: Intercepted 400 Bad request");
         toast.error("400 Bad request");
       }
 
       /* 403 Unauthorized error */
       if (status === 403) {
-        console.log("AGENT: Intercepted 403")
-        toast.error("Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator");
+        console.error("AGENT: Intercepted 403");
+        toast.error(
+          "Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator"
+        );
       }
 
       if (status === 401) {
-        console.log("AGENT: Intercepted 403")
-        console.log("Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator");
+        console.error("AGENT: Intercepted 403");
+        console.error(
+          "Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator"
+        );
       }
-
 
       /* 500 Errors */
       if (status === 500) {
-        console.log("AGENT: Intercepted 500")
+        console.error("AGENT: Intercepted 500");
         toast.error("Server Error");
       }
-
-
     } catch (e) {
     } finally {
-      console.log("----AGENT---- THROWING error");
-      console.log(error.response);
+      console.error("----AGENT---- THROWING error");
+      console.error(error.response);
       throw error.response;
     }
   }
@@ -272,17 +271,21 @@ const Target = {
   list: () => requests.get(`/target/`),
   details: (id) => requests.get(`/target/${id}`),
   history: (id) => requests.get(`/target/${id}/history`),
+  editSummary: (updatedTargetSummary) =>
+    requests.post(
+      `/target/${updatedTargetSummary.id}/summary`,
+      updatedTargetSummary
+    ),
 };
 
 const TargetAdmin = {
   create: (data) => requests.post(`/elevated/target`, data),
   import: (data) => requests.post(`/elevated/target/import`, data),
-  importComplex: (data) => requests.post(`/elevated/target/importComplex`, data),
+  importComplex: (data) =>
+    requests.post(`/elevated/target/importComplex`, data),
   details: (id) => requests.get(`/target/${id}`),
   edit: (updatedTarget) =>
     requests.post(`/elevated/target/${updatedTarget.id}`, updatedTarget),
-  editSummary: (updatedTargetSummary) =>
-    requests.post(`/elevated/target/${updatedTargetSummary.id}/summary`, updatedTargetSummary),
 };
 
 const Screen = {
@@ -290,12 +293,13 @@ const Screen = {
   listPhenotypic: () => requests.get(`/screen/phenotypic`),
   details: (id) => requests.get(`/screen/${id}`),
   create: (newScreen) => requests.post(`/screen`, newScreen),
-  createPhenotypic: (newScreen) => requests.post(`/screen/phenotypic`, newScreen),
+  createPhenotypic: (newScreen) =>
+    requests.post(`/screen/phenotypic`, newScreen),
   createSequence: (screenId, newSequence) =>
     requests.post(`/screensequence/${screenId}`, newSequence),
   merge: (mergeIds) => requests.post(`/elevated/screen/merge`, mergeIds),
-  edit: (id, editedScreen) => requests.post(`/elevated/screen/${id}/edit`, editedScreen),
-
+  edit: (id, editedScreen) =>
+    requests.post(`/elevated/screen/${id}/edit`, editedScreen),
 };
 
 const Hit = {
@@ -328,7 +332,8 @@ const General = {
 
 const Projects = {
   edit: (id, project) => requests.post(`/elevated/project/${id}`, project),
-  terminate: (id, project) => requests.post(`/elevated/project/${id}/terminate`, project),
+  terminate: (id, project) =>
+    requests.post(`/elevated/project/${id}/terminate`, project),
   createHA: (newHA) => requests.post(`/elevated/project/`, newHA),
   createH2L: (id, h2lInfo) =>
     requests.post(`/elevated/project/${id}/createH2L`, h2lInfo),
@@ -349,14 +354,20 @@ const Projects = {
       `/elevated/project/${projectId}/compoundevolution`,
       newCompoundEvolution
     ),
-  editCompoundevolution: (projectId, compoundEvoluitionId, editedCompoundEvolution) =>
+  editCompoundevolution: (
+    projectId,
+    compoundEvoluitionId,
+    editedCompoundEvolution
+  ) =>
     requests.post(
       `/elevated/project/${projectId}/compoundevolution/${compoundEvoluitionId}`,
       editedCompoundEvolution
     ),
   setPriorityProbability: (Id, ppDTO) => requests.post(`/project/${Id}`, ppDTO),
-  createUnlinked: (newProject) => requests.post(`/elevated/project/unlinked`, newProject),
-  stageOverride: (id, overrideDTO) => requests.post(`/elevated/project/${id}/override-stage`, overrideDTO),
+  createUnlinked: (newProject) =>
+    requests.post(`/elevated/project/unlinked`, newProject),
+  stageOverride: (id, overrideDTO) =>
+    requests.post(`/elevated/project/${id}/override-stage`, overrideDTO),
 };
 
 const Vote = {
@@ -365,10 +376,9 @@ const Vote = {
   freezeVoting: (voteIds) => requests.post(`/elevated/vote/freeze/`, voteIds),
 };
 
-
 const DataView = {
   targetDash: () => requests.get(`/data-view/VTarget/dash-view`),
-}
+};
 
 const exports = {
   AppPrecheck,
@@ -387,7 +397,7 @@ const exports = {
   General,
   Projects,
   Vote,
-  DataView
+  DataView,
 };
 
 export default exports;

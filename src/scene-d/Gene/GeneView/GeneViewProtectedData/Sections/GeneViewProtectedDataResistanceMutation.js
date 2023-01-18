@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { InputText } from "primereact/inputtext";
 import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import { InputText } from "primereact/inputtext";
 import { Sidebar } from "primereact/sidebar";
+import React, { useState } from "react";
 import GeneViewProtectedDataAddResistanceMutationForm from "./GeneViewProtectedDataAddResistanceMutationForm";
 
 

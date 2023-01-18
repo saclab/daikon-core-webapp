@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import { useFormik } from "formik";
-import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { classNames } from "primereact/utils";
 import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
+import { classNames } from "primereact/utils";
+import React, { useState } from "react";
 
 const TestMolView = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -42,10 +42,8 @@ const TestMolView = () => {
       return errors;
     },
     onSubmit: (data) => {
-      console.log(data);
       setShowMessage(true);
       formik.resetForm();
-      
     },
   });
 
@@ -147,13 +145,14 @@ const TestMolView = () => {
 
             <div className="p-field">
               <span className="p-float-label">
-              <label
+                <label
                   htmlFor="city"
                   className={classNames({
                     "p-error": isFormFieldValid("city"),
                   })}
                 >
-                  Select a city </label>
+                  Select a city{" "}
+                </label>
                 <Dropdown
                   id="city"
                   value={formik.values.city}

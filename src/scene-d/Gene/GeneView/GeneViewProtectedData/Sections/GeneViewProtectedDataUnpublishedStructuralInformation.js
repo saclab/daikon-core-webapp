@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { InputText } from "primereact/inputtext";
 import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
-import { Sidebar } from "primereact/sidebar";
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
+import { Sidebar } from "primereact/sidebar";
+import React, { useContext, useEffect, useState } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import GeneViewProtectedDataAddUnpublishedStructuralInformationForm from "./GeneViewProtectedDataAddUnpublishedStructuralInformationForm";
 
@@ -62,8 +62,6 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
   };
 
   const dropDownUnpublishedEditor = (options) => {
-    console.log("dropDownUnpublishedEditor");
-    console.log(options);
     return (
       <Dropdown
         id="organization"

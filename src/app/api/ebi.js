@@ -2,13 +2,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import history from "../../history";
 
-
-
 /* Uniport API Service Settings */
 var axiosEbiInstance = new axios.create({
   headers: {
-    'Content-Type': 'application/json;charset=UTF-8'
-}
+    "Content-Type": "application/json;charset=UTF-8",
+  },
 });
 axiosEbiInstance.defaults.baseURL = "https://www.ebi.ac.uk/pdbe/api/pdb/entry/";
 
@@ -16,13 +14,10 @@ axiosEbiInstance.defaults.baseURL = "https://www.ebi.ac.uk/pdbe/api/pdb/entry/";
 
 const responseBody = (response) => response.data;
 
-
-
 /* TYPES OF REQUESTES SUPPORTED */
 const requests = {
   get: (url) => axiosEbiInstance.get(url).then(responseBody),
-  post: (url, body) =>
-    axiosEbiInstance.post(url, body).then(responseBody),
+  post: (url, body) => axiosEbiInstance.post(url, body).then(responseBody),
   put: (url, body) => axiosEbiInstance.put(url, body).then(responseBody),
   del: (url) => axiosEbiInstance.delete(url).then(responseBody),
 };
@@ -30,7 +25,7 @@ const requests = {
 
 /* API ERROR HANDLING */
 axiosEbiInstance.interceptors.response.use(undefined, (error) => {
-  //console.log(error);
+  //console.error(error);
   if (!error.response) {
     toast.error(
       "Network Error : Can't connect to server. Displaying locally cached data. New changes wont be saved."
@@ -41,7 +36,7 @@ axiosEbiInstance.interceptors.response.use(undefined, (error) => {
       const { status, data, config } = error.response;
       /* ALL 404 Errors are redirected to not found component */
       if (status === 404) {
-        console.log("404---");
+        console.error("404---");
         //history.push("/notfound");
       }
 
@@ -62,7 +57,7 @@ axiosEbiInstance.interceptors.response.use(undefined, (error) => {
       }
 
       if (status === 401) {
-        console.log("unauthorized please redirect to login");
+        console.error("unauthorized please redirect to login");
       }
     } catch (e) {
     } finally {
@@ -77,9 +72,8 @@ const Ebi = {
   ligands: (pdbID) => requests.get(`ligand_monomers/${pdbID}`),
 };
 
-
 const exports = {
-  Ebi
+  Ebi,
 };
 
 export default exports;
