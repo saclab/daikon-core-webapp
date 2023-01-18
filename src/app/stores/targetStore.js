@@ -158,7 +158,7 @@ export default class TargetStore {
     }
   };
 
-  /* submit Promotion Questionaire from API */
+  /* submit Promotion Questionnaire from API */
   promoteTargetToScreen = async (newScreen) => {
     this.promoteTargetToScreenDisplayLoading = true;
     let res = null;
