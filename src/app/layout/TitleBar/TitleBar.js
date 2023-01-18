@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Button } from "primereact/button";
 import { RootStoreContext } from "../../stores/rootStore";
+import "./TitleBar.css";
 import cssClass from "./TitleBar.module.css";
 import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import TitleBarSidePanel from "./TitleBarSidePanel/TitleBarSidePanel";
@@ -60,11 +61,13 @@ const TitleBar = () => {
       >
         <TitleBarSidePanel toggle={() => setVisibleLeft(false)} user={user} />
       </Sidebar>
-      <div className={["inline-flex"].join(" ")}>
+      <div className={["inline-flex", cssClass.Feedback].join(" ")}>
         <Button
           type="Button"
           icon="icon icon-common icon-th"
-          className={["p-mr-2", cssClass.BlackButton].join(" ")}
+          className={["p-mr-2", cssClass.BlackButton, cssClass.Feedback].join(
+            " "
+          )}
           onClick={() => setVisibleLeft(true)}
         />
 
@@ -90,7 +93,7 @@ const TitleBar = () => {
             onChange={(e) => onFeedback(e)}
             optionLabel="label"
             placeholder="Feedback"
-            className={[cssClass.BlackButton].join(" ")}
+            className={[cssClass.BlackButton, "Feedback"].join(" ")}
             itemTemplate={feedbackOptionTemplate}
           />
           <Button
