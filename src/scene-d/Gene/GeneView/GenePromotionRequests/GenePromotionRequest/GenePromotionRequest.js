@@ -97,7 +97,14 @@ const GenePromotionRequest = ({
             <h4>Target Type : {questionaire.targetType}</h4>
             <h4>Target Name : {questionaire.targetName}</h4>
             <h4>Genes : {getGeneInformatin()}</h4>
-            <h4>Submitted by : </h4>
+            <h4>
+              Submitted by :{" "}
+              {
+                questionaire.answers[Object.keys(questionaire.answers)[0]][
+                  "answeredBy"
+                ]
+              }
+            </h4>
           </Panel>
           <br />
         </div>

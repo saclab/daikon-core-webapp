@@ -46,7 +46,7 @@ export default class GeneStoreAdmin {
               formattedPromotionRequest.answers[value.question.identification] =
                 {
                   answer: value.answer,
-                  answeredBy: value.answeredBy,
+                  answeredBy: value.answerdBy,
                   description: value.description,
                 };
             }
