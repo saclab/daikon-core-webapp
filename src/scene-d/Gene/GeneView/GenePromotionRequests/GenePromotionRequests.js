@@ -101,7 +101,7 @@ const GenePromotionRequests = () => {
             <Card title="No Pending Requests">
               All pending requests are taken care of. To raise a new request
               promote a gene from the Genes section to a target by completing
-              the questionaire.
+              the Questionnaire.
             </Card>
           ) : (
             <TabView
