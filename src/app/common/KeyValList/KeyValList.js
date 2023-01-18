@@ -14,14 +14,14 @@ import {
   _command_contextMenuEditCommand,
   _command_contextMenuFetchHistoryCommand,
   _command_contextMenuHilightAllChangesCommand,
-  _command_contextMenuHilightRecentChangesCommand
+  _command_contextMenuHilightRecentChangesCommand,
 } from "./KeyValList_Command";
 import {
   _helper_filterHilightChanged,
   _helper_generateEditForm,
   _helper_renderFooterOfEditDialog,
   _helper_renderHeaderofEditDialog,
-  _helper_renderHistoryTimeline
+  _helper_renderHistoryTimeline,
 } from "./KeyValList_Helper";
 
 const KeyValList = ({
