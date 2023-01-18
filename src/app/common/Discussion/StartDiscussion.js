@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { InputTextarea } from "primereact/inputtextarea";
-import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { Editor } from 'primereact/editor';
+import { Editor } from "primereact/editor";
+import { InputText } from "primereact/inputtext";
+import React, { useState } from "react";
 
 const StartDiscussion = ({
   section,
@@ -25,20 +24,20 @@ const StartDiscussion = ({
     };
 
     newDiscussion(formatedDiscussion).then((res) => {
-      console.log("Inside SUBMIT");
-      console.log(res);
       if (res !== null) close();
     });
   };
 
-  const headerOfTextEditor = <span className="ql-formats">
-    <button className="ql-bold" aria-label="Bold"></button>
-    <button className="ql-italic" aria-label="Italic"></button>
-    <button className="ql-underline" aria-label="Underline"></button>
-    <button className="ql-strike" aria-label="Strike"></button>
-    <button className="ql-link" aria-label="Link"></button>
-    <button className="ql-list" value="bullet" aria-label="Bullet"></button>
-  </span>
+  const headerOfTextEditor = (
+    <span className="ql-formats">
+      <button className="ql-bold" aria-label="Bold"></button>
+      <button className="ql-italic" aria-label="Italic"></button>
+      <button className="ql-underline" aria-label="Underline"></button>
+      <button className="ql-strike" aria-label="Strike"></button>
+      <button className="ql-link" aria-label="Link"></button>
+      <button className="ql-list" value="bullet" aria-label="Bullet"></button>
+    </span>
+  );
 
   return (
     <div className="flex flex-column w-full">
@@ -63,11 +62,14 @@ const StartDiscussion = ({
           readonly={postingDiscussion}
         /> */}
         <Editor
-          style={{ height: '320px' }}
+          style={{ height: "320px" }}
           headerTemplate={headerOfTextEditor}
           value={description}
-          onTextChange={(e) => { console.log(e.htmlValue); setDescription(e.htmlValue) }}
-          readOnly={postingDiscussion} />
+          onTextChange={(e) => {
+            setDescription(e.htmlValue);
+          }}
+          readOnly={postingDiscussion}
+        />
 
         {/* <h3>Tag Users?</h3>
         <Mention

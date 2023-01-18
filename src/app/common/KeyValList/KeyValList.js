@@ -1,28 +1,28 @@
-import React, { useRef, useState, useEffect } from "react";
 import _ from "lodash";
-import { ContextMenu } from "primereact/contextmenu";
-import { StartCase } from "react-lodash";
-import { Dialog } from "primereact/dialog";
-import { Toast } from "primereact/toast";
-import { Sidebar } from "primereact/sidebar";
-import "./KeyValueList.css";
 import { observer } from "mobx-react-lite";
+import { ContextMenu } from "primereact/contextmenu";
+import { Dialog } from "primereact/dialog";
+import { Sidebar } from "primereact/sidebar";
+import { Toast } from "primereact/toast";
+import React, { useEffect, useRef, useState } from "react";
+import { StartCase } from "react-lodash";
+import "./KeyValueList.css";
 
 import {
-  _helper_renderHistoryTimeline,
-  _helper_renderFooterOfEditDialog,
-  _helper_filterHilightChanged,
-  _helper_renderHeaderofEditDialog,
-  _helper_generateEditForm,
-} from "./KeyValList_Helper";
-import {
+  _command_contextMenuClearHilightsCommand,
   _command_contextMenuCopyCommand,
+  _command_contextMenuEditCommand,
   _command_contextMenuFetchHistoryCommand,
   _command_contextMenuHilightAllChangesCommand,
   _command_contextMenuHilightRecentChangesCommand,
-  _command_contextMenuClearHilightsCommand,
-  _command_contextMenuEditCommand,
 } from "./KeyValList_Command";
+import {
+  _helper_filterHilightChanged,
+  _helper_generateEditForm,
+  _helper_renderFooterOfEditDialog,
+  _helper_renderHeaderofEditDialog,
+  _helper_renderHistoryTimeline,
+} from "./KeyValList_Helper";
 
 const KeyValList = ({
   data,
@@ -35,7 +35,7 @@ const KeyValList = ({
   historyDisplayLoading,
   history,
   formData,
-  hideKey
+  hideKey,
 }) => {
   const cm = useRef(null);
   const toast = useRef(null);
@@ -44,29 +44,32 @@ const KeyValList = ({
   const [displayEditContainer, setDisplayEditContainer] = useState(false);
   const [displayHistorySideBar, setDisplayHistorySideBar] = useState(false);
 
-  const [hilightAllChanges, setHilightAllChanges] = useState(localStorage.getItem('_local_HilightAllChanges') || false);
-  const [hilightRecentChanges, setHilightRecentChanges] = useState(localStorage.getItem('_local_HilightRecentChanges') || false);
+  const [hilightAllChanges, setHilightAllChanges] = useState(
+    localStorage.getItem("_local_HilightAllChanges") || false
+  );
+  const [hilightRecentChanges, setHilightRecentChanges] = useState(
+    localStorage.getItem("_local_HilightRecentChanges") || false
+  );
 
   // const [hilightAllChanges, setHilightAllChanges] = useState(false);
   // const [hilightRecentChanges, setHilightRecentChanges] = useState(false);
 
-  const [fetchHistoryCalled, setFetchHistoryCalled] = useState(false)
+  const [fetchHistoryCalled, setFetchHistoryCalled] = useState(false);
 
   let allChangedProperties = [];
 
   useEffect(() => {
-    if (!fetchHistoryCalled &&
-      (JSON.parse(localStorage.getItem('_local_HilightAllChanges'))
-        || JSON.parse(localStorage.getItem('_local_HilightRecentChanges')))) {
+    if (
+      !fetchHistoryCalled &&
+      (JSON.parse(localStorage.getItem("_local_HilightAllChanges")) ||
+        JSON.parse(localStorage.getItem("_local_HilightRecentChanges")))
+    ) {
       _.isFunction(fetchHistory) && fetchHistory();
-      setFetchHistoryCalled(true)
+      setFetchHistoryCalled(true);
     }
 
-    return () => {
-
-    }
-  }, [fetchHistory, setFetchHistoryCalled, fetchHistoryCalled])
-
+    return () => {};
+  }, [fetchHistory, setFetchHistoryCalled, fetchHistoryCalled]);
 
   /* * * * * * *
   /* * * Begin construction context menu
@@ -145,8 +148,6 @@ const KeyValList = ({
   /* * * * * * */
 
   const openContextMenu = (e) => {
-    console.log("ID")
-    console.log(e)
     setSelectedId(e.target.id);
     cm.current.show(e);
   };
@@ -217,8 +218,10 @@ const KeyValList = ({
               <b>
                 {typeof labels !== "undefined" && labels[key] ? (
                   labels[key]
+                ) : hideKey === true ? (
+                  ""
                 ) : (
-                  hideKey === true ? "" : <StartCase string={key} />
+                  <StartCase string={key} />
                 )}
               </b>
             </td>
@@ -252,7 +255,6 @@ const KeyValList = ({
         visible={displayHistorySideBar}
         position="right"
         style={{ width: "50%", overflowX: "auto" }}
-        
         onHide={() => setDisplayHistorySideBar(false)}
       >
         <div style={{ margin: "15px" }}>

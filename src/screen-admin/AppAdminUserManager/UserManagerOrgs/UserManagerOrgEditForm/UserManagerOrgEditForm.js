@@ -1,18 +1,12 @@
-import React from "react";
-import { observer } from "mobx-react-lite";
 import { useFormik } from "formik";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
-import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
+import React from "react";
 
-
-const UserManagerOrgEditForm = ({
-  org,
-  editOrg,
-  loadingOrg,
-  closeSideBar,
-}) => {
+const UserManagerOrgEditForm = ({ org, editOrg, loadingOrg, closeSideBar }) => {
   const formik = useFormik({
     initialValues: {
       alias: org.alias,
@@ -34,13 +28,11 @@ const UserManagerOrgEditForm = ({
     },
     onSubmit: (data) => {
       data["id"] = org.id;
-      console.log(data);
       editOrg(data)
         .then((resp) => {
-
           closeSideBar();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
       formik.resetForm();
     },
   });
@@ -103,8 +95,6 @@ const UserManagerOrgEditForm = ({
           {getFormErrorMessage("alias")}
         </div>
 
-
-
         <div className="field">
           <label
             htmlFor="address"
@@ -138,7 +128,6 @@ const UserManagerOrgEditForm = ({
         />
       </form>
     </div>
-
   );
 };
 

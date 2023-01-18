@@ -1,19 +1,20 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
-import { Menu } from "primereact/menu";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { Toast } from "primereact/toast";
-import Loading from "../../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-
-import { appColors } from '../../../../colors';
-
-import NotFound from '../../../../app/layout/NotFound/NotFound';
-import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
-import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
+import { Menu } from "primereact/menu";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef } from "react";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
+import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import PhenotypicScreenDiscussion from "./PhenotypicScreenDiscussion/PhenotypicScreenDiscussion";
 import PhenotypicScreenSequences from "./PhenotypicScreenSequences/PhenotypicScreenSequences";
 import PhenotypicValidatedHits from "./PhenotypicValidatedHits/PhenotypicValidatedHits";
-import PhenotypicScreenDiscussion from './PhenotypicScreenDiscussion/PhenotypicScreenDiscussion';
 
 const PhenotypicScreenView = () => {
   const params = useParams();
@@ -22,35 +23,45 @@ const PhenotypicScreenView = () => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingFetchScreensPhenotypic,
+  const {
+    loadingFetchScreensPhenotypic,
     screenPhenotypicRegistry,
     fetchScreensPhenotypic,
     selectedPhenotypicScreenFilter,
     filterPhenotypicScreensByBaseScreenName,
     loadingFilterPhenotypicScreensByBaseScreenName,
-    filteredPhenotypicScreens } =
-    rootStore.screenStore;
+    filteredPhenotypicScreens,
+  } = rootStore.screenStore;
 
   useEffect(() => {
-    if (screenPhenotypicRegistry.size === 0 || selectedPhenotypicScreenFilter !== params.baseScreenName) {
+    if (
+      screenPhenotypicRegistry.size === 0 ||
+      selectedPhenotypicScreenFilter !== params.baseScreenName
+    ) {
       fetchScreensPhenotypic().then(() => {
-        console.log("should run after screens are fetched");
         filterPhenotypicScreensByBaseScreenName(params.baseScreenName);
       });
-      ;
     }
+  }, [
+    fetchScreensPhenotypic,
+    screenPhenotypicRegistry,
+    filterPhenotypicScreensByBaseScreenName,
+    selectedPhenotypicScreenFilter,
+    params.baseScreenName,
+  ]);
 
-  }, [fetchScreensPhenotypic, screenPhenotypicRegistry, filterPhenotypicScreensByBaseScreenName, selectedPhenotypicScreenFilter]);
-
-
-
-  console.log("====SCREEN VIEW");
-
-  if (loadingFetchScreensPhenotypic || loadingFilterPhenotypicScreensByBaseScreenName) {
-    return <Loading />
+  if (
+    loadingFetchScreensPhenotypic ||
+    loadingFilterPhenotypicScreensByBaseScreenName
+  ) {
+    return <Loading />;
   }
 
-  if ((!loadingFetchScreensPhenotypic || !loadingFilterPhenotypicScreensByBaseScreenName) && filteredPhenotypicScreens.length === 0) {
+  if (
+    (!loadingFetchScreensPhenotypic ||
+      !loadingFilterPhenotypicScreensByBaseScreenName) &&
+    filteredPhenotypicScreens.length === 0
+  ) {
     return (
       <div className="flex justify-content-center w-full">
         <div className="flex flex-column">
@@ -58,14 +69,14 @@ const PhenotypicScreenView = () => {
             <h2>No Screens found</h2>
           </div>
           <div className="flex align-items-center">
-            <EmbededHelp>To create a screen visit the targets page </EmbededHelp>
+            <EmbededHelp>
+              To create a screen visit the targets page{" "}
+            </EmbededHelp>
           </div>
         </div>
       </div>
-
     );
-  }
-  else {
+  } else {
     const SideMenuItems = [
       {
         label: "Sections",
@@ -95,7 +106,6 @@ const PhenotypicScreenView = () => {
       },
     ];
 
-
     return (
       <React.Fragment>
         <Toast ref={toast} />
@@ -107,19 +117,40 @@ const PhenotypicScreenView = () => {
 
           <div className="flex w-full">
             <Routes>
-              <Route index element={<Navigate replace to="screen-sequence/" />} />
-              <Route path="screen-sequence/" element={<PhenotypicScreenSequences baseScreenName={params.baseScreenName} />} />
-              <Route path="validates-hit/" element={<PhenotypicValidatedHits baseScreenName={params.baseScreenName} />} />
-              <Route path="discussion/" element={<PhenotypicScreenDiscussion baseScreenName={params.baseScreenName} />} />
+              <Route
+                index
+                element={<Navigate replace to="screen-sequence/" />}
+              />
+              <Route
+                path="screen-sequence/"
+                element={
+                  <PhenotypicScreenSequences
+                    baseScreenName={params.baseScreenName}
+                  />
+                }
+              />
+              <Route
+                path="validates-hit/"
+                element={
+                  <PhenotypicValidatedHits
+                    baseScreenName={params.baseScreenName}
+                  />
+                }
+              />
+              <Route
+                path="discussion/"
+                element={
+                  <PhenotypicScreenDiscussion
+                    baseScreenName={params.baseScreenName}
+                  />
+                }
+              />
             </Routes>
           </div>
         </div>
-
       </React.Fragment>
-    )
+    );
   }
-  return <FailedLoading />
-}
+};
 
-
-export default observer(PhenotypicScreenView)
+export default observer(PhenotypicScreenView);

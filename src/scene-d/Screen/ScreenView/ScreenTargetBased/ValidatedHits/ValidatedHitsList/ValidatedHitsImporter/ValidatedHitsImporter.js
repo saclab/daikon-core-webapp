@@ -1,22 +1,16 @@
-import React, { useState, useContext } from "react";
 import _ from "lodash";
-import { useCSVReader } from 'react-papaparse';
 import { observer } from "mobx-react-lite";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { Button } from "primereact/button";
+import { Chip } from "primereact/chip";
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import { ProgressBar } from "primereact/progressbar";
-import { Chip } from 'primereact/chip';
-
+import React, { useContext, useState } from "react";
+import { useCSVReader } from "react-papaparse";
 
 import { RootStoreContext } from "../../../../../../../app/stores/rootStore";
 
 const ValidatedHitsImporter = ({ screenId, existingHits }) => {
-
-  console.log("-------START HITS IMPORTER--------");
-  console.log("existingHits");
-  console.log(existingHits);
-
   const { CSVReader } = useCSVReader();
   const [hits, setHits] = useState([]);
   const [hitsToUpdate, setHitsToUpdate] = useState([]);
@@ -29,101 +23,86 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
   const [successList, setSuccessList] = useState([]);
   const [failedList, setFailedList] = useState([]);
 
-  let existingHitCompoundIds = [...existingHits.map((hit) => hit.compound.externalCompoundIds)]
-
+  let existingHitCompoundIds = [
+    ...existingHits.map((hit) => hit.compound.externalCompoundIds),
+  ];
 
   const styles = {
     csvReader: {
-      display: 'flex',
-      flexDirection: 'row',
+      display: "flex",
+      flexDirection: "row",
       marginBottom: 10,
     },
     browseFile: {
-      width: '20%',
+      width: "20%",
     },
     acceptedFile: {
-      border: '1px solid #ccc',
+      border: "1px solid #ccc",
       height: 45,
       lineHeight: 2.5,
       paddingLeft: 10,
-      width: '80%',
+      width: "80%",
     },
     remove: {
       borderRadius: 0,
-      padding: '0 20px',
+      padding: "0 20px",
     },
     progressBarBackgroundColor: {
-      backgroundColor: 'red',
+      backgroundColor: "red",
     },
   };
-
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const { newHit, postingHit, updateHit, updatingHit } = rootStore.hitsStore;
 
   let handleOnError = (err, file, inputElem, reason) => {
-    console.log("---------------------------");
-    console.log(err);
-    console.log("---------------------------");
+    console.error(err);
   };
 
   let handleOnDrop = (r) => {
-
-
-
-    console.log("---------------------------");
-    console.log(r.data);
-
-    console.log("---------------------------");
     var index = 1;
 
     r.data.forEach((hit) => {
-      if (typeof (hit.Id) === 'undefined' || hit.Id === '') return;
+      if (typeof hit.Id === "undefined" || hit.Id === "") return;
       hit.IC50 = _.toNumber(hit?.IC50) ? _.round(hit?.IC50, 2) : 0;
       hit.MIC = _.toNumber(hit?.MIC) ? _.round(hit?.MIC, 2) : 0;
-      
-
+      hit.MolWeight = _.toNumber(hit?.molWeight)
+        ? _.round(hit?.molWeight, 2)
+        : 0;
+      hit.MolArea = _.toNumber(hit?.molArea) ? _.round(hit?.molArea, 2) : 0;
 
       // separate new hits and hits to update
       if (existingHitCompoundIds.includes(hit.Id)) {
         // check if any params have changed
-        let existingHit = existingHits.filter((eh) => eh.compound.externalCompoundIds === hit.Id)[0];
-        console.log("existingHit");
-        console.log(existingHit);
-        console.log(existingHit.mic);
-        console.log(hit.MIC);
+        let existingHit = existingHits.filter(
+          (eh) => eh.compound.externalCompoundIds === hit.Id
+        )[0];
         // using != instead of !== as type comparasion is not required
         if (
-          (existingHit.clusterGroup !== parseInt(hit.ClusterGroup))
-          || (existingHit.iC50 != parseInt(hit.IC50))
-          || (existingHit.mic != parseInt(hit.MIC))
+          existingHit.clusterGroup !== parseInt(hit.ClusterGroup) ||
+          existingHit.iC50 != parseInt(hit.IC50) ||
+          existingHit.mic != parseInt(hit.MIC)
         ) {
-          console.log("Update -> " + hit.Id)
           index = index + 1;
-          hitsToUpdate.push(
-            {
-              Id: existingHit.id,
-              Index: index,
-              ScreenId: screenId,
-              Source: hit?.Source,
-              Library: hit?.Library,
-              ExternalCompoundIds: hit?.Id,
-              IC50: hit.IC50,
-              Method: hit?.Method,
-              MIC: hit.MIC,
-              MolWeight: hit.MolWeight,
-              MolArea: hit.MolArea,
-              ClusterGroup: hit?.ClusterGroup,
-              Smile: hit?.Smile,
-              MolWeight: hit?.MolWeight,
-              MolArea: hit?.MolArea,
-              Status: "Update"
-            }
-          )
+          hitsToUpdate.push({
+            Id: existingHit.id,
+            Index: index,
+            ScreenId: screenId,
+            Source: hit?.Source,
+            Library: hit?.Library,
+            ExternalCompoundIds: hit?.Id,
+            IC50: hit.IC50,
+            Method: hit?.Method,
+            MIC: hit.MIC,
+            ClusterGroup: hit?.ClusterGroup,
+            Smile: hit?.Smile,
+            MolWeight: hit.MolWeight,
+            MolArea: hit.MolArea,
+            Status: "Update",
+          });
         }
-      }
-      else {
+      } else {
         // push to new hits list
         index = index + 1;
         hitsToAdd.push({
@@ -137,33 +116,24 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
           MIC: hit.MIC,
           ClusterGroup: hit?.ClusterGroup,
           Smile: hit?.Smile,
-          MolWeight: hit?.MolWeight,
-          MolArea: hit?.MolArea,
-          Status: "New"
+          MolWeight: hit.MolWeight,
+          MolArea: hit.MolArea,
+          Status: "New",
         });
       }
     });
 
-    console.log("hitsToUpdate");
-    console.log(hitsToUpdate);
     setHits([...hitsToAdd, ...hitsToUpdate]);
-    console.log("Hits to Add/Update : " + hits.length);
 
     setDisplayPreview(true);
-    console.log(hits);
   };
 
   let handleOnRemoveFile = (data) => {
     setHits([]);
     setDisplayPreview(false);
-    console.log("---------------------------");
-    console.log(data);
-    console.log("---------------------------");
   };
 
   let startImport = async () => {
-
-    console.log("Start Import")
     setDisplayCSVImporter(false);
     setDisplayPreview(false);
     setDisplayImportContainer(true);
@@ -174,10 +144,9 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       if (res !== null) {
         setImportingLogs("Imported " + hitsToAdd[i].ExternalCompoundIds);
         successList.push(hitsToAdd[i].ExternalCompoundIds);
-        console.log(successList);
       } else {
         setImportingLogs("Failed  " + hitsToAdd[i].ExternalCompoundIds);
-        setFailedList([...failedList, hitsToAdd[i].ExternalCompoundIds])
+        setFailedList([...failedList, hitsToAdd[i].ExternalCompoundIds]);
         failedList.push(hitsToAdd[i].ExternalCompoundIds);
       }
     }
@@ -188,10 +157,9 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       if (res !== null) {
         setImportingLogs("Updated " + hitsToUpdate[i].ExternalCompoundIds);
         successList.push(hitsToUpdate[i].ExternalCompoundIds);
-        console.log(successList);
       } else {
         setImportingLogs("Failed  " + hitsToUpdate[i].ExternalCompoundIds);
-        setFailedList([...failedList, hitsToUpdate[i].ExternalCompoundIds])
+        setFailedList([...failedList, hitsToUpdate[i].ExternalCompoundIds]);
         failedList.push(hitsToUpdate[i].ExternalCompoundIds);
       }
     }
@@ -209,15 +177,10 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
         // onError={handleOnError}
         noDrag
         config={{ header: true }}
-      // addRemoveButton
-      // onRemoveFile={handleOnRemoveFile}
+        // addRemoveButton
+        // onRemoveFile={handleOnRemoveFile}
       >
-        {({
-          getRootProps,
-          acceptedFile,
-          ProgressBar,
-          getRemoveFileProps,
-        }) => (
+        {({ getRootProps, acceptedFile, ProgressBar, getRemoveFileProps }) => (
           <div className="flex flex-column justify-content-center gap-2 border-400 border-dashed border-round-md  border-1 m-2 p-3">
             <div className="flex align-items-center justify-content-center">
               <h1
@@ -226,15 +189,22 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
               ></h1>
             </div>
             <div className="flex align-items-center justify-content-center">
-              {!acceptedFile ? <Button className="w-max p-button-secondary pl-5 pr-5" type='button' {...getRootProps()}>
-                Select CSV File to upload
-              </Button> : acceptedFile.name}
-
+              {!acceptedFile ? (
+                <Button
+                  className="w-max p-button-secondary pl-5 pr-5"
+                  type="button"
+                  {...getRootProps()}
+                >
+                  Select CSV File to upload
+                </Button>
+              ) : (
+                acceptedFile.name
+              )}
             </div>
             <div className="flex" style={styles.progressBar}>
               <ProgressBar />
             </div>
-            {!acceptedFile &&
+            {!acceptedFile && (
               <div className="flex flex-column align-items-center justify-content-center gap-2">
                 <div className="flex">
                   The CSV should contain the following headers:
@@ -249,15 +219,13 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
                   <Chip label="ClusterGroup" />
                   <Chip label="Smiles" />
                 </div>
-              </div>}
+              </div>
+            )}
           </div>
         )}
-
-
       </CSVReader>
-    </React.Fragment >
+    </React.Fragment>
   );
-
 
   let dataPreview = (
     <React.Fragment>
@@ -314,7 +282,12 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       Total identified in CSV : {hits.length} <br />
       Successfully Imported : {successList.length} <br />
       Failed : {failedList.length} <br />
-      {failedList.length !== 0 ? <p>Failed for {failedList.toString()}</p> : <p></p>} <br />
+      {failedList.length !== 0 ? (
+        <p>Failed for {failedList.toString()}</p>
+      ) : (
+        <p></p>
+      )}{" "}
+      <br />
     </React.Fragment>
   );
   return (

@@ -1,6 +1,6 @@
+import { Tag } from "primereact/tag";
 import React from "react";
 import "./StageTag.css";
-import { Tag } from "primereact/tag";
 
 const StageTag = ({ stage, stageName }) => {
   return (

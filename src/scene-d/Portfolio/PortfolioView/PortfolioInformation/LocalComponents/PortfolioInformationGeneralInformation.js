@@ -1,7 +1,7 @@
 import React from "react";
-import "./LocalComponents.css";
-import StageTag from "../../../../../app/common/StageTag/StageTag";
 import ProjectStatus from "../../../../../app/common/ProjectStatus/ProjectStatus";
+import StageTag from "../../../../../app/common/StageTag/StageTag";
+import "./LocalComponents.css";
 
 const PortfolioInformationGeneralInformation = ({ project }) => {
   let displaySupportingOrgs =

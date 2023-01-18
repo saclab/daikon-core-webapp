@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
-import { InputText } from 'primereact/inputtext';
 import { Divider } from "primereact/divider";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { RootStoreContext } from "../../../stores/rootStore";
-import cssClass from "../TitleBar.module.css";
 import { appVersion } from "../../../../appVersion";
-
+import mainLogo from "../../../../assets/logo-daikon.png";
+import { RootStoreContext } from "../../../stores/rootStore";
 
 const TitleBarSidePanel = ({ toggle, user }) => {
   const navigate = useNavigate();
@@ -17,10 +15,15 @@ const TitleBarSidePanel = ({ toggle, user }) => {
 
   const adminTools = (
     <div className="flex flex-column">
-
       <div className="flex">
-        <div className="flex"> <h4>+ Admin Tools</h4></div>
-        <div className="flex"> <Divider type="dashed" /></div>
+        <div className="flex">
+          {" "}
+          <h4>+ Admin Tools</h4>
+        </div>
+        <div className="flex">
+          {" "}
+          <Divider type="dashed" />
+        </div>
       </div>
 
       <div className="flex">
@@ -38,16 +41,20 @@ const TitleBarSidePanel = ({ toggle, user }) => {
           />
         </div>
       </div>
-
     </div>
   );
 
   const pmTools = (
     <div className="flex flex-column">
-
       <div className="flex">
-        <div className="flex"> <h4>+ Project Management</h4></div>
-        <div className="flex"> <Divider type="dashed" /></div>
+        <div className="flex">
+          {" "}
+          <h4>+ Project Management</h4>
+        </div>
+        <div className="flex">
+          {" "}
+          <Divider type="dashed" />
+        </div>
       </div>
 
       <div className="flex">
@@ -65,17 +72,18 @@ const TitleBarSidePanel = ({ toggle, user }) => {
           />
         </div>
       </div>
-
     </div>
   );
 
   return (
     <div className="flex flex-column">
-
       <div className="flex align-items-center justify-content-center">
         <div style={{ lineHeight: "0.1", padding: "20px" }}>
-          <h2 className={cssClass.Colorized}>D A I K O N</h2>
-          <p style={{ textAlign: "center" }}>{appVersion.stream} {appVersion.release} {appVersion.channel}</p>
+          {/* <h2 className={cssClass.Colorized}>D A I K O N</h2> */}
+          <img src={mainLogo} width="180" />
+          <p style={{ textAlign: "center" }}>
+            {appVersion.stream} {appVersion.release} {appVersion.channel}
+          </p>
         </div>
       </div>
 
@@ -95,7 +103,6 @@ const TitleBarSidePanel = ({ toggle, user }) => {
       <div className="flex">
         {user.roles.includes("projectManager") ? pmTools : ""}
       </div>
-
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import React from "react";
 import { SplitButton } from "primereact/splitbutton";
+import React from "react";
 import Question from "../../../../app/common/Question/Question";
 
 const GenePromoteFormImpactOfChemInhibit = (props) => {
@@ -7,16 +7,12 @@ const GenePromoteFormImpactOfChemInhibit = (props) => {
     {
       label: "Save form data in browser",
       icon: "pi pi-cloud-download",
-      command: () => {
-        console.log("Save form data local");
-      },
+      command: () => {},
     },
     {
       label: "Reset",
       icon: "pi pi-refresh",
-      command: () => {
-        console.log("Reset Section");
-      },
+      command: () => {},
     },
   ];
 

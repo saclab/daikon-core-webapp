@@ -1,17 +1,14 @@
-import React, { useContext } from "react";
 import { BreadCrumb } from "primereact/breadcrumb";
-import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
-import history from "../../../../history";
 import { Card } from "primereact/card";
-import GeneGroupAdd from "./GeneGroupAdd";
-import { Message } from "primereact/message";
 import { Fieldset } from "primereact/fieldset";
-import GeneGroupList from './GeneGroupList';
-import { appColors } from "../../../../colors";
+import React, { useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import Unauthorized from '../../../../app/common/Unauthorized/Unauthorized';
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import GeneGroupAdd from "./GeneGroupAdd";
+import GeneGroupList from './GeneGroupList';
 
 const GeneGroups = () => {
 

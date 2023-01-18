@@ -1,12 +1,12 @@
-import React, { useState, useContext } from "react";
-import { Divider } from "primereact/divider";
 import { Button } from "primereact/button";
-import { toast } from "react-toastify";
+import { Divider } from "primereact/divider";
 import { Panel } from "primereact/panel";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 import Question from "../../../../../app/common/Question/Question";
-import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import Loading from "../../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const GenePromotionRequest = ({
   GenePromotionRequest,
@@ -32,7 +32,6 @@ const GenePromotionRequest = ({
     var newField = null;
 
     if (e.target.id.endsWith("Description")) {
-      console.log("Description Field");
       location = e.target.id.slice(0, -11);
       newFormValue = { ...targetPromotionFormValue };
       newField = { ...newFormValue[location] };
@@ -57,8 +56,8 @@ const GenePromotionRequest = ({
     var promotionReqData = {
       targetName: GenePromotionRequest.targetName,
       targetType: GenePromotionRequest.targetType,
-      genePromtionRequestGenes : GenePromotionRequest.genePromtionRequestGenes,
-      
+      genePromtionRequestGenes: GenePromotionRequest.genePromtionRequestGenes,
+
       genePromotionRequestValues: [],
     };
 
@@ -71,7 +70,6 @@ const GenePromotionRequest = ({
     });
 
     promoteGene(promotionReqData).then((res) => {
-      console.log(res);
       if (res?.id) {
         toast.success("Success. The gene has been promoted.");
         genePromotionRegistry.delete(TargetName);
@@ -99,12 +97,19 @@ const GenePromotionRequest = ({
             <h4>Target Type : {questionaire.targetType}</h4>
             <h4>Target Name : {questionaire.targetName}</h4>
             <h4>Genes : {getGeneInformatin()}</h4>
-            <h4>Submitted by : </h4>
+            <h4>
+              Submitted by :{" "}
+              {
+                questionaire.answers[Object.keys(questionaire.answers)[0]][
+                  "answeredBy"
+                ]
+              }
+            </h4>
           </Panel>
           <br />
         </div>
         <div className="p-mr-2" style={{ minWidth: "1000px" }}>
-          <Panel header="Submitted Promotion Questionaire" toggleable>
+          <Panel header="Submitted Promotion Questionnaire" toggleable>
             <h2>Impact of chemical inhibition</h2>
 
             <h5>a) During infections</h5>

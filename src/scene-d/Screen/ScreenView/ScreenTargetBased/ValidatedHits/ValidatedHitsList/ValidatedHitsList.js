@@ -1,21 +1,21 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
 import _ from "lodash";
 import { observer } from "mobx-react-lite";
-import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
+import { Chip } from "primereact/chip";
 import { Column } from "primereact/column";
+import { ConfirmDialog } from "primereact/confirmdialog";
+import { DataTable } from "primereact/datatable";
 import { Dialog } from "primereact/dialog";
 import { TieredMenu } from "primereact/tieredmenu";
-import { RootStoreContext } from "../../../../../../app/stores/rootStore";
-import Loading from "../../../../../../app/layout/Loading/Loading";
-import Vote from "../../../../../../app/common/Vote/Vote";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import SmilesView from "../../../../../../app/common/SmilesView/SmilesView";
+import Vote from "../../../../../../app/common/Vote/Vote";
+import Loading from "../../../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../../../app/stores/rootStore";
+import "./ValidatedHitsDataTable.css";
 import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter";
 import ValidatedHitsPromoteToHAEntry from "./ValidatedHitsPromoteToHAEntry/ValidatedHitsPromoteToHAEntry";
-import { toast } from "react-toastify";
-import "./ValidatedHitsDataTable.css";
-import { ConfirmDialog } from "primereact/confirmdialog";
-import { Chip } from 'primereact/chip';
 
 const ValidatedHitsList = ({ screenId }) => {
   const dt = useRef(null);
@@ -25,23 +25,18 @@ const ValidatedHitsList = ({ screenId }) => {
   const { loadingFetchScreen, fetchScreen, selectedScreen } =
     rootStore.screenStore;
   const { user } = rootStore.userStore;
-  const { enableVoting, freezeVoting } =
-    rootStore.votingStore;
+  const { enableVoting, freezeVoting } = rootStore.votingStore;
 
   const [displayHitsImportSidebar, setDisplayHitsImportSidebar] =
     useState(false);
 
   const [displayEnableSelection, setDisplayEnableSelection] = useState(false);
   const [selectedCompounds, setSelectedCompounds] = useState(null);
-  const [displayPromoteToHAEntry, setDisplayPromoteToHAEntry] =
-    useState(false);
+  const [displayPromoteToHAEntry, setDisplayPromoteToHAEntry] = useState(false);
 
   let tableMenuItems = [];
 
-  console.log("==== VALIDATED HIT LIST");
   useEffect(() => {
-    console.log("use effect");
-    console.log(screenId);
     fetchScreen(screenId);
   }, [fetchScreen, screenId]);
 
@@ -50,14 +45,13 @@ const ValidatedHitsList = ({ screenId }) => {
   }
 
   if (!loadingFetchScreen && selectedScreen) {
-    console.log(selectedScreen);
   }
 
   /* Local functions */
 
   const exportCSV = (selectionOnly) => {
     dt.current.exportCSV({ selectionOnly });
-  }
+  };
 
   let validatePromoteToHA = () => {
     if (selectedCompounds === null) {
@@ -127,7 +121,11 @@ const ValidatedHitsList = ({ screenId }) => {
     return (
       <React.Fragment>
         <div>
-          <SmilesView smiles={rowData?.compound?.smile} width={"220"} height={"220"} />
+          <SmilesView
+            smiles={rowData?.compound?.smile}
+            width={"220"}
+            height={"220"}
+          />
         </div>
       </React.Fragment>
     );
@@ -176,7 +174,10 @@ const ValidatedHitsList = ({ screenId }) => {
       </div>
       <div className="flex gap-5">
         <Chip label={selectedScreen?.org.name} icon="ri-organization-chart" />
-        <Chip label={selectedScreen?.method} icon="icon icon-common icon-circle-notch" />
+        <Chip
+          label={selectedScreen?.method}
+          icon="icon icon-common icon-circle-notch"
+        />
         <TieredMenu
           model={tableMenuItems}
           popup
@@ -199,7 +200,6 @@ const ValidatedHitsList = ({ screenId }) => {
 
   /* Construct table menu items */
   if (!loadingFetchScreen && selectedScreen) {
-
     let itm = {
       label: "Hits Management",
       items: [
@@ -211,7 +211,7 @@ const ValidatedHitsList = ({ screenId }) => {
         {
           label: "Export Hits",
           icon: "icon icon-fileformats icon-CSV",
-          command: () => exportCSV(false)
+          command: () => exportCSV(false),
         },
       ],
     };
@@ -281,7 +281,6 @@ const ValidatedHitsList = ({ screenId }) => {
             onSelectionChange={(e) => setSelectedCompounds(e.value)}
             dataKey="id"
             exportFilename={`Hits-${selectedScreen.screenName}-${selectedScreen.method}.csv`}
-
           >
             {displayEnableSelection && (
               <Column
@@ -352,7 +351,6 @@ const ValidatedHitsList = ({ screenId }) => {
         visible={displayHitsImportSidebar}
         header="Import Validated Hits"
         style={{ width: "90%" }}
-
         onHide={() => setDisplayHitsImportSidebar(false)}
         className="p-sidebar-lg"
       >
@@ -371,7 +369,6 @@ const ValidatedHitsList = ({ screenId }) => {
         //footer={renderFooter("displayBasic2")}
         onHide={() => setDisplayPromoteToHAEntry(false)}
         style={{ width: "90%" }}
-
         maximizable={true}
       >
         <ValidatedHitsPromoteToHAEntry

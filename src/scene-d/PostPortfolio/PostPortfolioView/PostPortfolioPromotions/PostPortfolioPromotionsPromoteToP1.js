@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ProgressBar } from "primereact/progressbar";
-import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
-import { Calendar } from "primereact/calendar";
-import { observer } from "mobx-react-lite";
+import React, { useContext } from "react";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const PostPortfolioPromotionsPromoteToP1 = ({ closeSidebar }) => {
@@ -31,7 +31,7 @@ const PostPortfolioPromotionsPromoteToP1 = ({ closeSidebar }) => {
     },
     onSubmit: (data) => {
       data["id"] = selectedProject.id;
-      console.log(data);
+
       createP1(data).then((res) => {
         if (res !== null) {
           closeSidebar();

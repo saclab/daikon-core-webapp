@@ -1,10 +1,10 @@
-import React from 'react'
 import { observer } from "mobx-react-lite";
-import { Route, Routes } from 'react-router-dom'
-import MenuBar from './MenuBar/MenuBar'
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Home from '../../scene-d/Home/Home';
+import MenuBar from './MenuBar/MenuBar';
 
-import GeneSearch from '../../scene-d/Gene/GeneSearch/GeneSearch'
+import GeneSearch from '../../scene-d/Gene/GeneSearch/GeneSearch';
 import GeneView from '../../scene-d/Gene/GeneView/GeneView';
 
 
@@ -17,15 +17,15 @@ import ScreenView from "../../scene-d/Screen/ScreenView/ScreenTargetBased/Screen
 import HADash from '../../scene-d/HA/HADash/HADash';
 import HAView from "../../scene-d/HA/HAView/HAView";
 
+import GenePromote from '../../scene-d/Gene/GenePromote/GenePromote';
+import GeneGroups from '../../scene-d/Gene/GeneView/GeneGroups/GeneGroups';
+import GenePromotionRequests from '../../scene-d/Gene/GeneView/GenePromotionRequests/GenePromotionRequests';
 import PortfolioDash from "../../scene-d/Portfolio/PortfolioDash/PortfolioDash";
 import PortfolioView from "../../scene-d/Portfolio/PortfolioView/PortfolioView";
 import PostPortfolioDash from '../../scene-d/PostPortfolio/PostPortfolioDash/PostPortfolioDash';
 import PostPortfolioView from '../../scene-d/PostPortfolio/PostPortfolioView/PostPortfolioView';
-import GeneGroups from '../../scene-d/Gene/GeneView/GeneGroups/GeneGroups';
-import GenePromotionRequests from '../../scene-d/Gene/GeneView/GenePromotionRequests/GenePromotionRequests';
-import NotFound from './NotFound/NotFound';
-import GenePromote from '../../scene-d/Gene/GenePromote/GenePromote';
 import PhenotypicScreenView from '../../scene-d/Screen/ScreenView/ScreenPhenotypic/PhenotypicScreenView';
+import NotFound from './NotFound/NotFound';
 
 
 const AppDefault = () => {

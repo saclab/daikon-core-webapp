@@ -1,23 +1,22 @@
-import React, { useContext, useState } from "react";
-import { observer } from "mobx-react-lite";
-import { useNavigate } from "react-router-dom";
-import { Card } from "primereact/card";
-import { RadioButton } from "primereact/radiobutton";
-import { Dialog } from "primereact/dialog";
-import { Button } from "primereact/button";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { Inplace, InplaceDisplay, InplaceContent } from "primereact/inplace";
-import { InputText } from "primereact/inputtext";
 import _ from "lodash";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+import { Dialog } from "primereact/dialog";
+import { Inplace, InplaceContent, InplaceDisplay } from "primereact/inplace";
+import { InputText } from "primereact/inputtext";
+import { ProgressBar } from "primereact/progressbar";
+import { RadioButton } from "primereact/radiobutton";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
-import { ProgressBar } from "primereact/progressbar";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const GenePromoteTargetSelectionWindow = ({
   displayPromotionDialog,
   setDisplayPromotionDialog,
 }) => {
-
   const navigate = useNavigate();
   const [activeScreen, setActiveScreen] = useState(
     "screenProteinTypeSelection"
@@ -82,7 +81,6 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenSelectionClicked = () => {
-    console.log("Active Screen is " + activeScreen);
     if (activeScreen === "screenProteinTypeSelection") {
       if (proteinType === "simple-protein") {
         setProposedTargetName(_.upperFirst(gene.geneName));
@@ -120,13 +118,8 @@ const GenePromoteTargetSelectionWindow = ({
     <React.Fragment>
       <EmbededHelp>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          A target promotion refers to the process of identifying and validating
+          a specific biological target as a potential therapeutic opportunity.
         </p>
       </EmbededHelp>
 
@@ -196,7 +189,8 @@ const GenePromoteTargetSelectionWindow = ({
           Please adhere to the{" "}
           <a
             href="https://www.ncbi.nlm.nih.gov/genome/doc/internatprot_nomenguide"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             International Protein Nomenclature Guidelines.
           </a>
@@ -236,8 +230,6 @@ const GenePromoteTargetSelectionWindow = ({
     }
 
     if (!searchingGeneGroup && calledSearchGeneGroup) {
-      console.log(searchedGeneGroup);
-
       if (searchedGeneGroup?.length === 0) {
         return (
           <p>
@@ -285,8 +277,6 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenValidateSimpleProteinTargetName = () => {
-    console.log("Rendering screenValidateSimpleProteinTargetName");
-
     if (!validateTargetNameLoading && callValidateTargetName) {
       setCallValidateTargetName(false);
       validateTargetName(proposedTargetName);
@@ -336,8 +326,6 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenValidateProteinComplex = () => {
-    console.log("Rendering screenValidateProteinComplex");
-
     if (!validateTargetNameLoading && callValidateTargetName) {
       setCallValidateTargetName(false);
       validateTargetName(selectedProteinComplexName);
@@ -388,7 +376,7 @@ const GenePromoteTargetSelectionWindow = ({
 
   return (
     <Dialog
-      header={`Identify this as a new Target`}
+      header={`Identify as a new Target`}
       visible={displayPromotionDialog}
       style={{ width: "50vw" }}
       footer={renderDisplayPromotionDialogFooter()}

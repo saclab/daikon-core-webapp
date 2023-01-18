@@ -1,18 +1,19 @@
-import React, { useState, useRef } from "react";
 import { observer } from "mobx-react-lite";
-import { TabView, TabPanel } from "primereact/tabview";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
-import UserManagerUsers from "./UserManagerUsers/UserManagerUsers";
+import React, { useRef } from "react";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useNavigate
+} from "react-router-dom";
 import UserManagerOrgs from "./UserManagerOrgs/UserManagerOrgs";
-import SectionHeading from '../../app/common/SectionHeading/SectionHeading';
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import UserManagerUsers from "./UserManagerUsers/UserManagerUsers";
 
 const AppAdminUserManager = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
-  const params = useParams();
   const navigate = useNavigate();
 
   const SideMenuItems = [

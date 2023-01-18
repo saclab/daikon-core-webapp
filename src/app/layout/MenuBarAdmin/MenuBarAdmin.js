@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "primereact/button";
-import { Menubar } from 'primereact/menubar';
 
 // import "./MenuBarAdmin.css";
-import history from "../../../history";
 import { TabMenu } from 'primereact/tabmenu';
 const MenuBarAdmin = () => {
   const navigate = useNavigate();

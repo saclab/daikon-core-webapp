@@ -1,5 +1,5 @@
-import React from "react";
 import { ProgressBar } from "primereact/progressbar";
+import React from "react";
 
 import "./NetworkError.css";
 

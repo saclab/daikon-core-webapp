@@ -1,31 +1,21 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
-import { InputTextarea } from "primereact/inputtextarea";
-import { ProgressBar } from "primereact/progressbar";
 import { Button } from "primereact/button";
-import { classNames } from "primereact/utils";
-import { observer } from "mobx-react-lite";
-
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { Calendar } from "primereact/calendar";
 import { InputText } from "primereact/inputtext";
-import SmilesView from '../../SmilesView/SmilesView';
+import { InputTextarea } from "primereact/inputtextarea";
+import { classNames } from "primereact/utils";
+import React, { useContext } from "react";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import SmilesView from "../../SmilesView/SmilesView";
 import StageSelectDropdown from "../../StageSelectDropdown/StageSelectDropdown";
-import { Calendar } from 'primereact/calendar';
 
 const CompoundEvolutionEdit = ({ evolution, onHide }) => {
   let ce = evolution();
-  console.log(ce);
-
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const {
-    editingCompoundEvolution,
-    editCompoundEvolution,
-    selectedProject,
-    loadingProject,
-    fetchCompoundEvolution,
-  } = rootStore.projectStore;
+  const { editCompoundEvolution, selectedProject, fetchCompoundEvolution } =
+    rootStore.projectStore;
 
   const formik = useFormik({
     initialValues: {
@@ -76,16 +66,14 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
       return errors;
     },
     onSubmit: (data) => {
-
       // Format Data
       data = {
         ...data,
         id: ce.id,
         projectId: ce.projectId,
         compoundId: ce.compoundId,
-      }
+      };
 
-      console.log(data);
       editCompoundEvolution(data).then((res) => {
         if (res !== null) {
           fetchCompoundEvolution(selectedProject.id);
@@ -108,18 +96,14 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
     );
   };
 
-
-
   return (
     <div className="flex flex-column w-full">
       <div>
-
         <div className="card w-full">
           <div className="card">
             <SmilesView smiles={ce.compound.smile} />
           </div>
           <form onSubmit={formik.handleSubmit} className="p-fluid">
-
             <div className="field">
               <label
                 htmlFor="smile"
@@ -144,7 +128,6 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
 
             <div className="flex gap-4">
               <div className="flex flex-column">
-
                 <div className="field">
                   <label
                     htmlFor="molWeight"
@@ -230,9 +213,7 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                 </div>
               </div>
 
-
               <div className="flex flex-column">
-
                 <div className="field">
                   <label
                     htmlFor="addedOnStage"
@@ -266,14 +247,14 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                     value={formik.values.addedOnDate}
                     viewDate={formik.values.addedOnDate}
                     onChange={formik.handleChange}
-                    style={{ width: '400px' }}
+                    style={{ width: "400px" }}
                     className={classNames({
                       "p-invalid": isFormFieldValid("addedOnDate"),
-                    })} />
+                    })}
+                  />
 
                   {getFormErrorMessage("addedOnDate")}
                 </div>
-
 
                 <div className="field">
                   <label
@@ -310,9 +291,9 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
             </div>
           </form>
         </div>
-      </div >
-    </div >
-  )
-}
+      </div>
+    </div>
+  );
+};
 
-export default CompoundEvolutionEdit
+export default CompoundEvolutionEdit;

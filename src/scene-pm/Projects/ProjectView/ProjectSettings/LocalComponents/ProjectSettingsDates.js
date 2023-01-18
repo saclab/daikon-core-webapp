@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { Button } from "primereact/button";
-import { classNames } from "primereact/utils";
 import { Calendar } from "primereact/calendar";
+import { classNames } from "primereact/utils";
+import React, { useContext } from "react";
 
-import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
+import { Inplace, InplaceContent, InplaceDisplay } from 'primereact/inplace';
 
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
@@ -115,8 +115,6 @@ const ProjectSettingsDates = ({ project }) => {
 
       editedProject.clinicalP1Start = data.clinicalP1Start;
       editedProject.clinicalP1PredictedStart = data.clinicalP1PredictedStart;
-
-      console.log(data)
       editProject(editedProject)
     },
   });

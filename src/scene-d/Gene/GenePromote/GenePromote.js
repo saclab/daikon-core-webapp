@@ -1,47 +1,41 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import cssClass from "./GenomePromote.module.css";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import Success from "../../../app/common/Success/Success";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import { appColors } from "../../../colors";
 import GenePromoteFormChemicalInhibition from "./GenePromoteFormChemicalInhibition/GenePromoteFormChemicalInhibition";
+import GenePromoteFormImpactOfChemInhibit from "./GenePromoteFormImpactOfChemInhibit/GenePromoteFormImpactOfChemInhibit";
 import GenePromoteFormImpactOfGeneticInhibit from "./GenePromoteFormImpactOfGeneticInhibit/GenePromoteFormImpactOfGeneticInhibit";
 import GenePromoteFormLiabilities from "./GenePromoteFormLiabilities/GenePromoteFormLiabilities";
 import GenePromoteFormTractability from "./GenePromoteFormTractability/GenePromoteFormTractability";
-
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
 import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
-import Success from "../../../app/common/Success/Success";
-import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../colors';
-import GenePromoteFormImpactOfChemInhibit from "./GenePromoteFormImpactOfChemInhibit/GenePromoteFormImpactOfChemInhibit";
+import cssClass from "./GenomePromote.module.css";
 
 const GenePromote = () => {
   const toast = useRef(null);
   const rootStore = useContext(RootStoreContext);
 
   const params = useParams();
-  const navigate = useNavigate();
 
   const {
     promotionQuestionsDisplayLoading,
     getPromotionQuestions,
     promotionQuestionsRegistry,
     submitPromotionQuestionaire,
-    getGenePromotionDataObj
+    getGenePromotionDataObj,
   } = rootStore.geneStore;
 
   useEffect(() => {
     if (promotionQuestionsRegistry.size === 0) {
       getPromotionQuestions();
     }
-  }, [
-    promotionQuestionsRegistry,
-    getPromotionQuestions,
-    params.ptarget,
-  ]);
+  }, [promotionQuestionsRegistry, getPromotionQuestions, params.ptarget]);
 
   const [formSuccess, setFormSuccess] = useState(false);
 
@@ -276,7 +270,6 @@ const GenePromote = () => {
     var newField = null;
 
     if (e.target.id.endsWith("Description")) {
-      console.log("Description Field");
       location = e.target.id.slice(0, -11);
       newFormValue = { ...targetPromotionFormValue };
       newField = { ...newFormValue[location] };
@@ -297,19 +290,22 @@ const GenePromote = () => {
     var validationFail = false;
     Object.keys(targetPromotionFormValue).map((key) => {
       if (targetPromotionFormValue[key].answer === "") {
+        console.log("Validation fail, blank answer");
+        console.log(targetPromotionFormValue[key]);
         validationFail = true;
       }
       if (
         !(
           targetPromotionFormValue[key].answer === "Unknown" ||
-          targetPromotionFormValue[key].answer === "n/a"
+          targetPromotionFormValue[key].answer === "NA"
         ) &&
         targetPromotionFormValue[key].description === ""
       ) {
+        console.log("Validation fail, blank decription");
+        console.log(targetPromotionFormValue[key]);
         validationFail = true;
       }
     });
-
 
     if (validationFail) {
       toast.current.show({
@@ -334,6 +330,7 @@ const GenePromote = () => {
       });
     });
 
+    console.log("Submit Promote Request");
     console.log(data);
 
     submitPromotionQuestionaire(params.ptarget, data).then((res) => {
@@ -363,16 +360,13 @@ const GenePromote = () => {
   if (formSuccess) {
     return (
       <Success
-        message={
-          "The promotion request has been submitted. Once reviewed, it would be promoted to a target."
-        }
+        message={"Thank you, Target WG will review & assigns a bucket."}
       />
     );
   }
 
   let formToDisplay = () => {
     if (!promotionQuestionsDisplayLoading) {
-      console.log(activeForm);
       switch (activeForm) {
         case 0:
           return (
@@ -472,13 +466,17 @@ const GenePromote = () => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-conceptual icon-dna"
-            heading={`Target Promotion Questionaire for ${params.ptarget}`}
+            heading={`Target Promotion Questionnaire for ${params.ptarget}`}
             color={appColors.sectionHeadingBg.gene}
           />
-          {/* <h2 className="heading">Target Promotion Questionaire for {params.ptarget}</h2> */}
+          {/* <h2 className="heading">Target Promotion Questionnaire for {params.ptarget}</h2> */}
         </div>
         <div className="flex w-full">
-          <Steps model={stepItems} activeIndex={activeForm} className="w-full" />
+          <Steps
+            model={stepItems}
+            activeIndex={activeForm}
+            className="w-full"
+          />
         </div>
         <div className="flex w-full">
           <div className={[cssClass.GenomePromoteForm].join(" ")}>

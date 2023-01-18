@@ -1,5 +1,5 @@
-import "./NoAccess.css";
 import { Button } from "primereact/button";
+import "./NoAccess.css";
 
 const NoAccess = () => {
   return (

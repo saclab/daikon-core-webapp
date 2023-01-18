@@ -1,37 +1,30 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { TabView, TabPanel } from "primereact/tabview";
+import { observer } from "mobx-react-lite";
+import { Menu } from "primereact/menu";
+import { Message } from "primereact/message";
+import { Sidebar } from "primereact/sidebar";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
-  Routes,
-  Route,
   Navigate,
+  Route,
+  Routes,
   useNavigate,
-  useLocation,
   useParams,
 } from "react-router-dom";
-import { BreadCrumb } from "primereact/breadcrumb";
-import { Menu } from "primereact/menu";
-import { Toast } from "primereact/toast";
-import { observer } from "mobx-react-lite";
-import { Sidebar } from "primereact/sidebar";
-import { Message } from "primereact/message";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import Discussion from "../../../app/common/Discussion/Discussion";
-import PortfolioInformation from "./PortfolioInformation/PortfolioInformation";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import PortfolioBaseHits from "./PortfolioBaseHits/PortfolioBaseHits";
+import PortfolioDiscussion from "./PortfolioDiscussion/PortfolioDIscussion";
+import PortfolioInformation from "./PortfolioInformation/PortfolioInformation";
+import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioPromotionsPromoteToIND";
 import PortfolioPromotionsPromoteToLO from "./PortfolioPromotions/PortfolioPromotionsPromoteToLO";
 import PortfolioPromotionsPromoteToSP from "./PortfolioPromotions/PortfolioPromotionsPromoteToSP";
-import PortfolioBaseHits from "./PortfolioBaseHits/PortfolioBaseHits";
-import PortfolioPromotionsPromoteToIND from "./PortfolioPromotions/PortfolioPromotionsPromoteToIND";
-import { appColors } from "../../../colors";
-import PortfolioDiscussion from "./PortfolioDiscussion/PortfolioDIscussion";
 
-const PortfolioView = ({ match, history }) => {
+const PortfolioView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [activeIndex, setActiveIndex] = useState(0);
   const [displayLOPromotionDialog, setDisplayLOPromotionDialog] =
     useState(false);
   const [displaySPPromotionDialog, setDisplaySPPromotionDialog] =
@@ -47,17 +40,13 @@ const PortfolioView = ({ match, history }) => {
     rootStore.projectStore;
 
   useEffect(() => {
-    console.log("EFFECT");
-    console.log(params.id);
     if (selectedProject === null || selectedProject.id !== params.id) {
-      console.log("Will fetch from store" + params.id);
       fetchProject(params.id);
     }
   }, [params.id, selectedProject, fetchProject]);
 
   /** Loading Overlay */
   if (loadingProject) {
-    console.log("Loading.....");
     return <Loading />;
   }
 
@@ -153,17 +142,6 @@ const PortfolioView = ({ match, history }) => {
     }
 
     sideMenuItems.push(actions);
-    console.log("selectedProject");
-    console.log(selectedProject);
-    const breadCrumbItems = [
-      {
-        label: "Portfolio",
-        command: () => {
-          navigate("/portfolio/");
-        },
-      },
-      { label: selectedProject.projectName },
-    ];
 
     return (
       <React.Fragment>

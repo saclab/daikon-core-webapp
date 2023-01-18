@@ -1,25 +1,18 @@
-import React from 'react'
-import { Dropdown } from 'primereact/dropdown';
 import { useFormik } from "formik";
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-import { toast } from "react-toastify";
-import EmbededHelp from '../../../../../app/common/EmbededHelp/EmbededHelp'
-import { useState, useContext, useEffect } from 'react';
-import { RootStoreContext } from '../../../../../app/stores/rootStore';
-import { useNavigate } from 'react-router-dom';
-import { classNames } from "primereact/utils";
-import { Calendar } from "primereact/calendar";
 import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
 import { InputTextarea } from "primereact/inputtextarea";
+import { classNames } from "primereact/utils";
+import React, { useContext, useEffect } from "react";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
-const ScreenEdit = ({selectedScreenTargetFilter, close}) => {
-
+const ScreenEdit = ({ selectedScreenTargetFilter, close }) => {
   const rootStore = useContext(RootStoreContext);
-  const { selectedScreen, loadingFetchScreen, editScreen, editingScreen } = rootStore.screenStore;
-  const { fetchOrgs, Orgs, LoadingOrgs } = rootStore.adminStore;
+  const { selectedScreen, editScreen } = rootStore.screenStore;
+  const { fetchOrgs, Orgs } = rootStore.adminStore;
   const { appVars } = rootStore.generalStore;
-
 
   useEffect(() => {
     fetchOrgs();
@@ -30,7 +23,7 @@ const ScreenEdit = ({selectedScreenTargetFilter, close}) => {
       org: selectedScreen.org,
       promotionDate: new Date(selectedScreen.promotionDate),
       notes: selectedScreen.notes,
-      method: selectedScreen.method
+      method: selectedScreen.method,
     },
     validate: (data) => {
       let errors = {};
@@ -48,7 +41,7 @@ const ScreenEdit = ({selectedScreenTargetFilter, close}) => {
     onSubmit: (data) => {
       data["id"] = selectedScreen.id;
       data["orgId"] = data.org.id;
-      console.log(data);
+
       editScreen(data).then((res) => {
         if (res !== null) {
           formik.resetForm();
@@ -68,19 +61,22 @@ const ScreenEdit = ({selectedScreenTargetFilter, close}) => {
     );
   };
 
-  if (selectedScreen===null || selectedScreen.targetName !== selectedScreenTargetFilter) {
-    return <div>
-      <h3>Select a screen to edit.</h3>
-    </div>
+  if (
+    selectedScreen === null ||
+    selectedScreen.targetName !== selectedScreenTargetFilter
+  ) {
+    return (
+      <div>
+        <h3>Select a screen to edit.</h3>
+      </div>
+    );
   }
-
 
   return (
     <div>
       <h2>{selectedScreen.screenName}</h2>
       <div className="card w-full">
         <form onSubmit={formik.handleSubmit} className="p-fluid">
-
           <div className="field">
             <label
               htmlFor="promotionDate"
@@ -104,7 +100,6 @@ const ScreenEdit = ({selectedScreenTargetFilter, close}) => {
               })}
             />
             {getFormErrorMessage("promotionDate")}
-
           </div>
           <div className="field">
             <label
@@ -128,7 +123,6 @@ const ScreenEdit = ({selectedScreenTargetFilter, close}) => {
               className={classNames({
                 "p-invalid": isFormFieldValid("org"),
               })}
-
             />
             {getFormErrorMessage("org")}
           </div>
@@ -178,17 +172,12 @@ const ScreenEdit = ({selectedScreenTargetFilter, close}) => {
           </div>
 
           <div className="flex gap-4 align-content-right align-items-right">
-            <Button
-              label="Save"
-              className="p-button-success"
-              type="submit"
-            />
+            <Button label="Save" className="p-button-success" type="submit" />
           </div>
-
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default observer(ScreenEdit)
+export default observer(ScreenEdit);

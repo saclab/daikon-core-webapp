@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
-import SmilesDrawer from "smiles-drawer";
 import { ContextMenu } from "primereact/contextmenu";
+import React, { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
+import SmilesDrawer from "smiles-drawer";
 
 const SmilesView = ({ smiles, width = 200, height = 200 }) => {
   const cm = useRef(null);
@@ -19,7 +19,7 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
         smilesDrawer.draw(tree, canId, "light", false);
       },
       function (err) {
-        console.log(err);
+        console.error(err);
       }
     );
   }, [height, smiles, width, canId]);

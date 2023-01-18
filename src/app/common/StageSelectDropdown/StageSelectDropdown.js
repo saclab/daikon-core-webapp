@@ -1,15 +1,14 @@
-import React from 'react'
-import StageTag from '../StageTag/StageTag';
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from "primereact/dropdown";
+import React from "react";
+import StageTag from "../StageTag/StageTag";
 
 const StageSelectDropdown = ({ id, onChange, value, stages }) => {
-
-  stages = stages !== undefined ? stages : ["HA", "H2L", "LO", "SP", "IND", "P1"];
+  stages =
+    stages !== undefined ? stages : ["HA", "H2L", "LO", "SP", "IND", "P1"];
 
   const stageItemTemplate = (option) => {
     return <StageTag stage={option} />;
   };
-
 
   return (
     <Dropdown
@@ -20,7 +19,7 @@ const StageSelectDropdown = ({ id, onChange, value, stages }) => {
       itemTemplate={stageItemTemplate}
       placeholder="Select a Stage"
     />
-  )
-}
+  );
+};
 
-export default StageSelectDropdown
+export default StageSelectDropdown;

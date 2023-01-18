@@ -1,34 +1,27 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { TabView, TabPanel } from "primereact/tabview";
-import { BreadCrumb } from "primereact/breadcrumb";
-import { Menu } from "primereact/menu";
-import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
+import { Menu } from "primereact/menu";
+import { Message } from "primereact/message";
+import { Sidebar } from "primereact/sidebar";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
-  Routes,
-  Route,
   Navigate,
+  Route,
+  Routes,
   useNavigate,
-  useLocation,
   useParams,
 } from "react-router-dom";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import HAViewInformation from "./HAViewInformation/HAViewInformation";
-import Discussion from "../../../app/common/Discussion/Discussion";
-import { Sidebar } from "primereact/sidebar";
-import { Message } from "primereact/message";
-import HAPromotionQuestionaire from "./HAPromotionQuestionaire/HAPromotionQuestionaire";
 import FailedLoading from "../../../app/common/FailedLoading/FailedLoading";
-import { appColors } from "../../../colors";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 import HADiscussion from "./HADiscussion/HADiscussion";
+import HAPromotionQuestionaire from "./HAPromotionQuestionaire/HAPromotionQuestionaire";
+import HAViewInformation from "./HAViewInformation/HAViewInformation";
 
 const HAView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [activeIndex, setActiveIndex] = useState(0);
   const [displayPromotionDialog, setDisplayPromotionDialog] = useState(false);
   const toast = useRef(null);
 
@@ -39,8 +32,6 @@ const HAView = () => {
     rootStore.projectStore;
 
   useEffect(() => {
-    console.log("EFFECT");
-    console.log(params.id);
     if (selectedProject === null || selectedProject.id !== params.id) {
       fetchProject(params.id);
     }
@@ -48,7 +39,6 @@ const HAView = () => {
 
   /** Loading Overlay */
   if (loadingProject) {
-    console.log("Loading.....");
     return <Loading />;
   }
   if (!loadingProject && selectedProject !== null) {
@@ -118,9 +108,6 @@ const HAView = () => {
 
     sideMenuItems.push(actions);
 
-    console.log("selectedProject");
-    console.log(selectedProject);
-
     return (
       <React.Fragment>
         <Toast ref={toast} />
@@ -136,10 +123,7 @@ const HAView = () => {
               <Route
                 path="information/"
                 element={
-                  <HAViewInformation
-                    id={params.id}
-                    project={selectedProject}
-                  />
+                  <HAViewInformation id={params.id} project={selectedProject} />
                 }
               />
 

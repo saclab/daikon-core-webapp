@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { classNames } from "primereact/utils";
-import { InputText } from "primereact/inputtext";
+import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
+import { classNames } from "primereact/utils";
+import React, { useContext, useEffect } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
-import { observer } from "mobx-react-lite";
 
 const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
   add,
@@ -36,8 +36,8 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
       return errors;
     },
     onSubmit: (data) => {
-      data.organization = data.organization.alias
-      console.log(data);
+      data.organization = data.organization.alias;
+
       add(data).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -159,4 +159,6 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
   );
 };
 
-export default observer(GeneViewProtectedDataAddUnpublishedStructuralInformationForm);
+export default observer(
+  GeneViewProtectedDataAddUnpublishedStructuralInformationForm
+);
