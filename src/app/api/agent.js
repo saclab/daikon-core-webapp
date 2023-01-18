@@ -271,6 +271,11 @@ const Target = {
   list: () => requests.get(`/target/`),
   details: (id) => requests.get(`/target/${id}`),
   history: (id) => requests.get(`/target/${id}/history`),
+  editSummary: (updatedTargetSummary) =>
+    requests.post(
+      `/target/${updatedTargetSummary.id}/summary`,
+      updatedTargetSummary
+    ),
 };
 
 const TargetAdmin = {
@@ -281,11 +286,6 @@ const TargetAdmin = {
   details: (id) => requests.get(`/target/${id}`),
   edit: (updatedTarget) =>
     requests.post(`/elevated/target/${updatedTarget.id}`, updatedTarget),
-  editSummary: (updatedTargetSummary) =>
-    requests.post(
-      `/elevated/target/${updatedTargetSummary.id}/summary`,
-      updatedTargetSummary
-    ),
 };
 
 const Screen = {

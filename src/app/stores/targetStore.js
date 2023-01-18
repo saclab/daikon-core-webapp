@@ -221,10 +221,11 @@ export default class TargetStore {
 
     // send to server
     try {
-      updatedTarget = await agent.TargetAdmin.editSummary(this.selectedTarget);
+      updatedTarget = await agent.Target.editSummary(this.selectedTarget);
       runInAction(() => {
         this.targetRegistryExpanded.delete(updatedTarget.id);
         this.fetchTarget(updatedTarget.id);
+        toast.success("Saved");
       });
     } catch (error) {
       console.error(error);
