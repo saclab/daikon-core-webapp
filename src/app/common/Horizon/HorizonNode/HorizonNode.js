@@ -29,7 +29,11 @@ const HorizonNode = (dataObj) => {
         return <g></g>;
       }
       return (
-        <g>
+        <g
+          onClick={() => {
+            navigate(`/d/gene/${dataObj.dataObj.attributes.id}`);
+          }}
+        >
           <foreignObject x="-10" y="-30" width="40" height="50">
             <Button
               icon="icon icon-conceptual icon-dna"
@@ -38,9 +42,6 @@ const HorizonNode = (dataObj) => {
                 color: nodeColors.gene,
                 border: "0px solid #000000",
                 fontSize: "2em",
-              }}
-              onClick={() => {
-                navigate(`/d/gene/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -64,7 +65,11 @@ const HorizonNode = (dataObj) => {
       }
 
       return (
-        <g>
+        <g
+          onClick={() => {
+            navigate(`/d/gene/${dataObj.dataObj.attributes.id}`);
+          }}
+        >
           <foreignObject x="-10" y="-30" width="40" height="50">
             <Button
               icon="icon icon-conceptual icon-expression"
@@ -73,9 +78,6 @@ const HorizonNode = (dataObj) => {
                 color: nodeColors.gene,
                 border: "0px solid #000000",
                 fontSize: "2em",
-              }}
-              onClick={() => {
-                navigate(`/d/gene/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -184,7 +186,11 @@ const HorizonNode = (dataObj) => {
         );
       }
       return (
-        <g>
+        <g
+          onClick={() => {
+            navigate(`/d/target/${dataObj.dataObj.attributes.id}`);
+          }}
+        >
           <foreignObject x="-10" y="-30" width="40" height="50">
             <Button
               icon="icon icon-common icon-target"
@@ -193,9 +199,6 @@ const HorizonNode = (dataObj) => {
                 color: nodeColors.target,
                 border: "0px solid #000000",
                 fontSize: "2em",
-              }}
-              onClick={() => {
-                navigate(`/d/target/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -217,7 +220,13 @@ const HorizonNode = (dataObj) => {
     case "Screen":
       if (dataObj.dataObj.attributes.screenMethod === "Phenotypic") {
         return (
-          <g>
+          <g
+            onClick={() => {
+              navigate(
+                `/d/screen/phenotypic/${dataObj.dataObj.attributes.link}`
+              );
+            }}
+          >
             <foreignObject x="-10" y="-30" width="40" height="50">
               <Button
                 icon="icon icon-common icon-search"
@@ -226,11 +235,6 @@ const HorizonNode = (dataObj) => {
                   color: nodeColors.screen,
                   border: "0px solid #000000",
                   fontSize: "2em",
-                }}
-                onClick={() => {
-                  navigate(
-                    `/d/screen/phenotypic/${dataObj.dataObj.attributes.link}`
-                  );
                 }}
               />
             </foreignObject>
@@ -273,7 +277,13 @@ const HorizonNode = (dataObj) => {
         );
       }
       return (
-        <g>
+        <g
+          onClick={() => {
+            navigate(
+              `/d/screen/target-based/${dataObj.dataObj.attributes.targetName}`
+            );
+          }}
+        >
           <foreignObject x="-10" y="-30" width="40" height="50">
             <Button
               icon="icon icon-common icon-search"
@@ -282,11 +292,6 @@ const HorizonNode = (dataObj) => {
                 color: nodeColors.screen,
                 border: "0px solid #000000",
                 fontSize: "2em",
-              }}
-              onClick={() => {
-                navigate(
-                  `/d/screen/target-based/${dataObj.dataObj.attributes.targetName}`
-                );
               }}
             />
           </foreignObject>
@@ -308,7 +313,11 @@ const HorizonNode = (dataObj) => {
         objColor = "#AAAAAA";
       }
       return (
-        <g>
+        <g
+          onClick={() => {
+            navigate(`/d/ha/${dataObj.dataObj.attributes.id}`);
+          }}
+        >
           <foreignObject x="-10" y="-30" width="40" height="50">
             <Button
               icon="icon icon-conceptual icon-chemical"
@@ -317,9 +326,6 @@ const HorizonNode = (dataObj) => {
                 color: objColor,
                 border: "0px solid #000000",
                 fontSize: "2em",
-              }}
-              onClick={() => {
-                navigate(`/d/ha/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -343,7 +349,11 @@ const HorizonNode = (dataObj) => {
         objColor = "#AAAAAA";
       }
       return (
-        <g>
+        <g
+          onClick={() => {
+            navigate(`/d/portfolio/${dataObj.dataObj.attributes.id}`);
+          }}
+        >
           <foreignObject x="-10" y="-30" width="40" height="50">
             <Button
               icon="icon icon-common icon-analyse"
@@ -352,9 +362,6 @@ const HorizonNode = (dataObj) => {
                 color: objColor,
                 border: "0px solid #000000",
                 fontSize: "2em",
-              }}
-              onClick={() => {
-                navigate(`/d/portfolio/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
@@ -384,7 +391,11 @@ const HorizonNode = (dataObj) => {
         objColor = "#AAAAAA";
       }
       return (
-        <g>
+        <g
+          onClick={() => {
+            navigate(`/d/post-portfolio/${dataObj.dataObj.attributes.id}`);
+          }}
+        >
           <foreignObject x="-10" y="-30" width="40" height="50">
             <Button
               icon="icon icon-common icon-drug"
@@ -393,9 +404,6 @@ const HorizonNode = (dataObj) => {
                 color: objColor,
                 border: "0px solid #000000",
                 fontSize: "2em",
-              }}
-              onClick={() => {
-                navigate(`/d/post-portfolio/${dataObj.dataObj.attributes.id}`);
               }}
             />
           </foreignObject>
