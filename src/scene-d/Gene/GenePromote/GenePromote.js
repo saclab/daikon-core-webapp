@@ -330,6 +330,9 @@ const GenePromote = () => {
       });
     });
 
+    console.log("Submit Promote Request");
+    console.log(data);
+
     submitPromotionQuestionaire(params.ptarget, data).then((res) => {
       if (res !== null) {
         setFormSuccess(true);
@@ -357,9 +360,7 @@ const GenePromote = () => {
   if (formSuccess) {
     return (
       <Success
-        message={
-          "The promotion request has been submitted. Once reviewed, it would be promoted to a target."
-        }
+        message={"Thank you, Target WG will review & assigns a bucket."}
       />
     );
   }
