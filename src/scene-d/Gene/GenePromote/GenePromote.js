@@ -3,7 +3,6 @@ import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Success from "../../../app/common/Success/Success";
 import Loading from "../../../app/layout/Loading/Loading";
@@ -87,12 +86,23 @@ const GenePromote = () => {
       targetNameKey,
       JSON.stringify(targetPromotionFormValue)
     );
+    toast.current.show({
+      severity: "success",
+      summary: "Saved Locally",
+      detail: "Saved locally in browser. Please submit the form when complete.",
+      life: 6000,
+    });
   };
 
   const resetFormLocalStorage = () => {
     let targetNameKey = "promote_" + params.ptarget;
     localStorage.removeItem(targetNameKey);
     setTargetPromotionFormValue(_defaultFormData(promotionQuestionsRegistry));
+    toast.current.show({
+      severity: "success",
+      summary: "Cleared",
+      life: 3000,
+    });
   };
 
   const submitTargetPromotionFormValueForm = () => {
