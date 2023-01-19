@@ -1,4 +1,31 @@
-name: Linux_Container_Workflow
+name: DAIKON_frontend_workflow
+
+# Create new Github Actions secrets (and change to the secret value secret.* or assign the secret.* value here to these env assignments)
+env:
+  AZURE_CLIENT_ID: 8a8ecadf-698c-4954-8128-6125d9fa73de
+  AZURE_CLIENT_SECRET: IBE8Q~ZfwnFgsyiZtrVxyxLZwUe5k.c85sPzZbIk
+  AZURE_TENANT_ID: 296b3838-4bd5-496c-bd4b-f456ea743b74
+  AZURE_SUBSCRIPTION_ID: 692efea0-2038-48e2-bf74-a333fef44d58
+  CONTAINER_REGISTRY_PASSWORD: wzeGhJCvKloc/QNjKku+Z1I9n6oqG6Mw
+  LOCAL_TOKENKEY: ztoyYEFXdSODv3uwo51GZ6d3TGq7bSYbZX
+  PGPASSWORD: vCqjhQn4WjWgZcBy
+
+  # These can be left inline and changed as needed  (if only one pipeline per env)
+  ENVIRONMENT: dev 
+  CONTAINER_REGISTRY: tbdadev.azurecr.io
+  CONTAINER_REGISTRY_USER: tbdadev
+  PGSQL_CONNECTION_STRING: Host=tbda-dev-psql.postgres.database.azure.com;Port=5432;Database=tpt_db;Ssl Mode=VerifyFull;Timeout=120;Command Timeout=60
+  CORS_ORIGINS: https://tbda-dev-backend.azurewebsites.net
+  CONTAINER_IMAGE_NAME: daikon-backend
+  RESOURCE_GROUP: tbda-dev-rg
+  WEB_APP_NAME: tbda-dev-backend
+
+#secrets.AZURE_CREDENTIALS
+#secrets.REGISTRY_LOGIN_SERVER
+#secrets.REGISTRY_USERNAME
+# ${{ secrets.REGISTRY_PASSWORD }}
+#secrets.REACT_AZURE_AD_CONFIG
+#secrets.RESOURCE_GROUP
 
 on:
   push:
@@ -19,31 +46,34 @@ jobs:
       - name: "Login via Azure CLI"
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+          creds: | 
+            '{"clientId": "${{ env.AZURE_CLIENT_ID }}"",
+            "clientSecret": "${{ env.AZURE_CLIENT_SECRET }}"" ,
+            "tenantId": ${{ env.AZURE_TENANT_ID }}, 
+            "subscriptionId": "${{ env.AZURE_SUBSCRIPTION_ID }}"" }'
       - name: "Build and push image"
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+          login-server: ${{ env.REGISTRY_LOGIN_SERVER }}
+          username: ${{ env.REGISTRY_USERNAME }}
+          password: ${{ env.REGISTRY_PASSWORD }}
       - run: |
-          echo ${{ secrets.REACT_AZURE_AD_CONFIG }} | base64 -d > ./src/config.js
-          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/tpt-frontend:${{ github.sha }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/tpt-frontend:${{ github.sha }}
+          echo ${{ env.REACT_AZURE_AD_CONFIG }} | base64 -d > ./src/config.js
+          docker build . -t ${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}
+          docker push ${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}
       - name: "Deploy to Azure Container Instances"
         uses: "azure/aci-deploy@v1"
         with:
-          resource-group: ${{ secrets.RESOURCE_GROUP }}
-          dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/tpt-frontend:${{ github.sha }}
-          registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-          registry-username: ${{ secrets.REGISTRY_USERNAME }}
-          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          name: tpt-frontend
+          resource-group: ${{ env.RESOURCE_GROUP }}
+          dns-name-label: ${{ env.RESOURCE_GROUP }}${{ github.run_number }}
+          image: ${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}
+          registry-login-server: ${{ env.REGISTRY_LOGIN_SERVER }}
+          registry-username: ${{ env.REGISTRY_USERNAME }}
+          registry-password: ${{ env.REGISTRY_PASSWORD }}
+          name: daikon-frontend
           location: "west us 2"
       - name: "Publish Web App"
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'tbda-dev-frontend'
-          images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/tpt-frontend:${{ github.sha }}'
+          images: '${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}'
