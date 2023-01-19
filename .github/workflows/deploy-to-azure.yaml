@@ -52,7 +52,7 @@ jobs:
         with:
           login-server: ${{ env.REGISTRY_LOGIN_SERVER }}
           username: ${{ env.CONTAINER_REGISTRY_USER }}
-          password: ${{ env.REGISTRY_PASSWORD }}
+          password: ${{ env.CONTAINER_REGISTRY_PASSWORD }}
       - run: |
           echo ${{ env.REACT_AZURE_AD_CONFIG }} | base64 -d > ./src/config.js
           docker build . -t ${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}
