@@ -12,7 +12,7 @@ env:
 
   # These can be left inline and changed as needed  (if only one pipeline per env)
   ENVIRONMENT: dev 
-  CONTAINER_REGISTRY: tbdadev.azurecr.io
+  CONTAINER_REGISTRY_SERVER: tbdadev.azurecr.io
   CONTAINER_REGISTRY_USER: tbdadev
   PGSQL_CONNECTION_STRING: Host=tbda-dev-psql.postgres.database.azure.com;Port=5432;Database=tpt_db;Ssl Mode=VerifyFull;Timeout=120;Command Timeout=60
   CORS_ORIGINS: https://tbda-dev-backend.azurewebsites.net
@@ -51,7 +51,7 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: ${{ env.REGISTRY_LOGIN_SERVER }}
-          username: ${{ env.REGISTRY_USERNAME }}
+          username: ${{ env.CONTAINER_REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
       - run: |
           echo ${{ env.REACT_AZURE_AD_CONFIG }} | base64 -d > ./src/config.js
@@ -65,7 +65,7 @@ jobs:
           image: ${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}
           registry-login-server: ${{ env.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ env.REGISTRY_USERNAME }}
-          registry-password: ${{ env.REGISTRY_PASSWORD }}
+          registry-password: ${{ env.CONTAINER_REGISTRY_PASSWORD }}
           name: daikon-frontend
           location: "west us 2"
       - name: "Publish Web App"
