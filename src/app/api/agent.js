@@ -351,7 +351,7 @@ const Projects = {
     requests.get(`/project/${projectId}/compoundevolution`),
   addcompoundevolution: (projectId, newCompoundEvolution) =>
     requests.post(
-      `/elevated/project/${projectId}/compoundevolution`,
+      `/project/${projectId}/compoundevolution`,
       newCompoundEvolution
     ),
   editCompoundevolution: (
@@ -360,7 +360,7 @@ const Projects = {
     editedCompoundEvolution
   ) =>
     requests.post(
-      `/elevated/project/${projectId}/compoundevolution/${compoundEvoluitionId}`,
+      `/project/${projectId}/compoundevolution/${compoundEvoluitionId}`,
       editedCompoundEvolution
     ),
   setPriorityProbability: (Id, ppDTO) => requests.post(`/project/${Id}`, ppDTO),
