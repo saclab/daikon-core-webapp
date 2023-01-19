@@ -67,7 +67,7 @@ jobs:
               release: \"v0.1.2\",
               stream: \"Enterprise\",
               channel: \"Beta\"
-          };" | base64 -d > ./src/config.js
+          };" > ./src/config.js
 
           docker build . -t ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
           docker push ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
