@@ -1,6 +1,6 @@
 import { Button } from "primereact/button";
-import mainLogo from "../../assets/logo-daikon.png";
 import "./Login.css";
+
 // const Login = ({ loginButtonClicked }) => {
 //   return (
 //     <div className="BackgroundLogin" >
@@ -33,13 +33,9 @@ const Login = ({ loginButtonClicked }) => {
           <div className="LoginLanding">
             <div>
               <div className="LoginLoginBox" id="loginButton">
-                {/* <h1>D A I K O N</h1> */}
-                <img src={mainLogo} style={{ width: "200px" }} />
-                <h3>
-                  Data Acquisition, Integration & Knowledge capture ApplicatiON
-                </h3>
-                {/* <h5>[LOGIN]</h5> */}
+                <h1>D A I K O N</h1>
 
+                <h5>[LOGIN]</h5>
                 <p>
                   This computer system and the data herein are available only
                   for authorized purposes by authorized users: use for any other
