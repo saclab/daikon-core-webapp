@@ -1,7 +1,6 @@
 import { Button } from "primereact/button";
+import mainLogo from "../../assets/logo-daikon.png";
 import "./Login.css";
-
-
 // const Login = ({ loginButtonClicked }) => {
 //   return (
 //     <div className="BackgroundLogin" >
@@ -32,23 +31,26 @@ const Login = ({ loginButtonClicked }) => {
       <div className="LoginRight">
         <div className="LoginCentered">
           <div className="LoginLanding">
-            <div >
+            <div>
               <div className="LoginLoginBox" id="loginButton">
-                <h1>D A I K O N</h1>
+                {/* <h1>D A I K O N</h1> */}
+                <img src={mainLogo} style={{ width: "200px" }} />
+                <h3>
+                  Data Acquisition, Integration & Knowledge capture ApplicatiON
+                </h3>
+                {/* <h5>[LOGIN]</h5> */}
 
-                <h5>[LOGIN]</h5>
                 <p>
                   This computer system and the data herein are available only
                   for authorized purposes by authorized users: use for any other
-                  purpose is prohibited and may result in
-                  administrative/ disciplinary actions or criminal prosecution
-                  against the user. Usage may be subject to security testing and
-                  monitoring to ensure compliance with the policies of the
-                  Organization. There is no expectation of privacy on this
-                  system except as otherwise provided by applicable privacy
-                  laws. Users should refer to Rules for Responsible Computing,
-                  for guidance on the appropriate use of the Organization's
-                  information resources.
+                  purpose is prohibited and may result in administrative/
+                  disciplinary actions or criminal prosecution against the user.
+                  Usage may be subject to security testing and monitoring to
+                  ensure compliance with the policies of the Organization. There
+                  is no expectation of privacy on this system except as
+                  otherwise provided by applicable privacy laws. Users should
+                  refer to Rules for Responsible Computing, for guidance on the
+                  appropriate use of the Organization's information resources.
                 </p>
                 <br />
                 <Button
