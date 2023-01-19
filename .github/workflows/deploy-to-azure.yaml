@@ -54,20 +54,21 @@ jobs:
           username: ${{ env.CONTAINER_REGISTRY_USER }}
           password: ${{ env.CONTAINER_REGISTRY_PASSWORD }}
       - run: |
-          echo 'export const appConfig = {REACT_APP_MSAL_CLIENT_ID: "8a8ecadf-698c-4954-8128-6125d9fa73de",    
-          REACT_APP_WEB_API_BASE_URI: "https://tbda-uat-backend.azurewebsites.net/api/",    
-          REACT_APP_MSAL_CLIENT_SCOPE: "api://8a8ecadf-698c-4954-8128-6125d9fa73de/access_as_user",
-          REACT_APP_MSAL_TENANT_AUTHORITY_URI: "https://login.microsoftonline.com/296b3838-4bd5-496c-bd4b-f456ea743b74/", 
-          REACT_APP_MSAL_CACHE_LOCATION: "sessionStorage", |
-          REACT_APP_MSAL_AUTH_STATE_IN_COOKIE: "false",
-          REACT_APP_MSAL_LOGIN_REDIRECT_URI: "https://tbda-uat-frontend.azurewebsites.net/"
+          echo '"export const appConfig = {
+          REACT_APP_MSAL_CLIENT_ID: \"8a8ecadf-698c-4954-8128-6125d9fa73de\",
+          REACT_APP_WEB_API_BASE_URI: \"https://tbda-dev-backend.azurewebsites.net/api/\",
+          REACT_APP_MSAL_CLIENT_SCOPE: \"api://8a8ecadf-698c-4954-8128-6125d9fa73de/access_as_user\",
+          REACT_APP_MSAL_TENANT_AUTHORITY_URI: \"https://login.microsoftonline.com/296b3838-4bd5-496c-bd4b-f456ea743b74/\",
+          REACT_APP_MSAL_CACHE_LOCATION: \"sessionStorage\",
+          REACT_APP_MSAL_AUTH_STATE_IN_COOKIE: \"false\",
+          REACT_APP_MSAL_LOGIN_REDIRECT_URI: \"https://tbda-dev-frontend.azurewebsites.net/\"
           };
           export const appVersion = {
-              release: "v0.1.2",
-              stream: "Enterprise",
-              channel: "Beta"
-          };' | base64 -d > ./src/config.js
-          #echo ${{ env.REACT_AZURE_AD_CONFIG }} | base64 -d > ./src/config.js
+              release: \"v0.1.2\",
+              stream: \"Enterprise\",
+              channel: \"Beta\"
+          };" | base64 -d > ./src/config.js
+
           docker build . -t ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
           docker push ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
       - name: "Deploy to Azure Container Instances"
