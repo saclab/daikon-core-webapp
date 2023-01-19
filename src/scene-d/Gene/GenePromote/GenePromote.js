@@ -15,6 +15,7 @@ import GenePromoteFormImpactOfGeneticInhibit from "./GenePromoteFormImpactOfGene
 import GenePromoteFormLiabilities from "./GenePromoteFormLiabilities/GenePromoteFormLiabilities";
 import GenePromoteFormTractability from "./GenePromoteFormTractability/GenePromoteFormTractability";
 import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
+import { _defaultFormData } from "./GenePromote_helper";
 import cssClass from "./GenomePromote.module.css";
 
 const GenePromote = () => {
@@ -31,82 +32,32 @@ const GenePromote = () => {
     getGenePromotionDataObj,
   } = rootStore.geneStore;
 
-  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
-    "2a1": { answer: "", description: "" },
-    "2a1b": { answer: "", description: "" },
-    "2a2": { answer: "", description: "" },
-    "2a3a": { answer: "", description: "" },
-    "2a3b": { answer: "", description: "" },
-    "2a4a": { answer: "", description: "" },
-    "2a5": { answer: "", description: "" },
-    "2b1": { answer: "", description: "" },
-    "2b2": { answer: "", description: "" },
-    "2b4": { answer: "", description: "" },
-    "2c1": { answer: "", description: "" },
-    "2c2": { answer: "", description: "" },
-    "2c3": { answer: "", description: "" },
-    "2c4": { answer: "", description: "" },
-    "2c5": { answer: "", description: "" },
-    "3a1": { answer: "", description: "" },
-    "3a2": { answer: "", description: "" },
-    "3a3": { answer: "", description: "" },
-    "3a4": { answer: "", description: "" },
-    "3b1": { answer: "", description: "" },
-    "3b2": { answer: "", description: "" },
-    "4a1": { answer: "", description: "" },
-    "4a2a": { answer: "", description: "" },
-    "4a2b": { answer: "", description: "" },
-    "4a3a": { answer: "", description: "" },
-    "4a3b": { answer: "", description: "" },
-    "4a4": { answer: "", description: "" },
-    "4b1": { answer: "", description: "" },
-    "4b2": { answer: "", description: "" },
-    "4b3": { answer: "", description: "" },
-    "4c1": { answer: "", description: "" },
-    "4c2": { answer: "", description: "" },
-    "4c3": { answer: "", description: "" },
-    "4c4": { answer: "", description: "" },
-    "4c5": { answer: "", description: "" },
-    "5a1": { answer: "", description: "" },
-    "5a2": { answer: "", description: "" },
-    "5a3": { answer: "", description: "" },
-    "5b1": { answer: "", description: "" },
-    "6a1": { answer: "", description: "" },
-    "6a2": { answer: "", description: "" },
-    "6a3": { answer: "", description: "" },
-    "6a4": { answer: "", description: "" },
-    "6a5": { answer: "", description: "" },
-    "6a6": { answer: "", description: "" },
-    "6a7": { answer: "", description: "" },
-    "6b1": { answer: "", description: "" },
-    "6b2": { answer: "", description: "" },
-    "6b3": { answer: "", description: "" },
-    "6b4": { answer: "", description: "" },
-    "6b5": { answer: "", description: "" },
-    "6c1": { answer: "", description: "" },
-    "6c2": { answer: "", description: "" },
-    "6c3": { answer: "", description: "" },
-    "6c4": { answer: "", description: "" },
-    "6c5": { answer: "", description: "" },
-    "6c6": { answer: "", description: "" },
-    "6d1": { answer: "", description: "" },
-    "6d2": { answer: "", description: "" },
-    "6d3": { answer: "", description: "" },
-    "6d4": { answer: "", description: "" },
-  });
+  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({});
+  const [formSuccess, setFormSuccess] = useState(false);
+  const [activeForm, setActiveForm] = useState(0);
 
   useEffect(() => {
     if (promotionQuestionsRegistry.size === 0) {
       getPromotionQuestions();
     }
+  }, [promotionQuestionsRegistry, getPromotionQuestions]);
+
+  /** Loading Overlay */
+  if (promotionQuestionsDisplayLoading) {
+    return <Loading />;
+  }
+  if (
+    !promotionQuestionsDisplayLoading &&
+    promotionQuestionsRegistry.size > 0 &&
+    Object.keys(targetPromotionFormValue).length == 0
+  ) {
     let targetNameKey = "promote_" + params.ptarget;
     let storedFormData = localStorage.getItem(targetNameKey);
+    setTargetPromotionFormValue(_defaultFormData(promotionQuestionsRegistry));
     if (storedFormData !== null) {
       setTargetPromotionFormValue(JSON.parse(storedFormData));
     }
-  }, [promotionQuestionsRegistry, getPromotionQuestions, params.ptarget]);
-
-  const [formSuccess, setFormSuccess] = useState(false);
+  }
 
   const updateTargetPromotionFormValue = (e) => {
     var location = null;
@@ -141,6 +92,7 @@ const GenePromote = () => {
   const resetFormLocalStorage = () => {
     let targetNameKey = "promote_" + params.ptarget;
     localStorage.removeItem(targetNameKey);
+    setTargetPromotionFormValue(_defaultFormData(promotionQuestionsRegistry));
   };
 
   const submitTargetPromotionFormValueForm = () => {
@@ -203,13 +155,6 @@ const GenePromote = () => {
     { label: "Tractability" },
     { label: "Submit" },
   ];
-
-  const [activeForm, setActiveForm] = useState(0);
-
-  /** Loading Overlay */
-  if (promotionQuestionsDisplayLoading) {
-    return <Loading />;
-  }
 
   if (formSuccess) {
     let targetNameKey = "promote_" + params.ptarget;
