@@ -50,21 +50,34 @@ jobs:
       - name: "Build and push image"
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ env.REGISTRY_LOGIN_SERVER }}
+          login-server: ${{ env.CONTAINER_REGISTRY_SERVER }}
           username: ${{ env.CONTAINER_REGISTRY_USER }}
           password: ${{ env.CONTAINER_REGISTRY_PASSWORD }}
       - run: |
-          echo ${{ env.REACT_AZURE_AD_CONFIG }} | base64 -d > ./src/config.js
-          docker build . -t ${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}
-          docker push ${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}
+          echo 'export const appConfig = {REACT_APP_MSAL_CLIENT_ID: "8a8ecadf-698c-4954-8128-6125d9fa73de",    REACT_APP_WEB_API_BASE_URI: "https://tbda-uat-backend.azurewebsites.net/api/",    REACT_APP_MSAL_CLIENT_SCOPE: "api://8a8ecadf-698c-4954-8128-6125d9fa73de/access_as_user",
+          REACT_APP_MSAL_TENANT_AUTHORITY_URI: "https://login.microsoftonline.com/296b3838-4bd5-496c-bd4b-f456ea743b74/",
+          REACT_APP_MSAL_CACHE_LOCATION: "sessionStorage",
+          REACT_APP_MSAL_AUTH_STATE_IN_COOKIE: "false",
+          REACT_APP_MSAL_LOGIN_REDIRECT_URI: "https://tbda-uat-frontend.azurewebsites.net/"
+          };
+
+          export const appVersion = {
+              release: "v0.1.2",
+              stream: "Enterprise",
+              channel: "Beta"
+          };
+          | base64 -d > ./src/config.js
+          #echo ${{ env.REACT_AZURE_AD_CONFIG }} | base64 -d > ./src/config.js
+          docker build . -t ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
+          docker push ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
       - name: "Deploy to Azure Container Instances"
         uses: "azure/aci-deploy@v1"
         with:
           resource-group: ${{ env.RESOURCE_GROUP }}
           dns-name-label: ${{ env.RESOURCE_GROUP }}${{ github.run_number }}
-          image: ${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}
-          registry-login-server: ${{ env.REGISTRY_LOGIN_SERVER }}
-          registry-username: ${{ env.REGISTRY_USERNAME }}
+          image: ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
+          registry-login-server: ${{ env.CONTAINER_REGISTRY_SERVER }}
+          registry-username: ${{ env.CONTAINER_REGISTRY_USER }}
           registry-password: ${{ env.CONTAINER_REGISTRY_PASSWORD }}
           name: daikon-frontend
           location: "west us 2"
@@ -72,4 +85,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'tbda-dev-frontend'
-          images: '${{ env.REGISTRY_LOGIN_SERVER }}/daikon-frontend:${{ github.sha }}'
+          images: '${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}'
