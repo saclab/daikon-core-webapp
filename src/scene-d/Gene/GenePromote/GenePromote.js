@@ -31,14 +31,6 @@ const GenePromote = () => {
     getGenePromotionDataObj,
   } = rootStore.geneStore;
 
-  useEffect(() => {
-    if (promotionQuestionsRegistry.size === 0) {
-      getPromotionQuestions();
-    }
-  }, [promotionQuestionsRegistry, getPromotionQuestions, params.ptarget]);
-
-  const [formSuccess, setFormSuccess] = useState(false);
-
   const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
     "2a1": { answer: "", description: "" },
     "2a1b": { answer: "", description: "" },
@@ -103,166 +95,18 @@ const GenePromote = () => {
     "6d4": { answer: "", description: "" },
   });
 
-  /*//Test data:
-  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
-    "3a2": {
-      answer: "Yes",
-      description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia",
-    },
-    "2b4": {
-      answer: "Active",
-      description: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
-    },
-    "3a1": {
-      answer: "Yes",
-      description: "p",
-    },
-    "2c5": {
-      answer: "Active",
-      description: "p",
-    },
-    "2c4": {
-      answer: "Active",
-      description: "p",
-    },
-    "2c3": {
-      answer: "Active",
-      description: "p",
-    },
-    "2c2": {
-      answer: "Active",
-      description: "p",
-    },
-    "2c1": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a4a": {
-      answer: "Active",
-      description: "p",
-    },
-    "2b1": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a5": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a3b": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a3a": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a2": {
-      answer: "Active",
-      description: "p",
-    },
-    "2a1b": {
-      answer: "Yes",
-      description: "p",
-    },
-    "3a3": {
-      answer: "Yes",
-      description: "p",
-    },
-    "2b2": {
-      answer: "Active",
-      description: "p",
-    },
-    "3a4": {
-      answer: "Yes",
-      description: "p",
-    },
-    "4c1": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "3b2": {
-      answer: "Yes",
-      description: "p",
-    },
-    "5b1": {
-      answer: "Active",
-      description: "cdc",
-    },
-    "5a3": {
-      answer: "Yes",
-      description: "cdcd",
-    },
-    "5a2": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "5a1": {
-      answer: "Inactive",
-      description: "dc",
-    },
-    "4c5": {
-      answer: "Inactive",
-      description: "cdc",
-    },
-    "4c4": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "4c3": {
-      answer: "Inactive",
-      description: "cdcdc",
-    },
-    "4c2": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "4b3": {
-      answer: "Inactive",
-      description: "cdcd",
-    },
-    "4b2": {
-      answer: "Active",
-      description: "cdcd",
-    },
-    "4b1": {
-      answer: "Inactive",
-      description: "sxcc",
-    },
-    "4a4": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a3b": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a3a": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a2b": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a2a": {
-      answer: "Active",
-      description: "p",
-    },
-    "4a1": {
-      answer: "Active",
-      description: "p",
-    },
-    "3b1": {
-      answer: "Yes",
-      description: "p",
-    },
-    "2a1": {
-      answer: "Yes",
-      description: "qwe",
-    },
-  });
-  */
+  useEffect(() => {
+    if (promotionQuestionsRegistry.size === 0) {
+      getPromotionQuestions();
+    }
+    let targetNameKey = "promote_" + params.ptarget;
+    let storedFormData = localStorage.getItem(targetNameKey);
+    if (storedFormData !== null) {
+      setTargetPromotionFormValue(JSON.parse(storedFormData));
+    }
+  }, [promotionQuestionsRegistry, getPromotionQuestions, params.ptarget]);
+
+  const [formSuccess, setFormSuccess] = useState(false);
 
   const updateTargetPromotionFormValue = (e) => {
     var location = null;
@@ -286,11 +130,24 @@ const GenePromote = () => {
     }
   };
 
+  const saveFormToLocalStorage = () => {
+    let targetNameKey = "promote_" + params.ptarget;
+    localStorage.setItem(
+      targetNameKey,
+      JSON.stringify(targetPromotionFormValue)
+    );
+  };
+
+  const resetFormLocalStorage = () => {
+    let targetNameKey = "promote_" + params.ptarget;
+    localStorage.removeItem(targetNameKey);
+  };
+
   const submitTargetPromotionFormValueForm = () => {
     var validationFail = false;
     Object.keys(targetPromotionFormValue).map((key) => {
       if (targetPromotionFormValue[key].answer === "") {
-        console.log("Validation fail, blank answer");
+        console.error("Validation fail, blank answer");
         console.log(targetPromotionFormValue[key]);
         validationFail = true;
       }
@@ -301,7 +158,7 @@ const GenePromote = () => {
         ) &&
         targetPromotionFormValue[key].description === ""
       ) {
-        console.log("Validation fail, blank decription");
+        console.error("Validation fail, blank decription");
         console.log(targetPromotionFormValue[key]);
         validationFail = true;
       }
@@ -330,9 +187,6 @@ const GenePromote = () => {
       });
     });
 
-    console.log("Submit Promote Request");
-    console.log(data);
-
     submitPromotionQuestionaire(params.ptarget, data).then((res) => {
       if (res !== null) {
         setFormSuccess(true);
@@ -358,6 +212,8 @@ const GenePromote = () => {
   }
 
   if (formSuccess) {
+    let targetNameKey = "promote_" + params.ptarget;
+    localStorage.removeItem(targetNameKey);
     return (
       <Success
         message={"Thank you, Target WG will review & assigns a bucket."}
@@ -377,6 +233,8 @@ const GenePromote = () => {
                 updateTargetPromotionFormValue(e)
               }
               onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
             />
           );
 
@@ -389,6 +247,8 @@ const GenePromote = () => {
                 updateTargetPromotionFormValue(e)
               }
               onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
             />
           );
 
@@ -401,6 +261,8 @@ const GenePromote = () => {
                 updateTargetPromotionFormValue(e)
               }
               onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
             />
           );
 
@@ -413,6 +275,8 @@ const GenePromote = () => {
                 updateTargetPromotionFormValue(e)
               }
               onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
             />
           );
 
@@ -425,6 +289,8 @@ const GenePromote = () => {
                 updateTargetPromotionFormValue(e)
               }
               onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
             />
           );
 
@@ -435,6 +301,8 @@ const GenePromote = () => {
               targetPromotionFormValue={targetPromotionFormValue}
               onFormSet={(active) => setActiveForm(active)}
               onFormSubmit={submitTargetPromotionFormValueForm}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
             />
           );
 
