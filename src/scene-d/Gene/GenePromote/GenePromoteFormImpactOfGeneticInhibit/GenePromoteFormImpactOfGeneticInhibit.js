@@ -14,12 +14,16 @@ const GenePromoteFormImpactOfGeneticInhibit = (props) => {
     {
       label: "Save form data in browser",
       icon: "pi pi-cloud-download",
-      command: () => {},
+      command: () => {
+        props.saveFormToLocalStorage();
+      },
     },
     {
       label: "Reset",
       icon: "pi pi-refresh",
-      command: () => {},
+      command: () => {
+        props.resetFormLocalStorage();
+      },
     },
   ];
 
