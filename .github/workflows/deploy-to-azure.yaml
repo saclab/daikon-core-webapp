@@ -9,6 +9,7 @@ env:
   # These can be left inline and changed as needed  (if only one pipeline per env)
   ENVIRONMENT: dev
   APP_VERSION: rc1-prebeta
+  APP_SERVICE_NAME: tbda-dev-backend
   AZURE_TENANT_ID: 296b3838-4bd5-496c-bd4b-f456ea743b74
   AZURE_SUBSCRIPTION_ID: 692efea0-2038-48e2-bf74-a333fef44d58
   CONTAINER_REGISTRY_SERVER: tbdadev.azurecr.io
@@ -75,5 +76,5 @@ jobs:
       - name: "Publish Web App"
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'tbda-dev-frontend'
+          app-name: '${{ env.APP_SERVICE_NAME }}'
           images: '${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ env.APP_VERSION }}-${{ github.sha }}'
