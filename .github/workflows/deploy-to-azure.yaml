@@ -7,9 +7,10 @@ env:
   AZURE_CLIENT_ID: 8a8ecadf-698c-4954-8128-6125d9fa73de
 
   # These can be left inline and changed as needed  (if only one pipeline per env)
+  ENVIRONMENT: dev
+  APP_VERSION: rc1-prebeta
   AZURE_TENANT_ID: 296b3838-4bd5-496c-bd4b-f456ea743b74
   AZURE_SUBSCRIPTION_ID: 692efea0-2038-48e2-bf74-a333fef44d58
-  ENVIRONMENT: dev 
   CONTAINER_REGISTRY_SERVER: tbdadev.azurecr.io
   CONTAINER_REGISTRY_USER: tbdadev
   PGSQL_CONNECTION_STRING: Host=tbda-dev-psql.postgres.database.azure.com;Port=5432;Database=tpt_db;Ssl Mode=VerifyFull;Timeout=120;Command Timeout=60
@@ -58,21 +59,21 @@ jobs:
               stream: "Enterprise",
               channel: "Beta" };' > ./src/config.js
 
-          docker build . -t ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
-          docker push ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
+          docker build . -t ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ env.APP_VERSION }}-${{ github.sha }}
+          docker push ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ env.APP_VERSION }}-${{ github.sha }}
       - name: "Deploy to Azure Container Instances"
         uses: "azure/aci-deploy@v1"
         with:
           resource-group: ${{ env.RESOURCE_GROUP }}
           dns-name-label: ${{ env.RESOURCE_GROUP }}${{ github.run_number }}
-          image: ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}
+          image: ${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ env.APP_VERSION }}-${{ github.sha }}
           registry-login-server: ${{ env.CONTAINER_REGISTRY_SERVER }}
           registry-username: ${{ env.CONTAINER_REGISTRY_USER }}
           registry-password: ${{ env.CONTAINER_REGISTRY_PASSWORD }}
           name: daikon-frontend
           location: "west us 2"
-#      - name: "Publish Web App"
-#        uses: azure/webapps-deploy@v2
-#        with:
-#          app-name: 'tbda-dev-frontend'
-#          images: '${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ github.sha }}'
+      - name: "Publish Web App"
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'tbda-dev-frontend'
+          images: '${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ env.APP_VERSION }}-${{ github.sha }}'
