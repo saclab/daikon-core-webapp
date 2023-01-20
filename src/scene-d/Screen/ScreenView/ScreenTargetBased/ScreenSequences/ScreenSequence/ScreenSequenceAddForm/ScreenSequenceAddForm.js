@@ -84,10 +84,10 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="library"
               value={formik.values.library}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("library"),
               })}
+              autoFocus
             />
 
             {getFormErrorMessage("library")}
@@ -160,7 +160,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="protocol"
               value={formik.values.protocol}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("protocol"),
               })}
@@ -183,7 +182,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="unverifiedHitCount"
               value={formik.values.unverifiedHitCount}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("unverifiedHitCount"),
               })}
@@ -206,7 +204,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="concentration"
               value={formik.values.concentration}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("concentration"),
               })}
@@ -229,7 +226,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="noOfCompoundsScreened"
               value={formik.values.noOfCompoundsScreened}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("noOfCompoundsScreened"),
               })}
@@ -252,7 +248,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="comment"
               value={formik.values.comment}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("comment"),
               })}

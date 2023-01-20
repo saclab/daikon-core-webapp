@@ -160,7 +160,6 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
                 value={formik.values.method}
                 placeholder="Select a method"
                 onChange={formik.handleChange}
-                autoFocus
                 className={classNames({
                   "p-invalid": isFormFieldValid("method"),
                 })}
@@ -183,7 +182,6 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
                 answer="notes"
                 value={formik.values.notes}
                 onChange={formik.handleChange}
-                autoFocus
                 className={classNames({
                   "p-invalid": isFormFieldValid("notes"),
                 })}
