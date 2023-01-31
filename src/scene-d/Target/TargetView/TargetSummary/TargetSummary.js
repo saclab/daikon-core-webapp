@@ -109,12 +109,12 @@ const TargetSummary = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -143,12 +143,12 @@ const TargetSummary = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -175,12 +175,12 @@ const TargetSummary = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
