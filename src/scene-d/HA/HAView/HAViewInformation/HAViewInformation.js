@@ -14,6 +14,7 @@ import HABaseHits from "./LocalComponents/HABaseHits";
 import HAInformationGeneralInformation from "./LocalComponents/HAInformationGeneralInformation";
 import HAOrgs from "./LocalComponents/HAOrgs";
 import HAStatus from "./LocalComponents/HAStatus";
+
 import "./ScrollPanel.css";
 
 const HAViewInformation = ({ id, project }) => {
@@ -74,13 +75,13 @@ const HAViewInformation = ({ id, project }) => {
             />
           </div>
 
-          <div className="flex w-full">
+          <div className="flex w-full gap-2">
             <div className="flex">
               <Fieldset legend="HA Information">
                 <HAInformationGeneralInformation project={project} />
               </Fieldset>
             </div>
-            <div className="flex">
+            <div className="flex min-w-max">
               <Fieldset legend="HA Status">
                 <HAStatus project={project} />
               </Fieldset>
