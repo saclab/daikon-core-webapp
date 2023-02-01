@@ -5,8 +5,10 @@ const HAOrgs = ({ project }) => {
   return (
     <div className="flex flex-column">
       <OrgChart
+        projectId={project.id}
         activeOrgs={project?.supportingOrgs}
         primary={project?.primaryOrg?.alias}
+        allowEdit={true}
       />
     </div>
   );
