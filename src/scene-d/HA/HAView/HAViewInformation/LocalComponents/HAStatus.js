@@ -1,4 +1,3 @@
-import { useFormik } from "formik";
 import { Column } from "primereact/column";
 import { ContextMenu } from "primereact/contextmenu";
 import { DataTable } from "primereact/datatable";
@@ -12,35 +11,6 @@ import TagGeneral from "../../../../../app/common/TagGeneral/TagGeneral";
 const HAStatus = ({ project }) => {
   const cm = useRef(null);
   const [displayEditContainer, setDisplayEditContainer] = useState(false);
-  const op = useRef(null);
-
-  const formik = useFormik({
-    initialValues: {
-      h2LPredictedStart: new Date(project.h2LPredictedStart),
-    },
-    validate: (data) => {
-      let errors = {};
-      if (project.h2LEnabled && !data.h2LPredictedStart) {
-        errors.h2LPredictedStart = "This field is required";
-      }
-      return errors;
-    },
-    onSubmit: (data) => {
-      var editedProject = { ...project };
-      //editedProject.h2LPredictedStart = data.h2LPredictedStart;
-      //editProject(editedProject)
-    },
-  });
-
-  const isFormFieldValid = (name) =>
-    !!(formik.touched[name] && formik.errors[name]);
-  const getFormErrorMessage = (name) => {
-    return (
-      isFormFieldValid(name) && (
-        <small className="p-error">{formik.errors[name]}</small>
-      )
-    );
-  };
 
   const contextMenuItems = [
     {
@@ -78,11 +48,7 @@ const HAStatus = ({ project }) => {
       ),
       value: (
         <div onContextMenu={(e) => cm.current.show(e)}>
-          <FDate
-            timestamp={project.h2LPredictedStart}
-            hideTime={true}
-            onClick={(e) => op.current.toggle(e)}
-          />
+          <FDate timestamp={project.h2LPredictedStart} hideTime={true} />
         </div>
       ),
     });
