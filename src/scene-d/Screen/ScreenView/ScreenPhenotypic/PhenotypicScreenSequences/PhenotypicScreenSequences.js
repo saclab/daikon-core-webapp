@@ -73,13 +73,8 @@ const PhenotypicScreenSequences = ({ baseScreenName }) => {
 
     let tabs = [];
 
-    console.log(filteredPhenotypicScreens);
-    console.log(filteredPhenotypicScreens.length);
-
     if (tabs.length === 0 && filteredPhenotypicScreens.length > 0) {
-      console.log("====SCREEN SEQUENCES--TABS");
       filteredPhenotypicScreens.forEach((screen) => {
-        console.log(screen);
         tabs.push(
           <TabPanel header={screen.screenName} key={screen.id}>
             <ScreenSequence screenId={screen.id} />
