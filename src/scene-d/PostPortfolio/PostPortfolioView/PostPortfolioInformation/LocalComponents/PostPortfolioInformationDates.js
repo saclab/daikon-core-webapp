@@ -143,7 +143,7 @@ const PostPortfolioInformationDates = ({ project }) => {
       >
         <EmbededHelp>
           Project's primary organization and participating organization can
-          propose a new predicted start date for H2L.
+          propose a new predicted start date.
         </EmbededHelp>
         <PredictedDateEditor
           project={project}
