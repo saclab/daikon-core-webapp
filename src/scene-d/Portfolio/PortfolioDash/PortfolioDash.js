@@ -8,12 +8,12 @@ import React, { useContext, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import FDate from "../../../app/common/FDate/FDate";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import StageTag from '../../../app/common/StageTag/StageTag';
+import StageTag from "../../../app/common/StageTag/StageTag";
+import TagGeneral from "../../../app/common/TagGeneral/TagGeneral";
 import Loading from "../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import { appColors } from '../../../colors';
+import { appColors } from "../../../colors";
 import "./PortfolioDashDataTable.css";
-
 
 const PortfolioDash = () => {
   /* MobX Store */
@@ -43,15 +43,16 @@ const PortfolioDash = () => {
     return <StageTag stage={option} />;
   };
 
-  const stageFilter = (options) => <MultiSelect
-    value={options.value}
-    options={stages}
-    onChange={(e) => options.filterApplyCallback(e.value)}
-    itemTemplate={stageItemTemplate}
-    placeholder="Select a Stage"
-    className="p-column-filter"
-  />
-
+  const stageFilter = (options) => (
+    <MultiSelect
+      value={options.value}
+      options={stages}
+      onChange={(e) => options.filterApplyCallback(e.value)}
+      itemTemplate={stageItemTemplate}
+      placeholder="Select a Stage"
+      className="p-column-filter"
+    />
+  );
 
   /* END STAGE FILTER */
 
@@ -82,9 +83,7 @@ const PortfolioDash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Id</span>
 
-        <NavLink to={"./" + rowData.id}>
-          {rowData.id.substring(0, 8)}
-        </NavLink>
+        <NavLink to={"./" + rowData.id}>{rowData.id.substring(0, 8)}</NavLink>
       </React.Fragment>
     );
   };
@@ -94,9 +93,7 @@ const PortfolioDash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
         <b>
-          <NavLink to={"./" + rowData.id}>
-            {rowData.projectName}
-          </NavLink>
+          <NavLink to={"./" + rowData.id}>{rowData.projectName}</NavLink>
         </b>
       </React.Fragment>
     );
@@ -112,20 +109,7 @@ const PortfolioDash = () => {
   };
 
   const StatusBodyTemplate = (rowData) => {
-    if (rowData.status === "Active") {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Status</span>
-          <Tag className="table-status-active" value="Active" />
-        </React.Fragment>
-      );
-    }
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Status</span>
-        <Tag className="table-status-inactive" value="Terminated" />
-      </React.Fragment>
-    );
+    return <TagGeneral tag={rowData.status} />;
   };
 
   const DateBodyTemplate = (rowData) => {
@@ -152,13 +136,16 @@ const PortfolioDash = () => {
     //   inputDate = new Date(rowData.clinicalP1Start).setHours(0, 0, 0, 0);
     //   stageDate = rowData.clinicalP1Start;
     // }
-    
 
-    if(rowData.status === "Terminated") {
+    if (rowData.status === "Terminated") {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#9EA29D"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#9EA29D"}
+          />
         </React.Fragment>
       );
     }
@@ -167,7 +154,11 @@ const PortfolioDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#1D7E00"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#1D7E00"}
+          />
         </React.Fragment>
       );
     }
@@ -176,14 +167,22 @@ const PortfolioDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#9B8800"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#9B8800"}
+          />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <FDate className="p-column-title" timestamp={stageDate} color={"#1D7E00"} />
+        <FDate
+          className="p-column-title"
+          timestamp={stageDate}
+          color={"#1D7E00"}
+        />
       </React.Fragment>
     );
   };
@@ -244,7 +243,6 @@ const PortfolioDash = () => {
               filter
               filterMatchMode="contains"
               filterPlaceholder="Filter by Project"
-
             />
 
             <Column
@@ -254,7 +252,6 @@ const PortfolioDash = () => {
               filter
               filterMatchMode="contains"
               filterPlaceholder="Filter by Target"
-
             />
 
             <Column
@@ -295,9 +292,7 @@ const PortfolioDash = () => {
             />
           </DataTable>
         </div>
-        <div className="card">
-
-        </div>
+        <div className="card"></div>
       </div>
     );
   }
