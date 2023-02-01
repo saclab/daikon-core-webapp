@@ -9,7 +9,6 @@ import { RootStoreContext } from "../../stores/rootStore";
 import EmbededHelp from "../EmbededHelp/EmbededHelp";
 
 const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
-  console.log(activeOrgs);
   const rootStore = useContext(RootStoreContext);
   const { appVars } = rootStore.generalStore;
   const { editSupportingOrgs, editingSupportingOrg } = rootStore.projectStore;
@@ -34,7 +33,6 @@ const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
   ];
 
   let editOrgs = () => {
-    console.log(edittedOrgs);
     let editedOrgsIds = [...edittedOrgs.map((e) => e.id)].sort();
     let initialOrgIds = [...formattedActiveOrgs.map((e) => e.id)].sort();
     if (_.isEqual(editedOrgsIds, initialOrgIds)) {
