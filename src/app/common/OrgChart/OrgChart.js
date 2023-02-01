@@ -3,6 +3,7 @@ import { Button } from "primereact/button";
 import { ContextMenu } from "primereact/contextmenu";
 import { Dialog } from "primereact/dialog";
 import { SelectButton } from "primereact/selectbutton";
+import { Tooltip } from "primereact/tooltip";
 import React, { useContext, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { RootStoreContext } from "../../stores/rootStore";
@@ -83,11 +84,10 @@ const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
       return (
         <div
           key={appOrg.alias}
-          className="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1"
+          className="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1 tooltipdiv"
+          data-pr-tooltip={appOrg.name}
         >
-          <p tooltip="Enter your username">
-            <i className="icon icon-common icon-star" /> {appOrg.alias}
-          </p>
+          <i className="icon icon-common icon-star" /> {appOrg.alias}
         </div>
       );
     }
@@ -95,18 +95,20 @@ const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
       return (
         <div
           key={appOrg.alias}
-          className="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1"
+          className="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1 tooltipdiv"
+          data-pr-tooltip={appOrg.name}
         >
-          <p tooltip="Enter your username">{appOrg.alias}</p>
+          {appOrg.alias}
         </div>
       );
     }
     return (
       <div
         key={appOrg.alias}
-        className="flex align-items-center justify-content-center w-7rem h-2rem surface-500 text-white border-round m-2 p-1"
+        className="tooltipdiv flex align-items-center justify-content-center w-7rem h-2rem surface-500 text-white border-round m-2 p-1"
+        data-pr-tooltip={appOrg.name}
       >
-        <p tooltip="Enter your username">{appOrg.alias}</p>
+        {appOrg.alias}
       </div>
     );
   });
@@ -115,10 +117,12 @@ const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
     <div>
       <div className="card">
         <ContextMenu model={contextMenuItems} ref={cm}></ContextMenu>
+
         <div
           className="flex flex-row flex-wrap card-container"
           onContextMenu={(e) => allowEdit && cm.current.show(e)}
         >
+          <Tooltip target=".tooltipdiv"></Tooltip>
           {generateApporgsDivs}
         </div>
       </div>
