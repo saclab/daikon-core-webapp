@@ -6,13 +6,6 @@ import TagGeneral from "../../../../../app/common/TagGeneral/TagGeneral";
 import "./LocalComponents.css";
 
 const PortfolioInformationGeneralInformation = ({ project }) => {
-  let displaySupportingOrgs =
-    project.supportingOrgs.length !== 0
-      ? project.supportingOrgs.map((org) => {
-          return <p>{org.appOrg.name}</p>;
-        })
-      : null;
-
   let data = [
     {
       name: "Id",
