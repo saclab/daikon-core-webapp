@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { ContextMenu } from "primereact/contextmenu";
 import { Dialog } from "primereact/dialog";
@@ -84,10 +85,11 @@ const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
       return (
         <div
           key={appOrg.alias}
-          className="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1 tooltipdiv"
+          className="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1 gap-2 tooltipdiv"
           data-pr-tooltip={appOrg.name}
         >
-          <i className="icon icon-common icon-star" /> {appOrg.alias}
+          <i className="icon icon-common icon-star" />
+          <p>{appOrg.alias}</p>
         </div>
       );
     }
@@ -157,4 +159,4 @@ const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
   );
 };
 
-export default OrgChart;
+export default observer(OrgChart);
