@@ -87,13 +87,17 @@ const PredictedDateEditor = ({ project, postSave, onCancel }) => {
   };
 
   let today = new Date();
-  let month = today.getMonth();
-  let year = today.getFullYear();
-  let prevMonth = month === 0 ? 11 : month - 1;
-  let prevYear = prevMonth === 11 ? year - 1 : year;
+  // let day = today.getDate();
+  // let month = today.getMonth();
+  // let year = today.getFullYear();
+  // let prevMonth = month === 0 ? 11 : month - 1;
+  // let prevYear = prevMonth === 11 ? year - 1 : year;
   let minDate = new Date();
-  minDate.setMonth(month);
-  minDate.setFullYear(prevYear);
+  minDate.setDate(today.getDate() - 1);
+  // minDate.setDate(day);
+  // minDate.setMonth(prevMonth);
+  // minDate.setFullYear(prevYear);
+  console.log(minDate);
 
   return (
     <form onSubmit={formik.handleSubmit}>
