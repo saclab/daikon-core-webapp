@@ -7,9 +7,9 @@ import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { appColors } from "../../../../colors";
-import cssClass from "./TargetSummary.module.css";
+import cssClass from "./TargetCompass.module.css";
 
-const TargetSummary = () => {
+const TargetCompass = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
@@ -194,4 +194,4 @@ const TargetSummary = () => {
   );
 };
 
-export default observer(TargetSummary);
+export default observer(TargetCompass);
