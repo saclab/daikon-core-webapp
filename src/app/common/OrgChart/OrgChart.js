@@ -1,15 +1,18 @@
-import { ContextMenu } from "primereact/contextmenu";
-import React, { useContext, useRef, useState } from "react";
-import { RootStoreContext } from "../../stores/rootStore";
-
+import _ from "lodash";
 import { Button } from "primereact/button";
+import { ContextMenu } from "primereact/contextmenu";
 import { Dialog } from "primereact/dialog";
 import { SelectButton } from "primereact/selectbutton";
+import React, { useContext, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { RootStoreContext } from "../../stores/rootStore";
+import EmbededHelp from "../EmbededHelp/EmbededHelp";
 
-const OrgChart = ({ activeOrgs, primary }) => {
+const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
   console.log(activeOrgs);
   const rootStore = useContext(RootStoreContext);
-  const { fetchingAppVars, appVars, fetchAppVars } = rootStore.generalStore;
+  const { appVars } = rootStore.generalStore;
+  const { editSupportingOrgs, editingSupportingOrg } = rootStore.projectStore;
   const cm = useRef(null);
   const [displayEditContainer, setDisplayEditContainer] = useState(false);
 
@@ -32,6 +35,17 @@ const OrgChart = ({ activeOrgs, primary }) => {
 
   let editOrgs = () => {
     console.log(edittedOrgs);
+    let editedOrgsIds = [...edittedOrgs.map((e) => e.id)].sort();
+    let initialOrgIds = [...formattedActiveOrgs.map((e) => e.id)].sort();
+    if (_.isEqual(editedOrgsIds, initialOrgIds)) {
+      toast.warn("No changes to save");
+      return;
+    }
+    let dto = {
+      projectId: projectId,
+      modifiedSupportingOrgs: editedOrgsIds,
+    };
+    editSupportingOrgs(dto);
   };
 
   let headerEditDialog = () => (
@@ -61,6 +75,7 @@ const OrgChart = ({ activeOrgs, primary }) => {
           editOrgs();
           setDisplayEditContainer(false);
         }}
+        loading={editingSupportingOrg}
       />
     </div>
   );
@@ -68,22 +83,31 @@ const OrgChart = ({ activeOrgs, primary }) => {
   let generateApporgsDivs = appVars.appOrgs.map((appOrg) => {
     if (appOrg.alias === primary) {
       return (
-        <div class="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1">
+        <div
+          key={appOrg.alias}
+          className="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1"
+        >
           <p tooltip="Enter your username">
-            <i class="icon icon-common icon-star" /> {appOrg.alias}
+            <i className="icon icon-common icon-star" /> {appOrg.alias}
           </p>
         </div>
       );
     }
     if (flattenActiveOrgs.includes(appOrg.alias)) {
       return (
-        <div class="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1">
+        <div
+          key={appOrg.alias}
+          className="flex align-items-center justify-content-center w-7rem h-2rem bg-green-500 text-white border-round m-2 p-1"
+        >
           <p tooltip="Enter your username">{appOrg.alias}</p>
         </div>
       );
     }
     return (
-      <div class="flex align-items-center justify-content-center w-7rem h-2rem surface-500 text-white border-round m-2 p-1">
+      <div
+        key={appOrg.alias}
+        className="flex align-items-center justify-content-center w-7rem h-2rem surface-500 text-white border-round m-2 p-1"
+      >
         <p tooltip="Enter your username">{appOrg.alias}</p>
       </div>
     );
@@ -91,11 +115,11 @@ const OrgChart = ({ activeOrgs, primary }) => {
 
   return (
     <div>
-      <div class="card">
+      <div className="card">
         <ContextMenu model={contextMenuItems} ref={cm}></ContextMenu>
         <div
-          class="flex flex-row flex-wrap card-container"
-          onContextMenu={(e) => cm.current.show(e)}
+          className="flex flex-row flex-wrap card-container"
+          onContextMenu={(e) => allowEdit && cm.current.show(e)}
         >
           {generateApporgsDivs}
         </div>
@@ -110,6 +134,12 @@ const OrgChart = ({ activeOrgs, primary }) => {
         onHide={() => setDisplayEditContainer(false)}
         footer={footerEditDialog}
       >
+        <EmbededHelp>
+          Project's primary organization ({primary}) can add or remove any
+          memberships. Other organizations can add or remove themselves from the
+          project.
+        </EmbededHelp>
+        <br />
         <div className="flex flex-wrap card-container">
           <SelectButton
             value={edittedOrgs}
@@ -117,6 +147,7 @@ const OrgChart = ({ activeOrgs, primary }) => {
             onChange={(e) => setEdittedOrgs(e.value)}
             optionLabel="alias"
             multiple
+            disabled={editingSupportingOrg}
           />
         </div>
       </Dialog>
