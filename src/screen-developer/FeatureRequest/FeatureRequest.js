@@ -81,7 +81,6 @@ const FeatureRequest = () => {
         value={description}
         onTextChange={(e) => {
           setDescription(e.htmlValue);
-          console.log(e.htmlValue);
         }}
       />
     </div>
