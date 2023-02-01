@@ -41,7 +41,7 @@ const HAStatus = ({ project }) => {
       value: <FDate timestamp={project.haStart} hideTime={true} />,
     },
   ];
-  if (project.currentStage === "HA") {
+  if (project.currentStage === "HA" && project.status === "Active") {
     data.push({
       name: (
         <div onContextMenu={(e) => cm.current.show(e)}>H2L Predicted Start</div>
