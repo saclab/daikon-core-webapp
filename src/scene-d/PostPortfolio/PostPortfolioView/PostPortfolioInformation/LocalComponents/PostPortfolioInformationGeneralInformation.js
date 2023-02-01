@@ -1,55 +1,66 @@
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import React from "react";
-import ProjectStatus from "../../../../../app/common/ProjectStatus/ProjectStatus";
 import StageTag from "../../../../../app/common/StageTag/StageTag";
+import TagGeneral from "../../../../../app/common/TagGeneral/TagGeneral";
 import "./LocalComponents.css";
 
 const PostPortfolioInformationGeneralInformation = ({ project }) => {
-  let displaySupportingOrgs =
-    project.supportingOrgs.length !== 0
-      ? project.supportingOrgs.map((org) => {
-        return <p>- {org.appOrg.name}</p>;
-      })
-      : null;
+  let data = [
+    {
+      name: "Id",
+      value: project.id,
+    },
+    {
+      name: "Target",
+      value: (
+        <div>
+          <i className="icon icon-common icon-target" />{" "}
+          {project.targetName ? project.targetName : "Unknown"}
+        </div>
+      ),
+    },
+    {
+      name: "Current Stage",
+      value: <StageTag stage={project.currentStage} />,
+    },
+    {
+      name: "Project Status",
+      value: <TagGeneral tag={project.status} />,
+    },
+    {
+      name: "IND Description",
+      value: (
+        <div
+          className="overflow-hidden text-overflow-ellipsis"
+          style={{ maxWidth: "400px" }}
+        >
+          {project.indDescription}
+        </div>
+      ),
+    },
+  ];
+  if (project.clinicalP1Enabled) {
+    data.push({
+      name: "P1 Description",
+      value: (
+        <div
+          className="overflow-hidden text-overflow-ellipsis"
+          style={{ maxWidth: "400px" }}
+        >
+          {project.clinicalP1Description}
+        </div>
+      ),
+    });
+  }
 
   return (
-    <div className="flex flex-column w-full">
-      <div className="flex flex-column">
-        <ProjectStatus status={project.status} />
-      </div>
-      <div className="flex align-content-center">
-        <p>Expanded Id : {project.id}</p>
-      </div>
-
-      <div className="flex flex-column mb-2" style={{ width: "30rem", lineHeight: "100%" }}>
-        <div className="flex">{project.indDescription ? '(IND) ' + project.indDescription : ''}</div>
-        <div className="flex">{project.clinicalP1Description ? '(P1) ' + project.clinicalP1Description : ''}</div>
-      </div>
-
-      <div className="flex flex-column">
-        <table>
-          <tr>
-            <td>Target:</td>
-            <td><b>{project.targetName}</b></td>
-          </tr>
-          <tr>
-            <td>Current Stage :</td>
-            <td><b> <StageTag stage={project.currentStage} /></b></td>
-          </tr>
-          <tr>
-            <td>Status:</td>
-            <td><b>{project.status}</b></td>
-          </tr>
-          <tr>
-            <td>Primary Org:</td>
-            <td><b>{project?.primaryOrg?.name}</b></td>
-          </tr>
-          <tr>
-            <td>Supporting Orgs:</td>
-            <td><b>{displaySupportingOrgs}</b></td>
-          </tr>
-        </table>
-      </div>
-    </div >
+    <div className="flex flex-column flex-wrap card-container min-w-max">
+      <DataTable className="noDataTableHeader" value={data}>
+        <Column field="name"></Column>
+        <Column field="value"></Column>
+      </DataTable>
+    </div>
   );
 };
 
