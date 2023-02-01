@@ -368,6 +368,8 @@ const Projects = {
     requests.post(`/elevated/project/unlinked`, newProject),
   stageOverride: (id, overrideDTO) =>
     requests.post(`/elevated/project/${id}/override-stage`, overrideDTO),
+  editSupportingOrg: (id, editSupportingOrgsDTO) =>
+    requests.post(`/project/${id}/edit-supporting-org`, editSupportingOrgsDTO),
 };
 
 const Vote = {
