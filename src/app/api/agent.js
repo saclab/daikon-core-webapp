@@ -370,6 +370,8 @@ const Projects = {
     requests.post(`/elevated/project/${id}/override-stage`, overrideDTO),
   editSupportingOrg: (id, editSupportingOrgsDTO) =>
     requests.post(`/project/${id}/edit-supporting-org`, editSupportingOrgsDTO),
+  editPredictedDated: (id, projectDTO) =>
+    requests.post(`/project/${id}/edit-predicted-dates`, projectDTO),
 };
 
 const Vote = {
