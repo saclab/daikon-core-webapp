@@ -1,8 +1,7 @@
 import { observer } from "mobx-react-lite";
+import { BreadCrumb } from "primereact/breadcrumb";
 import { Divider } from "primereact/divider";
 import React, { useContext, useEffect } from "react";
-
-import { BreadCrumb } from "primereact/breadcrumb";
 import { useNavigate } from "react-router-dom";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import Loading from "../../../../app/layout/Loading/Loading";
@@ -74,6 +73,18 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
             color={appColors.sectionHeadingBg.target}
           />
         </div>
+        <SectionHeading
+          icon="icon icon-common icon-info"
+          heading={" Target Promotion Info"}
+          color={"#f4f4f4"}
+          textColor={"#000000"}
+          customButtons={[
+            {
+              label: "Edit",
+              action: () => navigate("edit/"),
+            },
+          ]}
+        />
         <div className="flex w-full">
           <div>
             <div>
