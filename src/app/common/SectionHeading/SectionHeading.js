@@ -1,3 +1,4 @@
+import { Button } from "primereact/button";
 import { Panel } from "primereact/panel";
 import React from "react";
 import Horizon from "../Horizon/Horizon";
@@ -12,6 +13,7 @@ const SectionHeading = ({
   accessionNumber,
   targetName,
   projectName,
+  customButtons,
 }) => {
   const headerTemplate = (options) => {
     const toggleIcon = options.collapsed
@@ -19,6 +21,27 @@ const SectionHeading = ({
       : "pi pi-chevron-up";
     let background = color ? color : "#332288";
     let htextColor = textColor ? textColor : "#ffffff";
+    if (customButtons === undefined) customButtons = [];
+    let generateCustomButtons = () => {
+      return customButtons.map((button) => (
+        <div
+          key={button?.label || (Math.random() + 1).toString(36).substring(7)}
+          className="flex"
+        >
+          <Button
+            className="p-button-outlined p-button-secondary p-button-sm"
+            label={button?.label}
+            icon={button?.icon}
+            onClick={button?.action}
+          />
+        </div>
+      ));
+    };
+
+    let customButtonSet = (
+      <div className="flex ml-5 gap-2">{generateCustomButtons()}</div>
+    );
+
     let displayHorizonButton = (
       <div
         style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}
@@ -42,7 +65,7 @@ const SectionHeading = ({
 
     return (
       <div
-        className="flex w-full "
+        className="flex w-full"
         style={{
           background: background,
           opacity: "1",
@@ -63,7 +86,9 @@ const SectionHeading = ({
               <i className={icon}></i> {heading}
             </h1>
           </div>
+
           <div className="flex">{sub}</div>
+          {customButtons.length > 0 && customButtonSet}
           {displayHorizon ? displayHorizonButton : <p />}
         </div>
       </div>
