@@ -18,6 +18,7 @@ import TargetCompass from "./TargetCompass/TargetCompass";
 import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
 import TargetEdit from "./TargetEdit/TargetEdit";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
+import TargetPromotionFormEdit from "./TargetPromotionForm/TargetPromotionFormEdit/TargetPromotionFormEdit";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
 
@@ -60,7 +61,7 @@ const TargetView = () => {
         },
         {
           label: "Promotion Info",
-          icon: "pi pi-table",
+          icon: "icon icon-common icon-info",
           command: () => {
             navigate("promotion-info/");
           },
@@ -164,6 +165,15 @@ const TargetView = () => {
               />
               <Route path="compass/" element={<TargetCompass />} />
               <Route
+                path="promotion-info/edit"
+                element={
+                  <TargetPromotionFormEdit
+                    data={target.targetScorecard.targetScoreCardValues}
+                    selectedTarget={target}
+                  />
+                }
+              />
+              <Route
                 path="promotion-info/"
                 element={
                   <TargetPromotionForm
@@ -172,6 +182,7 @@ const TargetView = () => {
                   />
                 }
               />
+
               <Route
                 path="discussion/"
                 element={<TargetDiscussion selectedTarget={target} />}
