@@ -3,12 +3,24 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Tooltip } from "primereact/tooltip";
 import React from "react";
 
-const Question = ({ question, updateObject, readObject }) => {
+const Question = ({ question, updateObject, readObject, highlightRed }) => {
   if (typeof question?.identification === "undefined")
     return <React.Fragment />;
 
+  let getBorderCssClass = () => {
+    let borderCssClass = ["flex", "flex-wrap", "align-content-center", "gap-2"];
+    if (highlightRed)
+      borderCssClass = borderCssClass.concat([
+        "border-1",
+        "border-round",
+        "border-red-500",
+        "border-dashed",
+        "surface-overlay",
+      ]);
+    return borderCssClass.join(" ");
+  };
   return (
-    <div className="flex align-content-center gap-2">
+    <div className={getBorderCssClass()}>
       <div className="flex align-items-center">
         <Tooltip
           target={".questionBody" + question.identification}
