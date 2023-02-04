@@ -81,6 +81,7 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
           customButtons={[
             {
               label: "Edit",
+              icon: "pi pi-tablet",
               action: () => navigate("edit/"),
             },
           ]}
