@@ -276,6 +276,8 @@ const Target = {
       `/target/${updatedTargetSummary.id}/summary`,
       updatedTargetSummary
     ),
+  editPromotionData: (id, promotionDataDTOs) =>
+    requests.post(`/target/${id}/promotion-info`, promotionDataDTOs),
 };
 
 const TargetAdmin = {
