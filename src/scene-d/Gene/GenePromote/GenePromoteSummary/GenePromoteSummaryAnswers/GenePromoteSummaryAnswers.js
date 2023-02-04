@@ -32,7 +32,7 @@ const GenePromoteSummaryAnswers = ({ oKey, questionObj, ansObj }) => {
   };
 
   return (
-    <div className="flex align-content-center gap-2 mb-2">
+    <div className="flex align-content-center gap-2 mb-2 w-full">
       <div className="flex align-items-center w-4 pl-2 border-1 border-round">
         <p>
           <b>{oKey} | </b>
