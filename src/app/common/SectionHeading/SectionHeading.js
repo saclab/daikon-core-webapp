@@ -29,10 +29,12 @@ const SectionHeading = ({
           className="flex"
         >
           <Button
-            className="p-button-outlined p-button-secondary p-button-sm"
+            className="p-button-outlined p-button-info"
             label={button?.label}
             icon={button?.icon}
             onClick={button?.action}
+            disabled={button?.disabled}
+            loading={button?.loading}
           />
         </div>
       ));
