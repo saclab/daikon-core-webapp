@@ -24,6 +24,8 @@ export default class TargetStore {
   historyDisplayLoading = false;
   targetHistoryRegistry = new Map();
 
+  editingTargetPromotionInfo = false;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -50,6 +52,9 @@ export default class TargetStore {
 
       editTargetSummary: action,
       cancelEditTargetSummary: action,
+
+      editTargetPromotionInfo: action,
+      editingTargetPromotionInfo: observable,
     });
   }
 
@@ -240,5 +245,29 @@ export default class TargetStore {
     this.selectedTarget = this.targetRegistryExpanded.get(
       this.selectedTarget.id
     );
+  };
+
+  editTargetPromotionInfo = async (targetPromotionInfoDTO) => {
+    this.editingTargetPromotionInfo = true;
+    let updatedTarget = null;
+
+    // send to server
+    try {
+      updatedTarget = await agent.Target.editPromotionData(
+        this.selectedTarget.id,
+        targetPromotionInfoDTO
+      );
+      runInAction(() => {
+        this.targetRegistryExpanded.delete(updatedTarget.id);
+        this.fetchTarget(updatedTarget.id);
+        toast.success("Saved");
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.editingTargetPromotionInfo = false;
+      });
+    }
   };
 }
