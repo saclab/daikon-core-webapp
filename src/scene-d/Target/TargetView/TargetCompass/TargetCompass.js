@@ -7,9 +7,9 @@ import KeyValList from "../../../../app/common/KeyValList/KeyValList";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { appColors } from "../../../../colors";
-import cssClass from "./TargetSummary.module.css";
+import cssClass from "./TargetCompass.module.css";
 
-const TargetSummary = () => {
+const TargetCompass = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
@@ -109,12 +109,12 @@ const TargetSummary = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -143,12 +143,12 @@ const TargetSummary = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -175,12 +175,12 @@ const TargetSummary = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("admin")
+                    user.roles.includes("user")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -194,4 +194,4 @@ const TargetSummary = () => {
   );
 };
 
-export default observer(TargetSummary);
+export default observer(TargetCompass);

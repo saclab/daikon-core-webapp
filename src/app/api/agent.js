@@ -276,6 +276,8 @@ const Target = {
       `/target/${updatedTargetSummary.id}/summary`,
       updatedTargetSummary
     ),
+  editPromotionData: (id, promotionDataDTOs) =>
+    requests.post(`/target/${id}/promotion-info`, promotionDataDTOs),
 };
 
 const TargetAdmin = {
@@ -368,6 +370,10 @@ const Projects = {
     requests.post(`/elevated/project/unlinked`, newProject),
   stageOverride: (id, overrideDTO) =>
     requests.post(`/elevated/project/${id}/override-stage`, overrideDTO),
+  editSupportingOrg: (id, editSupportingOrgsDTO) =>
+    requests.post(`/project/${id}/edit-supporting-org`, editSupportingOrgsDTO),
+  editPredictedDated: (id, projectDTO) =>
+    requests.post(`/project/${id}/edit-predicted-dates`, projectDTO),
 };
 
 const Vote = {

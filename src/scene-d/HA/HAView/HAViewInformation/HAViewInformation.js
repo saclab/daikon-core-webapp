@@ -2,17 +2,19 @@ import { observer } from "mobx-react-lite";
 import { Fieldset } from "primereact/fieldset";
 import React, { useContext } from "react";
 // import SmilesView from "../../../../app/common/SmilesView/SmilesView";
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { useNavigate } from 'react-router-dom';
+import { BreadCrumb } from "primereact/breadcrumb";
+import { useNavigate } from "react-router-dom";
 import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
 import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
 import PleaseWait from "../../../../app/common/PleaseWait/PleaseWait";
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { appColors } from "../../../../colors";
 import HABaseHits from "./LocalComponents/HABaseHits";
 import HAInformationGeneralInformation from "./LocalComponents/HAInformationGeneralInformation";
+import HAOrgs from "./LocalComponents/HAOrgs";
 import HAStatus from "./LocalComponents/HAStatus";
+
 import "./ScrollPanel.css";
 
 const HAViewInformation = ({ id, project }) => {
@@ -37,7 +39,6 @@ const HAViewInformation = ({ id, project }) => {
     let timelineEvents = [];
     timelineEvents.push({ stage: "HA", date: project.haStart });
 
-
     const breadCrumbItems = [
       {
         label: "Hit Assessment",
@@ -49,17 +50,14 @@ const HAViewInformation = ({ id, project }) => {
         label: project.projectName,
         command: () => {
           navigate(`/d/ha/${project.id}`);
-        }
+        },
       },
       { label: "Information" },
     ];
 
-
     return (
       <React.Fragment>
-
         <div className="flex flex-column gap-2 w-full">
-
           <div className="flex w-full pb-2">
             <BreadCrumb model={breadCrumbItems} />
           </div>
@@ -68,24 +66,32 @@ const HAViewInformation = ({ id, project }) => {
             <SectionHeading
               icon="icon icon-conceptual icon-chemical"
               heading={project.projectName}
-              targetName={project.targetName || project.screenName || project.projectName}
+              targetName={
+                project.targetName || project.screenName || project.projectName
+              }
               projectName={project.projectName}
               displayHorizon={true}
               color={appColors.sectionHeadingBg.ha}
             />
           </div>
 
-          <div className="flex w-full">
+          <div className="flex w-full gap-2">
             <div className="flex">
               <Fieldset legend="HA Information">
                 <HAInformationGeneralInformation project={project} />
               </Fieldset>
             </div>
-            <div className="flex">
+            <div className="flex min-w-max">
               <Fieldset legend="HA Status">
                 <HAStatus project={project} />
               </Fieldset>
             </div>
+          </div>
+
+          <div className="flex w-full">
+            <Fieldset legend="Participating Organizations">
+              <HAOrgs project={project} />
+            </Fieldset>
           </div>
 
           <div className="flex w-full">
@@ -104,9 +110,7 @@ const HAViewInformation = ({ id, project }) => {
               <HABaseHits project={project} />
             </Fieldset>
           </div>
-
         </div>
-
       </React.Fragment>
     );
   }

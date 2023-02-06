@@ -11,10 +11,10 @@ import { MultiSelect } from "primereact/multiselect";
 import { SelectButton } from "primereact/selectbutton";
 import { Tag } from "primereact/tag";
 import FDate from "../../../app/common/FDate/FDate";
-import StageTag from '../../../app/common/StageTag/StageTag';
-import { appColors } from '../../../colors';
+import StageTag from "../../../app/common/StageTag/StageTag";
+import TagGeneral from "../../../app/common/TagGeneral/TagGeneral";
+import { appColors } from "../../../colors";
 import "./PostPortfolioDash.css";
-
 
 const PostPortfolioDash = () => {
   /* MobX Store */
@@ -45,14 +45,16 @@ const PostPortfolioDash = () => {
 
   let todaysDate = new Date().setHours(0, 0, 0, 0);
 
-  const stageFilter = (options) => <MultiSelect
-    value={options.value}
-    options={stages}
-    onChange={(e) => options.filterApplyCallback(e.value)}
-    itemTemplate={stageItemTemplate}
-    placeholder="Select a Stage"
-    className="p-column-filter"
-  />
+  const stageFilter = (options) => (
+    <MultiSelect
+      value={options.value}
+      options={stages}
+      onChange={(e) => options.filterApplyCallback(e.value)}
+      itemTemplate={stageItemTemplate}
+      placeholder="Select a Stage"
+      className="p-column-filter"
+    />
+  );
   /* END STAGE FILTER */
 
   /* STATUS FILTER */
@@ -81,9 +83,7 @@ const PostPortfolioDash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Id</span>
 
-        <NavLink to={"./" + rowData.id}>
-          {rowData.id.substring(0, 8)}
-        </NavLink>
+        <NavLink to={"./" + rowData.id}>{rowData.id.substring(0, 8)}</NavLink>
       </React.Fragment>
     );
   };
@@ -93,9 +93,7 @@ const PostPortfolioDash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
         <b>
-          <NavLink to={"./" + rowData.id}>
-            {rowData.projectName}
-          </NavLink>
+          <NavLink to={"./" + rowData.id}>{rowData.projectName}</NavLink>
         </b>
       </React.Fragment>
     );
@@ -111,20 +109,7 @@ const PostPortfolioDash = () => {
   };
 
   const StatusBodyTemplate = (rowData) => {
-    if (rowData.status === "Active") {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Status</span>
-          <Tag className="table-status-active" value="Active" />
-        </React.Fragment>
-      );
-    }
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Status</span>
-        <Tag className="table-status-inactive" value="Terminated" />
-      </React.Fragment>
-    );
+    return <TagGeneral tag={rowData.status} />;
   };
 
   const DateBodyTemplate = (rowData) => {
@@ -144,7 +129,12 @@ const PostPortfolioDash = () => {
       stageDate = rowData.indPredictedStart;
     }
     if (rowData.indEnabled) {
-      inputDate = new Date(rowData.clinicalP1PredictedStart).setHours(0, 0, 0, 0);
+      inputDate = new Date(rowData.clinicalP1PredictedStart).setHours(
+        0,
+        0,
+        0,
+        0
+      );
       stageDate = rowData.clinicalP1PredictedStart;
     }
     if (rowData.clinicalP1Enabled) {
@@ -156,7 +146,11 @@ const PostPortfolioDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#9EA29D"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#9EA29D"}
+          />
         </React.Fragment>
       );
     }
@@ -165,7 +159,11 @@ const PostPortfolioDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#222222"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#222222"}
+          />
         </React.Fragment>
       );
     }
@@ -174,14 +172,22 @@ const PostPortfolioDash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#9B8800"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#9B8800"}
+          />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <FDate className="p-column-title" timestamp={stageDate} color={"#1D7E00"} />
+        <FDate
+          className="p-column-title"
+          timestamp={stageDate}
+          color={"#1D7E00"}
+        />
       </React.Fragment>
     );
   };
@@ -202,8 +208,6 @@ const PostPortfolioDash = () => {
   if (loadingProjects) {
     return <Loading />;
   }
-
-
 
   if (!loadingProjects) {
     return (
@@ -245,7 +249,6 @@ const PostPortfolioDash = () => {
               filter
               filterMatchMode="contains"
               filterPlaceholder="Filter by Project"
-              
             />
 
             <Column
@@ -255,7 +258,6 @@ const PostPortfolioDash = () => {
               filter
               filterMatchMode="contains"
               filterPlaceholder="Filter by Target"
-
             />
 
             <Column
@@ -276,11 +278,11 @@ const PostPortfolioDash = () => {
               showFilterMenu={false}
             />
 
-            <Column field="date"
+            <Column
+              field="date"
               header="Date"
               body={DateBodyTemplate}
               style={{ width: "100px" }}
-              
             />
 
             <Column

@@ -1,14 +1,15 @@
 import { Fieldset } from "primereact/fieldset";
 import React, { useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from "primereact/breadcrumb";
 import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { appColors } from '../../../../colors';
+import { appColors } from "../../../../colors";
 import PortfolioInformationDates from "./LocalComponents/PortfolioInformationDates";
 import PortfolioInformationGeneralInformation from "./LocalComponents/PortfolioInformationGeneralInformation";
+import PortfolioInformationOrgs from "./LocalComponents/PortfolioInformationOrgs";
 import PortfolioInformationPriority from "./PortfolioInformationPriority/PortfolioInformationPriority";
 import "./ScrollPanel.css";
 
@@ -28,11 +29,10 @@ const PortfolioInformation = ({ id, project }) => {
       label: project.projectName,
       command: () => {
         navigate(`/d/portfolio/${project.id}`);
-      }
+      },
     },
     { label: "Information" },
   ];
-
 
   return (
     <React.Fragment>
@@ -46,12 +46,10 @@ const PortfolioInformation = ({ id, project }) => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-common icon-analyse"
-            heading={
-              project.projectName +
-              " | " +
-              project?.currentStage
+            heading={project.projectName + " | " + project?.currentStage}
+            targetName={
+              project.targetName || project.screenName || project.projectName
             }
-            targetName={project.targetName || project.screenName || project.projectName}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.portfolio}
           />
@@ -74,19 +72,26 @@ const PortfolioInformation = ({ id, project }) => {
               </Fieldset>
             </div>
           </div>
-
+        </div>
+        <div className="flex w-full">
+          <Fieldset legend="Participating Organizations">
+            <PortfolioInformationOrgs project={project} />
+          </Fieldset>
         </div>
 
         <div className="flex w-full">
           <Fieldset legend="Compound Evolution">
             <CompoundEvolutionTimeline
               project={project}
-              disableAdd={['H2L', 'LO', 'SP'].includes(project.currentStage) ? false : true}
+              disableAdd={
+                ["H2L", "LO", "SP"].includes(project.currentStage)
+                  ? false
+                  : true
+              }
               enableEdit={user.roles.includes("admin")}
             />
           </Fieldset>
         </div>
-
       </div>
     </React.Fragment>
   );

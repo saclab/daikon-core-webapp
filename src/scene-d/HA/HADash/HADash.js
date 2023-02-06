@@ -2,18 +2,17 @@ import { observer } from "mobx-react-lite";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { SelectButton } from "primereact/selectbutton";
-import { Tag } from "primereact/tag";
 import React, { useContext, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import FDate from "../../../app/common/FDate/FDate";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Loading from "../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import './HADashDataTable.css';
-
+import "./HADashDataTable.css";
 
 // import "./PortfolioDashDataTable.css";
-import { appColors } from '../../../colors';
+import TagGeneral from "../../../app/common/TagGeneral/TagGeneral";
+import { appColors } from "../../../colors";
 
 const HADash = () => {
   /* MobX Store */
@@ -30,22 +29,17 @@ const HADash = () => {
     }
   }, [fetchProjects, projectRegistry]); // eslint-disable-line react-hooks/exhaustive-deps
 
-
   /* local variables */
 
   const dt = useRef(null);
   let todaysDate = new Date().setHours(0, 0, 0, 0);
 
   const stageItemTemplate = (option) => {
-    return (
-      <span className={`customer-badge status-${option}`}>{option}</span>
-    );
+    return <span className={`customer-badge status-${option}`}>{option}</span>;
   };
 
   /* STATUS FILTER */
   const statuses = ["Active", "Terminated"];
-
-
 
   const statusFilter = (options) => (
     <SelectButton
@@ -54,7 +48,6 @@ const HADash = () => {
       onChange={(e) => options.filterApplyCallback(e.value)}
       itemTemplate={stageItemTemplate}
       className="p-column-filter p-button-sm"
-
     />
   );
   /* END STATUS FILTER */
@@ -82,9 +75,7 @@ const HADash = () => {
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
         <b>
-          <NavLink to={"./" + rowData.id}>
-            {rowData.projectName}
-          </NavLink>
+          <NavLink to={"./" + rowData.id}>{rowData.projectName}</NavLink>
         </b>
       </React.Fragment>
     );
@@ -100,20 +91,7 @@ const HADash = () => {
   };
 
   const StatusBodyTemplate = (rowData) => {
-    if (rowData.status === "Active") {
-      return (
-        <React.Fragment>
-          <span className="p-column-title">Status</span>
-          <Tag className="table-status-active" value="Active" />
-        </React.Fragment>
-      );
-    }
-    return (
-      <React.Fragment>
-        <span className="p-column-title">Status</span>
-        <Tag className="table-status-inactive" value="Terminated" />
-      </React.Fragment>
-    );
+    return <TagGeneral tag={rowData.status} />;
   };
 
   const DateBodyTemplate = (rowData) => {
@@ -124,7 +102,11 @@ const HADash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#9EA29D"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#9EA29D"}
+          />
         </React.Fragment>
       );
     }
@@ -132,7 +114,11 @@ const HADash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#1D7E00"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#1D7E00"}
+          />
         </React.Fragment>
       );
     }
@@ -140,14 +126,22 @@ const HADash = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#9B8800"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#9B8800"}
+          />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <FDate className="p-column-title" timestamp={stageDate} color={"#1D7E00"} />
+        <FDate
+          className="p-column-title"
+          timestamp={stageDate}
+          color={"#1D7E00"}
+        />
       </React.Fragment>
     );
   };
@@ -158,7 +152,6 @@ const HADash = () => {
   }
 
   if (!loadingProjects) {
-
     return (
       <div className="flex flex-column w-full fadein animation-duration-500">
         <div className="flex w-full">
@@ -189,7 +182,6 @@ const HADash = () => {
                 filterMatchMode="contains"
                 filterPlaceholder="Search by ProjectNo"
                 className="narrow-column"
-
               />
 
               <Column
@@ -229,11 +221,14 @@ const HADash = () => {
                 showFilterMenu={false}
               />
 
-              <Column field="Date" header="H2L Predictated Start" body={DateBodyTemplate} />
+              <Column
+                field="Date"
+                header="H2L Predictated Start"
+                body={DateBodyTemplate}
+              />
             </DataTable>
           </div>
         </div>
-
       </div>
     );
   }

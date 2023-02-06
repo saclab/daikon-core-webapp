@@ -33,7 +33,6 @@ const PortfolioInformationPriority = ({ project }) => {
             className="flex m-2 p-button-secondary"
           />
         </div>
-
       </div>
 
       <Sidebar
@@ -41,7 +40,9 @@ const PortfolioInformationPriority = ({ project }) => {
         position="right"
         onHide={() => setVisible(false)}
       >
-        <PortfolioInformationProirityModify closeSidebar={() => setVisible(false)} />
+        <PortfolioInformationProirityModify
+          closeSidebar={() => setVisible(false)}
+        />
         <hr />
       </Sidebar>
     </React.Fragment>

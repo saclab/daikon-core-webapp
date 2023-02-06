@@ -1,30 +1,39 @@
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import React from "react";
+import TagGeneral from "../../../../../app/common/TagGeneral/TagGeneral";
 import "./LocalComponents.css";
 
 const HAInformationGeneralInformation = ({ project }) => {
-  let displaySupportingOrgs =
-    project.supportingOrgs.length !== 0
-      ? project.supportingOrgs.map((org) => {
-        return <p>- {org.appOrg.name}</p>;
-      })
-      : null;
-
+  let data = [
+    {
+      name: "Id",
+      value: project.id,
+    },
+    {
+      name: "Target",
+      value: (
+        <div>
+          <i className="icon icon-common icon-target" />{" "}
+          {project.targetName ? project.targetName : "Unknown"}
+        </div>
+      ),
+    },
+    {
+      name: "Project Status",
+      value: <TagGeneral tag={project.status} />,
+    },
+    {
+      name: "Description",
+      value: project.haDescription,
+    },
+  ];
   return (
-    <div className="flex flex-column">
-      <div className="flex">
-        <h2><i>Hit Assessment</i></h2>
-      </div>
-      <div className="flex">
-        <p>{project.haDescription}</p>
-      </div>
-      <div className="flex flex-column">
-        <p>Expanded Id : {project.id}</p>
-        <p>Target: <b>{project.targetName}</b></p>
-        <p>Project Status : <b>{project.status}</b></p>
-        <p>Primary Org : <b>{project?.primaryOrg?.name}</b></p>
-        <p>Supporting Orgs :</p>
-        <div style={{ marginLeft: "1rem" }}> <b>{displaySupportingOrgs}</b></div>
-      </div>
+    <div className="flex flex-column flex-wrap card-container">
+      <DataTable className="noDataTableHeader" value={data}>
+        <Column field="name"></Column>
+        <Column field="value"></Column>
+      </DataTable>
     </div>
   );
 };
