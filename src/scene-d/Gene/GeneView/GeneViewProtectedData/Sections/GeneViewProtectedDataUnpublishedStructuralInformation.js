@@ -6,7 +6,7 @@ import { DataTable } from "primereact/datatable";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { Sidebar } from "primereact/sidebar";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 import GeneViewProtectedDataAddUnpublishedStructuralInformationForm from "./GeneViewProtectedDataAddUnpublishedStructuralInformationForm";
 
@@ -20,11 +20,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
 
-  const { fetchOrgs, Orgs } = rootStore.adminStore;
-
-  useEffect(() => {
-    fetchOrgs();
-  }, [fetchOrgs]);
+  const { appVars } = rootStore.generalStore;
 
   const [tableData, setTableData] = useState([...data]);
   const [displayAddSideBar, setDisplayAddSideBar] = useState(false);
@@ -66,7 +62,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
       <Dropdown
         id="organization"
         value={options.value}
-        options={Orgs}
+        options={appVars.appOrgs}
         onChange={(e) => options.editorCallback(e.target.value)}
         placeholder="Select an org"
         optionLabel="alias"
