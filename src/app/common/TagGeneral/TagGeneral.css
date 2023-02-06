@@ -1,0 +1,49 @@
+.tag-general .tag-active {
+  background-color: #588157;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+  text-transform: capitalize;
+}
+.tag-general .tag-ongoing {
+  background-color: #b5e48c;
+  color: #000000;
+  font-weight: normal;
+  min-width: 5rem;
+  text-transform: capitalize;
+}
+
+.tag-general .tag-complete {
+  background-color: #25a18e;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+  text-transform: capitalize;
+}
+.tag-general .tag-inactive {
+  background-color: #778da9;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+  text-transform: capitalize;
+}
+.tag-general .tag-terminated {
+  background-color: #323031;
+  color: #ffffff;
+  font-weight: normal;
+  min-width: 5rem;
+  text-transform: capitalize;
+}
+
+.tag-general .tag-Dotted {
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background: repeating-linear-gradient(
+    -45deg,
+    #444cf7,
+    #444cf7 1px,
+    #a9cce3 1px,
+    #a9cce3 5px
+  );
+  min-width: 5rem;
+}

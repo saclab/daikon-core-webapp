@@ -8,18 +8,19 @@ import {
   Route,
   Routes,
   useNavigate,
-  useParams
+  useParams,
 } from "react-router-dom";
 import EmbededHelp from "../../../app/common/EmbededHelp/EmbededHelp";
 import Loading from "../../../app/layout/Loading/Loading";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import { RootStoreContext } from "../../../app/stores/rootStore";
+import TargetCompass from "./TargetCompass/TargetCompass";
 import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
 import TargetEdit from "./TargetEdit/TargetEdit";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
+import TargetPromotionFormEdit from "./TargetPromotionForm/TargetPromotionFormEdit/TargetPromotionFormEdit";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
-import TargetSummary from "./TargetSummary/TargetSummary";
 
 const TargetView = () => {
   const params = useParams();
@@ -52,15 +53,15 @@ const TargetView = () => {
           },
         },
         {
-          label: "Summary",
+          label: "Compass",
           icon: "icon icon-common icon-compass",
           command: () => {
-            navigate("summary/");
+            navigate("compass/");
           },
         },
         {
           label: "Promotion Info",
-          icon: "pi pi-table",
+          icon: "icon icon-common icon-info",
           command: () => {
             navigate("promotion-info/");
           },
@@ -162,7 +163,16 @@ const TargetView = () => {
                   />
                 }
               />
-              <Route path="summary/" element={<TargetSummary />} />
+              <Route path="compass/" element={<TargetCompass />} />
+              <Route
+                path="promotion-info/edit"
+                element={
+                  <TargetPromotionFormEdit
+                    data={target.targetScorecard.targetScoreCardValues}
+                    selectedTarget={target}
+                  />
+                }
+              />
               <Route
                 path="promotion-info/"
                 element={
@@ -172,6 +182,7 @@ const TargetView = () => {
                   />
                 }
               />
+
               <Route
                 path="discussion/"
                 element={<TargetDiscussion selectedTarget={target} />}

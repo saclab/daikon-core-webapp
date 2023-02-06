@@ -119,7 +119,7 @@ const PostPortfolioInformationProirityModify = ({ closeSidebar }) => {
                 icon="icon icon-common icon-database-submit"
                 type="submit"
                 label="Save"
-                className="p-mt-2"
+                className="p-mt-2 p-button-secondary"
                 loading={settingPriorityProbability}
               />
             </form>

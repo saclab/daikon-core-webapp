@@ -28,6 +28,10 @@ export default class ProjectStore {
 
   overridingStage = false;
 
+  editingSupportingOrgs = false;
+
+  editingPredictedDates = false;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -65,6 +69,12 @@ export default class ProjectStore {
 
       overrideStage: action,
       overridingStage: observable,
+
+      editSupportingOrgs: action,
+      editingSupportingOrgs: observable,
+
+      editPredictedDates: action,
+      editingPredictedDates: observable,
     });
   }
 
@@ -313,6 +323,54 @@ export default class ProjectStore {
     } finally {
       runInAction(() => {
         this.overridingStage = false;
+      });
+    }
+    return res;
+  };
+
+  editSupportingOrgs = async (editSupportingOrgsDTO) => {
+    this.editingSupportingOrgs = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.editSupportingOrg(
+        this.selectedProject.id,
+        editSupportingOrgsDTO
+      );
+      runInAction(() => {
+        toast.success("Saved project supporting organizations.");
+        this.projectRegistryCacheValid = false;
+        this.fetchProject(this.selectedProject.id);
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.editingSupportingOrgs = false;
+      });
+    }
+    return res;
+  };
+
+  editPredictedDates = async (projectDTO) => {
+    this.editingPredictedDates = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Projects.editPredictedDated(
+        this.selectedProject.id,
+        projectDTO
+      );
+      runInAction(() => {
+        toast.success("Saved predicted date.");
+        this.projectRegistryCacheValid = false;
+        this.fetchProject(this.selectedProject.id);
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.editingPredictedDates = false;
       });
     }
     return res;
