@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
@@ -15,11 +15,7 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
 
-  const { fetchOrgs, Orgs } = rootStore.adminStore;
-
-  useEffect(() => {
-    fetchOrgs();
-  }, [fetchOrgs]);
+  const { appVars } = rootStore.generalStore;
 
   const formik = useFormik({
     initialValues: {
@@ -69,7 +65,7 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
           </label>
           <Dropdown
             value={formik.values.organization}
-            options={Orgs}
+            options={appVars.appOrgs}
             onChange={formik.handleChange("organization")}
             placeholder="Select an org"
             optionLabel="name"
