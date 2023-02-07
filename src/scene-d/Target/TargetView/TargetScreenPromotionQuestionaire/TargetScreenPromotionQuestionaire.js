@@ -6,7 +6,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ProgressBar } from "primereact/progressbar";
 import { classNames } from "primereact/utils";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
@@ -18,14 +18,9 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
     promoteTargetToScreenDisplayLoading,
   } = rootStore.targetStore;
 
-  const { fetchOrgs, Orgs, LoadingOrgs } = rootStore.adminStore;
   const { appVars } = rootStore.generalStore;
 
   const [showMessage, setShowMessage] = useState(false);
-
-  useEffect(() => {
-    fetchOrgs();
-  }, [fetchOrgs]);
 
   const formik = useFormik({
     initialValues: {
@@ -72,7 +67,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
     );
   };
 
-  if (!promoteTargetToScreenDisplayLoading && !LoadingOrgs) {
+  if (!promoteTargetToScreenDisplayLoading) {
     return (
       <React.Fragment>
         {/* <Dialog
@@ -130,7 +125,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
 
               <Dropdown
                 value={formik.values.org}
-                options={Orgs}
+                options={appVars.appOrgs}
                 onChange={formik.handleChange("org")}
                 optionLabel="name"
                 placeholder="Select an org"
