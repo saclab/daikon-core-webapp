@@ -82,8 +82,8 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       if (typeof (hit.Id) === 'undefined' || hit.Id === '') return;
       hit.IC50 = _.toNumber(hit?.IC50) ? _.round(hit?.IC50, 2) : 0;
       hit.MIC = _.toNumber(hit?.MIC) ? _.round(hit?.MIC, 2) : 0;
-      hit.MolWeight = _.toNumber(hit?.molWeight) ? _.round(hit?.molWeight, 2) : 0;
-      hit.MolArea = _.toNumber(hit?.molArea) ? _.round(hit?.molArea, 2) : 0;
+      hit.MolWeight = (typeof (hit.MolWeight) != 'undefined') ? hit.MolWeight : '0';
+      hit.MolArea = (typeof (hit.MolArea) != 'undefined') ? hit.MolArea : '0';
 
 
       // separate new hits and hits to update

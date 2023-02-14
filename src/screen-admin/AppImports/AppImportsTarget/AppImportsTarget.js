@@ -31,7 +31,7 @@ const AppImportsTarget = () => {
     {
       label: "Target",
       command: () => {
-        navigate(`/admin/app-imports/target`);
+        navigate(`/admin/app-imports/targets`);
       }
     },
   ];

@@ -59,6 +59,8 @@ export default class GeneStore {
 
   searchedGeneGroup = null;
 
+  creatingGene = false;
+
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
@@ -141,6 +143,9 @@ export default class GeneStore {
       searchingGeneGroup: observable,
       searchedGeneGroup: observable,
       searchGeneGroup: action,
+
+      createGene : action,
+      creatingGene : observable
     });
   }
 
@@ -857,6 +862,29 @@ export default class GeneStore {
     } finally {
       runInAction(() => {
         this.searchingGeneGroup = false;
+      });
+    }
+  };
+
+
+  createGene = async (newGene) => {
+    console.log("geneStore: createGene Start");
+    this.creatingGene = true;
+    let createdGene = null;
+    // send to server
+    try {
+      console.log("Creating gene: " + newGene.accessionNumber);
+      createdGene = await agent.Gene.new(newGene);
+      runInAction(() => {
+        console.log("Success: " + newGene.accessionNumber);
+        
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      runInAction(() => {
+        this.creatingGene = false;
+        console.log("geneStore: create Complete");
       });
     }
   };

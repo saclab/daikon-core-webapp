@@ -3,9 +3,17 @@ import { observer } from "mobx-react-lite";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
-import SectionHeading from '../../app/common/SectionHeading/SectionHeading';
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import SectionHeading from "../../app/common/SectionHeading/SectionHeading";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import AppImportsTarget from "./AppImportsTarget/AppImportsTarget";
+import AppImportGene from "./AppImportsGene/AppImportGene";
 
 const AppImports = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -19,12 +27,19 @@ const AppImports = () => {
       label: "Sections",
       items: [
         {
+          label: "Genes",
+          icon: "icon icon-common icon-snowflake",
+          command: () => {
+            navigate("genes/");
+          },
+        },
+        {
           label: "Targets",
           icon: "icon icon-common icon-snowflake",
           command: () => {
             navigate("targets/");
           },
-        }
+        },
       ],
     },
   ];
@@ -37,14 +52,14 @@ const AppImports = () => {
         </div>
         <div className="flex w-full">
           <Routes>
-            <Route index element={<Navigate replace to="targets/" />} />
+            <Route index element={<Navigate replace to="genes/" />} />
             <Route path="targets/" element={<AppImportsTarget />} />
-
+            <Route path="genes/" element={<AppImportGene />} />
           </Routes>
         </div>
       </div>
     </React.Fragment>
   );
-}
+};
 
-export default observer(AppImports)
+export default observer(AppImports);
