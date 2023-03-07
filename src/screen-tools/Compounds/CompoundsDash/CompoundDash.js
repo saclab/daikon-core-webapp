@@ -1,6 +1,8 @@
+import { observer } from "mobx-react-lite";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import React, { useContext, useEffect, useRef } from "react";
+import { NavLink } from "react-router-dom";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 
@@ -10,7 +12,7 @@ const CompoundDash = () => {
     rootStore.compoundStore;
 
   useEffect(() => {
-    if (compoundRegistry.size === 0) fetchCompounds();
+    fetchCompounds();
   }, [fetchCompounds]);
 
   /* local variables */
@@ -18,6 +20,15 @@ const CompoundDash = () => {
   const dt = useRef(null);
 
   if (!displayLoading) {
+    const GuidBodyTemplate = (rowData) => {
+      return (
+        <React.Fragment>
+          <span className="p-column-title">GUID</span>
+          <NavLink to={"/tools/compounds/" + rowData.id}>{rowData.id}</NavLink>
+        </React.Fragment>
+      );
+    };
+
     return (
       <div className="flex flex-column w-full fadein animation-duration-500">
         <div className="flex w-full">
@@ -42,7 +53,7 @@ const CompoundDash = () => {
             <Column
               field="id"
               header="Guid"
-              //body={ProjectNoBodyTemplate}
+              body={GuidBodyTemplate}
               filter
               filterMatchMode="contains"
               filterPlaceholder="Search by Guid"
@@ -78,4 +89,4 @@ const CompoundDash = () => {
   return <div>CompoundDash</div>;
 };
 
-export default CompoundDash;
+export default observer(CompoundDash);

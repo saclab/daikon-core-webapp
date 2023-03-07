@@ -388,6 +388,7 @@ const DataView = {
 
 const Compounds = {
   list: () => requests.get(`/compound/`),
+  details: (id) => requests.get(`/data-view/VCompound/details/${id}`),
 };
 
 const exports = {
