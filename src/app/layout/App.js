@@ -23,6 +23,7 @@ import AppBeta from "./AppBeta";
 import AppDefault from "./AppDefault";
 import AppDeveloper from "./AppDeveloper";
 import AppProjectManagement from "./AppProjectManagement";
+import AppTools from "./AppTools";
 import NetworkError from "./Errors/NetworkError/NetworkError";
 import Footer from "./Footer/Footer";
 import Loading from "./Loading/Loading";
@@ -88,6 +89,7 @@ const App = () => {
             <Route path="/pm/*" element={<AppProjectManagement />} />
             <Route path="/beta" element={<AppBeta />} />
             <Route path="/developer/*" element={<AppDeveloper />} />
+            <Route path="/tools/*" element={<AppTools />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
