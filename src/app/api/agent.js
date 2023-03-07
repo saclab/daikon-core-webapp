@@ -386,6 +386,10 @@ const DataView = {
   targetDash: () => requests.get(`/data-view/VTarget/dash-view`),
 };
 
+const Compounds = {
+  list: () => requests.get(`/compound/`),
+};
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -404,6 +408,7 @@ const exports = {
   Projects,
   Vote,
   DataView,
+  Compounds,
 };
 
 export default exports;
