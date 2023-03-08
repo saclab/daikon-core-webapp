@@ -99,6 +99,7 @@ const CompoundOverviewEditProperties = () => {
           <InputTextarea
             id="smiles"
             answer="smiles"
+            autoResize
             value={formik.values.smiles}
             onChange={formik.handleChange}
             className={classNames({
