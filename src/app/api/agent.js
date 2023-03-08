@@ -389,6 +389,9 @@ const DataView = {
 const Compounds = {
   list: () => requests.get(`/compound/`),
   details: (id) => requests.get(`/data-view/VCompound/details/${id}`),
+  edit: (id, compound) => requests.post(`/compound/${id}/edit`, compound),
+  editExternalId: (id, compound) =>
+    requests.post(`/compound/${id}/edit-external-id`, compound),
 };
 
 const exports = {
