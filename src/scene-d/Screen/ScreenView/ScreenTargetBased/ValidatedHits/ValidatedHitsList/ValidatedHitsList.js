@@ -9,7 +9,7 @@ import { Dialog } from "primereact/dialog";
 import { TieredMenu } from "primereact/tieredmenu";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import SmilesView from "../../../../../../app/common/SmilesView/SmilesView";
+import SmilesViewWithDetails from "../../../../../../app/common/SmilesViewWithDetails/SmilesViewWithDetails";
 import Vote from "../../../../../../app/common/Vote/Vote";
 import Loading from "../../../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../../../app/stores/rootStore";
@@ -121,8 +121,8 @@ const ValidatedHitsList = ({ screenId }) => {
     return (
       <React.Fragment>
         <div>
-          <SmilesView
-            smiles={rowData?.compound?.smile}
+          <SmilesViewWithDetails
+            compound={rowData?.compound}
             width={"220"}
             height={"220"}
           />
