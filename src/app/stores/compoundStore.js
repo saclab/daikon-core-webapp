@@ -15,16 +15,20 @@ export default class CompoundStore {
   displayLoading = false;
   compoundRegistry = new Map();
   compoundRegistryExpanded = new Map();
+
   cacheValid = false;
 
   selectedCompound = null;
 
   loadingFetchCompound = false;
+  editingCompound = false;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeObservable(this, {
       displayLoading: observable,
+      cacheValid: observable,
+
       fetchCompounds: action,
       compounds: computed,
       compoundRegistry: observable,
@@ -34,6 +38,10 @@ export default class CompoundStore {
       loadingFetchCompound: observable,
       fetchCompound: action,
       compoundRegistryExpanded: observable,
+
+      editingCompound: observable,
+      editCompound: action,
+      editCompoundExternalId: action,
     });
   }
 
@@ -67,12 +75,12 @@ export default class CompoundStore {
     return Array.from(this.compoundRegistry.values());
   }
 
-  fetchCompound = async (id, invalidateCache = false) => {
+  fetchCompound = async (id) => {
     this.loadingFetchCompound = true;
 
     // first check cache
     let fetchedCompound = this.compoundRegistryExpanded.get(id);
-    if (!invalidateCache && fetchedCompound) {
+    if (this.cacheValid && fetchedCompound) {
       this.selectedCompound = fetchedCompound;
       this.loadingFetchCompound = false;
     }
@@ -92,5 +100,48 @@ export default class CompoundStore {
         });
       }
     }
+  };
+
+  editCompound = async (compound) => {
+    this.editingCompound = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Compounds.edit(this.selectedCompound.id, compound);
+      runInAction(() => {
+        this.cacheValid = false;
+        this.fetchCompound(this.selectedCompound.id);
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.editingCompound = false;
+      });
+    }
+    return res;
+  };
+
+  editCompoundExternalId = async (compound) => {
+    this.editingCompound = true;
+    let res = null;
+    // send to server
+    try {
+      res = await agent.Compounds.editExternalId(
+        this.selectedCompound.id,
+        compound
+      );
+      runInAction(() => {
+        this.cacheValid = false;
+        this.fetchCompound(this.selectedCompound.id);
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.editingCompound = false;
+      });
+    }
+    return res;
   };
 }
