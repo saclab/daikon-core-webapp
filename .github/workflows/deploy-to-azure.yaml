@@ -9,17 +9,16 @@ env:
   # These can be left inline and changed as needed  (if only one pipeline per env)
   ENVIRONMENT: prd
   APP_VERSION: rc1-postbeta
-  APP_SERVICE_NAME: daikon-prd-backend
   AZURE_TENANT_ID: 296b3838-4bd5-496c-bd4b-f456ea743b74
   AZURE_SUBSCRIPTION_ID: 7bd7cad1-cba0-45dd-8962-6efa16660e26
   CONTAINER_REGISTRY_SERVER: daikonacrprd.azurecr.io
   CONTAINER_REGISTRY_USER: daikonacrprd
+  RESOURCE_GROUP: daikon-prd-rg
   PGSQL_CONNECTION_STRING: Host=daikon-prd-psql.postgres.database.azure.com;Port=5432;Database=tpt_db;Ssl Mode=VerifyFull;Timeout=120;Command Timeout=60
   CORS_ORIGINS: https://daikon-prd-backend.azurewebsites.net
   CONTAINER_IMAGE_NAME: daikon-backend
-  RESOURCE_GROUP: daikon-prd-rg
   WEB_APP_NAME: daikon-prd-backend
-
+  APP_SERVICE_NAME: daikon-prd-backend
 on:
   workflow_dispatch:
 #  push:
