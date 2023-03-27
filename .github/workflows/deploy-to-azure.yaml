@@ -14,11 +14,9 @@ env:
   CONTAINER_REGISTRY_SERVER: daikonacrprd.azurecr.io
   CONTAINER_REGISTRY_USER: daikonacrprd
   RESOURCE_GROUP: daikon-prd-rg
-  PGSQL_CONNECTION_STRING: Host=daikon-prd-psql.postgres.database.azure.com;Port=5432;Database=tpt_db;Ssl Mode=VerifyFull;Timeout=120;Command Timeout=60
-  CORS_ORIGINS: https://daikon-prd-backend.azurewebsites.net
-  CONTAINER_IMAGE_NAME: daikon-backend
+  CONTAINER_IMAGE_NAME: daikon-frontend
   WEB_APP_NAME: daikon-prd-backend
-  APP_SERVICE_NAME: daikon-prd-backend
+  APP_SERVICE_NAME: daikon-prd-frontend
 on:
   workflow_dispatch:
 #  push:
