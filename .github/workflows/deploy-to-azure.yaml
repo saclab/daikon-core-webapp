@@ -73,8 +73,8 @@ jobs:
           registry-password: ${{ env.CONTAINER_REGISTRY_PASSWORD }}
           name: daikon-frontend
           location: "west us 2"
-      #- name: "Publish Web App"
-      #  uses: azure/webapps-deploy@v2
-      #  with:
-      #    app-name: '${{ env.APP_SERVICE_NAME }}'
-      #    images: '${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ env.APP_VERSION }}-${{ github.sha }}'
+      - name: "Publish Web App"
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: '${{ env.APP_SERVICE_NAME }}'
+          images: '${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ env.APP_VERSION }}-${{ github.sha }}'
