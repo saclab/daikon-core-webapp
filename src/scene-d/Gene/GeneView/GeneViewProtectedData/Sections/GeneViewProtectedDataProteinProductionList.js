@@ -142,7 +142,7 @@ const GeneViewProtectedDataProteinProductionList = ({
               body={(rowData) =>
                 rowData.url && (
                   <a href={rowData.url} target="_BLANK">
-                    <i class="icon icon-common icon-external-link-alt"></i>
+                    <i className="icon icon-common icon-external-link-alt"></i>
                   </a>
                 )
               }
