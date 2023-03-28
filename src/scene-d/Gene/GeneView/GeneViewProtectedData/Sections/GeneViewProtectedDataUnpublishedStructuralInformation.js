@@ -5,6 +5,7 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { Sidebar } from "primereact/sidebar";
 import React, { useContext, useState } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
@@ -51,6 +52,18 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
     return (
       <InputText
         type="text"
+        value={options.value}
+        onChange={(e) => options.editorCallback(e.target.value)}
+      />
+    );
+  };
+
+  const textAreaEditor = (options) => {
+    return (
+      <InputTextarea
+        type="text"
+        autoResize
+        rows={4}
         value={options.value}
         onChange={(e) => options.editorCallback(e.target.value)}
       />
@@ -109,6 +122,30 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
               header="Ligands"
               editor={(options) => textEditor(options)}
             />
+
+            <Column
+              field="reference"
+              header="Reference"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="notes"
+              header="Notes"
+              editor={(options) => textAreaEditor(options)}
+            />
+            <Column
+              field="url"
+              header="URL"
+              editor={(options) => textEditor(options)}
+              body={(rowData) =>
+                rowData.url && (
+                  <a href={rowData.url} target="_BLANK">
+                    <i class="icon icon-common icon-external-link-alt"></i>
+                  </a>
+                )
+              }
+            />
+
             <Column
               rowEditor
               headerStyle={{ width: "10%", minWidth: "8rem" }}
