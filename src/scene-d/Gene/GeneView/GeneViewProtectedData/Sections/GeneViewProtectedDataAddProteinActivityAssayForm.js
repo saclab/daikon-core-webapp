@@ -4,23 +4,26 @@ import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import React from "react";
 
-const GeneViewProtectedDataAddProteinActivityAssayForm = ({
+const GeneViewProtectedDataAddProteinassayAssayForm = ({
   add,
   adding,
   closeSidebar,
 }) => {
   const formik = useFormik({
     initialValues: {
-      activity: "",
-      type: "",
+      assay: "",
+      method: "",
       throughput: "",
+      url: "",
+      pmid: "",
+      reference: "",
     },
 
     validate: (data) => {
       let errors = {};
 
-      if (!data.activity) {
-        errors.activity = "Activity is required.";
+      if (!data.assay) {
+        errors.assay = "Assay is required.";
       }
       return errors;
     },
@@ -49,43 +52,43 @@ const GeneViewProtectedDataAddProteinActivityAssayForm = ({
       <form onSubmit={formik.handleSubmit} className="p-fluid">
         <div className="field">
           <label
-            htmlFor="activity"
+            htmlFor="assay"
             className={classNames({
-              "p-error": isFormFieldValid("activity"),
+              "p-error": isFormFieldValid("assay"),
             })}
           >
-            Activity*
+            Assay*
           </label>
           <InputText
-            id="activity"
-            value={formik.values.activity}
+            id="assay"
+            value={formik.values.assay}
             onChange={formik.handleChange}
             autoFocus
             className={classNames({
-              "p-invalid": isFormFieldValid("activity"),
+              "p-invalid": isFormFieldValid("assay"),
             })}
           />
-          {getFormErrorMessage("activity")}
+          {getFormErrorMessage("assay")}
         </div>
 
         <div className="field">
           <label
-            htmlFor="type"
+            htmlFor="method"
             className={classNames({
-              "p-error": isFormFieldValid("type"),
+              "p-error": isFormFieldValid("method"),
             })}
           >
-            Type
+            Method
           </label>
           <InputText
-            id="type"
-            value={formik.values.type}
+            id="method"
+            value={formik.values.method}
             onChange={formik.handleChange}
             className={classNames({
-              "p-invalid": isFormFieldValid("type"),
+              "p-invalid": isFormFieldValid("method"),
             })}
           />
-          {getFormErrorMessage("type")}
+          {getFormErrorMessage("method")}
         </div>
 
         <div className="field">
@@ -108,11 +111,91 @@ const GeneViewProtectedDataAddProteinActivityAssayForm = ({
           {getFormErrorMessage("throughput")}
         </div>
 
+        <div className="field">
+          <label
+            htmlFor="pmid"
+            className={classNames({
+              "p-error": isFormFieldValid("pmid"),
+            })}
+          >
+            PMID
+          </label>
+          <InputText
+            id="pmid"
+            value={formik.values.pmid}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("pmid"),
+            })}
+          />
+          {getFormErrorMessage("pmid")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="reference"
+            className={classNames({
+              "p-error": isFormFieldValid("reference"),
+            })}
+          >
+            Reference
+          </label>
+          <InputText
+            id="reference"
+            value={formik.values.reference}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("reference"),
+            })}
+          />
+          {getFormErrorMessage("reference")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="url"
+            className={classNames({
+              "p-error": isFormFieldValid("url"),
+            })}
+          >
+            URL
+          </label>
+          <InputText
+            id="url"
+            value={formik.values.url}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("url"),
+            })}
+          />
+          {getFormErrorMessage("url")}
+        </div>
+
+        {/* <div className="field">
+          <label
+            htmlFor="notes"
+            className={classNames({
+              "p-error": isFormFieldValid("notes"),
+            })}
+          >
+            Notes
+          </label>
+          <InputTextarea
+            id="notes"
+            value={formik.values.notes}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("notes"),
+            })}
+          />
+          {getFormErrorMessage("notes")}
+        </div> */}
+
         <div className="flex justify-content-center">
           <div className="flex">
             <Button
               icon="icon icon-common icon-database-submit"
-              type="submit"
+              method="submit"
               label="Add to database"
               className="p-button-secondary p-button-sm"
               loading={adding}
@@ -124,4 +207,4 @@ const GeneViewProtectedDataAddProteinActivityAssayForm = ({
   );
 };
 
-export default GeneViewProtectedDataAddProteinActivityAssayForm;
+export default GeneViewProtectedDataAddProteinassayAssayForm;
