@@ -10,7 +10,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import EmbededHelp from "../../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import Loading from "../../../app/layout/Loading/Loading";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -134,11 +134,11 @@ const TargetView = () => {
               </h2>
             </div>
             <div className="flex">
-              <EmbededHelp>
+              <EmbeddedHelp>
                 This would create a new screening series. If you are intending
                 to add screening information to an existing screening set please
                 add it via the screening tab.
-              </EmbededHelp>
+              </EmbeddedHelp>
             </div>
             <div className="flex w-full">
               <TargetScreenPromotionQuestionaire

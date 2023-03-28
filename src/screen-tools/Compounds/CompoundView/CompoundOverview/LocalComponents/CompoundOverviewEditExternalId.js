@@ -6,7 +6,7 @@ import { classNames } from "primereact/utils";
 import React, { useContext } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import EmbededHelp from "../../../../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const CompoundOverviewEditExternalId = () => {
@@ -61,9 +61,9 @@ const CompoundOverviewEditExternalId = () => {
         maxWidth: "400px",
       }}
     >
-      <EmbededHelp>
+      <EmbeddedHelp>
         Overriding Ids might have undesirable effect. Proceed with caution.
-      </EmbededHelp>
+      </EmbeddedHelp>
       <br />
 
       <form onSubmit={formik.handleSubmit} className="p-fluid">
