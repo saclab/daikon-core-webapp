@@ -2,7 +2,7 @@ import { Button } from "primereact/button";
 import { Editor } from "primereact/editor";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import EmbededHelp from "../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../app/common/EmbeddedHelp/EmbeddedHelp";
 
 const FeatureRequest = () => {
   let prefilledText = `<b>1. Feature Description</b><br /><br />
@@ -39,14 +39,14 @@ const FeatureRequest = () => {
   return (
     <div className="flex w-full flex-column pl-6">
       <h2>Feature Request Template</h2>
-      <EmbededHelp>
+      <EmbeddedHelp>
         Thank you for your time! Feedbacks helps us improve.
-      </EmbededHelp>
-      <EmbededHelp>
+      </EmbeddedHelp>
+      <EmbeddedHelp>
         Feature Requests are maintained in github and are <b>&nbsp; public</b>.
         Make sure you <b>&nbsp; do NOT have any sensitive data &nbsp;</b> placed
         in the submission.
-      </EmbededHelp>
+      </EmbeddedHelp>
       <p>
         - Please use this template to request a new feature.
         <br />- click on 'COPY Text' button to copy the filled template.

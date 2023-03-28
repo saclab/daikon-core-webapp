@@ -3,7 +3,7 @@ import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import React, { useContext, useState } from "react";
-import EmbededHelp from "../../../../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import StageTag from "../../../../../app/common/StageTag/StageTag";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
@@ -40,9 +40,9 @@ const ProjectSettingsStageOverride = ({ project }) => {
           borderWidth: "1px",
         }}
       >
-        <EmbededHelp>
+        <EmbeddedHelp>
           Overriding stages might have undesirable effect. Proceed with caution.
-        </EmbededHelp>
+        </EmbeddedHelp>
         <div className="flex gap-2 pt-2 align-content-center align-items-center">
           Current Stage :<StageTag stage={project.currentStage} />
           <Dropdown

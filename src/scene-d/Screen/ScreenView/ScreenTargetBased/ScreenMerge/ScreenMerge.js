@@ -4,7 +4,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import EmbededHelp from "../../../../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const ScreenMerge = ({ screens, close }) => {
@@ -41,7 +41,7 @@ const ScreenMerge = ({ screens, close }) => {
 
   return (
     <div className="card">
-      <EmbededHelp>
+      <EmbeddedHelp>
         <div>
           Please make sure that both screening efforts :
           <ul>
@@ -53,7 +53,7 @@ const ScreenMerge = ({ screens, close }) => {
             </li>
           </ul>
         </div>
-      </EmbededHelp>
+      </EmbeddedHelp>
 
       <div className="flex flex-column">
         <div className="flex flex-row gap-4 h-2rem align-content-center">

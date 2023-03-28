@@ -10,7 +10,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import Loading from "../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import ScreenDiscussion from "./ScreenDiscussion/ScreenDiscussion";
@@ -63,9 +63,9 @@ const ScreenView = () => {
             <h2>No Screens found</h2>
           </div>
           <div className="flex align-items-center">
-            <EmbededHelp>
+            <EmbeddedHelp>
               To create a screen visit the targets page{" "}
-            </EmbededHelp>
+            </EmbeddedHelp>
           </div>
         </div>
       </div>

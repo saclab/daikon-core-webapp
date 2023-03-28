@@ -10,7 +10,7 @@ import { RadioButton } from "primereact/radiobutton";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const GenePromoteTargetSelectionWindow = ({
@@ -116,12 +116,12 @@ const GenePromoteTargetSelectionWindow = ({
 
   let screenProteinTypeSelection = () => (
     <React.Fragment>
-      <EmbededHelp>
+      <EmbeddedHelp>
         <p>
           A target promotion refers to the process of identifying and validating
           a specific biological target as a potential therapeutic opportunity.
         </p>
-      </EmbededHelp>
+      </EmbeddedHelp>
 
       <h2> Promote as</h2>
 
@@ -179,7 +179,7 @@ const GenePromoteTargetSelectionWindow = ({
 
   let screenProposeSimpleProteinTargetName = () => (
     <React.Fragment>
-      <EmbededHelp>
+      <EmbeddedHelp>
         <h4>Nomenclature</h4>
         <p>
           Consistent protein nomenclature is indispensable for communication,
@@ -195,7 +195,7 @@ const GenePromoteTargetSelectionWindow = ({
             International Protein Nomenclature Guidelines.
           </a>
         </p>
-      </EmbededHelp>
+      </EmbeddedHelp>
 
       <h4>
         Proposed Protein Name{" "}
