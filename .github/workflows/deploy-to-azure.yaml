@@ -3,30 +3,28 @@ name: DAIKON_frontend_workflow
 # !TODO! Create new Github Actions secrets and assign the secret.* value here to these env assignments:
 env:
   AZURE_CLIENT_SECRET: IBE8Q~ZfwnFgsyiZtrVxyxLZwUe5k.c85sPzZbIk
-  CONTAINER_REGISTRY_PASSWORD: wzeGhJCvKloc/QNjKku+Z1I9n6oqG6Mw
+  CONTAINER_REGISTRY_PASSWORD: l2y8V2Q+ocsWlPRKEZProVxF8rR1CTWIekBGebcB9e+ACRAIQcVU
   AZURE_CLIENT_ID: 8a8ecadf-698c-4954-8128-6125d9fa73de
 
   # These can be left inline and changed as needed  (if only one pipeline per env)
-  ENVIRONMENT: dev
-  APP_VERSION: rc1-prebeta
-  APP_SERVICE_NAME: tbda-dev-backend
+  ENVIRONMENT: prd
+  APP_VERSION: rc1-postbeta
   AZURE_TENANT_ID: 296b3838-4bd5-496c-bd4b-f456ea743b74
-  AZURE_SUBSCRIPTION_ID: 692efea0-2038-48e2-bf74-a333fef44d58
-  CONTAINER_REGISTRY_SERVER: tbdadev.azurecr.io
-  CONTAINER_REGISTRY_USER: tbdadev
-  PGSQL_CONNECTION_STRING: Host=tbda-dev-psql.postgres.database.azure.com;Port=5432;Database=tpt_db;Ssl Mode=VerifyFull;Timeout=120;Command Timeout=60
-  CORS_ORIGINS: https://tbda-dev-backend.azurewebsites.net
-  CONTAINER_IMAGE_NAME: daikon-backend
-  RESOURCE_GROUP: tbda-dev-rg
-  WEB_APP_NAME: tbda-dev-backend
-
+  AZURE_SUBSCRIPTION_ID: 7bd7cad1-cba0-45dd-8962-6efa16660e26
+  CONTAINER_REGISTRY_SERVER: daikonacrprd.azurecr.io
+  CONTAINER_REGISTRY_USER: daikonacrprd
+  RESOURCE_GROUP: daikon-prd-rg
+  CONTAINER_IMAGE_NAME: daikon-frontend
+  WEB_APP_NAME: daikon-prd-backend
+  APP_SERVICE_NAME: daikon-prd-frontend
 on:
-  push:
-    branches:
-    - master
-  pull_request:
-    branches:
-    - master
+  workflow_dispatch:
+#  push:
+#    branches:
+#    - v0.16.0
+#  pull_request:
+#    branches:
+#    - v0.16.0
 
 jobs:
   build-and-deploy:
@@ -49,12 +47,12 @@ jobs:
       - run: |
           echo 'export const appConfig = {
           REACT_APP_MSAL_CLIENT_ID: "${{ env.AZURE_CLIENT_ID }}",
-          REACT_APP_WEB_API_BASE_URI: "https://tbda-${{ env.ENVIRONMENT }}-backend.azurewebsites.net/api/",
+          REACT_APP_WEB_API_BASE_URI: "https://daikon-${{ env.ENVIRONMENT }}-backend.azurewebsites.net/api/",
           REACT_APP_MSAL_CLIENT_SCOPE: "api://${{ env.AZURE_CLIENT_ID }}/access_as_user",
           REACT_APP_MSAL_TENANT_AUTHORITY_URI: "https://login.microsoftonline.com/${{ env.AZURE_TENANT_ID }}",
           REACT_APP_MSAL_CACHE_LOCATION: "sessionStorage",
           REACT_APP_MSAL_AUTH_STATE_IN_COOKIE: "false",
-          REACT_APP_MSAL_LOGIN_REDIRECT_URI: "https://tbda-${{ env.ENVIRONMENT }}-frontend.azurewebsites.net/" };
+          REACT_APP_MSAL_LOGIN_REDIRECT_URI: "https://daikon-${{ env.ENVIRONMENT }}-frontend.azurewebsites.net/" };
           export const appVersion = {
               release: "v0.1.2",
               stream: "Enterprise",
@@ -73,8 +71,8 @@ jobs:
           registry-password: ${{ env.CONTAINER_REGISTRY_PASSWORD }}
           name: daikon-frontend
           location: "west us 2"
-      #- name: "Publish Web App"
-      #  uses: azure/webapps-deploy@v2
-      #  with:
-      #    app-name: '${{ env.APP_SERVICE_NAME }}'
-      #    images: '${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ env.APP_VERSION }}-${{ github.sha }}'
+      - name: "Publish Web App"
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: '${{ env.APP_SERVICE_NAME }}'
+          images: '${{ env.CONTAINER_REGISTRY_SERVER }}/daikon-frontend:${{ env.APP_VERSION }}-${{ github.sha }}'
