@@ -1,13 +1,16 @@
 import { observer } from "mobx-react-lite";
+import { AutoComplete } from "primereact/autocomplete";
 import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { Sidebar } from "primereact/sidebar";
-import React, { useState } from "react";
-import GeneViewProtectedDataAddResistanceMutationForm from "./GeneViewProtectedDataAddResistanceMutationForm";
 
+import React, { useContext, useState } from "react";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
+import GeneViewProtectedDataAddResistanceMutationForm from "./GeneViewProtectedDataAddResistanceMutationForm";
 
 const GeneViewProtectedDataResistanceMutation = ({
   data,
@@ -18,6 +21,10 @@ const GeneViewProtectedDataResistanceMutation = ({
 }) => {
   const [tableData, setTableData] = useState([...data]);
   const [displayAddSideBar, setDisplayAddSideBar] = useState(false);
+
+  const rootStore = useContext(RootStoreContext);
+  const { appVars } = rootStore.generalStore;
+  const [filteredResearchers, setFilteredResearchers] = useState([]);
 
   /* Add functions */
 
@@ -51,6 +58,39 @@ const GeneViewProtectedDataResistanceMutation = ({
     );
   };
 
+  const textAreaEditor = (options) => {
+    return (
+      <InputTextarea
+        type="text"
+        autoResize
+        rows={4}
+        value={options.value}
+        onChange={(e) => options.editorCallback(e.target.value)}
+      />
+    );
+  };
+
+  const researcherEditor = (options) => {
+    return (
+      <AutoComplete
+        value={options.value}
+        delay={1500}
+        suggestions={filteredResearchers}
+        completeMethod={searchResearcher}
+        onChange={(e) => options.editorCallback(e.target.value)}
+        dropdown
+      />
+    );
+  };
+
+  const searchResearcher = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appUsersFlattened.filter((username) =>
+      username.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredResearchers(filteredResults);
+  };
+
   let saveEdits = (e) => {
     let { newData } = e;
     edit(newData);
@@ -69,14 +109,56 @@ const GeneViewProtectedDataResistanceMutation = ({
             dataKey="id"
             onRowEditComplete={saveEdits}
           >
-            <Column field="mutation" header="Mutation" editor={(options) => textEditor(options)} />
-            <Column field="isolate" header="Isolate" editor={(options) => textEditor(options)} />
-            <Column field="parentStrain" header="Parent Strain" editor={(options) => textEditor(options)} />
-            <Column field="compound" header="Compound" editor={(options) => textEditor(options)} />
-            <Column field="shiftInMic" header="Shift In Mic" editor={(options) => textEditor(options)} />
-            <Column field="org" header="Org" editor={(options) => textEditor(options)} />
-            <Column rowEditor headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }} />
-
+            <Column
+              field="mutation"
+              header="Mutation"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="isolate"
+              header="Isolate"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="parentStrain"
+              header="Parent Strain"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="compound"
+              header="Compound"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="shiftInMIC"
+              header="Shift In MIC"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="org"
+              header="Organization"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="researcher"
+              header="Researcher"
+              editor={(options) => researcherEditor(options)}
+            />
+            <Column
+              field="reference"
+              header="Reference"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="notes"
+              header="Notes"
+              editor={(options) => textAreaEditor(options)}
+            />
+            <Column
+              rowEditor
+              headerStyle={{ width: "10%", minWidth: "8rem" }}
+              bodyStyle={{ textAlign: "center" }}
+            />
           </DataTable>
         </BlockUI>
       </div>
@@ -85,17 +167,24 @@ const GeneViewProtectedDataResistanceMutation = ({
         onHide={() => setDisplayAddSideBar(false)}
         position="right"
         className="p-sidebar-sm"
-      ><div className="flex flex-column gap-3 pl-3  w-full">
-      <div className="flex">
-        <h3> <i className="icon icon-common icon-plus-circle"></i> Add Essentiality</h3>
-      </div>
-      <div className="flex w-full">
-        <GeneViewProtectedDataAddResistanceMutationForm
-          add={add}
-          adding={adding}
-          closeSidebar={() => setDisplayAddSideBar(false)} />
-      </div>
-    </div></Sidebar>
+      >
+        <div className="flex flex-column gap-3 pl-3  w-full">
+          <div className="flex">
+            <h3>
+              {" "}
+              <i className="icon icon-common icon-plus-circle"></i> Add
+              Essentiality
+            </h3>
+          </div>
+          <div className="flex w-full">
+            <GeneViewProtectedDataAddResistanceMutationForm
+              add={add}
+              adding={adding}
+              closeSidebar={() => setDisplayAddSideBar(false)}
+            />
+          </div>
+        </div>
+      </Sidebar>
     </React.Fragment>
   );
 };

@@ -5,6 +5,7 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { Sidebar } from "primereact/sidebar";
 import React, { useState } from "react";
 import GeneViewProtectedDataAddEssentialityForm from "./GeneViewProtectedDataAddEssentialityForm";
@@ -45,6 +46,18 @@ const GeneViewProtectedDataEssentiality = ({
     return (
       <InputText
         type="text"
+        value={options.value}
+        onChange={(e) => options.editorCallback(e.target.value)}
+      />
+    );
+  };
+
+  const textAreaEditor = (options) => {
+    return (
+      <InputTextarea
+        type="text"
+        autoResize
+        rows={4}
         value={options.value}
         onChange={(e) => options.editorCallback(e.target.value)}
       />
@@ -113,7 +126,7 @@ const GeneViewProtectedDataEssentiality = ({
             <Column
               field="notes"
               header="Notes"
-              editor={(options) => textEditor(options)}
+              editor={(options) => textAreaEditor(options)}
             />
             <Column
               rowEditor
