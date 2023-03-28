@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { Button } from "primereact/button";
-import { Calendar } from "primereact/calendar";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
 import React from "react";
 
@@ -15,7 +15,9 @@ const GeneViewProtectedDataAddProteinProductionForm = ({
       production: "",
       method: "",
       purity: "",
-      date: "",
+      url: "",
+      pmid: "",
+      notes: "",
     },
 
     validate: (data) => {
@@ -112,25 +114,62 @@ const GeneViewProtectedDataAddProteinProductionForm = ({
 
         <div className="field">
           <label
-            htmlFor="date"
+            htmlFor="pmid"
             className={classNames({
-              "p-error": isFormFieldValid("date"),
+              "p-error": isFormFieldValid("pmid"),
             })}
           >
-            Date
+            PMID
           </label>
-          <Calendar
-            id="date"
-            value={formik.values.date}
+          <InputText
+            id="pmid"
+            value={formik.values.pmid}
             onChange={formik.handleChange}
-            dateFormat="dd/mm/yy"
-            mask="99/99/9999"
-            showIcon
             className={classNames({
-              "p-invalid": isFormFieldValid("date"),
+              "p-invalid": isFormFieldValid("pmid"),
             })}
           />
-          {getFormErrorMessage("date")}
+          {getFormErrorMessage("pmid")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="url"
+            className={classNames({
+              "p-error": isFormFieldValid("url"),
+            })}
+          >
+            URL
+          </label>
+          <InputText
+            id="url"
+            value={formik.values.url}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("url"),
+            })}
+          />
+          {getFormErrorMessage("url")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="notes"
+            className={classNames({
+              "p-error": isFormFieldValid("notes"),
+            })}
+          >
+            Notes
+          </label>
+          <InputTextarea
+            id="notes"
+            value={formik.values.notes}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("notes"),
+            })}
+          />
+          {getFormErrorMessage("notes")}
         </div>
 
         <div className="flex justify-content-center">
