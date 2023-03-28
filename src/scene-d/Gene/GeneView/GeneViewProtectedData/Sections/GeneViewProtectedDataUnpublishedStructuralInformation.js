@@ -1,4 +1,5 @@
 import { observer } from "mobx-react-lite";
+import { AutoComplete } from "primereact/autocomplete";
 import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
@@ -25,6 +26,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
 
   const [tableData, setTableData] = useState([...data]);
   const [displayAddSideBar, setDisplayAddSideBar] = useState(false);
+  const [filteredResearchers, setFilteredResearchers] = useState([]);
 
   /* Add functions */
 
@@ -68,6 +70,27 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
         onChange={(e) => options.editorCallback(e.target.value)}
       />
     );
+  };
+
+  const researcherEditor = (options) => {
+    return (
+      <AutoComplete
+        value={options.value}
+        delay={1500}
+        suggestions={filteredResearchers}
+        completeMethod={searchResearcher}
+        onChange={(e) => options.editorCallback(e.target.value)}
+        dropdown
+      />
+    );
+  };
+
+  const searchResearcher = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appUsersFlattened.filter((username) =>
+      username.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredResearchers(filteredResults);
   };
 
   const dropDownUnpublishedEditor = (options) => {
@@ -122,6 +145,11 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
               header="Ligands"
               editor={(options) => textEditor(options)}
             />
+            <Column
+              field="researcher"
+              header="Researcher"
+              editor={(options) => researcherEditor(options)}
+            />
 
             <Column
               field="reference"
@@ -140,7 +168,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
               body={(rowData) =>
                 rowData.url && (
                   <a href={rowData.url} target="_BLANK">
-                    <i class="icon icon-common icon-external-link-alt"></i>
+                    <i className="icon icon-common icon-external-link-alt"></i>
                   </a>
                 )
               }
