@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
 import React from "react";
 
@@ -17,6 +18,8 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
       compound: "",
       shiftInMic: "",
       org: "",
+      reference: "",
+      notes: "",
     },
 
     validate: (data) => {
@@ -170,6 +173,46 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
             })}
           />
           {getFormErrorMessage("org")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="reference"
+            className={classNames({
+              "p-error": isFormFieldValid("reference"),
+            })}
+          >
+            Reference
+          </label>
+          <InputText
+            id="reference"
+            value={formik.values.reference}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("reference"),
+            })}
+          />
+          {getFormErrorMessage("reference")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="notes"
+            className={classNames({
+              "p-error": isFormFieldValid("notes"),
+            })}
+          >
+            Notes
+          </label>
+          <InputTextarea
+            id="notes"
+            value={formik.values.notes}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("notes"),
+            })}
+          />
+          {getFormErrorMessage("notes")}
         </div>
 
         <div className="flex justify-content-center">

@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
 import React, { useContext } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
@@ -23,6 +24,9 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
       method: "",
       resolution: "",
       ligands: "",
+      url: "",
+      notes: "",
+      reference: "",
     },
     validate: (data) => {
       let errors = {};
@@ -139,6 +143,66 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
           />
           {getFormErrorMessage("ligands")}
         </div>
+
+        <div className="field">
+          <label
+            htmlFor="url"
+            className={classNames({
+              "p-error": isFormFieldValid("url"),
+            })}
+          >
+            URL
+          </label>
+          <InputText
+            id="url"
+            value={formik.values.url}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("url"),
+            })}
+          />
+          {getFormErrorMessage("url")}
+        </div>
+        <div className="field">
+          <label
+            htmlFor="reference"
+            className={classNames({
+              "p-error": isFormFieldValid("reference"),
+            })}
+          >
+            Reference
+          </label>
+          <InputText
+            id="reference"
+            value={formik.values.reference}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("reference"),
+            })}
+          />
+          {getFormErrorMessage("reference")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="notes"
+            className={classNames({
+              "p-error": isFormFieldValid("notes"),
+            })}
+          >
+            Notes
+          </label>
+          <InputTextarea
+            id="notes"
+            value={formik.values.notes}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("notes"),
+            })}
+          />
+          {getFormErrorMessage("notes")}
+        </div>
+
         <div className="flex justify-content-center">
           <div className="flex">
             <Button
