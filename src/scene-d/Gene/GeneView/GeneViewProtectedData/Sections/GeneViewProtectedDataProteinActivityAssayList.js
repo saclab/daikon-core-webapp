@@ -69,19 +69,44 @@ const GeneViewProtectedDataProteinActivityAssayList = ({
             onRowEditComplete={saveEdits}
           >
             <Column
-              field="activity"
-              header="Activity"
+              field="assay"
+              header="Assay"
               editor={(options) => textEditor(options)}
             />
             <Column
-              field="type"
-              header="Type"
+              field="method"
+              header="Method"
               editor={(options) => textEditor(options)}
             />
             <Column
               field="throughput"
               header="Throughput"
               editor={(options) => textEditor(options)}
+            />
+
+            <Column
+              field="pmid"
+              header="PMID"
+              editor={(options) => textEditor(options)}
+            />
+
+            <Column
+              field="reference"
+              header="Reference"
+              editor={(options) => textEditor(options)}
+            />
+
+            <Column
+              field="url"
+              header="URL"
+              editor={(options) => textEditor(options)}
+              body={(rowData) =>
+                rowData.url && (
+                  <a href={rowData.url} target="_BLANK">
+                    <i class="icon icon-common icon-external-link-alt"></i>
+                  </a>
+                )
+              }
             />
             <Column
               rowEditor
