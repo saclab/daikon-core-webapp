@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { Sidebar } from "primereact/sidebar";
 import React, { useState } from "react";
 import GeneViewProtectedDataAddHypomorph from "./GeneViewProtectedDataAddHypomorph";
@@ -50,6 +51,18 @@ const GeneViewProtectedDataHypomorph = ({
     );
   };
 
+  const textAreaEditor = (options) => {
+    return (
+      <InputTextarea
+        type="text"
+        autoResize
+        rows={4}
+        value={options.value}
+        onChange={(e) => options.editorCallback(e.target.value)}
+      />
+    );
+  };
+
   let saveEdits = (e) => {
     let { newData } = e;
     edit(newData);
@@ -78,6 +91,17 @@ const GeneViewProtectedDataHypomorph = ({
               field="phenotype"
               header="Phenotype"
               editor={(options) => textEditor(options)}
+            />
+
+            <Column
+              field="notes"
+              header="Notes"
+              editor={(options) => textAreaEditor(options)}
+            />
+            <Column
+              rowEditor
+              headerStyle={{ width: "10%", minWidth: "8rem" }}
+              bodyStyle={{ textAlign: "center" }}
             />
           </DataTable>
         </BlockUI>
