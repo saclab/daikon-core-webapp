@@ -149,13 +149,13 @@ const ValidatedHitsList = ({ screenId }) => {
 
   const VoteBodyTemplate = (rowData) => {
     return (
-      <React.Fragment>
+      <div style={{ padding: "10px" }}>
         <Vote
           id={rowData.vote.id}
           voteData={rowData.vote}
           callBack={() => fetchScreen(screenId, true)}
         />
-      </React.Fragment>
+      </div>
     );
   };
   const tableHeader = (
@@ -275,6 +275,7 @@ const ValidatedHitsList = ({ screenId }) => {
             emptyMessage="No hits found."
             resizableColumns
             columnResizeMode="fit"
+            size="large"
             //showGridlines
             responsiveLayout="scroll"
             selection={selectedCompounds}
@@ -298,26 +299,26 @@ const ValidatedHitsList = ({ screenId }) => {
               field={(rowData) => rowData?.compound?.smile}
               header="Structure"
               body={StructureBodyTemplate}
-              style={{ minWidth: "350px" }}
+              style={{ minWidth: "300px" }}
             />
             <Column
               field={(rowData) => rowData?.library + "|" + rowData.source}
               header="Library|Source"
               body={LibraryBodyTemplate}
-              style={{ width: "200px" }}
+              style={{ minWidth: "130px" }}
             />
             <Column
               field={(rowData) => rowData?.compound?.externalCompoundIds}
               header="Compound Id"
               body={CompoundIdBodyTemplate}
-              style={{ width: "150px" }}
+              style={{ minWidth: "150px" }}
             />
 
             <Column
               field="iC50"
-              header="Enzyme Activity [IC50] (&micro;M) "
+              header="IC50 (&micro;M) "
               body={EnzymeActivityBodyTemplate}
-              style={{ width: "90px" }}
+              style={{ width: "50px" }}
             />
             {/* <Column
               field="Method"
@@ -329,11 +330,11 @@ const ValidatedHitsList = ({ screenId }) => {
               field="mic"
               header="MIC (&micro;M)"
               body={MICBodyTemplate}
-              style={{ width: "70px" }}
+              style={{ width: "50px" }}
             />
             <Column
               field="clusterGroup"
-              header="Cluster Group No"
+              header="Cluster"
               body={ClusterBodyTemplate}
               style={{ width: "90px" }}
               sortable
@@ -342,7 +343,7 @@ const ValidatedHitsList = ({ screenId }) => {
               field="Vote"
               header="Vote"
               body={VoteBodyTemplate}
-              style={{ width: "250px" }}
+              style={{ minWidth: "200px" }}
             />
           </DataTable>
         </div>

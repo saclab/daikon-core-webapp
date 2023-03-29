@@ -68,7 +68,11 @@ const ValidatedHits = ({ TargetName }) => {
   if (tabs.length === 0 && filteredScreens.length > 0) {
     filteredScreens.forEach((screen) => {
       tabs.push(
-        <TabPanel header={screen.screenName} key={screen.id}>
+        <TabPanel
+          header={screen.screenName}
+          key={screen.id}
+          className="max-w-screen"
+        >
           <ValidatedHitsList screenId={screen.id} />
         </TabPanel>
       );
@@ -102,7 +106,7 @@ const ValidatedHits = ({ TargetName }) => {
           activeIndex={validatedHitsIndex}
           onTabChange={(e) => setValidatedHitsIndex(e.index)}
           scrollable
-          className="w-full max-w-screen"
+          className="max-w-full w-full"
         >
           {tabs}
         </TabView>

@@ -69,11 +69,11 @@ const Vote = ({ id, voteData, callBack }) => {
 
     const generateUserVotedPanel = () => {
       return (
-        <React.Fragment>
+        <div className="w-min">
           <p style={{ fontSize: "small" }}>
             You have voted <q>{voteData.usersVote}</q>.
           </p>
-        </React.Fragment>
+        </div>
       );
     };
 
@@ -181,7 +181,7 @@ const Vote = ({ id, voteData, callBack }) => {
     /* Final Render */
     return (
       <React.Fragment>
-        <div className="flex flex-column min-w-10">
+        <div className="flex flex-column w-auto min-w-10">
           <div className="flex">{renderVotingChartOrNoVotes()}</div>
           <div className="flex">{generateOptions()}</div>
         </div>
