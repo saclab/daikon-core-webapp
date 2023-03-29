@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
 import { observer } from "mobx-react-lite";
+import { AutoComplete } from "primereact/autocomplete";
 import { Button } from "primereact/button";
-import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
@@ -17,6 +17,24 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
   const rootStore = useContext(RootStoreContext);
 
   const { appVars } = rootStore.generalStore;
+  const [filteredResearchers, setFilteredResearchers] = useState([]);
+  const [filteredOrgs, setFilteredOrgs] = useState([]);
+
+  const searchResearcher = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appUsersFlattened.filter((username) =>
+      username.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredResearchers(filteredResults);
+  };
+
+  const searchOrgs = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appOrgsAliasFlattened.filter((org) =>
+      org.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredOrgs(filteredResults);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -27,6 +45,7 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
       url: "",
       notes: "",
       reference: "",
+      researcher: "",
     },
     validate: (data) => {
       let errors = {};
@@ -65,18 +84,17 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
               "p-error": isFormFieldValid("organization"),
             })}
           >
-            Organization*
+            Organization
           </label>
-          <Dropdown
+          <AutoComplete
+            id="organization"
             value={formik.values.organization}
-            options={appVars.appOrgs}
-            onChange={formik.handleChange("organization")}
-            placeholder="Select an org"
-            optionLabel="name"
-            filter
-            showClear
-            filterBy="name"
-            autoFocus
+            delay={500}
+            suggestions={filteredOrgs}
+            completeMethod={searchOrgs}
+            onChange={formik.handleChange}
+            dropdown
+            forceSelection={true}
             className={classNames({
               "p-invalid": isFormFieldValid("organization"),
             })}
@@ -146,23 +164,30 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
 
         <div className="field">
           <label
-            htmlFor="url"
+            htmlFor="researcher"
             className={classNames({
-              "p-error": isFormFieldValid("url"),
+              "p-error": isFormFieldValid("researcher"),
             })}
           >
-            URL
+            Researcher
           </label>
-          <InputText
-            id="url"
-            value={formik.values.url}
+          <AutoComplete
+            id="researcher"
+            value={formik.values.researcher}
+            delay={1500}
+            suggestions={filteredResearchers}
+            completeMethod={searchResearcher}
             onChange={formik.handleChange}
+            dropdown
+            forceSelection={false}
             className={classNames({
-              "p-invalid": isFormFieldValid("url"),
+              "p-invalid": isFormFieldValid("researcher"),
             })}
           />
-          {getFormErrorMessage("url")}
+
+          {getFormErrorMessage("researcher")}
         </div>
+
         <div className="field">
           <label
             htmlFor="reference"
@@ -201,6 +226,26 @@ const GeneViewProtectedDataAddUnpublishedStructuralInformationForm = ({
             })}
           />
           {getFormErrorMessage("notes")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="url"
+            className={classNames({
+              "p-error": isFormFieldValid("url"),
+            })}
+          >
+            URL
+          </label>
+          <InputText
+            id="url"
+            value={formik.values.url}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("url"),
+            })}
+          />
+          {getFormErrorMessage("url")}
         </div>
 
         <div className="flex justify-content-center">
