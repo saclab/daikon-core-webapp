@@ -1,9 +1,11 @@
 import { useFormik } from "formik";
+import { AutoComplete } from "primereact/autocomplete";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
-import React from "react";
+import React, { useContext, useState } from "react";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const GeneViewProtectedDataAddResistanceMutationForm = ({
   add,
@@ -18,6 +20,7 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
       compound: "",
       shiftInMic: "",
       org: "",
+      researcher: "",
       reference: "",
       notes: "",
     },
@@ -39,6 +42,27 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
       });
     },
   });
+
+  const rootStore = useContext(RootStoreContext);
+  const { appVars } = rootStore.generalStore;
+  const [filteredResearchers, setFilteredResearchers] = useState([]);
+  const [filteredOrgs, setFilteredOrgs] = useState([]);
+
+  const searchResearcher = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appUsersFlattened.filter((username) =>
+      username.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredResearchers(filteredResults);
+  };
+
+  const searchOrgs = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appOrgsAliasFlattened.filter((org) =>
+      org.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredOrgs(filteredResults);
+  };
 
   const isFormFieldValid = (element) =>
     !!(formik.touched[element] && formik.errors[element]);
@@ -162,17 +186,49 @@ const GeneViewProtectedDataAddResistanceMutationForm = ({
               "p-error": isFormFieldValid("org"),
             })}
           >
-            Org
+            Organization
           </label>
-          <InputText
+          <AutoComplete
             id="org"
             value={formik.values.org}
+            delay={500}
+            suggestions={filteredOrgs}
+            completeMethod={searchOrgs}
             onChange={formik.handleChange}
+            dropdown
+            forceSelection={true}
             className={classNames({
               "p-invalid": isFormFieldValid("org"),
             })}
           />
+
           {getFormErrorMessage("org")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="researcher"
+            className={classNames({
+              "p-error": isFormFieldValid("researcher"),
+            })}
+          >
+            Researcher
+          </label>
+          <AutoComplete
+            id="researcher"
+            value={formik.values.researcher}
+            delay={1500}
+            suggestions={filteredResearchers}
+            completeMethod={searchResearcher}
+            onChange={formik.handleChange}
+            dropdown
+            forceSelection={false}
+            className={classNames({
+              "p-invalid": isFormFieldValid("researcher"),
+            })}
+          />
+
+          {getFormErrorMessage("researcher")}
         </div>
 
         <div className="field">

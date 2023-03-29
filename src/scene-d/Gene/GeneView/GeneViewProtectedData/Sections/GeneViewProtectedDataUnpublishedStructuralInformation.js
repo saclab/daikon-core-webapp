@@ -92,7 +92,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
     setFilteredResearchers(filteredResults);
   };
 
-  const dropDownUnpublishedEditor = (options) => {
+  const dropDownOrgsEditor = (options) => {
     return (
       <AutoComplete
         value={options.value}
@@ -136,7 +136,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
             <Column
               field="organization"
               header="Organization"
-              editor={(options) => dropDownUnpublishedEditor(options)}
+              editor={(options) => dropDownOrgsEditor(options)}
             />
             <Column
               field="method"
