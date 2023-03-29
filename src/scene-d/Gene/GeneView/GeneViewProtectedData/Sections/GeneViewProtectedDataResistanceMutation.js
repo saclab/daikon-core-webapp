@@ -25,6 +25,7 @@ const GeneViewProtectedDataResistanceMutation = ({
   const rootStore = useContext(RootStoreContext);
   const { appVars } = rootStore.generalStore;
   const [filteredResearchers, setFilteredResearchers] = useState([]);
+  const [filteredOrgs, setFilteredOrgs] = useState([]);
 
   /* Add functions */
 
@@ -91,6 +92,28 @@ const GeneViewProtectedDataResistanceMutation = ({
     setFilteredResearchers(filteredResults);
   };
 
+  const dropDownOrgsEditor = (options) => {
+    return (
+      <AutoComplete
+        value={options.value}
+        delay={1500}
+        suggestions={filteredOrgs}
+        completeMethod={searchOrgs}
+        onChange={(e) => options.editorCallback(e.target.value)}
+        dropdown
+        forceSelection={true}
+      />
+    );
+  };
+
+  const searchOrgs = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appOrgsAliasFlattened.filter((org) =>
+      org.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredOrgs(filteredResults);
+  };
+
   let saveEdits = (e) => {
     let { newData } = e;
     edit(newData);
@@ -137,7 +160,7 @@ const GeneViewProtectedDataResistanceMutation = ({
             <Column
               field="org"
               header="Organization"
-              editor={(options) => textEditor(options)}
+              editor={(options) => dropDownOrgsEditor(options)}
             />
             <Column
               field="researcher"
