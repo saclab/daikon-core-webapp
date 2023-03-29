@@ -169,11 +169,8 @@ const ScreenSequence = ({ screenId }) => {
               body={protocolBodyTemplate}
               header="Protocol"
             />
-            <Column field="concentration" header="Inhibitor Concentration" />
-            <Column
-              field="noOfCompoundsScreened"
-              header="No of compounds screened"
-            />
+            <Column field="concentration" header="Inhibitor C (&micro;M)" />
+            <Column field="noOfCompoundsScreened" header="No. of Compounds" />
             <Column
               field="scientist"
               header="Scientist"
