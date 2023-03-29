@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
@@ -15,6 +16,7 @@ const GeneViewProtectedDataAddProteinProductionForm = ({
       production: "",
       method: "",
       purity: "",
+      dateProduced: "",
       url: "",
       pmid: "",
       notes: "",
@@ -110,6 +112,23 @@ const GeneViewProtectedDataAddProteinProductionForm = ({
             })}
           />
           {getFormErrorMessage("purity")}
+        </div>
+
+        <div className="field">
+          <label
+            htmlFor="dateProduced"
+            className={classNames({
+              "p-error": isFormFieldValid("dateProduced"),
+            })}
+          >
+            Date Produced
+          </label>
+          <Calendar
+            id="dateProduced"
+            value={formik.values.dateProduced}
+            onChange={(e) => formik.setFieldValue("dateProduced", e.value)}
+          />
+          {getFormErrorMessage("dateProduced")}
         </div>
 
         <div className="field">
