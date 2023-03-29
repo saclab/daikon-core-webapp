@@ -4,7 +4,6 @@ import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Sidebar } from "primereact/sidebar";
@@ -27,7 +26,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
   const [tableData, setTableData] = useState([...data]);
   const [displayAddSideBar, setDisplayAddSideBar] = useState(false);
   const [filteredResearchers, setFilteredResearchers] = useState([]);
-
+  const [filteredOrgs, setFilteredOrgs] = useState([]);
   /* Add functions */
 
   const tableHeader = (
@@ -95,20 +94,29 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
 
   const dropDownUnpublishedEditor = (options) => {
     return (
-      <Dropdown
-        id="organization"
+      <AutoComplete
         value={options.value}
-        options={appVars.appOrgs}
+        delay={1500}
+        suggestions={filteredOrgs}
+        completeMethod={searchOrgs}
         onChange={(e) => options.editorCallback(e.target.value)}
-        placeholder="Select an org"
-        optionLabel="alias"
+        dropdown
+        forceSelection={true}
       />
     );
   };
 
+  const searchOrgs = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appOrgsAliasFlattened.filter((org) =>
+      org.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredOrgs(filteredResults);
+  };
+
   let saveEdits = (e) => {
     let { newData } = e;
-    newData.organization = newData.organization.alias;
+
     edit(newData);
   };
   /* ---*/
