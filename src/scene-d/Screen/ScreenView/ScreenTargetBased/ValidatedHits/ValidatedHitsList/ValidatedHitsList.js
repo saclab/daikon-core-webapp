@@ -351,6 +351,8 @@ const ValidatedHitsList = ({ screenId }) => {
         visible={displayHitsImportSidebar}
         header="Import Validated Hits"
         style={{ width: "90%" }}
+        maximizable={true}
+        maximized={true}
         onHide={() => setDisplayHitsImportSidebar(false)}
         className="p-sidebar-lg"
       >
