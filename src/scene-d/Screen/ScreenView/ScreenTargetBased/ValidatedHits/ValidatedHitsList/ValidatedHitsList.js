@@ -56,7 +56,7 @@ const ValidatedHitsList = ({ screenId }) => {
   let validatePromoteToHA = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No compounds selected. Please select some compouns to promote them."
+        "No rows selected. Please select some rows to promote them."
       );
       return;
     }
@@ -66,7 +66,7 @@ const ValidatedHitsList = ({ screenId }) => {
   let enableVotingCalled = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No rows selected. Please select some or all compouns to enable voting."
+        "No rows selected. Please select some or all rows to enable voting."
       );
       return;
     }
@@ -81,7 +81,7 @@ const ValidatedHitsList = ({ screenId }) => {
   let validateFreezeVoting = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No rows selected. Please select some or all compouns to enable voting."
+        "No rows selected. Please select some or all rows to freeze voting."
       );
       return;
     }
