@@ -121,6 +121,7 @@ const GeneViewProtectedDataProteinActivityAssayList = ({
         onHide={() => setDisplayAddSideBar(false)}
         position="right"
         className="p-sidebar-md"
+        dismissable={false}
       >
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">
