@@ -9,6 +9,7 @@ import { Dialog } from "primereact/dialog";
 import { TieredMenu } from "primereact/tieredmenu";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import SectionHeading from "../../../../../../app/common/SectionHeading/SectionHeading";
 import SmilesViewWithDetails from "../../../../../../app/common/SmilesViewWithDetails/SmilesViewWithDetails";
 import Vote from "../../../../../../app/common/Vote/Vote";
 import Loading from "../../../../../../app/layout/Loading/Loading";
@@ -350,7 +351,6 @@ const ValidatedHitsList = ({ screenId }) => {
       </div>
       <Dialog
         visible={displayHitsImportSidebar}
-        header="Import Validated Hits"
         style={{ width: "90%" }}
         maximizable={true}
         maximized={true}
@@ -358,6 +358,12 @@ const ValidatedHitsList = ({ screenId }) => {
         className="p-sidebar-lg"
       >
         <div className="card">
+          <SectionHeading
+            icon="icon icon-conceptual icon-structures-3d"
+            heading={"Import Validated Hits"}
+            color={"#f4f4f4"}
+            textColor={"#000000"}
+          />
           <br />
           <ValidatedHitsImporter
             screenId={selectedScreen.id}

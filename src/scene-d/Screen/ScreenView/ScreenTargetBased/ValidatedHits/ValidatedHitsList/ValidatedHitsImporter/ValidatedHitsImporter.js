@@ -250,14 +250,16 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
                     The CSV should contain the following headers:
                   </div>
                   <div className="flex gap-1">
-                    <Chip label="Source" />
+                    <Chip label="SMILES" />
                     <Chip label="Library" />
-                    <Chip label="Method" />
+                    <Chip label="Source" />
                     <Chip label="Id" />
                     <Chip label="MIC" />
                     <Chip label="IC50" />
                     <Chip label="ClusterGroup" />
-                    <Chip label="Smiles" />
+                    <Chip label="Method" />
+                    <Chip label="MolWeight" />
+                    <Chip label="MolArea" />
                   </div>
                 </div>
               )}
