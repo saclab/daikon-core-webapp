@@ -194,7 +194,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
         visible={displayAddSideBar}
         onHide={() => setDisplayAddSideBar(false)}
         position="right"
-        className="p-sidebar-sm"
+        className="p-sidebar-md"
       >
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">
