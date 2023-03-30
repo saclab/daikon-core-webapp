@@ -103,7 +103,7 @@ const GenomePromoteFormInteractions = (props) => {
               htmlFor="cIInfectionActivationOfTheTargetSynergize"
               className="p-col-12 p-md-6"
             >
-              Does inhibition/activation of the targt synergize wtih current TB
+              Does inhibition/activation of the target synergize with current TB
               drugs or other drugs under development?
             </label>
             <div className="p-col-12 p-md-6">

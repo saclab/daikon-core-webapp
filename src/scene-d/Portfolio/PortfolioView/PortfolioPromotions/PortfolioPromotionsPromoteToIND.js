@@ -108,7 +108,7 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
                 <Button
                   icon="icon icon-common icon-database-submit"
                   type="submit"
-                  label="Promote to IND (PostPorfolio)"
+                  label="Promote to IND (Post-Portfolio)"
                   className="p-mt-2"
                 />
               </div>

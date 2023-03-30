@@ -39,7 +39,7 @@ const Vote = ({ id, voteData, callBack }) => {
             tooltipOptions={{ position: "bottom" }}
             style={{ color: "#76D7C4" }}
             loading={voting}
-            onClick={(e) => voteButtonCliked(e, "Positive")}
+            onClick={(e) => voteButtonClicked(e, "Positive")}
           />
         </div>
         <div className="flex">
@@ -49,7 +49,7 @@ const Vote = ({ id, voteData, callBack }) => {
             tooltip="Vote Neutral"
             tooltipOptions={{ position: "bottom" }}
             style={{ color: "#F7DC6F" }}
-            onClick={(e) => voteButtonCliked(e, "Neutral")}
+            onClick={(e) => voteButtonClicked(e, "Neutral")}
             loading={voting}
           />
         </div>
@@ -60,7 +60,7 @@ const Vote = ({ id, voteData, callBack }) => {
             tooltip="Vote Negative"
             tooltipOptions={{ position: "bottom" }}
             style={{ color: "#F1948A" }}
-            onClick={(e) => voteButtonCliked(e, "Negative")}
+            onClick={(e) => voteButtonClicked(e, "Negative")}
             loading={voting}
           />
         </div>
@@ -85,7 +85,7 @@ const Vote = ({ id, voteData, callBack }) => {
       }
     };
 
-    let voteButtonCliked = (e, selectedVote) => {
+    let voteButtonClicked = (e, selectedVote) => {
       let vobj = {
         voteId: voteData.id,
         voteButton: selectedVote,

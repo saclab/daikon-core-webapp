@@ -77,7 +77,7 @@ export default class VotingStore {
       res = await agent.Vote.castVote(voteObj);
 
       runInAction(() => {
-        toast.success("Voting Successfull");
+        toast.success("Voting Successful");
       });
     } catch (error) {
       console.error(error);
