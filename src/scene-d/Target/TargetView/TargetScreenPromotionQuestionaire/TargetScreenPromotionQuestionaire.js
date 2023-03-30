@@ -84,7 +84,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
               className="pi pi-check-circle"
               style={{ fontSize: "5rem", color: "var(--green-500)" }}
             ></i>
-            <h5>Screening infomation has been added!</h5>
+            <h5>Screening information has been added!</h5>
           </div>
         </Dialog> */}
         <div className="card w-full">

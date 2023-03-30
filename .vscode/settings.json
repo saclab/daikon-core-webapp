@@ -3,5 +3,11 @@
     "source.organizeImports": true
   },
   "editor.formatOnSave": true,
-  "cSpell.words": ["formik", "inputtext", "inputtextarea", "primereact"]
+  "cSpell.words": [
+    "datatable",
+    "formik",
+    "inputtext",
+    "inputtextarea",
+    "primereact"
+  ]
 }

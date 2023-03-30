@@ -9,15 +9,15 @@ import { StartCase } from "react-lodash";
 import "./KeyValueList.css";
 
 import {
-  _command_contextMenuClearHilightsCommand,
+  _command_contextMenuClearHighlightsCommand,
   _command_contextMenuCopyCommand,
   _command_contextMenuEditCommand,
   _command_contextMenuFetchHistoryCommand,
-  _command_contextMenuHilightAllChangesCommand,
-  _command_contextMenuHilightRecentChangesCommand,
+  _command_contextMenuHighlightAllChangesCommand,
+  _command_contextMenuHighlightRecentChangesCommand,
 } from "./KeyValList_Command";
 import {
-  _helper_filterHilightChanged,
+  _helper_filterHighlightChanged,
   _helper_generateEditForm,
   _helper_renderFooterOfEditDialog,
   _helper_renderHeaderofEditDialog,
@@ -44,15 +44,15 @@ const KeyValList = ({
   const [displayEditContainer, setDisplayEditContainer] = useState(false);
   const [displayHistorySideBar, setDisplayHistorySideBar] = useState(false);
 
-  const [hilightAllChanges, setHilightAllChanges] = useState(
-    localStorage.getItem("_local_HilightAllChanges") || false
+  const [highlightAllChanges, setHighlightAllChanges] = useState(
+    localStorage.getItem("_local_HighlightAllChanges") || false
   );
-  const [hilightRecentChanges, setHilightRecentChanges] = useState(
-    localStorage.getItem("_local_HilightRecentChanges") || false
+  const [highlightRecentChanges, setHighlightRecentChanges] = useState(
+    localStorage.getItem("_local_HighlightRecentChanges") || false
   );
 
-  // const [hilightAllChanges, setHilightAllChanges] = useState(false);
-  // const [hilightRecentChanges, setHilightRecentChanges] = useState(false);
+  // const [highlightAllChanges, setHighlightAllChanges] = useState(false);
+  // const [highlightRecentChanges, setHighlightRecentChanges] = useState(false);
 
   const [fetchHistoryCalled, setFetchHistoryCalled] = useState(false);
 
@@ -61,8 +61,8 @@ const KeyValList = ({
   useEffect(() => {
     if (
       !fetchHistoryCalled &&
-      (JSON.parse(localStorage.getItem("_local_HilightAllChanges")) ||
-        JSON.parse(localStorage.getItem("_local_HilightRecentChanges")))
+      (JSON.parse(localStorage.getItem("_local_HighlightAllChanges")) ||
+        JSON.parse(localStorage.getItem("_local_HighlightRecentChanges")))
     ) {
       _.isFunction(fetchHistory) && fetchHistory();
       setFetchHistoryCalled(true);
@@ -96,29 +96,29 @@ const KeyValList = ({
       label: "Highlight Recent Changes",
       icon: "ri-mark-pen-line",
       command: () =>
-        _command_contextMenuHilightRecentChangesCommand(
+        _command_contextMenuHighlightRecentChangesCommand(
           fetchHistory,
-          setHilightRecentChanges,
-          setHilightAllChanges
+          setHighlightRecentChanges,
+          setHighlightAllChanges
         ),
     });
     contextMenuItems.push({
       label: "Highlight All Changes",
       icon: "ri-mark-pen-fill",
       command: () =>
-        _command_contextMenuHilightAllChangesCommand(
+        _command_contextMenuHighlightAllChangesCommand(
           fetchHistory,
-          setHilightRecentChanges,
-          setHilightAllChanges
+          setHighlightRecentChanges,
+          setHighlightAllChanges
         ),
     });
     contextMenuItems.push({
       label: "Clear Highlights",
       icon: "ri-eraser-line",
       command: () =>
-        _command_contextMenuClearHilightsCommand(
-          setHilightAllChanges,
-          setHilightRecentChanges
+        _command_contextMenuClearHighlightsCommand(
+          setHighlightAllChanges,
+          setHighlightRecentChanges
         ),
     });
     contextMenuItems.push({
@@ -152,9 +152,9 @@ const KeyValList = ({
     cm.current.show(e);
   };
 
-  let filterHilightChanged = (filterRecent = false) => {
+  let filterHighlightChanged = (filterRecent = false) => {
     if (history !== null) {
-      let changed = _helper_filterHilightChanged(data, history, filterRecent);
+      let changed = _helper_filterHighlightChanged(data, history, filterRecent);
       allChangedProperties = [];
       allChangedProperties = [...changed];
     }
@@ -169,18 +169,18 @@ const KeyValList = ({
       return <h3>No Entries</h3>;
     }
 
-    if (hilightAllChanges) {
+    if (highlightAllChanges) {
       if (historyDisplayLoading) {
         return <h3>Fetching..</h3>;
       }
-      filterHilightChanged();
+      filterHighlightChanged();
     }
 
-    if (hilightRecentChanges) {
+    if (highlightRecentChanges) {
       if (historyDisplayLoading) {
         return <h3>Fetching..</h3>;
       }
-      filterHilightChanged(true);
+      filterHighlightChanged(true);
     }
 
     let tBody = Object.keys(data).map((key, value) => {
@@ -201,7 +201,7 @@ const KeyValList = ({
       }
 
       if (
-        (hilightAllChanges || hilightRecentChanges) &&
+        (highlightAllChanges || highlightRecentChanges) &&
         allChangedProperties.includes(key)
       ) {
         finalValue = <mark id={key}>{finalValue}</mark>;

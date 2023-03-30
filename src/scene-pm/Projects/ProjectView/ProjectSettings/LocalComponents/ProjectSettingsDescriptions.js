@@ -24,7 +24,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
 
       indDescription: project.indDescription,
 
-      clinicalDescriptiont: project.clinicalDescriptiont,
+      clinicalDescription: project.clinicalDescription,
     },
     validate: (data) => {
       let errors = {};
@@ -37,7 +37,7 @@ const ProjectSettingsDescriptions = ({ project }) => {
       editedProject.loDescription = data.loDescription;
       editedProject.spDescription = data.spDescription;
       editedProject.indDescription = data.indDescription;
-      editedProject.clinicalDescriptiont = data.clinicalDescriptiont;
+      editedProject.clinicalDescription = data.clinicalDescription;
       editProject(editedProject);
     },
   });

@@ -98,7 +98,7 @@ export function _helper_renderFooterOfEditDialog(
   );
 }
 
-export function _helper_filterHilightChanged(data, history, filterRecent) {
+export function _helper_filterHighlightChanged(data, history, filterRecent) {
   let query = "[*primaryKeyValue=" + data.id + "]";
   let result = JsonQuery(query, { data: history }).value;
 

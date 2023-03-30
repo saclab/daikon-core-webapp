@@ -78,8 +78,8 @@ const ProjectSettingsPriority = ({ project }) => {
             </InplaceDisplay>
             <InplaceContent>
               <Dropdown
-                id="prority"
-                name="prority"
+                id="priority"
+                name="priority"
                 options={["High", "Medium", "Low"]}
                 value={formik.values.priority}
                 onChange={formik.handleChange("priority")}
