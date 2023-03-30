@@ -32,7 +32,15 @@ const HAStatus = ({ project }) => {
       name: "HA Status",
       value: (
         <TagGeneral
-          tag={project.currentStage === "HA" ? "Ongoing" : "Complete"}
+          tag={
+            project.status === "Active"
+              ? project.currentStage === "HA"
+                ? "Ongoing"
+                : "Complete"
+              : project.currentStage === "HA"
+              ? "Terminated at HA"
+              : "Complete"
+          }
         />
       ),
     },
