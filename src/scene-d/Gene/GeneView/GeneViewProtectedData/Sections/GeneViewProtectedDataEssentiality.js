@@ -74,7 +74,7 @@ const GeneViewProtectedDataEssentiality = ({
           { name: "Essential-Domain", value: "Essential-Domain" },
           { name: "Growth-Advantage", value: "Growth-Advantage" },
           { name: "Growth-Defect", value: "Growth-Defect" },
-          { name: "Non-essential", value: "Non-essential" },
+          { name: "Non-Essential", value: "Non-Essential" },
           { name: "Uncertain", value: "Uncertain" },
         ]}
         onChange={(e) => options.editorCallback(e.target.value)}
@@ -110,13 +110,13 @@ const GeneViewProtectedDataEssentiality = ({
             <Column
               field="condition"
               header="Condition"
-              editor={(options) => textEditor(options)}
+              editor={(options) => textAreaEditor(options)}
             />
-            <Column
+            {/* <Column
               field="strain"
               header="Strain"
               editor={(options) => textEditor(options)}
-            />
+            /> */}
             <Column
               field="method"
               header="Method"

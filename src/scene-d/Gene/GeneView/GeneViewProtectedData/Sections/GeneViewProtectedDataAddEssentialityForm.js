@@ -69,7 +69,7 @@ const GeneViewProtectedDataAddEssentialityForm = ({
               { name: "Essential-Domain", value: "Essential-Domain" },
               { name: "Growth-Advantage", value: "Growth-Advantage" },
               { name: "Growth-Defect", value: "Growth-Defect" },
-              { name: "Non-essential", value: "Non-essential" },
+              { name: "Non-Essential", value: "Non-Essential" },
               { name: "Uncertain", value: "Uncertain" },
             ]}
             onChange={formik.handleChange}
@@ -92,7 +92,7 @@ const GeneViewProtectedDataAddEssentialityForm = ({
           >
             Condition
           </label>
-          <InputText
+          <InputTextarea
             id="condition"
             value={formik.values.condition}
             onChange={formik.handleChange}
