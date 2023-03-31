@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Chip } from "primereact/chip";
@@ -133,7 +132,7 @@ const ValidatedHitsList = ({ screenId }) => {
   };
 
   const EnzymeActivityBodyTemplate = (rowData) => {
-    return <React.Fragment>{_.round(rowData.iC50, 2)}</React.Fragment>;
+    return <React.Fragment>{rowData.iC50}</React.Fragment>;
   };
 
   // const MethodBodyTemplate = (rowData) => {
@@ -141,7 +140,7 @@ const ValidatedHitsList = ({ screenId }) => {
   // };
 
   const MICBodyTemplate = (rowData) => {
-    return <React.Fragment>{_.round(rowData.mic, 2)}</React.Fragment>;
+    return <React.Fragment>{rowData.mic}</React.Fragment>;
   };
 
   const ClusterBodyTemplate = (rowData) => {

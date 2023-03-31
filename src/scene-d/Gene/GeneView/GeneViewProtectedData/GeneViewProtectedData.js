@@ -361,7 +361,7 @@ const GeneViewProtectedData = ({
               legend="Unpublished Structural Information"
             >
               <EmbeddedHelp>
-                Structures thar are not published yet. <br />
+                Structures that are not published yet. <br />
                 <br />
                 Data: Organization (For e.g TAMU | Researcher name) | Method
                 (For e.g - X-ray/Cryo-em/NMR) | Resolution (For e.g - 4A) |
