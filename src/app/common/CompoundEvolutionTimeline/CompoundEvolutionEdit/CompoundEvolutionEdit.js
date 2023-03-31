@@ -186,7 +186,7 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                       "p-error": isFormFieldValid("MIC"),
                     })}
                   >
-                    MIC
+                    MIC (&micro;M)
                   </label>
                   <InputText
                     id="MIC"
@@ -207,7 +207,7 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                       "p-error": isFormFieldValid("IC50"),
                     })}
                   >
-                    IC50
+                    IC50 (&micro;M)
                   </label>
                   <InputText
                     id="IC50"
