@@ -108,10 +108,12 @@ const CompoundEvolutionTimeline = ({
                 minWidth: "150px",
               }}
             >
+              Ext Id : {item.compound.externalCompoundIds} <br />
               Mol Weight : {item.compound.molWeight} <br />
               Mol Area : {item.compound.molArea} <br />
-              IC50 : {item.iC50} <br />
-              MIC : {item.mic} <br />
+              IC50 : {item.iC50} (&micro;M) <br />
+              MIC : {item.mic} (&micro;M)
+              <br />
             </div>
             <div className="flex flex-column">
               <Divider align="left">
