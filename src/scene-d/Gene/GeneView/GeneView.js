@@ -120,7 +120,7 @@ const GeneView = () => {
   }
   if (gene !== null) {
     return (
-      <React.Fragment>
+      <div className="flex  max-w-full">
         <Toast ref={toast} />
 
         <div className="flex gap-2 w-full">
@@ -173,7 +173,7 @@ const GeneView = () => {
           setDisplayPromotionDialog={setDisplayPromotionDialog}
           displayPromotionDialog={displayPromotionDialog}
         />
-      </React.Fragment>
+      </div>
     );
   }
 
