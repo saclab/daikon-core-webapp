@@ -3,7 +3,7 @@ import { ContextMenu } from "primereact/contextmenu";
 import { DataTable } from "primereact/datatable";
 import { Dialog } from "primereact/dialog";
 import React, { useRef, useState } from "react";
-import EmbededHelp from "../../../../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import FDate from "../../../../../app/common/FDate/FDate";
 import PredictedDateEditor from "../../../../../app/common/PredictedDateEditor/PredictedDateEditor";
 import TagGeneral from "../../../../../app/common/TagGeneral/TagGeneral";
@@ -32,7 +32,15 @@ const HAStatus = ({ project }) => {
       name: "HA Status",
       value: (
         <TagGeneral
-          tag={project.currentStage === "HA" ? "Ongoing" : "Complete"}
+          tag={
+            project.status === "Active"
+              ? project.currentStage === "HA"
+                ? "Ongoing"
+                : "Complete"
+              : project.currentStage === "HA"
+              ? "Terminated at HA"
+              : "Complete"
+          }
         />
       ),
     },
@@ -69,10 +77,10 @@ const HAStatus = ({ project }) => {
         style={{ width: "50vw" }}
         onHide={() => setDisplayEditContainer(false)}
       >
-        <EmbededHelp>
+        <EmbeddedHelp>
           Project's primary organization and participating organization can
           propose a new predicted start date for H2L.
-        </EmbededHelp>
+        </EmbeddedHelp>
         <PredictedDateEditor
           project={project}
           postSave={() => setDisplayEditContainer(false)}

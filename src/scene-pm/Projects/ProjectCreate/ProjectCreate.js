@@ -266,7 +266,7 @@ const ProjectCreate = () => {
                 </div>
               </div>
               <div className="flex flex-column">
-                <h2>Compund Details</h2>
+                <h2>Compound Details</h2>
                 <div className="field">
                   <label
                     htmlFor="haStart"

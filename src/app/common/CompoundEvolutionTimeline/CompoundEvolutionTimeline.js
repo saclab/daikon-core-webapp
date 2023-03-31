@@ -13,12 +13,17 @@ import { RootStoreContext } from "../../stores/rootStore";
 import FailedLoading from "../FailedLoading/FailedLoading";
 import FDate from "../FDate/FDate";
 import PleaseWait from "../PleaseWait/PleaseWait";
-import SmilesView from "../SmilesView/SmilesView";
+import SmilesViewWithDetails from "../SmilesViewWithDetails/SmilesViewWithDetails";
 import StageTag from "../StageTag/StageTag";
 import CompoundEvolutionAddNew from "./CompoundEvolutionAddNew/CompoundEvolutionAddNew";
 import CompoundEvolutionEdit from "./CompoundEvolutionEdit/CompoundEvolutionEdit";
 import "./CompoundEvolutionTimeline.css";
-const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdit = false }) => {
+const CompoundEvolutionTimeline = ({
+  project,
+  stageFilter,
+  disableAdd,
+  enableEdit = false,
+}) => {
   const [displayAddStructureForm, setdisplayAddStructureForm] = useState(false);
   const rootStore = useContext(RootStoreContext);
   const cmEvolution = useRef(null);
@@ -34,14 +39,12 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
     fetchCompoundEvolution(project.id);
   }, [fetchCompoundEvolution, project]);
 
-  const [selectedCEinCM, setSelectedCEinCM] = useState()
+  const [selectedCEinCM, setSelectedCEinCM] = useState();
   const [displayEditContainer, setDisplayEditContainer] = useState(false);
-
 
   if (loadingProject || loadingCompoundEvolution) {
     return <PleaseWait />;
   }
-
 
   const cmEvolutionItems = [];
 
@@ -49,29 +52,29 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
     label: "Copy Compound GUID",
     icon: "icon icon-common icon-orcid",
     command: (e) => {
-        let cguid = getCompoundEvolutionEntry(selectedCEinCM).id;
-        navigator.clipboard.writeText(cguid);
-        toast.success("Copied " + cguid + " to clipboard");
-    }
-  })
+      let cguid = getCompoundEvolutionEntry(selectedCEinCM).id;
+      navigator.clipboard.writeText(cguid);
+      toast.success("Copied " + cguid + " to clipboard");
+    },
+  });
 
   if (enableEdit) {
     cmEvolutionItems.push({
       label: "Edit",
       icon: "pi pi-tablet",
       command: (e) => {
-        setDisplayEditContainer(true)
-      }
-    })
+        setDisplayEditContainer(true);
+      },
+    });
   }
-
 
   let onEvolutionContextMenuShow = (e, id) => {
     cmEvolution.current.show(e);
-    setSelectedCEinCM(id)
-  }
+    setSelectedCEinCM(id);
+  };
 
-  let getCompoundEvolutionEntry = (id) => selectedCompoundEvolution.filter(e => e.id === id)[0]
+  let getCompoundEvolutionEntry = (id) =>
+    selectedCompoundEvolution.filter((e) => e.id === id)[0];
 
   if (!loadingProject && !loadingCompoundEvolution) {
     let evolutionData = selectedCompoundEvolution;
@@ -86,15 +89,31 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
       return (
         <div className="flex flex-column">
           <div className="flex">
-            <SmilesView smiles={item.compound.smile} width={300} height={300} />
+            <SmilesViewWithDetails
+              compound={item.compound}
+              width={300}
+              height={300}
+            />
           </div>
           <ContextMenu model={cmEvolutionItems} ref={cmEvolution} />
-          <div id={item.id} onContextMenu={(e) => onEvolutionContextMenuShow(e, item.id)}>
-            <div className="flex" style={{ lineHeight: "1.5rem", marginRight: "50px", minWidth: "150px" }} >
+          <div
+            id={item.id}
+            onContextMenu={(e) => onEvolutionContextMenuShow(e, item.id)}
+          >
+            <div
+              className="flex"
+              style={{
+                lineHeight: "1.5rem",
+                marginRight: "50px",
+                minWidth: "150px",
+              }}
+            >
+              Ext Id : {item.compound.externalCompoundIds} <br />
               Mol Weight : {item.compound.molWeight} <br />
               Mol Area : {item.compound.molArea} <br />
-              IC50 : {item.iC50} <br />
-              MIC : {item.mic} <br />
+              IC50 : {item.iC50} (&micro;M) <br />
+              MIC : {item.mic} (&micro;M)
+              <br />
             </div>
             <div className="flex flex-column">
               <Divider align="left">
@@ -106,7 +125,6 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
               {item.notes}
             </div>
           </div>
-
         </div>
       );
     };
@@ -147,16 +165,12 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
               opposite={customizedOppositeContent}
             />
           </div>
-
-
-
         </div>
 
         <Sidebar
           visible={displayAddStructureForm}
           position="right"
           style={{ width: "30em", overflowX: "auto" }}
-
           onHide={() => setdisplayAddStructureForm(false)}
         >
           <h3>{project.projectName}| Add a compound</h3>
@@ -173,7 +187,6 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
           />
         </Sidebar>
 
-
         <Dialog
           header={"Edit Compound Evolution Entry"}
           visible={displayEditContainer}
@@ -181,18 +194,13 @@ const CompoundEvolutionTimeline = ({ project, stageFilter, disableAdd, enableEdi
           draggable={true}
           style={{ width: "50vw" }}
           onHide={() => setDisplayEditContainer(false)}
-
         >
           <CompoundEvolutionEdit
             evolution={() => getCompoundEvolutionEntry(selectedCEinCM)}
             onHide={() => setDisplayEditContainer(false)}
           />
-
         </Dialog>
-
-
       </React.Fragment>
-
     );
   }
 

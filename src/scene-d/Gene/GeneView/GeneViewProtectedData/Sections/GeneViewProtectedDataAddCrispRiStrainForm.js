@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
 import React from "react";
 
@@ -64,6 +65,27 @@ const GeneViewProtectedDataAddCrispRiStrainForm = ({
             })}
           />
           {getFormErrorMessage("crispRiStrain")}
+        </div>
+        <div className="field">
+          <label
+            htmlFor="notes"
+            className={classNames({
+              "p-error": isFormFieldValid("notes"),
+            })}
+          >
+            Notes
+          </label>
+          <InputTextarea
+            id="notes"
+            autoResize
+            rows={4}
+            value={formik.values.notes}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("notes"),
+            })}
+          />
+          {getFormErrorMessage("notes")}
         </div>
         <div className="flex justify-content-center">
           <div className="flex">

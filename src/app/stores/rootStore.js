@@ -2,6 +2,7 @@ import { configure } from "mobx";
 import { createContext } from "react";
 import AdminStore from "./adminStore";
 import AppSettingsStore from "./appSettingsStore";
+import CompoundStore from "./compoundStore";
 import DataViewStore from "./dataViewStore";
 import DiscussionStore from "./discussionStore";
 import GeneralStore from "./generalStore";
@@ -38,6 +39,7 @@ export class RootStore {
   haStore;
   projectStore;
   votingStore;
+  compoundStore;
 
   constructor() {
     this.appSettingsStore = new AppSettingsStore(this);
@@ -58,6 +60,7 @@ export class RootStore {
     this.projectStore = new ProjectStore(this);
     this.votingStore = new VotingStore(this);
     this.dataViewStore = new DataViewStore(this);
+    this.compoundStore = new CompoundStore(this);
   }
 }
 export const RootStoreContext = createContext(new RootStore());

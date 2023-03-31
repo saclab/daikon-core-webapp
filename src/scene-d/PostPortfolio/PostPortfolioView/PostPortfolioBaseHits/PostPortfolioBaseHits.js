@@ -97,8 +97,8 @@ const PostPortfolioBaseHits = ({ project }) => {
               body={CompoundIdBodyTemplate}
               style={{ width: "200px" }}
             />
-            <Column field="mic" header="MIC" />
-            <Column field="iC50" header="IC50" />
+            <Column field="mic" header="MIC (&micro;M)" />
+            <Column field="iC50" header="IC50 (&micro;M)" />
           </DataTable>
         </div>
       </div>

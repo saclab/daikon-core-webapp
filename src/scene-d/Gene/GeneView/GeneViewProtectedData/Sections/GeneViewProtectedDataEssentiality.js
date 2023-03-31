@@ -5,6 +5,7 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { Sidebar } from "primereact/sidebar";
 import React, { useState } from "react";
 import GeneViewProtectedDataAddEssentialityForm from "./GeneViewProtectedDataAddEssentialityForm";
@@ -51,6 +52,18 @@ const GeneViewProtectedDataEssentiality = ({
     );
   };
 
+  const textAreaEditor = (options) => {
+    return (
+      <InputTextarea
+        type="text"
+        autoResize
+        rows={4}
+        value={options.value}
+        onChange={(e) => options.editorCallback(e.target.value)}
+      />
+    );
+  };
+
   const dropDownEssentialityEditor = (options) => {
     return (
       <Dropdown
@@ -58,7 +71,11 @@ const GeneViewProtectedDataEssentiality = ({
         value={options.value}
         options={[
           { name: "Essential", value: "Essential" },
-          { name: "Non-essential", value: "Non-essential" },
+          { name: "Essential-Domain", value: "Essential-Domain" },
+          { name: "Growth-Advantage", value: "Growth-Advantage" },
+          { name: "Growth-Defect", value: "Growth-Defect" },
+          { name: "Non-Essential", value: "Non-Essential" },
+          { name: "Uncertain", value: "Uncertain" },
         ]}
         onChange={(e) => options.editorCallback(e.target.value)}
         placeholder="Select a classification"
@@ -93,13 +110,13 @@ const GeneViewProtectedDataEssentiality = ({
             <Column
               field="condition"
               header="Condition"
-              editor={(options) => textEditor(options)}
+              editor={(options) => textAreaEditor(options)}
             />
-            <Column
+            {/* <Column
               field="strain"
               header="Strain"
               editor={(options) => textEditor(options)}
-            />
+            /> */}
             <Column
               field="method"
               header="Method"
@@ -113,7 +130,7 @@ const GeneViewProtectedDataEssentiality = ({
             <Column
               field="notes"
               header="Notes"
-              editor={(options) => textEditor(options)}
+              editor={(options) => textAreaEditor(options)}
             />
             <Column
               rowEditor
@@ -127,7 +144,8 @@ const GeneViewProtectedDataEssentiality = ({
         visible={displayAddSideBar}
         onHide={() => setDisplayAddSideBar(false)}
         position="right"
-        className="p-sidebar-sm"
+        className="p-sidebar-md"
+        dismissable={false}
       >
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">

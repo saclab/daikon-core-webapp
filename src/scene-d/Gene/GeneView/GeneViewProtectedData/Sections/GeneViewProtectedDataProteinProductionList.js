@@ -1,11 +1,14 @@
 import { observer } from "mobx-react-lite";
 import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { Sidebar } from "primereact/sidebar";
 import React, { useState } from "react";
+import FDate from "../../../../../app/common/FDate/FDate";
 import GeneViewProtectedDataAddProteinProductionForm from "./GeneViewProtectedDataAddProteinProductionForm";
 
 const GeneViewProtectedDataProteinProductionList = ({
@@ -50,6 +53,33 @@ const GeneViewProtectedDataProteinProductionList = ({
     );
   };
 
+  const textAreaEditor = (options) => {
+    return (
+      <InputTextarea
+        type="text"
+        autoResize
+        rows={4}
+        value={options.value}
+        onChange={(e) => options.editorCallback(e.target.value)}
+      />
+    );
+  };
+
+  const dateEditor = (options) => {
+    return (
+      <div className="p-float-label">
+        <Calendar
+          inputId="edit_date"
+          value={options.value}
+          onChange={(e) => options.editorCallback(e.target.value)}
+        />
+        <label htmlFor="edit_date">
+          <FDate timestamp={options.value} hideTime={true} />
+        </label>
+      </div>
+    );
+  };
+
   let saveEdits = (e) => {
     let { newData } = e;
     edit(newData);
@@ -83,10 +113,39 @@ const GeneViewProtectedDataProteinProductionList = ({
               header="Purity"
               editor={(options) => textEditor(options)}
             />
+
             <Column
-              field="date"
-              header="Date"
+              field="dateProduced"
+              header="Date Produced"
+              editor={(options) => dateEditor(options)}
+              body={(rowData) =>
+                rowData.dateProduced && (
+                  <FDate timestamp={rowData.dateProduced} hideTime={true} />
+                )
+              }
+            />
+            <Column
+              field="pmid"
+              header="PMID"
               editor={(options) => textEditor(options)}
+            />
+
+            <Column
+              field="notes"
+              header="Notes"
+              editor={(options) => textAreaEditor(options)}
+            />
+            <Column
+              field="url"
+              header="URL"
+              editor={(options) => textEditor(options)}
+              body={(rowData) =>
+                rowData.url && (
+                  <a href={rowData.url} target="_BLANK">
+                    <i className="icon icon-common icon-external-link-alt"></i>
+                  </a>
+                )
+              }
             />
             <Column
               rowEditor
@@ -100,7 +159,8 @@ const GeneViewProtectedDataProteinProductionList = ({
         visible={displayAddSideBar}
         onHide={() => setDisplayAddSideBar(false)}
         position="right"
-        className="p-sidebar-sm"
+        className="p-sidebar-md"
+        dismissable={false}
       >
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">

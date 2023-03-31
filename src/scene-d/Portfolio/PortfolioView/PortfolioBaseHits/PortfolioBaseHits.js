@@ -4,7 +4,7 @@ import { DataTable } from "primereact/datatable";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
-import SmilesView from "../../../../app/common/SmilesView/SmilesView";
+import SmilesViewWithDetails from "../../../../app/common/SmilesViewWithDetails/SmilesViewWithDetails";
 import { appColors } from "../../../../colors";
 
 const PortfolioBaseHits = ({ project }) => {
@@ -36,7 +36,7 @@ const PortfolioBaseHits = ({ project }) => {
         molArea: baseHit.baseHit.compound.molArea,
         molWeight: baseHit.baseHit.compound.molWeight,
         externalCompoundIds: baseHit.baseHit.compound.externalCompoundIds,
-        smile: baseHit.baseHit.compound.smile,
+        compound: baseHit.baseHit.compound,
         iC50: baseHit.baseHit.iC50,
         mic: baseHit.baseHit.mic,
       });
@@ -47,7 +47,7 @@ const PortfolioBaseHits = ({ project }) => {
     return (
       <React.Fragment>
         <div>
-          <SmilesView smiles={rowData?.smile} width={300} />
+          <SmilesViewWithDetails compound={rowData.compound} width={300} />
         </div>
       </React.Fragment>
     );
@@ -96,8 +96,8 @@ const PortfolioBaseHits = ({ project }) => {
               body={CompoundIdBodyTemplate}
               style={{ width: "200px" }}
             />
-            <Column field="mic" header="MIC" />
-            <Column field="iC50" header="IC50" />
+            <Column field="mic" header="MIC (&micro;M)" />
+            <Column field="iC50" header="IC50 (&micro;M)" />
           </DataTable>
         </div>
       </div>

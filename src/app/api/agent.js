@@ -115,14 +115,14 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
       if (status === 403) {
         console.error("AGENT: Intercepted 403");
         toast.error(
-          "Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator"
+          "Unauthorized: You do not have necessary permissions to apply this change. Please contact Daikon Administrator"
         );
       }
 
       if (status === 401) {
         console.error("AGENT: Intercepted 403");
         console.error(
-          "Unauthorized: You do not have necessary permisisons to apply this change. Please contact Daikon Administrator"
+          "Unauthorized: You do not have necessary permissions to apply this change. Please contact Daikon Administrator"
         );
       }
 
@@ -386,6 +386,14 @@ const DataView = {
   targetDash: () => requests.get(`/data-view/VTarget/dash-view`),
 };
 
+const Compounds = {
+  list: () => requests.get(`/compound/`),
+  details: (id) => requests.get(`/data-view/VCompound/details/${id}`),
+  edit: (id, compound) => requests.post(`/compound/${id}/edit`, compound),
+  editExternalId: (id, compound) =>
+    requests.post(`/compound/${id}/edit-external-id`, compound),
+};
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -404,6 +412,7 @@ const exports = {
   Projects,
   Vote,
   DataView,
+  Compounds,
 };
 
 export default exports;

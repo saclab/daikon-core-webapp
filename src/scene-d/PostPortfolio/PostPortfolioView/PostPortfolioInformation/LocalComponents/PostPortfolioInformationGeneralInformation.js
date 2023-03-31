@@ -12,6 +12,10 @@ const PostPortfolioInformationGeneralInformation = ({ project }) => {
       value: project.id,
     },
     {
+      name: "Internal Id",
+      value: project.projectLegacyId,
+    },
+    {
       name: "Target",
       value: (
         <div>
