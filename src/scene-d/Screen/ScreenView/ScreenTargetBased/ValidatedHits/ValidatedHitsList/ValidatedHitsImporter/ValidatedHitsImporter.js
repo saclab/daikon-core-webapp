@@ -71,10 +71,15 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
       // Return if Id is empty
       if (typeof hit.Id === "undefined" || hit.Id === "") return;
 
-      // IC50 and MIC are defined as double in the backend
+      // Mod, no longer the case: IC50 and MIC are defined as double in the backend
       // convert to double and round to 2 decimal places
-      hit.IC50 = _.toNumber(hit?.IC50) ? _.round(hit?.IC50, 2) : 0;
-      hit.MIC = _.toNumber(hit?.MIC) ? _.round(hit?.MIC, 2) : 0;
+      // hit.IC50 = _.toNumber(hit?.IC50) ? _.round(hit?.IC50, 2) : 0;
+      // hit.MIC = _.toNumber(hit?.MIC) ? _.round(hit?.MIC, 2) : 0;
+
+      // As members are expressing both IC50 and MIC in ranges or using > or <
+      // We have to store them as strings
+      hit.IC50 = typeof hit.IC50 !== "undefined" ? hit.IC50 : "0";
+      hit.MIC = typeof hit.MIC !== "undefined" ? hit.MIC : "0";
 
       // MolWeight and MolArea are defined as string in the backend
       // convert to double and round to 2 decimal places and convert back to string
@@ -101,12 +106,18 @@ const ValidatedHitsImporter = ({ screenId, existingHits }) => {
 
         // using != instead of !== as type comparison is not required
 
-        existingHit.iC50 = _.toNumber(existingHit?.iC50)
-          ? _.round(existingHit?.iC50, 2)
-          : 0;
-        existingHit.mic = _.toNumber(existingHit?.mic)
-          ? _.round(existingHit?.mic, 2)
-          : 0;
+        // existingHit.iC50 = _.toNumber(existingHit?.iC50)
+        //   ? _.round(existingHit?.iC50, 2)
+        //   : 0;
+        // existingHit.mic = _.toNumber(existingHit?.mic)
+        //   ? _.round(existingHit?.mic, 2)
+        //   : 0;
+
+        existingHit.iC50 =
+          typeof existingHit.iC50 !== "undefined" ? existingHit.iC50 : "0";
+        existingHit.mic =
+          typeof existingHit.mic !== "undefined" ? existingHit.mic : "0";
+
         existingHit.clusterGroup = _.toNumber(existingHit?.clusterGroup)
           ? parseInt(existingHit.clusterGroup)
           : 0;
