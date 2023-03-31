@@ -223,7 +223,7 @@ const HADash = () => {
 
               <Column
                 field="Date"
-                header="H2L Predictated Start"
+                header="H2L Predicted Start"
                 body={DateBodyTemplate}
               />
             </DataTable>

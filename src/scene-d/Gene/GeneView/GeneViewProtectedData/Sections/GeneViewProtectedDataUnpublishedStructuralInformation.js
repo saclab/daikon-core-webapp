@@ -1,10 +1,11 @@
 import { observer } from "mobx-react-lite";
+import { AutoComplete } from "primereact/autocomplete";
 import { BlockUI } from "primereact/blockui";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { Sidebar } from "primereact/sidebar";
 import React, { useContext, useState } from "react";
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
@@ -24,7 +25,8 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
 
   const [tableData, setTableData] = useState([...data]);
   const [displayAddSideBar, setDisplayAddSideBar] = useState(false);
-
+  const [filteredResearchers, setFilteredResearchers] = useState([]);
+  const [filteredOrgs, setFilteredOrgs] = useState([]);
   /* Add functions */
 
   const tableHeader = (
@@ -57,22 +59,64 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
     );
   };
 
-  const dropDownUnpublishedEditor = (options) => {
+  const textAreaEditor = (options) => {
     return (
-      <Dropdown
-        id="organization"
+      <InputTextarea
+        type="text"
+        autoResize
+        rows={4}
         value={options.value}
-        options={appVars.appOrgs}
         onChange={(e) => options.editorCallback(e.target.value)}
-        placeholder="Select an org"
-        optionLabel="alias"
       />
     );
   };
 
+  const researcherEditor = (options) => {
+    return (
+      <AutoComplete
+        value={options.value}
+        delay={1500}
+        suggestions={filteredResearchers}
+        completeMethod={searchResearcher}
+        onChange={(e) => options.editorCallback(e.target.value)}
+        dropdown
+      />
+    );
+  };
+
+  const searchResearcher = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appUsersFlattened.filter((username) =>
+      username.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredResearchers(filteredResults);
+  };
+
+  const dropDownOrgsEditor = (options) => {
+    return (
+      <AutoComplete
+        value={options.value}
+        delay={1500}
+        suggestions={filteredOrgs}
+        completeMethod={searchOrgs}
+        onChange={(e) => options.editorCallback(e.target.value)}
+        dropdown
+        forceSelection={true}
+      />
+    );
+  };
+
+  const searchOrgs = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appOrgsAliasFlattened.filter((org) =>
+      org.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredOrgs(filteredResults);
+  };
+
   let saveEdits = (e) => {
     let { newData } = e;
-    newData.organization = newData.organization.alias;
+
     edit(newData);
   };
   /* ---*/
@@ -92,7 +136,7 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
             <Column
               field="organization"
               header="Organization"
-              editor={(options) => dropDownUnpublishedEditor(options)}
+              editor={(options) => dropDownOrgsEditor(options)}
             />
             <Column
               field="method"
@@ -110,6 +154,35 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
               editor={(options) => textEditor(options)}
             />
             <Column
+              field="researcher"
+              header="Researcher"
+              editor={(options) => researcherEditor(options)}
+            />
+
+            <Column
+              field="reference"
+              header="Reference"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="notes"
+              header="Notes"
+              editor={(options) => textAreaEditor(options)}
+            />
+            <Column
+              field="url"
+              header="URL"
+              editor={(options) => textEditor(options)}
+              body={(rowData) =>
+                rowData.url && (
+                  <a href={rowData.url} target="_BLANK">
+                    <i className="icon icon-common icon-external-link-alt"></i>
+                  </a>
+                )
+              }
+            />
+
+            <Column
               rowEditor
               headerStyle={{ width: "10%", minWidth: "8rem" }}
               bodyStyle={{ textAlign: "center" }}
@@ -121,7 +194,8 @@ const GeneViewProtectedDataUnpublishedStructuralInformation = ({
         visible={displayAddSideBar}
         onHide={() => setDisplayAddSideBar(false)}
         position="right"
-        className="p-sidebar-sm"
+        className="p-sidebar-md"
+        dismissable={false}
       >
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">

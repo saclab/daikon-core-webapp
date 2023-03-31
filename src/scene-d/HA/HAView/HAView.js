@@ -146,7 +146,7 @@ const HAView = () => {
           <hr />
           <Message
             severity="info"
-            text={"This would create a new porfolio with stage H2L."}
+            text={"This would create a new portfolio with stage H2L."}
           />
           <br />
           <br />

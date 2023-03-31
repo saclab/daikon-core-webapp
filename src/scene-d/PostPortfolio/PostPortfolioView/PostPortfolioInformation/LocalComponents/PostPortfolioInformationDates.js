@@ -2,7 +2,7 @@ import { ContextMenu } from "primereact/contextmenu";
 import { Dialog } from "primereact/dialog";
 import { Timeline } from "primereact/timeline";
 import React, { useRef, useState } from "react";
-import EmbededHelp from "../../../../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import FailedLoading from "../../../../../app/common/FailedLoading/FailedLoading";
 import FDate from "../../../../../app/common/FDate/FDate";
 import PredictedDateEditor from "../../../../../app/common/PredictedDateEditor/PredictedDateEditor";
@@ -141,10 +141,10 @@ const PostPortfolioInformationDates = ({ project }) => {
         style={{ width: "50vw" }}
         onHide={() => setDisplayEditContainer(false)}
       >
-        <EmbededHelp>
+        <EmbeddedHelp>
           Project's primary organization and participating organization can
           propose a new predicted start date.
-        </EmbededHelp>
+        </EmbeddedHelp>
         <PredictedDateEditor
           project={project}
           postSave={() => setDisplayEditContainer(false)}

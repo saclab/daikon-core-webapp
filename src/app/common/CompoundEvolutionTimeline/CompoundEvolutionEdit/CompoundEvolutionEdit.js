@@ -5,6 +5,7 @@ import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
 import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import SmilesView from "../../SmilesView/SmilesView";
 import StageSelectDropdown from "../../StageSelectDropdown/StageSelectDropdown";
@@ -111,7 +112,10 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                   "p-error": isFormFieldValid("smile"),
                 })}
               >
-                SMILES String
+                SMILES{" "}
+                <NavLink to={"/tools/compounds/" + ce.compound.id}>
+                  [Edit in Compound Tools]
+                </NavLink>
               </label>
               <InputTextarea
                 disabled={true}
@@ -135,7 +139,8 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                       "p-error": isFormFieldValid("molWeight"),
                     })}
                   >
-                    Mol Weight <sup>(Modify compound globally)</sup>
+                    Mol Weight <br />
+                    <sup>(*Modifies property globally)</sup>
                   </label>
                   <InputText
                     id="molWeight"
@@ -156,7 +161,9 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                       "p-error": isFormFieldValid("molArea"),
                     })}
                   >
-                    Mol Area<sup> (Modify compound globally)</sup>
+                    Mol Area
+                    <br />
+                    <sup>(*Modifies property globally)</sup>
                   </label>
                   <InputText
                     id="molArea"
@@ -169,7 +176,9 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                   />
                   {getFormErrorMessage("molArea")}
                 </div>
+              </div>
 
+              <div className="flex flex-column">
                 <div className="field">
                   <label
                     htmlFor="MIC"
@@ -177,7 +186,7 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                       "p-error": isFormFieldValid("MIC"),
                     })}
                   >
-                    MIC
+                    MIC (&micro;M)
                   </label>
                   <InputText
                     id="MIC"
@@ -198,7 +207,7 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                       "p-error": isFormFieldValid("IC50"),
                     })}
                   >
-                    IC50
+                    IC50 (&micro;M)
                   </label>
                   <InputText
                     id="IC50"
@@ -211,9 +220,6 @@ const CompoundEvolutionEdit = ({ evolution, onHide }) => {
                   />
                   {getFormErrorMessage("IC50")}
                 </div>
-              </div>
-
-              <div className="flex flex-column">
                 <div className="field">
                   <label
                     htmlFor="addedOnStage"

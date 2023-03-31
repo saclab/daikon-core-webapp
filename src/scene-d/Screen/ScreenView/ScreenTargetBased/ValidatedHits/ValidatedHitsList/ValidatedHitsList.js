@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Chip } from "primereact/chip";
@@ -9,7 +8,8 @@ import { Dialog } from "primereact/dialog";
 import { TieredMenu } from "primereact/tieredmenu";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import SmilesView from "../../../../../../app/common/SmilesView/SmilesView";
+import SectionHeading from "../../../../../../app/common/SectionHeading/SectionHeading";
+import SmilesViewWithDetails from "../../../../../../app/common/SmilesViewWithDetails/SmilesViewWithDetails";
 import Vote from "../../../../../../app/common/Vote/Vote";
 import Loading from "../../../../../../app/layout/Loading/Loading";
 import { RootStoreContext } from "../../../../../../app/stores/rootStore";
@@ -56,7 +56,7 @@ const ValidatedHitsList = ({ screenId }) => {
   let validatePromoteToHA = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No compounds selected. Please select some compouns to promote them."
+        "No rows selected. Please select some rows to promote them."
       );
       return;
     }
@@ -66,7 +66,7 @@ const ValidatedHitsList = ({ screenId }) => {
   let enableVotingCalled = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No rows selected. Please select some or all compouns to enable voting."
+        "No rows selected. Please select some or all rows to enable voting."
       );
       return;
     }
@@ -81,7 +81,7 @@ const ValidatedHitsList = ({ screenId }) => {
   let validateFreezeVoting = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No rows selected. Please select some or all compouns to enable voting."
+        "No rows selected. Please select some or all rows to freeze voting."
       );
       return;
     }
@@ -121,8 +121,8 @@ const ValidatedHitsList = ({ screenId }) => {
     return (
       <React.Fragment>
         <div>
-          <SmilesView
-            smiles={rowData?.compound?.smile}
+          <SmilesViewWithDetails
+            compound={rowData?.compound}
             width={"220"}
             height={"220"}
           />
@@ -132,7 +132,7 @@ const ValidatedHitsList = ({ screenId }) => {
   };
 
   const EnzymeActivityBodyTemplate = (rowData) => {
-    return <React.Fragment>{_.round(rowData.iC50, 2)}</React.Fragment>;
+    return <React.Fragment>{rowData.iC50}</React.Fragment>;
   };
 
   // const MethodBodyTemplate = (rowData) => {
@@ -140,7 +140,7 @@ const ValidatedHitsList = ({ screenId }) => {
   // };
 
   const MICBodyTemplate = (rowData) => {
-    return <React.Fragment>{_.round(rowData.mic, 2)}</React.Fragment>;
+    return <React.Fragment>{rowData.mic}</React.Fragment>;
   };
 
   const ClusterBodyTemplate = (rowData) => {
@@ -149,13 +149,13 @@ const ValidatedHitsList = ({ screenId }) => {
 
   const VoteBodyTemplate = (rowData) => {
     return (
-      <React.Fragment>
+      <div style={{ padding: "10px" }}>
         <Vote
           id={rowData.vote.id}
           voteData={rowData.vote}
           callBack={() => fetchScreen(screenId, true)}
         />
-      </React.Fragment>
+      </div>
     );
   };
   const tableHeader = (
@@ -275,6 +275,7 @@ const ValidatedHitsList = ({ screenId }) => {
             emptyMessage="No hits found."
             resizableColumns
             columnResizeMode="fit"
+            size="large"
             //showGridlines
             responsiveLayout="scroll"
             selection={selectedCompounds}
@@ -298,26 +299,26 @@ const ValidatedHitsList = ({ screenId }) => {
               field={(rowData) => rowData?.compound?.smile}
               header="Structure"
               body={StructureBodyTemplate}
-              style={{ minWidth: "350px" }}
+              style={{ minWidth: "300px" }}
             />
             <Column
               field={(rowData) => rowData?.library + "|" + rowData.source}
               header="Library|Source"
               body={LibraryBodyTemplate}
-              style={{ width: "200px" }}
+              style={{ minWidth: "130px" }}
             />
             <Column
               field={(rowData) => rowData?.compound?.externalCompoundIds}
               header="Compound Id"
               body={CompoundIdBodyTemplate}
-              style={{ width: "150px" }}
+              style={{ minWidth: "150px" }}
             />
 
             <Column
               field="iC50"
-              header="Enzyme Activity [IC50] (&micro;M) "
+              header="IC50 (&micro;M) "
               body={EnzymeActivityBodyTemplate}
-              style={{ width: "90px" }}
+              style={{ width: "50px" }}
             />
             {/* <Column
               field="Method"
@@ -329,11 +330,11 @@ const ValidatedHitsList = ({ screenId }) => {
               field="mic"
               header="MIC (&micro;M)"
               body={MICBodyTemplate}
-              style={{ width: "70px" }}
+              style={{ width: "50px" }}
             />
             <Column
               field="clusterGroup"
-              header="Cluster Group No"
+              header="Cluster"
               body={ClusterBodyTemplate}
               style={{ width: "90px" }}
               sortable
@@ -342,19 +343,26 @@ const ValidatedHitsList = ({ screenId }) => {
               field="Vote"
               header="Vote"
               body={VoteBodyTemplate}
-              style={{ width: "250px" }}
+              style={{ minWidth: "200px" }}
             />
           </DataTable>
         </div>
       </div>
       <Dialog
         visible={displayHitsImportSidebar}
-        header="Import Validated Hits"
         style={{ width: "90%" }}
+        maximizable={true}
+        maximized={true}
         onHide={() => setDisplayHitsImportSidebar(false)}
         className="p-sidebar-lg"
       >
         <div className="card">
+          <SectionHeading
+            icon="icon icon-conceptual icon-structures-3d"
+            heading={"Import Validated Hits"}
+            color={"#f4f4f4"}
+            textColor={"#000000"}
+          />
           <br />
           <ValidatedHitsImporter
             screenId={selectedScreen.id}

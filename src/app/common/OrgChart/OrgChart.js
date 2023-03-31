@@ -8,7 +8,7 @@ import { Tooltip } from "primereact/tooltip";
 import React, { useContext, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { RootStoreContext } from "../../stores/rootStore";
-import EmbededHelp from "../EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../EmbeddedHelp/EmbeddedHelp";
 
 const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
   const rootStore = useContext(RootStoreContext);
@@ -138,11 +138,11 @@ const OrgChart = ({ projectId, activeOrgs, primary, allowEdit }) => {
         onHide={() => setDisplayEditContainer(false)}
         footer={footerEditDialog}
       >
-        <EmbededHelp>
+        <EmbeddedHelp>
           Project's primary organization ({primary}) can add or remove any
           memberships. Other organizations can add or remove themselves from the
           project.
-        </EmbededHelp>
+        </EmbeddedHelp>
         <br />
         <div className="flex flex-wrap card-container">
           <SelectButton

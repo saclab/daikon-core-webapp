@@ -2,7 +2,7 @@ import { Button } from "primereact/button";
 import { Editor } from "primereact/editor";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import EmbededHelp from "../../app/common/EmbededHelp/EmbededHelp";
+import EmbeddedHelp from "../../app/common/EmbeddedHelp/EmbeddedHelp";
 import { _helper_detect_browser_details } from "./BugReportHelper";
 
 const BugReport = () => {
@@ -43,14 +43,14 @@ const BugReport = () => {
   return (
     <div className="flex w-full flex-column pl-6">
       <h2>Bug Report Template</h2>
-      <EmbededHelp>
+      <EmbeddedHelp>
         Thank you for your time! Feedbacks helps us improve.
-      </EmbededHelp>
-      <EmbededHelp>
+      </EmbeddedHelp>
+      <EmbeddedHelp>
         Bugs are maintained in github and are <b>&nbsp; public</b>. Make sure
         you <b>&nbsp; do not have any sensitive data &nbsp;</b> in the bug
         report.
-      </EmbededHelp>
+      </EmbeddedHelp>
       <p>
         - Please <b> fill</b> the <b> 'bug description'</b> and the{" "}
         <b>'steps to reproduce'</b> sections. <br />- click on 'COPY Text'

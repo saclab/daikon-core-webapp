@@ -46,38 +46,38 @@ export function _command_contextMenuFetchHistoryCommand(
   setDisplayHistorySideBar(true);
 }
 
-export function _command_contextMenuHilightAllChangesCommand(
+export function _command_contextMenuHighlightAllChangesCommand(
   fetchHistory,
-  setHilightRecentChanges,
-  setHilightAllChanges
+  setHighlightRecentChanges,
+  setHighlightAllChanges
 ) {
   fetchHistory();
-  setHilightRecentChanges(false);
-  setHilightAllChanges(true);
-  // localStorage.setItem("_local_HilightRecentChanges", false)
-  // localStorage.setItem("_local_HilightAllChanges", true)
+  setHighlightRecentChanges(false);
+  setHighlightAllChanges(true);
+  // localStorage.setItem("_local_HighlightRecentChanges", false)
+  // localStorage.setItem("_local_HighlightAllChanges", true)
 }
 
-export function _command_contextMenuHilightRecentChangesCommand(
+export function _command_contextMenuHighlightRecentChangesCommand(
   fetchHistory,
-  setHilightRecentChanges,
-  setHilightAllChanges
+  setHighlightRecentChanges,
+  setHighlightAllChanges
 ) {
   fetchHistory();
-  setHilightAllChanges(false);
-  setHilightRecentChanges(true);
-  // localStorage.setItem("_local_HilightRecentChanges", true)
-  // localStorage.setItem("_local_HilightAllChanges", false)
+  setHighlightAllChanges(false);
+  setHighlightRecentChanges(true);
+  // localStorage.setItem("_local_HighlightRecentChanges", true)
+  // localStorage.setItem("_local_HighlightAllChanges", false)
 }
 
-export function _command_contextMenuClearHilightsCommand(
-  setHilightAllChanges,
-  setHilightRecentChanges
+export function _command_contextMenuClearHighlightsCommand(
+  setHighlightAllChanges,
+  setHighlightRecentChanges
 ) {
-  setHilightAllChanges(false);
-  setHilightRecentChanges(false);
-  localStorage.removeItem("_local_HilightRecentChanges");
-  localStorage.removeItem("_local_HilightAllChanges");
+  setHighlightAllChanges(false);
+  setHighlightRecentChanges(false);
+  localStorage.removeItem("_local_HighlightRecentChanges");
+  localStorage.removeItem("_local_HighlightAllChanges");
 }
 
 export function _command_contextMenuEditCommand(setDisplayEditContainer) {

@@ -127,7 +127,14 @@ const ScreenSequence = ({ screenId }) => {
           dismissable
           style={{ width: "450px" }}
         >
-          <pre style={{ maxWidth: "450px", overflow: "auto" }}>
+          <pre
+            style={{
+              maxWidth: "450px",
+              overflow: "auto",
+              whiteSpace: "pre-wrap",
+              wordWrap: "break-word",
+            }}
+          >
             {selectedProtocol}
           </pre>
         </OverlayPanel>
@@ -169,11 +176,8 @@ const ScreenSequence = ({ screenId }) => {
               body={protocolBodyTemplate}
               header="Protocol"
             />
-            <Column field="concentration" header="Inhibitor Concentration" />
-            <Column
-              field="noOfCompoundsScreened"
-              header="No of compounds screened"
-            />
+            <Column field="concentration" header="Inhibitor C (&micro;M)" />
+            <Column field="noOfCompoundsScreened" header="No. of Compounds" />
             <Column
               field="scientist"
               header="Scientist"

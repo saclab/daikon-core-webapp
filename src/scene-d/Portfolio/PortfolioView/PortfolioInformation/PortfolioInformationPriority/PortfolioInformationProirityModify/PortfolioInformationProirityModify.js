@@ -82,8 +82,8 @@ const PortfolioInformationProirityModify = ({ closeSidebar }) => {
                 </label>
 
                 <Dropdown
-                  id="prority"
-                  name="prority"
+                  id="priority"
+                  name="priority"
                   options={["High", "Medium", "Low"]}
                   value={formik.values.teamPriority}
                   onChange={formik.handleChange("teamPriority")}

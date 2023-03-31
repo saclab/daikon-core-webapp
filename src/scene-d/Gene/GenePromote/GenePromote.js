@@ -120,7 +120,7 @@ const GenePromote = () => {
         ) &&
         targetPromotionFormValue[key].description === ""
       ) {
-        console.error("Validation fail, blank decription");
+        console.error("Validation fail, blank description");
         console.log(targetPromotionFormValue[key]);
         validationFail = true;
       }

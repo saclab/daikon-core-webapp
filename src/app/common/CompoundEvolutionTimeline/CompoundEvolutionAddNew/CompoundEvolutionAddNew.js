@@ -28,6 +28,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
       MIC: "",
       IC50: "",
       notes: "",
+      externalCompoundIds: "",
     },
     validate: (data) => {
       let errors = {};
@@ -79,7 +80,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                     "p-error": isFormFieldValid("smile"),
                   })}
                 >
-                  Smiles String
+                  SMILES
                 </label>
                 <InputTextarea
                   id="smile"
@@ -92,6 +93,26 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                 />
                 {getFormErrorMessage("smile")}
               </div>
+              <div className="field">
+                <label
+                  htmlFor="externalCompoundIds"
+                  className={classNames({
+                    "p-error": isFormFieldValid("externalCompoundIds"),
+                  })}
+                >
+                  External Compound Id
+                </label>
+                <InputText
+                  id="externalCompoundIds"
+                  type="text"
+                  value={formik.values.externalCompoundIds}
+                  onChange={formik.handleChange}
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("externalCompoundIds"),
+                  })}
+                />
+              </div>
+
               <div className="field">
                 <label
                   htmlFor="molWeight"
@@ -138,7 +159,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                     "p-error": isFormFieldValid("MIC"),
                   })}
                 >
-                  MIC
+                  MIC (&micro;M)
                 </label>
                 <InputText
                   id="MIC"
@@ -158,7 +179,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                     "p-error": isFormFieldValid("IC50"),
                   })}
                 >
-                  IC50
+                  IC50 (&micro;M)
                 </label>
                 <InputText
                   id="IC50"

@@ -125,7 +125,7 @@ const TargetPromotionFormEdit = ({ data, selectedTarget }) => {
               className="flex flex-column"
             >
               <div className="flex">
-                <Divider allign="left" type="dashed">
+                <Divider align="left" type="dashed">
                   {subSection.topic}
                 </Divider>
               </div>
@@ -142,7 +142,7 @@ const TargetPromotionFormEdit = ({ data, selectedTarget }) => {
             className="flex flex-column"
           >
             <div className="flex">
-              <Divider allign="left">
+              <Divider align="left">
                 <b className="font-bold">{section.heading}</b>
               </Divider>
             </div>

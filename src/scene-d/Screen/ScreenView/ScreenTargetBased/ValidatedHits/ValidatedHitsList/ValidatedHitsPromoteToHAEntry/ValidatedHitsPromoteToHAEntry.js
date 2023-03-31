@@ -95,7 +95,7 @@ const ValidatedHitsPromoteToHAEntry = ({ compounds, screen, close }) => {
               dataKey="id"
             >
               <Column
-                field="compound.externalCompundIds"
+                field="compound.externalCompoundIds"
                 header="Compound Id"
               />
               <Column field="clusterGroup" header="Cluster Group No" />

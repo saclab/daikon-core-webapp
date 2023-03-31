@@ -66,7 +66,11 @@ const GeneViewProtectedDataAddEssentialityForm = ({
             value={formik.values.classification}
             options={[
               { name: "Essential", value: "Essential" },
-              { name: "Non-essential", value: "Non-essential" },
+              { name: "Essential-Domain", value: "Essential-Domain" },
+              { name: "Growth-Advantage", value: "Growth-Advantage" },
+              { name: "Growth-Defect", value: "Growth-Defect" },
+              { name: "Non-Essential", value: "Non-Essential" },
+              { name: "Uncertain", value: "Uncertain" },
             ]}
             onChange={formik.handleChange}
             placeholder="Select a classification"
@@ -88,7 +92,7 @@ const GeneViewProtectedDataAddEssentialityForm = ({
           >
             Condition
           </label>
-          <InputText
+          <InputTextarea
             id="condition"
             value={formik.values.condition}
             onChange={formik.handleChange}

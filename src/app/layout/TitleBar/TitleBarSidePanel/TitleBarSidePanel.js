@@ -75,6 +75,37 @@ const TitleBarSidePanel = ({ toggle, user }) => {
     </div>
   );
 
+  const tools = (
+    <div className="flex flex-column">
+      <div className="flex">
+        <div className="flex">
+          {" "}
+          <h4>+ Tools</h4>
+        </div>
+        <div className="flex">
+          {" "}
+          <Divider type="dashed" />
+        </div>
+      </div>
+
+      <div className="flex">
+        <div className="card">
+          <Button
+            type="button"
+            label="Compounds"
+            icon="icon icon-common icon-asterisk"
+            className="p-mr-2 p-mb-2 p-button-text p-button-plain p-button-sm"
+            onClick={() => {
+              toggle();
+              setAppView("Tools");
+              navigate("/tools");
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex flex-column">
       <div className="flex align-items-center justify-content-center">
@@ -102,6 +133,10 @@ const TitleBarSidePanel = ({ toggle, user }) => {
 
       <div className="flex">
         {user.roles.includes("projectManager") ? pmTools : ""}
+      </div>
+
+      <div className="flex">
+        {user.roles.includes("projectManager") ? tools : ""}
       </div>
     </div>
   );
