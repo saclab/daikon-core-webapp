@@ -3,7 +3,7 @@ name: DAIKON_frontend_workflow
 # !TODO! Create new Github Actions secrets and assign the secret.* value here to these env assignments:
 env:
   AZURE_CLIENT_SECRET: IBE8Q~ZfwnFgsyiZtrVxyxLZwUe5k.c85sPzZbIk
-  CONTAINER_REGISTRY_PASSWORD: l2y8V2Q+ocsWlPRKEZProVxF8rR1CTWIekBGebcB9e+ACRAIQcVU
+  CONTAINER_REGISTRY_PASSWORD: wzeGhJCvKloc/QNjKku+Z1I9n6oqG6Mw
   AZURE_CLIENT_ID: 8a8ecadf-698c-4954-8128-6125d9fa73de
 
   # These can be left inline and changed as needed  (if only one pipeline per env)
