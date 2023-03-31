@@ -82,7 +82,7 @@ const GeneViewProtectedData = ({
   } = rootStore.geneStore;
 
   return (
-    <div className="flex flex-column w-full">
+    <div className="flex flex-column w-full max-w-full">
       <div className="flex w-full pb-2">
         <BreadCrumb model={breadCrumbItems} />
       </div>
@@ -95,8 +95,8 @@ const GeneViewProtectedData = ({
           color={appColors.sectionHeadingBg.gene}
         />
       </div>
-      <div className="flex w-full">
-        <div className="flex flex-column gap-3 w-full">
+      <div className="flex w-full max-w-full">
+        <div className="flex flex-column gap-3 w-full max-w-full">
           <div className="flex w-full">
             <Fieldset className="w-full" legend="Essentiality">
               <EmbeddedHelp>
@@ -299,8 +299,8 @@ const GeneViewProtectedData = ({
               />
             </Fieldset>
           </div>
-          <div className="flex w-full">
-            <Fieldset className="w-full" legend="Vulnerability">
+          <div className="flex w-full max-w-full">
+            <Fieldset className="w-full max-w-full" legend="Vulnerability">
               <EmbeddedHelp>
                 Vulnerability refers to the identification of specific targets
                 or characteristics of a disease that can be leveraged for
