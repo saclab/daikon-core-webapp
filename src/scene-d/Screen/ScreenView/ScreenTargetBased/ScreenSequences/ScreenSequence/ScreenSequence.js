@@ -127,7 +127,14 @@ const ScreenSequence = ({ screenId }) => {
           dismissable
           style={{ width: "450px" }}
         >
-          <pre style={{ maxWidth: "450px", overflow: "auto" }}>
+          <pre
+            style={{
+              maxWidth: "450px",
+              overflow: "auto",
+              whiteSpace: "pre-wrap",
+              wordWrap: "break-word",
+            }}
+          >
             {selectedProtocol}
           </pre>
         </OverlayPanel>
