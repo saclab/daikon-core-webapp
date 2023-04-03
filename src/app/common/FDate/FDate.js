@@ -1,9 +1,8 @@
 import React from "react";
 
 const FDate = ({ timestamp, hideTime = true, color = "#17202A" }) => {
-
   if (timestamp === undefined) {
-    return <span></span>
+    return <span></span>;
   }
 
   if (hideTime) {

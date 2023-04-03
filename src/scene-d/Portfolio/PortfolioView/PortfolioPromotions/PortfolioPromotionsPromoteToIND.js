@@ -1,18 +1,17 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ProgressBar } from "primereact/progressbar";
-import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
-import { Calendar } from "primereact/calendar";
-import { observer } from "mobx-react-lite";
+import React, { useContext } from "react";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingProject, selectedProject } =
-    rootStore.projectStore;
+  const { loadingProject, selectedProject } = rootStore.projectStore;
 
   const { creatingIND, createIND } = rootStore.postPortfolioStore;
 
@@ -32,7 +31,7 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
     },
     onSubmit: (data) => {
       data["id"] = selectedProject.id;
-      console.log(data);
+
       createIND(data).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -109,11 +108,10 @@ const PortfolioPromotionsPromoteToIND = ({ closeSidebar }) => {
                 <Button
                   icon="icon icon-common icon-database-submit"
                   type="submit"
-                  label="Promote to IND (PostPorfolio)"
+                  label="Promote to IND (Post-Portfolio)"
                   className="p-mt-2"
                 />
               </div>
-
             </form>
           </div>
         </div>

@@ -1,14 +1,16 @@
-import React from 'react'
-import { useFormik } from 'formik';
-import { classNames } from "primereact/utils";
-import { InputText } from 'primereact/inputtext';
-import { InputTextarea } from 'primereact/inputtextarea';
-import { Button } from 'primereact/button';
+import { useFormik } from "formik";
+import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
+import { classNames } from "primereact/utils";
+import React from "react";
 
-const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar }) => {
-
-
+const GeneViewProtectedDataAddEssentialityForm = ({
+  add,
+  adding,
+  closeSidebar,
+}) => {
   const formik = useFormik({
     initialValues: {
       classification: "",
@@ -28,7 +30,6 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
       return errors;
     },
     onSubmit: (data) => {
-      console.log(data);
       add(data).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -48,9 +49,7 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
     );
   };
 
-
   return (
-
     <div className="card w-full">
       <form onSubmit={formik.handleSubmit} className="p-fluid">
         <div className="field">
@@ -65,7 +64,14 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
           <Dropdown
             id="classification"
             value={formik.values.classification}
-            options={[{name: 'Essential', value: 'Essential'},{name: 'Non-essential', value: 'Non-essential'}]}
+            options={[
+              { name: "Essential", value: "Essential" },
+              { name: "Essential-Domain", value: "Essential-Domain" },
+              { name: "Growth-Advantage", value: "Growth-Advantage" },
+              { name: "Growth-Defect", value: "Growth-Defect" },
+              { name: "Non-Essential", value: "Non-Essential" },
+              { name: "Uncertain", value: "Uncertain" },
+            ]}
             onChange={formik.handleChange}
             placeholder="Select a classification"
             optionLabel="name"
@@ -86,11 +92,10 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
           >
             Condition
           </label>
-          <InputText
+          <InputTextarea
             id="condition"
             value={formik.values.condition}
             onChange={formik.handleChange}
-            
             className={classNames({
               "p-invalid": isFormFieldValid("condition"),
             })}
@@ -111,7 +116,6 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             id="strain"
             value={formik.values.strain}
             onChange={formik.handleChange}
-            
             className={classNames({
               "p-invalid": isFormFieldValid("strain"),
             })}
@@ -132,14 +136,12 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             id="method"
             value={formik.values.method}
             onChange={formik.handleChange}
-            
             className={classNames({
               "p-invalid": isFormFieldValid("method"),
             })}
           />
           {getFormErrorMessage("method")}
         </div>
-
 
         <div className="field">
           <label
@@ -154,7 +156,6 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             id="reference"
             value={formik.values.reference}
             onChange={formik.handleChange}
-            
             className={classNames({
               "p-invalid": isFormFieldValid("reference"),
             })}
@@ -175,7 +176,6 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             id="notes"
             value={formik.values.notes}
             onChange={formik.handleChange}
-            
             className={classNames({
               "p-invalid": isFormFieldValid("notes"),
             })}
@@ -193,10 +193,9 @@ const GeneViewProtectedDataAddEssentialityForm = ({ add, adding, closeSidebar })
             />
           </div>
         </div>
-
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default GeneViewProtectedDataAddEssentialityForm
+export default GeneViewProtectedDataAddEssentialityForm;

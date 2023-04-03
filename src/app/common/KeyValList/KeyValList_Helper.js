@@ -1,8 +1,4 @@
 import JsonQuery from "json-query";
-import { Timeline } from "primereact/timeline";
-import { Button } from "primereact/button";
-import { runInAction } from "mobx";
-import { InputTextarea } from "primereact/inputtextarea";
 import _ from "lodash";
 import { runInAction } from "mobx";
 import { Button } from "primereact/button";
@@ -142,8 +138,6 @@ export function _helper_generateEditForm(data, selectedId) {
         value={data ? data[selectedId] : null}
         autoFocus
         onChange={(e) => {
-          console.log(data[selectedId]);
-          console.log(e.target.value);
           runInAction(() => (data[selectedId] = e.target.value));
         }}
       />

@@ -1,23 +1,22 @@
-import React, { useContext, useState } from "react";
-import { observer } from "mobx-react-lite";
-import { useNavigate } from "react-router-dom";
-import { Card } from "primereact/card";
-import { RadioButton } from "primereact/radiobutton";
-import { Dialog } from "primereact/dialog";
-import { Button } from "primereact/button";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { Inplace, InplaceDisplay, InplaceContent } from "primereact/inplace";
-import { InputText } from "primereact/inputtext";
 import _ from "lodash";
-import { toast } from "react-toastify";
-import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+import { Dialog } from "primereact/dialog";
+import { Inplace, InplaceContent, InplaceDisplay } from "primereact/inplace";
+import { InputText } from "primereact/inputtext";
 import { ProgressBar } from "primereact/progressbar";
+import { RadioButton } from "primereact/radiobutton";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import EmbeddedHelp from "../../../../app/common/EmbeddedHelp/EmbeddedHelp";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const GenePromoteTargetSelectionWindow = ({
   displayPromotionDialog,
   setDisplayPromotionDialog,
 }) => {
-
   const navigate = useNavigate();
   const [activeScreen, setActiveScreen] = useState(
     "screenProteinTypeSelection"
@@ -82,7 +81,6 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenSelectionClicked = () => {
-    console.log("Active Screen is " + activeScreen);
     if (activeScreen === "screenProteinTypeSelection") {
       if (proteinType === "simple-protein") {
         setProposedTargetName(_.upperFirst(gene.geneName));
@@ -118,13 +116,12 @@ const GenePromoteTargetSelectionWindow = ({
 
   let screenProteinTypeSelection = () => (
     <React.Fragment>
-      <EmbededHelp>
+      <EmbeddedHelp>
         <p>
-          This is an example:
-          Target Prioritization Tool implementation is required by the Organization.
-          Please refer Developer's Guide
+          A target promotion refers to the process of identifying and validating
+          a specific biological target as a potential therapeutic opportunity.
         </p>
-      </EmbededHelp>
+      </EmbeddedHelp>
 
       <h2> Promote as</h2>
 
@@ -182,7 +179,7 @@ const GenePromoteTargetSelectionWindow = ({
 
   let screenProposeSimpleProteinTargetName = () => (
     <React.Fragment>
-      <EmbededHelp>
+      <EmbeddedHelp>
         <h4>Nomenclature</h4>
         <p>
           Consistent protein nomenclature is indispensable for communication,
@@ -192,12 +189,13 @@ const GenePromoteTargetSelectionWindow = ({
           Please adhere to the{" "}
           <a
             href="https://www.ncbi.nlm.nih.gov/genome/doc/internatprot_nomenguide"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             International Protein Nomenclature Guidelines.
           </a>
         </p>
-      </EmbededHelp>
+      </EmbeddedHelp>
 
       <h4>
         Proposed Protein Name{" "}
@@ -232,8 +230,6 @@ const GenePromoteTargetSelectionWindow = ({
     }
 
     if (!searchingGeneGroup && calledSearchGeneGroup) {
-      console.log(searchedGeneGroup);
-
       if (searchedGeneGroup?.length === 0) {
         return (
           <p>
@@ -281,8 +277,6 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenValidateSimpleProteinTargetName = () => {
-    console.log("Rendering screenValidateSimpleProteinTargetName");
-
     if (!validateTargetNameLoading && callValidateTargetName) {
       setCallValidateTargetName(false);
       validateTargetName(proposedTargetName);
@@ -332,8 +326,6 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenValidateProteinComplex = () => {
-    console.log("Rendering screenValidateProteinComplex");
-
     if (!validateTargetNameLoading && callValidateTargetName) {
       setCallValidateTargetName(false);
       validateTargetName(selectedProteinComplexName);
@@ -384,7 +376,7 @@ const GenePromoteTargetSelectionWindow = ({
 
   return (
     <Dialog
-      header={`Identify this as a new Target`}
+      header={`Identify as a new Target`}
       visible={displayPromotionDialog}
       style={{ width: "50vw" }}
       footer={renderDisplayPromotionDialogFooter()}

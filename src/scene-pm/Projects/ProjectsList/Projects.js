@@ -1,31 +1,26 @@
-import React from "react";
-import { useEffect } from "react";
-import { useRef } from "react";
-import { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Button } from 'primereact/button';
-import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
-import { useState } from "react";
-import { Tag } from "primereact/tag";
-import { SelectButton } from "primereact/selectbutton";
+import { Button } from "primereact/button";
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import { MultiSelect } from "primereact/multiselect";
-import "./ProjectListDataTable.css";
+import { SelectButton } from "primereact/selectbutton";
+import { Tag } from "primereact/tag";
+import React, { useContext, useEffect, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import FDate from "../../../app/common/FDate/FDate";
-import { appColors } from '../../../colors';
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import StageTag from "../../../app/common/StageTag/StageTag";
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import { appColors } from "../../../colors";
+import "./ProjectListDataTable.css";
 
 const Projects = () => {
-
   const rootStore = useContext(RootStoreContext);
-  const { loadingProjects, fetchProjects, projectRegistry } =
+  const { loadingProjects, fetchProjects, projectRegistry, projects } =
     rootStore.projectStore;
   const navigate = useNavigate();
 
-  const { filterPortfolioProjects } = rootStore.portfolioStore;
   /* Local State Management */
 
   useEffect(() => {
@@ -39,49 +34,33 @@ const Projects = () => {
   const dt = useRef(null);
 
   /* STAGE FILTER */
-  const [selectedStage, setSelectedStage] = useState(null);
   const stages = ["H2L", "LO", "SP", "IND", "P1"];
 
-  const onStageChange = (e) => {
-    console.log(e.value);
-    dt.current.filter(e.value, "currentStage", "in");
-    setSelectedStage(e.value);
-  };
-
   const stageItemTemplate = (option) => {
-    return <span className={`customer-badge status-${option}`}>{option}</span>;
+    return <StageTag stage={option} />;
   };
 
-  const stageFilter = (
+  const stageFilter = (options) => (
     <MultiSelect
-      value={selectedStage}
+      value={options.value}
       options={stages}
-      onChange={onStageChange}
+      onChange={(e) => options.filterApplyCallback(e.value)}
       itemTemplate={stageItemTemplate}
       placeholder="Select a Stage"
       className="p-column-filter"
-      showClear
     />
   );
   /* END STAGE FILTER */
 
   /* STATUS FILTER */
-  const [selectedStatus, setSelectedStatus] = useState(null);
   const statuses = ["Active", "Terminated"];
 
-  const onStatusChange = (e) => {
-    console.log(e.value);
-    dt.current.filter(e.value, "status", "equals");
-    setSelectedStatus(e.value);
-  };
-
-  const statusFilter = (
+  const statusFilter = (options) => (
     <SelectButton
-      value={selectedStatus}
+      value={options.value}
       options={statuses}
-      onChange={onStatusChange}
-      itemTemplate={stageItemTemplate}
-      className="p-column-filter"
+      onChange={(e) => options.filterApplyCallback(e.value)}
+      className="p-column-filter p-button-sm"
     />
   );
   /* END STATUS FILTER */
@@ -100,9 +79,7 @@ const Projects = () => {
       <React.Fragment>
         <span className="p-column-title">Project Id</span>
 
-        <NavLink to={"./" + rowData.id}>
-          {rowData.id.substring(0, 8)}
-        </NavLink>
+        <NavLink to={"./" + rowData.id}>{rowData.id.substring(0, 8)}</NavLink>
       </React.Fragment>
     );
   };
@@ -112,9 +89,7 @@ const Projects = () => {
       <React.Fragment>
         <span className="p-column-title">Project Name</span>
         <b>
-          <NavLink to={"./" + rowData.id}>
-            {rowData.projectName}
-          </NavLink>
+          <NavLink to={"./" + rowData.id}>{rowData.projectName}</NavLink>
         </b>
       </React.Fragment>
     );
@@ -147,7 +122,7 @@ const Projects = () => {
   };
 
   const DateBodyTemplate = (rowData) => {
-    let inputDate = new Date(rowData.fhaStart).setHours(0, 0, 0, 0);
+    let inputDate = new Date(rowData.haStart).setHours(0, 0, 0, 0);
     let stageDate = rowData.h2LStart;
 
     if (rowData.h2LEnabled) {
@@ -176,14 +151,22 @@ const Projects = () => {
       return (
         <React.Fragment>
           <span className="p-column-title">Date</span>
-          <FDate className="p-column-title" timestamp={stageDate} color={"#FFECB3"} />
+          <FDate
+            className="p-column-title"
+            timestamp={stageDate}
+            color={"#FFECB3"}
+          />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <span className="p-column-title">Date</span>
-        <FDate className="p-column-title" timestamp={stageDate} color={"#000000"} />
+        <FDate
+          className="p-column-title"
+          timestamp={stageDate}
+          color={"#000000"}
+        />
       </React.Fragment>
     );
   };
@@ -221,13 +204,13 @@ const Projects = () => {
             icon="icon icon-common icon-plus"
             className="p-button-secondary"
             style={{ width: "20rem" }}
-            onClick={() => navigate('/pm/project/new')}
+            onClick={() => navigate("/pm/project/new")}
           />
         </div>
         <div className="flex w-full">
           <DataTable
             ref={dt}
-            value={filterPortfolioProjects()}
+            value={projects()}
             paginator
             rows={10}
             // header={header}
@@ -267,8 +250,10 @@ const Projects = () => {
             />
 
             <Column
-              field="PrimaryOrganization"
+              field="primaryOrg.alias"
               header="Primary Organization"
+              filter
+              filterMatchMode="contains"
               body={PrimaryOrganizationBodyTemplate}
             />
 
@@ -279,6 +264,7 @@ const Projects = () => {
               filter
               filterElement={statusFilter}
               style={{ width: "250px" }}
+              showFilterMenu={false}
             />
 
             <Column
@@ -294,17 +280,18 @@ const Projects = () => {
               header="Current Stage"
               body={StageBodyTemplate}
               filter
+              filterField="currentStage"
               filterElement={stageFilter}
+              showFilterMenu={false}
+              filterMatchMode="in"
             />
           </DataTable>
         </div>
-        <div className="card">
-
-        </div>
+        <div className="card"></div>
       </div>
     );
   }
   return <Loading />;
 };
 
-export default observer(Projects)
+export default observer(Projects);

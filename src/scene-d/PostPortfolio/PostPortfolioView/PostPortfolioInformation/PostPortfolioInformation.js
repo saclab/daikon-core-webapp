@@ -1,16 +1,20 @@
-import React from "react";
+import { BreadCrumb } from "primereact/breadcrumb";
 import { Fieldset } from "primereact/fieldset";
-import { useNavigate } from 'react-router-dom';
-import "./ScrollPanel.css";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import CompoundEvolutionTimeline from "../../../../app/common/CompoundEvolutionTimeline/CompoundEvolutionTimeline";
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { appColors } from '../../../../colors';
-import PostPortfolioInformationGeneralInformation from './LocalComponents/PostPortfolioInformationGeneralInformation';
-import PostPortfolioInformationDates from './LocalComponents/PostPortfolioInformationDates';
-import PostPortfolioInformationPriority from './PostPortfolioInformationPriority/PostPortfolioInformationPriority';
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from "../../../../colors";
+import PostPortfolioInformationDates from "./LocalComponents/PostPortfolioInformationDates";
+import PostPortfolioInformationGeneralInformation from "./LocalComponents/PostPortfolioInformationGeneralInformation";
+import PostPortfolioInformationOrgs from "./LocalComponents/PostPortfolioInformationOrgs";
+import PostPortfolioInformationPriority from "./PostPortfolioInformationPriority/PostPortfolioInformationPriority";
+import "./ScrollPanel.css";
 
 const PostPortfolioInformation = ({ id, project }) => {
+  const rootStore = useContext(RootStoreContext);
+  const { user } = rootStore.userStore;
 
   const navigate = useNavigate();
 
@@ -25,11 +29,10 @@ const PostPortfolioInformation = ({ id, project }) => {
       label: project.projectName,
       command: () => {
         navigate(`/d/post-portfolio/${project.id}`);
-      }
+      },
     },
     { label: "Information" },
   ];
-
 
   return (
     <React.Fragment>
@@ -43,12 +46,10 @@ const PostPortfolioInformation = ({ id, project }) => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-common icon-drug"
-            heading={
-              project.projectName +
-              " | " +
-              project?.currentStage
+            heading={project.projectName + " | " + project?.currentStage}
+            targetName={
+              project.targetName || project.screenName || project.projectName
             }
-            targetName={project.targetName || project.screenName || project.projectName}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.postPortfolio}
           />
@@ -71,12 +72,22 @@ const PostPortfolioInformation = ({ id, project }) => {
               </Fieldset>
             </div>
           </div>
-
+        </div>
+        <div className="flex w-full">
+          <Fieldset legend="Participating Organizations">
+            <PostPortfolioInformationOrgs project={project} />
+          </Fieldset>
         </div>
 
         <div className="flex w-full">
           <Fieldset legend="Compound Evolution">
-            <CompoundEvolutionTimeline project={project} />
+            <CompoundEvolutionTimeline
+              project={project}
+              disableAdd={
+                ["IND", "P1"].includes(project.currentStage) ? false : true
+              }
+              enableEdit={user.roles.includes("admin")}
+            />
           </Fieldset>
         </div>
       </div>

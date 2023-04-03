@@ -1,7 +1,7 @@
 import React from "react";
 
-import KeyValList from "../../../../../app/common/KeyValList/KeyValList";
 import { observer } from "mobx-react-lite";
+import KeyValList from "../../../../../app/common/KeyValList/KeyValList";
 
 
 
@@ -32,9 +32,9 @@ const ProjectSettingsGeneralInformation = ({ project }) => {
           "probabilityDescription",
           "resource",
           "resourceDescription",
-          "fhaStart",
-          "fhaPredictedStart",
-          "fhaDescription",
+          "haStart",
+          "haPredictedStart",
+          "haDescription",
           "h2LStart",
           "h2LPredictedStart",
           "h2LDescription",

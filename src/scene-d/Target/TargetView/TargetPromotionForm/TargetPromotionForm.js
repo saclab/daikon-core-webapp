@@ -1,15 +1,15 @@
-import React, { useEffect, useContext } from "react";
-import { Divider } from "primereact/divider";
 import { observer } from "mobx-react-lite";
+import { Divider } from "primereact/divider";
+import React, { useContext, useEffect } from "react";
 
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { BreadCrumb } from "primereact/breadcrumb";
+import { useNavigate } from "react-router-dom";
+import EmbeddedHelp from "../../../../app/common/EmbeddedHelp/EmbeddedHelp";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import Loading from "../../../../app/layout/Loading/Loading";
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { appColors } from '../../../../colors';
-import { useNavigate } from 'react-router-dom';
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from "../../../../colors";
 import GenePromoteSummaryAnswers from "../../../Gene/GenePromote/GenePromoteSummary/GenePromoteSummaryAnswers/GenePromoteSummaryAnswers";
-import EmbededHelp from "../../../../app/common/EmbededHelp/EmbededHelp";
 
 const TargetPromotionForm = ({ data, selectedTarget }) => {
   /* MobX Store */
@@ -29,11 +29,10 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
       label: selectedTarget.name,
       command: () => {
         navigate(`/d/target/${selectedTarget.id}`);
-      }
+      },
     },
     { label: "Promotion Info" },
   ];
-
 
   useEffect(() => {
     if (geneStore.promotionQuestionsRegistry.size === 0) {
@@ -46,7 +45,6 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
     geneStore.promotionQuestionsDisplayLoading,
     geneStore,
   ]);
-
 
   if (geneStore.promotionQuestionsDisplayLoading || data === null) {
     return <Loading />;
@@ -66,7 +64,6 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
 
     return (
       <div className="flex flex-column w-full">
-
         <div className="flex w-full pb-2">
           <BreadCrumb model={breadCrumbItems} />
         </div>
@@ -84,11 +81,11 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
           <div>
             <div>
               <div className="card">
-                <EmbededHelp >
-                  This is an example:
-                  Target Prioritization Tool implementation is required by the Organization.
-                  Please refer Developer's Guide
-                </EmbededHelp>
+                <EmbeddedHelp>
+                  This is an example: Target Prioritization Tool implementation
+                  is required by the Organization. Please refer Developer's
+                  Guide
+                </EmbeddedHelp>
 
                 <GenePromoteSummaryAnswers
                   oKey="t1"
@@ -108,17 +105,12 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
                   ansObj={answers}
                 />
 
-
-
                 <Divider />
               </div>
             </div>
           </div>
         </div>
       </div>
-
-
-
     );
   }
 

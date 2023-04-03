@@ -1,24 +1,25 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
-import { InputTextarea } from "primereact/inputtextarea";
-import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
-import { MultiSelect } from "primereact/multiselect";
-import { Calendar } from "primereact/calendar";
+import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
+import { MultiSelect } from "primereact/multiselect";
 import { classNames } from "primereact/utils";
-import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { useNavigate } from 'react-router-dom';
-import { appColors } from '../../../colors';
-import { RootStoreContext } from '../../../app/stores/rootStore';
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import { appColors } from "../../../colors";
 
 const ProjectCreate = () => {
   const navigate = useNavigate();
 
   const rootStore = useContext(RootStoreContext);
   const { appVars } = rootStore.generalStore;
-  const { createUnlinkedProject, creatingUnlinkedProject } = rootStore.projectStore;
+  const { createUnlinkedProject, creatingUnlinkedProject } =
+    rootStore.projectStore;
 
   const breadCrumbItems = [
     {
@@ -34,7 +35,7 @@ const ProjectCreate = () => {
       },
     },
     {
-      label: "Create Project"
+      label: "Create Project",
     },
   ];
 
@@ -45,8 +46,8 @@ const ProjectCreate = () => {
       representationStructureExternalCompoundIds: "",
       primaryOrg: "",
       supportingOrgs: "",
-      fhaStart: "",
-      fhaDescription: "",
+      haStart: "",
+      haDescription: "",
       molWeight: "",
       molArea: "",
       mic: "",
@@ -71,43 +72,40 @@ const ProjectCreate = () => {
         errors.supportingOrgs = "Supporting Org is required.";
       }
 
-      if (!data.fhaStart) {
-        errors.fhaStart = "FHA Start Date is required.";
+      if (!data.haStart) {
+        errors.haStart = "HA Start Date is required.";
       }
 
       if (!data.representationStructureExternalCompoundIds) {
-        errors.representationStructureExternalCompoundIds = "Compound ID is Required"
+        errors.representationStructureExternalCompoundIds =
+          "Compound ID is Required";
       }
 
       if (!data.molWeight) {
-        errors.molWeight = "Mol Weight is Required"
+        errors.molWeight = "Mol Weight is Required";
       }
       if (!data.molArea) {
-        errors.molArea = "Mol Area is Required"
+        errors.molArea = "Mol Area is Required";
       }
       if (!data.mic) {
-        errors.mic = "MIC is Required"
+        errors.mic = "MIC is Required";
       }
       if (!data.iC50) {
-        errors.iC50 = "IC50 is Required"
+        errors.iC50 = "IC50 is Required";
       }
-
-
 
       return errors;
     },
     onSubmit: (data) => {
       // data["projectId"] = selectedProject.id;
-      console.log(data);
       createUnlinkedProject(data).then((res) => {
         if (res !== null) {
-          console.log(res)
+          //
         }
       });
       // history.push()
     },
-  }
-  );
+  });
 
   const isFormFieldValid = (field) =>
     !!(formik.touched[field] && formik.errors[field]);
@@ -119,11 +117,8 @@ const ProjectCreate = () => {
     );
   };
 
-
-
   return (
     <div className="flex flex-column w-full">
-
       <div className="flex w-full pb-2">
         <BreadCrumb model={breadCrumbItems} />
       </div>
@@ -137,7 +132,6 @@ const ProjectCreate = () => {
       </div>
 
       <div className="flex w-full justify-content-center">
-
         <div className="card">
           <form onSubmit={formik.handleSubmit} className="p-fluid">
             <div className="flex gap-4">
@@ -216,12 +210,13 @@ const ProjectCreate = () => {
                   {getFormErrorMessage("supportingOrgs")}
                 </div>
 
-
                 <div className="field">
                   <label
                     htmlFor="representationStructureSMILE"
                     className={classNames({
-                      "p-error": isFormFieldValid("representationStructureSMILE"),
+                      "p-error": isFormFieldValid(
+                        "representationStructureSMILE"
+                      ),
                     })}
                   >
                     Representation Structure SMILE
@@ -234,7 +229,9 @@ const ProjectCreate = () => {
                     autoResize
                     rows={5}
                     className={classNames({
-                      "p-invalid": isFormFieldValid("representationStructureSMILE"),
+                      "p-invalid": isFormFieldValid(
+                        "representationStructureSMILE"
+                      ),
                     })}
                   />
                   {getFormErrorMessage("representationStructureSMILE")}
@@ -244,67 +241,74 @@ const ProjectCreate = () => {
                   <label
                     htmlFor="representationStructureExternalCompoundIds"
                     className={classNames({
-                      "p-error": isFormFieldValid("representationStructureExternalCompoundIds"),
+                      "p-error": isFormFieldValid(
+                        "representationStructureExternalCompoundIds"
+                      ),
                     })}
                   >
                     Representation Structure Compound Id
                   </label>
                   <InputText
                     id="representationStructureExternalCompoundIds"
-
-                    value={formik.values.representationStructureExternalCompoundIds}
+                    value={
+                      formik.values.representationStructureExternalCompoundIds
+                    }
                     onChange={formik.handleChange}
                     className={classNames({
-                      "p-invalid": isFormFieldValid("representationStructureExternalCompoundIds"),
+                      "p-invalid": isFormFieldValid(
+                        "representationStructureExternalCompoundIds"
+                      ),
                     })}
                   />
-                  {getFormErrorMessage("representationStructureExternalCompoundIds")}
+                  {getFormErrorMessage(
+                    "representationStructureExternalCompoundIds"
+                  )}
                 </div>
               </div>
               <div className="flex flex-column">
-                <h2>Compund Details</h2>
+                <h2>Compound Details</h2>
                 <div className="field">
                   <label
-                    htmlFor="fhaStart"
+                    htmlFor="haStart"
                     className={classNames({
-                      "p-error": isFormFieldValid("fhaStart"),
+                      "p-error": isFormFieldValid("haStart"),
                     })}
                   >
-                    FHA Start Date
+                    HA Start Date
                   </label>
 
                   <Calendar
-                    value={formik.values.fhaStart}
-                    onChange={formik.handleChange("fhaStart")}
+                    value={formik.values.haStart}
+                    onChange={formik.handleChange("haStart")}
                     numberOfMonths={2}
                     className={classNames({
-                      "p-invalid": isFormFieldValid("fhaStart"),
+                      "p-invalid": isFormFieldValid("haStart"),
                     })}
                   />
-                  {getFormErrorMessage("fhaStart")}
+                  {getFormErrorMessage("haStart")}
                 </div>
 
                 <div className="field">
                   <label
-                    htmlFor="fhaDescription"
+                    htmlFor="haDescription"
                     className={classNames({
-                      "p-error": isFormFieldValid("fhaDescription"),
+                      "p-error": isFormFieldValid("haDescription"),
                     })}
                   >
-                    FHA Description
+                    HA Description
                   </label>
 
                   <InputTextarea
-                    id="fhaDescription"
-                    name="fhaDescription"
-                    value={formik.values.fhaDescription}
+                    id="haDescription"
+                    name="haDescription"
+                    value={formik.values.haDescription}
                     onChange={formik.handleChange}
                     className={classNames({
-                      "p-invalid": isFormFieldValid("fhaDescription"),
+                      "p-invalid": isFormFieldValid("haDescription"),
                     })}
                     style={{ minWidth: "500px" }}
                   />
-                  {getFormErrorMessage("fhaDescription")}
+                  {getFormErrorMessage("haDescription")}
                 </div>
 
                 <div className="field">
@@ -349,8 +353,6 @@ const ProjectCreate = () => {
                   {getFormErrorMessage("molArea")}
                 </div>
 
-
-
                 <div className="field">
                   <label
                     htmlFor="mic"
@@ -393,8 +395,6 @@ const ProjectCreate = () => {
                   {getFormErrorMessage("iC50")}
                 </div>
 
-
-
                 <Button
                   icon="icon icon-common icon-database-submit"
                   type="submit"
@@ -404,12 +404,11 @@ const ProjectCreate = () => {
                 />
               </div>
             </div>
-
           </form>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProjectCreate
+export default ProjectCreate;

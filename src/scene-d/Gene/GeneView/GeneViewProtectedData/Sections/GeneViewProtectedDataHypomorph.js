@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { BlockUI } from "primereact/blockui";
-import { Sidebar } from "primereact/sidebar";
 import { observer } from "mobx-react-lite";
-import { DataTable } from "primereact/datatable";
+import { BlockUI } from "primereact/blockui";
+import { Button } from "primereact/button";
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
+import { Sidebar } from "primereact/sidebar";
+import React, { useState } from "react";
 import GeneViewProtectedDataAddHypomorph from "./GeneViewProtectedDataAddHypomorph";
 
 const GeneViewProtectedDataHypomorph = ({
@@ -50,6 +51,18 @@ const GeneViewProtectedDataHypomorph = ({
     );
   };
 
+  const textAreaEditor = (options) => {
+    return (
+      <InputTextarea
+        type="text"
+        autoResize
+        rows={4}
+        value={options.value}
+        onChange={(e) => options.editorCallback(e.target.value)}
+      />
+    );
+  };
+
   let saveEdits = (e) => {
     let { newData } = e;
     edit(newData);
@@ -79,6 +92,17 @@ const GeneViewProtectedDataHypomorph = ({
               header="Phenotype"
               editor={(options) => textEditor(options)}
             />
+
+            <Column
+              field="notes"
+              header="Notes"
+              editor={(options) => textAreaEditor(options)}
+            />
+            <Column
+              rowEditor
+              headerStyle={{ width: "10%", minWidth: "8rem" }}
+              bodyStyle={{ textAlign: "center" }}
+            />
           </DataTable>
         </BlockUI>
       </div>
@@ -86,7 +110,8 @@ const GeneViewProtectedDataHypomorph = ({
         visible={displayAddSideBar}
         onHide={() => setDisplayAddSideBar(false)}
         position="right"
-        className="p-sidebar-sm"
+        className="p-sidebar-md"
+        dismissable={false}
       >
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">

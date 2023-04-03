@@ -1,11 +1,10 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 // import { withRouter } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
+import { Dropdown } from "primereact/dropdown";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Sidebar } from "primereact/sidebar";
-import { Dropdown } from "primereact/dropdown";
-
+import { useNavigate } from "react-router-dom";
 
 import { Button } from "primereact/button";
 import { RootStoreContext } from "../../stores/rootStore";
@@ -14,18 +13,44 @@ import cssClass from "./TitleBar.module.css";
 import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import TitleBarSidePanel from "./TitleBarSidePanel/TitleBarSidePanel";
 
-
 const TitleBar = () => {
   const navigate = useNavigate();
-  
+
   const op = useRef(null);
   const [visibleLeft, setVisibleLeft] = useState(false);
   const rootStore = useContext(RootStoreContext);
   const { user } = rootStore.userStore;
 
-  const Strains = [
-    { name: "Mycobacterium tuberculosis H37Rv", code: "H37Rv" }
+  const Strains = [{ name: "Mycobacterium tuberculosis H37Rv", code: "H37Rv" }];
+  const FeedbackOptions = [
+    { label: "Bug Report", value: "bug-report" },
+    { label: "Feature Request", value: "feature-request" },
+    { label: "Data Discrepancy ", value: "data-discrepancy" },
   ];
+
+  const feedbackOptionTemplate = (option) => {
+    const iconClass = (option) => {
+      switch (option.value) {
+        case "bug-report":
+          return "icon icon-common icon-bug";
+        case "feature-request":
+          return "icon icon-common icon-new";
+        case "data-discrepancy":
+          return "icon icon-common icon-database";
+      }
+    };
+
+    return (
+      <div className="flex gap-3">
+        <i className={iconClass(option)} />
+        <div>{option.label}</div>
+      </div>
+    );
+  };
+
+  let onFeedback = (e) => {
+    navigate("/developer/" + e.value);
+  };
 
   return (
     <div className={cssClass.Header}>
@@ -36,11 +61,13 @@ const TitleBar = () => {
       >
         <TitleBarSidePanel toggle={() => setVisibleLeft(false)} user={user} />
       </Sidebar>
-      <div className={["inline-flex"].join(" ")}>
+      <div className={["inline-flex", cssClass.Feedback].join(" ")}>
         <Button
           type="Button"
           icon="icon icon-common icon-th"
-          className={["p-mr-2", cssClass.BlackButton].join(" ")}
+          className={["p-mr-2", cssClass.BlackButton, cssClass.Feedback].join(
+            " "
+          )}
           onClick={() => setVisibleLeft(true)}
         />
 
@@ -51,7 +78,6 @@ const TitleBar = () => {
           )}
         >
           D A I K O N
-
         </Button>
 
         {/* <Button
@@ -62,6 +88,14 @@ const TitleBar = () => {
         /> */}
 
         <div className="absolute right-0">
+          <Dropdown
+            options={FeedbackOptions}
+            onChange={(e) => onFeedback(e)}
+            optionLabel="label"
+            placeholder="Feedback"
+            className={[cssClass.BlackButton, "Feedback"].join(" ")}
+            itemTemplate={feedbackOptionTemplate}
+          />
           <Button
             type="Button"
             icon="ri-refresh-fill"
@@ -88,7 +122,6 @@ const TitleBar = () => {
             <TitleBarAccountPanel />
           </OverlayPanel>
         </div>
-
       </div>
     </div>
   );
@@ -96,4 +129,3 @@ const TitleBar = () => {
 
 //export default withRouter(observer(TitleBar));
 export default observer(TitleBar);
-

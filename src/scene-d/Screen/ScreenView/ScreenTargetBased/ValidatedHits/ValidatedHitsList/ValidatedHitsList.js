@@ -1,21 +1,21 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import _ from "lodash";
 import { observer } from "mobx-react-lite";
-import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
+import { Chip } from "primereact/chip";
 import { Column } from "primereact/column";
+import { ConfirmDialog } from "primereact/confirmdialog";
+import { DataTable } from "primereact/datatable";
 import { Dialog } from "primereact/dialog";
 import { TieredMenu } from "primereact/tieredmenu";
-import { RootStoreContext } from "../../../../../../app/stores/rootStore";
-import Loading from "../../../../../../app/layout/Loading/Loading";
-import Vote from "../../../../../../app/common/Vote/Vote";
-import SmilesView from "../../../../../../app/common/SmilesView/SmilesView";
-import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter";
-import ValidatedHitsPromoteToFHAEntry from "./ValidatedHitsPromoteToFHAEntry/ValidatedHitsPromoteToFHAEntry";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import SectionHeading from "../../../../../../app/common/SectionHeading/SectionHeading";
+import SmilesViewWithDetails from "../../../../../../app/common/SmilesViewWithDetails/SmilesViewWithDetails";
+import Vote from "../../../../../../app/common/Vote/Vote";
+import Loading from "../../../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../../../app/stores/rootStore";
 import "./ValidatedHitsDataTable.css";
-import { ConfirmDialog } from "primereact/confirmdialog";
-import { Chip } from 'primereact/chip';
+import ValidatedHitsImporter from "./ValidatedHitsImporter/ValidatedHitsImporter";
+import ValidatedHitsPromoteToHAEntry from "./ValidatedHitsPromoteToHAEntry/ValidatedHitsPromoteToHAEntry";
 
 const ValidatedHitsList = ({ screenId }) => {
   const dt = useRef(null);
@@ -25,20 +25,17 @@ const ValidatedHitsList = ({ screenId }) => {
   const { loadingFetchScreen, fetchScreen, selectedScreen } =
     rootStore.screenStore;
   const { user } = rootStore.userStore;
-  const { enableVoting, freezeVoting } =
-    rootStore.votingStore;
+  const { enableVoting, freezeVoting } = rootStore.votingStore;
 
   const [displayHitsImportSidebar, setDisplayHitsImportSidebar] =
     useState(false);
 
   const [displayEnableSelection, setDisplayEnableSelection] = useState(false);
   const [selectedCompounds, setSelectedCompounds] = useState(null);
-  const [displayPromoteToFHAEntry, setDisplayPromoteToFHAEntry] =
-    useState(false);
+  const [displayPromoteToHAEntry, setDisplayPromoteToHAEntry] = useState(false);
 
   let tableMenuItems = [];
 
-  console.log("==== VALIDATED HIT LIST");
   useEffect(() => {
     fetchScreen(screenId);
   }, [fetchScreen, screenId]);
@@ -48,29 +45,28 @@ const ValidatedHitsList = ({ screenId }) => {
   }
 
   if (!loadingFetchScreen && selectedScreen) {
-    console.log(selectedScreen);
   }
 
   /* Local functions */
 
   const exportCSV = (selectionOnly) => {
     dt.current.exportCSV({ selectionOnly });
-  }
+  };
 
-  let validatePromoteToFHA = () => {
+  let validatePromoteToHA = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No compounds selected. Please select some compouns to promote them."
+        "No rows selected. Please select some rows to promote them."
       );
       return;
     }
-    setDisplayPromoteToFHAEntry(true);
+    setDisplayPromoteToHAEntry(true);
   };
 
   let enableVotingCalled = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No rows selected. Please select some or all compouns to enable voting."
+        "No rows selected. Please select some or all rows to enable voting."
       );
       return;
     }
@@ -85,7 +81,7 @@ const ValidatedHitsList = ({ screenId }) => {
   let validateFreezeVoting = () => {
     if (selectedCompounds === null) {
       toast.warning(
-        "No rows selected. Please select some or all compouns to enable voting."
+        "No rows selected. Please select some or all rows to freeze voting."
       );
       return;
     }
@@ -125,14 +121,18 @@ const ValidatedHitsList = ({ screenId }) => {
     return (
       <React.Fragment>
         <div>
-          <SmilesView smiles={rowData?.compound?.smile} width={"220"} height={"220"} />
+          <SmilesViewWithDetails
+            compound={rowData?.compound}
+            width={"220"}
+            height={"220"}
+          />
         </div>
       </React.Fragment>
     );
   };
 
   const EnzymeActivityBodyTemplate = (rowData) => {
-    return <React.Fragment>{_.round(rowData.iC50, 2)}</React.Fragment>;
+    return <React.Fragment>{rowData.iC50}</React.Fragment>;
   };
 
   // const MethodBodyTemplate = (rowData) => {
@@ -140,7 +140,7 @@ const ValidatedHitsList = ({ screenId }) => {
   // };
 
   const MICBodyTemplate = (rowData) => {
-    return <React.Fragment>{_.round(rowData.mic, 2)}</React.Fragment>;
+    return <React.Fragment>{rowData.mic}</React.Fragment>;
   };
 
   const ClusterBodyTemplate = (rowData) => {
@@ -149,13 +149,13 @@ const ValidatedHitsList = ({ screenId }) => {
 
   const VoteBodyTemplate = (rowData) => {
     return (
-      <React.Fragment>
+      <div style={{ padding: "10px" }}>
         <Vote
           id={rowData.vote.id}
           voteData={rowData.vote}
           callBack={() => fetchScreen(screenId, true)}
         />
-      </React.Fragment>
+      </div>
     );
   };
   const tableHeader = (
@@ -174,7 +174,10 @@ const ValidatedHitsList = ({ screenId }) => {
       </div>
       <div className="flex gap-5">
         <Chip label={selectedScreen?.org.name} icon="ri-organization-chart" />
-        <Chip label={selectedScreen?.method} icon="icon icon-common icon-circle-notch" />
+        <Chip
+          label={selectedScreen?.method}
+          icon="icon icon-common icon-circle-notch"
+        />
         <TieredMenu
           model={tableMenuItems}
           popup
@@ -197,7 +200,6 @@ const ValidatedHitsList = ({ screenId }) => {
 
   /* Construct table menu items */
   if (!loadingFetchScreen && selectedScreen) {
-
     let itm = {
       label: "Hits Management",
       items: [
@@ -209,7 +211,7 @@ const ValidatedHitsList = ({ screenId }) => {
         {
           label: "Export Hits",
           icon: "icon icon-fileformats icon-CSV",
-          command: () => exportCSV(false)
+          command: () => exportCSV(false),
         },
       ],
     };
@@ -248,7 +250,7 @@ const ValidatedHitsList = ({ screenId }) => {
         let promotionItem = {
           label: "Promote To Hit Assessment",
           icon: "pi pi-arrow-right",
-          command: () => validatePromoteToFHA(),
+          command: () => validatePromoteToHA(),
         };
 
         tableMenuItems.push(promotionItem);
@@ -273,13 +275,13 @@ const ValidatedHitsList = ({ screenId }) => {
             emptyMessage="No hits found."
             resizableColumns
             columnResizeMode="fit"
+            size="large"
             //showGridlines
             responsiveLayout="scroll"
             selection={selectedCompounds}
             onSelectionChange={(e) => setSelectedCompounds(e.value)}
             dataKey="id"
             exportFilename={`Hits-${selectedScreen.screenName}-${selectedScreen.method}.csv`}
-
           >
             {displayEnableSelection && (
               <Column
@@ -297,26 +299,26 @@ const ValidatedHitsList = ({ screenId }) => {
               field={(rowData) => rowData?.compound?.smile}
               header="Structure"
               body={StructureBodyTemplate}
-              style={{ minWidth: "350px" }}
+              style={{ minWidth: "300px" }}
             />
             <Column
               field={(rowData) => rowData?.library + "|" + rowData.source}
               header="Library|Source"
               body={LibraryBodyTemplate}
-              style={{ width: "200px" }}
+              style={{ minWidth: "130px" }}
             />
             <Column
               field={(rowData) => rowData?.compound?.externalCompoundIds}
               header="Compound Id"
               body={CompoundIdBodyTemplate}
-              style={{ width: "150px" }}
+              style={{ minWidth: "150px" }}
             />
 
             <Column
               field="iC50"
-              header="Enzyme Activity [IC50] (&micro;M) "
+              header="IC50 (&micro;M) "
               body={EnzymeActivityBodyTemplate}
-              style={{ width: "90px" }}
+              style={{ width: "50px" }}
             />
             {/* <Column
               field="Method"
@@ -328,11 +330,11 @@ const ValidatedHitsList = ({ screenId }) => {
               field="mic"
               header="MIC (&micro;M)"
               body={MICBodyTemplate}
-              style={{ width: "70px" }}
+              style={{ width: "50px" }}
             />
             <Column
               field="clusterGroup"
-              header="Cluster Group No"
+              header="Cluster"
               body={ClusterBodyTemplate}
               style={{ width: "90px" }}
               sortable
@@ -341,20 +343,26 @@ const ValidatedHitsList = ({ screenId }) => {
               field="Vote"
               header="Vote"
               body={VoteBodyTemplate}
-              style={{ width: "250px" }}
+              style={{ minWidth: "200px" }}
             />
           </DataTable>
         </div>
       </div>
       <Dialog
         visible={displayHitsImportSidebar}
-        header="Import Validated Hits"
         style={{ width: "90%" }}
-
+        maximizable={true}
+        maximized={true}
         onHide={() => setDisplayHitsImportSidebar(false)}
         className="p-sidebar-lg"
       >
         <div className="card">
+          <SectionHeading
+            icon="icon icon-conceptual icon-structures-3d"
+            heading={"Import Validated Hits"}
+            color={"#f4f4f4"}
+            textColor={"#000000"}
+          />
           <br />
           <ValidatedHitsImporter
             screenId={selectedScreen.id}
@@ -364,18 +372,17 @@ const ValidatedHitsList = ({ screenId }) => {
       </Dialog>
       <Dialog
         header="Promote to Hit Assessment"
-        visible={displayPromoteToFHAEntry}
+        visible={displayPromoteToHAEntry}
         //style={{ width: "50vw" }}
         //footer={renderFooter("displayBasic2")}
-        onHide={() => setDisplayPromoteToFHAEntry(false)}
+        onHide={() => setDisplayPromoteToHAEntry(false)}
         style={{ width: "90%" }}
-
         maximizable={true}
       >
-        <ValidatedHitsPromoteToFHAEntry
+        <ValidatedHitsPromoteToHAEntry
           compounds={selectedCompounds}
           screen={selectedScreen}
-          close={() => setDisplayPromoteToFHAEntry(false)}
+          close={() => setDisplayPromoteToHAEntry(false)}
         />
       </Dialog>
       <ConfirmDialog />

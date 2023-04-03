@@ -1,8 +1,9 @@
-import React from "react";
 import { useFormik } from "formik";
-import { classNames } from "primereact/utils";
-import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
+import { classNames } from "primereact/utils";
+import React from "react";
 
 const GeneViewProtectedDataAddHypomorph = ({ add, adding, closeSidebar }) => {
   const formik = useFormik({
@@ -21,7 +22,6 @@ const GeneViewProtectedDataAddHypomorph = ({ add, adding, closeSidebar }) => {
     },
 
     onSubmit: (data) => {
-      console.log(data);
       add(data).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -53,14 +53,16 @@ const GeneViewProtectedDataAddHypomorph = ({ add, adding, closeSidebar }) => {
           >
             Knockdown Strain*
           </label>
-          <InputText id="knockdownStrain"
+          <InputText
+            id="knockdownStrain"
             value={formik.values.knockdownStrain}
             onChange={formik.handleChange}
             autoFocus
             className={classNames({
               "p-invalid": isFormFieldValid("knockdownStrain"),
-            })}/>
-            {getFormErrorMessage("knockdownStrain")}
+            })}
+          />
+          {getFormErrorMessage("knockdownStrain")}
         </div>
 
         <div className="field">
@@ -76,12 +78,30 @@ const GeneViewProtectedDataAddHypomorph = ({ add, adding, closeSidebar }) => {
             id="phenotype"
             value={formik.values.phenotype}
             onChange={formik.handleChange}
-            
             className={classNames({
               "p-invalid": isFormFieldValid("phenotype"),
             })}
           />
           {getFormErrorMessage("phenotype")}
+        </div>
+        <div className="field">
+          <label
+            htmlFor="notes"
+            className={classNames({
+              "p-error": isFormFieldValid("notes"),
+            })}
+          >
+            Notes
+          </label>
+          <InputTextarea
+            id="notes"
+            value={formik.values.notes}
+            onChange={formik.handleChange}
+            className={classNames({
+              "p-invalid": isFormFieldValid("notes"),
+            })}
+          />
+          {getFormErrorMessage("notes")}
         </div>
 
         <div className="flex justify-content-center">
@@ -95,9 +115,6 @@ const GeneViewProtectedDataAddHypomorph = ({ add, adding, closeSidebar }) => {
             />
           </div>
         </div>
-
-
-
       </form>
     </div>
   );

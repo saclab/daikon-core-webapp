@@ -18,20 +18,7 @@ import ScreenStore from "./screenStore";
 import TargetStore from "./targetStore";
 import TargetStoreAdmin from "./targetStoreAdmin";
 import UserStore from "./userStore";
-import TargetStore from "./targetStore";
-import ScreenStore from "./screenStore";
-import PortfolioStore from "./portfolioStore";
-import AppSettingsStore from "./appSettingsStore";
-import GeneStoreAdmin from "./geneStoreAdmin";
-import TargetStoreAdmin from "./targetStoreAdmin";
-import PostPortfolioStore from "./postPortfolioStore";
-import HitsStore from "./hitsStore";
-import DiscussionStore from "./discussionStore";
-import GeneralStore from "./generalStore";
-import FHAStore from "./fhaStore";
-import ProjectStore from "./projectStore";
 import VotingStore from "./VotingStore";
-import DataViewStore from './dataViewStore';
 
 configure({ enforceActions: "always" });
 
@@ -46,13 +33,13 @@ export class RootStore {
   appSettingsStore;
   geneStoreAdmin;
   targetStoreAdmin;
-  portfolioStore;
   hitsStore;
   discussionStore;
   generalStore;
-  fhaStore;
+  haStore;
   projectStore;
   votingStore;
+  compoundStore;
 
   constructor() {
     this.appSettingsStore = new AppSettingsStore(this);
@@ -69,10 +56,11 @@ export class RootStore {
     this.postPortfolioStore = new PostPortfolioStore(this);
     this.discussionStore = new DiscussionStore(this);
     this.generalStore = new GeneralStore(this);
-    this.fhaStore = new FHAStore(this);
+    this.haStore = new HAStore(this);
     this.projectStore = new ProjectStore(this);
     this.votingStore = new VotingStore(this);
     this.dataViewStore = new DataViewStore(this);
+    this.compoundStore = new CompoundStore(this);
   }
 }
 export const RootStoreContext = createContext(new RootStore());

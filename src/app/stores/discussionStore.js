@@ -34,23 +34,20 @@ export default class DiscussionStore {
 
   /* fetch discussions for a reference */ s;
   fetchDiscussions = async (reference) => {
-    console.log("commentStore: fetchDiscussions() Start");
     this.loadingDiscussions = true;
     try {
       this.discussions = [];
       this.discussions = await agent.Discussion.list(reference);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.loadingDiscussions = false;
-        console.log("commentStore: fetchDiscussions() ENd");
       });
     }
   };
 
   newDiscussion = async (discussion) => {
-    console.log("commentStore: newDiscussion() Start");
     this.postingDiscussion = true;
 
     let res = null;
@@ -64,22 +61,17 @@ export default class DiscussionStore {
         this.fetchDiscussions(discussion.reference);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.postingDiscussion = false;
-        console.log("commentStore: newDiscussion() End");
       });
     }
-    console.log(res);
     return res;
   };
 
   editDiscussion = async (discussion) => {
-    console.log("commentStore: editDiscussion() Start");
     this.editingDiscussion = true;
-    console.log(discussion);
     let res = null;
 
     // send to server
@@ -91,23 +83,17 @@ export default class DiscussionStore {
         this.fetchDiscussions(discussion.reference);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.editingDiscussion = false;
-        console.log("commentStore: editDiscussion() End");
       });
     }
-    console.log(res);
     return res;
   };
 
   newReply = async (discussion, reply) => {
-    console.log("commentStore: newReply() Start");
     this.postingReply = true;
-    console.log(discussion);
-    console.log(reply);
     let res = null;
 
     // send to server
@@ -119,15 +105,12 @@ export default class DiscussionStore {
         this.fetchDiscussions(discussion.reference);
       });
     } catch (error) {
-      console.log("+++++++RES ERROR");
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.postingReply = false;
-        console.log("commentStore: newReply() End");
       });
     }
-    console.log(res);
     return res;
   };
 }

@@ -1,9 +1,9 @@
-import React from "react";
 import { Tooltip } from "primereact/tooltip";
+import React from "react";
 
-import "./TargetGrid.css";
+import EmbeddedHelp from "../../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import PleaseWait from "../../../../../app/common/PleaseWait/PleaseWait";
-import EmbededHelp from "../../../../../app/common/EmbededHelp/EmbededHelp";
+import "./TargetGrid.css";
 
 const TargetGrid = ({ questions, target }) => {
   let answers = {};
@@ -54,12 +54,12 @@ const TargetGrid = ({ questions, target }) => {
 
   return (
     <div>
-      <EmbededHelp>
-      !Missing Implementation :
-      To view this module, Target Prioritization Tool implementation is required by the Organization
-      </EmbededHelp>
+      <EmbeddedHelp>
+        !Missing Implementation : To view this module, Target Prioritization
+        Tool implementation is required by the Organization
+      </EmbeddedHelp>
     </div>
-  )
+  );
 
   return (
     <div className="targetGrid">

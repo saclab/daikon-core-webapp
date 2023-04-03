@@ -1,16 +1,23 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
-import { Menu } from "primereact/menu";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { Toast } from "primereact/toast";
-import Loading from "../../../../app/layout/Loading/Loading";
 import { observer } from "mobx-react-lite";
+import { Dialog } from "primereact/dialog";
+import { Menu } from "primereact/menu";
+import { Toast } from "primereact/toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import EmbeddedHelp from "../../../../app/common/EmbeddedHelp/EmbeddedHelp";
+import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import ScreenDiscussion from "./ScreenDiscussion/ScreenDiscussion";
+import ScreenEdit from "./ScreenEdit/ScreenEdit";
+import ScreenMerge from "./ScreenMerge/ScreenMerge";
 import ScreenSequences from "./ScreenSequences/ScreenSequences";
 import ValidatedHits from "./ValidatedHits/ValidatedHits";
-import { appColors } from '../../../../colors';
-import ScreenDiscussion from './ScreenDiscussion/ScreenDiscussion';
-import NotFound from '../../../../app/layout/NotFound/NotFound';
-import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
 
 const ScreenView = () => {
   const params = useParams();
@@ -20,22 +27,33 @@ const ScreenView = () => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingFetchScreens, screenRegistry,
-    fetchScreens, selectedScreenTargetFilter, filterScreensByTarget, filteredScreens } =
-    rootStore.screenStore;
+  const {
+    loadingFetchScreens,
+    screenRegistry,
+    fetchScreens,
+    selectedScreenTargetFilter,
+    filterScreensByTarget,
+    filteredScreens,
+  } = rootStore.screenStore;
+  const { user } = rootStore.userStore;
 
   useEffect(() => {
     if (screenRegistry.size === 0 || selectedScreenTargetFilter !== params.id) {
       fetchScreens().then(() => {
-        console.log("should run after screens are fetched");
         filterScreensByTarget(params.id);
       });
-      ;
     }
+  }, [
+    fetchScreens,
+    screenRegistry,
+    filterScreensByTarget,
+    params.id,
+    selectedScreenTargetFilter,
+  ]);
 
-  }, [fetchScreens, screenRegistry]);
-
-  console.log("====SCREEN VIEW");
+  const [displayMergeScreenDialog, setDisplayMergeScreenDialog] =
+    useState(false);
+  const [displayEditScreenDialog, setDisplayEditScreenDialog] = useState(false);
 
   if (!loadingFetchScreens && filteredScreens.length === 0) {
     return (
@@ -45,11 +63,12 @@ const ScreenView = () => {
             <h2>No Screens found</h2>
           </div>
           <div className="flex align-items-center">
-            <EmbededHelp>To create a screen visit the targets page </EmbededHelp>
+            <EmbeddedHelp>
+              To create a screen visit the targets page{" "}
+            </EmbeddedHelp>
           </div>
         </div>
       </div>
-
     );
   }
 
@@ -82,6 +101,29 @@ const ScreenView = () => {
     },
   ];
 
+  if (user.roles.includes("admin")) {
+    const adminActions = {
+      label: "Admin Section",
+      items: [
+        {
+          label: "Edit Screen",
+          icon: "icon icon-common icon-edit",
+          command: () => {
+            setDisplayEditScreenDialog(true);
+          },
+        },
+        {
+          label: "Merge Screens",
+          icon: "icon icon-common icon-compress",
+          command: () => {
+            setDisplayMergeScreenDialog(true);
+          },
+        },
+      ],
+    };
+    SideMenuItems.push(adminActions);
+  }
+
   if (!loadingFetchScreens && screenRegistry.size >= 0) {
     return (
       <React.Fragment>
@@ -94,14 +136,55 @@ const ScreenView = () => {
 
           <div className="flex w-full">
             <Routes>
-              <Route index element={<Navigate replace to="screen-sequence/" />} />
-              <Route path="screen-sequence/" element={<ScreenSequences TargetName={params.id} />} />
-              <Route path="validates-hit/" element={<ValidatedHits TargetName={params.id} />} />
-              <Route path="discussion/" element={<ScreenDiscussion TargetName={params.id} />} />
+              <Route
+                index
+                element={<Navigate replace to="screen-sequence/" />}
+              />
+              <Route
+                path="screen-sequence/"
+                element={<ScreenSequences TargetName={params.id} />}
+              />
+              <Route
+                path="validates-hit/"
+                element={<ValidatedHits TargetName={params.id} />}
+              />
+              <Route
+                path="discussion/"
+                element={<ScreenDiscussion TargetName={params.id} />}
+              />
             </Routes>
           </div>
         </div>
 
+        <Dialog
+          visible={displayEditScreenDialog}
+          header="Admin : Edit Screen"
+          style={{ width: "90%" }}
+          onHide={() => setDisplayEditScreenDialog(false)}
+          className="p-sidebar-lg"
+        >
+          <div className="card">
+            <ScreenEdit
+              selectedScreenTargetFilter={selectedScreenTargetFilter}
+              close={() => setDisplayEditScreenDialog(false)}
+            />
+          </div>
+        </Dialog>
+
+        <Dialog
+          visible={displayMergeScreenDialog}
+          header="Admin : Merge Screens"
+          style={{ width: "90%" }}
+          onHide={() => setDisplayMergeScreenDialog(false)}
+          className="p-sidebar-lg"
+        >
+          <div className="card">
+            <ScreenMerge
+              screens={filteredScreens}
+              close={() => setDisplayMergeScreenDialog(false)}
+            />
+          </div>
+        </Dialog>
       </React.Fragment>
     );
   }

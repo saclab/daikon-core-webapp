@@ -1,7 +1,6 @@
-import React from 'react'
 import { Card } from "primereact/card";
+import React, { useContext } from 'react';
 import { NavLink } from "react-router-dom";
-import { useContext } from 'react';
 import { RootStoreContext } from '../../../app/stores/rootStore';
 
 const HomeCards = () => {
@@ -67,7 +66,7 @@ const HomeCards = () => {
           <NavLink to="/d/ha/" style={{ textDecoration: "None" }}>
             <Card
               title="HAs"
-              subTitle={'(' + appVars.appCount.fhaCount + ')'}
+              subTitle={'(' + appVars.appCount.haCount + ')'}
               style={{ width: "18em" }}
               header={header}
             >

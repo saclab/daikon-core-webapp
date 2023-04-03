@@ -1,8 +1,6 @@
-import "./Login.css";
 import { Button } from "primereact/button";
-import EmbededHelp from "../../app/common/EmbededHelp/EmbededHelp";
-import App from '../../app/layout/App';
-
+import EmbeddedHelp from "../../app/common/EmbeddedHelp/EmbeddedHelp";
+import "./Login.css";
 
 // const Login = ({ loginButtonClicked }) => {
 //   return (
@@ -34,7 +32,7 @@ const Login = ({ loginButtonClicked }) => {
       <div className="LoginRight">
         <div className="LoginCentered">
           <div className="LoginLanding">
-            <div >
+            <div>
               <div className="LoginLoginBox" id="loginButton">
                 <h1>D A I K O N</h1>
 
@@ -42,21 +40,20 @@ const Login = ({ loginButtonClicked }) => {
                 <p>
                   This computer system and the data herein are available only
                   for authorized purposes by authorized users: use for any other
-                  purpose is prohibited and may result in
-                  administrative/ disciplinary actions or criminal prosecution
-                  against the user. Usage may be subject to security testing and
-                  monitoring.
+                  purpose is prohibited and may result in administrative/
+                  disciplinary actions or criminal prosecution against the user.
+                  Usage may be subject to security testing and monitoring.
                 </p>
-                <EmbededHelp>
-                This is an demo implementation of Daikon framework, data inside the App
-                might not be accurate.
-                </EmbededHelp>
+                <EmbeddedHelp>
+                  This is an demo implementation of Daikon framework, data
+                  inside the App might not be accurate.
+                </EmbeddedHelp>
                 <br />
                 <Button
                   label="Login with SSO"
                   onClick={() => loginButtonClicked()}
                 ></Button>
-                
+
                 {/* <Footer /> */}
               </div>
             </div>

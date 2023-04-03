@@ -1,14 +1,14 @@
-import React, { useEffect, useContext } from "react";
-import _ from "lodash";
 import { useFormik } from "formik";
-import { InputText } from "primereact/inputtext";
-import { classNames } from "primereact/utils";
+import _ from "lodash";
+import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
-import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import Loading from "../../../../app/layout/Loading/Loading";
+import { InputText } from "primereact/inputtext";
 import { MultiSelect } from "primereact/multiselect";
+import { classNames } from "primereact/utils";
+import React, { useContext, useEffect } from "react";
+import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const GeneGroupAdd = () => {
   const rootStore = useContext(RootStoreContext);
@@ -16,7 +16,6 @@ const GeneGroupAdd = () => {
   const { creatingGeneGroup, createGeneGroup } = rootStore.geneStoreAdmin;
 
   useEffect(() => {
-    console.log("GeneGroup: fetchGeneList()");
     fetchGeneList();
   }, [fetchGeneList]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -46,7 +45,7 @@ const GeneGroupAdd = () => {
     onSubmit: (data) => {
       // data["targetID"] = selectedTarget.id;
       // data["orgId"] = data.org.id;
-      // console.log(data);
+      //
       // promoteTargetToScreen(data).then((res) => {
       //   if (res !== null) {
       //     closeSidebar();
@@ -66,7 +65,6 @@ const GeneGroupAdd = () => {
         Genes: formattedGenes,
       };
 
-      console.log(formattedData);
       createGeneGroup(formattedData).then((res) => {
         if (res !== null) {
           formik.resetForm();
@@ -109,7 +107,8 @@ const GeneGroupAdd = () => {
                 "p-error": isFormFieldValid("name"),
               })}
             >
-              <i className="icon icon-common icon-object-group" /> Gene Group Name
+              <i className="icon icon-common icon-object-group" /> Gene Group
+              Name
             </label>
             <InputText
               id="name"

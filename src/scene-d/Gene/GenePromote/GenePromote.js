@@ -1,51 +1,62 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
-import cssClass from "./GenomePromote.module.css";
-import { RootStoreContext } from "../../../app/stores/rootStore";
-import Loading from "../../../app/layout/Loading/Loading";
-import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import Success from "../../../app/common/Success/Success";
-import SectionHeading from '../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../colors';
-import PromoteSampleDoc2 from './PromoteSampleDoc2/PromoteSampleDoc2';
-import PromoteSampleDoc1 from './PromoteSampleDoc1/PromoteSampleDoc1';
-import EmbededHelp from '../../../app/common/EmbededHelp/EmbededHelp';
+import Loading from "../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import { appColors } from "../../../colors";
+import GenePromoteFormChemicalInhibition from "./GenePromoteFormChemicalInhibition/GenePromoteFormChemicalInhibition";
+import GenePromoteFormImpactOfChemInhibit from "./GenePromoteFormImpactOfChemInhibit/GenePromoteFormImpactOfChemInhibit";
+import GenePromoteFormImpactOfGeneticInhibit from "./GenePromoteFormImpactOfGeneticInhibit/GenePromoteFormImpactOfGeneticInhibit";
+import GenePromoteFormLiabilities from "./GenePromoteFormLiabilities/GenePromoteFormLiabilities";
+import GenePromoteFormTractability from "./GenePromoteFormTractability/GenePromoteFormTractability";
+import GenePromoteSummary from "./GenePromoteSummary/GenePromoteSummary";
+import { _defaultFormData } from "./GenePromote_helper";
+import cssClass from "./GenomePromote.module.css";
 
 const GenePromote = () => {
   const toast = useRef(null);
   const rootStore = useContext(RootStoreContext);
 
   const params = useParams();
-  const navigate = useNavigate();
 
   const {
     promotionQuestionsDisplayLoading,
     getPromotionQuestions,
     promotionQuestionsRegistry,
     submitPromotionQuestionaire,
-    getGenePromotionDataObj
+    getGenePromotionDataObj,
   } = rootStore.geneStore;
+
+  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({});
+  const [formSuccess, setFormSuccess] = useState(false);
+  const [activeForm, setActiveForm] = useState(0);
 
   useEffect(() => {
     if (promotionQuestionsRegistry.size === 0) {
       getPromotionQuestions();
     }
-  }, [
-    promotionQuestionsRegistry,
-    getPromotionQuestions,
-    params.ptarget,
-  ]);
+  }, [promotionQuestionsRegistry, getPromotionQuestions]);
 
-  const [formSuccess, setFormSuccess] = useState(false);
-
-  const [targetPromotionFormValue, setTargetPromotionFormValue] = useState({
-    "t1": { answer: "", description: "" },
-    "t2": { answer: "", description: "" },
-    "t3": { answer: "", description: "" },
-  });
+  /** Loading Overlay */
+  if (promotionQuestionsDisplayLoading) {
+    return <Loading />;
+  }
+  if (
+    !promotionQuestionsDisplayLoading &&
+    promotionQuestionsRegistry.size > 0 &&
+    Object.keys(targetPromotionFormValue).length == 0
+  ) {
+    let targetNameKey = "promote_" + params.ptarget;
+    let storedFormData = localStorage.getItem(targetNameKey);
+    setTargetPromotionFormValue(_defaultFormData(promotionQuestionsRegistry));
+    if (storedFormData !== null) {
+      setTargetPromotionFormValue(JSON.parse(storedFormData));
+    }
+  }
 
   const updateTargetPromotionFormValue = (e) => {
     var location = null;
@@ -53,7 +64,6 @@ const GenePromote = () => {
     var newField = null;
 
     if (e.target.id.endsWith("Description")) {
-      console.log("Description Field");
       location = e.target.id.slice(0, -11);
       newFormValue = { ...targetPromotionFormValue };
       newField = { ...newFormValue[location] };
@@ -70,23 +80,51 @@ const GenePromote = () => {
     }
   };
 
+  const saveFormToLocalStorage = () => {
+    let targetNameKey = "promote_" + params.ptarget;
+    localStorage.setItem(
+      targetNameKey,
+      JSON.stringify(targetPromotionFormValue)
+    );
+    toast.current.show({
+      severity: "success",
+      summary: "Saved Locally",
+      detail: "Saved locally in browser. Please submit the form when complete.",
+      life: 6000,
+    });
+  };
+
+  const resetFormLocalStorage = () => {
+    let targetNameKey = "promote_" + params.ptarget;
+    localStorage.removeItem(targetNameKey);
+    setTargetPromotionFormValue(_defaultFormData(promotionQuestionsRegistry));
+    toast.current.show({
+      severity: "success",
+      summary: "Cleared",
+      life: 3000,
+    });
+  };
+
   const submitTargetPromotionFormValueForm = () => {
     var validationFail = false;
     Object.keys(targetPromotionFormValue).map((key) => {
       if (targetPromotionFormValue[key].answer === "") {
+        console.error("Validation fail, blank answer");
+        console.log(targetPromotionFormValue[key]);
         validationFail = true;
       }
       if (
         !(
           targetPromotionFormValue[key].answer === "Unknown" ||
-          targetPromotionFormValue[key].answer === "n/a"
+          targetPromotionFormValue[key].answer === "NA"
         ) &&
         targetPromotionFormValue[key].description === ""
       ) {
+        console.error("Validation fail, blank description");
+        console.log(targetPromotionFormValue[key]);
         validationFail = true;
       }
     });
-
 
     if (validationFail) {
       toast.current.show({
@@ -111,8 +149,6 @@ const GenePromote = () => {
       });
     });
 
-    console.log(data);
-
     submitPromotionQuestionaire(params.ptarget, data).then((res) => {
       if (res !== null) {
         setFormSuccess(true);
@@ -121,66 +157,124 @@ const GenePromote = () => {
   };
 
   const stepItems = [
-    { label: "Documentation" },
-    { label: "Target Values" },
+    { label: "Impact of chemical inhibition" },
+    { label: "Chemical inhibition" },
+    { label: "Impact of genetic inhibition" },
+    { label: "Liabilities" },
+    //{ label: "Target" },
+    { label: "Tractability" },
     { label: "Submit" },
   ];
 
-  const [activeForm, setActiveForm] = useState(0);
-
-  /** Loading Overlay */
-  if (promotionQuestionsDisplayLoading) {
-    return <Loading />;
-  }
-
   if (formSuccess) {
+    let targetNameKey = "promote_" + params.ptarget;
+    localStorage.removeItem(targetNameKey);
     return (
       <Success
-        message={
-          "The promotion request has been submitted. Once reviewed, it would be promoted to a target."
-        }
+        message={"Thank you, Target WG will review & assigns a bucket."}
       />
     );
   }
 
   let formToDisplay = () => {
     if (!promotionQuestionsDisplayLoading) {
-      console.log(activeForm);
       switch (activeForm) {
         case 0:
           return (
-            <PromoteSampleDoc1
+            <GenePromoteFormImpactOfChemInhibit
               promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
               updateTargetPromotionFormValue={(e) =>
                 updateTargetPromotionFormValue(e)
               }
               onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
             />
           );
 
         case 1:
           return (
-            <PromoteSampleDoc2
+            <GenePromoteFormChemicalInhibition
               promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
               updateTargetPromotionFormValue={(e) =>
                 updateTargetPromotionFormValue(e)
               }
               onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
             />
           );
 
-
         case 2:
+          return (
+            <GenePromoteFormImpactOfGeneticInhibit
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
+              onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
+            />
+          );
+
+        case 3:
+          return (
+            <GenePromoteFormLiabilities
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
+              onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
+            />
+          );
+
+        case 4:
+          return (
+            <GenePromoteFormTractability
+              promotionQuestionsRegistry={promotionQuestionsRegistry}
+              targetPromotionFormValue={targetPromotionFormValue}
+              updateTargetPromotionFormValue={(e) =>
+                updateTargetPromotionFormValue(e)
+              }
+              onFormSet={(active) => setActiveForm(active)}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
+            />
+          );
+
+        case 5:
           return (
             <GenePromoteSummary
               promotionQuestionsRegistry={promotionQuestionsRegistry}
               targetPromotionFormValue={targetPromotionFormValue}
               onFormSet={(active) => setActiveForm(active)}
               onFormSubmit={submitTargetPromotionFormValueForm}
+              saveFormToLocalStorage={() => saveFormToLocalStorage()}
+              resetFormLocalStorage={() => resetFormLocalStorage()}
             />
           );
+
+        // case 5:
+        //   return (
+        //     <GenomePromoteFormInteractions
+        //       promotionQuestionsRegistry={promotionQuestionsRegistry}
+        //       targetPromotionFormValue={targetPromotionFormValue}
+        //       updateTargetPromotionFormValue={(e) =>
+        //         updateTargetPromotionFormValue(e)
+        //       }
+        //       onFormSet={(active) => setActiveForm()}
+        //     />
+        //   );
+
+        // case 6:
+        //   return <GenomePromoteBucketScore />;
 
         default:
           break;
@@ -195,21 +289,20 @@ const GenePromote = () => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-conceptual icon-dna"
-            heading={`Target Promotion Module ${params.ptarget}`}
+            heading={`Target Promotion Questionnaire for ${params.ptarget}`}
             color={appColors.sectionHeadingBg.gene}
           />
-
+          {/* <h2 className="heading">Target Promotion Questionnaire for {params.ptarget}</h2> */}
         </div>
         <div className="flex w-full">
-          <Steps model={stepItems} activeIndex={activeForm} className="w-full" />
+          <Steps
+            model={stepItems}
+            activeIndex={activeForm}
+            className="w-full"
+          />
         </div>
         <div className="flex w-full">
           <div className={[cssClass.GenomePromoteForm].join(" ")}>
-          <EmbededHelp>
-            This is an example:
-            Target Prioritization Tool implementation is required by the Organization.
-            Please refer Developer's Guide
-          </EmbededHelp>
             {formToDisplay()}
           </div>
         </div>

@@ -1,30 +1,27 @@
-import React, { useRef, useEffect, useContext } from "react";
-import { Divider } from 'primereact/divider';
-import { Fieldset } from "primereact/fieldset";
-import { BreadCrumb } from "primereact/breadcrumb";
-import { useNavigate, useParams } from "react-router-dom";
-import { Toast } from "primereact/toast";
 import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
-import Loading from '../../../../app/layout/Loading/Loading';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { BreadCrumb } from "primereact/breadcrumb";
+import { Fieldset } from "primereact/fieldset";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import FailedLoading from "../../../../app/common/FailedLoading/FailedLoading";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from "../../../../colors";
+import ProjectSettingsDates from "./LocalComponents/ProjectSettingsDates";
+import ProjectSettingsDescriptions from "./LocalComponents/ProjectSettingsDescriptions";
 import ProjectSettingsGeneralInformation from "./LocalComponents/ProjectSettingsGeneralInformation";
-import ProjectSettingsDates from './LocalComponents/ProjectSettingsDates';
-import ProjectSettingsDescriptions from './LocalComponents/ProjectSettingsDescriptions';
-import ProjectSettingsPriority from './LocalComponents/ProjectSettingsPriority';
+import ProjectSettingsPriority from "./LocalComponents/ProjectSettingsPriority";
+import ProjectSettingsStageOverride from "./LocalComponents/ProjectSettingsStageOverride";
 import ProjectSettingsTerminate from "./LocalComponents/ProjectSettingsTerminate";
-import { appColors } from '../../../../colors';
 
 const ProjectSettings = ({ id, project }) => {
-
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   // const { user } = rootStore.userStore;
   const { loadingProject, fetchProject, selectedProject } =
     rootStore.projectStore;
 
-  const toast = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,9 +58,7 @@ const ProjectSettings = ({ id, project }) => {
 
     return (
       <React.Fragment>
-
         <div className="flex flex-column w-full">
-
           <div className="flex w-full pb-2">
             <BreadCrumb model={breadCrumbItems} />
           </div>
@@ -71,11 +66,7 @@ const ProjectSettings = ({ id, project }) => {
           <div className="flex w-full">
             <SectionHeading
               icon="icon icon-common icon-briefcase"
-              heading={
-                project.projectName +
-                " | " +
-                project?.currentStage
-              }
+              heading={project.projectName + " | " + project?.currentStage}
               targetName={project.targetName}
               displayHorizon={true}
               color={appColors.sectionHeadingBg.project}
@@ -83,49 +74,50 @@ const ProjectSettings = ({ id, project }) => {
           </div>
 
           <div className="flex w-full gap-2">
-            <div className="flex">
-              <Fieldset className="w-full" legend="Project Information">
-                <ProjectSettingsGeneralInformation project={selectedProject} />
-              </Fieldset>
-            </div>
-            <div className="flex-column w-full">
-              <div className="flex mb-2" style={{width: "50rem"}}>
-                <Fieldset className="w-full" legend="Project Dates">
-                  <ProjectSettingsDates project={selectedProject} />
+            <div className="flex flex-column gap-2">
+              <div className="flex">
+                <Fieldset className="w-full" legend="Project Information">
+                  <ProjectSettingsGeneralInformation
+                    project={selectedProject}
+                  />
                 </Fieldset>
               </div>
-              <div className="flex mb-2" style={{width: "50rem"}}>
-                <Fieldset className="w-full" legend="Project Descriptions">
-                  <ProjectSettingsDescriptions project={selectedProject} />
+              <div className="flex">
+                <Fieldset className="w-full" legend="Project Stage Override">
+                  <ProjectSettingsStageOverride project={selectedProject} />
                 </Fieldset>
               </div>
-
-              <div className="flex mb-2" style={{width: "50rem"}}>
-                <Fieldset className="w-full" legend="Project Team P/P">
-                  <ProjectSettingsPriority project={selectedProject} />
-                </Fieldset>
-              </div>
-              <div className="flex mb-2" style={{width: "50rem"}}>
+              <div className="flex">
                 <Fieldset className="w-full" legend="End of Lifecycle">
                   <ProjectSettingsTerminate project={selectedProject} />
                 </Fieldset>
               </div>
             </div>
+            <div className="flex-column w-full">
+              <div className="flex mb-2" style={{ width: "50rem" }}>
+                <Fieldset className="w-full" legend="Project Dates">
+                  <ProjectSettingsDates project={selectedProject} />
+                </Fieldset>
+              </div>
+              <div className="flex mb-2" style={{ width: "50rem" }}>
+                <Fieldset className="w-full" legend="Project Descriptions">
+                  <ProjectSettingsDescriptions project={selectedProject} />
+                </Fieldset>
+              </div>
+
+              <div className="flex mb-2" style={{ width: "50rem" }}>
+                <Fieldset className="w-full" legend="Project Team P/P">
+                  <ProjectSettingsPriority project={selectedProject} />
+                </Fieldset>
+              </div>
+            </div>
           </div>
         </div>
-
       </React.Fragment>
-    )
+    );
   }
 
-
-  return <FailedLoading />
-
-
-
-
-
-
-}
+  return <FailedLoading />;
+};
 
 export default observer(ProjectSettings);

@@ -1,6 +1,6 @@
+import { TabMenu } from "primereact/tabmenu";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TabMenu } from "primereact/tabmenu";
 import "./MenuBarPM.css";
 
 import { useEffect } from "react";
@@ -11,7 +11,6 @@ const MenuBarPM = () => {
   let location = useLocation();
 
   useEffect(() => {
-
     if (location.pathname.includes("/pm/project/")) setActiveIndex(2);
     else if (location.pathname.includes("/pm/")) setActiveIndex(1);
   }, [location, setActiveIndex]);
@@ -23,7 +22,7 @@ const MenuBarPM = () => {
       command: () => navigate("/d/"),
     },
     {
-      label: "Project Managemnt Dashboard",
+      label: "Project Management Dashboard",
       icon: "icon icon-common icon-columns",
       command: () => navigate("/pm/"),
     },
@@ -43,7 +42,6 @@ const MenuBarPM = () => {
         />
       </div>
     </div>
-
   );
 };
 

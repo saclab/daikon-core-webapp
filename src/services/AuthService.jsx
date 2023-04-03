@@ -1,38 +1,10 @@
 import { PublicClientApplication } from "@azure/msal-browser";
 
 class AuthService {
-
-    constructor(appSettings) {
-        if (!appSettings) {
-            console.log("the app settings service was not provided");
-            throw new Error('the app settings service was not provided');
-        }
-        //console.log("Auth Service created");
-        
-        this.appSettings = appSettings;
-        
-        let msalConfig = this.GetMsalClientConfiguration();
-        // console.log("GetMsalClientConfiguration() :");
-        // console.log(msalConfig);
-        this.msalApplication = new PublicClientApplication(msalConfig);
-
-        this.appSettings.GetMsalStoreAuthInCookie()
-    }
-
-    // msal application object
-    msalApplication;
-
-    // settings service
-    appSettings;
-
-    // cached account info
-    account;
-
-    HandlePageLoadEvent() {
-        // let exceptions bubble up to the caller to handle
-        return this.msalApplication.handleRedirectPromise().then((authResult) => {
-            this.HandleRedirectResponse(authResult);
-        });
+  constructor(appSettings) {
+    if (!appSettings) {
+      console.error("The app settings service was not provided");
+      throw new Error("the app settings service was not provided");
     }
 
     this.appSettings = appSettings;

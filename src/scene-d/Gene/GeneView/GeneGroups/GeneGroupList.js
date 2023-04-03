@@ -1,9 +1,9 @@
-import React, { useEffect, useContext } from "react";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import React, { useContext, useEffect } from "react";
 import Loading from "../../../../app/layout/Loading/Loading";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const GeneGroupList = () => {
   const rootStore = useContext(RootStoreContext);

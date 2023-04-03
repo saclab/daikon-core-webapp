@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
-import { useNavigate } from 'react-router-dom';
-import { DataTable } from "primereact/datatable";
+import { BreadCrumb } from "primereact/breadcrumb";
 import { Column } from "primereact/column";
-import SmilesView from "../../../../app/common/SmilesView/SmilesView";
-import { BreadCrumb } from 'primereact/breadcrumb';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
+import { DataTable } from "primereact/datatable";
+import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import SmilesViewWithDetails from "../../../../app/common/SmilesViewWithDetails/SmilesViewWithDetails";
+import { appColors } from "../../../../colors";
 
 const PortfolioBaseHits = ({ project }) => {
   const dt = useRef(null);
@@ -22,23 +22,21 @@ const PortfolioBaseHits = ({ project }) => {
       label: project.projectName,
       command: () => {
         navigate(`/d/portfolio/${project.id}`);
-      }
+      },
     },
     { label: "Base Hits" },
   ];
-
 
   let tableData = [];
 
   if (project?.baseHits.length !== 0) {
     project.baseHits.forEach((baseHit) => {
-      console.log(baseHit.baseHit);
       tableData.push({
         id: baseHit.baseHit.compound.id,
         molArea: baseHit.baseHit.compound.molArea,
         molWeight: baseHit.baseHit.compound.molWeight,
         externalCompoundIds: baseHit.baseHit.compound.externalCompoundIds,
-        smile: baseHit.baseHit.compound.smile,
+        compound: baseHit.baseHit.compound,
         iC50: baseHit.baseHit.iC50,
         mic: baseHit.baseHit.mic,
       });
@@ -49,7 +47,7 @@ const PortfolioBaseHits = ({ project }) => {
     return (
       <React.Fragment>
         <div>
-          <SmilesView smiles={rowData?.smile} width={300} />
+          <SmilesViewWithDetails compound={rowData.compound} width={300} />
         </div>
       </React.Fragment>
     );
@@ -58,9 +56,6 @@ const PortfolioBaseHits = ({ project }) => {
   const CompoundIdBodyTemplate = (rowData) => {
     return <React.Fragment>{rowData?.externalCompoundIds}</React.Fragment>;
   };
-
-  console.log("PortfolioTableData :::");
-  console.log(tableData);
 
   return (
     <React.Fragment>
@@ -74,11 +69,7 @@ const PortfolioBaseHits = ({ project }) => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-common icon-analyse"
-            heading={
-              project.projectName +
-              " | " +
-              project?.currentStage
-            }
+            heading={project.projectName + " | " + project?.currentStage}
             targetName={project.targetName}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.portfolio}
@@ -105,12 +96,11 @@ const PortfolioBaseHits = ({ project }) => {
               body={CompoundIdBodyTemplate}
               style={{ width: "200px" }}
             />
-            <Column field="mic" header="MIC" />
-            <Column field="iC50" header="IC50" />
+            <Column field="mic" header="MIC (&micro;M)" />
+            <Column field="iC50" header="IC50 (&micro;M)" />
           </DataTable>
         </div>
       </div>
-
     </React.Fragment>
   );
 };

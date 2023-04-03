@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import ReactECharts from "echarts-for-react";
 import * as echarts from "echarts";
+import ReactECharts from "echarts-for-react";
 import { observer } from "mobx-react-lite";
-import { Slider } from "primereact/slider";
-import { useNavigate } from "react-router-dom";
 import { InputSwitch } from "primereact/inputswitch";
-import { appColors } from "../../../../colors";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { Slider } from "primereact/slider";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import EmbeddedHelp from "../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import Loading from "../../../../app/layout/Loading/Loading";
-import EmbededHelp from '../../../../app/common/EmbededHelp/EmbededHelp';
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from "../../../../colors";
 
 const TargetDashChart = ({ targets }) => {
   const navigate = useNavigate();
@@ -41,34 +41,35 @@ const TargetDashChart = ({ targets }) => {
 
   let ColorLuminance = (hex, lum) => {
     // validate hex string
-    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    hex = String(hex).replace(/[^0-9a-f]/gi, "");
     if (hex.length < 6) {
       hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
     }
     lum = lum || 0;
     // convert to decimal and change luminosity
-    var rgb = "#", c, i;
+    var rgb = "#",
+      c,
+      i;
     for (i = 0; i < 3; i++) {
       c = parseInt(hex.substr(i * 2, 2), 16);
-      c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+      c = Math.round(Math.min(Math.max(0, c + c * lum), 255)).toString(16);
       rgb += ("00" + c).substr(c.length);
     }
     return rgb;
-  }
+  };
 
   let generateGradient = (color) => {
     return new echarts.graphic.RadialGradient(0.4, 0.3, 1, [
       {
         offset: 0,
-        color: ColorLuminance(color, 0.5)
+        color: ColorLuminance(color, 0.5),
       },
       {
         offset: 1,
-        color: color
-      }
-    ])
-
-  }
+        color: color,
+      },
+    ]);
+  };
 
   var targetData = [];
   var screenData = [];
@@ -78,10 +79,7 @@ const TargetDashChart = ({ targets }) => {
 
   if (!loadingTargetDash && targetDash !== null) {
     targetDash.forEach((element) => {
-      if (
-        element.score1 >= score1Cutoff &&
-        element.score2 >= score2Cutoff
-      ) {
+      if (element.score1 >= score1Cutoff && element.score2 >= score2Cutoff) {
         if (element.currentStage === "Target") {
           targetData.push([
             element.score1,
@@ -177,7 +175,7 @@ const TargetDashChart = ({ targets }) => {
         splitLine: { show: true },
         name: "Druggable Score 2",
         nameLocation: "center",
-        nameGap: 30
+        nameGap: 30,
       },
       yAxis: {
         min: 0,
@@ -344,12 +342,12 @@ const TargetDashChart = ({ targets }) => {
     };
 
     let onChartClick = (params) => {
-      navigate(params.data[2])
-    }
+      navigate(params.data[2]);
+    };
 
     let onEvents = {
-      'click': onChartClick
-    }
+      click: onChartClick,
+    };
 
     return (
       <React.Fragment>
@@ -365,10 +363,10 @@ const TargetDashChart = ({ targets }) => {
             />
           </div>
           <div className="flex flex-column pl-5 pr-5">
-            <EmbededHelp>
-              Example Only:
-              Target Prioritization Tool implementation is required by the Organization
-            </EmbededHelp>
+            <EmbeddedHelp>
+              Example Only: Target Prioritization Tool implementation is
+              required by the Organization
+            </EmbeddedHelp>
             <div className="flex h-3rem">
               <h4>
                 <i className="icon icon-common icon-filter" /> Filters
@@ -417,12 +415,9 @@ const TargetDashChart = ({ targets }) => {
                   onChange={() => setShowLabel(showLabel ? false : true)}
                 />
               </div>
-
             </div>
           </div>
-
         </div>
-
       </React.Fragment>
     );
   }

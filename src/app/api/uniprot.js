@@ -6,13 +6,14 @@ const convertXmlToJson = require("xml-js");
 /* Uniport API Service Settings */
 var axiosUniprotInstance = new axios.create({
   headers: {
-    'Content-Type': 'application/json;charset=UTF-8'
-  }
+    "Content-Type": "application/json;charset=UTF-8",
+  },
 });
 axiosUniprotInstance.defaults.baseURL = "https://rest.uniprot.org/uniprotkb/";
 
 /* Format response body */
-const responseBody = (response) => convertXmlToJson.xml2js(response.data, { compact: true, spaces: 4 });
+const responseBody = (response) =>
+  convertXmlToJson.xml2js(response.data, { compact: true, spaces: 4 });
 //const responseBody = (response) => response.data;
 
 /* TYPES OF REQUESTES SUPPORTED */

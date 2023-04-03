@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import SmilesDrawer from "smiles-drawer";
 import { ContextMenu } from "primereact/contextmenu";
+import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import SmilesDrawer from "smiles-drawer";
 
-const SmilesView = ({ smiles, width = 200, height = 200 }) => {
+const SmilesView = ({ smiles, compoundId, width = 200, height = 200 }) => {
   const cm = useRef(null);
 
   let canId = smiles + Date.now() + Math.floor(Math.random() * 100);
@@ -19,14 +20,16 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
         smilesDrawer.draw(tree, canId, "light", false);
       },
       function (err) {
-        console.log(err);
+        console.error(err);
       }
     );
   }, [height, smiles, width, canId]);
 
+  const navigate = useNavigate();
+
   const contextMenuItems = [
     {
-      label: "Copy Smile String",
+      label: "Copy Smiles String",
       icon: "icon icon-conceptual icon-structures",
       command: () => {
         navigator.clipboard.writeText(smiles);
@@ -34,6 +37,15 @@ const SmilesView = ({ smiles, width = 200, height = 200 }) => {
       },
     },
   ];
+  if (compoundId) {
+    contextMenuItems.push({
+      label: "View Compound",
+      icon: "icon icon-common icon-math",
+      command: () => {
+        navigate("/tools/compounds/" + compoundId);
+      },
+    });
+  }
 
   return (
     <div style={{ width: width, height: height }}>

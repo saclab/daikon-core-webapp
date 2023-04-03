@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
-import { ProgressBar } from "primereact/progressbar";
-import { Button } from "primereact/button";
-import { classNames } from "primereact/utils";
 import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../../../../../../app/stores/rootStore";
+import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
+import { ProgressBar } from "primereact/progressbar";
+import { classNames } from "primereact/utils";
+import React, { useContext } from "react";
+import { RootStoreContext } from "../../../../../../app/stores/rootStore";
 
 const PostPortfolioInformationProirityModify = ({ closeSidebar }) => {
   /* MobX Store */
@@ -42,7 +42,6 @@ const PostPortfolioInformationProirityModify = ({ closeSidebar }) => {
         teamProbability: data.teamProbability,
       };
 
-      console.log(data);
       setPriorityProbability(submitData).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -120,7 +119,7 @@ const PostPortfolioInformationProirityModify = ({ closeSidebar }) => {
                 icon="icon icon-common icon-database-submit"
                 type="submit"
                 label="Save"
-                className="p-mt-2"
+                className="p-mt-2 p-button-secondary"
                 loading={settingPriorityProbability}
               />
             </form>

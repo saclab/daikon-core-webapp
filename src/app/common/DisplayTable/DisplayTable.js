@@ -1,20 +1,19 @@
-import { useState } from "react";
+import { useFormik } from "formik";
+import _ from "lodash";
 import { observer } from "mobx-react-lite";
-import { StartCase } from "react-lodash";
+import { BlockUI } from "primereact/blockui";
+import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { confirmDialog } from "primereact/confirmdialog";
 import { DataTable } from "primereact/datatable";
-import { InputTextarea } from "primereact/inputtextarea";
-import { Button } from "primereact/button";
-import { ProgressBar } from "primereact/progressbar";
-import { BlockUI } from "primereact/blockui";
-import { Sidebar } from "primereact/sidebar";
 import { InputText } from "primereact/inputtext";
-import { useFormik } from "formik";
+import { InputTextarea } from "primereact/inputtextarea";
+import { ProgressBar } from "primereact/progressbar";
+import { Sidebar } from "primereact/sidebar";
 import { classNames } from "primereact/utils";
-import { confirmDialog } from "primereact/confirmdialog";
+import { useState } from "react";
+import { StartCase } from "react-lodash";
 import { toast } from "react-toastify";
-import _ from "lodash";
 import "./DisplayTable.css";
 
 const DisplayTable = ({
@@ -27,9 +26,8 @@ const DisplayTable = ({
   add,
   mandatory,
 }) => {
-
   /* Check if data property is missing, if yes create a blank array to prevent nulls */
-  data = (typeof data === 'undefined' || data === null) ? [] : data;
+  data = typeof data === "undefined" || data === null ? [] : data;
 
   const [tableData, setTableData] = useState([...data]);
   const [originalRows, setoriginalRows] = useState(null);
@@ -37,18 +35,14 @@ const DisplayTable = ({
   const [displayAddDialog, setDisplayAddDialog] = useState(false);
 
   let onRowEditInit = (event) => {
-    //console.log("onRowEditInit():");
-    //console.log(event)
     let t = {};
     t[event.index] = { ...tableData[event.index] };
     setoriginalRows(t);
-    //console.log(originalRows);
   };
 
   let onRowEditCancel = (event) => {
     let products = [...tableData];
     products[event.index] = originalRows[event.index];
-    ////console.log(products);
     delete originalRows[event.index];
     setTableData(products);
   };
@@ -61,8 +55,6 @@ const DisplayTable = ({
   };
 
   let onRowEditSave = (e) => {
-    ////console.log("onRowEditSave");
-    ////console.log(e.data);
     confirmDialog({
       header: "Modifying Database",
       message: "Are you sure you want to proceed?",
@@ -76,15 +68,11 @@ const DisplayTable = ({
   };
 
   let rowEditorFunc = (props, element) => {
-    //console.log("rowEditorFunc")
-    //console.log(props)
-    
     return (
       <InputTextarea
         type="text"
         value={props.rowData[element]}
         onChange={(e) => {
-          ////console.log("onChange");
           onRowEdit(props.rowData.id, element, e.target.value);
         }}
       />
@@ -125,7 +113,6 @@ const DisplayTable = ({
     initialValues: { ...addForminitialValues },
     validate: (data) => {
       let errors = {};
-      //console.log("Validation");
       for (var key of Object.keys(data)) {
         if (mandatory && mandatory.includes(key) && !data[key]) {
           errors[key] = _.startCase(key) + " is required.";
@@ -134,10 +121,7 @@ const DisplayTable = ({
       return errors;
     },
     onSubmit: (data) => {
-      //console.log("Formik Submitting");
-      //console.log(data);
       add(data);
-
       formik.resetForm();
     },
   });
@@ -208,7 +192,6 @@ const DisplayTable = ({
       <Sidebar
         visible={displayAddDialog}
         position="right"
-
         onHide={() => {
           formik.resetForm();
           setDisplayAddDialog(false);

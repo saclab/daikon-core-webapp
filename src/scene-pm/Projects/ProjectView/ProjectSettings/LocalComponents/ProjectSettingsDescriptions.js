@@ -1,30 +1,20 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
-import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
+import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
+import React, { useContext } from "react";
 
-import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
+import { Inplace, InplaceContent, InplaceDisplay } from "primereact/inplace";
 
 import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
-
-
 const ProjectSettingsDescriptions = ({ project }) => {
-
-
-
   const rootStore = useContext(RootStoreContext);
-  const {
-    editProject,
-    editingProject,
-  } = rootStore.projectStore;
-
-
+  const { editProject, editingProject } = rootStore.projectStore;
 
   const formik = useFormik({
     initialValues: {
-      fhaDescription: project.fhaDescription,
+      haDescription: project.haDescription,
 
       h2LDescription: project.h2LDescription,
 
@@ -34,23 +24,21 @@ const ProjectSettingsDescriptions = ({ project }) => {
 
       indDescription: project.indDescription,
 
-      clinicalDescriptiont: project.clinicalDescriptiont,
-
+      clinicalDescription: project.clinicalDescription,
     },
     validate: (data) => {
       let errors = {};
       return errors;
     },
     onSubmit: (data) => {
-      var editedProject = { ...project }
-      editedProject.fhaDescription = data.fhaDescription;
+      var editedProject = { ...project };
+      editedProject.haDescription = data.haDescription;
       editedProject.h2LDescription = data.h2LDescription;
       editedProject.loDescription = data.loDescription;
       editedProject.spDescription = data.spDescription;
       editedProject.indDescription = data.indDescription;
-      editedProject.clinicalDescriptiont = data.clinicalDescriptiont;
-      console.log(data)
-      editProject(editedProject)
+      editedProject.clinicalDescription = data.clinicalDescription;
+      editProject(editedProject);
     },
   });
 
@@ -67,50 +55,53 @@ const ProjectSettingsDescriptions = ({ project }) => {
   return (
     <div className="card w-full">
       <form onSubmit={formik.handleSubmit} className="p-fluid">
-        {/* FHA Description */}
-        {project.fhaEnabled &&
+        {/* HA Description */}
+        {project.haEnabled && (
           <>
             <div className="field grid">
               <label
-                htmlFor="fhaDescription"
-                style={{ width: '250px' }}
+                htmlFor="haDescription"
+                style={{ width: "250px" }}
                 className={classNames({
-                  "p-error": isFormFieldValid("fhaDescription"),
+                  "p-error": isFormFieldValid("haDescription"),
                 })}
               >
-                FHA Description :
+                HA Description :
               </label>
               <Inplace closable>
                 <InplaceDisplay>
-                  <div style={{ width: "30rem", lineHeight: "100%" }}>{formik.values.fhaDescription || 'Click to Edit'}</div>
+                  <div style={{ width: "30rem", lineHeight: "100%" }}>
+                    {formik.values.haDescription || "Click to Edit"}
+                  </div>
                 </InplaceDisplay>
                 <InplaceContent>
                   <InputTextarea
-                    id="fhaDescription"
-                    name="fhaDescription"
-                    value={formik.values.fhaDescription}
+                    id="haDescription"
+                    name="haDescription"
+                    value={formik.values.haDescription}
                     onChange={formik.handleChange}
                     style={{ width: "40rem" }}
-                    rows={5} cols={30}
+                    rows={5}
+                    cols={30}
                     autoResize
                     className={classNames({
-                      "p-invalid": isFormFieldValid("fhaDescription"),
-                    })} />
+                      "p-invalid": isFormFieldValid("haDescription"),
+                    })}
+                  />
                 </InplaceContent>
               </Inplace>
-              {getFormErrorMessage("fhaDescription")}
+              {getFormErrorMessage("haDescription")}
             </div>
           </>
-        }
-
+        )}
 
         {/* H2L Description */}
-        {project.h2LEnabled &&
+        {project.h2LEnabled && (
           <>
             <div className="field grid">
               <label
                 htmlFor="h2LDescription"
-                style={{ width: '250px' }}
+                style={{ width: "250px" }}
                 className={classNames({
                   "p-error": isFormFieldValid("h2LDescription"),
                 })}
@@ -119,7 +110,9 @@ const ProjectSettingsDescriptions = ({ project }) => {
               </label>
               <Inplace closable>
                 <InplaceDisplay>
-                  <div style={{ width: "30rem", lineHeight: "100%" }}>{formik.values.h2LDescription || 'Click to Edit'}</div>
+                  <div style={{ width: "30rem", lineHeight: "100%" }}>
+                    {formik.values.h2LDescription || "Click to Edit"}
+                  </div>
                 </InplaceDisplay>
                 <InplaceContent>
                   <InputTextarea
@@ -127,26 +120,28 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="h2LDescription"
                     value={formik.values.h2LDescription}
                     onChange={formik.handleChange}
-                    style={{ width: '40rem' }}
-                    rows={5} cols={30}
+                    style={{ width: "40rem" }}
+                    rows={5}
+                    cols={30}
                     autoResize
                     className={classNames({
                       "p-invalid": isFormFieldValid("h2LDescription"),
-                    })} />
+                    })}
+                  />
                 </InplaceContent>
               </Inplace>
               {getFormErrorMessage("h2LDescription")}
             </div>
           </>
-        }
+        )}
 
         {/* lo Description */}
-        {project.loEnabled &&
+        {project.loEnabled && (
           <>
             <div className="field grid">
               <label
                 htmlFor="loDescription"
-                style={{ width: '250px' }}
+                style={{ width: "250px" }}
                 className={classNames({
                   "p-error": isFormFieldValid("loDescription"),
                 })}
@@ -155,7 +150,9 @@ const ProjectSettingsDescriptions = ({ project }) => {
               </label>
               <Inplace closable>
                 <InplaceDisplay>
-                  <div style={{ width: "30rem", lineHeight: "100%" }}>{formik.values.loDescription || 'Click to Edit'}</div>
+                  <div style={{ width: "30rem", lineHeight: "100%" }}>
+                    {formik.values.loDescription || "Click to Edit"}
+                  </div>
                 </InplaceDisplay>
                 <InplaceContent>
                   <InputTextarea
@@ -163,26 +160,28 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="loDescription"
                     value={formik.values.loDescription}
                     onChange={formik.handleChange}
-                    style={{ width: '40rem' }}
-                    rows={5} cols={30}
+                    style={{ width: "40rem" }}
+                    rows={5}
+                    cols={30}
                     autoResize
                     className={classNames({
                       "p-invalid": isFormFieldValid("loDescription"),
-                    })} />
+                    })}
+                  />
                 </InplaceContent>
               </Inplace>
               {getFormErrorMessage("loDescription")}
             </div>
           </>
-        }
+        )}
 
         {/* sp Description */}
-        {project.spEnabled &&
+        {project.spEnabled && (
           <>
             <div className="field grid">
               <label
                 htmlFor="spDescription"
-                style={{ width: '250px' }}
+                style={{ width: "250px" }}
                 className={classNames({
                   "p-error": isFormFieldValid("spDescription"),
                 })}
@@ -191,7 +190,9 @@ const ProjectSettingsDescriptions = ({ project }) => {
               </label>
               <Inplace closable>
                 <InplaceDisplay>
-                  <div style={{ width: "30rem", lineHeight: "100%" }}>{formik.values.spDescription || 'Click to Edit'}</div>
+                  <div style={{ width: "30rem", lineHeight: "100%" }}>
+                    {formik.values.spDescription || "Click to Edit"}
+                  </div>
                 </InplaceDisplay>
                 <InplaceContent>
                   <InputTextarea
@@ -199,26 +200,28 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="spDescription"
                     value={formik.values.spDescription}
                     onChange={formik.handleChange}
-                    style={{ width: '40rem' }}
-                    rows={5} cols={30}
+                    style={{ width: "40rem" }}
+                    rows={5}
+                    cols={30}
                     autoResize
                     className={classNames({
                       "p-invalid": isFormFieldValid("spDescription"),
-                    })} />
+                    })}
+                  />
                 </InplaceContent>
               </Inplace>
               {getFormErrorMessage("spDescription")}
             </div>
           </>
-        }
+        )}
 
         {/* ind Description */}
-        {project.indEnabled &&
+        {project.indEnabled && (
           <>
             <div className="field grid">
               <label
                 htmlFor="indDescription"
-                style={{ width: '250px' }}
+                style={{ width: "250px" }}
                 className={classNames({
                   "p-error": isFormFieldValid("indDescription"),
                 })}
@@ -227,7 +230,9 @@ const ProjectSettingsDescriptions = ({ project }) => {
               </label>
               <Inplace closable>
                 <InplaceDisplay>
-                  <div style={{ width: "30rem", lineHeight: "100%" }}>{formik.values.indDescription || 'Click to Edit'}</div>
+                  <div style={{ width: "30rem", lineHeight: "100%" }}>
+                    {formik.values.indDescription || "Click to Edit"}
+                  </div>
                 </InplaceDisplay>
                 <InplaceContent>
                   <InputTextarea
@@ -235,26 +240,28 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="indDescription"
                     value={formik.values.indDescription}
                     onChange={formik.handleChange}
-                    style={{ width: '40rem' }}
-                    rows={5} cols={30}
+                    style={{ width: "40rem" }}
+                    rows={5}
+                    cols={30}
                     autoResize
                     className={classNames({
                       "p-invalid": isFormFieldValid("indDescription"),
-                    })} />
+                    })}
+                  />
                 </InplaceContent>
               </Inplace>
               {getFormErrorMessage("indDescription")}
             </div>
           </>
-        }
+        )}
 
         {/* clinicalP1 Description */}
-        {project.clinicalP1Enabled &&
+        {project.clinicalP1Enabled && (
           <>
             <div className="field grid">
               <label
                 htmlFor="clinicalP1Description"
-                style={{ width: '250px' }}
+                style={{ width: "250px" }}
                 className={classNames({
                   "p-error": isFormFieldValid("clinicalP1Description"),
                 })}
@@ -263,7 +270,9 @@ const ProjectSettingsDescriptions = ({ project }) => {
               </label>
               <Inplace closable>
                 <InplaceDisplay>
-                  <div style={{ width: "30rem", lineHeight: "100%" }}>{formik.values.clinicalP1Description || 'Click to Edit'}</div>
+                  <div style={{ width: "30rem", lineHeight: "100%" }}>
+                    {formik.values.clinicalP1Description || "Click to Edit"}
+                  </div>
                 </InplaceDisplay>
                 <InplaceContent>
                   <InputTextarea
@@ -271,18 +280,20 @@ const ProjectSettingsDescriptions = ({ project }) => {
                     name="clinicalP1Description"
                     value={formik.values.clinicalP1Description}
                     onChange={formik.handleChange}
-                    style={{ width: '40rem' }}
-                    rows={5} cols={30}
+                    style={{ width: "40rem" }}
+                    rows={5}
+                    cols={30}
                     autoResize
                     className={classNames({
                       "p-invalid": isFormFieldValid("clinicalP1Description"),
-                    })} />
+                    })}
+                  />
                 </InplaceContent>
               </Inplace>
               {getFormErrorMessage("clinicalP1Description")}
             </div>
           </>
-        }
+        )}
 
         <div className="field grid">
           <Button
@@ -296,7 +307,6 @@ const ProjectSettingsDescriptions = ({ project }) => {
         </div>
       </form>
     </div>
-
   );
 };
 

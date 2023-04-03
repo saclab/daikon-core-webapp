@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { BlockUI } from "primereact/blockui";
-import { Sidebar } from "primereact/sidebar";
 import { observer } from "mobx-react-lite";
-import { DataTable } from "primereact/datatable";
+import { BlockUI } from "primereact/blockui";
+import { Button } from "primereact/button";
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import { InputText } from "primereact/inputtext";
+import { Sidebar } from "primereact/sidebar";
+import React, { useState } from "react";
 import GeneViewProtectedDataAddProteinActivityAssayForm from "./GeneViewProtectedDataAddProteinActivityAssayForm";
 
 const GeneViewProtectedDataProteinActivityAssayList = ({
@@ -69,19 +69,44 @@ const GeneViewProtectedDataProteinActivityAssayList = ({
             onRowEditComplete={saveEdits}
           >
             <Column
-              field="activity"
-              header="Activity"
+              field="assay"
+              header="Assay"
               editor={(options) => textEditor(options)}
             />
             <Column
-              field="type"
-              header="Type"
+              field="method"
+              header="Method"
               editor={(options) => textEditor(options)}
             />
             <Column
               field="throughput"
               header="Throughput"
               editor={(options) => textEditor(options)}
+            />
+
+            <Column
+              field="pmid"
+              header="PMID"
+              editor={(options) => textEditor(options)}
+            />
+
+            <Column
+              field="reference"
+              header="Reference"
+              editor={(options) => textEditor(options)}
+            />
+
+            <Column
+              field="url"
+              header="URL"
+              editor={(options) => textEditor(options)}
+              body={(rowData) =>
+                rowData.url && (
+                  <a href={rowData.url} target="_BLANK">
+                    <i className="icon icon-common icon-external-link-alt"></i>
+                  </a>
+                )
+              }
             />
             <Column
               rowEditor
@@ -95,7 +120,8 @@ const GeneViewProtectedDataProteinActivityAssayList = ({
         visible={displayAddSideBar}
         onHide={() => setDisplayAddSideBar(false)}
         position="right"
-        className="p-sidebar-sm"
+        className="p-sidebar-md"
+        dismissable={false}
       >
         <div className="flex flex-column gap-3 pl-3  w-full">
           <div className="flex">

@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ProgressBar } from "primereact/progressbar";
-import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
-import { observer } from "mobx-react-lite";
+import React, { useContext } from "react";
 
-import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { InputText } from "primereact/inputtext";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const CompoundEvolutionAddNew = ({ closeSidebar }) => {
   /* MobX Store */
@@ -28,12 +28,13 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
       MIC: "",
       IC50: "",
       notes: "",
+      externalCompoundIds: "",
     },
     validate: (data) => {
       let errors = {};
 
       if (!data.smile) {
-        errors.smile = "Smile string is required.";
+        errors.smile = "Smiles string is required.";
       }
 
       if (!data.notes) {
@@ -44,7 +45,6 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
     },
     onSubmit: (data) => {
       data["projectId"] = selectedProject.id;
-      console.log(data);
       addCompoundEvolution(data).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -80,7 +80,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                     "p-error": isFormFieldValid("smile"),
                   })}
                 >
-                  Smile String
+                  SMILES
                 </label>
                 <InputTextarea
                   id="smile"
@@ -93,6 +93,26 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                 />
                 {getFormErrorMessage("smile")}
               </div>
+              <div className="field">
+                <label
+                  htmlFor="externalCompoundIds"
+                  className={classNames({
+                    "p-error": isFormFieldValid("externalCompoundIds"),
+                  })}
+                >
+                  External Compound Id
+                </label>
+                <InputText
+                  id="externalCompoundIds"
+                  type="text"
+                  value={formik.values.externalCompoundIds}
+                  onChange={formik.handleChange}
+                  className={classNames({
+                    "p-invalid": isFormFieldValid("externalCompoundIds"),
+                  })}
+                />
+              </div>
+
               <div className="field">
                 <label
                   htmlFor="molWeight"
@@ -139,7 +159,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                     "p-error": isFormFieldValid("MIC"),
                   })}
                 >
-                  MIC
+                  MIC (&micro;M)
                 </label>
                 <InputText
                   id="MIC"
@@ -159,7 +179,7 @@ const CompoundEvolutionAddNew = ({ closeSidebar }) => {
                     "p-error": isFormFieldValid("IC50"),
                   })}
                 >
-                  IC50
+                  IC50 (&micro;M)
                 </label>
                 <InputText
                   id="IC50"

@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
-import PortfolioInformationProirityModify from "./PostPortfolioInformationProirityModify/PostPortfolioInformationProirityModify";
+import { Sidebar } from "primereact/sidebar";
+import React, { useState } from "react";
+import PostPortfolioInformationProirityModify from "./PostPortfolioInformationProirityModify/PostPortfolioInformationProirityModify";
 
 const PostPortfolioInformationPriority = ({ project }) => {
   const [visible, setVisible] = useState(false);
-
 
   return (
     <React.Fragment>
@@ -24,11 +23,16 @@ const PostPortfolioInformationPriority = ({ project }) => {
           Probability
           <h3>{project.teamProbability}</h3>
         </div>
-        <Button
-          icon="pi pi-arrow-left"
-          onClick={() => setVisible(true)}
-          className="flex m-2"
-        />
+        <div
+          className="flex flex-column m-3 p-3"
+          style={{ textAlign: "center", lineHeight: "0.5" }}
+        >
+          <Button
+            icon="pi pi-arrow-left"
+            onClick={() => setVisible(true)}
+            className="flex m-2 p-button-secondary"
+          />
+        </div>
       </div>
 
       <Sidebar
@@ -36,7 +40,9 @@ const PostPortfolioInformationPriority = ({ project }) => {
         position="right"
         onHide={() => setVisible(false)}
       >
-        <PortfolioInformationProirityModify closeSidebar={() => setVisible(false)} />
+        <PostPortfolioInformationProirityModify
+          closeSidebar={() => setVisible(false)}
+        />
         <hr />
       </Sidebar>
     </React.Fragment>

@@ -26,7 +26,7 @@ const requests = {
 
 /* API ERROR HANDLING */
 axiosLocalhostInstance.interceptors.response.use(undefined, (error) => {
-  //console.log(error);
+  //console.error(error);
   if (!error.response) {
     toast.error(
       "Network Error : Can't connect to server. Displaying locally cached data. New changes wont be saved."
@@ -37,7 +37,6 @@ axiosLocalhostInstance.interceptors.response.use(undefined, (error) => {
       const { status, data, config } = error.response;
       /* ALL 404 Errors are redirected to not found component */
       if (status === 404) {
-        console.log("404---");
         //history.push("/notfound");
       }
 
@@ -58,7 +57,6 @@ axiosLocalhostInstance.interceptors.response.use(undefined, (error) => {
       }
 
       if (status === 401) {
-        console.log("unauthorized please redirect to login");
       }
     } catch (e) {
     } finally {
@@ -106,7 +104,7 @@ const exports = {
   Portfolio,
   TargetAdmin,
   PostPortfolio,
-  Comment
+  Comment,
 };
 
 export default exports;

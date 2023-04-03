@@ -1,22 +1,33 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
+import { AutoComplete } from "primereact/autocomplete";
+import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
-import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
-import { Calendar } from "primereact/calendar";
+import React, { useContext, useState } from "react";
 import { RootStoreContext } from "../../../../../../../app/stores/rootStore";
 
 const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
+  const [filteredResearchers, setFilteredResearchers] = useState([]);
+
   const rootStore = useContext(RootStoreContext);
-  // const { appVars } = rootStore.generalStore;
+  const { appVars } = rootStore.generalStore;
+
+  const searchResearcher = (event) => {
+    const query = event.query;
+    const filteredResults = appVars.appUsersFlattened.filter((username) =>
+      username.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredResearchers(filteredResults);
+  };
 
   const formik = useFormik({
     initialValues: {
       library: "",
       startDate: "",
       endDate: undefined,
-
+      scientist: "",
       protocol: "",
       concentration: "",
       noOfCompoundsScreened: "",
@@ -42,6 +53,10 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
         errors.concentration = "Concentration is required.";
       }
 
+      if (!data.scientist) {
+        errors.scientist = "Scientist is required.";
+      }
+
       if (!data.noOfCompoundsScreened) {
         errors.noOfCompoundsScreened = "No of Compounds screened is required.";
       }
@@ -54,7 +69,7 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
     },
     onSubmit: (data) => {
       data["screenId"] = screenId;
-      console.log(data);
+
       onAdd(data);
       formik.resetForm();
     },
@@ -88,10 +103,10 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="library"
               value={formik.values.library}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("library"),
               })}
+              autoFocus
             />
 
             {getFormErrorMessage("library")}
@@ -106,16 +121,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
             >
               Start Date
             </label>
-            {/* <InputText
-                    id="startDate"
-                    answer="startDate"
-                    value={formik.values.startDate}
-                    onChange={formik.handleChange}
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": isFormFieldValid("startDate"),
-                    })}
-                  /> */}
             <Calendar
               id="startDate"
               name="startDate"
@@ -174,7 +179,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="protocol"
               value={formik.values.protocol}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("protocol"),
               })}
@@ -197,7 +201,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="unverifiedHitCount"
               value={formik.values.unverifiedHitCount}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("unverifiedHitCount"),
               })}
@@ -213,14 +216,13 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
                 "p-error": isFormFieldValid("concentration"),
               })}
             >
-              Concentration
+              Inhibitor Concentration (&micro;M)
             </label>
             <InputText
               id="concentration"
               answer="concentration"
               value={formik.values.concentration}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("concentration"),
               })}
@@ -243,13 +245,38 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="noOfCompoundsScreened"
               value={formik.values.noOfCompoundsScreened}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("noOfCompoundsScreened"),
               })}
             />
 
             {getFormErrorMessage("noOfCompoundsScreened")}
+          </div>
+
+          <div className="field">
+            <label
+              htmlFor="scientist"
+              className={classNames({
+                "p-error": isFormFieldValid("scientist"),
+              })}
+            >
+              Scientist (Screened By)
+            </label>
+            <AutoComplete
+              id="scientist"
+              value={formik.values.scientist}
+              delay={1500}
+              suggestions={filteredResearchers}
+              completeMethod={searchResearcher}
+              onChange={formik.handleChange}
+              dropdown
+              forceSelection={false}
+              className={classNames({
+                "p-invalid": isFormFieldValid("scientist"),
+              })}
+            />
+
+            {getFormErrorMessage("scientist")}
           </div>
 
           <div className="field">
@@ -266,7 +293,6 @@ const ScreenSequenceAddForm = ({ screenId, onAdd, loading }) => {
               answer="comment"
               value={formik.values.comment}
               onChange={formik.handleChange}
-              autoFocus
               className={classNames({
                 "p-invalid": isFormFieldValid("comment"),
               })}
