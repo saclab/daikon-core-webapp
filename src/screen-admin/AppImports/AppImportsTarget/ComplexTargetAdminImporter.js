@@ -1,10 +1,10 @@
+import React, { useState, useEffect, useContext } from "react";
+import { useCSVReader } from "react-papaparse";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
-import React, { useContext, useEffect, useState } from "react";
-import { useCSVReader } from "react-papaparse";
 import Loading from "../../../app/layout/Loading/Loading";
-import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const ComplexTargetAdminImporter = () => {
   const rootStore = useContext(RootStoreContext);
@@ -24,32 +24,34 @@ const ComplexTargetAdminImporter = () => {
 
   const styles = {
     csvReader: {
-      display: "flex",
-      flexDirection: "row",
+      display: 'flex',
+      flexDirection: 'row',
       marginBottom: 10,
     },
     browseFile: {
-      width: "20%",
+      width: '20%',
     },
     acceptedFile: {
-      border: "1px solid #ccc",
+      border: '1px solid #ccc',
       height: 45,
       lineHeight: 2.5,
       paddingLeft: 10,
-      width: "80%",
+      width: '80%',
     },
     remove: {
       borderRadius: 0,
-      padding: "0 20px",
+      padding: '0 20px',
     },
     progressBarBackgroundColor: {
-      backgroundColor: "red",
+      backgroundColor: 'red',
     },
   };
 
   //fetchGeneByAccessionNo
-  const { getPromotionQuestions, promotionQuestionsRegistry } =
-    rootStore.geneStore;
+  const {
+    getPromotionQuestions,
+    promotionQuestionsRegistry,
+  } = rootStore.geneStore;
   const { importTargetComplex } = rootStore.targetStoreAdmin;
 
   useEffect(() => {
@@ -59,27 +61,39 @@ const ComplexTargetAdminImporter = () => {
   }, [promotionQuestionsRegistry, getPromotionQuestions]);
 
   let handleOnError = (err, file, inputElem, reason) => {
-    console.error(err);
+    console.log("---------------------------");
+    console.log(err);
+    console.log("---------------------------");
   };
 
   let handleOnDrop = (data) => {
     setLoading(true);
 
+    console.log("---------------------------");
+    console.log(data);
     dto(data);
+
+    console.log("---------------------------");
   };
 
   let handleOnRemoveFile = (data) => {
+    console.log("---------------------------");
+    console.log(data);
+    console.log("---------------------------");
     setDataFormatingStatus(false);
   };
 
   let dto = async (csvData) => {
     let data = csvData.data;
     let failedForDTOs = [];
-
+    console.log("---------------------------");
+    console.log("DTO START");
     setLoading(true);
 
     for (let i = 0; i < data.length; i++) {
       let row = data[i];
+      console.log(row);
+      console.log("Fetching for " + row["Protein"]);
 
       setsSatusText("Preparing " + row["Protein"]);
       if (row["Protein"] === "") {
@@ -206,16 +220,24 @@ const ComplexTargetAdminImporter = () => {
     setLoading(false);
     setDataFormatingStatus(true);
     setsSatusText(consolidatedDTO.length + " targets found");
+    console.log("---------------------------");
+    console.log("Failed DTOs");
+    console.log(failedForDTOs);
+    console.log("DTO END");
+
+    console.log(statusProps.importTargetLength);
   };
 
   let importToServer = async () => {
     let failedDTOImports = [];
+    console.log("Starting import");
 
     for (let i = 0; i < consolidatedDTO.length; i++) {
       let targetToImport = consolidatedDTO[i];
       setsSatusText("Importing " + targetToImport.targetName);
-
+      console.log(targetToImport);
       await importTargetComplex(targetToImport).catch((e) => {
+        console.log("Cannot import", e);
         failedDTOImports.push(targetToImport.targetName);
       });
     }
@@ -236,6 +258,7 @@ const ComplexTargetAdminImporter = () => {
   let dataFormattingResults = (
     <Card title="Console" style={{ width: "70em" }}>
       No of targets in CSV = {statusProps.csvLength - 1} <br />
+
       <br />
       <div style={{ width: "60rem", overflowWrap: "anywhere" }}>
         Match not found for : {statusProps.failedDTOs.join()}
@@ -261,35 +284,33 @@ const ComplexTargetAdminImporter = () => {
         noDrag
         style={{}}
         config={{ header: true }}
-        // addRemoveButton
-        // onRemoveFile={handleOnRemoveFile}
-      >
-        {({ getRootProps, acceptedFile, ProgressBar, getRemoveFileProps }) => (
-          <div className="flex flex-column justify-content-center gap-2 border-400 border-dashed border-round-md  border-1 m-2 p-3">
-            <div className="flex align-items-center justify-content-center">
-              <h1
-                className="size-400 icon icon-fileformats icon-spacer"
-                data-icon="c"
-              ></h1>
-            </div>
-            <div className="flex align-items-center justify-content-center">
-              {!acceptedFile ? (
-                <Button
-                  className="w-max p-button-secondary pl-5 pr-5"
-                  type="button"
-                  {...getRootProps()}
-                >
-                  Select CSV File to upload
-                </Button>
-              ) : (
-                acceptedFile.name
-              )}
-            </div>
-            <div className="flex" style={styles.progressBar}>
-              <ProgressBar />
-            </div>
+      // addRemoveButton
+      // onRemoveFile={handleOnRemoveFile}
+      >{({
+        getRootProps,
+        acceptedFile,
+        ProgressBar,
+        getRemoveFileProps,
+      }) => (
+        <div className="flex flex-column justify-content-center gap-2 border-400 border-dashed border-round-md  border-1 m-2 p-3">
+          <div className="flex align-items-center justify-content-center">
+            <h1
+              className="size-400 icon icon-fileformats icon-spacer"
+              data-icon="c"
+            ></h1>
           </div>
-        )}
+          <div className="flex align-items-center justify-content-center">
+            {!acceptedFile ? <Button className="w-max p-button-secondary pl-5 pr-5" type='button' {...getRootProps()}>
+              Select CSV File to upload
+            </Button> : acceptedFile.name}
+
+          </div>
+          <div className="flex" style={styles.progressBar}>
+            <ProgressBar />
+          </div>
+
+        </div>
+      )}
       </CSVReader>
       <br />
       {statusText} <br />
