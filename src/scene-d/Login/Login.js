@@ -1,4 +1,5 @@
 import { Button } from "primereact/button";
+import EmbeddedHelp from "../../app/common/EmbeddedHelp/EmbeddedHelp";
 import "./Login.css";
 
 // const Login = ({ loginButtonClicked }) => {
@@ -41,18 +42,18 @@ const Login = ({ loginButtonClicked }) => {
                   for authorized purposes by authorized users: use for any other
                   purpose is prohibited and may result in administrative/
                   disciplinary actions or criminal prosecution against the user.
-                  Usage may be subject to security testing and monitoring to
-                  ensure compliance with the policies of the Organization. There
-                  is no expectation of privacy on this system except as
-                  otherwise provided by applicable privacy laws. Users should
-                  refer to Rules for Responsible Computing, for guidance on the
-                  appropriate use of the Organization's information resources.
+                  Usage may be subject to security testing and monitoring.
                 </p>
+                <EmbeddedHelp>
+                  This is an demo implementation of Daikon framework, data
+                  inside the App might not be accurate.
+                </EmbeddedHelp>
                 <br />
                 <Button
                   label="Login with SSO"
                   onClick={() => loginButtonClicked()}
                 ></Button>
+
                 {/* <Footer /> */}
               </div>
             </div>

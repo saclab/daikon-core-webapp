@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 //import _ from "lodash";
-import { observer } from "mobx-react-lite";
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { Fieldset } from "primereact/fieldset";
 import { Toast } from "primereact/toast";
+import { Fieldset } from "primereact/fieldset";
+import { observer } from "mobx-react-lite";
+import TargetGrid from "./TargetGrid/TargetGrid";
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import Loading from "../../../../app/layout/Loading/Loading";
 import { useNavigate } from 'react-router-dom';
 import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import Loading from "../../../../app/layout/Loading/Loading";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { BreadCrumb } from 'primereact/breadcrumb';
 import { appColors } from '../../../../colors';
-import TargetGrid from "./TargetGrid/TargetGrid";
 
 const TargetScorecard = () => {
   const toast = useRef(null);
@@ -72,8 +72,8 @@ const TargetScorecard = () => {
           <div className="flex w-full">
             <Fieldset legend="Overview">
               <h3>
-                <i className="ri-blaze-line"></i> Bucket :{" "}
-                <b>{selectedTarget.bucket}</b>
+                <i className="ri-blaze-line"></i> Rank :{" "}
+                <b>{selectedTarget.rank}</b>
               </h3>
               <div style={{ inlineSize: "900px", overflowWrap: "break-word" }}>
                 <h4>

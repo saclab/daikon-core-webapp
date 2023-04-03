@@ -1,15 +1,16 @@
-import { observer } from "mobx-react-lite";
-import { BreadCrumb } from "primereact/breadcrumb";
+import React from "react";
+import cssClass from "./TargetSummary.module.css";
+import { useContext } from "react";
 import { ScrollPanel } from "primereact/scrollpanel";
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
-import { appColors } from "../../../../colors";
-import cssClass from "./TargetCompass.module.css";
+import KeyValList from "../../../../app/common/KeyValList/KeyValList";
+import { useNavigate } from 'react-router-dom';
+import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import { BreadCrumb } from 'primereact/breadcrumb';
+import { appColors } from '../../../../colors';
 
-const TargetCompass = () => {
+const TargetSummary = () => {
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
   const {
@@ -36,13 +37,15 @@ const TargetCompass = () => {
       label: selectedTarget.name,
       command: () => {
         navigate(`/d/target/${selectedTarget.id}`);
-      },
+      }
     },
     { label: "Summary" },
   ];
 
   return (
+
     <div className="flex flex-column w-full">
+
       <div className="flex w-full pb-2">
         <BreadCrumb model={breadCrumbItems} />
       </div>
@@ -61,10 +64,7 @@ const TargetCompass = () => {
           <div className={[cssClass.QuadRow].join(" ")}>
             <div
               className={[cssClass.QuadColumn].join(" ")}
-              style={{
-                backgroundColor: "#D4F1F4",
-                borderRight: "3px solid #FFF",
-              }}
+              style={{ backgroundColor: "#D4F1F4", borderRight: "3px solid #FFF" }}
             >
               <center>
                 <h2>Background</h2>
@@ -78,12 +78,12 @@ const TargetCompass = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("user")
+                    user.roles.includes("admin")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("user")
+                    user.roles.includes("admin")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -92,10 +92,7 @@ const TargetCompass = () => {
             </div>
             <div
               className={[cssClass.QuadColumn].join(" ")}
-              style={{
-                backgroundColor: "#DDFFE7",
-                borderLeft: "3px solid #FFF",
-              }}
+              style={{ backgroundColor: "#DDFFE7", borderLeft: "3px solid #FFF" }}
             >
               <center>
                 <h2>Enablement</h2>
@@ -109,12 +106,12 @@ const TargetCompass = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("user")
+                    user.roles.includes("admin")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("user")
+                    user.roles.includes("admin")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -143,12 +140,12 @@ const TargetCompass = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("user")
+                    user.roles.includes("admin")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("user")
+                    user.roles.includes("admin")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -175,12 +172,12 @@ const TargetCompass = () => {
                   historyDisplayLoading={historyDisplayLoading}
                   history={targetHistory}
                   editFunc={
-                    user.roles.includes("user")
+                    user.roles.includes("admin")
                       ? () => editTargetSummary()
                       : undefined
                   }
                   cancelEdit={
-                    user.roles.includes("user")
+                    user.roles.includes("admin")
                       ? () => cancelEditTargetSummary()
                       : undefined
                   }
@@ -190,8 +187,11 @@ const TargetCompass = () => {
           </div>
         </div>
       </div>
+
     </div>
+
+
   );
 };
 
-export default observer(TargetCompass);
+export default observer(TargetSummary);

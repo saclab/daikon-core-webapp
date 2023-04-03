@@ -14,18 +14,18 @@ import EmbeddedHelp from "../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import Loading from "../../../app/layout/Loading/Loading";
 import NotFound from "../../../app/layout/NotFound/NotFound";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import TargetCompass from "./TargetCompass/TargetCompass";
 import TargetDiscussion from "./TargetDiscussion/TargetDiscussion";
 import TargetEdit from "./TargetEdit/TargetEdit";
 import TargetPromotionForm from "./TargetPromotionForm/TargetPromotionForm";
-import TargetPromotionFormEdit from "./TargetPromotionForm/TargetPromotionFormEdit/TargetPromotionFormEdit";
 import TargetScorecard from "./TargetScorecard/TargetScorecard";
 import TargetScreenPromotionQuestionaire from "./TargetScreenPromotionQuestionaire/TargetScreenPromotionQuestionaire";
+import TargetSummary from "./TargetSummary/TargetSummary";
 
 const TargetView = () => {
   const params = useParams();
   const navigate = useNavigate();
 
+  const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
 
   /* MobX Store */
@@ -53,15 +53,15 @@ const TargetView = () => {
           },
         },
         {
-          label: "Compass",
+          label: "Summary",
           icon: "icon icon-common icon-compass",
           command: () => {
-            navigate("compass/");
+            navigate("summary/");
           },
         },
         {
           label: "Promotion Info",
-          icon: "icon icon-common icon-info",
+          icon: "pi pi-table",
           command: () => {
             navigate("promotion-info/");
           },
@@ -114,6 +114,7 @@ const TargetView = () => {
 
   /** Loading Overlay */
   if (displayLoading) {
+    console.log("Loading.....");
     return <Loading />;
   }
   if (target !== null) {
@@ -163,16 +164,7 @@ const TargetView = () => {
                   />
                 }
               />
-              <Route path="compass/" element={<TargetCompass />} />
-              <Route
-                path="promotion-info/edit"
-                element={
-                  <TargetPromotionFormEdit
-                    data={target.targetScorecard.targetScoreCardValues}
-                    selectedTarget={target}
-                  />
-                }
-              />
+              <Route path="summary/" element={<TargetSummary />} />
               <Route
                 path="promotion-info/"
                 element={
@@ -182,7 +174,6 @@ const TargetView = () => {
                   />
                 }
               />
-
               <Route
                 path="discussion/"
                 element={<TargetDiscussion selectedTarget={target} />}

@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 // import _ from "lodash";
-import { observer } from "mobx-react-lite";
-import { Column } from "primereact/column";
-import { DataTable } from "primereact/datatable";
 import { NavLink } from "react-router-dom";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 import "./TargetDashDataTable.css";
+import { observer } from "mobx-react-lite";
 
 const TargetDashTable = ({ targets }) => {
   const dt = useRef(null);
@@ -21,7 +21,8 @@ const TargetDashTable = ({ targets }) => {
   };
 
   const AssociatedGenesBodyTemplate = (rowData) => {
-
+    //console.log("AssociatedGenesBodyTemplate");
+    //console.log(rowData.targetGenesAccesionNumbers);
     if (rowData.targetGenesAccesionNumbers.length > 2) {
       return (
         <React.Fragment>
@@ -41,20 +42,18 @@ const TargetDashTable = ({ targets }) => {
     }
   };
 
-  const ImpactScoreBodyTemplate = (rowData) => {
+  const Score1BodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Biological Impact Score</span>
-        {rowData.impactScore}
+        {rowData.score1}
       </React.Fragment>
     );
   };
 
-  const LikeScoreBodyTemplate = (rowData) => {
+  const Score2BodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <span className="p-column-title">Likelihood Score</span>
-        {rowData.likeScore}
+        {rowData.score2}
       </React.Fragment>
     );
   };
@@ -120,20 +119,20 @@ const TargetDashTable = ({ targets }) => {
           />
 
           <Column
-            field="impactScore"
-            header="Biological Impact Score"
-            body={ImpactScoreBodyTemplate}
+            field="score1"
+            header="Essentiality"
+            body={Score1BodyTemplate}
             sortable
           />
           <Column
-            field="likeScore"
-            header="Likelihood Score"
-            body={LikeScoreBodyTemplate}
+            field="score2"
+            header="Druggable Score"
+            body={Score2BodyTemplate}
             sortable
           />
           <Column
             field="bucket"
-            header="Bucket Score"
+            header="Rank"
             body={BucketScoreBodyTemplate}
             sortable
           />
