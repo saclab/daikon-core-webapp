@@ -1,6 +1,7 @@
 import { Tooltip } from "primereact/tooltip";
 import React from "react";
 
+import EmbeddedHelp from "../../../../../app/common/EmbeddedHelp/EmbeddedHelp";
 import PleaseWait from "../../../../../app/common/PleaseWait/PleaseWait";
 import "./TargetGrid.css";
 
@@ -12,6 +13,7 @@ const TargetGrid = ({ questions, target }) => {
   }
 
   target.targetScorecard.targetScoreCardValues.forEach((ans) => {
+    console.log(ans);
     if (ans.answer === "Active" || ans.answer === "Yes") {
       answers[ans.questionIdentification] = "greenCell";
     }
@@ -47,6 +49,17 @@ const TargetGrid = ({ questions, target }) => {
       }
     }
   });
+
+  console.log(answers);
+
+  return (
+    <div>
+      <EmbeddedHelp>
+        !Missing Implementation : To view this module, Target Prioritization
+        Tool implementation is required by the Organization
+      </EmbeddedHelp>
+    </div>
+  );
 
   return (
     <div className="targetGrid">

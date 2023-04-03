@@ -1,35 +1,36 @@
-import { Formik } from "formik";
-import { observer } from "mobx-react-lite";
-import { BreadCrumb } from "primereact/breadcrumb";
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { Toast } from "primereact/toast";
-import React, { useContext, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
-import Unauthorized from "../../../../app/common/Unauthorized/Unauthorized";
-import Loading from "../../../../app/layout/Loading/Loading";
-import NotFound from "../../../../app/layout/NotFound/NotFound";
+import React, { useEffect, useRef, useContext } from "react";
+import { Menu } from "primereact/menu";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
+import Loading from "../../../../app/layout/Loading/Loading";
+import { BreadCrumb } from "primereact/breadcrumb";
+import { Toast } from "primereact/toast";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import NotFound from "../../../../app/layout/NotFound/NotFound";
+import { InputText } from "primereact/inputtext";
+import { observer } from "mobx-react-lite";
+import { Button } from "primereact/button";
+import { useNavigate } from "react-router-dom";
 import { appColors } from "../../../../colors";
+import { classNames } from "primereact/utils";
+import { Formik } from "formik";
+import Unauthorized from "../../../../app/common/Unauthorized/Unauthorized";
 
 const TargetEdit = ({ id }) => {
   const navigate = useNavigate();
   const toast = useRef(null);
   const rootStore = useContext(RootStoreContext);
-  const {
-    fetchTargetAdmin,
-    selectedTarget,
-    editTargetAdmin,
-    displayLoading,
-    editingTarget,
-  } = rootStore.targetStoreAdmin;
+  const { fetchTargetAdmin, selectedTarget, editTargetAdmin, displayLoading, editingTarget } =
+    rootStore.targetStoreAdmin;
 
   useEffect(() => {
+    console.log("EFFECT");
+
     if (selectedTarget === null || selectedTarget.id !== id) {
       fetchTargetAdmin(id);
     }
   }, [id, selectedTarget, fetchTargetAdmin]);
+
+
 
   const formikValidate = (data) => {
     let errors = {};
@@ -41,10 +42,12 @@ const TargetEdit = ({ id }) => {
   };
 
   if (displayLoading || editingTarget) {
+    console.log("Loading.....");
     return <Loading />;
   }
 
   const onFormikSubmit = (data) => {
+    console.log(data);
     data.id = selectedTarget.id;
     editTargetAdmin(data).then(fetchTargetAdmin(id));
     //   add(data).then((res) => {
@@ -70,6 +73,8 @@ const TargetEdit = ({ id }) => {
     return <Unauthorized />;
   }
 
+
+
   if (selectedTarget !== null) {
     const breadCrumbItems = [
       {
@@ -86,6 +91,8 @@ const TargetEdit = ({ id }) => {
       },
       { label: "Edit" },
     ];
+
+    console.log(selectedTarget);
 
     return (
       <React.Fragment>
@@ -108,6 +115,7 @@ const TargetEdit = ({ id }) => {
 
           <div className="flex w-full pb-2">
             <div className="card w-full">
+
               <Formik
                 initialValues={{
                   bucket: selectedTarget.bucket || "",
@@ -197,9 +205,7 @@ const TargetEdit = ({ id }) => {
                         </div>
 
                         <div className="field">
-                          <label htmlFor="impactComplete">
-                            Impact Complete
-                          </label>
+                          <label htmlFor="impactComplete">Impact Complete</label>
                           <InputText
                             id="impactComplete"
                             step={0.25}
@@ -229,9 +235,7 @@ const TargetEdit = ({ id }) => {
                         </div>
 
                         <div className="field">
-                          <label htmlFor="screeningScore">
-                            Screening Score
-                          </label>
+                          <label htmlFor="screeningScore">Screening Score</label>
                           <InputText
                             id="screeningScore"
                             step={0.25}
@@ -245,9 +249,7 @@ const TargetEdit = ({ id }) => {
                         </div>
 
                         <div className="field">
-                          <label htmlFor="htsFeasibility">
-                            HTS Feasibility
-                          </label>
+                          <label htmlFor="htsFeasibility">HTS Feasibility</label>
                           <InputText
                             id="htsFeasibility"
                             step={0.25}
@@ -262,10 +264,10 @@ const TargetEdit = ({ id }) => {
                       </div>
 
                       <div className="flex flex-column w-full">
+
+
                         <div className="field">
-                          <label htmlFor="sbdFeasibility">
-                            SBD Feasibility
-                          </label>
+                          <label htmlFor="sbdFeasibility">SBD Feasibility</label>
                           <InputText
                             id="sbdFeasibility"
                             step={0.25}
@@ -279,9 +281,7 @@ const TargetEdit = ({ id }) => {
                         </div>
 
                         <div className="field">
-                          <label htmlFor="progressibility">
-                            Progressibility
-                          </label>
+                          <label htmlFor="progressibility">Progressibility</label>
                           <InputText
                             id="progressibility"
                             step={0.25}
@@ -323,9 +323,7 @@ const TargetEdit = ({ id }) => {
                         </div>
 
                         <div className="field">
-                          <label htmlFor="structureScore">
-                            Structure Score
-                          </label>
+                          <label htmlFor="structureScore">Structure Score</label>
                           <InputText
                             id="structureScore"
                             step={0.25}
@@ -371,6 +369,7 @@ const TargetEdit = ({ id }) => {
                         </div>
 
                         <div className="field">
+
                           <Button
                             icon="icon icon-common icon-database-submit"
                             type="submit"
@@ -378,9 +377,15 @@ const TargetEdit = ({ id }) => {
                             className="p-button-secondary"
                             loading={editingTarget}
                           />
+
                         </div>
+
                       </div>
                     </div>
+
+
+
+
                   </form>
                 )}
               </Formik>

@@ -1,6 +1,6 @@
 version: '3'
 services:
-  tpt-app:
+  daikon-app-ce-dev:
     build:
       context: .
       dockerfile: Dockerfile.dev

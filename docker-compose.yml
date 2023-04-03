@@ -1,6 +1,6 @@
 version: '3'
 services:
-  daikon-frontend:
+  daikon-app-ce:
     build:
       context: .
       dockerfile: Dockerfile

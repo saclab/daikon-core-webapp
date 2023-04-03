@@ -1,12 +1,13 @@
+import React, { useContext, useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { observer } from "mobx-react-lite";
-import { Button } from "primereact/button";
-import { Calendar } from "primereact/calendar";
-import { Dropdown } from "primereact/dropdown";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ProgressBar } from "primereact/progressbar";
+import { Button } from "primereact/button";
+import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
-import React, { useContext, useState } from "react";
+import { Calendar } from "primereact/calendar";
+import { observer } from "mobx-react-lite";
+import { Dropdown } from "primereact/dropdown";
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 
 const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
@@ -18,9 +19,14 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
     promoteTargetToScreenDisplayLoading,
   } = rootStore.targetStore;
 
+  const { fetchOrgs, Orgs, LoadingOrgs } = rootStore.adminStore;
   const { appVars } = rootStore.generalStore;
 
   const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    fetchOrgs();
+  }, [fetchOrgs]);
 
   const formik = useFormik({
     initialValues: {
@@ -45,7 +51,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
     onSubmit: (data) => {
       data["targetID"] = selectedTarget.id;
       data["orgId"] = data.org.id;
-
+      console.log(data);
       promoteTargetToScreen(data).then((res) => {
         if (res !== null) {
           closeSidebar();
@@ -67,7 +73,18 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
     );
   };
 
-  if (!promoteTargetToScreenDisplayLoading) {
+  const dialogFooter = (
+    <div className="p-d-flex p-jc-center">
+      <Button
+        label="OK"
+        className="p-button-text"
+        autoFocus
+        onClick={() => setShowMessage(false)}
+      />
+    </div>
+  );
+
+  if (!promoteTargetToScreenDisplayLoading && !LoadingOrgs) {
     return (
       <React.Fragment>
         {/* <Dialog
@@ -84,11 +101,12 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
               className="pi pi-check-circle"
               style={{ fontSize: "5rem", color: "var(--green-500)" }}
             ></i>
-            <h5>Screening information has been added!</h5>
+            <h5>Screening infomation has been added!</h5>
           </div>
         </Dialog> */}
         <div className="card w-full">
           <form onSubmit={formik.handleSubmit} className="p-fluid">
+
             <div className="field">
               <label
                 htmlFor="promotionDate"
@@ -112,6 +130,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
                 })}
               />
               {getFormErrorMessage("promotionDate")}
+
             </div>
             <div className="field">
               <label
@@ -125,7 +144,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
 
               <Dropdown
                 value={formik.values.org}
-                options={appVars.appOrgs}
+                options={Orgs}
                 onChange={formik.handleChange("org")}
                 optionLabel="name"
                 placeholder="Select an org"
@@ -155,6 +174,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
                 value={formik.values.method}
                 placeholder="Select a method"
                 onChange={formik.handleChange}
+                autoFocus
                 className={classNames({
                   "p-invalid": isFormFieldValid("method"),
                 })}
@@ -177,6 +197,7 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
                 answer="notes"
                 value={formik.values.notes}
                 onChange={formik.handleChange}
+                autoFocus
                 className={classNames({
                   "p-invalid": isFormFieldValid("notes"),
                 })}
@@ -189,8 +210,10 @@ const TargetScreenPromotionQuestionaire = ({ closeSidebar }) => {
               label="Add Screen"
               className="p-mt-2"
             />
+
           </form>
         </div>
+
       </React.Fragment>
     );
   }
