@@ -1,4 +1,3 @@
-import React from "react";
 import { ProgressBar } from "primereact/progressbar";
 import loadingGif from "../../../assets/icon-1.1s-200px.gif"
 import "./Loading.css";

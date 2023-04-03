@@ -5,6 +5,7 @@ import { Skeleton } from "primereact/skeleton";
 import { Dialog } from "primereact/dialog";
 import { SplitButton } from 'primereact/splitbutton';
 import LiteMolView from "../../../../../app/common/LiteMolView/LiteMolView";
+import { RootStoreContext } from "../../../../../app/stores/rootStore";
 
 const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
   /* MobX Store */
@@ -32,7 +33,6 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
   ]);
 
   let openMolView = (id) => {
-    console.log(id);
     setmolViewId(id);
     setmolViewUrl(
       "https://www.ebi.ac.uk/pdbe/entry-files/download/pdb" +
@@ -139,7 +139,7 @@ const GeneViewPublicDataProteindataBank = ({ accessionNumber }) => {
         <table style={{ width: "100%", textAlign: "left", borderSpacing: "1em" }}>
           <thead>
             <tr key="head">
-              <th>PDP ID</th>
+              <th>PDB ID</th>
               <th>Method</th>
               <th>Resolution</th>
               <th>Chains</th>

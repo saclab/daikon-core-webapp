@@ -8,6 +8,8 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "/node_modules/primeflex/primeflex.css";
 import "primeicons/primeicons.css";
+import "primereact/resources/primereact.min.css";
+import "remixicon/fonts/remixicon.css";
 import "../../assets/_overrides.scss";
 import "remixicon/fonts/remixicon.css";
 
@@ -48,7 +50,7 @@ const App = () => {
     if (authServiceInstance.account && !networkErr && !user && !userNotFound) {
       //console.log("UseEffect getUser()");
       getUser().catch((e) => {
-        console.log("++++++++CAUGHT NETWORK ERROR");
+        console.error("CAUGHT NETWORK ERROR");
         setNetworkErr(true);
       });
 

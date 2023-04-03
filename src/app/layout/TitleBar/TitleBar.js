@@ -7,11 +7,11 @@ import { Sidebar } from "primereact/sidebar";
 import { Dropdown } from "primereact/dropdown";
 
 
-import cssClass from "./TitleBar.module.css";
 import { Button } from "primereact/button";
-import history from "../../../history";
-import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import { RootStoreContext } from "../../stores/rootStore";
+import "./TitleBar.css";
+import cssClass from "./TitleBar.module.css";
+import TitleBarAccountPanel from "./TitleBarAccountPanel/TitleBarAccountPanel";
 import TitleBarSidePanel from "./TitleBarSidePanel/TitleBarSidePanel";
 
 

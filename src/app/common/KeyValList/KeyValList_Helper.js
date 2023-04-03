@@ -1,11 +1,15 @@
-import React from "react";
-import Loading from "../../layout/Loading/Loading";
 import JsonQuery from "json-query";
 import { Timeline } from "primereact/timeline";
 import { Button } from "primereact/button";
 import { runInAction } from "mobx";
 import { InputTextarea } from "primereact/inputtextarea";
 import _ from "lodash";
+import { runInAction } from "mobx";
+import { Button } from "primereact/button";
+import { InputTextarea } from "primereact/inputtextarea";
+import { Timeline } from "primereact/timeline";
+import React from "react";
+import Loading from "../../layout/Loading/Loading";
 
 export function _helper_renderHistoryTimeline(
   historyDisplayLoading,
@@ -20,13 +24,9 @@ export function _helper_renderHistoryTimeline(
     );
   } else {
     if (history !== null) {
-      //console.log("Selected iD :" + selectedId);
       let historyId = _.upperFirst(_.camelCase(selectedId));
-      //console.log("historyID :" + historyId);
       let historyQuery = "[*propertyName=" + historyId + "]";
       let historyResult = JsonQuery(historyQuery, { data: history }).value;
-
-      //console.log(historyResult);
 
       if (_.isEmpty(historyResult)) {
         return (
@@ -102,7 +102,7 @@ export function _helper_renderFooterOfEditDialog(
   );
 }
 
-export function _helper_filterHilightChanged(data, history, filterRecent) {
+export function _helper_filterHighlightChanged(data, history, filterRecent) {
   let query = "[*primaryKeyValue=" + data.id + "]";
   let result = JsonQuery(query, { data: history }).value;
 

@@ -17,8 +17,4 @@ export default class MsStore {
       authServiceInstance: observable,
     });
   }
-
-  // @observable
-  appSettings = this.appSettings;
-  authServiceInstance = this.authServiceInstance;
 }

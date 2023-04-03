@@ -22,7 +22,6 @@ export function _command_contextMenuCopyCommand(selectedId, toast) {
         life: 3000,
       });
     } catch {
-      //console.log("cannot copy object");
       toast.current.show({
         severity: "error",
         summary: "Cannot copy objects without underlying text.",
@@ -47,10 +46,10 @@ export function _command_contextMenuFetchHistoryCommand(
   setDisplayHistorySideBar(true);
 }
 
-export function _command_contextMenuHilightAllChangesCommand(
+export function _command_contextMenuHighlightAllChangesCommand(
   fetchHistory,
-  setHilightRecentChanges,
-  setHilightAllChanges
+  setHighlightRecentChanges,
+  setHighlightAllChanges
 ) {
   fetchHistory();
   setHilightRecentChanges(false);
@@ -59,10 +58,10 @@ export function _command_contextMenuHilightAllChangesCommand(
   // localStorage.setItem("_local_HilightAllChanges", true)
 }
 
-export function _command_contextMenuHilightRecentChangesCommand(
+export function _command_contextMenuHighlightRecentChangesCommand(
   fetchHistory,
-  setHilightRecentChanges,
-  setHilightAllChanges
+  setHighlightRecentChanges,
+  setHighlightAllChanges
 ) {
   fetchHistory();
   setHilightAllChanges(false);
@@ -72,9 +71,9 @@ export function _command_contextMenuHilightRecentChangesCommand(
 
 }
 
-export function _command_contextMenuClearHilightsCommand(
-  setHilightAllChanges,
-  setHilightRecentChanges
+export function _command_contextMenuClearHighlightsCommand(
+  setHighlightAllChanges,
+  setHighlightRecentChanges
 ) {
   setHilightAllChanges(false);
   setHilightRecentChanges(false);

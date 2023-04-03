@@ -7,6 +7,7 @@ import {
 } from "mobx";
 import agent from "../api/agent";
 import { toast } from "react-toastify";
+import agent from "../api/agent";
 
 export default class AdminStore {
   rootStore;
@@ -64,10 +65,10 @@ export default class AdminStore {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
-        //console.log("AdminStore -> displayLoading = false");
+        //
         this.displayLoading = false;
       });
     }
@@ -89,7 +90,7 @@ export default class AdminStore {
         console.log(resp);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       runInAction(() => {
         this.displayLoading = false;

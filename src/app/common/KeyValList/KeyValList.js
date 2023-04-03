@@ -1,10 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import _ from "lodash";
+import { observer } from "mobx-react-lite";
 import { ContextMenu } from "primereact/contextmenu";
-import { StartCase } from "react-lodash";
 import { Dialog } from "primereact/dialog";
 import { Toast } from "primereact/toast";
 import { Sidebar } from "primereact/sidebar";
+import { Toast } from "primereact/toast";
+import React, { useEffect, useRef, useState } from "react";
+import { StartCase } from "react-lodash";
 import "./KeyValueList.css";
 import { observer } from "mobx-react-lite";
 
@@ -16,13 +19,20 @@ import {
   _helper_generateEditForm,
 } from "./KeyValList_Helper";
 import {
+  _command_contextMenuClearHighlightsCommand,
   _command_contextMenuCopyCommand,
-  _command_contextMenuFetchHistoryCommand,
-  _command_contextMenuHilightAllChangesCommand,
-  _command_contextMenuHilightRecentChangesCommand,
-  _command_contextMenuClearHilightsCommand,
   _command_contextMenuEditCommand,
+  _command_contextMenuFetchHistoryCommand,
+  _command_contextMenuHighlightAllChangesCommand,
+  _command_contextMenuHighlightRecentChangesCommand,
 } from "./KeyValList_Command";
+import {
+  _helper_filterHighlightChanged,
+  _helper_generateEditForm,
+  _helper_renderFooterOfEditDialog,
+  _helper_renderHeaderofEditDialog,
+  _helper_renderHistoryTimeline,
+} from "./KeyValList_Helper";
 
 const KeyValList = ({
   data,
@@ -93,29 +103,29 @@ const KeyValList = ({
       label: "Highlight Recent Changes",
       icon: "ri-mark-pen-line",
       command: () =>
-        _command_contextMenuHilightRecentChangesCommand(
+        _command_contextMenuHighlightRecentChangesCommand(
           fetchHistory,
-          setHilightRecentChanges,
-          setHilightAllChanges
+          setHighlightRecentChanges,
+          setHighlightAllChanges
         ),
     });
     contextMenuItems.push({
       label: "Highlight All Changes",
       icon: "ri-mark-pen-fill",
       command: () =>
-        _command_contextMenuHilightAllChangesCommand(
+        _command_contextMenuHighlightAllChangesCommand(
           fetchHistory,
-          setHilightRecentChanges,
-          setHilightAllChanges
+          setHighlightRecentChanges,
+          setHighlightAllChanges
         ),
     });
     contextMenuItems.push({
       label: "Clear Highlights",
       icon: "ri-eraser-line",
       command: () =>
-        _command_contextMenuClearHilightsCommand(
-          setHilightAllChanges,
-          setHilightRecentChanges
+        _command_contextMenuClearHighlightsCommand(
+          setHighlightAllChanges,
+          setHighlightRecentChanges
         ),
     });
     contextMenuItems.push({
@@ -151,9 +161,9 @@ const KeyValList = ({
     cm.current.show(e);
   };
 
-  let filterHilightChanged = (filterRecent = false) => {
+  let filterHighlightChanged = (filterRecent = false) => {
     if (history !== null) {
-      let changed = _helper_filterHilightChanged(data, history, filterRecent);
+      let changed = _helper_filterHighlightChanged(data, history, filterRecent);
       allChangedProperties = [];
       allChangedProperties = [...changed];
     }
@@ -168,18 +178,18 @@ const KeyValList = ({
       return <h3>No Entries</h3>;
     }
 
-    if (hilightAllChanges) {
+    if (highlightAllChanges) {
       if (historyDisplayLoading) {
         return <h3>Fetching..</h3>;
       }
-      filterHilightChanged();
+      filterHighlightChanged();
     }
 
-    if (hilightRecentChanges) {
+    if (highlightRecentChanges) {
       if (historyDisplayLoading) {
         return <h3>Fetching..</h3>;
       }
-      filterHilightChanged(true);
+      filterHighlightChanged(true);
     }
 
     let tBody = Object.keys(data).map((key, value) => {
@@ -200,7 +210,7 @@ const KeyValList = ({
       }
 
       if (
-        (hilightAllChanges || hilightRecentChanges) &&
+        (highlightAllChanges || highlightRecentChanges) &&
         allChangedProperties.includes(key)
       ) {
         finalValue = <mark id={key}>{finalValue}</mark>;

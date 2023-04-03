@@ -3,8 +3,6 @@ import { toast } from "react-toastify";
 import history from "../../history";
 const convertXmlToJson = require("xml-js");
 
-
-
 /* Uniport API Service Settings */
 var axiosUniprotInstance = new axios.create({
   headers: {
@@ -17,13 +15,10 @@ axiosUniprotInstance.defaults.baseURL = "https://rest.uniprot.org/uniprotkb/";
 const responseBody = (response) => convertXmlToJson.xml2js(response.data, { compact: true, spaces: 4 });
 //const responseBody = (response) => response.data;
 
-
-
 /* TYPES OF REQUESTES SUPPORTED */
 const requests = {
   get: (url) => axiosUniprotInstance.get(url).then(responseBody),
-  post: (url, body) =>
-    axiosUniprotInstance.post(url, body).then(responseBody),
+  post: (url, body) => axiosUniprotInstance.post(url, body).then(responseBody),
   put: (url, body) => axiosUniprotInstance.put(url, body).then(responseBody),
   del: (url) => axiosUniprotInstance.delete(url).then(responseBody),
 };
@@ -31,7 +26,7 @@ const requests = {
 
 /* API ERROR HANDLING */
 axiosUniprotInstance.interceptors.response.use(undefined, (error) => {
-  //console.log(error);
+  //console.error(error);
   if (!error.response) {
     toast.error(
       "Uniprot API Error : Can't connect to server. Displaying locally cached data."
@@ -42,7 +37,7 @@ axiosUniprotInstance.interceptors.response.use(undefined, (error) => {
       const { status, data, config } = error.response;
       /* ALL 404 Errors are redirected to not found component */
       if (status === 404) {
-        console.log("404---");
+        console.error("404---");
         //history.push("/notfound");
       }
 
@@ -63,7 +58,7 @@ axiosUniprotInstance.interceptors.response.use(undefined, (error) => {
       }
 
       if (status === 401) {
-        console.log("unauthorized please redirect to login");
+        console.error("unauthorized please redirect to login");
       }
     } catch (e) {
     } finally {
@@ -78,9 +73,8 @@ const Pdb = {
   crossReference: (uniprotId) => requests.get(`${uniprotId}.xml`),
 };
 
-
 const exports = {
-  Pdb
+  Pdb,
 };
 
 export default exports;

@@ -2,8 +2,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { appConfig } from "../../config";
 import history from "../../history";
-import AuthService from "../../services/AuthService";
 import AppSettingsService from "../../services/AppSettingsService";
+import AuthService from "../../services/AuthService";
 
 /* Check Pre Configuration */
 
@@ -74,7 +74,7 @@ const requests = {
 
 /* API ERROR HANDLING */
 axiosServerInstance.interceptors.response.use(undefined, (error) => {
-  //console.log(error);
+  //console.error(error);
   if (!error.response) {
     toast.error(
       "Network Error : Can't connect to server. Displaying locally cached data. New changes wont be saved."
@@ -85,7 +85,7 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
       const { status, data, config } = error.response;
       /* ALL 404 Errors are redirected to not found component */
       if (status === 404) {
-        console.log("404---");
+        console.error("404 RESOURCE NOT FOUND");
         //history.push("/notfound");
       }
 

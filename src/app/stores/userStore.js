@@ -41,9 +41,8 @@ export default class UserStore {
         this.fetching = false;
       });
     } catch (error) {
-      console.log("!!!!!!!!!ERROR AT USER STORE");
-      console.log(error);
-      console.log("!!!!!!!!!END ERROR AT USER STORE");
+      console.error(error);
+
       this.fetching = false;
       throw error;
     }
@@ -53,7 +52,13 @@ export default class UserStore {
   logout = () => {
     this.fetching = true;
     this.user = null;
-    this.authServiceInstance.SignOut();
+    try {
+      this.authServiceInstance.SignOut();
+    } catch (error) {
+      console.error(error);
+      sessionStorage.clear();
+    }
+
     this.fetching = false;
     history.push("/");
   };

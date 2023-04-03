@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
 import LiteMol from "litemol";
+import React, { useEffect } from "react";
 import "./LiteMol.css";
 
-const LiteMolView = ({id, url, format}) => {
-
+const LiteMolView = ({ id, url, format }) => {
   let target = null;
   useEffect(() => {
     const plugin = LiteMol.Plugin.create({
@@ -12,7 +11,7 @@ const LiteMolView = ({id, url, format}) => {
       layoutState: {
         hideControls: true,
         isExpanded: false,
-      }
+      },
     });
 
     plugin.loadMolecule({
@@ -27,21 +26,18 @@ const LiteMolView = ({id, url, format}) => {
   }, [format, id, target, url]);
 
   return (
-    
-      <div
+    <div
       id="litemol"
       style={{
         width: "600px",
         height: "600px",
         marginTop: "0px",
-        position : "relative",
-        overflowY : "hidden",
-        overflowX : "hidden"
+        position: "relative",
+        overflowY: "hidden",
+        overflowX: "hidden",
       }}
-      ref={ref => target = ref}
+      ref={(ref) => (target = ref)}
     ></div>
-   
-    
   );
 };
 
