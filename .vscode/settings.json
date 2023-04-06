@@ -8,8 +8,6 @@
     "formik",
     "inputtext",
     "inputtextarea",
-    "Keycloak",
-    "Precheck",
     "primereact"
   ]
 }

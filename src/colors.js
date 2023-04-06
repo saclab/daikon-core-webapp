@@ -1,5 +1,27 @@
 /* App Config Localhost */
 export const appColors = {
+  blocks: {
+    black: "#000000",
+    white: "#FFFFFF",
+    gray: "#F4F4F4",
+    lightGray: "#F5F5F5",
+    darkGray: "#D8D8D8",
+    blue: "#3D4780",
+    lightBlue: "#8497B3",
+    darkBlue: "#16425B",
+    green: "#74B7A7",
+    lightGreen: "#BBE1D9",
+    darkGreen: "#60998C",
+    yellow: "#D5B089",
+    lightYellow: "#F5E8D8",
+    darkYellow: "#B59674",
+    red: "#D86D6F",
+    lightRed: "#F5D8D9",
+    darkRed: "#BB7B73",
+    purple: "#916B8B",
+    lightPurple: "#E8D8F5",
+    darkPurple: "#7B5A6B",
+  },
   sectionHeadingBg: {
     gene: "#3D4780",
     target: "#74B7A7",

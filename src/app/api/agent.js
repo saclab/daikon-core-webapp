@@ -320,7 +320,9 @@ const TargetAdmin = {
   import: (data) => requests.post(`/elevated/target/import`, data),
   importComplex: (data) =>
     requests.post(`/elevated/target/importComplex`, data),
-  details: (id) => requests.get(`/target/${id}`),
+  details: (id) =>
+    requests.get(`/taimport Organisms from '../../screen-admin/AppOrganisms/Organisms/Organisms';
+rget/${id}`),
   edit: (updatedTarget) =>
     requests.post(`/elevated/target/${updatedTarget.id}`, updatedTarget),
 };
@@ -429,6 +431,18 @@ const Compounds = {
     requests.post(`/compound/${id}/edit-external-id`, compound),
 };
 
+const Organisms = {
+  list: () => requests.get(`/organism/`),
+  create: (newOrganism) => requests.post(`/elevated/organism/`, newOrganism),
+  edit: (id, organism) => requests.post(`/elevated/organism/${id}`, organism),
+};
+
+const Strains = {
+  list: () => requests.get(`/strain/`),
+  create: (newStrain) => requests.post(`/elevated/strain/`, newStrain),
+  edit: (id, strain) => requests.post(`/elevated/strain/${id}`, strain),
+};
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -448,6 +462,8 @@ const exports = {
   Vote,
   DataView,
   Compounds,
+  Organisms,
+  Strains,
 };
 
 export default exports;
