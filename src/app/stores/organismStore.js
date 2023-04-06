@@ -17,7 +17,8 @@ export default class OrganismStore {
   OrganismRegistry = new Map();
   StrainRegistry = new Map();
 
-  cacheValid = false;
+  cacheValidOrganism = false;
+  cacheValidStrain = false;
 
   selectedStrain = null;
 
@@ -34,7 +35,8 @@ export default class OrganismStore {
     this.rootStore = rootStore;
     makeObservable(this, {
       displayLoading: observable,
-      cacheValid: observable,
+      cacheValidOrganism: observable,
+      cacheValidStrain: observable,
 
       loadingFetchOrganism: observable,
       loadingFetchStrain: observable,
@@ -66,7 +68,7 @@ export default class OrganismStore {
   fetchOrganisms = async () => {
     this.displayLoading = true;
 
-    if (this.cacheValid) {
+    if (this.cacheValidOrganism) {
       this.displayLoading = false;
       return;
     }
@@ -78,7 +80,7 @@ export default class OrganismStore {
           this.OrganismRegistry.set(organism.id, organism);
         });
         this.displayLoading = false;
-        this.cacheValid = true;
+        this.cacheValidOrganism = true;
       });
     } catch (error) {
       runInAction(() => {
@@ -100,7 +102,7 @@ export default class OrganismStore {
     try {
       res = await agent.Organisms.create(organism);
       runInAction(() => {
-        this.cacheValid = false;
+        this.cacheValidOrganism = false;
         this.fetchOrganisms();
       });
     } catch (error) {
@@ -122,7 +124,7 @@ export default class OrganismStore {
     try {
       res = await agent.Organisms.edit(organism.id, organism);
       runInAction(() => {
-        this.cacheValid = false;
+        this.cacheValidOrganism = false;
         this.fetchOrganisms();
       });
     } catch (error) {
@@ -138,7 +140,7 @@ export default class OrganismStore {
   fetchStrains = async () => {
     this.displayLoading = true;
 
-    if (this.cacheValid) {
+    if (this.cacheValidStrain) {
       this.displayLoading = false;
       return;
     }
@@ -150,7 +152,7 @@ export default class OrganismStore {
           this.StrainRegistry.set(strain.id, strain);
         });
         this.displayLoading = false;
-        this.cacheValid = true;
+        this.cacheValidStrain = true;
       });
     } catch (error) {
       runInAction(() => {
@@ -172,7 +174,7 @@ export default class OrganismStore {
     try {
       res = await agent.Strains.create(strain);
       runInAction(() => {
-        this.cacheValid = false;
+        this.cacheValidStrain = false;
         this.fetchStrains();
       });
     } catch (error) {
@@ -190,9 +192,9 @@ export default class OrganismStore {
     let res = null;
     // send to server
     try {
-      res = await agent.Strains.update(strain.id, strain);
+      res = await agent.Strains.edit(strain.id, strain);
       runInAction(() => {
-        this.cacheValid = false;
+        this.cacheValidStrain = false;
         this.fetchStrains();
       });
     } catch (error) {

@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
+import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { Sidebar } from "primereact/sidebar";
 import { classNames } from "primereact/utils";
@@ -16,27 +17,27 @@ import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading
 import { RootStoreContext } from "../../../../app/stores/rootStore";
 import { appColors } from "../../../../colors";
 
-const OrganismList = () => {
+const StrainList = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
 
   const rootStore = useContext(RootStoreContext);
   const {
     displayLoading,
-    fetchOrganisms,
+    fetchStrains,
+    strains,
+    cacheValidStrain,
+    editStrain,
+    createStrain,
+    creatingStrain,
     organisms,
-    cacheValidOrganism,
-    editOrganism,
-    createOrganism,
-    creatingOrganism,
   } = rootStore.organismStore;
 
   useEffect(() => {
-    if (!cacheValidOrganism) {
-      console.log("fetchOrganisms");
-      fetchOrganisms();
+    if (!cacheValidStrain) {
+      fetchStrains();
     }
-  }, [fetchOrganisms, cacheValidOrganism]);
+  }, [fetchStrains, cacheValidStrain]);
 
   /* Row edit functions */
   const textEditor = (options) => {
@@ -49,19 +50,36 @@ const OrganismList = () => {
     );
   };
 
+  const organismEditor = (options) => {
+    const dropdownOptions = organisms.map((o) => ({
+      label: o.canonicalName,
+      value: o.id,
+    }));
+
+    return (
+      <Dropdown
+        value={options.value}
+        options={dropdownOptions}
+        onChange={(e) => options.editorCallback(e.value)}
+        placeholder="Select an organism"
+      />
+    );
+  };
+
   const handleEdit = (e) => {
     let { newData } = e;
 
-    let editedOrg = {
+    let editedStrain = {
       id: newData.id,
+      organismId: newData.organismId,
       name: newData.name,
       canonicalName: newData.canonicalName,
       description: newData.description,
     };
 
-    editOrganism(editedOrg).then((res) => {
+    editStrain(editedStrain).then((res) => {
       if (res) {
-        toast.success("Organism updated successfully");
+        toast.success("Strain updated successfully");
       }
     });
   };
@@ -70,6 +88,7 @@ const OrganismList = () => {
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
+    organismId: Yup.string().required("Strain is required"),
     canonicalName: Yup.string()
       .required("Canonical name is required")
       .test(
@@ -77,13 +96,15 @@ const OrganismList = () => {
         "Canonical name must be in snake case and cannot contain spaces",
         (value) => _.snakeCase(value) === value && !_.includes(value, " ")
       ),
+    organismId: Yup.string().required("Organism is required"),
   });
 
   //  Create a function to handle the form submission. This function will be called when the user clicks the submit button.
   const onSubmit = (values) => {
-    createOrganism(values).then((res) => {
+    console.log(values);
+    createStrain(values).then((res) => {
       if (res) {
-        toast.success("Organism added successfully");
+        toast.success("Strain added successfully");
         formik.resetForm();
         setVisible(false);
       }
@@ -95,6 +116,7 @@ const OrganismList = () => {
       name: "",
       canonicalName: "",
       description: "",
+      organismId: "",
     },
     validationSchema,
     onSubmit,
@@ -105,12 +127,12 @@ const OrganismList = () => {
       <div className="flex flex-column w-full">
         <div className="flex w-full">
           <SectionHeading
-            heading={"Organisms"}
+            heading={"Strains"}
             color={appColors.blocks.gray}
             textColor={appColors.blocks.black}
             customButtons={[
               {
-                label: "New Organism",
+                label: "New Strain",
                 icon: "pi pi-plus",
                 action: () => setVisible(true),
               },
@@ -120,7 +142,7 @@ const OrganismList = () => {
 
         <div className="flex w-full">
           <DataTable
-            value={organisms}
+            value={strains}
             loading={displayLoading}
             editMode="row"
             dataKey="id"
@@ -138,6 +160,20 @@ const OrganismList = () => {
               header="Canonical Name"
               editor={(options) => textEditor(options)}
             />
+            <Column
+              field="organismId"
+              header="Organism"
+              body={(rowData) => {
+                console.log(rowData);
+                return (
+                  <span>
+                    {organisms.find((o) => o.id === rowData.organismId)?.name}
+                  </span>
+                );
+              }}
+              editor={(options) => organismEditor(options)}
+            />
+
             <Column
               field="description"
               header="Description"
@@ -172,7 +208,7 @@ const OrganismList = () => {
             <div className="flex">
               <h3>
                 <i className="icon icon-common icon-plus-circle"></i> Add New
-                Organism
+                Strain
               </h3>
             </div>
             <div className="flex w-full">
@@ -213,6 +249,28 @@ const OrganismList = () => {
                 </div>
 
                 <div className="field">
+                  <label htmlFor="organismId">Organism</label>
+                  <Dropdown
+                    id="organismId"
+                    name="organismId"
+                    value={formik.values.organismId}
+                    options={organisms.map((o) => ({
+                      label: o.canonicalName,
+                      value: o.id,
+                    }))}
+                    placeholder="Select an organism"
+                    onChange={(e) => {
+                      formik.setFieldValue("organismId", e.value);
+                    }}
+                  />
+                  {formik.touched.organismId && formik.errors.organismId ? (
+                    <small className="p-error">
+                      {formik.errors.organismId}
+                    </small>
+                  ) : null}
+                </div>
+
+                <div className="field">
                   <label htmlFor="description">Description</label>
                   <InputText
                     id="description"
@@ -232,10 +290,10 @@ const OrganismList = () => {
 
                 <Button
                   type="submit"
-                  loading={creatingOrganism}
+                  loading={creatingStrain}
                   label="Commit"
                   className="p-button-warning"
-                  disabled={creatingOrganism}
+                  disabled={creatingStrain}
                 />
               </form>
             </div>
@@ -246,4 +304,4 @@ const OrganismList = () => {
   );
 };
 
-export default observer(OrganismList);
+export default observer(StrainList);

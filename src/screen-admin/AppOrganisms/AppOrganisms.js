@@ -24,7 +24,7 @@ const AppOrganisms = () => {
           label: "Organisms & Strains",
           icon: "icon icon-species icon-plasmodium",
           command: () => {
-            navigate(`public/`);
+            navigate(`organisms-view/`);
           },
         },
 

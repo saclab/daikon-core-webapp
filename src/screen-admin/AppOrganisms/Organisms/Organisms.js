@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SectionHeading from "../../../app/common/SectionHeading/SectionHeading";
 import { appColors } from "../../../colors";
 import OrganismList from "./OrganismList/OrganismList";
+import StrainList from "./StrainList/StrainList";
 
 const Organisms = () => {
   const navigate = useNavigate();
@@ -37,6 +38,9 @@ const Organisms = () => {
 
         <div className="flex w-full">
           <OrganismList />
+        </div>
+        <div className="flex w-full">
+          <StrainList />
         </div>
       </div>
     </React.Fragment>
