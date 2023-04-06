@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // import "./MenuBarAdmin.css";
-import { TabMenu } from 'primereact/tabmenu';
+import { TabMenu } from "primereact/tabmenu";
 const MenuBarAdmin = () => {
   const navigate = useNavigate();
   let location = useLocation();
@@ -11,7 +11,10 @@ const MenuBarAdmin = () => {
 
   useEffect(() => {
     if (location.pathname.includes("/admin/user-manager/")) setActiveIndex(1);
-    else if (location.pathname.includes("/admin/app-imports")) setActiveIndex(3);
+    else if (location.pathname.includes("/admin/app-imports"))
+      setActiveIndex(3);
+    else if (location.pathname.includes("/admin/settings")) setActiveIndex(4);
+    else if (location.pathname.includes("/admin/organisms")) setActiveIndex(2);
     else if (location.pathname.includes("/admin")) setActiveIndex(0);
   }, [location, setActiveIndex]);
 
@@ -27,20 +30,21 @@ const MenuBarAdmin = () => {
       command: () => navigate("/admin/user-manager/"),
     },
     {
-      label: "App Settings",
-      icon: "icon icon-common icon-cogs",
-      command: () => navigate("/admin/settings"),
+      label: "App Organisms",
+      icon: "icon icon-species icon-plasmodium",
+      command: () => navigate("/admin/organisms"),
     },
     {
       label: "App Imports",
       icon: "icon icon-common icon-gavel",
       command: () => navigate("/admin/app-imports"),
     },
-
-
-
+    {
+      label: "App Settings",
+      icon: "icon icon-common icon-cogs",
+      command: () => navigate("/admin/settings"),
+    },
   ];
-
 
   return (
     <div className="flex justify-content-center flex-wrap">
@@ -52,7 +56,6 @@ const MenuBarAdmin = () => {
         />
       </div>
     </div>
-
   );
 };
 
