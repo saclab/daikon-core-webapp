@@ -443,6 +443,14 @@ const Strains = {
   edit: (id, strain) => requests.post(`/elevated/strain/${id}`, strain),
 };
 
+const AppConfigurationsAPI = {
+  list: () => requests.get(`/elevated/AppConfiguration/`),
+  details: (key) => requests.get(`/elevated/AppConfiguration/${key}`),
+  create: (appConf) => requests.post(`/elevated/AppConfiguration/`, appConf),
+  edit: (key, appConf) =>
+    requests.post(`/elevated/AppConfiguration/${key}`, appConf),
+};
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -464,6 +472,7 @@ const exports = {
   Compounds,
   Organisms,
   Strains,
+  AppConfigurationsAPI,
 };
 
 export default exports;
