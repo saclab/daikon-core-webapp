@@ -81,6 +81,7 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenSelectionClicked = () => {
+    console.log("Active Screen is " + activeScreen);
     if (activeScreen === "screenProteinTypeSelection") {
       if (proteinType === "simple-protein") {
         setProposedTargetName(_.upperFirst(gene.geneName));
@@ -118,8 +119,8 @@ const GenePromoteTargetSelectionWindow = ({
     <React.Fragment>
       <EmbeddedHelp>
         <p>
-          A target promotion refers to the process of identifying and validating
-          a specific biological target as a potential therapeutic opportunity.
+          This is an example: Target Prioritization Tool implementation is
+          required by the Organization. Please refer Developer's Guide
         </p>
       </EmbeddedHelp>
 
@@ -230,6 +231,8 @@ const GenePromoteTargetSelectionWindow = ({
     }
 
     if (!searchingGeneGroup && calledSearchGeneGroup) {
+      console.log(searchedGeneGroup);
+
       if (searchedGeneGroup?.length === 0) {
         return (
           <p>
@@ -277,6 +280,8 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenValidateSimpleProteinTargetName = () => {
+    console.log("Rendering screenValidateSimpleProteinTargetName");
+
     if (!validateTargetNameLoading && callValidateTargetName) {
       setCallValidateTargetName(false);
       validateTargetName(proposedTargetName);
@@ -326,6 +331,8 @@ const GenePromoteTargetSelectionWindow = ({
   };
 
   let screenValidateProteinComplex = () => {
+    console.log("Rendering screenValidateProteinComplex");
+
     if (!validateTargetNameLoading && callValidateTargetName) {
       setCallValidateTargetName(false);
       validateTargetName(selectedProteinComplexName);
@@ -376,7 +383,7 @@ const GenePromoteTargetSelectionWindow = ({
 
   return (
     <Dialog
-      header={`Identify as a new Target`}
+      header={`Identify this as a new Target`}
       visible={displayPromotionDialog}
       style={{ width: "50vw" }}
       footer={renderDisplayPromotionDialogFooter()}
