@@ -36,6 +36,7 @@ export default class GeneStoreAdmin {
         resp.forEach((fetchedPromotionRequest) => {
           let formattedPromotionRequest = {
             targetName: fetchedPromotionRequest.targetName,
+            strainId: fetchedPromotionRequest.strainId,
             genePromtionRequestGenes:
               fetchedPromotionRequest.genePromtionRequestGenes,
             targetType: fetchedPromotionRequest.targetType,

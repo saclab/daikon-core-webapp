@@ -91,7 +91,13 @@ export default class TargetStore {
   };
 
   get targets() {
-    return Array.from(this.targetRegistry.values());
+    if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+      return Array.from(this.targetRegistry.values());
+    }
+    return Array.from(this.targetRegistry.values()).filter(
+      (target) =>
+        target.strainId === this.rootStore.appSettingsStore.activeStrainFilter
+    );
   }
 
   /* Fetch specific Target with id from API */

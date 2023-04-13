@@ -57,6 +57,7 @@ const GenePromotionRequest = ({
     var promotionReqData = {
       targetName: GenePromotionRequest.targetName,
       targetType: GenePromotionRequest.targetType,
+      strainId: GenePromotionRequest.strainId,
       genePromtionRequestGenes: GenePromotionRequest.genePromtionRequestGenes,
 
       genePromotionRequestValues: [],
