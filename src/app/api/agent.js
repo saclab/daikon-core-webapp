@@ -451,6 +451,10 @@ const AppConfigurationsAPI = {
     requests.post(`/elevated/AppConfiguration/${key}`, appConf),
 };
 
+const AppBackgroundTaskAPI = {
+  list: () => requests.get(`/elevated/AppTask/`),
+};
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -473,6 +477,7 @@ const exports = {
   Organisms,
   Strains,
   AppConfigurationsAPI,
+  AppBackgroundTaskAPI,
 };
 
 export default exports;

@@ -15,6 +15,7 @@ const GeneSearch = () => {
   const rootStore = useContext(RootStoreContext);
   const { fetchGeneList, displayLoading, genes, geneFunctionalCategories } =
     rootStore.geneStore;
+  const { activeStrainFilterObj } = rootStore.appSettingsStore;
 
   /* Local State Management */
 
@@ -131,7 +132,7 @@ const GeneSearch = () => {
       <div className="flex w-full">
         <SectionHeading
           icon="icon icon-conceptual icon-dna"
-          heading="H37Rv Genes"
+          heading={"Genes" + " /" + activeStrainFilterObj.name + "/"}
           color={appColors.sectionHeadingBg.gene}
         />
       </div>

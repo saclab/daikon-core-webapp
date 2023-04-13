@@ -13,6 +13,15 @@ export default class AppSettingsStore {
   addingAppConfiguration = false;
   editingAppConfiguration = false;
 
+  fetchingAppBackgroundTasks = false;
+
+  activeStrainFilter = "Global";
+  activeStrainFilterObj = {
+    name: "Global",
+    canonicalName: "global",
+    id: "global",
+  };
+
   constructor(rootStore) {
     this.rootStore = rootStore;
 
@@ -32,6 +41,13 @@ export default class AppSettingsStore {
 
       editAppConfiguration: action,
       editingAppConfiguration: observable,
+
+      fetchingAppBackgroundTasks: observable,
+      fetchAppBackgroundTasks: action,
+
+      activeStrainFilter: observable,
+      activeStrainFilterObj: observable,
+      setActiveStrainFilter: action,
     });
   }
 
@@ -102,5 +118,30 @@ export default class AppSettingsStore {
     }
     console.log(res);
     return res;
+  };
+
+  fetchAppBackgroundTasks = async () => {
+    this.fetchingAppBackgroundTasks = true;
+    let tasks = [];
+    try {
+      let res = await agent.AppBackgroundTaskAPI.list();
+      runInAction(() => {
+        res.forEach((task) => {
+          tasks.push(task);
+        });
+        return tasks;
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.fetchingAppBackgroundTasks = false;
+      });
+    }
+  };
+
+  setActiveStrainFilter = (strain, strainObj) => {
+    this.activeStrainFilter = strain;
+    this.activeStrainFilterObj = strainObj;
   };
 }

@@ -171,7 +171,13 @@ export default class GeneStore {
   };
 
   get genes() {
-    return Array.from(this.geneRegistry.values());
+    if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+      return Array.from(this.geneRegistry.values());
+    }
+    return Array.from(this.geneRegistry.values()).filter(
+      (gene) =>
+        gene.strainId === this.rootStore.appSettingsStore.activeStrainFilter
+    );
   }
 
   /* Fetch specific Gene with id from API */

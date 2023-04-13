@@ -9,6 +9,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import GeneSyncHistory from "./GeneSyncHistory/GeneSyncHistory";
 import Organisms from "./Organisms/Organisms";
 
 const AppOrganisms = () => {
@@ -40,7 +41,7 @@ const AppOrganisms = () => {
           label: "Sync History",
           icon: "icon icon-common icon-unassigned-job",
           command: () => {
-            navigate(`discussion/`);
+            navigate(`sync-history/`);
           },
         },
       ],
@@ -63,6 +64,7 @@ const AppOrganisms = () => {
           <Routes>
             <Route index element={<Navigate replace to="organisms-view/" />} />
             <Route path="organisms-view/" element={<Organisms />} />
+            <Route path="sync-history/" element={<GeneSyncHistory />} />
           </Routes>
         </div>
       </div>
