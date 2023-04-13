@@ -71,6 +71,7 @@ const PostPortfolioBaseHits = ({ project }) => {
           <SectionHeading
             icon="icon icon-common icon-drug"
             heading={project.projectName + " | " + project?.currentStage}
+            strainName={project?.strain?.name}
             targetName={project.targetName}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.postPortfolio}

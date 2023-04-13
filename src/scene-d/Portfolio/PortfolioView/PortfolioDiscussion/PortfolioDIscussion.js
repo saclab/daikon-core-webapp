@@ -1,10 +1,9 @@
-import { BreadCrumb } from 'primereact/breadcrumb';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Discussion from '../../../../app/common/Discussion/Discussion';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
-
+import { BreadCrumb } from "primereact/breadcrumb";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Discussion from "../../../../app/common/Discussion/Discussion";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import { appColors } from "../../../../colors";
 
 const PortfolioDiscussion = ({ project }) => {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ const PortfolioDiscussion = ({ project }) => {
       label: project.projectName,
       command: () => {
         navigate(`/d/portfolio/${project.id}`);
-      }
+      },
     },
     { label: "Discussion" },
   ];
@@ -33,22 +32,23 @@ const PortfolioDiscussion = ({ project }) => {
       <div className="flex w-full">
         <SectionHeading
           icon="icon icon-common icon-analyse"
-          heading={
-            project.projectName +
-            " | " +
-            project?.currentStage
+          heading={project.projectName + " | " + project?.currentStage}
+          strainName={project?.strain?.name}
+          targetName={
+            project.targetName || project.screenName || project.projectName
           }
-          targetName={project.targetName || project.screenName || project.projectName}
           displayHorizon={true}
           color={appColors.sectionHeadingBg.portfolio}
         />
       </div>
-      <div className='flex w-full'>
-        <Discussion reference={project.targetName || project.projectName}
-          section={project?.currentStage || "Portfolio"} />
+      <div className="flex w-full">
+        <Discussion
+          reference={project.targetName || project.projectName}
+          section={project?.currentStage || "Portfolio"}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PortfolioDiscussion
+export default PortfolioDiscussion;

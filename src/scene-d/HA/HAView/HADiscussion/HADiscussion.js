@@ -1,10 +1,9 @@
-import { BreadCrumb } from 'primereact/breadcrumb';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Discussion from '../../../../app/common/Discussion/Discussion';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
-
+import { BreadCrumb } from "primereact/breadcrumb";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Discussion from "../../../../app/common/Discussion/Discussion";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import { appColors } from "../../../../colors";
 
 const ScreenDiscussion = ({ project }) => {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ const ScreenDiscussion = ({ project }) => {
       label: project.projectName,
       command: () => {
         navigate(`/d/ha/${project.id}`);
-      }
+      },
     },
     { label: "Discussion" },
   ];
@@ -34,18 +33,23 @@ const ScreenDiscussion = ({ project }) => {
         <SectionHeading
           icon="icon icon-conceptual icon-chemical"
           heading={project.projectName}
-          targetName={project.targetName || project.screenName || project.projectName}
+          strainName={project?.strain?.name}
+          targetName={
+            project.targetName || project.screenName || project.projectName
+          }
           projectName={project.projectName}
           displayHorizon={true}
           color={appColors.sectionHeadingBg.ha}
         />
       </div>
-      <div className='flex w-full'>
-        <Discussion reference={project.targetName || project.projectName}
-          section={"HA"} />
+      <div className="flex w-full">
+        <Discussion
+          reference={project.targetName || project.projectName}
+          section={"HA"}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ScreenDiscussion
+export default ScreenDiscussion;
