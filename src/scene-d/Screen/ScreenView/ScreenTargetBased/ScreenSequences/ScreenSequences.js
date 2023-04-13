@@ -84,6 +84,7 @@ const ScreenSequences = ({ TargetName }) => {
           <SectionHeading
             icon="icon icon-common icon-search"
             heading={"Screens of " + TargetName}
+            strainName={filteredScreens[0]?.strain?.name}
             targetName={TargetName}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.screen}

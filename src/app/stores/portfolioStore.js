@@ -96,7 +96,7 @@ export default class PortfolioStore {
   };
 
   filterPortfolioProjects = () => {
-    return Array.from(
+    let PortfolioProjects = Array.from(
       this.rootStore.projectStore.projectRegistry.values()
     ).filter((project) => {
       return (
@@ -105,5 +105,14 @@ export default class PortfolioStore {
         project.currentStage === "SP"
       );
     });
+
+    if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+      return PortfolioProjects;
+    }
+
+    return PortfolioProjects.filter(
+      (project) =>
+        project.strainId === this.rootStore.appSettingsStore.activeStrainFilter
+    );
   };
 }

@@ -26,6 +26,7 @@ const ScreenDash = () => {
   } = rootStore.screenStore;
 
   const { user } = rootStore.userStore;
+  const { activeStrainFilterObj } = rootStore.appSettingsStore;
 
   /* Local State Management */
 
@@ -96,7 +97,7 @@ const ScreenDash = () => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-common icon-search"
-            heading="Screens"
+            heading={"Screens" + " /" + activeStrainFilterObj.name + "/"}
             color={appColors.sectionHeadingBg.screen}
           />
         </div>

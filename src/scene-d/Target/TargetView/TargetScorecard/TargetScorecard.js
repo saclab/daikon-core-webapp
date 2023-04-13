@@ -1,15 +1,15 @@
-import React, { useRef, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 //import _ from "lodash";
-import { Toast } from "primereact/toast";
-import { Fieldset } from "primereact/fieldset";
 import { observer } from "mobx-react-lite";
-import TargetGrid from "./TargetGrid/TargetGrid";
-import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { BreadCrumb } from "primereact/breadcrumb";
+import { Fieldset } from "primereact/fieldset";
+import { Toast } from "primereact/toast";
+import { useNavigate } from "react-router-dom";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import Loading from "../../../../app/layout/Loading/Loading";
-import { useNavigate } from 'react-router-dom';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { appColors } from '../../../../colors';
+import { RootStoreContext } from "../../../../app/stores/rootStore";
+import { appColors } from "../../../../colors";
+import TargetGrid from "./TargetGrid/TargetGrid";
 
 const TargetScorecard = () => {
   const toast = useRef(null);
@@ -40,7 +40,7 @@ const TargetScorecard = () => {
       label: selectedTarget.name,
       command: () => {
         navigate(`/d/target/${selectedTarget.id}`);
-      }
+      },
     },
     { label: "Scorecard" },
   ];
@@ -53,7 +53,6 @@ const TargetScorecard = () => {
     <React.Fragment>
       <Toast ref={toast} />
       <div className="flex flex-column w-full">
-
         <div className="flex w-full pb-2">
           <BreadCrumb model={breadCrumbItems} />
         </div>
@@ -62,6 +61,7 @@ const TargetScorecard = () => {
           <SectionHeading
             icon="icon icon-common icon-target"
             heading={selectedTarget.name}
+            strainName={selectedTarget?.strain?.name}
             targetName={selectedTarget.name}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.target}
@@ -79,7 +79,7 @@ const TargetScorecard = () => {
                 <h4>
                   <i className="icon icon-conceptual icon-proteins"></i>{" "}
                   Associated Genes :{" "}
-                  {selectedTarget.targetGenesAccesionNumbers.join(', ')}
+                  {selectedTarget.targetGenesAccesionNumbers.join(", ")}
                 </h4>
               </div>
             </Fieldset>
@@ -94,10 +94,7 @@ const TargetScorecard = () => {
             </Fieldset>
           </div>
         </div>
-
-
       </div>
-
     </React.Fragment>
   );
 };

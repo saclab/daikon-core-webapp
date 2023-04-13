@@ -73,6 +73,7 @@ const TargetPromotionForm = ({ data, selectedTarget }) => {
             icon="icon icon-common icon-target"
             heading={selectedTarget.name}
             targetName={selectedTarget.name}
+            strainName={selectedTarget?.strain?.name}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.target}
           />

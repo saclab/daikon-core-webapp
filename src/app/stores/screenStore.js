@@ -146,11 +146,23 @@ export default class ScreenStore {
   };
 
   get screens() {
-    return Array.from(this.screenRegistry.values());
+    if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+      return Array.from(this.screenRegistry.values());
+    }
+    return Array.from(this.screenRegistry.values()).filter(
+      (screen) =>
+        screen.strainId === this.rootStore.appSettingsStore.activeStrainFilter
+    );
   }
 
   get screensPhenotypic() {
-    return Array.from(this.screenPhenotypicRegistry.values());
+    if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+      return Array.from(this.screenPhenotypicRegistry.values());
+    }
+    return Array.from(this.screenPhenotypicRegistry.values()).filter(
+      (screen) =>
+        screen.strainId === this.rootStore.appSettingsStore.activeStrainFilter
+    );
   }
 
   get uniqueScreens() {
@@ -159,7 +171,14 @@ export default class ScreenStore {
     this.screenRegistry.forEach((value) => {
       targetsScreened.set(value.targetName, value);
     });
-    return Array.from(targetsScreened.values());
+
+    if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+      return Array.from(targetsScreened.values());
+    }
+    return Array.from(targetsScreened.values()).filter(
+      (screen) =>
+        screen.strainId === this.rootStore.appSettingsStore.activeStrainFilter
+    );
   }
 
   get groupScreensPhenotypic() {

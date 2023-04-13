@@ -150,7 +150,12 @@ const ScreenView = () => {
               />
               <Route
                 path="discussion/"
-                element={<ScreenDiscussion TargetName={params.id} />}
+                element={
+                  <ScreenDiscussion
+                    TargetName={params.id}
+                    strainName={filteredScreens[0]?.strain?.name}
+                  />
+                }
               />
             </Routes>
           </div>

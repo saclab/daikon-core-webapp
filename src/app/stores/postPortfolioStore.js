@@ -69,10 +69,19 @@ export default class PostPortfolioStore {
   };
 
   filterPostPortfolioProjects = () => {
-    return Array.from(
+    let PostPortfolioProjects = Array.from(
       this.rootStore.projectStore.projectRegistry.values()
     ).filter((project) => {
       return project.currentStage === "IND" || project.currentStage === "P1";
     });
+
+    if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+      return PostPortfolioProjects;
+    }
+
+    return PostPortfolioProjects.filter(
+      (project) =>
+        project.strainId === this.rootStore.appSettingsStore.activeStrainFilter
+    );
   };
 }

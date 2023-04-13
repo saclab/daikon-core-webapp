@@ -22,6 +22,7 @@ const PortfolioDash = () => {
     rootStore.projectStore;
 
   const { filterPortfolioProjects } = rootStore.portfolioStore;
+  const { activeStrainFilterObj } = rootStore.appSettingsStore;
   /* Local State Management */
 
   useEffect(() => {
@@ -210,7 +211,7 @@ const PortfolioDash = () => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-common icon-analyse"
-            heading="Portfolio"
+            heading={"Portfolio" + " /" + activeStrainFilterObj.name + "/"}
             color={appColors.sectionHeadingBg.portfolio}
           />
         </div>

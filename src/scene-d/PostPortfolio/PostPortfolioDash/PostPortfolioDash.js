@@ -23,6 +23,7 @@ const PostPortfolioDash = () => {
     rootStore.projectStore;
 
   const { filterPostPortfolioProjects } = rootStore.postPortfolioStore;
+  const { activeStrainFilterObj } = rootStore.appSettingsStore;
   /* Local State Management */
 
   useEffect(() => {
@@ -215,7 +216,7 @@ const PostPortfolioDash = () => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-common icon-drug"
-            heading="Post Portfolio"
+            heading={"Post Portfolio" + " /" + activeStrainFilterObj.name + "/"}
             color={appColors.sectionHeadingBg.postPortfolio}
           />
         </div>

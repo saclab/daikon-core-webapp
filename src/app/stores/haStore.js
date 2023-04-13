@@ -38,11 +38,30 @@ export default class HAStore {
     return res;
   };
 
+  get genes() {
+    if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+      return Array.from(this.geneRegistry.values());
+    }
+    return Array.from(this.geneRegistry.values()).filter(
+      (gene) =>
+        gene.strainId === this.rootStore.appSettingsStore.activeStrainFilter
+    );
+  }
+
   filterHAProjects = () => {
-    return Array.from(
+    let HAProjects = Array.from(
       this.rootStore.projectStore.projectRegistry.values()
     ).filter((project) => {
-      return project.currentStage === "HA" || project.currentStage === "HA";
+      return project.currentStage === "HA";
     });
+
+    if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+      return HAProjects;
+    }
+
+    return HAProjects.filter(
+      (project) =>
+        project.strainId === this.rootStore.appSettingsStore.activeStrainFilter
+    );
   };
 }

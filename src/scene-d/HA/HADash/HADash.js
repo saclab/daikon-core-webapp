@@ -20,6 +20,7 @@ const HADash = () => {
   const { loadingProjects, fetchProjects, projectRegistry } =
     rootStore.projectStore;
   const { filterHAProjects } = rootStore.haStore;
+  const { activeStrainFilterObj } = rootStore.appSettingsStore;
 
   /* Local State Management */
 
@@ -157,7 +158,7 @@ const HADash = () => {
         <div className="flex w-full">
           <SectionHeading
             icon="icon icon-conceptual icon-chemical"
-            heading="Hit Assessment"
+            heading={"Hit Assessment" + " /" + activeStrainFilterObj.name + "/"}
             color={appColors.sectionHeadingBg.ha}
           />
         </div>

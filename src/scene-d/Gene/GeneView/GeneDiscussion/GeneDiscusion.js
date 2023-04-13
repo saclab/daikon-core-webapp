@@ -33,7 +33,7 @@ const GeneDiscusion = ({ gene }) => {
         <SectionHeading
           icon="icon icon-conceptual icon-dna"
           heading={gene.accessionNumber}
-          strainName={gene?.strain.name}
+          strainName={gene?.strain?.name}
           accessionNumber={gene.accessionNumber}
           displayHorizon={true}
           color={appColors.sectionHeadingBg.gene}
