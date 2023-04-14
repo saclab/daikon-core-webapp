@@ -9,6 +9,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import GenePoolProviders from "./GenePoolProviders/GenePoolProviders";
 import GeneSyncHistory from "./GeneSyncHistory/GeneSyncHistory";
 import Organisms from "./Organisms/Organisms";
 
@@ -33,7 +34,7 @@ const AppOrganisms = () => {
           label: "Gene Pool Providers",
           icon: "icon icon-conceptual icon-systems",
           command: () => {
-            navigate(`protected/`);
+            navigate(`gene-pool-providers/`);
           },
         },
 
@@ -64,6 +65,10 @@ const AppOrganisms = () => {
           <Routes>
             <Route index element={<Navigate replace to="organisms-view/" />} />
             <Route path="organisms-view/" element={<Organisms />} />
+            <Route
+              path="gene-pool-providers/"
+              element={<GenePoolProviders />}
+            />
             <Route path="sync-history/" element={<GeneSyncHistory />} />
           </Routes>
         </div>

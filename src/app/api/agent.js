@@ -455,6 +455,10 @@ const AppBackgroundTaskAPI = {
   list: () => requests.get(`/elevated/AppTask/`),
 };
 
+const Batch = {
+  genePoolSync: (task) => requests.post(`/elevated/batch/gene-pool-sync`, task),
+};
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -478,6 +482,7 @@ const exports = {
   Strains,
   AppConfigurationsAPI,
   AppBackgroundTaskAPI,
+  Batch,
 };
 
 export default exports;

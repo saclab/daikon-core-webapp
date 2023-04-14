@@ -1,4 +1,5 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
+import { toast } from "react-toastify";
 import agent from "../api/agent";
 export default class AppSettingsStore {
   rootStore;
@@ -10,10 +11,13 @@ export default class AppSettingsStore {
   fetchingAppConfiguration = false;
   appConfigurationsMap = new Map();
 
+  submittingBackgroundTask = false;
+
   addingAppConfiguration = false;
   editingAppConfiguration = false;
 
   fetchingAppBackgroundTasks = false;
+  tasks = [];
 
   activeStrainFilter = "Global";
   activeStrainFilterObj = {
@@ -44,10 +48,14 @@ export default class AppSettingsStore {
 
       fetchingAppBackgroundTasks: observable,
       fetchAppBackgroundTasks: action,
+      tasks: observable,
 
       activeStrainFilter: observable,
       activeStrainFilterObj: observable,
       setActiveStrainFilter: action,
+
+      submittingBackgroundTask: observable,
+      submitBackgroundTask: action,
     });
   }
 
@@ -122,14 +130,14 @@ export default class AppSettingsStore {
 
   fetchAppBackgroundTasks = async () => {
     this.fetchingAppBackgroundTasks = true;
-    let tasks = [];
     try {
       let res = await agent.AppBackgroundTaskAPI.list();
       runInAction(() => {
+        this.tasks = [];
         res.forEach((task) => {
-          tasks.push(task);
+          this.tasks.push(task);
         });
-        return tasks;
+        return this.tasks;
       });
     } catch (error) {
       console.error(error);
@@ -143,5 +151,24 @@ export default class AppSettingsStore {
   setActiveStrainFilter = (strain, strainObj) => {
     this.activeStrainFilter = strain;
     this.activeStrainFilterObj = strainObj;
+  };
+
+  submitBackgroundTask = async (task) => {
+    this.submittingBackgroundTask = true;
+    let res = null;
+    try {
+      res = await agent.Batch.genePoolSync(task);
+      runInAction(() => {
+        toast.success("Background task submitted");
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.submittingBackgroundTask = false;
+      });
+    }
+    console.log(res);
+    return res;
   };
 }

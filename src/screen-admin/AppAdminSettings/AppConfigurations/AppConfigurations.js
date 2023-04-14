@@ -5,6 +5,7 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
+import { Dialog } from "primereact/dialog";
 import { InputSwitch } from "primereact/inputswitch";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
@@ -23,6 +24,8 @@ const AppConfigurations = () => {
   const navigate = useNavigate();
 
   const [visibleAddComponent, setVisibleAddComponent] = useState(false);
+  const [displayExpandedValue, setDisplayExpandedValue] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(false);
 
   const rootStore = useContext(RootStoreContext);
   const {
@@ -199,6 +202,28 @@ const AppConfigurations = () => {
     });
   };
 
+  const valueColumnTemplate = (rowData) => {
+    if (rowData.value && rowData.value.length > 20) {
+      // Show the first 20 characters and a "Show more" button
+      return (
+        <>
+          {rowData.value.substring(0, 20)}{" "}
+          <button
+            onClick={() => {
+              setSelectedValue(rowData.value);
+              setDisplayExpandedValue(true);
+            }}
+          >
+            Show more
+          </button>
+        </>
+      );
+    }
+
+    // Show the full value or the first 20 characters if it's shorter
+    return rowData.value;
+  };
+
   return (
     <React.Fragment>
       <div className="flex flex-column gap-2 w-full">
@@ -238,6 +263,7 @@ const AppConfigurations = () => {
               field="value"
               header="Value"
               editor={(options) => textAreaEditor(options)}
+              body={valueColumnTemplate}
             />
             <Column
               field="component"
@@ -276,6 +302,14 @@ const AppConfigurations = () => {
           <div className="flex w-full">{addForm()}</div>
         </div>
       </Sidebar>
+
+      <Dialog
+        header="Value"
+        visible={displayExpandedValue}
+        onHide={() => setDisplayExpandedValue(false)}
+      >
+        <p>{selectedValue}</p>
+      </Dialog>
     </React.Fragment>
   );
 };
