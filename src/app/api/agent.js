@@ -180,8 +180,8 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
 const Gene = {
   list: () => requests.get("/gene"),
   view: (id) => requests.get(`/gene/${id}`),
-  validateTargetName: (name) =>
-    requests.get(`/gene/${name}/validateNewTargetName`),
+  validateTargetName: (strainID, name) =>
+    requests.get(`/gene/validate-new-target-name/${strainID}/${name}/`),
   viewByAccessionNo: (accessionNo) =>
     requests.get(`/gene/by-accession/${accessionNo}`),
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),

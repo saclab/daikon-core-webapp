@@ -759,6 +759,7 @@ export default class GeneStore {
     this.proposedTargetNameValidated = "";
     try {
       this.proposedTargetNameValidated = await agent.Gene.validateTargetName(
+        this.rootStore.appSettingsStore.activeStrainFilter,
         proposedTargetName
       );
     } catch (error) {
