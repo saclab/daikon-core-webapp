@@ -7,6 +7,7 @@ import { Sidebar } from "primereact/sidebar";
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "primereact/button";
+import { toast } from "react-toastify";
 import { RootStoreContext } from "../../stores/rootStore";
 import Loading from "../Loading/Loading";
 import "./TitleBar.css";
@@ -64,10 +65,9 @@ const TitleBar = () => {
 
   const activateStrainFilter = (e) => {
     localStorage.setItem("strainFilter", e.value);
-    setActiveStrainFilter(
-      e.value,
-      Strains.find((s) => s.id === e.value)
-    );
+    let strain = Strains.find((s) => s.id === e.value);
+    setActiveStrainFilter(e.value, strain);
+    toast.success("Strain Filter Activated : " + strain.name);
 
     //window.location.reload();
   };
