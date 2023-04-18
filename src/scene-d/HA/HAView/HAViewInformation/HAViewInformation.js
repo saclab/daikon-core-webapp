@@ -66,6 +66,7 @@ const HAViewInformation = ({ id, project }) => {
             <SectionHeading
               icon="icon icon-conceptual icon-chemical"
               heading={project.projectName}
+              strainName={project?.strain?.name}
               targetName={
                 project.targetName || project.screenName || project.projectName
               }

@@ -2,41 +2,76 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { appConfig } from "../../config";
 import history from "../../history";
-import AppSettingsService from "../../services/AppSettingsService";
-import AuthService from "../../services/AuthService";
+import AzureAppSettingsService from "../../services/AzureAppSettingsService";
+import AzureAuthService from "../../services/AzureAuthService";
+import KeycloakAppSettingsService from "../../services/KeycloakAppSettingsService";
+import KeycloakAuthService from "../../services/KeycloakAuthService";
 
 /* Check Pre Configuration */
 
 const AppPrecheck = () => {
+  // First check if SSO is undefined
+  if (appConfig.SSO === undefined) {
+    return false;
+  }
+
+  // Check if SSO is configured for Azure
+  if (appConfig.SSO === "azure") {
+    return AzurePrecheck();
+  }
+
+  // check if SSO is configured for Keycloak
+  if (appConfig.SSO === "keycloak") {
+    return KeycloakPrecheck();
+  }
+
+  return false;
+};
+
+const KeycloakPrecheck = () => {
+  // Check if Keycloak is configured
+  return true;
+};
+const AzurePrecheck = () => {
+  // Check if Azure is configured
+
   if (
-    appConfig.REACT_APP_MSAL_CLIENT_ID === undefined ||
-    appConfig.REACT_APP_WEB_API_BASE_URI === undefined ||
-    appConfig.REACT_APP_MSAL_CLIENT_SCOPE === undefined ||
-    appConfig.REACT_APP_MSAL_TENANT_AUTHORITY_URI === undefined ||
-    appConfig.REACT_APP_MSAL_CACHE_LOCATION === undefined ||
-    appConfig.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === undefined ||
-    appConfig.REACT_APP_MSAL_LOGIN_REDIRECT_URI === undefined
+    appConfig.azure.REACT_APP_MSAL_CLIENT_ID === undefined ||
+    appConfig.azure.REACT_APP_MSAL_CLIENT_SCOPE === undefined ||
+    appConfig.azure.REACT_APP_MSAL_TENANT_AUTHORITY_URI === undefined ||
+    appConfig.azure.REACT_APP_MSAL_CACHE_LOCATION === undefined ||
+    appConfig.azure.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === undefined ||
+    appConfig.azure.REACT_APP_MSAL_LOGIN_REDIRECT_URI === undefined
   ) {
     return false;
   }
 
   if (
-    appConfig.REACT_APP_MSAL_CLIENT_ID === "" ||
-    appConfig.REACT_APP_WEB_API_BASE_URI === "" ||
-    appConfig.REACT_APP_MSAL_CLIENT_SCOPE === "" ||
-    appConfig.REACT_APP_MSAL_TENANT_AUTHORITY_URI === "" ||
-    appConfig.REACT_APP_MSAL_CACHE_LOCATION === "" ||
-    appConfig.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === "" ||
-    appConfig.REACT_APP_MSAL_LOGIN_REDIRECT_URI === ""
+    appConfig.azure.REACT_APP_MSAL_CLIENT_ID === "" ||
+    appConfig.azure.REACT_APP_MSAL_CLIENT_SCOPE === "" ||
+    appConfig.azure.REACT_APP_MSAL_TENANT_AUTHORITY_URI === "" ||
+    appConfig.azure.REACT_APP_MSAL_CACHE_LOCATION === "" ||
+    appConfig.azure.REACT_APP_MSAL_AUTH_STATE_IN_COOKIE === "" ||
+    appConfig.azure.REACT_APP_MSAL_LOGIN_REDIRECT_URI === ""
   ) {
     return false;
   }
 
   return true;
 };
+
 /*  MSAL SERVICE CREATION */
-const appSettings = new AppSettingsService();
-const AuthServiceInstance = new AuthService(appSettings);
+var appSettings;
+var AuthServiceInstance;
+
+if (appConfig.SSO === "azure") {
+  appSettings = new AzureAppSettingsService();
+  AuthServiceInstance = new AzureAuthService(appSettings);
+}
+if (appConfig.SSO === "keycloak") {
+  appSettings = new KeycloakAppSettingsService();
+  AuthServiceInstance = new KeycloakAuthService(appSettings);
+}
 /*  END MSAL SERVICE CREATION */
 
 /* API Service Settings */
@@ -145,8 +180,8 @@ axiosServerInstance.interceptors.response.use(undefined, (error) => {
 const Gene = {
   list: () => requests.get("/gene"),
   view: (id) => requests.get(`/gene/${id}`),
-  validateTargetName: (name) =>
-    requests.get(`/gene/${name}/validateNewTargetName`),
+  validateTargetName: (strainID, name) =>
+    requests.get(`/gene/validate-new-target-name/${strainID}/${name}/`),
   viewByAccessionNo: (accessionNo) =>
     requests.get(`/gene/by-accession/${accessionNo}`),
   edit: (newGene) => requests.post(`/gene/${newGene.id}`, newGene),
@@ -285,7 +320,9 @@ const TargetAdmin = {
   import: (data) => requests.post(`/elevated/target/import`, data),
   importComplex: (data) =>
     requests.post(`/elevated/target/importComplex`, data),
-  details: (id) => requests.get(`/target/${id}`),
+  details: (id) =>
+    requests.get(`/taimport Organisms from '../../screen-admin/AppOrganisms/Organisms/Organisms';
+rget/${id}`),
   edit: (updatedTarget) =>
     requests.post(`/elevated/target/${updatedTarget.id}`, updatedTarget),
 };
@@ -394,6 +431,34 @@ const Compounds = {
     requests.post(`/compound/${id}/edit-external-id`, compound),
 };
 
+const Organisms = {
+  list: () => requests.get(`/organism/`),
+  create: (newOrganism) => requests.post(`/elevated/organism/`, newOrganism),
+  edit: (id, organism) => requests.post(`/elevated/organism/${id}`, organism),
+};
+
+const Strains = {
+  list: () => requests.get(`/strain/`),
+  create: (newStrain) => requests.post(`/elevated/strain/`, newStrain),
+  edit: (id, strain) => requests.post(`/elevated/strain/${id}`, strain),
+};
+
+const AppConfigurationsAPI = {
+  list: () => requests.get(`/elevated/AppConfiguration/`),
+  details: (key) => requests.get(`/elevated/AppConfiguration/${key}`),
+  create: (appConf) => requests.post(`/elevated/AppConfiguration/`, appConf),
+  edit: (key, appConf) =>
+    requests.post(`/elevated/AppConfiguration/${key}`, appConf),
+};
+
+const AppBackgroundTaskAPI = {
+  list: () => requests.get(`/elevated/AppTask/`),
+};
+
+const Batch = {
+  genePoolSync: (task) => requests.post(`/elevated/batch/gene-pool-sync`, task),
+};
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -413,6 +478,11 @@ const exports = {
   Vote,
   DataView,
   Compounds,
+  Organisms,
+  Strains,
+  AppConfigurationsAPI,
+  AppBackgroundTaskAPI,
+  Batch,
 };
 
 export default exports;

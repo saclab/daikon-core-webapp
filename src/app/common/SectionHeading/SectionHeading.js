@@ -6,6 +6,7 @@ import Horizon from "../Horizon/Horizon";
 const SectionHeading = ({
   icon,
   heading,
+  strainName,
   sub,
   displayHorizon,
   color,
@@ -20,7 +21,7 @@ const SectionHeading = ({
       ? "icon icon-common icon-ellipsis-h"
       : "pi pi-chevron-up";
     let background = color ? color : "#332288";
-    let htextColor = textColor ? textColor : "#ffffff";
+    let hTextColor = textColor ? textColor : "#ffffff";
     if (customButtons === undefined) customButtons = [];
     let generateCustomButtons = () => {
       return customButtons.map((button) => (
@@ -29,7 +30,9 @@ const SectionHeading = ({
           className="flex"
         >
           <Button
-            className="p-button-outlined p-button-info"
+            className={
+              "p-button-outlined " + button?.className || "p-button-info"
+            }
             label={button?.label}
             icon={button?.icon}
             onClick={button?.action}
@@ -46,28 +49,45 @@ const SectionHeading = ({
 
     let displayHorizonButton = (
       <div
+        className="flex align-content-center flex-wrap card-container gap-4"
         style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}
       >
-        <button
-          className={options.togglerClassName}
-          onClick={options.onTogglerClick}
-        >
-          <h1
-            style={{
-              margin: "0px",
-              fontWeight: "lighter",
-              color: htextColor,
-            }}
+        {strainName && (
+          <div class="flex align-items-center justify-content-center">
+            <h4
+              style={{
+                margin: "0px",
+                fontWeight: "lighter",
+                color: hTextColor,
+              }}
+            >
+              / {strainName} /
+            </h4>
+          </div>
+        )}
+
+        <div class="flex align-items-center justify-content-center w-3rem">
+          <button
+            className={options.togglerClassName}
+            onClick={options.onTogglerClick}
           >
-            <i className={toggleIcon}></i>
-          </h1>
-        </button>
+            <h1
+              style={{
+                margin: "0px",
+                fontWeight: "lighter",
+                color: hTextColor,
+              }}
+            >
+              <i className={toggleIcon}></i>
+            </h1>
+          </button>
+        </div>
       </div>
     );
 
     return (
       <div
-        className="flex w-full"
+        className="flex w-full flex-wrap align-content-center"
         style={{
           background: background,
           opacity: "1",
@@ -76,13 +96,13 @@ const SectionHeading = ({
           marginBottom: "1em",
         }}
       >
-        <div className="flex card-container w-full">
+        <div className="flex w-full align-content-center">
           <div className="flex">
             <h1
               style={{
                 margin: "0px",
                 fontWeight: "lighter",
-                color: htextColor,
+                color: hTextColor,
               }}
             >
               <i className={icon}></i> {heading}

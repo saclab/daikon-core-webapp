@@ -1,10 +1,9 @@
-import { BreadCrumb } from 'primereact/breadcrumb';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Discussion from '../../../../app/common/Discussion/Discussion';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
-
+import { BreadCrumb } from "primereact/breadcrumb";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Discussion from "../../../../app/common/Discussion/Discussion";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import { appColors } from "../../../../colors";
 
 const PostPortfolioDiscussion = ({ project }) => {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ const PostPortfolioDiscussion = ({ project }) => {
       label: project.projectName,
       command: () => {
         navigate(`/d/post-portfolio/${project.id}`);
-      }
+      },
     },
     { label: "Discussion" },
   ];
@@ -33,22 +32,23 @@ const PostPortfolioDiscussion = ({ project }) => {
       <div className="flex w-full">
         <SectionHeading
           icon="icon icon-common icon-drug"
-          heading={
-            project.projectName +
-            " | " +
-            project?.currentStage
+          heading={project.projectName + " | " + project?.currentStage}
+          strainName={project?.strain?.name}
+          targetName={
+            project.targetName || project.screenName || project.projectName
           }
-          targetName={project.targetName || project.screenName || project.projectName}
           displayHorizon={true}
           color={appColors.sectionHeadingBg.postPortfolio}
         />
       </div>
-      <div className='flex w-full'>
-        <Discussion reference={project.targetName || project.projectName}
-          section={project?.currentStage || "Post-Portfolio"} />
+      <div className="flex w-full">
+        <Discussion
+          reference={project.targetName || project.projectName}
+          section={project?.currentStage || "Post-Portfolio"}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PostPortfolioDiscussion
+export default PostPortfolioDiscussion;

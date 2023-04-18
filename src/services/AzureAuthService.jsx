@@ -1,6 +1,6 @@
 import { PublicClientApplication } from "@azure/msal-browser";
 
-class AuthService {
+class AzureAuthService {
   constructor(appSettings) {
     if (!appSettings) {
       console.error("The app settings service was not provided");
@@ -8,6 +8,7 @@ class AuthService {
     }
 
     this.appSettings = appSettings;
+
     let msalConfig = this.GetMsalClientConfiguration();
     this.msalApplication = new PublicClientApplication(msalConfig);
     this.appSettings.GetMsalStoreAuthInCookie();
@@ -115,4 +116,4 @@ class AuthService {
   }
 }
 
-export default AuthService;
+export default AzureAuthService;

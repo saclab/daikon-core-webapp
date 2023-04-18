@@ -126,19 +126,36 @@ const UserManagerUsers = () => {
           <DataTable
             value={Users}
             header="Authorized Users"
-            className="p-datatable-sm"
+            className="p-datatable-sm w-full"
             sortMode="single"
-            sortField="name"
+            sortField="displayName"
             sortOrder={1}
+            filterDisplay="row"
+            // rowGroupMode="rowspan"
+            // groupRowsBy="org.alias"
           >
-            <Column field="displayName" header="Full Name" sortable />
-            <Column field="email" header="Email" />
             <Column
               field="org"
               header="Organization"
               body={orgBodyTemplate}
               sortable
             />
+            <Column
+              field="displayName"
+              header="Full Name"
+              sortable
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Search"
+            />
+            <Column
+              field="email"
+              header="Email"
+              filter
+              filterMatchMode="contains"
+              filterPlaceholder="Search"
+            />
+
             <Column
               field="lock"
               header="Account Locked?"

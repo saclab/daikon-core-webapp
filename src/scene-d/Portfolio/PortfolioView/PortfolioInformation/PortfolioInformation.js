@@ -47,6 +47,7 @@ const PortfolioInformation = ({ id, project }) => {
           <SectionHeading
             icon="icon icon-common icon-analyse"
             heading={project.projectName + " | " + project?.currentStage}
+            strainName={project?.strain?.name}
             targetName={
               project.targetName || project.screenName || project.projectName
             }

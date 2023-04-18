@@ -1,6 +1,6 @@
 import { makeObservable, observable } from "mobx";
-import AppSettingsService from "../../services/AppSettingsService";
-import AuthService from "../../services/AuthService";
+import AppSettingsService from "../../services/AzureAppSettingsService";
+import AuthService from "../../services/AzureAuthService";
 
 export default class MsStore {
   rootStore;

@@ -1,8 +1,8 @@
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from "primereact/breadcrumb";
 import { Fieldset } from "primereact/fieldset";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import KeyValList from "../../../../app/common/KeyValList/KeyValList";
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
 import { appColors } from "../../../../colors";
 import GeneViewPublicDataProteindataBank from "./GeneViewPublicDataProteinDataBank/GeneViewPublicDataProteindataBank";
 
@@ -27,15 +27,14 @@ const GeneViewPublicData = ({
       label: gene.accessionNumber,
       command: () => {
         navigate(`/d/gene/${gene.id}`);
-      }
+      },
     },
     { label: "Public Data" },
   ];
 
   return (
-    <div>
+    <>
       <div className="flex flex-column w-full">
-
         <div className="flex w-full pb-2">
           <BreadCrumb model={breadCrumbItems} />
         </div>
@@ -44,6 +43,7 @@ const GeneViewPublicData = ({
           <SectionHeading
             icon="icon icon-conceptual icon-dna"
             heading={gene.accessionNumber}
+            strainName={gene?.strain?.name}
             accessionNumber={gene.accessionNumber}
             displayHorizon={true}
             color={appColors.sectionHeadingBg.gene}
@@ -108,7 +108,6 @@ const GeneViewPublicData = ({
                   />
                 </Fieldset>
               </div>
-
             </div>
 
             <div className="flex flex-grow-1">
@@ -147,7 +146,6 @@ const GeneViewPublicData = ({
             </div>
           </div>
 
-
           <div className="flex flex-column gap-2">
             <div className="flex">
               <Fieldset legend="Coordinates">
@@ -165,8 +163,11 @@ const GeneViewPublicData = ({
                 <KeyValList
                   data={gene.genePublicData}
                   filter={["m_Leprae", "m_Marinum", "m_Smegmatis"]}
-                  labels={{ m_Leprae: "M. leprae", m_Marinum: "M. marinum", m_Smegmatis: "M. smegmatis" }}
-
+                  labels={{
+                    m_Leprae: "M. leprae",
+                    m_Marinum: "M. marinum",
+                    m_Smegmatis: "M. smegmatis",
+                  }}
                   // link={{ m_Leprae: "https://mycobrowser.epfl.ch/genes/" }}
                   editFunc={() => edit()}
                   cancelEdit={() => cancelEdit()}
@@ -177,12 +178,9 @@ const GeneViewPublicData = ({
               </Fieldset>
             </div>
           </div>
-
         </div>
-
       </div>
-
-    </div>
+    </>
   );
 };
 

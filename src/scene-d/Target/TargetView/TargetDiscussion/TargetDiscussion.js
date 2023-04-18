@@ -1,10 +1,9 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import SectionHeading from '../../../../app/common/SectionHeading/SectionHeading';
-import { appColors } from '../../../../colors';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import Discussion from '../../../../app/common/Discussion/Discussion';
-
+import { BreadCrumb } from "primereact/breadcrumb";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Discussion from "../../../../app/common/Discussion/Discussion";
+import SectionHeading from "../../../../app/common/SectionHeading/SectionHeading";
+import { appColors } from "../../../../colors";
 
 const TargetDiscussion = ({ selectedTarget }) => {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ const TargetDiscussion = ({ selectedTarget }) => {
       label: selectedTarget.name,
       command: () => {
         navigate(`/d/target/${selectedTarget.id}`);
-      }
+      },
     },
     { label: "Discussion" },
   ];
@@ -34,17 +33,17 @@ const TargetDiscussion = ({ selectedTarget }) => {
         <SectionHeading
           icon="icon icon-common icon-target"
           heading={selectedTarget.name}
+          strainName={selectedTarget?.strain?.name}
           targetName={selectedTarget.name}
           displayHorizon={true}
           color={appColors.sectionHeadingBg.target}
         />
       </div>
-      <div className='flex w-full'>
-        <Discussion reference={selectedTarget.name}
-          section={"Target"} />
+      <div className="flex w-full">
+        <Discussion reference={selectedTarget.name} section={"Target"} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TargetDiscussion
+export default TargetDiscussion;

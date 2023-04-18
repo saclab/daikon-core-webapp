@@ -101,7 +101,7 @@ const UserManagerOrgs = () => {
           <DataTable
             value={Orgs}
             header="Organizations"
-            className="p-datatable-sm"
+            className="p-datatable-sm w-full"
           >
             <Column field="alias" header="Alias" sortable />
             <Column field="name" header="Org Name" sortable />

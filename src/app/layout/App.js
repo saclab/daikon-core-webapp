@@ -104,7 +104,9 @@ const App = () => {
 
   let notSignedInRender = (
     <Fragment>
-      <Login loginButtonClicked={() => authServiceInstance.SignIn()} />
+      <Login
+        loginButtonClicked={async () => await authServiceInstance.SignIn()}
+      />
     </Fragment>
   );
 

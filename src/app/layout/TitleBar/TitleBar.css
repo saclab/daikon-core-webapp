@@ -1,3 +1,13 @@
 .Feedback .p-dropdown-label.p-placeholder {
   color: #ffffff !important;
 }
+
+.Strain .p-dropdown-label.p-placeholder {
+  color: #ffffff !important;
+}
+.Strain .p-dropdown-label {
+  color: #ffffff !important;
+}
+.LogoButton .p-button.p-button-text.p-button-plain {
+  color: #fff;
+}

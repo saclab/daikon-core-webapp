@@ -61,7 +61,7 @@ const GeneView = () => {
         },
 
         {
-          label: "TBDA Data",
+          label: "Protected Data",
           icon: "ri-git-repository-private-fill",
           command: () => {
             navigate(`protected/`);
@@ -120,7 +120,7 @@ const GeneView = () => {
   }
   if (gene !== null) {
     return (
-      <div className="flex  max-w-full">
+      <div className="flex w-full max-w-full">
         <Toast ref={toast} />
 
         <div className="flex gap-2 w-full">
