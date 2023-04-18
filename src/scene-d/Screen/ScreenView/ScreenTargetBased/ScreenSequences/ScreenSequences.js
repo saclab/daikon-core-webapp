@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { TabPanel, TabView } from "primereact/tabview";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SectionHeading from "../../../../../app/common/SectionHeading/SectionHeading";
 import Loading from "../../../../../app/layout/Loading/Loading";
@@ -22,8 +22,12 @@ const ScreenSequences = ({ TargetName }) => {
     screenRegistryCacheValid,
   } = rootStore.screenStore;
 
+  const { activeStrainFilter, activeStrainFilterObj } =
+    rootStore.appSettingsStore;
+
   const navigate = useNavigate();
 
+  const [headingName, setHeadingName] = useState("");
   useEffect(() => {
     if (
       filteredScreens === null ||
@@ -74,6 +78,14 @@ const ScreenSequences = ({ TargetName }) => {
         );
       });
     }
+
+    /* Determine the name of the strain */
+    //TODO
+    // if (activeStrainFilterObj !== null && activeStrainFilter === "global") {
+    //   setHeadingName("Global");
+    // } else {
+    //   setHeadingName(activeStrainFilterObj?.name);
+    // }
 
     return (
       <div className="flex flex-column w-full">

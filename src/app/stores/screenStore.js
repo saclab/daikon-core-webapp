@@ -169,7 +169,10 @@ export default class ScreenStore {
     let targetsScreened = new Map();
 
     this.screenRegistry.forEach((value) => {
-      targetsScreened.set(value.targetName, value);
+      targetsScreened.set(
+        value.targetName + "_" + value.strain.canonicalName,
+        value
+      );
     });
 
     if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
@@ -196,11 +199,22 @@ export default class ScreenStore {
     this.loadingFilterScreensByTargetName = true;
     this.selectedScreenTargetFilter = targetName;
     this.filteredScreens = [];
+
     this.filteredScreens = Array.from(this.screenRegistry.values()).filter(
       (screen) => {
-        return screen.targetName === targetName;
+        //console.log(screen);
+        if (this.rootStore.appSettingsStore.activeStrainFilter === "global") {
+          return screen.targetName === targetName;
+        } else {
+          return (
+            screen.targetName === targetName &&
+            screen.strainId ===
+              this.rootStore.appSettingsStore.activeStrainFilter
+          );
+        }
       }
     );
+
     this.loadingFilterScreensByTargetName = false;
 
     return this.filteredScreens;

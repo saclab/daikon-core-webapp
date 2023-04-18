@@ -126,6 +126,17 @@ const ScreenDash = () => {
                     // style={{minWidth: "50rem"}}
                   />
 
+                  <Column
+                    field="strain.name"
+                    header="Strain"
+                    //body={TargetNameBodyTemplate}
+                    // filter
+                    // filterMatchMode="contains"
+                    // filterPlaceholder="Search by Target Name"
+                    // className="min-w-max"
+                    // style={{minWidth: "50rem"}}
+                  />
+
                   {/* <Column field="status" header="Status" body={StatusBodyTemplate} /> */}
 
                   <Column
