@@ -1,6 +1,7 @@
 {
   "name": "tpt-app",
   "version": "0.1.1",
+  "homepage": "/daikon",
   "private": true,
   "dependencies": {
     "@azure/msal-browser": "~2.13.1",
