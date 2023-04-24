@@ -22,4 +22,4 @@ RUN npm run build
 FROM nginx:1.23
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=daikon_core_app_ce-build /app/build /usr/share/nginx/html/daikon
+COPY --from=daikon_core_app_ce-build /app/build /usr/share/nginx/html/
