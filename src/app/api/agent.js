@@ -1,4 +1,5 @@
 import axios from "axios";
+import queryString from "query-string";
 import { toast } from "react-toastify";
 import { appConfig } from "../../config";
 import history from "../../history";
@@ -459,6 +460,13 @@ const Batch = {
   genePoolSync: (task) => requests.post(`/elevated/batch/gene-pool-sync`, task),
 };
 
+const ChangeLogAPI = {
+  details: (conf) => {
+    var qStr = queryString.stringify(conf);
+    return requests.get(`/ChangeLog?` + qStr);
+  },
+};
+
 const exports = {
   AppPrecheck,
   AuthServiceInstance,
@@ -483,6 +491,7 @@ const exports = {
   AppConfigurationsAPI,
   AppBackgroundTaskAPI,
   Batch,
+  ChangeLogAPI,
 };
 
 export default exports;

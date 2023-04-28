@@ -53,7 +53,7 @@ const SectionHeading = ({
         style={{ float: "right", marginLeft: "auto", paddingRight: "0.5em" }}
       >
         {strainName && (
-          <div class="flex align-items-center justify-content-center">
+          <div className="flex align-items-center justify-content-center">
             <h4
               style={{
                 margin: "0px",
@@ -66,7 +66,7 @@ const SectionHeading = ({
           </div>
         )}
 
-        <div class="flex align-items-center justify-content-center w-3rem">
+        <div className="flex align-items-center justify-content-center w-3rem">
           <button
             className={options.togglerClassName}
             onClick={options.onTogglerClick}

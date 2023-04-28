@@ -11,12 +11,14 @@ import "../../assets/_overrides.scss";
 import "/node_modules/primeflex/primeflex.css";
 
 import { observer } from "mobx-react-lite";
+import { Dialog } from "primereact/dialog";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Login from "../../scene-d/Login/Login";
 import NoAccess from "../../scene-d/NoAccess/NoAccess";
 import agent from "../api/agent";
+import ChangeVectors from "../common/ChangeVectors/ChangeVectors";
 import { RootStoreContext } from "../stores/rootStore";
 import AppAdmin from "./AppAdmin";
 import AppBeta from "./AppBeta";
@@ -37,6 +39,12 @@ const App = () => {
   const { user, getUser, fetching, userNotFound } = rootStore.userStore;
   const { adminMode } = rootStore.appSettingsStore;
   const { fetchingAppVars, appVars, fetchAppVars } = rootStore.generalStore;
+  const {
+    versionHistoryGlobalDialogOpen,
+    closeVersionHistoryGlobalDialog,
+    fetchVersionHistory,
+  } = rootStore.appStateStore;
+
   const [networkErr, setNetworkErr] = useState(false);
 
   useEffect(() => {
@@ -94,6 +102,26 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
+
+        <Dialog
+          header={
+            <>
+              <i className="icon icon-common icon-history"></i> &nbsp; Version
+              History
+            </>
+          }
+          modal={true}
+          maximizable={true}
+          resizable={true}
+          visible={versionHistoryGlobalDialogOpen}
+          closable={true}
+          style={{ width: "70vw", padding: "2vh" }}
+          position="bottom"
+          //footer={renderFooter("displayBasic")}
+          onHide={() => closeVersionHistoryGlobalDialog()}
+        >
+          <ChangeVectors />
+        </Dialog>
 
         <div className="flex">
           <Footer />

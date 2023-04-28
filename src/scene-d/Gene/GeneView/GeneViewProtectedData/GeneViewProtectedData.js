@@ -80,6 +80,7 @@ const GeneViewProtectedData = ({
     addingHypomorph,
     editingHypomorph,
   } = rootStore.geneStore;
+  const { fetchVersionHistory } = rootStore.appStateStore;
 
   return (
     <div className="flex flex-column w-full max-w-full">
@@ -130,6 +131,12 @@ const GeneViewProtectedData = ({
                 editing={editingEssentiality}
                 add={addEssentiality}
                 adding={addingEssentiality}
+                versionHistory={() =>
+                  fetchVersionHistory({
+                    entity: "GeneEssentiality",
+                    keys: gene.geneEssentiality.map((item) => item.id),
+                  })
+                }
               />
             </Fieldset>
           </div>

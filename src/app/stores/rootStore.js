@@ -3,6 +3,7 @@ import { createContext } from "react";
 import VotingStore from "./VotingStore";
 import AdminStore from "./adminStore";
 import AppSettingsStore from "./appSettingsStore";
+import AppStateStore from "./appStateStore";
 import CompoundStore from "./compoundStore";
 import DataViewStore from "./dataViewStore";
 import DiscussionStore from "./discussionStore";
@@ -42,6 +43,7 @@ export class RootStore {
   votingStore;
   compoundStore;
   organismStore;
+  appStateStore;
 
   constructor() {
     this.appSettingsStore = new AppSettingsStore(this);
@@ -64,6 +66,7 @@ export class RootStore {
     this.dataViewStore = new DataViewStore(this);
     this.compoundStore = new CompoundStore(this);
     this.organismStore = new OrganismStore(this);
+    this.appStateStore = new AppStateStore(this);
   }
 }
 export const RootStoreContext = createContext(new RootStore());

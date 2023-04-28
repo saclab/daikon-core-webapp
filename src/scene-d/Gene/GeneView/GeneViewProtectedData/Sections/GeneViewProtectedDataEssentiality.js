@@ -16,6 +16,7 @@ const GeneViewProtectedDataEssentiality = ({
   editing,
   add,
   adding,
+  versionHistory,
 }) => {
   const [tableData, setTableData] = useState([...data]);
   const [displayAddSideBar, setDisplayAddSideBar] = useState(false);
@@ -25,6 +26,16 @@ const GeneViewProtectedDataEssentiality = ({
   const tableHeader = (
     <div className="table-header">
       <div className="flex justify-content-end">
+        <div className="flex">
+          <Button
+            type="button"
+            icon="icon icon-common icon-history"
+            label="Version History"
+            className="p-button-text p-button-sm"
+            style={{ height: "30px", marginRight: "5px" }}
+            onClick={versionHistory}
+          />
+        </div>
         <div className="flex">
           <Button
             type="button"
