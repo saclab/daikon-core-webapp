@@ -115,7 +115,7 @@ const App = () => {
           resizable={true}
           visible={versionHistoryGlobalDialogOpen}
           closable={true}
-          style={{ width: "70vw", padding: "2vh" }}
+          style={{ width: "85vw", height: "70vw", padding: "2vh" }}
           position="bottom"
           //footer={renderFooter("displayBasic")}
           onHide={() => closeVersionHistoryGlobalDialog()}

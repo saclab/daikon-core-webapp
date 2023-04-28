@@ -56,6 +56,7 @@ export default class AppStateStore {
 
   closeVersionHistoryGlobalDialog = () => {
     console.log("closeVersionHistoryGlobalDialog");
+    this.versionData = null;
     this.versionHistoryGlobalDialogOpen = false;
   };
 }
