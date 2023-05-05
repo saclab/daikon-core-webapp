@@ -22,7 +22,7 @@ const ValidatedHitsList = ({ screenId }) => {
   const tableMenu = useRef(null);
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
-  const { loadingFetchScreen, fetchScreen, selectedScreen } =
+  const { loadingFetchScreen, fetchScreen, selectedScreen, fetchScreenSilent } =
     rootStore.screenStore;
   const { user } = rootStore.userStore;
   const { enableVoting, freezeVoting } = rootStore.votingStore;
@@ -153,7 +153,7 @@ const ValidatedHitsList = ({ screenId }) => {
         <Vote
           id={rowData.vote.id}
           voteData={rowData.vote}
-          callBack={() => fetchScreen(screenId, true)}
+          callBack={() => fetchScreenSilent(screenId, true)}
         />
       </div>
     );

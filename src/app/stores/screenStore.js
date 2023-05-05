@@ -92,6 +92,8 @@ export default class ScreenStore {
 
       editScreen: action,
       editingScreen: observable,
+
+      fetchScreenSilent: action,
     });
   }
 
@@ -261,6 +263,27 @@ export default class ScreenStore {
         runInAction(() => {
           this.loadingFetchScreen = false;
         });
+      }
+    }
+  };
+
+  fetchScreenSilent = async (id, invalidateCache = false) => {
+    // first check cache
+    let fetchedScreen = this.screenRegistryExpanded.get(id);
+    if (!invalidateCache && fetchedScreen) {
+      this.selectedScreen = fetchedScreen;
+    }
+    // if not found fetch from api
+    else {
+      try {
+        fetchedScreen = await agent.Screen.details(id);
+        runInAction(() => {
+          this.selectedScreen = fetchedScreen;
+          this.screenRegistryExpanded.set(id, fetchedScreen);
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
       }
     }
   };
