@@ -1,8 +1,11 @@
 import { observer } from "mobx-react-lite";
+import { AutoComplete } from "primereact/autocomplete";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { Chip } from "primereact/chip";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
+import { InputText } from "primereact/inputtext";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Sidebar } from "primereact/sidebar";
 import React, { useContext, useEffect, useRef, useState } from "react";
@@ -20,13 +23,19 @@ const ScreenSequence = ({ screenId }) => {
 
   /* MobX Store */
   const rootStore = useContext(RootStoreContext);
+  const { appVars } = rootStore.generalStore;
   const {
     loadingFetchScreen,
     fetchScreen,
     selectedScreen,
     addScreeenSequence,
     loadingScreenSequence,
+    editScreenRow,
+    editingScreenRow,
   } = rootStore.screenStore;
+
+  const [filteredResearchers, setFilteredResearchers] = useState([]);
+
   useEffect(() => {
     if (selectedScreen === null || selectedScreen.id !== screenId)
       fetchScreen(screenId);
@@ -118,6 +127,58 @@ const ScreenSequence = ({ screenId }) => {
       );
     };
 
+    /* Row edit functions */
+    const textEditor = (options) => {
+      return (
+        <InputText
+          type="text"
+          value={options.value}
+          onChange={(e) => options.editorCallback(e.target.value)}
+        />
+      );
+    };
+
+    const dateEditor = (options) => {
+      return (
+        <div className="p-float-label">
+          <Calendar
+            inputId="edit_date"
+            value={options.value}
+            onChange={(e) => options.editorCallback(e.target.value)}
+          />
+          <label htmlFor="edit_date">
+            <FDate timestamp={options.value} hideTime={true} />
+          </label>
+        </div>
+      );
+    };
+
+    const scientistEditor = (options) => {
+      return (
+        <AutoComplete
+          value={options.value}
+          delay={1500}
+          suggestions={filteredResearchers}
+          completeMethod={searchScientist}
+          onChange={(e) => options.editorCallback(e.target.value)}
+          dropdown
+        />
+      );
+    };
+
+    const searchScientist = (event) => {
+      const query = event.query;
+      const filteredResults = appVars.appUsersFlattened.filter((username) =>
+        username.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredResearchers(filteredResults);
+    };
+
+    let saveEdits = (e) => {
+      let { newData } = e;
+      editScreenRow(newData);
+    };
+
     return (
       <div>
         <OverlayPanel
@@ -167,29 +228,61 @@ const ScreenSequence = ({ screenId }) => {
             ref={dt}
             value={selectedScreen.screenSequences}
             header={tableHeader}
+            editMode="row"
+            onRowEditComplete={saveEdits}
+            loading={editingScreenRow}
             exportFilename={`Screen-${selectedScreen.screenName}-${selectedScreen.method}.csv`}
           >
-            <Column field="library" header="Library" />
+            <Column
+              field="library"
+              header="Library"
+              editor={(options) => textEditor(options)}
+            />
 
             <Column
               field={"protocol"}
               body={protocolBodyTemplate}
               header="Protocol"
+              editor={(options) => textEditor(options)}
             />
-            <Column field="concentration" header="Inhibitor C (&micro;M)" />
-            <Column field="noOfCompoundsScreened" header="No. of Compounds" />
+            <Column
+              field="concentration"
+              header="Inhibitor C (&micro;M)"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              field="noOfCompoundsScreened"
+              header="No. of Compounds"
+              editor={(options) => textEditor(options)}
+            />
             <Column
               field="scientist"
               header="Scientist"
+              editor={(options) => scientistEditor(options)}
               style={{ wordWrap: "break-word" }}
             />
             <Column
               field="startDate"
               header="Start Date"
               body={StartDateTemplate}
+              editor={(options) => dateEditor(options)}
             />
-            <Column field="endDate" header="End Date" body={EndDateTemplate} />
-            <Column field="unverifiedHitCount" header="Hit Count" />
+            <Column
+              field="endDate"
+              header="End Date"
+              body={EndDateTemplate}
+              editor={(options) => dateEditor(options)}
+            />
+            <Column
+              field="unverifiedHitCount"
+              header="Hit Count"
+              editor={(options) => textEditor(options)}
+            />
+            <Column
+              rowEditor
+              headerStyle={{ width: "10%", minWidth: "8rem" }}
+              bodyStyle={{ textAlign: "center" }}
+            />
           </DataTable>
         </div>
       </div>
