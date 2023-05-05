@@ -7,7 +7,7 @@ import { RootStoreContext } from "../../stores/rootStore";
 /*
 Usage: 
 The voting module requires the parent module to import ConfirmDialog.
-This is to prevent multipple binding of the ConfirmDialog if more than
+This is to prevent multiple binding of the ConfirmDialog if more than
 one voting element is present in the screen.
 */
 
